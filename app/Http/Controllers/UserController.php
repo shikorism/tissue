@@ -48,15 +48,15 @@ SQL
         // 概況欄のデータ取得
         $summary = DB::select(<<<'SQL'
 SELECT
-  to_char(avg(span), 'FMDDD日 FMHH24時間 FMMI分') AS average,
-  to_char(max(span), 'FMDDD日 FMHH24時間 FMMI分') AS longest,
-  to_char(min(span), 'FMDDD日 FMHH24時間 FMMI分') AS shortest,
-  to_char(sum(span), 'FMDDD日 FMHH24時間 FMMI分') AS total_times,
+  avg(span) AS average,
+  max(span) AS longest,
+  min(span) AS shortest,
+  sum(span) AS total_times,
   count(*) AS total_checkins
 FROM
   (
     SELECT
-      ejaculated_date - lead(ejaculated_date, 1, NULL) OVER (ORDER BY ejaculated_date DESC) AS span
+      extract(epoch from ejaculated_date - lead(ejaculated_date, 1, NULL) OVER (ORDER BY ejaculated_date DESC)) AS span
     FROM
       ejaculations
     WHERE

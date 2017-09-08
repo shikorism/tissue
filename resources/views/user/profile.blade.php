@@ -39,10 +39,10 @@
                     @if (isset($summary) && $summary[0]->total_checkins > 0)
                     <hr>
                     <p class="valign-wrapper"><i class="material-icons">assessment</i><b>概況</b></p>
-                    <p>平均記録: {{ $summary[0]->average }}</p>
-                    <p>最長記録: {{ $summary[0]->longest }}</p>
-                    <p>最短記録: {{ $summary[0]->shortest }}</p>
-                    <p>合計時間: {{ $summary[0]->total_times }}</p>
+                    <p>平均記録: {{ Formatter::formatInterval($summary[0]->average) }}</p>
+                    <p>最長記録: {{ Formatter::formatInterval($summary[0]->longest) }}</p>
+                    <p>最短記録: {{ Formatter::formatInterval($summary[0]->shortest) }}</p>
+                    <p>合計時間: {{ Formatter::formatInterval($summary[0]->total_times) }}</p>
                     <p>通算回数: {{ $summary[0]->total_checkins }}回</p>
                     @endif
                 </div>
