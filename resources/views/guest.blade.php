@@ -1,4 +1,4 @@
-@extends('layouts.base')
+@extends('layouts.base-old')
 
 @section('content')
 <div class="section no-pad-bot" id="index-banner">

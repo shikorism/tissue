@@ -1,4 +1,4 @@
-@extends('layouts.base')
+@extends('layouts.base-old')
 
 @section('head')
 <style>
