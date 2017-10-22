@@ -40,7 +40,7 @@ SQL
         if (count($ejaculations) > 0) {
             $currentSession = Carbon::parse($ejaculations[0]['ejaculated_date'])
                 ->diff(Carbon::now())
-                ->format('%d日 %h時間 %i分');
+                ->format('%a日 %h時間 %i分');
         } else {
             $currentSession = null;
         }
