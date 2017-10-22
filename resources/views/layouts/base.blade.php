@@ -46,7 +46,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{--<img src="holder.js/30x30" width="30" height="30" class="rounded d-inline-block align-top mr-2">--}}
+                        <img src="{{ Auth::user()->getProfileImageUrl(30) }}" width="30" height="30" class="rounded d-inline-block align-top mr-2">
                         {{ Auth::user()->display_name }} さん
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

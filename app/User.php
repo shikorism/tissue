@@ -29,4 +29,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * このユーザのメールアドレスから、Gravatarの画像URLを生成します。
+     * @param int $size 画像サイズ
+     * @return string Gravatar 画像URL
+     */
+    public function getProfileImageUrl($size = 30) : string {
+        $hash = md5(strtolower(trim($this->email)));
+        return '//www.gravatar.com/avatar/' . $hash . '?s=' . $size;
+    }
 }
