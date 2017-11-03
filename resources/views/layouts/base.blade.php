@@ -12,7 +12,7 @@
     <link href="{{ asset('css/open-iconic-bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/tissue.css') }}" rel="stylesheet">
 
-    @yield('head')
+    @stack('head')
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
@@ -66,6 +66,16 @@
         @endguest
     </div>
 </nav>
+@if (session('status'))
+<div class="container">
+    <div id="status" class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('status') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+@endif
 @yield('content')
 <footer class="tis-footer mt-4">
     <div class="container-fluid p-3 p-md-4">
@@ -83,8 +93,14 @@
 <script>
     $(function(){
         $('[data-toggle="tooltip"]').tooltip();
+        $('.alert').alert();
+        @if (session('status'))
+        setTimeout(function () {
+            $('#status').alert('close');
+        }, 5000);
+        @endif
     });
 </script>
-@yield('script')
+@stack('script')
 </body>
 </html>

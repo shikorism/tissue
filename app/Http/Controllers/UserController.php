@@ -22,6 +22,7 @@ class UserController extends Controller
 
         // チェックインの取得
         $query = Ejaculation::select(DB::raw(<<<'SQL'
+id,
 to_char(ejaculated_date, 'YYYY/MM/DD HH24:MI') AS ejaculated_date,
 note,
 is_private,

@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
-@section('head')
-@endsection
+@push('head')
+@endpush
 
 @section('content')
 <div class="container">

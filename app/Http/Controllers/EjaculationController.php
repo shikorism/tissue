@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Validator;
 use App\Ejaculation;
 use Illuminate\Http\Request;
@@ -53,8 +54,11 @@ class EjaculationController extends Controller
         // TODO: not implemented
     }
 
-    public function destroy()
+    public function destroy($id)
     {
-        // TODO: not implemented
+        $ejaculation = Ejaculation::findOrFail($id);
+        $user = User::findOrFail($ejaculation->user_id);
+        $ejaculation->delete();
+        return redirect()->route('profile', ['name' => $user->name])->with('status', '削除しました。');
     }
 }

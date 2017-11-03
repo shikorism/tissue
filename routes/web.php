@@ -23,4 +23,5 @@ Route::get('/user/{name?}', 'UserController@profile')->name('profile');
 Route::middleware('auth')->group(function () {
     Route::get('/checkin', 'EjaculationController@create')->name('checkin');
     Route::post('/checkin', 'EjaculationController@store')->name('checkin');
+    Route::delete('/checkin/{id}', 'EjaculationController@destroy')->name('checkin.destroy');
 });
