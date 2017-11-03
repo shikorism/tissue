@@ -20,7 +20,7 @@
     </form>
     @if (Auth::check())
         <ul id="accountMenu" class="dropdown-content">
-            <li><a href="{{ route('profile') }}">プロフィール</a></li>
+            <li><a href="{{ route('user.profile') }}">プロフィール</a></li>
             <li class="divider"></li>
             <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a></li>
         </ul>
@@ -45,7 +45,7 @@
 
             <ul id="nav-mobile" class="side-nav">
                 <li><a href="#">{{ Auth::user()->display_name }} さん</a></li>
-                <li><a href="{{ route('profile') }}">プロフィール</a></li>
+                <li><a href="{{ route('user.profile') }}">プロフィール</a></li>
                 <li class="divider"></li>
                 <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a></li>
             </ul>

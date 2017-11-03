@@ -41,7 +41,7 @@
             <!-- note -->
             @if (!empty($ejaculation['note']))
                 <p class="mb-0">
-                    {{ $ejaculation['note'] }}
+                    {!! Formatter::linkify(nl2br(e($ejaculation['note']))) !!}
                 </p>
             @endif
         </li>
