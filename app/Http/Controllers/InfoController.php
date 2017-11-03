@@ -23,12 +23,9 @@ class InfoController extends Controller
     public function show($id)
     {
         $information = Information::findOrFail($id);
-        $parser = new \Parsedown();
-        $compiledContent = $parser->text($information->content);
         return view('info.show')->with([
             'info' => $information,
-            'category' => Information::CATEGORIES[$information->category],
-            'compiledContent' => $compiledContent
+            'category' => Information::CATEGORIES[$information->category]
         ]);
     }
 }
