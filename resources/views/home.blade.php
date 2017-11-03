@@ -10,8 +10,8 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <img src="{{ Auth::user()->getProfileImageUrl(64) }}" class="rounded mb-1">
-                    <h4 class="card-title"><a class="text-dark" href="{{ route('profile') }}">{{ Auth::user()->display_name }}</a></h4>
-                    <h6 class="card-subtitle mb-4"><a class="text-muted" href="{{ route('profile') }}">&commat;{{ Auth::user()->name }}</a></h6>
+                    <h4 class="card-title"><a class="text-dark" href="{{ route('user.profile') }}">{{ Auth::user()->display_name }}</a></h4>
+                    <h6 class="card-subtitle mb-4"><a class="text-muted" href="{{ route('user.profile') }}">&commat;{{ Auth::user()->name }}</a></h6>
 
                     <h6 class="font-weight-bold"><span class="oi oi-timer"></span> 現在のセッション</h6>
                     @if (isset($currentSession))

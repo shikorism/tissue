@@ -30,14 +30,14 @@
                 <li class="nav-item {{ stripos(Route::currentRouteName(), 'home') === 0 ? 'active' : ''}}">
                     <a class="nav-link" href="{{ route('home') }}">ホーム</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('profile') }}">タイムライン</a>
+                <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.profile') === 0 ? 'active' : ''}}">
+                    <a class="nav-link" href="{{ route('user.profile', ['name' => Auth::user()->name]) }}">タイムライン</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('profile') }}">グラフ</a>
+                <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.stats') === 0 ? 'active' : ''}}">
+                    <a class="nav-link" href="{{ route('user.stats', ['name' => Auth::user()->name]) }}">グラフ</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('profile') }}">オカズ</a>
+                <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.okazu') === 0 ? 'active' : ''}}">
+                    <a class="nav-link" href="{{ route('user.okazu', ['name' => Auth::user()->name]) }}">オカズ</a>
                 </li>
                 {{--<li class="nav-item">
                     <a class="nav-link" href="{{ route('ranking') }}">ランキング</a>

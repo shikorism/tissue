@@ -16,9 +16,11 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/user', function() {
-    return redirect()->route('profile', ['name' => Auth::user()->name]);
-})->middleware('auth')->name('profile');
-Route::get('/user/{name?}', 'UserController@profile')->name('profile');
+    return redirect()->route('user.profile', ['name' => Auth::user()->name]);
+})->middleware('auth')->name('user.profile');
+Route::get('/user/{name?}', 'UserController@profile')->name('user.profile');
+Route::get('/user/{name}/stats', 'UserController@stats')->name('user.stats');
+Route::get('/user/{name}/okazu', 'UserController@okazu')->name('user.okazu');
 
 Route::middleware('auth')->group(function () {
     Route::get('/checkin', 'EjaculationController@create')->name('checkin');

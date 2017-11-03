@@ -59,6 +59,6 @@ class EjaculationController extends Controller
         $ejaculation = Ejaculation::findOrFail($id);
         $user = User::findOrFail($ejaculation->user_id);
         $ejaculation->delete();
-        return redirect()->route('profile', ['name' => $user->name])->with('status', '削除しました。');
+        return redirect()->route('user.profile', ['name' => $user->name])->with('status', '削除しました。');
     }
 }
