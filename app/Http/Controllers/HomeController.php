@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Ejaculation;
+use App\Information;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -71,7 +72,14 @@ FROM
 SQL
 , ['user_id' => Auth::id()]);
 
-            return view('home')->with(compact('ejaculations', 'currentSession', 'summary'));
+            $informations = Information::query()
+                ->select('id', 'category', 'pinned', 'title', 'created_at')
+                ->orderBy('pinned')
+                ->orderByDesc('created_at')
+                ->paginate(3);
+            $categories = Information::CATEGORIES;
+
+            return view('home')->with(compact('ejaculations', 'currentSession', 'summary', 'informations', 'categories'));
         } else {
             return view('guest');
         }

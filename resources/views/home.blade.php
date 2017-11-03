@@ -35,10 +35,12 @@
             <div class="card mb-4">
                 <div class="card-header">サイトからのお知らせ</div>
                 <div class="list-group list-group-flush">
-                    <a href="#" class="list-group-item"><span class="badge badge-danger">重要</span> オープンβテスト 第2シーズンとしてサービス中</a>
-                    <a href="#" class="list-group-item"><span class="badge badge-info">アップデート</span> ver.2017-[season] アップデートのお知らせ</a>
-                    <a href="#" class="list-group-item"><span class="badge badge-danger">不具合情報</span> 存在が不具合であることについて</a>
-                    <a href="#" class="list-group-item text-right">お知らせ一覧 &raquo;</a>
+                    @foreach($informations as $info)
+                        <a class="list-group-item" href="{{ route('info.show', ['id' => $info->id]) }}">
+                            <span class="badge {{ $categories[$info->category]['class'] }}">{{ $categories[$info->category]['label'] }}</span> {{ $info->title }} <small class="text-secondary">- {{ $info->created_at->format('n月j日') }}</small>
+                        </a>
+                    @endforeach
+                    <a href="{{ route('info') }}" class="list-group-item text-right">お知らせ一覧 &raquo;</a>
                 </div>
             </div>
             <div class="card mb-4">

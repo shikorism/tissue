@@ -27,3 +27,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkin', 'EjaculationController@store')->name('checkin');
     Route::delete('/checkin/{id}', 'EjaculationController@destroy')->name('checkin.destroy');
 });
+
+Route::get('/info', 'InfoController@index')->name('info');
+Route::get('/info/{id}', 'InfoController@show')->where('id', '[0-9]+')->name('info.show');
