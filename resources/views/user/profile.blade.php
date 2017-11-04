@@ -6,18 +6,18 @@
         <li class="list-group-item border-bottom-only pt-3 pb-3">
             <!-- span -->
             <div class="d-flex justify-content-between">
-                <h5>{{ $ejaculation['ejaculated_span'] ?? '精通' }} <small class="text-muted">{{ $ejaculation['before_date'] }}{{ !empty($ejaculation['before_date']) ? ' ～ ' : '' }}{{ $ejaculation['ejaculated_date'] }}</small></h5>
+                <h5>{{ $ejaculation->ejaculated_span ?? '精通' }} <small class="text-muted">{{ $ejaculation->before_date }}{{ !empty($ejaculation->before_date) ? ' ～ ' : '' }}{{ $ejaculation->ejaculated_date->format('Y/m/d H:i') }}</small></h5>
                 @if ($user->id === Auth::user()->id)
                 <div>
                     <a class="text-secondary timeline-action-item" href="#"><span class="oi oi-pencil" data-toggle="tooltip" data-placement="bottom" title="修正"></span></a>
-                    <a class="text-secondary timeline-action-item" href="#" data-toggle="modal" data-target="#deleteCheckinModal" data-id="{{ $ejaculation['id'] }}" data-date="{{ $ejaculation['ejaculated_date'] }}"><span class="oi oi-trash" data-toggle="tooltip" data-placement="bottom" title="削除"></span></a>
+                    <a class="text-secondary timeline-action-item" href="#" data-toggle="modal" data-target="#deleteCheckinModal" data-id="{{ $ejaculation->id }}" data-date="{{ $ejaculation->ejaculated_date }}"><span class="oi oi-trash" data-toggle="tooltip" data-placement="bottom" title="削除"></span></a>
                 </div>
                 @endif
             </div>
             <!-- tags -->
-            @if ($ejaculation['is_private']) {{-- TODO: タグを付けたら、タグが空じゃないかも判定に加える --}}
+            @if ($ejaculation->is_private) {{-- TODO: タグを付けたら、タグが空じゃないかも判定に加える --}}
                 <p class="mb-2">
-                    @if ($ejaculation['is_private'])
+                    @if ($ejaculation->is_private)
                         <span class="badge badge-warning"><span class="oi oi-lock-locked"></span> 非公開</span>
                     @endif
                     {{--
@@ -39,9 +39,9 @@
             </div>
             --}}
             <!-- note -->
-            @if (!empty($ejaculation['note']))
+            @if (!empty($ejaculation->note))
                 <p class="mb-0">
-                    {!! Formatter::linkify(nl2br(e($ejaculation['note']))) !!}
+                    {!! Formatter::linkify(nl2br(e($ejaculation->note))) !!}
                 </p>
             @endif
         </li>

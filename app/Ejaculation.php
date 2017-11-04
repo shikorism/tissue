@@ -13,4 +13,8 @@ class Ejaculation extends Model
         'note', 'geo_latitude', 'geo_longitude',
         'is_private'
     ];
+
+    protected $dates = [
+        'ejaculated_date'
+    ];
 }
