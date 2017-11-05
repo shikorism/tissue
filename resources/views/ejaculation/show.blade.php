@@ -8,13 +8,13 @@
             @endcomponent
         </div>
         <div class="col-lg-8">
-            @if ($user->is_protected && !(Auth::check() && $user->id === Auth::user()->id))
+            @if ($user->is_protected && !$user->isMe())
                 <div class="card">
                     <div class="card-body">
                         <span class="oi oi-lock-locked"></span> このユーザはチェックイン履歴を公開していません。
                     </div>
                 </div>
-            @elseif ($ejaculation->is_private && !(Auth::check() && $user->id === Auth::user()->id))
+            @elseif ($ejaculation->is_private && !$user->isMe())
                 <div class="card">
                     <div class="card-body">
                         <span class="oi oi-lock-locked"></span> 非公開チェックインのため、表示できません
@@ -26,7 +26,7 @@
                         <!-- span -->
                         <div class="d-flex justify-content-between">
                             <h5>{{ $ejaculatedSpan ?? '精通' }} <small class="text-muted">{{ $ejaculation->before_date }}{{ !empty($ejaculation->before_date) ? ' ～ ' : '' }}{{ $ejaculation->ejaculated_date->format('Y/m/d H:i') }}</small></h5>
-                            @if (Auth::check() && $user->id === Auth::user()->id)
+                            @if ($user->isMe())
                                 <div>
                                     <a class="text-secondary timeline-action-item" href="#"><span class="oi oi-pencil" data-toggle="tooltip" data-placement="bottom" title="修正"></span></a>
                                     <a class="text-secondary timeline-action-item" href="#" data-toggle="modal" data-target="#deleteCheckinModal" data-id="{{ $ejaculation->id }}" data-date="{{ $ejaculation->ejaculated_date }}"><span class="oi oi-trash" data-toggle="tooltip" data-placement="bottom" title="削除"></span></a>

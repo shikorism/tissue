@@ -1,7 +1,7 @@
 @extends('user.base')
 
 @section('tab-content')
-@if ($user->is_protected && !(Auth::check() && $user->id === Auth::user()->id))
+@if ($user->is_protected && !$user->isMe())
     <p class="mt-4">
         <span class="oi oi-lock-locked"></span> このユーザはチェックイン履歴を公開していません。
     </p>
@@ -12,7 +12,7 @@
                 <!-- span -->
                 <div class="d-flex justify-content-between">
                     <h5>{{ $ejaculation->ejaculated_span ?? '精通' }} <a href="{{ route('checkin.show', ['id' => $ejaculation->id]) }}" class="text-muted"><small>{{ $ejaculation->before_date }}{{ !empty($ejaculation->before_date) ? ' ～ ' : '' }}{{ $ejaculation->ejaculated_date->format('Y/m/d H:i') }}</small></a></h5>
-                    @if (Auth::check() && $user->id === Auth::user()->id)
+                    @if ($user->isMe())
                     <div>
                         <a class="text-secondary timeline-action-item" href="#"><span class="oi oi-pencil" data-toggle="tooltip" data-placement="bottom" title="修正"></span></a>
                         <a class="text-secondary timeline-action-item" href="#" data-toggle="modal" data-target="#deleteCheckinModal" data-id="{{ $ejaculation->id }}" data-date="{{ $ejaculation->ejaculated_date }}"><span class="oi oi-trash" data-toggle="tooltip" data-placement="bottom" title="削除"></span></a>
