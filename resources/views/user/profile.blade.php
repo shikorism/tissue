@@ -40,7 +40,7 @@
             --}}
             <!-- note -->
             @if (!empty($ejaculation->note))
-                <p class="mb-0">
+                <p class="mb-0 tis-word-wrap">
                     {!! Formatter::linkify(nl2br(e($ejaculation->note))) !!}
                 </p>
             @endif
