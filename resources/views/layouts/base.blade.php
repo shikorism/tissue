@@ -15,7 +15,7 @@
     @stack('head')
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+<nav class="navbar navbar-expand-lg navbar-light bg-light {{ !Auth::check() && Route::currentRouteName() === 'home' ? '' : 'mb-4'}}">
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         {{ csrf_field() }}
     </form>
@@ -62,7 +62,7 @@
             @endauth
             @guest
                 <form class="form-inline ml-auto">
-                    <a href="{{ route('login') }}" class="btn btn-outline-success">ログイン</a>
+                    <a href="{{ route('login') }}" class="btn btn-outline-secondary">ログイン</a>
                 </form>
             @endguest
         </div>
@@ -80,7 +80,7 @@
 @endif
 @yield('content')
 <footer class="tis-footer mt-4">
-    <div class="container-fluid p-3 p-md-4">
+    <div class="container p-3 p-md-4">
         <p>Copyright (c) 2017 shikorism.net</p>
         <ul class="list-inline">
             <li class="list-inline-item"><a href="https://github.com/shibafu528" class="text-dark">Admin(@shibafu528)</a></li>

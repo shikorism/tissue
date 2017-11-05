@@ -6,7 +6,7 @@
     <hr>
     <div class="row justify-content-center mt-5">
         <div class="col-lg-6">
-            <form method="post" action="{{ route('checkin') }}" class="col s12 push-m3 m6">
+            <form method="post" action="{{ route('checkin') }}">
                 {{ csrf_field() }}
 
                 <div class="form-row">
