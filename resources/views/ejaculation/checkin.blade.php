@@ -1,83 +1,110 @@
-@extends('layouts.base-old')
+@extends('layouts.base')
 
 @section('content')
 <div class="container">
-    <h2 class="grey-text">今致してる？</h2>
-    <div class="row">
-        <form method="post" action="{{ route('checkin') }}" class="col s12 push-m3 m6">
-            {{ csrf_field() }}
+    <h2>今致してる？</h2>
+    <hr>
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-6">
+            <form method="post" action="{{ route('checkin') }}" class="col s12 push-m3 m6">
+                {{ csrf_field() }}
 
-            <div class="card-panel">
-                <div class="row">
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">today</i>
-                        <input id="date" name="date" class="validate{{ $errors->has('date') || $errors->has('datetime') ? ' invalid' : '' }}" type="text" pattern="^20[0-9]{2}/(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])$" value="{{ old('date') ?? date('Y/m/d') }}" required>
-                        <label for="date">日付</label>
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        <label for="date"><span class="oi oi-calendar"></span> 日付</label>
+                        <input id="date" name="date" type="text" class="form-control {{ $errors->has('date') || $errors->has('datetime') ? ' is-invalid' : '' }}"
+                               pattern="^20[0-9]{2}/(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])$" value="{{ old('date') ?? date('Y/m/d') }}" required>
 
                         @if ($errors->has('date'))
-                            <span class="red-text"><strong>{{ $errors->first('date') }}</strong></span>
+                            <div class="invalid-feedback">{{ $errors->first('date') }}</div>
                         @endif
                     </div>
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">schedule</i>
-                        <input id="time" name="time" class="validate{{ $errors->has('time') || $errors->has('datetime') ? ' invalid' : '' }}" type="text" pattern="^([01][0-9]|2[0-3]):[0-5][0-9]$" value="{{ old('time') ?? date('H:i') }}">
-                        <label for="time">時刻</label>
+                    <div class="form-group col-sm-6">
+                        <label for="time"><span class="oi oi-clock"></span> 時刻</label>
+                        <input id="time" name="time" type="text" class="form-control {{ $errors->has('time') || $errors->has('datetime') ? ' is-invalid' : '' }}"
+                               pattern="^([01][0-9]|2[0-3]):[0-5][0-9]$" value="{{ old('time') ?? date('H:i') }}" required>
 
                         @if ($errors->has('time'))
-                            <span class="red-text"><strong>{{ $errors->first('time') }}</strong></span>
+                            <div class="invalid-feedback">{{ $errors->first('time') }}</div>
                         @endif
                     </div>
                     @if ($errors->has('datetime'))
-                    <div class="col s12">
-                        <span class="red-text"><strong>{{ $errors->first('datetime') }}</strong></span>
-                    </div>
+                        <div class="form-group col-sm-12" style="margin-top: -1rem;">
+                            <small class="text-danger">{{ $errors->first('datetime') }}</small>
+                        </div>
                     @endif
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">label</i>
-                        <input id="tags" type="text" disabled placeholder="未実装です">
-                        <label for="tags">タグ</label>
+                </div>
+                {{--
+                <div class="form-row">
+                    <div class="form-group col-sm-12">
+                        <label for="tags"><span class="oi oi-tags"></span> タグ</label>
+                        <input id="tags" type="text" class="form-control" placeholder="未実装です" disabled>
+                        <small class="form-text text-muted">
+                            スペース区切りで複数入力できます。
+                        </small>
                     </div>
-                    {{--<div class="input-field col s12">--}}
-                         {{--TODO: Material Chipsデータのシリアライズとかをjsで書いておく必要あるかも？ --}}
-                        {{--<i class="material-icons prefix">label</i>--}}
-                        {{--<div class="chips"></div>--}}
-                        {{--<label>タグ</label>--}}
-                    {{--</div>--}}
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">comment</i>
-                        <textarea id="note" name="note" class="materialize-textarea{{ $errors->has('note') ? ' invalid' : '' }}" data-length="500">{{ old('note') }}</textarea>
-                        <label for="note">ノート</label>
-
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-12">
+                        <label for="link"><span class="oi oi-link-intact"></span> オカズリンク</label>
+                        <input id="link" type="text" class="form-control" placeholder="https://...">
+                        <small class="form-text text-muted">
+                            オカズのURLを貼り付けて登録することができます。
+                        </small>
+                    </div>
+                    <div class="form-group col-sm-12 d-none">
+                        <div class="card">
+                            <div class="card-header">このオカズで合っていますか？</div>
+                            <div class="card-body">
+                                <div class="d-flex mb-4">
+                                    <img src="holder.js/128x128" alt="" class="rounded">
+                                    <div class="align-self-center ml-2 mr-auto">
+                                        <p class="mb-1">タイトル</p>
+                                        <small class="text-muted">概要</small>
+                                    </div>
+                                </div>
+                                <a href="#" class="btn btn-success"><span class="oi oi-check"></span> 決定</a>
+                                <a href="#" class="btn btn-outline-secondary">キャンセル</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                --}}
+                <div class="form-row">
+                    <div class="form-group col-sm-12">
+                        <label for="note"><span class="oi oi-comment-square"></span> ノート</label>
+                        <textarea id="note" name="note" class="form-control {{ $errors->has('note') ? ' is-invalid' : '' }}" rows="4">{{ old('note') }}</textarea>
+                        <small class="form-text text-muted">
+                            最大 500 文字
+                        </small>
                         @if ($errors->has('note'))
-                            <span class="red-text"><strong>{{ $errors->first('note') }}</strong></span>
+                            <div class="invalid-feedback">{{ $errors->first('note') }}</div>
                         @endif
                     </div>
                 </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <h6 class="grey-text">オプション</h6>
-                        <p>
-                            <input id="is-private" name="is_private" class="filled-in" type="checkbox" {{ old('is_private') ? 'checked' : '' }}>
-                            <label for="is-private">チェックイン履歴を非公開にする</label>
-                        </p>
+                <div class="form-row mt-4">
+                    <p>オプション</p>
+                    <div class="form-group col-sm-12">
+                        <div class="form-check">
+                            <label class="custom-control custom-checkbox">
+                                <input name="is_private" type="checkbox" class="custom-control-input" {{ old('is_private') ? 'checked' : '' }}>
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description">
+                                <span class="oi oi-lock-locked"></span> このチェックインを非公開にする
+                            </span>
+                            </label>
+                        </div>
                     </div>
                 </div>
-                <div class="row center">
-                    <div class="input-field col s12">
-                        <button id="submit" class="btn waves-effect waves-light teal lighten-2" type="submit">チェックイン</button>
-                    </div>
+
+                <div class="text-center">
+                    <button class="btn btn-primary" type="submit">チェックイン</button>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 @endsection
 
-@section('script')
-<script>
-    $(function() {
-        $('#note').characterCounter();
-//        $('.chips').material_chip();
-    });
-</script>
-@endsection
+@push('script')
+@endpush

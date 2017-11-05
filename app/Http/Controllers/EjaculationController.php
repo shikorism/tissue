@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Carbon\Carbon;
 use Validator;
 use App\Ejaculation;
 use Illuminate\Http\Request;
@@ -23,15 +24,17 @@ class EjaculationController extends Controller
             'note' => 'nullable|string|max:500',
         ])->after(function ($validator) use ($request) {
             // 日時の重複チェック
-            $dt = $request->input('date') . ' ' . $request->input('time');
-            if (Ejaculation::where(['user_id' => Auth::id(), 'ejaculated_date' => $dt])->count()) {
-                $validator->errors()->add('datetime', '既にこの日時にチェックインしているため、登録できません。');
+            if (!$validator->errors()->hasAny(['date', 'time'])) {
+                $dt = $request->input('date') . ' ' . $request->input('time');
+                if (Ejaculation::where(['user_id' => Auth::id(), 'ejaculated_date' => $dt])->count()) {
+                    $validator->errors()->add('datetime', '既にこの日時にチェックインしているため、登録できません。');
+                }
             }
         })->validate();
 
         Ejaculation::create([
             'user_id' => Auth::id(),
-            'ejaculated_date' => $request->input('date') . ' ' . $request->input('time'),
+            'ejaculated_date' => Carbon::createFromFormat('Y/m/d H:i', $request->input('date') . ' ' . $request->input('time')),
             'note' => $request->input('note') ?? '',
             'is_private' => $request->has('is_private') ?? false
         ]);
