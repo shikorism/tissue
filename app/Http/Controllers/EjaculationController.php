@@ -32,14 +32,14 @@ class EjaculationController extends Controller
             }
         })->validate();
 
-        Ejaculation::create([
+        $ejaculation = Ejaculation::create([
             'user_id' => Auth::id(),
             'ejaculated_date' => Carbon::createFromFormat('Y/m/d H:i', $request->input('date') . ' ' . $request->input('time')),
             'note' => $request->input('note') ?? '',
             'is_private' => $request->has('is_private') ?? false
         ]);
 
-        return redirect()->route('home')->with('status', 'チェックインしました！');
+        return redirect()->route('checkin.show', ['id' => $ejaculation->id])->with('status', 'チェックインしました！');
     }
 
     public function show($id)
