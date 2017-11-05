@@ -6,7 +6,7 @@
         <li class="list-group-item border-bottom-only pt-3 pb-3">
             <!-- span -->
             <div class="d-flex justify-content-between">
-                <h5>{{ $ejaculation->ejaculated_span ?? '精通' }} <small class="text-muted">{{ $ejaculation->before_date }}{{ !empty($ejaculation->before_date) ? ' ～ ' : '' }}{{ $ejaculation->ejaculated_date->format('Y/m/d H:i') }}</small></h5>
+                <h5>{{ $ejaculation->ejaculated_span ?? '精通' }} <a href="{{ route('checkin.show', ['id' => $ejaculation->id]) }}" class="text-muted"><small>{{ $ejaculation->before_date }}{{ !empty($ejaculation->before_date) ? ' ～ ' : '' }}{{ $ejaculation->ejaculated_date->format('Y/m/d H:i') }}</small></a></h5>
                 @if (Auth::check() && $user->id === Auth::user()->id)
                 <div>
                     <a class="text-secondary timeline-action-item" href="#"><span class="oi oi-pencil" data-toggle="tooltip" data-placement="bottom" title="修正"></span></a>

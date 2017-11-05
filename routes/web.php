@@ -25,6 +25,7 @@ Route::get('/user/{name}/okazu', 'UserController@okazu')->name('user.okazu');
 Route::middleware('auth')->group(function () {
     Route::get('/checkin', 'EjaculationController@create')->name('checkin');
     Route::post('/checkin', 'EjaculationController@store')->name('checkin');
+    Route::get('/checkin/{id}', 'EjaculationController@show')->name('checkin.show');
     Route::delete('/checkin/{id}', 'EjaculationController@destroy')->name('checkin.destroy');
 });
 
