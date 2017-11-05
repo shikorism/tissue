@@ -60,7 +60,7 @@
             </form>
         @endauth
         @guest
-            <form class="form-inline">
+            <form class="form-inline ml-auto">
                 <a href="{{ route('login') }}" class="btn btn-outline-success">ログイン</a>
             </form>
         @endguest
