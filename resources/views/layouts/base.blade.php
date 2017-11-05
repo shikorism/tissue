@@ -20,50 +20,52 @@
         {{ csrf_field() }}
     </form>
 
-    <a href="{{ route('home') }}" class="navbar-brand">{{ config('app.name', 'Tissue') }}</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        @auth
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item {{ stripos(Route::currentRouteName(), 'home') === 0 ? 'active' : ''}}">
-                    <a class="nav-link" href="{{ route('home') }}">ホーム</a>
-                </li>
-                <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.profile') === 0 ? 'active' : ''}}">
-                    <a class="nav-link" href="{{ route('user.profile', ['name' => Auth::user()->name]) }}">タイムライン</a>
-                </li>
-                <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.stats') === 0 ? 'active' : ''}}">
-                    <a class="nav-link" href="{{ route('user.stats', ['name' => Auth::user()->name]) }}">グラフ</a>
-                </li>
-                <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.okazu') === 0 ? 'active' : ''}}">
-                    <a class="nav-link" href="{{ route('user.okazu', ['name' => Auth::user()->name]) }}">オカズ</a>
-                </li>
-                {{--<li class="nav-item">
-                    <a class="nav-link" href="{{ route('ranking') }}">ランキング</a>
-                </li>--}}
-            </ul>
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="{{ Auth::user()->getProfileImageUrl(30) }}" width="30" height="30" class="rounded d-inline-block align-top mr-2">
-                        {{ Auth::user()->display_name }} さん
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        {{--<a href="#" class="dropdown-item">設定</a>--}}
-                        <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
-                    </div>
-                </li>
-            </ul>
-            <form class="form-inline">
-                <a href="{{ route('checkin') }}" class="btn btn-outline-success">チェックイン</a>
-            </form>
-        @endauth
-        @guest
-            <form class="form-inline ml-auto">
-                <a href="{{ route('login') }}" class="btn btn-outline-success">ログイン</a>
-            </form>
-        @endguest
+    <div class="container">
+        <a href="{{ route('home') }}" class="navbar-brand">{{ config('app.name', 'Tissue') }}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            @auth
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item {{ stripos(Route::currentRouteName(), 'home') === 0 ? 'active' : ''}}">
+                        <a class="nav-link" href="{{ route('home') }}">ホーム</a>
+                    </li>
+                    <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.profile') === 0 ? 'active' : ''}}">
+                        <a class="nav-link" href="{{ route('user.profile', ['name' => Auth::user()->name]) }}">タイムライン</a>
+                    </li>
+                    <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.stats') === 0 ? 'active' : ''}}">
+                        <a class="nav-link" href="{{ route('user.stats', ['name' => Auth::user()->name]) }}">グラフ</a>
+                    </li>
+                    <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.okazu') === 0 ? 'active' : ''}}">
+                        <a class="nav-link" href="{{ route('user.okazu', ['name' => Auth::user()->name]) }}">オカズ</a>
+                    </li>
+                    {{--<li class="nav-item">
+                        <a class="nav-link" href="{{ route('ranking') }}">ランキング</a>
+                    </li>--}}
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="{{ Auth::user()->getProfileImageUrl(30) }}" width="30" height="30" class="rounded d-inline-block align-top mr-2">
+                            {{ Auth::user()->display_name }} さん
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            {{--<a href="#" class="dropdown-item">設定</a>--}}
+                            <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
+                        </div>
+                    </li>
+                </ul>
+                <form class="form-inline">
+                    <a href="{{ route('checkin') }}" class="btn btn-outline-success">チェックイン</a>
+                </form>
+            @endauth
+            @guest
+                <form class="form-inline ml-auto">
+                    <a href="{{ route('login') }}" class="btn btn-outline-success">ログイン</a>
+                </form>
+            @endguest
+        </div>
     </div>
 </nav>
 @if (session('status'))
