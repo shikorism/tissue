@@ -11,7 +11,7 @@
     </p>
 @else
     <h5 class="my-4">Shikontribution graph</h5>
-    <div id="cal-heatmap"></div>
+    <div id="cal-heatmap" class="tis-contribution-graph"></div>
     <hr class="my-4">
 @endif
 @endsection

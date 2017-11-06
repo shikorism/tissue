@@ -11,6 +11,10 @@
     word-wrap: break-word;
 }
 
+.tis-contribution-graph {
+    overflow-x: auto;
+}
+
 .list-group-item.border-bottom-only {
     border-left: none;
     border-right: none;
