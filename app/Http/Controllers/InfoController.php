@@ -11,7 +11,7 @@ class InfoController extends Controller
     {
         $informations = Information::query()
             ->select('id', 'category', 'pinned', 'title', 'created_at')
-            ->orderBy('pinned')
+            ->orderByDesc('pinned')
             ->orderByDesc('created_at')
             ->paginate(20);
         return view('info.index')->with([

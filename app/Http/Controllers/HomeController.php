@@ -30,7 +30,7 @@ class HomeController extends Controller
         if (Auth::check()) {
             $informations = Information::query()
                 ->select('id', 'category', 'pinned', 'title', 'created_at')
-                ->orderBy('pinned')
+                ->orderByDesc('pinned')
                 ->orderByDesc('created_at')
                 ->paginate(3);
             $categories = Information::CATEGORIES;
