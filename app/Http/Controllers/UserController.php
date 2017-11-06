@@ -47,7 +47,23 @@ SQL
             abort(404);
         }
 
-        return view('user.stats')->with(compact('user'));
+        $groupByDay = Ejaculation::select(DB::raw(<<<'SQL'
+to_char(ejaculated_date, 'YYYY/MM/DD') AS "date",
+count(*) AS "count"
+SQL
+        ))
+            ->where('user_id', $user->id)
+            ->where('ejaculated_date', '>=', Carbon::now()->addMonths(-9)->firstOfMonth())
+            ->groupBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"))
+            ->orderBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"))
+            ->get();
+        $calendarData = [];
+        foreach ($groupByDay as $data) {
+            $timestamp = Carbon::createFromFormat('Y/m/d', $data->date)->getTimestamp();
+            $calendarData[$timestamp] = $data->count;
+        }
+
+        return view('user.stats')->with(compact('user', 'calendarData'));
     }
 
     public function okazu($name)
