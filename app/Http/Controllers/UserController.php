@@ -53,38 +53,42 @@ count(*) AS "count"
 SQL
         ))
             ->where('user_id', $user->id)
-            ->where('ejaculated_date', '>=', Carbon::now()->addMonths(-9)->firstOfMonth())
             ->groupBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"))
             ->orderBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"))
             ->get();
-        $calendarData = [];
-        foreach ($groupByDay as $data) {
-            $timestamp = Carbon::createFromFormat('Y/m/d', $data->date)->getTimestamp();
-            $calendarData[$timestamp] = $data->count;
-        }
 
-        $groupByMonth = Ejaculation::select(DB::raw(<<<'SQL'
-to_char(ejaculated_date, 'YYYY/MM') AS "date",
-count(*) AS "count"
-SQL
-        ))
-            ->where('user_id', $user->id)
-            ->where('ejaculated_date', '>=', Carbon::now()->addMonths(-11)->firstOfMonth())
-            ->groupBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM')"))
-            ->orderBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM')"))
-            ->get();
-        $monthlyCounts = [];
-        $month = (new Carbon())->subMonth(11);
-        while ($month->format('Y/m') <= date('Y/m')) {
-            if ($groupByMonth->first()['date'] === $month->format('Y/m')) {
-                $monthlyCounts[] = $groupByMonth->shift()['count'];
-            } else {
-                $monthlyCounts[] = 0;
+        $dailySum = [];
+        $monthlySum = [];
+        $yearlySum = [];
+
+        // 年間グラフ用の配列初期化
+        if ($groupByDay->first() !== null) {
+            $year = Carbon::createFromFormat('Y/m/d', $groupByDay->first()->date)->year;
+            $currentYear = date('Y');
+            for (; $year <= $currentYear; $year++) {
+                $yearlySum[$year] = 0;
             }
-            $month = $month->addMonth(1);
         }
 
-        return view('user.stats')->with(compact('user', 'calendarData', 'monthlyCounts'));
+        // 月間グラフ用の配列初期化
+        $month = Carbon::now()->subMonth(11)->firstOfMonth(); // 直近12ヶ月
+        for ($i = 0; $i < 12; $i++) {
+            $monthlySum[$month->format('Y/m')] = 0;
+            $month->addMonth();
+        }
+
+        foreach ($groupByDay as $data) {
+            $date = Carbon::createFromFormat('Y/m/d', $data->date);
+            $yearAndMonth = $date->format('Y/m');
+
+            $dailySum[$date->timestamp] = $data->count;
+            $yearlySum[$date->year] += $data->count;
+            if (isset($monthlySum[$yearAndMonth])) {
+                $monthlySum[$yearAndMonth] += $data->count;
+            }
+        }
+
+        return view('user.stats')->with(compact('user', 'dailySum', 'monthlySum', 'yearlySum'));
     }
 
     public function okazu($name)
