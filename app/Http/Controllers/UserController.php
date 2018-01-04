@@ -63,7 +63,28 @@ SQL
             $calendarData[$timestamp] = $data->count;
         }
 
-        return view('user.stats')->with(compact('user', 'calendarData'));
+        $groupByMonth = Ejaculation::select(DB::raw(<<<'SQL'
+to_char(ejaculated_date, 'YYYY/MM') AS "date",
+count(*) AS "count"
+SQL
+        ))
+            ->where('user_id', $user->id)
+            ->where('ejaculated_date', '>=', Carbon::now()->addMonths(-11)->firstOfMonth())
+            ->groupBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM')"))
+            ->orderBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM')"))
+            ->get();
+        $monthlyCounts = [];
+        $month = (new Carbon())->subMonth(11);
+        while ($month->format('Y/m') <= date('Y/m')) {
+            if ($groupByMonth->first()['date'] === $month->format('Y/m')) {
+                $monthlyCounts[] = $groupByMonth->shift()['count'];
+            } else {
+                $monthlyCounts[] = 0;
+            }
+            $month = $month->addMonth(1);
+        }
+
+        return view('user.stats')->with(compact('user', 'calendarData', 'monthlyCounts'));
     }
 
     public function okazu($name)
