@@ -59,7 +59,11 @@ Route::get('/ogp', function (Request $request) {
             }
         }
 
-        return response()->json($result);
+        $response = response()->json($result);
+        if (!config('app.debug')) {
+            $response = $response->setCache(['public' => true, 'max_age' => 86400]);
+        }
+        return $response;
     } else {
         abort($res->getStatusCode());
     }
