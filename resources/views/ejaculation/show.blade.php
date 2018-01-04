@@ -46,17 +46,20 @@
                         </p>
                         @endif
                         <!-- okazu link -->
-                        {{--
-                        <div class="card mb-2 w-50" style="font-size: small;">
-                            <a class="text-dark card-link" href="#">
-                                <img src="holder.js/320x240" alt="Thumbnail" class="card-img-top">
+                        @if (!empty($ejaculation->link))
+                        <div id="linkCard" class="card mb-2 w-50 d-none" style="font-size: small;">
+                            <a class="text-dark card-link" href="{{ $ejaculation->link }}">
+                                <img src="" alt="Thumbnail" class="card-img-top bg-secondary">
                                 <div class="card-body">
                                     <h6 class="card-title">タイトル</h6>
                                     <p class="card-text">コンテンツの説明文</p>
                                 </div>
                             </a>
                         </div>
-                        --}}
+                        <p class="mb-2">
+                            <span class="oi oi-link-intact mr-1"></span><a href="{{ $ejaculation->link }}">{{ $ejaculation->link }}</a>
+                        </p>
+                        @endif
                         <!-- note -->
                         @if (!empty($ejaculation->note))
                             <p class="mb-0 tis-word-wrap">
@@ -87,6 +90,7 @@
 @endsection
 
 @push('script')
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/holderjs@2.9.4/holder.min.js"></script>
     <script>
         $('#deleteCheckinModal').on('show.bs.modal', function (event) {
             var target = $(event.relatedTarget);
@@ -99,5 +103,22 @@
             form.attr('action', form.attr('action').replace('@', modal.data('id')));
             form.submit();
         });
+
+        var $linkCard = $('#linkCard');
+        if ($linkCard.length > 0) {
+            $.ajax({
+                url: '{{ url('/api/ogp') }}',
+                method: 'get',
+                type: 'json',
+                data: {
+                    url: $linkCard.find('a').attr('href')
+                }
+            }).then(function (data) {
+                $linkCard.find('.card-title').text(data.title);
+                $linkCard.find('.card-text').text(data.description);
+                $linkCard.find('img').attr('src', data.image);
+                $linkCard.removeClass('d-none');
+            });
+        }
     </script>
 @endpush

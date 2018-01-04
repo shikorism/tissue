@@ -45,32 +45,19 @@
                         </small>
                     </div>
                 </div>
+                --}}
                 <div class="form-row">
                     <div class="form-group col-sm-12">
                         <label for="link"><span class="oi oi-link-intact"></span> オカズリンク</label>
-                        <input id="link" type="text" class="form-control" placeholder="https://...">
+                        <input id="link" name="link" type="text" class="form-control {{ $errors->has('link') ? ' is-invalid' : '' }}" placeholder="http://..." value="{{ old('link') ?? $ejaculation->link }}">
                         <small class="form-text text-muted">
                             オカズのURLを貼り付けて登録することができます。
                         </small>
-                    </div>
-                    <div class="form-group col-sm-12 d-none">
-                        <div class="card">
-                            <div class="card-header">このオカズで合っていますか？</div>
-                            <div class="card-body">
-                                <div class="d-flex mb-4">
-                                    <img src="holder.js/128x128" alt="" class="rounded">
-                                    <div class="align-self-center ml-2 mr-auto">
-                                        <p class="mb-1">タイトル</p>
-                                        <small class="text-muted">概要</small>
-                                    </div>
-                                </div>
-                                <a href="#" class="btn btn-success"><span class="oi oi-check"></span> 決定</a>
-                                <a href="#" class="btn btn-outline-secondary">キャンセル</a>
-                            </div>
-                        </div>
+                        @if ($errors->has('link'))
+                            <div class="invalid-feedback">{{ $errors->first('link') }}</div>
+                        @endif
                     </div>
                 </div>
-                --}}
                 <div class="form-row">
                     <div class="form-group col-sm-12">
                         <label for="note"><span class="oi oi-comment-square"></span> ノート</label>

@@ -27,6 +27,7 @@ class EjaculationController extends Controller
             'date' => 'required|date_format:Y/m/d',
             'time' => 'required|date_format:H:i',
             'note' => 'nullable|string|max:500',
+            'link' => 'nullable|url',
         ])->after(function ($validator) use ($request, $inputs) {
             // 日時の重複チェック
             if (!$validator->errors()->hasAny(['date', 'time'])) {
@@ -41,6 +42,7 @@ class EjaculationController extends Controller
             'user_id' => Auth::id(),
             'ejaculated_date' => Carbon::createFromFormat('Y/m/d H:i', $inputs['date'] . ' ' . $inputs['time']),
             'note' => $inputs['note'] ?? '',
+            'link' => $inputs['link'] ?? '',
             'is_private' => $request->has('is_private') ?? false
         ]);
 
@@ -88,6 +90,7 @@ class EjaculationController extends Controller
             'date' => 'required|date_format:Y/m/d',
             'time' => 'required|date_format:H:i',
             'note' => 'nullable|string|max:500',
+            'link' => 'nullable|url',
         ])->after(function ($validator) use ($id, $request, $inputs) {
             // 日時の重複チェック
             if (!$validator->errors()->hasAny(['date', 'time'])) {
@@ -101,6 +104,7 @@ class EjaculationController extends Controller
         $ejaculation->fill([
             'ejaculated_date' => Carbon::createFromFormat('Y/m/d H:i', $inputs['date'] . ' ' . $inputs['time']),
             'note' => $inputs['note'] ?? '',
+            'link' => $inputs['link'] ?? '',
             'is_private' => $request->has('is_private') ?? false
         ])->save();
 

@@ -10,7 +10,7 @@ class Ejaculation extends Model
 
     protected $fillable = [
         'user_id', 'ejaculated_date',
-        'note', 'geo_latitude', 'geo_longitude',
+        'note', 'geo_latitude', 'geo_longitude', 'link',
         'is_private'
     ];
 

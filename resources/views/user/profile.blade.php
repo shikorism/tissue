@@ -32,17 +32,20 @@
                     </p>
                 @endif
                 <!-- okazu link -->
-                {{--
-                <div class="card mb-2 w-50" style="font-size: small;">
-                    <a class="text-dark card-link" href="#">
-                        <img src="holder.js/320x240" alt="Thumbnail" class="card-img-top">
+                @if (!empty($ejaculation->link))
+                <div class="card link-card mb-2 w-50 d-none" style="font-size: small;">
+                    <a class="text-dark card-link" href="{{ $ejaculation->link }}">
+                        <img src="" alt="Thumbnail" class="card-img-top bg-secondary">
                         <div class="card-body">
                             <h6 class="card-title">タイトル</h6>
                             <p class="card-text">コンテンツの説明文</p>
                         </div>
                     </a>
                 </div>
-                --}}
+                <p class="mb-2">
+                    <span class="oi oi-link-intact mr-1"></span><a href="{{ $ejaculation->link }}">{{ $ejaculation->link }}</a>
+                </p>
+                @endif
                 <!-- note -->
                 @if (!empty($ejaculation->note))
                     <p class="mb-0 tis-word-wrap">
@@ -103,6 +106,23 @@
             var form = modal.find('form');
             form.attr('action', form.attr('action').replace('@', modal.data('id')));
             form.submit();
+        });
+
+        $('.link-card').each(function () {
+            var $this = $(this);
+            $.ajax({
+                url: '{{ url('/api/ogp') }}',
+                method: 'get',
+                type: 'json',
+                data: {
+                    url: $this.find('a').attr('href')
+                }
+            }).then(function (data) {
+                $this.find('.card-title').text(data.title);
+                $this.find('.card-text').text(data.description);
+                $this.find('img').attr('src', data.image);
+                $this.removeClass('d-none');
+            });
         });
     </script>
 @endpush
