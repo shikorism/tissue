@@ -26,6 +26,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkin', 'EjaculationController@create')->name('checkin');
     Route::post('/checkin', 'EjaculationController@store')->name('checkin');
     Route::get('/checkin/{id}', 'EjaculationController@show')->name('checkin.show');
+    Route::get('/checkin/{id}/edit', 'EjaculationController@edit')->name('checkin.edit');
+    Route::put('/checkin/{id}', 'EjaculationController@update')->name('checkin.update');
     Route::delete('/checkin/{id}', 'EjaculationController@destroy')->name('checkin.destroy');
 });
 
