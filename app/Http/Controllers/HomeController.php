@@ -27,17 +27,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (Auth::check()) {
-            $informations = Information::query()
-                ->select('id', 'category', 'pinned', 'title', 'created_at')
-                ->orderByDesc('pinned')
-                ->orderByDesc('created_at')
-                ->paginate(3);
-            $categories = Information::CATEGORIES;
+        $informations = Information::query()
+            ->select('id', 'category', 'pinned', 'title', 'created_at')
+            ->orderByDesc('pinned')
+            ->orderByDesc('created_at')
+            ->paginate(3);
+        $categories = Information::CATEGORIES;
 
+        if (Auth::check()) {
             return view('home')->with(compact('informations', 'categories'));
         } else {
-            return view('guest');
+            return view('guest')->with(compact('informations', 'categories'));
         }
     }
 }

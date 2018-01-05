@@ -27,5 +27,14 @@
             <p>ティッシュが蒸発するような人気のオカズや、底なしの体力を競い合うランキングなど、Webならではのサービスも用意<s class="grey-text">しています</s>したいですね。</p>
         </div>
     </div>
+    <h4 class="mt-5 mb-4">お知らせ</h4>
+    <div class="list-group list-group-flush">
+        @foreach($informations as $info)
+            <a class="list-group-item" href="{{ route('info.show', ['id' => $info->id]) }}">
+                <span class="badge {{ $categories[$info->category]['class'] }}">{{ $categories[$info->category]['label'] }}</span> {{ $info->title }} <small class="text-secondary">- {{ $info->created_at->format('n月j日') }}</small>
+            </a>
+        @endforeach
+        <a href="{{ route('info') }}" class="list-group-item text-right">お知らせ一覧 &raquo;</a>
+    </div>
 </div>
 @endsection
