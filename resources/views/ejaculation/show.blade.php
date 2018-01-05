@@ -47,7 +47,7 @@
                         @endif
                         <!-- okazu link -->
                         @if (!empty($ejaculation->link))
-                        <div id="linkCard" class="card mb-2 w-50 d-none" style="font-size: small;">
+                        <div class="card link-card mb-2 w-50 d-none" style="font-size: small;">
                             <a class="text-dark card-link" href="{{ $ejaculation->link }}">
                                 <img src="" alt="Thumbnail" class="card-img-top bg-secondary">
                                 <div class="card-body">
@@ -104,21 +104,21 @@
             form.submit();
         });
 
-        var $linkCard = $('#linkCard');
-        if ($linkCard.length > 0) {
+        $('.link-card').each(function () {
+            var $this = $(this);
             $.ajax({
-                url: '{{ url('/api/ogp') }}',
+                url: '{{ url('/api/checkin/card') }}',
                 method: 'get',
                 type: 'json',
                 data: {
-                    url: $linkCard.find('a').attr('href')
+                    url: $this.find('a').attr('href')
                 }
             }).then(function (data) {
-                $linkCard.find('.card-title').text(data.title);
-                $linkCard.find('.card-text').text(data.description);
-                $linkCard.find('img').attr('src', data.image);
-                $linkCard.removeClass('d-none');
+                $this.find('.card-title').text(data.title);
+                $this.find('.card-text').text(data.description);
+                $this.find('img').attr('src', data.image);
+                $this.removeClass('d-none');
             });
-        }
+        });
     </script>
 @endpush

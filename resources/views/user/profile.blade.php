@@ -111,7 +111,7 @@
         $('.link-card').each(function () {
             var $this = $(this);
             $.ajax({
-                url: '{{ url('/api/ogp') }}',
+                url: '{{ url('/api/checkin/card') }}',
                 method: 'get',
                 type: 'json',
                 data: {

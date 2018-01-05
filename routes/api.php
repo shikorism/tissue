@@ -17,7 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/ogp', function (Request $request) {
+Route::get('/checkin/card', function (Request $request) {
     $request->validate([
         'url:required|url'
     ]);
