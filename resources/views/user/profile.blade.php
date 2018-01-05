@@ -118,10 +118,31 @@
                     url: $this.find('a').attr('href')
                 }
             }).then(function (data) {
-                $this.find('.card-title').text(data.title);
-                $this.find('.card-text').text(data.description);
-                $this.find('img').attr('src', data.image);
-                $this.removeClass('d-none');
+                var $title = $this.find('.card-title');
+                var $desc = $this.find('.card-text');
+                var $image = $this.find('img');
+
+                if (data.title === '') {
+                    $title.hide();
+                } else {
+                    $title.text(data.title);
+                }
+
+                if (data.description === '') {
+                    $desc.hide();
+                } else {
+                    $desc.text(data.description);
+                }
+
+                if (data.image === '') {
+                    $image.hide();
+                } else {
+                    $image.attr('src', data.image);
+                }
+
+                if (data.title !== '' || data.description !== '' || data.image !== '') {
+                    $this.removeClass('d-none');
+                }
             });
         });
     </script>
