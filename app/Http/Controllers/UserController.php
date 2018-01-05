@@ -99,6 +99,25 @@ SQL
             abort(404);
         }
 
-        return view('user.okazu')->with(compact('user'));
+        // チェックインの取得
+        $query = Ejaculation::select(DB::raw(<<<'SQL'
+id,
+ejaculated_date,
+note,
+is_private,
+link,
+to_char(lead(ejaculated_date, 1, NULL) OVER (ORDER BY ejaculated_date DESC), 'YYYY/MM/DD HH24:MI') AS before_date,
+to_char(ejaculated_date - (lead(ejaculated_date, 1, NULL) OVER (ORDER BY ejaculated_date DESC)), 'FMDDD日 FMHH24時間 FMMI分') AS ejaculated_span
+SQL
+        ))
+            ->where('user_id', $user->id)
+            ->where('link', '<>', '');
+        if (!Auth::check() || $user->id !== Auth::id()) {
+            $query = $query->where('is_private', false);
+        }
+        $ejaculations = $query->orderBy('ejaculated_date', 'desc')
+            ->paginate(20);
+
+        return view('user.profile')->with(compact('user', 'ejaculations'));
     }
 }
