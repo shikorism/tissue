@@ -34,17 +34,23 @@
                         </div>
                     @endif
                 </div>
-                {{--
                 <div class="form-row">
                     <div class="form-group col-sm-12">
-                        <label for="tags"><span class="oi oi-tags"></span> タグ</label>
-                        <input id="tags" type="text" class="form-control" placeholder="未実装です" disabled>
+                        <input name="tags" type="hidden">
+                        <label for="tagInput"><span class="oi oi-tags"></span> タグ</label>
+                        <div class="form-control {{ $errors->has('tags') ? ' is-invalid' : '' }}">
+                            <ul id="tags" class="list-inline d-inline"></ul>
+                            <input id="tagInput" type="text" style="outline: 0; border: 0;">
+                        </div>
                         <small class="form-text text-muted">
-                            スペース区切りで複数入力できます。
+                            Tab, Enter, 半角スペースのいずれかで入力確定します。
                         </small>
+
+                        @if ($errors->has('tags'))
+                            <div class="invalid-feedback">{{ $errors->first('tags') }}</div>
+                        @endif
                     </div>
                 </div>
-                --}}
                 <div class="form-row">
                     <div class="form-group col-sm-12">
                         <label for="link"><span class="oi oi-link-intact"></span> オカズリンク</label>
@@ -94,4 +100,44 @@
 @endsection
 
 @push('script')
+    <script>
+        function updateTags() {
+            $('input[name=tags]').val(
+                $('#tags')
+                    .find('li')
+                    .map(function () {
+                        return $(this).data('value');
+                    })
+                    .get()
+                    .join(' ')
+            );
+        }
+        $('#tagInput').on('keydown', function (ev) {
+            var $this = $(this);
+            if ($this.val().trim() !== '') {
+                switch (ev.key) {
+                    case 'Tab':
+                    case 'Enter':
+                    case ' ':
+                        $('#tags').append('<li class="list-inline-item badge badge-primary" style="cursor: pointer;" data-value="' + $this.val().trim() + '">' + $this.val().trim() + ' | x</li>');
+                        $this.val('');
+                        updateTags();
+                        ev.preventDefault();
+                        break;
+                }
+            } else if (ev.key === 'Enter') {
+                // 誤爆防止
+                ev.preventDefault();
+            }
+        });
+        $('#tags')
+            .on('click', 'li', function (ev) {
+                $(this).remove();
+                updateTags();
+            })
+            .parent()
+            .on('click', function (ev) {
+                $('#tagInput').focus();
+            });
+    </script>
 @endpush
