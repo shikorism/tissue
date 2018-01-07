@@ -20,15 +20,14 @@
                     @endif
                 </div>
                 <!-- tags -->
-                @if ($ejaculation->is_private) {{-- TODO: タグを付けたら、タグが空じゃないかも判定に加える --}}
+                @if ($ejaculation->is_private || $ejaculation->tags->isNotEmpty())
                     <p class="mb-2">
                         @if ($ejaculation->is_private)
                             <span class="badge badge-warning"><span class="oi oi-lock-locked"></span> 非公開</span>
                         @endif
-                        {{--
-                        <span class="badge badge-secondary"><span class="oi oi-tag"></span> 催眠音声</span>
-                        <span class="badge badge-secondary"><span class="oi oi-tag"></span> 適当なタグ</span>
-                        --}}
+                        @foreach ($ejaculation->tags as $tag)
+                            <span class="badge badge-secondary"><span class="oi oi-tag"></span> {{ $tag->name }}</span>
+                        @endforeach
                     </p>
                 @endif
                 <!-- okazu link -->

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Tag;
 use App\User;
 use Carbon\Carbon;
 use Validator;
@@ -28,6 +29,7 @@ class EjaculationController extends Controller
             'time' => 'required|date_format:H:i',
             'note' => 'nullable|string|max:500',
             'link' => 'nullable|url',
+            'tags' => 'nullable|string',
         ])->after(function ($validator) use ($request, $inputs) {
             // 日時の重複チェック
             if (!$validator->errors()->hasAny(['date', 'time'])) {
@@ -45,6 +47,15 @@ class EjaculationController extends Controller
             'link' => $inputs['link'] ?? '',
             'is_private' => $request->has('is_private') ?? false
         ]);
+
+        $tags = explode(' ', $inputs['tags']);
+        $tagIds = [];
+        foreach ($tags as $tag) {
+            $tag = Tag::firstOrCreate(['name' => $tag]);
+            $tagIds[] = $tag->id;
+        }
+
+        $ejaculation->tags()->sync($tagIds);
 
         return redirect()->route('checkin.show', ['id' => $ejaculation->id])->with('status', 'チェックインしました！');
     }
@@ -115,6 +126,7 @@ class EjaculationController extends Controller
     {
         $ejaculation = Ejaculation::findOrFail($id);
         $user = User::findOrFail($ejaculation->user_id);
+        $ejaculation->tags()->detach();
         $ejaculation->delete();
         return redirect()->route('user.profile', ['name' => $user->name])->with('status', '削除しました。');
     }

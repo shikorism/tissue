@@ -36,7 +36,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-sm-12">
-                        <input name="tags" type="hidden">
+                        <input name="tags" type="hidden" value="{{ old('tags') }}">
                         <label for="tagInput"><span class="oi oi-tags"></span> タグ</label>
                         <div class="form-control {{ $errors->has('tags') ? ' is-invalid' : '' }}">
                             <ul id="tags" class="list-inline d-inline"></ul>
@@ -112,6 +112,16 @@
                     .join(' ')
             );
         }
+        function insertTag(value) {
+            $('#tags').append('<li class="list-inline-item badge badge-primary" style="cursor: pointer;" data-value="' + value + '"><span class="oi oi-tag"></span> ' + value + ' | x</li>');
+        }
+        var initTags = $('input[name=tags]').val();
+        if (initTags.trim() !== '') {
+            initTags.split(' ').forEach(function (value) {
+                insertTag(value);
+            });
+        }
+
         $('#tagInput').on('keydown', function (ev) {
             var $this = $(this);
             if ($this.val().trim() !== '') {
@@ -119,7 +129,7 @@
                     case 'Tab':
                     case 'Enter':
                     case ' ':
-                        $('#tags').append('<li class="list-inline-item badge badge-primary" style="cursor: pointer;" data-value="' + $this.val().trim() + '">' + $this.val().trim() + ' | x</li>');
+                        insertTag($this.val().trim());
                         $this.val('');
                         updateTags();
                         ev.preventDefault();
