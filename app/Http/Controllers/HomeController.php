@@ -31,7 +31,8 @@ class HomeController extends Controller
             ->select('id', 'category', 'pinned', 'title', 'created_at')
             ->orderByDesc('pinned')
             ->orderByDesc('created_at')
-            ->paginate(3);
+            ->take(3)
+            ->get();
         $categories = Information::CATEGORIES;
 
         if (Auth::check()) {
