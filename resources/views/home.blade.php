@@ -38,13 +38,14 @@
                                         <a href="{{ route('checkin.show', ['id' => $ejaculation->id]) }}" class="text-muted"><small>{{ $ejaculation->ejaculated_date->format('Y/m/d H:i') }}</small></a>
                                     </h5>
                                 </div>
-                                {{--
                                 <!-- tags -->
-                                <p class="mb-2">
-                                    <span class="badge badge-secondary"><span class="oi oi-tag"></span> 催眠音声</span>
-                                    <span class="badge badge-secondary"><span class="oi oi-tag"></span> 適当なタグ</span>
-                                </p>
-                                --}}
+                                @if ($ejaculation->tags->isNotEmpty())
+                                    <p class="mb-2">
+                                        @foreach ($ejaculation->tags as $tag)
+                                            <span class="badge badge-secondary"><span class="oi oi-tag"></span> {{ $tag->name }}</span>
+                                        @endforeach
+                                    </p>
+                                @endif
                                 <!-- okazu link -->
                                 @if (!empty($ejaculation->link))
                                     <div class="card link-card mb-2 w-50 d-none" style="font-size: small;">
