@@ -36,9 +36,13 @@ class HomeController extends Controller
 
         if (Auth::check()) {
             // お惣菜コーナー用のデータ取得
-            $publicLinkedEjaculations = Ejaculation::where('is_private', false)
-                ->where('link', '<>', '')
-                ->orderBy('ejaculated_date', 'desc')
+            $publicLinkedEjaculations = Ejaculation::join('users', 'users.id', '=', 'ejaculations.user_id')
+                ->where('users.is_protected', false)
+                ->where('ejaculations.is_private', false)
+                ->where('ejaculations.link', '<>', '')
+                ->orderBy('ejaculations.ejaculated_date', 'desc')
+                ->select('ejaculations.*')
+                ->with('user')
                 ->take(5)
                 ->get();
 
