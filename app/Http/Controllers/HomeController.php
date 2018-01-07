@@ -35,7 +35,14 @@ class HomeController extends Controller
         $categories = Information::CATEGORIES;
 
         if (Auth::check()) {
-            return view('home')->with(compact('informations', 'categories'));
+            // お惣菜コーナー用のデータ取得
+            $publicLinkedEjaculations = Ejaculation::where('is_private', false)
+                ->where('link', '<>', '')
+                ->orderBy('ejaculated_date', 'desc')
+                ->take(5)
+                ->get();
+
+            return view('home')->with(compact('informations', 'categories', 'publicLinkedEjaculations'));
         } else {
             return view('guest')->with(compact('informations', 'categories'));
         }

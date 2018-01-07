@@ -17,4 +17,9 @@ class Ejaculation extends Model
     protected $dates = [
         'ejaculated_date'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

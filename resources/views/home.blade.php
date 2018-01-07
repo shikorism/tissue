@@ -22,38 +22,98 @@
                     <a href="{{ route('info') }}" class="list-group-item text-right">お知らせ一覧 &raquo;</a>
                 </div>
             </div>
-            <div class="card mb-4">
-                <div class="card-header">ランキング</div>
-                <div class="card-body">
-                    <p class="card-text">参加しているランキングはありません。自信のあるお題を探して、参加登録してみませんか？</p>
-                    <p class="card-text">参加登録をすると、定期的に集計されてここにあなたの順位が表示されます。</p>
+            @if (!empty($publicLinkedEjaculations))
+                <div class="card mb-4">
+                    <div class="card-header">お惣菜コーナー</div>
+                    <div class="card-body">
+                        <p class="card-text">最近の公開チェックインから、オカズリンク付きのものを表示しています。</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        @foreach ($publicLinkedEjaculations as $ejaculation)
+                            <li class="list-group-item pt-3 pb-3">
+                                <!-- span -->
+                                <div class="d-flex justify-content-between">
+                                    <h5>
+                                        <a href="{{ route('user.profile', ['id' => $ejaculation->user_id]) }}" class="text-dark"><img src="{{ $ejaculation->user->getProfileImageUrl(30) }}" width="30" height="30" class="rounded d-inline-block align-bottom"> &commat;{{ $ejaculation->user->name }}</a>
+                                        <a href="{{ route('checkin.show', ['id' => $ejaculation->id]) }}" class="text-muted"><small>{{ $ejaculation->ejaculated_date->format('Y/m/d H:i') }}</small></a>
+                                    </h5>
+                                </div>
+                                {{--
+                                <!-- tags -->
+                                <p class="mb-2">
+                                    <span class="badge badge-secondary"><span class="oi oi-tag"></span> 催眠音声</span>
+                                    <span class="badge badge-secondary"><span class="oi oi-tag"></span> 適当なタグ</span>
+                                </p>
+                                --}}
+                                <!-- okazu link -->
+                                @if (!empty($ejaculation->link))
+                                    <div class="card link-card mb-2 w-50 d-none" style="font-size: small;">
+                                        <a class="text-dark card-link" href="{{ $ejaculation->link }}" target="_blank" rel="noopener">
+                                            <img src="" alt="Thumbnail" class="card-img-top bg-secondary">
+                                            <div class="card-body">
+                                                <h6 class="card-title font-weight-bold">タイトル</h6>
+                                                <p class="card-text">コンテンツの説明文</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <p class="mb-2">
+                                        <span class="oi oi-link-intact mr-1"></span><a href="{{ $ejaculation->link }}" target="_blank" rel="noopener">{{ $ejaculation->link }}</a>
+                                    </p>
+                                @endif
+                                <!-- note -->
+                                @if (!empty($ejaculation->note))
+                                    <p class="mb-0 tis-word-wrap">
+                                        {!! Formatter::linkify(nl2br(e($ejaculation->note))) !!}
+                                    </p>
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
-                <div class="list-group list-group-flush">
-                    <a href="#" class="list-group-item text-right">ランキング一覧 &raquo;</a>
-                </div>
-            </div>
-            <div class="card mb-4">
-                <div class="card-header">穴兄弟レーダー</div>
-                <div class="card-body">
-                    <p class="card-text">
-                        あなたがよく使うタグやオカズから、関連していそうなオカズリンクを探して表示しています。
-                    </p>
-                </div>
-                <div class="list-group list-group-flush">
-                    <a href="#" class="list-group-item list-group-item-action">
-                        <h5 class="mb-2 text-success">#タグ</h5>
-                        <p class="mb-1">薄い本のタイトル</p>
-                        <small>https://www.toranoana.jp/mailorder/article/**/****/**/**/**********.html</small>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action">
-                        <h5 class="mb-2 text-success">#タグ</h5>
-                        <p class="mb-1">イラストのタイトル</p>
-                        <small>https://www.pixiv.net/member_illust.php?mode=medium&illust_id=********</small>
-                    </a>
-                    <a href="#" class="list-group-item text-right">もっと見る &raquo;</a>
-                </div>
-            </div>
+            @endif
         </div>
     </div>
 </div>
 @endsection
+
+@push('script')
+    <script>
+        $('.link-card').each(function () {
+            var $this = $(this);
+            $.ajax({
+                url: '{{ url('/api/checkin/card') }}',
+                method: 'get',
+                type: 'json',
+                data: {
+                    url: $this.find('a').attr('href')
+                }
+            }).then(function (data) {
+                var $title = $this.find('.card-title');
+                var $desc = $this.find('.card-text');
+                var $image = $this.find('img');
+
+                if (data.title === '') {
+                    $title.hide();
+                } else {
+                    $title.text(data.title);
+                }
+
+                if (data.description === '') {
+                    $desc.hide();
+                } else {
+                    $desc.text(data.description);
+                }
+
+                if (data.image === '') {
+                    $image.hide();
+                } else {
+                    $image.attr('src', data.image);
+                }
+
+                if (data.title !== '' || data.description !== '' || data.image !== '') {
+                    $this.removeClass('d-none');
+                }
+            });
+        });
+    </script>
+@endpush
