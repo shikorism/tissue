@@ -43,7 +43,7 @@ class HomeController extends Controller
                 ->where('ejaculations.link', '<>', '')
                 ->orderBy('ejaculations.ejaculated_date', 'desc')
                 ->select('ejaculations.*')
-                ->with('user')
+                ->with('user', 'tags')
                 ->take(5)
                 ->get();
 

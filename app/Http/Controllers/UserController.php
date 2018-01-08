@@ -36,6 +36,7 @@ SQL
             $query = $query->where('is_private', false);
         }
         $ejaculations = $query->orderBy('ejaculated_date', 'desc')
+            ->with('tags')
             ->paginate(20);
 
         return view('user.profile')->with(compact('user', 'ejaculations'));
@@ -116,6 +117,7 @@ SQL
             $query = $query->where('is_private', false);
         }
         $ejaculations = $query->orderBy('ejaculated_date', 'desc')
+            ->with('tags')
             ->paginate(20);
 
         return view('user.profile')->with(compact('user', 'ejaculations'));
