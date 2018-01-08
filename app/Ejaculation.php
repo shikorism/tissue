@@ -10,7 +10,21 @@ class Ejaculation extends Model
 
     protected $fillable = [
         'user_id', 'ejaculated_date',
-        'note', 'geo_latitude', 'geo_longitude',
+        'note', 'geo_latitude', 'geo_longitude', 'link',
         'is_private'
     ];
+
+    protected $dates = [
+        'ejaculated_date'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag')->withTimestamps();
+    }
 }

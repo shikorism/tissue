@@ -7,8 +7,8 @@ a.k.a. shikorism.net
 (思想的には [shibafu528/SperMaster](https://github.com/shibafu528/SperMaster) の後継となります)
 
 ## 構成
-* Laravel 5.4
-* Materialize 0.99.0 (Materialでデザインする気が失せたので変更予定)
+* Laravel 5.5
+* Bootstrap 4.0
 
 ## 実行環境
 * PHP 7.1

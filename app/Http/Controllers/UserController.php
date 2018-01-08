@@ -22,9 +22,11 @@ class UserController extends Controller
 
         // チェックインの取得
         $query = Ejaculation::select(DB::raw(<<<'SQL'
-to_char(ejaculated_date, 'YYYY/MM/DD HH24:MI') AS ejaculated_date,
+id,
+ejaculated_date,
 note,
 is_private,
+link,
 to_char(lead(ejaculated_date, 1, NULL) OVER (ORDER BY ejaculated_date DESC), 'YYYY/MM/DD HH24:MI') AS before_date,
 to_char(ejaculated_date - (lead(ejaculated_date, 1, NULL) OVER (ORDER BY ejaculated_date DESC)), 'FMDDD日 FMHH24時間 FMMI分') AS ejaculated_span
 SQL
@@ -34,39 +36,90 @@ SQL
             $query = $query->where('is_private', false);
         }
         $ejaculations = $query->orderBy('ejaculated_date', 'desc')
+            ->with('tags')
             ->paginate(20);
 
-        // 現在のオナ禁セッションの経過時間
-        if (count($ejaculations) > 0) {
-            $currentSession = Carbon::parse($ejaculations[0]['ejaculated_date'])
-                ->diff(Carbon::now())
-                ->format('%d日 %h時間 %i分');
-        } else {
-            $currentSession = null;
+        return view('user.profile')->with(compact('user', 'ejaculations'));
+    }
+
+    public function stats($name)
+    {
+        $user = User::where('name', $name)->first();
+        if (empty($user)) {
+            abort(404);
         }
 
-        // 概況欄のデータ取得
-        $summary = DB::select(<<<'SQL'
-SELECT
-  avg(span) AS average,
-  max(span) AS longest,
-  min(span) AS shortest,
-  sum(span) AS total_times,
-  count(*) AS total_checkins
-FROM
-  (
-    SELECT
-      extract(epoch from ejaculated_date - lead(ejaculated_date, 1, NULL) OVER (ORDER BY ejaculated_date DESC)) AS span
-    FROM
-      ejaculations
-    WHERE
-      user_id = :user_id
-    ORDER BY
-      ejaculated_date DESC
-  ) AS temp
+        $groupByDay = Ejaculation::select(DB::raw(<<<'SQL'
+to_char(ejaculated_date, 'YYYY/MM/DD') AS "date",
+count(*) AS "count"
 SQL
-            , ['user_id' => $user->id]);
+        ))
+            ->where('user_id', $user->id)
+            ->groupBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"))
+            ->orderBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"))
+            ->get();
 
-        return view('user.profile')->with(compact('user', 'ejaculations', 'currentSession', 'summary'));
+        $dailySum = [];
+        $monthlySum = [];
+        $yearlySum = [];
+
+        // 年間グラフ用の配列初期化
+        if ($groupByDay->first() !== null) {
+            $year = Carbon::createFromFormat('Y/m/d', $groupByDay->first()->date)->year;
+            $currentYear = date('Y');
+            for (; $year <= $currentYear; $year++) {
+                $yearlySum[$year] = 0;
+            }
+        }
+
+        // 月間グラフ用の配列初期化
+        $month = Carbon::now()->subMonth(11)->firstOfMonth(); // 直近12ヶ月
+        for ($i = 0; $i < 12; $i++) {
+            $monthlySum[$month->format('Y/m')] = 0;
+            $month->addMonth();
+        }
+
+        foreach ($groupByDay as $data) {
+            $date = Carbon::createFromFormat('Y/m/d', $data->date);
+            $yearAndMonth = $date->format('Y/m');
+
+            $dailySum[$date->timestamp] = $data->count;
+            $yearlySum[$date->year] += $data->count;
+            if (isset($monthlySum[$yearAndMonth])) {
+                $monthlySum[$yearAndMonth] += $data->count;
+            }
+        }
+
+        return view('user.stats')->with(compact('user', 'dailySum', 'monthlySum', 'yearlySum'));
+    }
+
+    public function okazu($name)
+    {
+        $user = User::where('name', $name)->first();
+        if (empty($user)) {
+            abort(404);
+        }
+
+        // チェックインの取得
+        $query = Ejaculation::select(DB::raw(<<<'SQL'
+id,
+ejaculated_date,
+note,
+is_private,
+link,
+to_char(lead(ejaculated_date, 1, NULL) OVER (ORDER BY ejaculated_date DESC), 'YYYY/MM/DD HH24:MI') AS before_date,
+to_char(ejaculated_date - (lead(ejaculated_date, 1, NULL) OVER (ORDER BY ejaculated_date DESC)), 'FMDDD日 FMHH24時間 FMMI分') AS ejaculated_span
+SQL
+        ))
+            ->where('user_id', $user->id)
+            ->where('link', '<>', '');
+        if (!Auth::check() || $user->id !== Auth::id()) {
+            $query = $query->where('is_private', false);
+        }
+        $ejaculations = $query->orderBy('ejaculated_date', 'desc')
+            ->with('tags')
+            ->paginate(20);
+
+        return view('user.profile')->with(compact('user', 'ejaculations'));
     }
 }

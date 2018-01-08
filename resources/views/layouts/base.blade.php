@@ -3,78 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Tissue') }}</title>
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="{{ asset('css/materialize.min.css') }}" rel="stylesheet" media="screen,projection">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/open-iconic-bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/tissue.css') }}" rel="stylesheet">
 
-    @yield('head')
+    @stack('head')
 </head>
 <body>
-<nav class="grey lighten-1" role="navigation">
+<nav class="navbar navbar-expand-lg navbar-light bg-light {{ !Auth::check() && Route::currentRouteName() === 'home' ? '' : 'mb-4'}}">
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         {{ csrf_field() }}
     </form>
-    @if (Auth::check())
-        <ul id="accountMenu" class="dropdown-content">
-            <li><a href="{{ route('profile') }}">プロフィール</a></li>
-            <li class="divider"></li>
-            <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a></li>
-        </ul>
-    @endif
-    <div class="nav-wrapper container">
-        <a id="logo-container" href="{{ route('home') }}" class="brand-logo">{{ config('app.name', 'Tissue') }}</a>
-        @if (Auth::guest())
-            <ul class="right hide-on-med-and-down">
-                <li><a href="{{ route('login') }}">ログイン</a></li>
-            </ul>
 
-            <ul id="nav-mobile" class="side-nav">
-                <li><a href="{{ route('login') }}">ログイン</a></li>
-            </ul>
-        @else
-            <ul class="right">
-                <li><a class="waves-effect waves-light btn" href="{{ route('checkin') }}"><i class="material-icons left hide-on-med-and-down">create</i> チェックイン</a></li>
-            </ul>
-            <ul class="right hide-on-med-and-down">
-                <li><a class="dropdown-button" data-activates="accountMenu" href="#">{{ Auth::user()->display_name }} さん<i class="material-icons right">arrow_drop_down</i></a></li>
-            </ul>
-
-            <ul id="nav-mobile" class="side-nav">
-                <li><a href="#">{{ Auth::user()->display_name }} さん</a></li>
-                <li><a href="{{ route('profile') }}">プロフィール</a></li>
-                <li class="divider"></li>
-                <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a></li>
-            </ul>
-        @endif
-        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    <div class="container">
+        <a href="{{ route('home') }}" class="navbar-brand">{{ config('app.name', 'Tissue') }}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            @auth
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item {{ stripos(Route::currentRouteName(), 'home') === 0 ? 'active' : ''}}">
+                        <a class="nav-link" href="{{ route('home') }}">ホーム</a>
+                    </li>
+                    <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.profile') === 0 ? 'active' : ''}}">
+                        <a class="nav-link" href="{{ route('user.profile', ['name' => Auth::user()->name]) }}">タイムライン</a>
+                    </li>
+                    <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.stats') === 0 ? 'active' : ''}}">
+                        <a class="nav-link" href="{{ route('user.stats', ['name' => Auth::user()->name]) }}">グラフ</a>
+                    </li>
+                    <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.okazu') === 0 ? 'active' : ''}}">
+                        <a class="nav-link" href="{{ route('user.okazu', ['name' => Auth::user()->name]) }}">オカズ</a>
+                    </li>
+                    {{--<li class="nav-item">
+                        <a class="nav-link" href="{{ route('ranking') }}">ランキング</a>
+                    </li>--}}
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="{{ Auth::user()->getProfileImageUrl(30) }}" width="30" height="30" class="rounded d-inline-block align-top mr-2">
+                            {{ Auth::user()->display_name }} さん
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            {{--<a href="#" class="dropdown-item">設定</a>--}}
+                            <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
+                        </div>
+                    </li>
+                </ul>
+                <form class="form-inline">
+                    <a href="{{ route('checkin') }}" class="btn btn-outline-success">チェックイン</a>
+                </form>
+            @endauth
+            @guest
+                <form class="form-inline ml-auto">
+                    <a href="{{ route('login') }}" class="btn btn-outline-secondary">ログイン</a>
+                </form>
+            @endguest
+        </div>
     </div>
 </nav>
+@if (session('status'))
+<div class="container">
+    <div id="status" class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('status') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+@endif
 @yield('content')
-<footer class="page-footer grey">
-    <!--<div class="container"></div>-->
-    <div class="footer-copyright">
-        <div class="container">
-            Copyright (c) 2017 shikorism.net
-        </div>
+<footer class="tis-footer mt-4">
+    <div class="container p-3 p-md-4">
+        <p>Copyright (c) 2017 shikorism.net</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="https://github.com/shibafu528" class="text-dark">Admin(@shibafu528)</a></li>
+            <li class="list-inline-item"><a href="https://github.com/shikorism/tissue" class="text-dark">GitHub</a></li>
+        </ul>
     </div>
 </footer>
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
 <script>
     $(function(){
-        $('.button-collapse').sideNav();
-        $('.dropdown-button').dropdown();
-        $('ul.tabs').tabs();
+        $('[data-toggle="tooltip"]').tooltip();
+        $('.alert').alert();
         @if (session('status'))
-            Materialize.toast('{{ session("status") }}', 5000);
+        setTimeout(function () {
+            $('#status').alert('close');
+        }, 5000);
         @endif
     });
 </script>
-@yield('script')
+@stack('script')
 </body>
 </html>

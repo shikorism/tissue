@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+.tis-footer {
+    color: #a2a2a2;
+    font-size: small;
+    border-top: 1px solid #eee;
+    background: linear-gradient(to bottom, #f8f9fa, #fff)
+}
+
+.tis-word-wrap {
+    word-wrap: break-word;
+}
+
+.tis-contribution-graph {
+    overflow-x: auto;
+}
+
+.list-group-item.border-bottom-only {
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+}
+
+.list-group-item.border-bottom-only:first-child {
+    border-top: none;
+}
+
+.timeline-action-item {
+    margin-left: 16px;
+}
