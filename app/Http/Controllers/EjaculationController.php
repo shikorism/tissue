@@ -48,11 +48,13 @@ class EjaculationController extends Controller
             'is_private' => $request->has('is_private') ?? false
         ]);
 
-        $tags = explode(' ', $inputs['tags']);
         $tagIds = [];
-        foreach ($tags as $tag) {
-            $tag = Tag::firstOrCreate(['name' => $tag]);
-            $tagIds[] = $tag->id;
+        if (!empty($inputs['tags'])) {
+            $tags = explode(' ', $inputs['tags']);
+            foreach ($tags as $tag) {
+                $tag = Tag::firstOrCreate(['name' => $tag]);
+                $tagIds[] = $tag->id;
+            }
         }
         $ejaculation->tags()->sync($tagIds);
 
@@ -119,11 +121,13 @@ class EjaculationController extends Controller
             'is_private' => $request->has('is_private') ?? false
         ])->save();
 
-        $tags = explode(' ', $inputs['tags']);
         $tagIds = [];
-        foreach ($tags as $tag) {
-            $tag = Tag::firstOrCreate(['name' => $tag]);
-            $tagIds[] = $tag->id;
+        if (!empty($inputs['tags'])) {
+            $tags = explode(' ', $inputs['tags']);
+            foreach ($tags as $tag) {
+                $tag = Tag::firstOrCreate(['name' => $tag]);
+                $tagIds[] = $tag->id;
+            }
         }
         $ejaculation->tags()->sync($tagIds);
 
