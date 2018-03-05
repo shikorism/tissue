@@ -12,9 +12,18 @@ use Illuminate\Support\Facades\Auth;
 
 class EjaculationController extends Controller
 {
-    public function create()
+    public function create(Request $request)
     {
-        return view('ejaculation.checkin');
+        $defaults = [
+            'date' => $request->input('date', date('Y/m/d')),
+            'time' => $request->input('time', date('H:i')),
+            'link' => $request->input('link', ''),
+            'tags' => $request->input('tags', ''),
+            'note' => $request->input('note', ''),
+            'is_private' => $request->input('is_private', 0) == 1
+        ];
+
+        return view('ejaculation.checkin')->with('defaults', $defaults);
     }
 
     public function store(Request $request)
