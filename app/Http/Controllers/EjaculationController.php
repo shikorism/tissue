@@ -12,9 +12,18 @@ use Illuminate\Support\Facades\Auth;
 
 class EjaculationController extends Controller
 {
-    public function create()
+    public function create(Request $request)
     {
-        return view('ejaculation.checkin');
+        $defaults = [
+            'date' => $request->input('date', date('Y/m/d')),
+            'time' => $request->input('time', date('H:i')),
+            'link' => $request->input('link', ''),
+            'tags' => $request->input('tags', ''),
+            'note' => $request->input('note', ''),
+            'is_private' => $request->input('is_private', 0) == 1
+        ];
+
+        return view('ejaculation.checkin')->with('defaults', $defaults);
     }
 
     public function store(Request $request)
@@ -24,7 +33,7 @@ class EjaculationController extends Controller
             $inputs['note'] = str_replace(["\r\n", "\r"], "\n", $inputs['note']);
         }
 
-        Validator::make($inputs, [
+        $validator = Validator::make($inputs, [
             'date' => 'required|date_format:Y/m/d',
             'time' => 'required|date_format:H:i',
             'note' => 'nullable|string|max:500',
@@ -38,7 +47,11 @@ class EjaculationController extends Controller
                     $validator->errors()->add('datetime', '既にこの日時にチェックインしているため、登録できません。');
                 }
             }
-        })->validate();
+        });
+
+        if ($validator->fails()) {
+            return redirect()->route('checkin')->withErrors($validator)->withInput();
+        }
 
         $ejaculation = Ejaculation::create([
             'user_id' => Auth::id(),
@@ -98,7 +111,7 @@ class EjaculationController extends Controller
             $inputs['note'] = str_replace(["\r\n", "\r"], "\n", $inputs['note']);
         }
 
-        Validator::make($inputs, [
+        $validator = Validator::make($inputs, [
             'date' => 'required|date_format:Y/m/d',
             'time' => 'required|date_format:H:i',
             'note' => 'nullable|string|max:500',
@@ -112,7 +125,11 @@ class EjaculationController extends Controller
                     $validator->errors()->add('datetime', '既にこの日時にチェックインしているため、登録できません。');
                 }
             }
-        })->validate();
+        });
+
+        if ($validator->fails()) {
+            return redirect()->route('checkin')->withErrors($validator)->withInput();
+        }
 
         $ejaculation->fill([
             'ejaculated_date' => Carbon::createFromFormat('Y/m/d H:i', $inputs['date'] . ' ' . $inputs['time']),

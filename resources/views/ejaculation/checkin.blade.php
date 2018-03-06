@@ -13,7 +13,7 @@
                     <div class="form-group col-sm-6">
                         <label for="date"><span class="oi oi-calendar"></span> 日付</label>
                         <input id="date" name="date" type="text" class="form-control {{ $errors->has('date') || $errors->has('datetime') ? ' is-invalid' : '' }}"
-                               pattern="^20[0-9]{2}/(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])$" value="{{ old('date') ?? date('Y/m/d') }}" required>
+                               pattern="^20[0-9]{2}/(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])$" value="{{ old('date') ?? $defaults['date'] }}" required>
 
                         @if ($errors->has('date'))
                             <div class="invalid-feedback">{{ $errors->first('date') }}</div>
@@ -22,7 +22,7 @@
                     <div class="form-group col-sm-6">
                         <label for="time"><span class="oi oi-clock"></span> 時刻</label>
                         <input id="time" name="time" type="text" class="form-control {{ $errors->has('time') || $errors->has('datetime') ? ' is-invalid' : '' }}"
-                               pattern="^([01][0-9]|2[0-3]):[0-5][0-9]$" value="{{ old('time') ?? date('H:i') }}" required>
+                               pattern="^([01][0-9]|2[0-3]):[0-5][0-9]$" value="{{ old('time') ?? $defaults['time'] }}" required>
 
                         @if ($errors->has('time'))
                             <div class="invalid-feedback">{{ $errors->first('time') }}</div>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-sm-12">
-                        <input name="tags" type="hidden" value="{{ old('tags') }}">
+                        <input name="tags" type="hidden" value="{{ old('tags') ?? $defaults['tags'] }}">
                         <label for="tagInput"><span class="oi oi-tags"></span> タグ</label>
                         <div class="form-control {{ $errors->has('tags') ? ' is-invalid' : '' }}">
                             <ul id="tags" class="list-inline d-inline"></ul>
@@ -54,7 +54,7 @@
                 <div class="form-row">
                     <div class="form-group col-sm-12">
                         <label for="link"><span class="oi oi-link-intact"></span> オカズリンク</label>
-                        <input id="link" name="link" type="text" class="form-control {{ $errors->has('link') ? ' is-invalid' : '' }}" placeholder="http://..." value="{{ old('link') }}">
+                        <input id="link" name="link" type="text" class="form-control {{ $errors->has('link') ? ' is-invalid' : '' }}" placeholder="http://..." value="{{ old('link') ?? $defaults['link'] }}">
                         <small class="form-text text-muted">
                             オカズのURLを貼り付けて登録することができます。
                         </small>
@@ -66,7 +66,7 @@
                 <div class="form-row">
                     <div class="form-group col-sm-12">
                         <label for="note"><span class="oi oi-comment-square"></span> ノート</label>
-                        <textarea id="note" name="note" class="form-control {{ $errors->has('note') ? ' is-invalid' : '' }}" rows="4">{{ old('note') }}</textarea>
+                        <textarea id="note" name="note" class="form-control {{ $errors->has('note') ? ' is-invalid' : '' }}" rows="4">{{ old('note') ?? $defaults['note'] }}</textarea>
                         <small class="form-text text-muted">
                             最大 500 文字
                         </small>
@@ -80,7 +80,7 @@
                     <div class="form-group col-sm-12">
                         <div class="form-check">
                             <label class="custom-control custom-checkbox">
-                                <input name="is_private" type="checkbox" class="custom-control-input" {{ old('is_private') ? 'checked' : '' }}>
+                                <input name="is_private" type="checkbox" class="custom-control-input" {{ old('is_private') || $defaults['is_private'] ? 'checked' : '' }}>
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">
                                 <span class="oi oi-lock-locked"></span> このチェックインを非公開にする
