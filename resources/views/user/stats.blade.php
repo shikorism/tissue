@@ -32,6 +32,7 @@
         domain: 'month',
         subDomain: 'day',
         domainLabelFormat: '%Y/%m',
+        weekStartOnMonday: false,
         start: new Date({{ \Carbon\Carbon::now()->addMonths(-9)->timestamp * 1000 }}),
         range: 10,
         data: @json($dailySum),
