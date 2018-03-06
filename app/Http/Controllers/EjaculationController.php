@@ -33,7 +33,7 @@ class EjaculationController extends Controller
             $inputs['note'] = str_replace(["\r\n", "\r"], "\n", $inputs['note']);
         }
 
-        Validator::make($inputs, [
+        $validator = Validator::make($inputs, [
             'date' => 'required|date_format:Y/m/d',
             'time' => 'required|date_format:H:i',
             'note' => 'nullable|string|max:500',
@@ -47,7 +47,11 @@ class EjaculationController extends Controller
                     $validator->errors()->add('datetime', '既にこの日時にチェックインしているため、登録できません。');
                 }
             }
-        })->validate();
+        });
+
+        if ($validator->fails()) {
+            return redirect()->route('checkin')->withErrors($validator)->withInput();
+        }
 
         $ejaculation = Ejaculation::create([
             'user_id' => Auth::id(),
@@ -107,7 +111,7 @@ class EjaculationController extends Controller
             $inputs['note'] = str_replace(["\r\n", "\r"], "\n", $inputs['note']);
         }
 
-        Validator::make($inputs, [
+        $validator = Validator::make($inputs, [
             'date' => 'required|date_format:Y/m/d',
             'time' => 'required|date_format:H:i',
             'note' => 'nullable|string|max:500',
@@ -121,7 +125,11 @@ class EjaculationController extends Controller
                     $validator->errors()->add('datetime', '既にこの日時にチェックインしているため、登録できません。');
                 }
             }
-        })->validate();
+        });
+
+        if ($validator->fails()) {
+            return redirect()->route('checkin')->withErrors($validator)->withInput();
+        }
 
         $ejaculation->fill([
             'ejaculated_date' => Carbon::createFromFormat('Y/m/d H:i', $inputs['date'] . ' ' . $inputs['time']),
