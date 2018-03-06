@@ -61,7 +61,12 @@
                 </form>
             @endauth
             @guest
-                <form class="form-inline ml-auto">
+                <ul class="navbar-nav ml-auto mr-2">
+                    <li class="nav-item">
+                        <a href="{{ route('register') }}" class="nav-link">会員登録</a>
+                    </li>
+                </ul>
+                <form class="form-inline">
                     <a href="{{ route('login') }}" class="btn btn-outline-secondary">ログイン</a>
                 </form>
             @endguest
