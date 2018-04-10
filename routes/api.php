@@ -71,7 +71,8 @@ Route::get('/checkin/card', function (Request $request) {
             // ニジエ用の処理
             $dataNode = $xpath->query('//script[substring(@type, string-length(@type) - 3, 4) = "json"]');
             foreach ($dataNode as $node) {
-                $imageData = json_decode($node->nodeValue, true);
+                // 改行がそのまま入っていることがあるのでデコード前にエスケープが必要
+                $imageData = json_decode(preg_replace('/\r?\n/', '\n', $node->nodeValue), true);
                 if (isset($imageData['thumbnailUrl'])) {
                     $result['image'] = preg_replace('~nijie\\.info/.*/nijie_picture/~', 'nijie.info/nijie_picture/', $imageData['thumbnailUrl']);
                     break;
