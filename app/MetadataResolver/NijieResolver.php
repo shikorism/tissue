@@ -23,7 +23,7 @@ class NijieResolver implements Resolver
             foreach ($dataNode as $node) {
                 // 改行がそのまま入っていることがあるのでデコード前にエスケープが必要
                 $imageData = json_decode(preg_replace('/\r?\n/', '\n', $node->nodeValue), true);
-                if (isset($imageData['thumbnailUrl'])) {
+                if (isset($imageData['thumbnailUrl']) && !ends_with($imageData['thumbnailUrl'], '.gif') && !ends_with($imageData['thumbnailUrl'], '.mp4')) {
                     $metadata->image = preg_replace('~nijie\\.info/.*/nijie_picture/~', 'nijie.info/nijie_picture/', $imageData['thumbnailUrl']);
                     break;
                 }

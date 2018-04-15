@@ -39,8 +39,7 @@ class NijieResolverTest extends TestCase
         $metadata = $resolver->resolve('https://nijie.info/view.php?id=258078');
         $this->assertEquals('騎乗位ルーミア | しょったれ', $metadata->title);
         $this->assertEquals("以前pixivに投稿したgifアニメ。\r\n気の利いたタイトルが浮かばなかった。", $metadata->description);
-        $this->assertRegExp('/pic\d+\.nijie\.info/', $metadata->image);
-        $this->assertNotRegExp('~/diff/main/~', $metadata->image);
+        $this->assertRegExp('~/nijie\.info/pic/logo~', $metadata->image);
     }
 
     public function testMp4Movie()
@@ -51,8 +50,7 @@ class NijieResolverTest extends TestCase
         $metadata = $resolver->resolve('https://nijie.info/view.php?id=256283');
         $this->assertEquals('てすと | ニジエ運営', $metadata->title);
         $this->assertEquals("H264動画てすと　あとで消します\r\n\r\n今の所、H264コーデックのみ、出力時に音声なしにしないと投稿できません\r\n動画は勝手にループします", $metadata->description);
-        $this->assertRegExp('/pic\d+\.nijie\.info/', $metadata->image);
-        $this->assertNotRegExp('~/diff/main/~', $metadata->image);
+        $this->assertRegExp('~/nijie\.info/pic/logo~', $metadata->image);
     }
 
     public function testStandardPictureSp()
@@ -87,8 +85,7 @@ class NijieResolverTest extends TestCase
         $metadata = $resolver->resolve('https://sp.nijie.info/view.php?id=258078');
         $this->assertEquals('騎乗位ルーミア | しょったれ', $metadata->title);
         $this->assertEquals("以前pixivに投稿したgifアニメ。\r\n気の利いたタイトルが浮かばなかった。", $metadata->description);
-        $this->assertRegExp('/pic\d+\.nijie\.info/', $metadata->image);
-        $this->assertNotRegExp('~/diff/main/~', $metadata->image);
+        $this->assertRegExp('~/nijie\.info/pic/logo~', $metadata->image);
     }
 
     public function testMp4MovieSp()
@@ -99,7 +96,6 @@ class NijieResolverTest extends TestCase
         $metadata = $resolver->resolve('https://sp.nijie.info/view.php?id=256283');
         $this->assertEquals('てすと | ニジエ運営', $metadata->title);
         $this->assertEquals("H264動画てすと　あとで消します\r\n\r\n今の所、H264コーデックのみ、出力時に音声なしにしないと投稿できません\r\n動画は勝手にループします", $metadata->description);
-        $this->assertRegExp('/pic\d+\.nijie\.info/', $metadata->image);
-        $this->assertNotRegExp('~/diff/main/~', $metadata->image);
+        $this->assertRegExp('~/nijie\.info/pic/logo~', $metadata->image);
     }
 }
