@@ -6,6 +6,10 @@ class NijieResolver implements Resolver
 {
     public function resolve(string $url): Metadata
     {
+        if (mb_strpos($url, '//sp.nijie.info') !== false) {
+            $url = preg_replace('~//sp\.nijie\.info~', '//nijie.info', $url);
+        }
+
         $client = new \GuzzleHttp\Client();
         $res = $client->get($url);
         if ($res->getStatusCode() === 200) {
