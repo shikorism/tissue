@@ -27,4 +27,9 @@ class Ejaculation extends Model
     {
         return $this->belongsToMany('App\Tag')->withTimestamps();
     }
+
+    public function textTags()
+    {
+        return implode(' ', $this->tags->map(function ($v) { return $v->name; })->all());
+    }
 }

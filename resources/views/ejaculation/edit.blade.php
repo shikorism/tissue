@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-sm-12">
-                        <input name="tags" type="hidden" value="{{ old('tags') ?? implode(' ', $ejaculation->tags->map(function ($v) { return $v->name; })->all()) }}">
+                        <input name="tags" type="hidden" value="{{ old('tags') ?? $ejaculation->textTags() }}">
                         <label for="tagInput"><span class="oi oi-tags"></span> タグ</label>
                         <div class="form-control {{ $errors->has('tags') ? ' is-invalid' : '' }}">
                             <ul id="tags" class="list-inline d-inline"></ul>
