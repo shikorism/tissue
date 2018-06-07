@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\LinkDiscovered;
 use App\Tag;
 use App\User;
 use Carbon\Carbon;
@@ -70,6 +71,10 @@ class EjaculationController extends Controller
             }
         }
         $ejaculation->tags()->sync($tagIds);
+
+        if (!empty($ejaculation->link)) {
+            event(new LinkDiscovered($ejaculation->link));
+        }
 
         return redirect()->route('checkin.show', ['id' => $ejaculation->id])->with('status', 'チェックインしました！');
     }
@@ -147,6 +152,10 @@ class EjaculationController extends Controller
             }
         }
         $ejaculation->tags()->sync($tagIds);
+
+        if (!empty($ejaculation->link)) {
+            event(new LinkDiscovered($ejaculation->link));
+        }
 
         return redirect()->route('checkin.show', ['id' => $ejaculation->id])->with('status', 'チェックインを修正しました！');
     }

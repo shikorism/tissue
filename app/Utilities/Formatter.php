@@ -36,4 +36,29 @@ class Formatter
     {
         return $this->linkify->processUrls($text);
     }
+
+    /**
+     * URLを正規化します。
+     * @param string $url URL
+     * @return string 正規化されたURL
+     */
+    public function normalizeUrl($url)
+    {
+        // Decode
+        $url = urldecode($url);
+
+        // Remove Hashbang
+        $url = preg_replace('~/#!/~u', '/', $url);
+
+        // Sort query parameters
+        $query = parse_url($url, PHP_URL_QUERY);
+        if (!empty($query)) {
+            $url = str_replace_last('?' . $query, '', $url);
+            parse_str($query, $params);
+            ksort($params);
+            $url = $url . '?' . http_build_query($params);
+        }
+
+        return $url;
+    }
 }

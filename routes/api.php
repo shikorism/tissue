@@ -1,6 +1,7 @@
 <?php
 
 use App\MetadataResolver\MetadataResolver;
+use App\Utilities\Formatter;
 use Illuminate\Http\Request;
 
 /*
@@ -18,13 +19,23 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/checkin/card', function (Request $request, MetadataResolver $resolver) {
+Route::get('/checkin/card', function (Request $request, MetadataResolver $resolver, Formatter $formatter) {
     $request->validate([
         'url:required|url'
     ]);
-    $url = $request->input('url');
+    $url = $formatter->normalizeUrl($request->input('url'));
 
-    $metadata = $resolver->resolve($url);
+    $metadata = App\Metadata::find($url);
+    if ($metadata == null) {
+        $resolved = $resolver->resolve($url);
+        $metadata = App\Metadata::create([
+            'url' => $url,
+            'title' => $resolved->title,
+            'description' => $resolved->description,
+            'image' => $resolved->image
+        ]);
+    }
+
     $response = response()->json($metadata);
     if (!config('app.debug')) {
         $response = $response->setCache(['public' => true, 'max_age' => 86400]);
