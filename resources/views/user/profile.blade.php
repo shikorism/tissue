@@ -1,5 +1,29 @@
 @extends('user.base')
 
+@section('sidebar')
+    {{-- TODO: タイムラインとオカズのテンプレを分けたら条件外す --}}
+    @if (Route::currentRouteName() === 'user.profile')
+    @if (!empty($tags) && (!$user->is_protected || $user->isMe()))
+        <div class="card mb-4">
+            <div class="card-header">
+                よく使っているタグ
+            </div>
+            <div class="list-group list-group-flush">
+                @foreach ($tags as $tag)
+                    <a class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="oi oi-tag text-secondary"></span>
+                            {{ $tag->name }}
+                        </div>
+                        <span class="badge badge-secondary badge-pill">{{ $tag->count }}</span>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    @endif
+    @endif
+@endsection
+
 @section('tab-content')
 @if ($user->is_protected && !$user->isMe())
     <p class="mt-4">
