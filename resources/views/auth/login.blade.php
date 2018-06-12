@@ -27,7 +27,7 @@
                 </div>
                 <div class="form-check">
                     <label class="custom-control custom-checkbox">
-                        <input id="remember" name="rememver" class="custom-control-input" type="checkbox" {{ old('remember') ? 'checked' : '' }}>
+                        <input id="remember" name="remember" class="custom-control-input" type="checkbox" {{ old('remember') ? 'checked' : '' }}>
                         <span class="custom-control-indicator"></span>
                         <span class="custom-control-description">保存する</span>
                     </label>
