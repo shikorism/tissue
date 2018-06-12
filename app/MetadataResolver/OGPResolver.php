@@ -23,30 +23,24 @@ class OGPResolver implements Resolver
 
         $metadata = new Metadata();
 
-        $titleNode = $xpath->query('//meta[@*="og:title"]');
-        foreach ($titleNode as $node) {
-            if (!empty($node->getAttribute('content'))) {
-                $metadata->title = $node->getAttribute('content');
-                break;
-            }
-        }
-
-        $descriptionNode = $xpath->query('//meta[@*="og:description"]');
-        foreach ($descriptionNode as $node) {
-            if (!empty($node->getAttribute('content'))) {
-                $metadata->description = $node->getAttribute('content');
-                break;
-            }
-        }
-
-        $imageNode = $xpath->query('//meta[@*="og:image"]');
-        foreach ($imageNode as $node) {
-            if (!empty($node->getAttribute('content'))) {
-                $metadata->image = $node->getAttribute('content');
-                break;
-            }
-        }
+        $metadata->title = $this->findContent($xpath, '//meta[@*="og:title"]', '//meta[@*="twitter:title"]');
+        $metadata->description = $this->findContent($xpath, '//meta[@*="og:description"]', '//meta[@*="twitter:description"]');
+        $metadata->image = $this->findContent($xpath, '//meta[@*="og:image"]', '//meta[@*="twitter:image"]');
 
         return $metadata;
+    }
+
+    private function findContent(\DOMXPath $xpath, string ...$expressions)
+    {
+        foreach ($expressions as $expression) {
+            $nodes = $xpath->query($expression);
+            foreach ($nodes as $node) {
+                $content = $node->getAttribute('content');
+                if (!empty($content)) {
+                    return $content;
+                }
+            }
+        }
+        return '';
     }
 }
