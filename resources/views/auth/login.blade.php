@@ -25,12 +25,9 @@
                         <div class="invalid-feedback">{{ $errors->first('password') }}</div>
                     @endif
                 </div>
-                <div class="form-check">
-                    <label class="custom-control custom-checkbox">
-                        <input id="remember" name="remember" class="custom-control-input" type="checkbox" {{ old('remember') ? 'checked' : '' }}>
-                        <span class="custom-control-indicator"></span>
-                        <span class="custom-control-description">保存する</span>
-                    </label>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input id="remember" name="remember" class="custom-control-input" type="checkbox" {{ old('remember') ? 'checked' : '' }}>
+                    <label class="custom-control-label" for="remember">保存する</label>
                 </div>
 
                 <button class="btn btn-primary" type="submit">ログイン</button>
