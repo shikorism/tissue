@@ -78,13 +78,10 @@
                 <div class="form-row mt-4">
                     <p>オプション</p>
                     <div class="form-group col-sm-12">
-                        <div class="form-check">
-                            <label class="custom-control custom-checkbox">
-                                <input name="is_private" type="checkbox" class="custom-control-input" {{ old('is_private') || $defaults['is_private'] ? 'checked' : '' }}>
-                                <span class="custom-control-indicator"></span>
-                                <span class="custom-control-description">
-                                <span class="oi oi-lock-locked"></span> このチェックインを非公開にする
-                            </span>
+                        <div class="custom-control custom-checkbox mb-3">
+                            <input id="isPrivate" name="is_private" type="checkbox" class="custom-control-input" {{ old('is_private') || $defaults['is_private'] ? 'checked' : '' }}>
+                            <label class="custom-control-label" for="isPrivate">
+                            <span class="oi oi-lock-locked"></span> このチェックインを非公開にする
                             </label>
                         </div>
                     </div>

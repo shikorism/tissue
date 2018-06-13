@@ -6,6 +6,8 @@
             <div class="col-lg-4">
                 @component('components.profile', ['user' => $user])
                 @endcomponent
+                @section('sidebar')
+                @show
             </div>
             <div class="col-lg-8">
                 <ul class="nav nav-tabs">

@@ -52,17 +52,6 @@
                         @endif
                     </div>
                 </div>
-                {{--
-                <div class="form-row">
-                    <div class="form-group col-sm-12">
-                        <label for="tags"><span class="oi oi-tags"></span> タグ</label>
-                        <input id="tags" type="text" class="form-control" placeholder="未実装です" disabled>
-                        <small class="form-text text-muted">
-                            スペース区切りで複数入力できます。
-                        </small>
-                    </div>
-                </div>
-                --}}
                 <div class="form-row">
                     <div class="form-group col-sm-12">
                         <label for="link"><span class="oi oi-link-intact"></span> オカズリンク</label>
@@ -90,13 +79,10 @@
                 <div class="form-row mt-4">
                     <p>オプション</p>
                     <div class="form-group col-sm-12">
-                        <div class="form-check">
-                            <label class="custom-control custom-checkbox">
-                                <input name="is_private" type="checkbox" class="custom-control-input" {{ (is_bool(old('is_private')) ? old('is_private') : $ejaculation->is_private) ? 'checked' : '' }}>
-                                <span class="custom-control-indicator"></span>
-                                <span class="custom-control-description">
-                                <span class="oi oi-lock-locked"></span> このチェックインを非公開にする
-                            </span>
+                        <div class="custom-control custom-checkbox mb-3">
+                            <input id="isPrivate" name="is_private" type="checkbox" class="custom-control-input" {{ (is_bool(old('is_private')) ? old('is_private') : $ejaculation->is_private) ? 'checked' : '' }}>
+                            <label class="custom-control-label" for="isPrivate">
+                            <span class="oi oi-lock-locked"></span> このチェックインを非公開にする
                             </label>
                         </div>
                     </div>

@@ -39,7 +39,21 @@ SQL
             ->with('tags')
             ->paginate(20);
 
-        return view('user.profile')->with(compact('user', 'ejaculations'));
+        // よく使っているタグ
+        $tagsQuery = DB::table('ejaculations')
+            ->join('ejaculation_tag', 'ejaculations.id', '=', 'ejaculation_tag.ejaculation_id')
+            ->join('tags', 'ejaculation_tag.tag_id', '=', 'tags.id')
+            ->selectRaw('tags.name, count(*) as count')
+            ->where('ejaculations.user_id', $user->id);
+        if (!Auth::check() || $user->id !== Auth::id()) {
+            $tagsQuery = $tagsQuery->where('ejaculations.is_private', false);
+        }
+        $tags = $tagsQuery->groupBy('tags.name')
+            ->orderBy('count', 'desc')
+            ->limit(10)
+            ->get();
+
+        return view('user.profile')->with(compact('user', 'ejaculations', 'tags'));
     }
 
     public function stats($name)
