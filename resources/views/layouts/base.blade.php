@@ -44,21 +44,30 @@
                         <a class="nav-link" href="{{ route('ranking') }}">ランキング</a>
                     </li>--}}
                 </ul>
+                <form action="{{ stripos(Route::currentRouteName(), 'search') === 0 ? route(Route::currentRouteName()) : route('search') }}" class="form-inline mr-2">
+                    <div class="input-group">
+                        <input type="search" name="q" class="form-control" placeholder="検索..." value="{{ stripos(Route::currentRouteName(), 'search') === 0 ? $inputs['q'] : '' }}">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit"><span class="oi oi-magnifying-glass" aria-hidden="true"></span><span class="sr-only">検索</span></button>
+                        </div>
+                    </div>
+                </form>
+                <form class="form-inline mr-2">
+                    <a href="{{ route('checkin') }}" class="btn btn-outline-success">チェックイン</a>
+                </form>
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="{{ Auth::user()->getProfileImageUrl(30) }}" width="30" height="30" class="rounded d-inline-block align-top mr-2">
-                            {{ Auth::user()->display_name }} さん
+                            <img src="{{ Auth::user()->getProfileImageUrl(30) }}" width="30" height="30" class="rounded d-inline-block align-top">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <h6 class="dropdown-header">{{ Auth::user()->display_name }} さん</h6>
+                            <div class="dropdown-divider"></div>
                             {{--<a href="#" class="dropdown-item">設定</a>--}}
                             <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
                         </div>
                     </li>
                 </ul>
-                <form class="form-inline">
-                    <a href="{{ route('checkin') }}" class="btn btn-outline-success">チェックイン</a>
-                </form>
             @endauth
             @guest
                 <ul class="navbar-nav ml-auto mr-2">
