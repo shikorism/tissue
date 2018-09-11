@@ -10,7 +10,7 @@
             </div>
             <div class="list-group list-group-flush">
                 @foreach ($tags as $tag)
-                    <a class="list-group-item d-flex justify-content-between align-items-center">
+                    <a class="list-group-item d-flex justify-content-between align-items-center text-dark" href="{{ route('search', ['q' => $tag->name]) }}">
                         <div>
                             <span class="oi oi-tag text-secondary"></span>
                             {{ $tag->name }}
