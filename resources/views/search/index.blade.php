@@ -28,7 +28,7 @@
                             <span class="badge badge-warning"><span class="oi oi-lock-locked"></span> 非公開</span>
                         @endif
                         @foreach ($ejaculation->tags as $tag)
-                            <span class="badge badge-secondary"><span class="oi oi-tag"></span> {{ $tag->name }}</span>
+                            <a class="badge badge-secondary" href="{{ route('search', ['q' => $tag->name]) }}"><span class="oi oi-tag"></span> {{ $tag->name }}</a>
                         @endforeach
                     </p>
                 @endif

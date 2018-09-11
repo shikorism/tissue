@@ -45,7 +45,7 @@
                                 @if ($ejaculation->tags->isNotEmpty())
                                     <p class="mb-2">
                                         @foreach ($ejaculation->tags as $tag)
-                                            <span class="badge badge-secondary"><span class="oi oi-tag"></span> {{ $tag->name }}</span>
+                                            <a class="badge badge-secondary" href="{{ route('search', ['q' => $tag->name]) }}"><span class="oi oi-tag"></span> {{ $tag->name }}</a>
                                         @endforeach
                                     </p>
                                 @endif
