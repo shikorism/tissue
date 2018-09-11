@@ -33,3 +33,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/info', 'InfoController@index')->name('info');
 Route::get('/info/{id}', 'InfoController@show')->where('id', '[0-9]+')->name('info.show');
+
+Route::redirect('/search', '/search/checkin', 301);
+Route::get('/search/checkin', 'SearchController@index')->name('search');
+Route::get('/search/related-tag', 'SearchController@relatedTag')->name('search.related-tag');
