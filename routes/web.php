@@ -37,3 +37,7 @@ Route::get('/info/{id}', 'InfoController@show')->where('id', '[0-9]+')->name('in
 Route::redirect('/search', '/search/checkin', 301);
 Route::get('/search/checkin', 'SearchController@index')->name('search');
 Route::get('/search/related-tag', 'SearchController@relatedTag')->name('search.related-tag');
+
+Route::redirect('/setting', '/setting/profile', 301);
+Route::get('/setting/profile', 'SettingController@profile')->name('setting');
+Route::get('/setting/password', 'SettingController@password')->name('setting.password');
