@@ -10,6 +10,7 @@ class MetadataResolver implements Resolver
         '~komiflo\.com(/#!)?/comics/(\\d+)~' => KomifloResolver::class,
         '~www\.melonbooks\.co\.jp/detail/detail\.php~' => MelonbooksResolver::class,
         '~ec\.toranoana\.jp/tora_r/ec/item/.*~' => ToranoanaResolver::class,
+        '~iwara\.tv/videos/.*~' => IwaraResolver::class,
         '/.*/' => OGPResolver::class
     ];
 
