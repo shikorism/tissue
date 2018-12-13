@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\MetadataResolver\MetadataResolver;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Parsedown;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,7 +16,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Blade::directive('parsedown', function ($expression) {
+            return "<?php echo app('parsedown')->text($expression); ?>";
+        });
     }
 
     /**
@@ -26,6 +30,9 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(MetadataResolver::class, function ($app) {
             return new MetadataResolver();
+        });
+        $this->app->singleton('parsedown', function () {
+            return Parsedown::instance();
         });
     }
 }
