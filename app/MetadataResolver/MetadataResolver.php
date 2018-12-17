@@ -6,7 +6,7 @@ class MetadataResolver implements Resolver
 {
     public $rules = [
         '~(((sp\.)?seiga\.nicovideo\.jp/seiga(/#!)?|nico\.ms))/im~' => NicoSeigaResolver::class,
-        '~nijie\.info/view\.php~' => NijieResolver::class,
+        '~nijie\.info/view(_popup)?\.php~' => NijieResolver::class,
         '~komiflo\.com(/#!)?/comics/(\\d+)~' => KomifloResolver::class,
         '~www\.melonbooks\.co\.jp/detail/detail\.php~' => MelonbooksResolver::class,
         '~ec\.toranoana\.jp/tora_r/ec/item/.*~' => ToranoanaResolver::class,
