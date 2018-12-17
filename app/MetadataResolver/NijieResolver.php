@@ -9,6 +9,9 @@ class NijieResolver implements Resolver
         if (mb_strpos($url, '//sp.nijie.info') !== false) {
             $url = preg_replace('~//sp\.nijie\.info~', '//nijie.info', $url);
         }
+        if (mb_strpos($url, 'view_popup.php') !== false) {
+            $url = preg_replace('~view_popup\.php~', 'view.php', $url);
+        }
 
         $client = new \GuzzleHttp\Client();
         $res = $client->get($url);
