@@ -29,6 +29,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkin/{id}/edit', 'EjaculationController@edit')->name('checkin.edit');
     Route::put('/checkin/{id}', 'EjaculationController@update')->name('checkin.update');
     Route::delete('/checkin/{id}', 'EjaculationController@destroy')->name('checkin.destroy');
+
+    Route::redirect('/setting', '/setting/profile', 301);
+    Route::get('/setting/profile', 'SettingController@profile')->name('setting');
+    Route::post('/setting/profile', 'SettingController@updateProfile')->name('setting.profile.update');
+    Route::post('/setting/privacy', 'SettingController@updatePrivacy')->name('setting.privacy.update');
+    Route::get('/setting/password', 'SettingController@password')->name('setting.password');
 });
 
 Route::get('/info', 'InfoController@index')->name('info');
@@ -37,7 +43,3 @@ Route::get('/info/{id}', 'InfoController@show')->where('id', '[0-9]+')->name('in
 Route::redirect('/search', '/search/checkin', 301);
 Route::get('/search/checkin', 'SearchController@index')->name('search');
 Route::get('/search/related-tag', 'SearchController@relatedTag')->name('search.related-tag');
-
-Route::redirect('/setting', '/setting/profile', 301);
-Route::get('/setting/profile', 'SettingController@profile')->name('setting');
-Route::get('/setting/password', 'SettingController@password')->name('setting.password');

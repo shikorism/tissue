@@ -11,6 +11,16 @@ class SettingController extends Controller
         return view('setting.profile');
     }
 
+    public function updateProfile()
+    {
+        abort(501);
+    }
+
+    public function updatePrivacy()
+    {
+        abort(501);
+    }
+
     public function password()
     {
         abort(501);

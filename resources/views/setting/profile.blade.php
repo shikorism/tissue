@@ -3,7 +3,7 @@
 @section('tab-content')
     <h3>プロフィール</h3>
     <hr>
-    <form action="" method="post">
+    <form action="{{ route('setting.profile.update') }}" method="post">
         {{ csrf_field() }}
         <div class="from-group">
             <label for="display_name">名前</label>
@@ -25,7 +25,7 @@
 
     <h3 class="mt-5">プライバシー</h3>
     <hr>
-    <form action="" method="post">
+    <form action="{{ route('setting.privacy.update') }}" method="post">
         {{ csrf_field() }}
         <div class="form-group">
             <div class="custom-control custom-checkbox mb-2">
@@ -41,3 +41,13 @@
         <button type="submit" class="btn btn-primary mt-2">更新</button>
     </form>
 @endsection
+
+@push('script')
+    <script>
+        $('#protected').on('change', function () {
+            if (!$(this).prop('checked')) {
+                alert('チェックイン履歴を公開に切り替えると、個別に非公開設定されているものを除いた全てのチェックインが誰でも閲覧できるようになります。\nご注意ください。');
+            }
+        });
+    </script>
+@endpush
