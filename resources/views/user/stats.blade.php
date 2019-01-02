@@ -19,6 +19,9 @@
     <h5 class="my-4">年間チェックイン回数</h5>
     <canvas id="yearly-graph" class="w-100"></canvas>
     <hr class="my-4">
+    <h5 class="my-4">時間別チェックイン回数</h5>
+    <canvas id="hourly-graph" class="w-100"></canvas>
+    <hr class="my-4">
     <h5 class="my-4">曜日別チェックイン回数</h5>
     <canvas id="dow-graph" class="w-100"></canvas>
 @endif
@@ -105,6 +108,7 @@
 
     createLineGraph('monthly-graph', @json(array_keys($monthlySum)), @json(array_values($monthlySum)));
     createLineGraph('yearly-graph', @json(array_keys($yearlySum)), @json(array_values($yearlySum)));
+    createBarGraph('hourly-graph', @json(array_keys($hourlySum)), @json(array_values($hourlySum)));
     createBarGraph('dow-graph', ['日', '月', '火', '水', '木', '金', '土'], @json($dowSum));
 </script>
 @endpush
