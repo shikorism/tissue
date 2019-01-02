@@ -76,6 +76,7 @@ SQL
         $dailySum = [];
         $monthlySum = [];
         $yearlySum = [];
+        $dowSum = array_fill(0, 7, 0);
 
         // 年間グラフ用の配列初期化
         if ($groupByDay->first() !== null) {
@@ -99,12 +100,13 @@ SQL
 
             $dailySum[$date->timestamp] = $data->count;
             $yearlySum[$date->year] += $data->count;
+            $dowSum[$date->dayOfWeek] += $data->count;
             if (isset($monthlySum[$yearAndMonth])) {
                 $monthlySum[$yearAndMonth] += $data->count;
             }
         }
 
-        return view('user.stats')->with(compact('user', 'dailySum', 'monthlySum', 'yearlySum'));
+        return view('user.stats')->with(compact('user', 'dailySum', 'monthlySum', 'yearlySum', 'dowSum'));
     }
 
     public function okazu($name)
