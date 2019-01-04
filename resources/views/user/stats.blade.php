@@ -18,6 +18,12 @@
     <hr class="my-4">
     <h5 class="my-4">年間チェックイン回数</h5>
     <canvas id="yearly-graph" class="w-100"></canvas>
+    <hr class="my-4">
+    <h5 class="my-4">時間別チェックイン回数</h5>
+    <canvas id="hourly-graph" class="w-100"></canvas>
+    <hr class="my-4">
+    <h5 class="my-4">曜日別チェックイン回数</h5>
+    <canvas id="dow-graph" class="w-100"></canvas>
 @endif
 @endsection
 
@@ -39,7 +45,7 @@
         legend: [1, 2, 3, 4]
     });
 
-    function createGraph(id, labels, data) {
+    function createLineGraph(id, labels, data) {
         var context = document.getElementById(id).getContext('2d');
         var chart = new Chart(context, {
             type: 'line',
@@ -71,7 +77,38 @@
             }
         });
     }
-    createGraph('monthly-graph', @json(array_keys($monthlySum)), @json(array_values($monthlySum)));
-    createGraph('yearly-graph', @json(array_keys($yearlySum)), @json(array_values($yearlySum)));
+
+    function createBarGraph(id, labels, data) {
+        var context = document.getElementById(id).getContext('2d');
+        var chart = new Chart(context, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+
+    createLineGraph('monthly-graph', @json(array_keys($monthlySum)), @json(array_values($monthlySum)));
+    createLineGraph('yearly-graph', @json(array_keys($yearlySum)), @json(array_values($yearlySum)));
+    createBarGraph('hourly-graph', @json(array_keys($hourlySum)), @json(array_values($hourlySum)));
+    createBarGraph('dow-graph', ['日', '月', '火', '水', '木', '金', '土'], @json($dowSum));
 </script>
 @endpush

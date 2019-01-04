@@ -73,9 +73,21 @@ SQL
             ->orderBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"))
             ->get();
 
+        $groupByHour = Ejaculation::select(DB::raw(<<<'SQL'
+to_char(ejaculated_date, 'HH24') AS "hour",
+count(*) AS "count"
+SQL
+        ))
+            ->where('user_id', $user->id)
+            ->groupBy(DB::raw("to_char(ejaculated_date, 'HH24')"))
+            ->orderBy(DB::raw("1"))
+            ->get();
+
         $dailySum = [];
         $monthlySum = [];
         $yearlySum = [];
+        $dowSum = array_fill(0, 7, 0);
+        $hourlySum = array_fill(0, 24, 0);
 
         // 年間グラフ用の配列初期化
         if ($groupByDay->first() !== null) {
@@ -99,12 +111,18 @@ SQL
 
             $dailySum[$date->timestamp] = $data->count;
             $yearlySum[$date->year] += $data->count;
+            $dowSum[$date->dayOfWeek] += $data->count;
             if (isset($monthlySum[$yearAndMonth])) {
                 $monthlySum[$yearAndMonth] += $data->count;
             }
         }
 
-        return view('user.stats')->with(compact('user', 'dailySum', 'monthlySum', 'yearlySum'));
+        foreach ($groupByHour as $data) {
+            $hour = (int)$data->hour;
+            $hourlySum[$hour] += $data->count;
+        }
+
+        return view('user.stats')->with(compact('user', 'dailySum', 'monthlySum', 'yearlySum', 'dowSum', 'hourlySum'));
     }
 
     public function okazu($name)
