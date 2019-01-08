@@ -1,5 +1,7 @@
 @extends('layouts.base')
 
+@section('title', $category['label'] . ': ' . $info->title)
+
 @section('content')
 <div class="container">
     <nav aria-label="breadcrumb" role="navigation">

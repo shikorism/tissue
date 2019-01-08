@@ -1,5 +1,7 @@
 @extends('layouts.base')
 
+@section('title', 'チェックインの修正')
+
 @section('content')
 <div class="container">
     <h2>チェックインの修正</h2>

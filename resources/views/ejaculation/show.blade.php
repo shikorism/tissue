@@ -1,5 +1,11 @@
 @extends('layouts.base')
 
+@if (!$user->isMe() && ($user->is_protected || $ejaculation->is_private))
+    @section('title', $user->display_name . ' さんのチェックイン')
+@else
+    @section('title', $user->display_name . ' さんのチェックイン (' . $ejaculation->ejaculated_date->format('m月d日 H:i') . ')')
+@endif
+
 @section('content')
 <div class="container">
     <div class="row">
