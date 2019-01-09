@@ -1,5 +1,7 @@
 @extends('user.base')
 
+@section('title', $user->display_name . ' さんのグラフ')
+
 @push('head')
 <link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
 @endpush

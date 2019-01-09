@@ -1,5 +1,7 @@
 @extends('layouts.base')
 
+@section('title', 'ログイン')
+
 @section('content')
 <div class="container">
     <h2>ログイン</h2>

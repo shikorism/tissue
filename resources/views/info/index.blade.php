@@ -1,5 +1,7 @@
 @extends('layouts.base')
 
+@section('title', 'お知らせ')
+
 @section('content')
 <div class="container">
     <h2>サイトからのお知らせ</h2>

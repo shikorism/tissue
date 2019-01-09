@@ -14,7 +14,14 @@ class MelonbooksResolver implements Resolver
         $res = $client->get($url, ['cookies' => $cookieJar]);
         if ($res->getStatusCode() === 200) {
             $ogpResolver = new OGPResolver();
-            return $ogpResolver->parse($res->getBody());
+            $metadata = $ogpResolver->parse($res->getBody());
+
+            // censoredフラグの除去
+            if (mb_strpos($metadata->image, '&c=1') !== false) {
+                $metadata->image = preg_replace('/&c=1/u', '', $metadata->image);
+            }
+
+            return $metadata;
         } else {
             throw new \RuntimeException("{$res->getStatusCode()}: $url");
         }

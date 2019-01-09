@@ -1,5 +1,7 @@
 @extends('user.base')
 
+@section('title', $user->display_name . ' (@' . $user->name . ')')
+
 @section('sidebar')
     {{-- TODO: タイムラインとオカズのテンプレを分けたら条件外す --}}
     @if (Route::currentRouteName() === 'user.profile')

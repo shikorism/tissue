@@ -1,5 +1,7 @@
 @extends('user.base')
 
+@section('title', $user->display_name . ' さんのオカズ')
+
 @section('tab-content')
 @if ($user->is_protected && !$user->isMe())
     <p class="mt-4">

@@ -1,5 +1,7 @@
 @extends('layouts.base')
 
+@section('title', 'パスワードの再発行')
+
 @section('content')
 <div class="container">
     <h2>パスワードの再発行</h2>

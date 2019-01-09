@@ -1,5 +1,7 @@
 @extends('layouts.base')
 
+@section('title', $inputs['q'] . ' の検索結果')
+
 @section('content')
     <div class="container">
         <h2 class="mb-4"><strong>{{ $inputs['q'] }}</strong> の検索結果</h2>
