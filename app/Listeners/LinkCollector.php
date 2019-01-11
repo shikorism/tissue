@@ -6,8 +6,10 @@ use App\Events\LinkDiscovered;
 use App\Metadata;
 use App\MetadataResolver\MetadataResolver;
 use App\Utilities\Formatter;
+use GuzzleHttp\Exception\TransferException;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Log;
 
 class LinkCollector
 {
@@ -42,13 +44,19 @@ class LinkCollector
         // TODO: ある程度古かったら再取得とかありだと思う
         $metadata = Metadata::find($url);
         if ($metadata == null) {
-            $resolved = $this->metadataResolver->resolve($url);
-            Metadata::create([
-                'url' => $url,
-                'title' => $resolved->title,
-                'description' => $resolved->description,
-                'image' => $resolved->image
-            ]);
+            try {
+                $resolved = $this->metadataResolver->resolve($url);
+                Metadata::create([
+                    'url' => $url,
+                    'title' => $resolved->title,
+                    'description' => $resolved->description,
+                    'image' => $resolved->image
+                ]);
+            } catch (TransferException $e) {
+                // 何らかの通信エラーによってメタデータの取得に失敗した時、とりあえずエラーログにURLを残す
+                Log::error(self::class . ': メタデータの取得に失敗 URL=' . $url);
+                report($e);
+            }
         }
     }
 }
