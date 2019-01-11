@@ -44,7 +44,7 @@ class HomeController extends Controller
                 ->orderBy('ejaculations.ejaculated_date', 'desc')
                 ->select('ejaculations.*')
                 ->with('user', 'tags')
-                ->take(5)
+                ->take(10)
                 ->get();
 
             return view('home')->with(compact('informations', 'categories', 'publicLinkedEjaculations'));
