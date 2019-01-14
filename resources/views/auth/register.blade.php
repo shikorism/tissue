@@ -3,7 +3,9 @@
 @section('title', '新規登録')
 
 @push('head')
-    {!! NoCaptcha::renderJs() !!}
+    @if (!empty(config('captcha.secret')))
+        {!! NoCaptcha::renderJs() !!}
+    @endif
 @endpush
 
 @section('content')
@@ -57,14 +59,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-row ml-1 mt-2 my-4">
-                    <div class="mx-auto">
-                        {!! NoCaptcha::display() !!}
+                @if (!empty(config('captcha.secret')))
+                    <div class="form-row ml-1 mt-2 my-4">
+                        <div class="mx-auto">
+                            {!! NoCaptcha::display() !!}
+                        </div>
+                        @if ($errors->has('g-recaptcha-response'))
+                            <div class="invalid-feedback d-block text-center">{{ $errors->first('g-recaptcha-response') }}</div>
+                        @endif
                     </div>
-                    @if ($errors->has('g-recaptcha-response'))
-                        <div class="invalid-feedback d-block text-center">{{ $errors->first('g-recaptcha-response') }}</div>
-                    @endif
-                </div>
+                @endif
 
                 <div class="text-center">
                     <button class="btn btn-primary btn-lg" type="submit">登録</button>
