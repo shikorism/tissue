@@ -26,7 +26,7 @@ class FantiaResolver implements Resolver
 
             // 投稿に画像がない場合（ogp.jpgでない場合）のみ大きい画像に変換する
             if($ogpUrl != "http://fantia.jp/images/ogp.jpg"){
-                preg_match("~https:\/\/fantia\.s3\.amazonaws\.com\/uploads\/post\/file\/{$postId}\/ogp_(.*?).jpg~", $ogpUrl, $match);
+                preg_match("~https://fantia\.s3\.amazonaws\.com/uploads/post/file/{$postId}/ogp_(.*?).jpg~", $ogpUrl, $match);
                 $uuid = $match[1];
 
                 // 大きい画像に変換
