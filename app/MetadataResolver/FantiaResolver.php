@@ -26,11 +26,12 @@ class FantiaResolver implements Resolver
 
             // 投稿に画像がない場合（ogp.jpgでない場合）のみ大きい画像に変換する
             if($ogpUrl != "http://fantia.jp/images/ogp.jpg"){
-                preg_match("~https://fantia\.s3\.amazonaws\.com/uploads/post/file/{$postId}/ogp_(.*?).jpg~", $ogpUrl, $match);
+                preg_match("~https://fantia\.s3\.amazonaws\.com/uploads/post/file/{$postId}/ogp_(.*?)\.(jpg|png)~", $ogpUrl, $match);
                 $uuid = $match[1];
+                $extension = $match[2];
 
                 // 大きい画像に変換
-                $metadata->image = "https://c.fantia.jp/uploads/post/file/{$postId}/main_{$uuid}.jpg";
+                $metadata->image = "https://c.fantia.jp/uploads/post/file/{$postId}/main_{$uuid}.{$extension}";
             }
 
             return $metadata;
