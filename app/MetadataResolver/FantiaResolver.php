@@ -24,11 +24,14 @@ class FantiaResolver implements Resolver
             $node = $xpath->query("//meta[@property='twitter:image']")->item(0);
             $ogpUrl = $node->getAttribute('content');
 
-            preg_match("~https:\/\/fantia\.s3\.amazonaws\.com\/uploads\/post\/file\/{$postId}\/ogp_(.*?).jpg~", $ogpUrl, $match);
-            $uuid = $match[1];
+            // 投稿に画像がない場合（ogp.jpgでない場合）のみ大きい画像に変換する
+            if($ogpUrl != "http://fantia.jp/images/ogp.jpg"){
+                preg_match("~https:\/\/fantia\.s3\.amazonaws\.com\/uploads\/post\/file\/{$postId}\/ogp_(.*?).jpg~", $ogpUrl, $match);
+                $uuid = $match[1];
 
-            // 大きい画像に変換
-            $metadata->image = "https://c.fantia.jp/uploads/post/file/{$postId}/main_{$uuid}.jpg";
+                // 大きい画像に変換
+                $metadata->image = "https://c.fantia.jp/uploads/post/file/{$postId}/main_{$uuid}.jpg";
+            }
 
             return $metadata;
         } else {
