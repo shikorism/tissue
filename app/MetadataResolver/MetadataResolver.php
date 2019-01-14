@@ -21,7 +21,8 @@ class MetadataResolver implements Resolver
     {
         foreach ($this->rules as $pattern => $class) {
             if (preg_match($pattern, $url) === 1) {
-                $resolver = new $class;
+                $resolver = new $class();
+
                 return $resolver->resolve($url);
             }
         }

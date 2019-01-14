@@ -15,7 +15,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/user', function() {
+Route::get('/user', function () {
     return redirect()->route('user.profile', ['name' => Auth::user()->name]);
 })->middleware('auth')->name('user.profile');
 Route::get('/user/{name?}', 'UserController@profile')->name('user.profile');

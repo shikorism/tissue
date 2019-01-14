@@ -4,17 +4,17 @@ namespace App\MetadataResolver;
 
 class PixivResolver implements Resolver
 {
-
     /**
      * サムネイル画像 URL から最大長辺 1200px の画像 URL に変換する
      *
      * @param string $thumbnailUrl サムネイル画像 URL
      * @return string 1200px の画像 URL
      */
-    public function thumbnailToMasterUrl(string $thumbnailUrl):string
+    public function thumbnailToMasterUrl(string $thumbnailUrl): string
     {
         $temp = str_replace("/c/128x128", "", $thumbnailUrl);
         $largeUrl = str_replace("square1200.jpg", "master1200.jpg", $temp);
+
         return $largeUrl;
     }
 
@@ -25,7 +25,7 @@ class PixivResolver implements Resolver
      * @param string $pixivUrl i.pximg URL
      * @return string i.pixiv.cat URL
      */
-    public function proxize(string $pixivUrl):string
+    public function proxize(string $pixivUrl): string
     {
         return str_replace("i.pximg.net", "i.pixiv.cat", $pixivUrl);
     }
