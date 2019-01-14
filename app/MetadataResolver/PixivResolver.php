@@ -14,7 +14,7 @@ class PixivResolver implements Resolver
     }
 
     public function proxize(string $url):string {
-        // pixiv.cat のプロキシ URL に変換する
+        // pixiv.cat のプロキシ URL に変換する HUGE THANKS TO PIXIV.CAT!
         $url = str_replace("i.pximg.net", "i.pixiv.cat", $url);
         return $url;
     }
