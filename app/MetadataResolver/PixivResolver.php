@@ -11,7 +11,7 @@ class PixivResolver implements Resolver
      * @param  string サムネイル画像 URL
      * @return string 1200px の画像 URL
      */
-    public function thumbnail_to_master_url(string $url):string
+    public function thumbnailToMasterUrl(string $url):string
     {
         $url = str_replace("/c/128x128", "", $url);
         $url = str_replace("square1200.jpg", "master1200.jpg", $url);
@@ -53,7 +53,7 @@ class PixivResolver implements Resolver
                 preg_match("~https://i\.pximg\.net/c/128x128/img-master/img/\d{4}/\d{2}/\d{2}/\d{2}/\d{2}/\d{2}/{$illust_id}_p0_square1200\.jpg~", $res->getBody(), $match);
                 $illust_thumbnail_url = $match[0];
 
-                $illust_url = $this->thumbnail_to_master_url($illust_thumbnail_url);
+                $illust_url = $this->thumbnailToMasterUrl($illust_thumbnail_url);
 
                 // 指定ページに変換
                 $illust_url = str_replace("p0_master", "p{$page}_master", $illust_url);
@@ -80,7 +80,7 @@ class PixivResolver implements Resolver
                         preg_match("~https://i\.pximg\.net/c/128x128/img-master/img/\d{4}/\d{2}/\d{2}/\d{2}/\d{2}/\d{2}/{$illust_id}(_p0)?_square1200\.jpg~", $res->getBody(), $match);
                         $illust_thumbnail_url = $match[0];
 
-                        $illust_url = $this->thumbnail_to_master_url($illust_thumbnail_url);
+                        $illust_url = $this->thumbnailToMasterUrl($illust_thumbnail_url);
 
                         $metadata->image =  $this->proxize($illust_url);
                         ;
