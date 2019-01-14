@@ -2,8 +2,6 @@
 
 namespace App\MetadataResolver;
 
-use Illuminate\Support\Facades\Log;
-
 class DLsiteResolver implements Resolver
 {
     public function resolve(string $url): Metadata
