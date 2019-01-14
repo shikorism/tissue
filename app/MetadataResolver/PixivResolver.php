@@ -22,14 +22,11 @@ class PixivResolver implements Resolver
      * 直リン可能な pixiv.cat のプロキシ URL に変換する
      * HUGE THANKS TO PIXIV.CAT!
      *
-     * @param  string i.pximg URL
      * @param string $pixiv_url i.pximg URL
      * @return string i.pixiv.cat URL
      */
-    public function proxize(string $url):string
+    public function proxize(string $pixiv_url):string
     {
-        $url = str_replace("i.pximg.net", "i.pixiv.cat", $url);
-        return $url;
         return str_replace("i.pximg.net", "i.pixiv.cat", $pixiv_url);
     }
 
