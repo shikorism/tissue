@@ -58,7 +58,6 @@ class PixivResolver implements Resolver
                 $illustUrl = str_replace("p0_master", "p{$page}_master", $illustUrl);
 
                 $metadata->image =  $this->proxize($illustUrl);
-                ;
 
                 return $metadata;
             } else {
@@ -82,7 +81,6 @@ class PixivResolver implements Resolver
                         $illustUrl = $this->thumbnailToMasterUrl($illustThumbnailUrl);
 
                         $metadata->image =  $this->proxize($illustUrl);
-                        ;
                     }
                 }
 
