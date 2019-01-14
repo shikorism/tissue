@@ -2,6 +2,10 @@
 
 @section('title', '新規登録')
 
+@push('head')
+    {!! NoCaptcha::renderJs() !!}
+@endpush
+
 @section('content')
 <div class="container">
     <h2>新規登録</h2>
@@ -52,6 +56,14 @@
                             <label class="custom-control-label" for="accept-analytics">匿名での統計にチェックインデータを利用することに同意します</label>
                         </div>
                     </div>
+                </div>
+                <div class="form-row ml-1 mt-2 my-4">
+                    <div class="mx-auto">
+                        {!! NoCaptcha::display() !!}
+                    </div>
+                    @if ($errors->has('g-recaptcha-response'))
+                        <div class="invalid-feedback d-block text-center">{{ $errors->first('g-recaptcha-response') }}</div>
+                    @endif
                 </div>
 
                 <div class="text-center">

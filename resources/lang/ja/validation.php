@@ -99,6 +99,10 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'g-recaptcha-response' => [
+            'required' => '「私はロボットではありません」にチェックを入れてください。',
+            'captcha' => 'reCAPTCHAチェックに失敗しました。何度試しても解決しない場合、管理者にお問い合わせください。',
+        ],
     ],
 
     /*
