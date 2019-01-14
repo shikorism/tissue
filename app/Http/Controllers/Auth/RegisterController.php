@@ -51,6 +51,7 @@ class RegisterController extends Controller
             'name' => 'required|string|regex:/^[a-zA-Z0-9_-]+$/u|max:15|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'g-recaptcha-response' => 'required|captcha'
             ],
             ['name.regex' => 'ユーザー名には半角英数字とアンダーバー、ハイフンのみ使用できます。'],
             ['name' => 'ユーザー名']
