@@ -11,3 +11,5 @@ npm-debug.log
 yarn-error.log
 .env
 *.iml
+.php_cs
+.php_cs.cache

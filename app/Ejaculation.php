@@ -30,6 +30,8 @@ class Ejaculation extends Model
 
     public function textTags()
     {
-        return implode(' ', $this->tags->map(function ($v) { return $v->name; })->all());
+        return implode(' ', $this->tags->map(function ($v) {
+            return $v->name;
+        })->all());
     }
 }

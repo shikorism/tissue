@@ -7,8 +7,8 @@ use App\Metadata;
 use App\MetadataResolver\MetadataResolver;
 use App\Utilities\Formatter;
 use GuzzleHttp\Exception\TransferException;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Log;
 
 class LinkCollector

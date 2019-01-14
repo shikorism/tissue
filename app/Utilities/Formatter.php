@@ -24,6 +24,7 @@ class Formatter
         $days = floor($value / 86400);
         $hours = floor($value % 86400 / 3600);
         $minutes = floor($value % 3600 / 60);
+
         return "{$days}日 {$hours}時間 {$minutes}分";
     }
 

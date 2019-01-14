@@ -40,5 +40,6 @@ Route::get('/checkin/card', function (Request $request, MetadataResolver $resolv
     if (!config('app.debug')) {
         $response = $response->setCache(['public' => true, 'max_age' => 86400]);
     }
+
     return $response;
 });
