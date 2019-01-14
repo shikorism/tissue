@@ -8,14 +8,14 @@ class PixivResolver implements Resolver
     /**
      * サムネイル画像 URL から最大長辺 1200px の画像 URL に変換する
      *
-     * @param  string サムネイル画像 URL
+     * @param string $thumbnail_url サムネイル画像 URL
      * @return string 1200px の画像 URL
      */
-    public function thumbnailToMasterUrl(string $url):string
+    public function thumbnailToMasterUrl(string $thumbnail_url):string
     {
-        $url = str_replace("/c/128x128", "", $url);
-        $url = str_replace("square1200.jpg", "master1200.jpg", $url);
-        return $url;
+        $temp = str_replace("/c/128x128", "", $thumbnail_url);
+        $large_url = str_replace("square1200.jpg", "master1200.jpg", $temp);
+        return $large_url;
     }
 
     /**
@@ -23,12 +23,14 @@ class PixivResolver implements Resolver
      * HUGE THANKS TO PIXIV.CAT!
      *
      * @param  string i.pximg URL
+     * @param string $pixiv_url i.pximg URL
      * @return string i.pixiv.cat URL
      */
     public function proxize(string $url):string
     {
         $url = str_replace("i.pximg.net", "i.pixiv.cat", $url);
         return $url;
+        return str_replace("i.pximg.net", "i.pixiv.cat", $pixiv_url);
     }
 
     public function resolve(string $url): Metadata
