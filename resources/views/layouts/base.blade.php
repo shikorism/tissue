@@ -65,7 +65,12 @@
                             <img src="{{ Auth::user()->getProfileImageUrl(30) }}" width="30" height="30" class="rounded d-inline-block align-top">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                            <h6 class="dropdown-header">{{ Auth::user()->display_name }} さん</h6>
+                            <a href="{{ route('user.profile', ['name' => Auth::user()->name]) }}" class="dropdown-item">
+                                <strong>{{ Auth::user()->display_name }}</strong>
+                                <p class="mb-0 text-muted">
+                                    <span>&commat;{{ Auth::user()->name }}</span>
+                                </p>
+                            </a>
                             <div class="dropdown-divider"></div>
                             {{--<a href="#" class="dropdown-item">設定</a>--}}
                             <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>

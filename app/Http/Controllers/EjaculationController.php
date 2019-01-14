@@ -38,7 +38,7 @@ class EjaculationController extends Controller
             'date' => 'required|date_format:Y/m/d',
             'time' => 'required|date_format:H:i',
             'note' => 'nullable|string|max:500',
-            'link' => 'nullable|url',
+            'link' => 'nullable|url|max:2000',
             'tags' => 'nullable|string',
         ])->after(function ($validator) use ($request, $inputs) {
             // 日時の重複チェック
@@ -120,7 +120,7 @@ class EjaculationController extends Controller
             'date' => 'required|date_format:Y/m/d',
             'time' => 'required|date_format:H:i',
             'note' => 'nullable|string|max:500',
-            'link' => 'nullable|url',
+            'link' => 'nullable|url|max:2000',
             'tags' => 'nullable|string',
         ])->after(function ($validator) use ($id, $request, $inputs) {
             // 日時の重複チェック
