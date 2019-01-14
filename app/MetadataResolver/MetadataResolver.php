@@ -13,6 +13,7 @@ class MetadataResolver implements Resolver
         '~iwara\.tv/videos/.*~' => IwaraResolver::class,
         '~www\.dlsite\.com/.*/work/=/product_id/..\d+\.html~' => DLsiteResolver::class,
         '~www\.pixiv\.net/member_illust\.php\?illust_id=\d+~' => PixivResolver::class,
+        '~fantia\.jp/posts/\d+~' => FantiaResolver::class,
         '/.*/' => OGPResolver::class
     ];
 
