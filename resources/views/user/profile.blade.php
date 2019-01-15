@@ -28,13 +28,16 @@
 
 @section('tab-content')
 @if ($user->is_protected && !$user->isMe())
-    <p class="mt-4">
-        <span class="oi oi-lock-locked"></span> このユーザはチェックイン履歴を公開していません。
-    </p>
+    <div class="card-body">
+        <p class="mt-3">
+            <span class="oi oi-lock-locked"></span> このユーザはチェックイン履歴を公開していません。
+        </p>
+    </div>
 @else
-    <ul class="list-group">
-        @forelse ($ejaculations as $ejaculation)
-            <li class="list-group-item border-bottom-only pt-3 pb-3">
+    @forelse ($ejaculations as $ejaculation)
+        <ul class="list-group">
+            {{-- TODO: py-4 は 1.5rem だが、.card-body と同じにするには 1.25rem が望ましい --}}
+            <li class="list-group-item border-bottom-only py-4">
                 <!-- span -->
                 <div class="d-flex justify-content-between">
                     <h5>{{ $ejaculation->ejaculated_span ?? '精通' }} <a href="{{ route('checkin.show', ['id' => $ejaculation->id]) }}" class="text-muted"><small>{{ $ejaculation->before_date }}{{ !empty($ejaculation->before_date) ? ' ～ ' : '' }}{{ $ejaculation->ejaculated_date->format('Y/m/d H:i') }}</small></a></h5>
@@ -81,12 +84,14 @@
                     </p>
                 @endif
             </li>
-        @empty
-            <li class="list-group-item border-bottom-only">
-                <p>まだチェックインしていません。</p>
-            </li>
-        @endforelse
-    </ul>
+        </ul>
+    @empty
+        <div class="card-body">
+            <p class="mt-3">
+                まだチェックインしていません。
+            </p>
+        </div>
+    @endforelse
     <ul class="pagination mt-4 justify-content-center">
         <li class="page-item {{ $ejaculations->currentPage() === 1 ? 'disabled' : '' }}">
             <a class="page-link" href="{{ $ejaculations->previousPageUrl() }}" aria-label="Previous">

@@ -8,24 +8,28 @@
 
 @section('tab-content')
 @if ($user->is_protected && !$user->isMe())
-    <p class="mt-4">
-        <span class="oi oi-lock-locked"></span> このユーザはチェックイン履歴を公開していません。
-    </p>
+    <div class="card-body">
+        <p class="mt-3">
+            <span class="oi oi-lock-locked"></span> このユーザはチェックイン履歴を公開していません。
+        </p>
+    </div>
 @else
-    <h5 class="my-4">Shikontribution graph</h5>
-    <div id="cal-heatmap" class="tis-contribution-graph"></div>
-    <hr class="my-4">
-    <h5 class="my-4">月間チェックイン回数</h5>
-    <canvas id="monthly-graph" class="w-100"></canvas>
-    <hr class="my-4">
-    <h5 class="my-4">年間チェックイン回数</h5>
-    <canvas id="yearly-graph" class="w-100"></canvas>
-    <hr class="my-4">
-    <h5 class="my-4">時間別チェックイン回数</h5>
-    <canvas id="hourly-graph" class="w-100"></canvas>
-    <hr class="my-4">
-    <h5 class="my-4">曜日別チェックイン回数</h5>
-    <canvas id="dow-graph" class="w-100"></canvas>
+    <div class="card-body">
+        <h5 class="mb-4">Shikontribution graph</h5>
+        <div id="cal-heatmap" class="tis-contribution-graph"></div>
+        <hr class="my-4">
+        <h5 class="my-4">月間チェックイン回数</h5>
+        <canvas id="monthly-graph" class="w-100"></canvas>
+        <hr class="my-4">
+        <h5 class="my-4">年間チェックイン回数</h5>
+        <canvas id="yearly-graph" class="w-100"></canvas>
+        <hr class="my-4">
+        <h5 class="my-4">時間別チェックイン回数</h5>
+        <canvas id="hourly-graph" class="w-100"></canvas>
+        <hr class="my-4">
+        <h5 class="my-4">曜日別チェックイン回数</h5>
+        <canvas id="dow-graph" class="w-100"></canvas>
+    </div>
 @endif
 @endsection
 
