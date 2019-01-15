@@ -12,6 +12,10 @@ RUN apt-get update \
     && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf \
     && a2enmod rewrite
 
-COPY dist/php.d /usr/local/etc/php/conf.d/
+COPY dist/bin /usr/local/bin/
+COPY dist/php.d /usr/local/etc/php/php.d/
+
+ENTRYPOINT ["tissue-entrypoint.sh"]
+CMD ["apache2-foreground"]
 
 WORKDIR /var/www/html
