@@ -43,14 +43,14 @@ class LinkCollector
         // 無かったら取得
         // TODO: ある程度古かったら再取得とかありだと思う
         $metadata = Metadata::find($url);
-        if ($metadata == null) {
+        if ($metadata == null || ($metadata->expires_at !== null && $metadata->expires_at < now())) {
             try {
                 $resolved = $this->metadataResolver->resolve($url);
-                Metadata::create([
-                    'url' => $url,
+                Metadata::updateOrCreate(['url' => $url], [
                     'title' => $resolved->title,
                     'description' => $resolved->description,
-                    'image' => $resolved->image
+                    'image' => $resolved->image,
+                    'expires_at' => $resolved->expires_at
                 ]);
             } catch (TransferException $e) {
                 // 何らかの通信エラーによってメタデータの取得に失敗した時、とりあえずエラーログにURLを残す
