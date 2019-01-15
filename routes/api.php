@@ -28,8 +28,7 @@ Route::get('/checkin/card', function (Request $request, MetadataResolver $resolv
     $metadata = App\Metadata::find($url);
     if ($metadata == null || ($metadata->expires_at !== null && $metadata->expires_at < now())) {
         $resolved = $resolver->resolve($url);
-        $metadata = App\Metadata::create([
-            'url' => $url,
+        $metadata = App\Metadata::updateOrCreate(['url' => $url], [
             'title' => $resolved->title,
             'description' => $resolved->description,
             'image' => $resolved->image,
