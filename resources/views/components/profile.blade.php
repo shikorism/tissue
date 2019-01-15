@@ -1,15 +1,19 @@
 <div class="card mb-4">
     <div class="card-body">
-        <img src="{{ $user->getProfileImageUrl(64) }}" class="rounded mb-1">
-        <h4 class="card-title">
-            <a class="text-dark" href="{{ route('user.profile', ['name' => $user->name]) }}">{{ $user->display_name }}</a>
-        </h4>
-        <h6 class="card-subtitle">
-            <a class="text-muted" href="{{ route('user.profile', ['name' => $user->name]) }}">&commat;{{ $user->name }}</a>
-            @if ($user->is_protected)
-                <span class="oi oi-lock-locked text-muted"></span>
-            @endif
-        </h6>
+        <div class="d-flex flex-row align-items-end">
+            <img src="{{ $user->getProfileImageUrl(64) }}" class="rounded mr-2">
+            <div class="d-flex flex-column overflow-hidden">
+                <h4 class="card-title text-truncate">
+                    <a class="text-dark" href="{{ route('user.profile', ['name' => $user->name]) }}">{{ $user->display_name }}</a>
+                </h4>
+                <h6 class="card-subtitle">
+                    <a class="text-muted" href="{{ route('user.profile', ['name' => $user->name]) }}">&commat;{{ $user->name }}</a>
+                    @if ($user->is_protected)
+                        <span class="oi oi-lock-locked text-muted"></span>
+                    @endif
+                </h6>
+            </div>
+        </div>
 
         @if (!$user->is_protected)
             <h6 class="font-weight-bold mt-4"><span class="oi oi-timer"></span> 現在のセッション</h6>
