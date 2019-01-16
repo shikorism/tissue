@@ -134,7 +134,7 @@ class EjaculationController extends Controller
         });
 
         if ($validator->fails()) {
-            return redirect()->route('checkin')->withErrors($validator)->withInput();
+            return redirect()->route('checkin.edit', ['id' => $id])->withErrors($validator)->withInput();
         }
 
         $ejaculation->fill([
