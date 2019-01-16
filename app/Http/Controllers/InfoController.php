@@ -14,6 +14,7 @@ class InfoController extends Controller
             ->orderByDesc('pinned')
             ->orderByDesc('created_at')
             ->paginate(20);
+
         return view('info.index')->with([
             'informations' => $informations,
             'categories' => Information::CATEGORIES
@@ -23,6 +24,7 @@ class InfoController extends Controller
     public function show($id)
     {
         $information = Information::findOrFail($id);
+
         return view('info.show')->with([
             'info' => $information,
             'category' => Information::CATEGORIES[$information->category]

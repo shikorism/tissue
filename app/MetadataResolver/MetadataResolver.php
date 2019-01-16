@@ -12,6 +12,8 @@ class MetadataResolver implements Resolver
         '~ec\.toranoana\.jp/tora_r/ec/item/.*~' => ToranoanaResolver::class,
         '~iwara\.tv/videos/.*~' => IwaraResolver::class,
         '~www\.dlsite\.com/.*/work/=/product_id/..\d+\.html~' => DLsiteResolver::class,
+        '~www\.pixiv\.net/member_illust\.php\?illust_id=\d+~' => PixivResolver::class,
+        '~fantia\.jp/posts/\d+~' => FantiaResolver::class,
         '/.*/' => OGPResolver::class
     ];
 
@@ -19,7 +21,8 @@ class MetadataResolver implements Resolver
     {
         foreach ($this->rules as $pattern => $class) {
             if (preg_match($pattern, $url) === 1) {
-                $resolver = new $class;
+                $resolver = new $class();
+
                 return $resolver->resolve($url);
             }
         }

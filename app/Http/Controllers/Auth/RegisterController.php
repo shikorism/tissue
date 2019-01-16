@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -47,11 +47,20 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        $rules = [
             'name' => 'required|string|regex:/^[a-zA-Z0-9_-]+$/u|max:15|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            ],
+            'password' => 'required|string|min:6|confirmed'
+        ];
+
+        // reCAPTCHAのキーが設定されている場合、判定を有効化
+        if (!empty(config('captcha.secret'))) {
+            $rules['g-recaptcha-response'] = 'required|captcha';
+        }
+
+        return Validator::make(
+            $data,
+            $rules,
             ['name.regex' => 'ユーザー名には半角英数字とアンダーバー、ハイフンのみ使用できます。'],
             ['name' => 'ユーザー名']
         );

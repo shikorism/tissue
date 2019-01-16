@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Ejaculation;
 use App\Events\LinkDiscovered;
 use App\Tag;
 use App\User;
 use Carbon\Carbon;
-use Validator;
-use App\Ejaculation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Validator;
 
 class EjaculationController extends Controller
 {
@@ -104,6 +104,7 @@ class EjaculationController extends Controller
     public function edit($id)
     {
         $ejaculation = Ejaculation::findOrFail($id);
+
         return view('ejaculation.edit')->with(compact('ejaculation'));
     }
 
@@ -133,7 +134,7 @@ class EjaculationController extends Controller
         });
 
         if ($validator->fails()) {
-            return redirect()->route('checkin')->withErrors($validator)->withInput();
+            return redirect()->route('checkin.edit', ['id' => $id])->withErrors($validator)->withInput();
         }
 
         $ejaculation->fill([
@@ -166,6 +167,7 @@ class EjaculationController extends Controller
         $user = User::findOrFail($ejaculation->user_id);
         $ejaculation->tags()->detach();
         $ejaculation->delete();
+
         return redirect()->route('user.profile', ['name' => $user->name])->with('status', '削除しました。');
     }
 }

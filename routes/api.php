@@ -26,13 +26,13 @@ Route::get('/checkin/card', function (Request $request, MetadataResolver $resolv
     $url = $formatter->normalizeUrl($request->input('url'));
 
     $metadata = App\Metadata::find($url);
-    if ($metadata == null) {
+    if ($metadata == null || ($metadata->expires_at !== null && $metadata->expires_at < now())) {
         $resolved = $resolver->resolve($url);
-        $metadata = App\Metadata::create([
-            'url' => $url,
+        $metadata = App\Metadata::updateOrCreate(['url' => $url], [
             'title' => $resolved->title,
             'description' => $resolved->description,
-            'image' => $resolved->image
+            'image' => $resolved->image,
+            'expires_at' => $resolved->expires_at
         ]);
     }
 
@@ -40,5 +40,6 @@ Route::get('/checkin/card', function (Request $request, MetadataResolver $resolv
     if (!config('app.debug')) {
         $response = $response->setCache(['public' => true, 'max_age' => 86400]);
     }
+
     return $response;
 });

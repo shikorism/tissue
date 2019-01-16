@@ -10,6 +10,8 @@ class Metadata extends Model
     protected $primaryKey = 'url';
     protected $keyType = 'string';
 
-    protected $fillable = ['url', 'title', 'description', 'image'];
-    protected $visible = ['url', 'title', 'description', 'image'];
+    protected $fillable = ['url', 'title', 'description', 'image', 'expires_at'];
+    protected $visible = ['url', 'title', 'description', 'image', 'expires_at'];
+
+    protected $dates = ['created_at', 'updated_at', 'expires_at'];
 }

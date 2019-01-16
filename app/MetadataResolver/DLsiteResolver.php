@@ -2,8 +2,6 @@
 
 namespace App\MetadataResolver;
 
-use Illuminate\Support\Facades\Log;
-
 class DLsiteResolver implements Resolver
 {
     public function resolve(string $url): Metadata
@@ -14,6 +12,7 @@ class DLsiteResolver implements Resolver
             $ogpResolver = new OGPResolver();
             $metadata = $ogpResolver->parse($res->getBody());
             $metadata->image =  str_replace("img_sam.jpg", "img_main.jpg", $metadata->image);
+
             return $metadata;
         } else {
             throw new \RuntimeException("{$res->getStatusCode()}: $url");

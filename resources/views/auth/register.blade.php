@@ -2,6 +2,12 @@
 
 @section('title', '新規登録')
 
+@push('head')
+    @if (!empty(config('captcha.secret')))
+        {!! NoCaptcha::renderJs() !!}
+    @endif
+@endpush
+
 @section('content')
 <div class="container">
     <h2>新規登録</h2>
@@ -21,7 +27,7 @@
                 </div>
                 <div class="form-group">
                     <label for="email"><span class="oi oi-envelope-closed"></span> メールアドレス</label>
-                    <input id="email" name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" type="text" value="{{ old('email') }}" required>
+                    <input id="email" name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" type="email" value="{{ old('email') }}" required>
 
                     @if ($errors->has('email'))
                         <div class="invalid-feedback">{{ $errors->first('email') }}</div>
@@ -53,6 +59,16 @@
                         </div>
                     </div>
                 </div>
+                @if (!empty(config('captcha.secret')))
+                    <div class="form-row ml-1 mt-2 my-4">
+                        <div class="mx-auto">
+                            {!! NoCaptcha::display() !!}
+                        </div>
+                        @if ($errors->has('g-recaptcha-response'))
+                            <div class="invalid-feedback d-block text-center">{{ $errors->first('g-recaptcha-response') }}</div>
+                        @endif
+                    </div>
+                @endif
 
                 <div class="text-center">
                     <button class="btn btn-primary btn-lg" type="submit">登録</button>

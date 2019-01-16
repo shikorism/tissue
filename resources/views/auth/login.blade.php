@@ -13,7 +13,7 @@
 
                 <div class="form-group">
                     <label for="email"><span class="oi oi-envelope-closed"></span> メールアドレス</label>
-                    <input id="email" name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" type="text" value="{{ old('email') }}" required autofocus>
+                    <input id="email" name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" type="email" value="{{ old('email') }}" required autofocus>
 
                     @if ($errors->has('email'))
                         <div class="invalid-feedback">{{ $errors->first('email') }}</div>

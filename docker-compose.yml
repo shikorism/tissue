@@ -3,13 +3,8 @@ version: "3"
 services:
   web:
     build: .
-    environment:
-      DB_CONNECTION: pgsql
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_DATABASE: tissue
-      DB_USERNAME: tissue
-      DB_PASSWORD: tissue
+    env_file:
+      - .env
     volumes:
       - .:/var/www/html
     networks:

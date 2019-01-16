@@ -41,6 +41,7 @@ class OGPResolver implements Resolver
                 }
             }
         }
+
         return '';
     }
 }

@@ -21,7 +21,8 @@ class UserController extends Controller
         }
 
         // チェックインの取得
-        $query = Ejaculation::select(DB::raw(<<<'SQL'
+        $query = Ejaculation::select(DB::raw(
+            <<<'SQL'
 id,
 ejaculated_date,
 note,
@@ -63,7 +64,8 @@ SQL
             abort(404);
         }
 
-        $groupByDay = Ejaculation::select(DB::raw(<<<'SQL'
+        $groupByDay = Ejaculation::select(DB::raw(
+            <<<'SQL'
 to_char(ejaculated_date, 'YYYY/MM/DD') AS "date",
 count(*) AS "count"
 SQL
@@ -73,7 +75,8 @@ SQL
             ->orderBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"))
             ->get();
 
-        $groupByHour = Ejaculation::select(DB::raw(<<<'SQL'
+        $groupByHour = Ejaculation::select(DB::raw(
+            <<<'SQL'
 to_char(ejaculated_date, 'HH24') AS "hour",
 count(*) AS "count"
 SQL
@@ -133,7 +136,8 @@ SQL
         }
 
         // チェックインの取得
-        $query = Ejaculation::select(DB::raw(<<<'SQL'
+        $query = Ejaculation::select(DB::raw(
+            <<<'SQL'
 id,
 ejaculated_date,
 note,
