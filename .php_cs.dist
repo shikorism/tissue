@@ -13,7 +13,8 @@ return \PhpCsFixer\Config::create()
         'return_type_declaration' => true,
         'new_with_braces' => true,
         'no_empty_statement' => true,
-        'standardize_not_equals' => true
+        'standardize_not_equals' => true,
+        'single_quote' => true
     ])
     ->setFinder(
         \PhpCsFixer\Finder::create()
