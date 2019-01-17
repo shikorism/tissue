@@ -46,6 +46,12 @@ docker-compose exec web php artisan key:generate
 docker-compose exec web php artisan migrate
 ```
 
+6. 最後に `.env` を読み込み直すために起動し直します。
+
+```
+docker-compose up -d
+```
+
 これで準備は完了です。Tissue が動いていれば `http://localhost:4545/` でアクセスができます。
 
 ## 環境構築上の諸注意
