@@ -46,7 +46,13 @@ docker-compose exec web php artisan key:generate
 docker-compose exec web php artisan migrate
 ```
 
-6. 最後に `.env` を読み込み直すために起動し直します。
+6. ファイルに書き込めるように権限を設定します。
+
+```
+docker-compose exec web chown -R www-data /var/www
+```
+
+7. 最後に `.env` を読み込み直すために起動し直します。
 
 ```
 docker-compose up -d
