@@ -7,7 +7,7 @@
         {{ csrf_field() }}
         <div class="from-group">
             <label for="display_name">名前</label>
-            <input id="display_name" name="display_name" type="text" class="form-control">
+            <input id="display_name" name="display_name" type="text" class="form-control" value="{{ old('display_name') ?? Auth::user()->display_name }}">
         </div>
         <div class="from-group mt-2">
             <label for="name">ユーザー名</label>
@@ -15,7 +15,7 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text">@</div>
                 </div>
-                <input id="name" name="name" type="text" class="form-control" disabled>
+                <input id="name" name="name" type="text" class="form-control" value="{{ Auth::user()->name }}" disabled>
             </div>
             <small class="form-text text-muted">現在は変更できません。</small>
         </div>
@@ -29,11 +29,11 @@
         {{ csrf_field() }}
         <div class="form-group">
             <div class="custom-control custom-checkbox mb-2">
-                <input id="protected" name="is_protected" class="custom-control-input" type="checkbox" {{ old('is_protected') ? 'checked' : '' }}>
+                <input id="protected" name="is_protected" class="custom-control-input" type="checkbox" {{ (old('is_protected') ?? Auth::user()->is_protected ) ? 'checked' : '' }}>
                 <label class="custom-control-label" for="protected">全てのチェックイン履歴を非公開にする</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input id="accept-analytics" name="accept_analytics" class="custom-control-input" type="checkbox" {{ old('accept_analytics') ? 'checked' : '' }}>
+                <input id="accept-analytics" name="accept_analytics" class="custom-control-input" type="checkbox" {{ (old('accept_analytics') ?? Auth::user()->accept_analytics ) ? 'checked' : '' }}>
                 <label class="custom-control-label" for="accept-analytics">匿名での統計にチェックインデータを利用することに同意します</label>
             </div>
         </div>
