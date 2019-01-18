@@ -11,7 +11,7 @@ class DLsiteResolver implements Resolver
         if ($res->getStatusCode() === 200) {
             $ogpResolver = new OGPResolver();
             $metadata = $ogpResolver->parse($res->getBody());
-            $metadata->image =  str_replace("img_sam.jpg", "img_main.jpg", $metadata->image);
+            $metadata->image =  str_replace('img_sam.jpg', 'img_main.jpg', $metadata->image);
 
             return $metadata;
         } else {
