@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/setting/profile', 'SettingController@profile')->name('setting');
     Route::post('/setting/profile', 'SettingController@updateProfile')->name('setting.profile.update');
     Route::post('/setting/privacy', 'SettingController@updatePrivacy')->name('setting.privacy.update');
-    Route::get('/setting/password', 'SettingController@password')->name('setting.password');
+//    Route::get('/setting/password', 'SettingController@password')->name('setting.password');
 });
 
 Route::get('/info', 'InfoController@index')->name('info');

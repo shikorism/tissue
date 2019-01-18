@@ -21,8 +21,9 @@ class SettingController extends Controller
         abort(501);
     }
 
-    public function password()
-    {
-        abort(501);
-    }
+    // ( ◠‿◠ )☛ここに気づいたか・・・消えてもらう ▂▅▇█▓▒░(’ω’)░▒▓█▇▅▂うわあああああああ
+//    public function password()
+//    {
+//        abort(501);
+//    }
 }
