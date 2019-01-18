@@ -2,6 +2,8 @@
 
 namespace App\MetadataResolver;
 
+use Carbon\Carbon;
+
 class KomifloResolver implements Resolver
 {
     public function resolve(string $url): Metadata
@@ -21,6 +23,8 @@ class KomifloResolver implements Resolver
             $metadata->description = ($json['content']['attributes']['artists']['children'][0]['data']['name'] ?? '?') .
                 ' - ' .
                 ($json['content']['parents'][0]['data']['title'] ?? '?');
+            $metadata->image = $json['content']['cdn_public'] . "/564_mobile_large_3x/" . $json['content']['named_imgs']['cover']['filename'] . $json['content']['signature'];
+            $metadata->expires_at = Carbon::parse($json['content']['signature_expires'])->setTimezone(config('app.timezone'));
 
             return $metadata;
         } else {
