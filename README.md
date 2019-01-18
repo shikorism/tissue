@@ -60,6 +60,14 @@ docker-compose up -d
 
 これで準備は完了です。Tissue が動いていれば `http://localhost:4545/` でアクセスができます。
 
+## デバッグ実行
+
+```
+docker-compose -f docker-compose.yml -f docker-compose.debug.yml up -d
+```
+
+で起動することにより、DB のポート`5432`を開放してホストマシンから接続できるようになります。
+
 ## 環境構築上の諸注意
 
 - 初版時点では、DB サーバとして PostgreSQL を使うよう .env ファイルを設定するくらいです。
