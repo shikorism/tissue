@@ -16,6 +16,9 @@
                 <div class="list-group list-group-flush">
                     @foreach($informations as $info)
                         <a class="list-group-item" href="{{ route('info.show', ['id' => $info->id]) }}">
+                        @if ($info->pinned)
+                            <span class="badge badge-secondary"><span class="oi oi-pin"></span>ピン留め</span>
+                        @endif
                             <span class="badge {{ $categories[$info->category]['class'] }}">{{ $categories[$info->category]['label'] }}</span> {{ $info->title }} <small class="text-secondary">- {{ $info->created_at->format('n月j日') }}</small>
                         </a>
                     @endforeach
