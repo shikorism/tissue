@@ -1,5 +1,7 @@
 @extends('setting.base')
 
+@section('title', 'プロフィール設定')
+
 @section('tab-content')
     <h3>プロフィール</h3>
     <hr>
