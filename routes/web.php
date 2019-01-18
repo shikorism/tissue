@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::redirect('/setting', '/setting/profile', 301);
     Route::get('/setting/profile', 'SettingController@profile')->name('setting');
     Route::post('/setting/profile', 'SettingController@updateProfile')->name('setting.profile.update');
+    Route::get('/setting/privacy', 'SettingController@privacy')->name('setting.privacy');
     Route::post('/setting/privacy', 'SettingController@updatePrivacy')->name('setting.privacy.update');
 //    Route::get('/setting/password', 'SettingController@password')->name('setting.password');
 });

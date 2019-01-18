@@ -33,6 +33,11 @@ class SettingController extends Controller
         return redirect()->route('setting')->with('status', 'プロフィールを更新しました。');
     }
 
+    public function privacy()
+    {
+        return view('setting.privacy');
+    }
+
     public function updatePrivacy(Request $request)
     {
         $inputs = $request->all(['is_protected', 'accept_analytics']);
@@ -42,7 +47,7 @@ class SettingController extends Controller
         $user->accept_analytics = $inputs['accept_analytics'] ?? false;
         $user->save();
 
-        return redirect()->route('setting')->with('status', 'プライバシー設定を更新しました。');
+        return redirect()->route('setting.privacy')->with('status', 'プライバシー設定を更新しました。');
     }
 
     // ( ◠‿◠ )☛ここに気づいたか・・・消えてもらう ▂▅▇█▓▒░(’ω’)░▒▓█▇▅▂うわあああああああ
