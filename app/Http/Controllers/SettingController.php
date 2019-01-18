@@ -13,9 +13,24 @@ class SettingController extends Controller
         return view('setting.profile');
     }
 
-    public function updateProfile()
+    public function updateProfile(Request $request)
     {
-        abort(501);
+        $inputs = $request->all();
+        $validator = Validator::make($inputs, [
+            'display_name' => 'required|string|max:20'
+        ], [], [
+            'display_name' => '名前'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('setting')->withErrors($validator)->withInput();
+        }
+
+        $user = Auth::user();
+        $user->display_name = $inputs['display_name'];
+        $user->save();
+
+        return redirect()->route('setting')->with('status', 'プロフィールを更新しました。');
     }
 
     public function updatePrivacy(Request $request)
