@@ -6,7 +6,7 @@
     @else
         <ul class="list-group">
         @foreach($results as $ejaculation)
-            <li class="list-group-item border-bottom-only pt-3 pb-3">
+            <li class="list-group-item border-bottom-only pt-3 pb-3 tis-word-wrap">
                 <!-- span -->
                 <div class="d-flex justify-content-between">
                     <h5>
