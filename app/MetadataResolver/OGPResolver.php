@@ -18,7 +18,7 @@ class OGPResolver implements Resolver
     public function parse(string $html): Metadata
     {
         $dom = new \DOMDocument();
-        @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+        @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'ASCII,JIS,UTF-8,eucJP-win,SJIS-win'));
         $xpath = new \DOMXPath($dom);
 
         $metadata = new Metadata();
