@@ -34,7 +34,7 @@
 @else
     <ul class="list-group">
         @forelse ($ejaculations as $ejaculation)
-            <li class="list-group-item border-bottom-only pt-3 pb-3">
+            <li class="list-group-item border-bottom-only pt-3 pb-3 tis-word-wrap">
                 <!-- span -->
                 <div class="d-flex justify-content-between">
                     <h5>{{ $ejaculation->ejaculated_span ?? '精通' }} <a href="{{ route('checkin.show', ['id' => $ejaculation->id]) }}" class="text-muted"><small>{{ $ejaculation->before_date }}{{ !empty($ejaculation->before_date) ? ' ～ ' : '' }}{{ $ejaculation->ejaculated_date->format('Y/m/d H:i') }}</small></a></h5>
