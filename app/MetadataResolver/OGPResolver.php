@@ -18,12 +18,18 @@ class OGPResolver implements Resolver
     public function parse(string $html): Metadata
     {
         $dom = new \DOMDocument();
-        @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+        @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'ASCII,JIS,UTF-8,eucJP-win,SJIS-win'));
         $xpath = new \DOMXPath($dom);
 
         $metadata = new Metadata();
 
         $metadata->title = $this->findContent($xpath, '//meta[@*="og:title"]', '//meta[@*="twitter:title"]');
+        if (empty($metadata->title)) {
+            $nodes = $xpath->query('//title');
+            if ($nodes->length !== 0) {
+                $metadata->title = $nodes->item(0)->textContent;
+            }
+        }
         $metadata->description = $this->findContent($xpath, '//meta[@*="og:description"]', '//meta[@*="twitter:description"]');
         $metadata->image = $this->findContent($xpath, '//meta[@*="og:image"]', '//meta[@*="twitter:image"]');
 

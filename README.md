@@ -8,7 +8,7 @@ a.k.a. shikorism.net
 ## 構成
 
 - Laravel 5.5
-- Bootstrap 4.0
+- Bootstrap 4.2.1
 
 ## 実行環境
 
@@ -46,7 +46,27 @@ docker-compose exec web php artisan key:generate
 docker-compose exec web php artisan migrate
 ```
 
+6. ファイルに書き込めるように権限を設定します。
+
+```
+docker-compose exec web chown -R www-data /var/www/html
+```
+
+7. 最後に `.env` を読み込み直すために起動し直します。
+
+```
+docker-compose up -d
+```
+
 これで準備は完了です。Tissue が動いていれば `http://localhost:4545/` でアクセスができます。
+
+## デバッグ実行
+
+```
+docker-compose -f docker-compose.yml -f docker-compose.debug.yml up -d
+```
+
+で起動することにより、DB のポート`5432`を開放してホストマシンから接続できるようになります。
 
 ## 環境構築上の諸注意
 

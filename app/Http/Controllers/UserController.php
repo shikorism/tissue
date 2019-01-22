@@ -83,7 +83,7 @@ SQL
         ))
             ->where('user_id', $user->id)
             ->groupBy(DB::raw("to_char(ejaculated_date, 'HH24')"))
-            ->orderBy(DB::raw("1"))
+            ->orderBy(DB::raw('1'))
             ->get();
 
         $dailySum = [];

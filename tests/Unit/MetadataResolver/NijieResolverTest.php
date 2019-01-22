@@ -36,9 +36,9 @@ class NijieResolverTest extends TestCase
         sleep(1);
         $resolver = new NijieResolver();
 
-        $metadata = $resolver->resolve('https://nijie.info/view.php?id=258078');
-        $this->assertEquals('騎乗位ルーミア | しょったれ', $metadata->title);
-        $this->assertEquals("最初は顔をZUN絵で描こうとか思っていたのだが、難しかったのでやめた", $metadata->description);
+        $metadata = $resolver->resolve('https://nijie.info/view.php?id=9537');
+        $this->assertEquals('ニジエがgifに対応したんだってね　奥さん | 黒末アプコ', $metadata->title);
+        $this->assertEquals('アニメgifとか専門外なのでよくわかりませんでした', $metadata->description);
         $this->assertRegExp('~/nijie\.info/pic/logo~', $metadata->image);
     }
 
@@ -82,9 +82,9 @@ class NijieResolverTest extends TestCase
         sleep(1);
         $resolver = new NijieResolver();
 
-        $metadata = $resolver->resolve('https://sp.nijie.info/view.php?id=258078');
-        $this->assertEquals('騎乗位ルーミア | しょったれ', $metadata->title);
-        $this->assertEquals("最初は顔をZUN絵で描こうとか思っていたのだが、難しかったのでやめた", $metadata->description);
+        $metadata = $resolver->resolve('https://nijie.info/view.php?id=9537');
+        $this->assertEquals('ニジエがgifに対応したんだってね　奥さん | 黒末アプコ', $metadata->title);
+        $this->assertEquals('アニメgifとか専門外なのでよくわかりませんでした', $metadata->description);
         $this->assertRegExp('~/nijie\.info/pic/logo~', $metadata->image);
     }
 

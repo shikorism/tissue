@@ -6,7 +6,7 @@
     @else
         <ul class="list-group">
         @foreach($results as $ejaculation)
-            <li class="list-group-item border-bottom-only pt-3 pb-3">
+            <li class="list-group-item border-bottom-only pt-3 pb-3 tis-word-wrap">
                 <!-- span -->
                 <div class="d-flex justify-content-between">
                     <h5>
@@ -44,8 +44,8 @@
                                 </div>
                             </a>
                         </div>
-                        <p class="mb-2 col-12 px-0">
-                            <span class="oi oi-link-intact mr-1"></span><a href="{{ $ejaculation->link }}" target="_blank" rel="noopener">{{ $ejaculation->link }}</a>
+                        <p class="d-flex align-items-baseline mb-2 col-12 px-0">
+                            <span class="oi oi-link-intact mr-1"></span><a class="overflow-hidden" href="{{ $ejaculation->link }}" target="_blank" rel="noopener">{{ $ejaculation->link }}</a>
                         </p>
                     </div>
                 @endif

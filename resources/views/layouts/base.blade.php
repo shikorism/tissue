@@ -72,7 +72,7 @@
                                 </p>
                             </a>
                             <div class="dropdown-divider"></div>
-                            {{--<a href="#" class="dropdown-item">設定</a>--}}
+                            <a href="{{ route('setting') }}" class="dropdown-item">設定</a>
                             <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
                         </div>
                     </li>

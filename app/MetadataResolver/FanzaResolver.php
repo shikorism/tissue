@@ -2,7 +2,7 @@
 
 namespace App\MetadataResolver;
 
-class DLsiteResolver implements Resolver
+class FanzaResolver implements Resolver
 {
     public function resolve(string $url): Metadata
     {
@@ -11,7 +11,7 @@ class DLsiteResolver implements Resolver
         if ($res->getStatusCode() === 200) {
             $ogpResolver = new OGPResolver();
             $metadata = $ogpResolver->parse($res->getBody());
-            $metadata->image =  str_replace('img_sam.jpg', 'img_main.jpg', $metadata->image);
+            $metadata->image =  preg_replace("~(pr|ps)\.jpg$~", 'pl.jpg', $metadata->image);
 
             return $metadata;
         } else {
