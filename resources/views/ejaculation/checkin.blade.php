@@ -40,7 +40,7 @@
                     <div class="form-group col-sm-12">
                         <input name="tags" type="hidden" value="{{ old('tags') ?? $defaults['tags'] }}">
                         <label for="tagInput"><span class="oi oi-tags"></span> タグ</label>
-                        <div class="form-control {{ $errors->has('tags') ? ' is-invalid' : '' }}">
+                        <div class="form-control h-auto {{ $errors->has('tags') ? ' is-invalid' : '' }}">
                             <ul id="tags" class="list-inline d-inline"></ul>
                             <input id="tagInput" type="text" style="outline: 0; border: 0;">
                         </div>
