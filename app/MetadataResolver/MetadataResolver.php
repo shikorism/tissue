@@ -16,6 +16,7 @@ class MetadataResolver implements Resolver
         '~fantia\.jp/posts/\d+~' => FantiaResolver::class,
         '~dmm\.co\.jp/~' => FanzaResolver::class,
         '~www\.deviantart\.com/.*/art/.*~' => DeviantArtResolver::class,
+        '~\.syosetu\.com/n\d+[a-z]{2,}~' => NarouResolver::class,
         '/.*/' => OGPResolver::class
     ];
 
