@@ -129,7 +129,11 @@
   </div>
 </div>
 @endguest
-
+<noscript>
+    <div class="tis-noscript">
+        Tissueを閲覧するためには、ブラウザのJavaScriptを有効にする必要があります。
+    </div>
+</noscript>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.js"></script>
