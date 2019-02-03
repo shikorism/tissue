@@ -73,7 +73,7 @@ class PixivResolver implements Resolver
                 if (strpos($metadata->image, 'pixiv_logo.gif') || strpos($metadata->image, 'pictures.jpg')) {
 
                     // 作品ページの場合のみ対応
-                    if ($params['mode'] == 'medium') {
+                    if ($params['mode'] === 'medium') {
                         preg_match("~https://i\.pximg\.net/c/128x128/img-master/img/\d{4}/\d{2}/\d{2}/\d{2}/\d{2}/\d{2}/{$illustId}(_p0)?_square1200\.jpg~", $res->getBody(), $match);
                         $illustThumbnailUrl = $match[0];
 
