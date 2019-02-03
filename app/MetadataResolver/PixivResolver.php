@@ -32,16 +32,15 @@ class PixivResolver implements Resolver
 
     public function resolve(string $url): Metadata
     {
-        preg_match("~illust_id=(\d+)~", parse_url($url)['query'], $match);
-        $illustId = $match[1];
+        parse_str(parse_url($url, PHP_URL_QUERY), $params);
+        $illustId = $params['illust_id'];
 
-        // 漫画ページかつページ数あり
-        if (strpos(parse_url($url)['query'], 'mode=manga_big') && strpos(parse_url($url)['query'], 'page=')) {
-            preg_match("~page=(\d+)~", parse_url($url)['query'], $match);
-            $page = $match[1];
+        // 漫画ページ（ページ数はmanga_bigならあるかも）
+        if ($params['mode'] == 'manga_big' || $params['mode'] == 'manga') {
+            $page = isset($params['page']) ? $params['page'] : 0;
 
             // 未ログインでは漫画ページを開けないため、URL を作品ページに変換する
-            $url = str_replace('mode=manga_big', 'mode=medium', $url);
+            $url = preg_replace('~mode=manga(_big)?~', 'mode=medium', $url);
 
             $client = new \GuzzleHttp\Client();
             $res = $client->get($url);
@@ -74,7 +73,7 @@ class PixivResolver implements Resolver
                 if (strpos($metadata->image, 'pixiv_logo.gif') || strpos($metadata->image, 'pictures.jpg')) {
 
                     // 作品ページの場合のみ対応
-                    if (strpos(parse_url($url)['query'], 'mode=medium')) {
+                    if ($params['mode'] == 'medium') {
                         preg_match("~https://i\.pximg\.net/c/128x128/img-master/img/\d{4}/\d{2}/\d{2}/\d{2}/\d{2}/\d{2}/{$illustId}(_p0)?_square1200\.jpg~", $res->getBody(), $match);
                         $illustThumbnailUrl = $match[0];
 
