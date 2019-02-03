@@ -3,7 +3,7 @@
         <div class="d-flex flex-row align-items-end">
             <img src="{{ $user->getProfileImageUrl(64) }}" class="rounded mr-2">
             <div class="d-flex flex-column overflow-hidden">
-                <h4 class="card-title text-truncate">
+                <h4 class="card-title @if (Route::currentRouteName() === 'home') text-truncate @endif">
                     <a class="text-dark" href="{{ route('user.profile', ['name' => $user->name]) }}">{{ $user->display_name }}</a>
                 </h4>
                 <h6 class="card-subtitle">
