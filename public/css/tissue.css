@@ -17,6 +17,7 @@
 
 .tis-need-agecheck .container {
     filter: blur(45px);
+    pointer-events: none;
 }
 
 .container {
