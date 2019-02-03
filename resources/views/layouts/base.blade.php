@@ -18,7 +18,7 @@
 
     @stack('head')
 </head>
-<body>
+<body class="{{Auth::check() ? '' : 'tis-need-agecheck'}}">
 <nav class="navbar navbar-expand-lg navbar-light bg-light {{ !Auth::check() && Route::currentRouteName() === 'home' ? '' : 'mb-4'}}">
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         {{ csrf_field() }}
@@ -111,12 +111,42 @@
         </ul>
     </div>
 </footer>
+@guest
+<div class="modal fade" id="ageCheckModal" tabindex="-1" role="dialog" aria-labelledby="ageCheckModalTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ageCheckModalTitle">Tissue へようこそ！</h5>
+      </div>
+      <div class="modal-body">
+        この先のコンテンツには暴力表現や性描写など、18歳未満の方が閲覧できないコンテンツが含まれています。
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">まかせて</button>
+        <a href="https://cookpad.com" rel="noreferrer" class="btn btn-secondary">ごめん無理</a>
+      </div>
+    </div>
+  </div>
+</div>
+@endguest
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.js"></script>
 <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
 <script>
     $(function(){
+        @guest
+        if (Cookies.get('agechecked')) {
+            $('body').removeClass('tis-need-agecheck');
+        } else {
+            $('#ageCheckModal').modal({ backdrop: 'static' })
+            .on('hide.bs.modal', function() {
+                $('body').removeClass('tis-need-agecheck');
+                Cookies.set('agechecked', '1', { expires: 365 });
+            });
+        }
+        @endguest
         $('[data-toggle="tooltip"]').tooltip();
         $('.alert').alert();
         @if (session('status'))
