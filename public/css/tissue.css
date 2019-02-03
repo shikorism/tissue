@@ -15,6 +15,14 @@
     overflow-x: auto;
 }
 
+.tis-need-agecheck .container {
+    filter: blur(45px);
+}
+
+.container {
+    transition: filter .15s liner;
+}
+
 .list-group-item.border-bottom-only {
     border-left: none;
     border-right: none;
