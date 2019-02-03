@@ -15,6 +15,7 @@ class MetadataResolver implements Resolver
         '~www\.pixiv\.net/member_illust\.php\?illust_id=\d+~' => PixivResolver::class,
         '~fantia\.jp/posts/\d+~' => FantiaResolver::class,
         '~dmm\.co\.jp/~' => FanzaResolver::class,
+        '~www\.patreon\.com/~' => PatreonResolver::class,
         '~www\.deviantart\.com/.*/art/.*~' => DeviantArtResolver::class,
         '/.*/' => OGPResolver::class
     ];
