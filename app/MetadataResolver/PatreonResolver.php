@@ -18,8 +18,7 @@ class PatreonResolver implements Resolver
             $expires_at_unixtime = $temp["token-time"];
             $expires_at = Carbon::createFromTimestamp($expires_at_unixtime);
 
-            $metadata->image =  $metadata->image;
-            $metadata->expires_at =  $expires_at;
+            $metadata->expires_at = $expires_at;
 
             return $metadata;
         } else {
