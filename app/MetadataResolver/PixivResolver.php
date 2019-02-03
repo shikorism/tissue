@@ -37,7 +37,7 @@ class PixivResolver implements Resolver
 
         // 漫画ページ（ページ数はmanga_bigならあるかも）
         if ($params['mode'] === 'manga_big' || $params['mode'] === 'manga') {
-            $page = isset($params['page']) ? $params['page'] : 0;
+            $page = $params['page'] ?? 0;
 
             // 未ログインでは漫画ページを開けないため、URL を作品ページに変換する
             $url = preg_replace('~mode=manga(_big)?~', 'mode=medium', $url);
