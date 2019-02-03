@@ -18,9 +18,6 @@ class PatreonResolver implements Resolver
             $expires_at_unixtime = $temp["token-time"];
             $expires_at = Carbon::createFromTimestamp($expires_at_unixtime);
 
-            // DBが timestamp without time zone のため、アプリのタイムゾーンに変換する
-            $expires_at =  $expires_at->setTimezone(config('app.timezone'));
-
             $metadata->image =  $metadata->image;
             $metadata->expires_at =  $expires_at;
 
