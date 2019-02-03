@@ -11,7 +11,7 @@
             @endif
         </h6>
 
-        @if (!$user->is_protected)
+        @if (!$user->is_protected || $user->isMe())
             <h6 class="font-weight-bold mt-4"><span class="oi oi-timer"></span> 現在のセッション</h6>
             @if (isset($currentSession))
                 <p class="card-text mb-0">{{ $currentSession }}経過</p>

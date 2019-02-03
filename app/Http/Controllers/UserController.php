@@ -83,7 +83,7 @@ SQL
         ))
             ->where('user_id', $user->id)
             ->groupBy(DB::raw("to_char(ejaculated_date, 'HH24')"))
-            ->orderBy(DB::raw("1"))
+            ->orderBy(DB::raw('1'))
             ->get();
 
         $dailySum = [];
@@ -102,7 +102,7 @@ SQL
         }
 
         // 月間グラフ用の配列初期化
-        $month = Carbon::now()->subMonth(11)->firstOfMonth(); // 直近12ヶ月
+        $month = Carbon::now()->firstOfMonth()->subMonth(11); // 直近12ヶ月
         for ($i = 0; $i < 12; $i++) {
             $monthlySum[$month->format('Y/m')] = 0;
             $month->addMonth();

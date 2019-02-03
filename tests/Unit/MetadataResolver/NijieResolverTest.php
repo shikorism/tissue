@@ -38,7 +38,7 @@ class NijieResolverTest extends TestCase
 
         $metadata = $resolver->resolve('https://nijie.info/view.php?id=9537');
         $this->assertEquals('ニジエがgifに対応したんだってね　奥さん | 黒末アプコ', $metadata->title);
-        $this->assertEquals("アニメgifとか専門外なのでよくわかりませんでした", $metadata->description);
+        $this->assertEquals('アニメgifとか専門外なのでよくわかりませんでした', $metadata->description);
         $this->assertRegExp('~/nijie\.info/pic/logo~', $metadata->image);
     }
 
@@ -84,7 +84,7 @@ class NijieResolverTest extends TestCase
 
         $metadata = $resolver->resolve('https://nijie.info/view.php?id=9537');
         $this->assertEquals('ニジエがgifに対応したんだってね　奥さん | 黒末アプコ', $metadata->title);
-        $this->assertEquals("アニメgifとか専門外なのでよくわかりませんでした", $metadata->description);
+        $this->assertEquals('アニメgifとか専門外なのでよくわかりませんでした', $metadata->description);
         $this->assertRegExp('~/nijie\.info/pic/logo~', $metadata->image);
     }
 

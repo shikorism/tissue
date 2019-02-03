@@ -52,12 +52,25 @@ class Formatter
         $url = preg_replace('~/#!/~u', '/', $url);
 
         // Sort query parameters
-        $query = parse_url($url, PHP_URL_QUERY);
-        if (!empty($query)) {
-            $url = str_replace_last('?' . $query, '', $url);
-            parse_str($query, $params);
+        $parts = parse_url($url);
+        if (!empty($parts['query'])) {
+            // Remove query parameters
+            $url = str_replace_last('?' . $parts['query'], '', $url);
+            if (!empty($parts['fragment'])) {
+                // Remove fragment identifier
+                $url = str_replace_last('#' . $parts['fragment'], '', $url);
+            } else {
+                // "http://example.com/?query#" の場合 $parts['fragment'] は unset になるので、個別に判定して除去する必要がある
+                $url = preg_replace('/#\z/u', '', $url);
+            }
+
+            parse_str($parts['query'], $params);
             ksort($params);
+
             $url = $url . '?' . http_build_query($params);
+            if (!empty($parts['fragment'])) {
+                $url .= '#' . $parts['fragment'];
+            }
         }
 
         return $url;

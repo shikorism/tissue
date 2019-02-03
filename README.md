@@ -8,7 +8,7 @@ a.k.a. shikorism.net
 ## 構成
 
 - Laravel 5.5
-- Bootstrap 4.0
+- Bootstrap 4.2.1
 
 ## 実行環境
 
@@ -59,6 +59,14 @@ docker-compose up -d
 ```
 
 これで準備は完了です。Tissue が動いていれば `http://localhost:4545/` でアクセスができます。
+
+## デバッグ実行
+
+```
+docker-compose -f docker-compose.yml -f docker-compose.debug.yml up -d
+```
+
+で起動することにより、DB のポート`5432`を開放してホストマシンから接続できるようになります。
 
 ## 環境構築上の諸注意
 
