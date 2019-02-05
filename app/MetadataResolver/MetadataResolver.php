@@ -17,6 +17,7 @@ class MetadataResolver implements Resolver
         '~dmm\.co\.jp/~' => FanzaResolver::class,
         '~www\.patreon\.com/~' => PatreonResolver::class,
         '~www\.deviantart\.com/.*/art/.*~' => DeviantArtResolver::class,
+        '~\.syosetu\.com/n\d+[a-z]{2,}~' => NarouResolver::class,
         '/.*/' => OGPResolver::class
     ];
 
