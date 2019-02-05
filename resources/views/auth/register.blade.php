@@ -12,6 +12,10 @@
 <div class="container">
     <h2>新規登録</h2>
     <hr>
+    <div class="alert alert-warning">
+        <p class="mb-0"><strong>注意！</strong> Tissueでは、登録に使用したメールアドレスの <a href="https://ja.gravatar.com/" rel="noreferrer">Gravatar</a> を使用します。</p>
+        <p class="mb-0">他の場所での活動と紐付いてほしくない場合、使用予定のメールアドレスにGravatarが設定されていないかを確認することを推奨します。</p>
+    </div>
     <div class="row justify-content-center my-5">
         <div class="col-lg-6">
             <form method="post" action="{{ route('register') }}">
