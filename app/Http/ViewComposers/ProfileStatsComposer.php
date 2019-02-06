@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
-class ProfileComposer
+class ProfileStatsComposer
 {
     public function __construct()
     {
