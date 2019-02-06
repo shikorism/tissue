@@ -15,8 +15,27 @@
             </div>
         </div>
 
-        @if (!$user->is_protected || $user->isMe())
-            <h6 class="font-weight-bold mt-4"><span class="oi oi-timer"></span> 現在のセッション</h6>
+        {{-- Bio --}}
+        @if (!empty($user->bio))
+            <p class="card-text mt-3 mb-0">
+                {!! Formatter::linkify(nl2br(e($user->bio))) !!}
+            </p>
+        @endif
+
+        {{-- URL --}}
+        @if (!empty($user->url))
+            <p class="card-text d-flex mt-3">
+                <span class="oi oi-link-intact mr-1 mt-1"></span>
+                <a href="{{ $user->url }}" rel="me nofollow noopener" target="_blank" class="text-truncate">{{ preg_replace('~\Ahttps?://~', '', $user->url) }}</a>
+            </p>
+        @endif
+    </div>
+</div>
+
+@if (!$user->is_protected || $user->isMe())
+    <div class="card mb-4">
+        <div class="card-body">
+            <h6 class="font-weight-bold"><span class="oi oi-timer"></span> 現在のセッション</h6>
             @if (isset($currentSession))
                 <p class="card-text mb-0">{{ $currentSession }}経過</p>
                 <p class="card-text">({{ $latestEjaculation->ejaculated_date->format('Y/m/d H:i') }} にリセット)</p>
@@ -31,6 +50,6 @@
             <p class="card-text mb-0">最短記録: {{ Formatter::formatInterval($summary[0]->shortest) }}</p>
             <p class="card-text mb-0">合計時間: {{ Formatter::formatInterval($summary[0]->total_times) }}</p>
             <p class="card-text">通算回数: {{ $summary[0]->total_checkins }}回</p>
-        @endif
+        </div>
     </div>
-</div>
+@endif
