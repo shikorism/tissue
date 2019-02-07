@@ -16,7 +16,7 @@
                 <div class="invalid-feedback">{{ $errors->first('display_name') }}</div>
             @endif
         </div>
-        <div class="from-group mt-2">
+        <div class="from-group mt-3">
             <label for="name">ユーザー名</label>
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -25,6 +25,24 @@
                 <input id="name" name="name" type="text" class="form-control" value="{{ Auth::user()->name }}" disabled>
             </div>
             <small class="form-text text-muted">現在は変更できません。</small>
+        </div>
+        <div class="form-group mt-3">
+            <label for="bio">自己紹介</label>
+            <textarea id="bio" name="bio" rows="3" class="form-control {{ $errors->has('bio') ? ' is-invalid' : '' }}">{{ old('bio') ?? Auth::user()->bio }}</textarea>
+            <small class="form-text text-muted">最大 160 文字</small>
+
+            @if ($errors->has('bio'))
+                <div class="invalid-feedback">{{ $errors->first('bio') }}</div>
+            @endif
+        </div>
+        <div class="form-group mt-3">
+            <label for="url">URL</label>
+            <input id="url" name="url" type="url" class="form-control {{ $errors->has('url') ? ' is-invalid' : '' }}"
+                   value="{{ old('url') ?? Auth::user()->url }}" autocomplete="off">
+
+            @if ($errors->has('url'))
+                <div class="invalid-feedback">{{ $errors->first('url') }}</div>
+            @endif
         </div>
 
         <button type="submit" class="btn btn-primary mt-4">更新</button>
