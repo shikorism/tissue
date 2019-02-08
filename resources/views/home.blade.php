@@ -43,6 +43,12 @@
             </div>
         </div>
         <div class="col-lg-8">
+            @if (!empty($globalEjaculationCounts))
+                <h5>チェックインの動向</h5>
+                <div class="w-100 mb-3 position-relative" style="height: 70px;">
+                    <canvas id="global-count-graph"></canvas>
+                </div>
+            @endif
             @if (!empty($publicLinkedEjaculations))
                 <h5 class="mb-3">お惣菜コーナー</h5>
                 <p class="text-secondary">最近の公開チェックインから、オカズリンク付きのものを表示しています。</p>
@@ -100,6 +106,7 @@
 @endsection
 
 @push('script')
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/chart.js@2.7.1/dist/Chart.min.js"></script>
     <script>
         $('.link-card').each(function () {
             var $this = $(this);
@@ -138,5 +145,41 @@
                 }
             });
         });
+
+        (function () {
+            var context = document.getElementById('global-count-graph').getContext('2d');
+            var chart = new Chart(context, {
+                type: 'bar',
+                data: {
+                    labels: @json(array_keys($globalEjaculationCounts)),
+                    datasets: [{
+                        data: @json(array_values($globalEjaculationCounts)),
+                        backgroundColor: 'rgba(0, 0, 0, .1)',
+                        borderColor: 'rgba(0, 0, 0, .25)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false
+                    },
+                    elements: {
+                        line: {}
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: false
+                        }],
+                        yAxes: [{
+                            display: false,
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        }());
     </script>
 @endpush
