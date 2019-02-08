@@ -24,6 +24,16 @@
     transition: filter .15s liner;
 }
 
+.list-group-item.no-side-border {
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+}
+
+.list-group-item.border-bottom-only:first-child {
+    border-top: none;
+}
+
 .list-group-item.border-bottom-only {
     border-left: none;
     border-right: none;
