@@ -37,3 +37,9 @@
 .timeline-action-item {
     margin-left: 16px;
 }
+
+@media (min-width: 992px) {
+    .tis-sidebar-info {
+        font-size: small;
+    }
+}

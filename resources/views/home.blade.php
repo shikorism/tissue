@@ -27,22 +27,22 @@
                     @endcomponent
                 </div>
             </div>
-        </div>
-        <div class="col-lg-8">
             <div class="card mb-4">
                 <div class="card-header">サイトからのお知らせ</div>
-                <div class="list-group list-group-flush">
+                <div class="list-group list-group-flush tis-sidebar-info">
                     @foreach($informations as $info)
                         <a class="list-group-item" href="{{ route('info.show', ['id' => $info->id]) }}">
-                        @if ($info->pinned)
-                            <span class="badge badge-secondary"><span class="oi oi-pin"></span>ピン留め</span>
-                        @endif
+                            @if ($info->pinned)
+                                <span class="badge badge-secondary"><span class="oi oi-pin"></span>ピン留め</span>
+                            @endif
                             <span class="badge {{ $categories[$info->category]['class'] }}">{{ $categories[$info->category]['label'] }}</span> {{ $info->title }} <small class="text-secondary">- {{ $info->created_at->format('n月j日') }}</small>
                         </a>
                     @endforeach
                     <a href="{{ route('info') }}" class="list-group-item text-right">お知らせ一覧 &raquo;</a>
                 </div>
             </div>
+        </div>
+        <div class="col-lg-8">
             @if (!empty($publicLinkedEjaculations))
                 <div class="card mb-4">
                     <div class="card-header">お惣菜コーナー</div>
