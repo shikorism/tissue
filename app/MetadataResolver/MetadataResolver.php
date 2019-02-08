@@ -18,7 +18,12 @@ class MetadataResolver implements Resolver
         '~www\.patreon\.com/~' => PatreonResolver::class,
         '~www\.deviantart\.com/.*/art/.*~' => DeviantArtResolver::class,
         '~\.syosetu\.com/n\d+[a-z]{2,}~' => NarouResolver::class,
-        '/.*/' => OGPResolver::class
+    ];
+
+    public $mimeTypes = [
+        'application/activity+json' => ActivityPubResolver::class,
+        'application/ld+json' => ActivityPubResolver::class,
+        'text/html' => OGPResolver::class
     ];
 
     public function resolve(string $url): Metadata
@@ -31,6 +36,27 @@ class MetadataResolver implements Resolver
             }
         }
 
-        throw new \UnexpectedValueException('URL not matched.');
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', $url, [
+            'headers' => [
+                'Accept' => implode(', ', array_keys($this->mimeTypes))
+            ]
+        ]);
+
+        if ($res->getStatusCode() === 200) {
+            preg_match('/^[^;\s]+/', $res->getHeaderLine('Content-Type'), $matches);
+            $mimeType = $matches[0];
+
+            if (isset($this->mimeTypes[$mimeType])) {
+                $class = $this->mimeTypes[$mimeType];
+                $parser = new $class();
+
+                return $parser->parse($res->getBody());
+            } else {
+                throw new \UnexpectedValueException('URL not matched.');
+            }
+        } else {
+            throw new \RuntimeException("{$res->getStatusCode()}: $url");
+        }
     }
 }
