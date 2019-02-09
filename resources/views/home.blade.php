@@ -45,7 +45,7 @@
         <div class="col-lg-8">
             @if (!empty($globalEjaculationCounts))
                 <h5>チェックインの動向</h5>
-                <div class="w-100 mb-3 position-relative" style="height: 70px;">
+                <div class="w-100 mb-4 position-relative tis-global-count-graph">
                     <canvas id="global-count-graph"></canvas>
                 </div>
             @endif
