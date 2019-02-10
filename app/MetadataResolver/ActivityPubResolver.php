@@ -40,7 +40,8 @@ class ActivityPubResolver implements Resolver, Parser
         $metadata = new Metadata();
 
         $metadata->title = isset($object['attributedTo']) ? $this->getTitleFromActor($object['attributedTo']) : '';
-        $metadata->description = isset($object['content']) ? $this->html2text($object['content']) : '';
+        $metadata->description .= isset($object['summary']) ? $object['summary'] . " | " : '';
+        $metadata->description .= isset($object['content']) ? $this->html2text($object['content']) : '';
         $metadata->image = $object['attachment'][0]['url'] ?? '';
 
         return $metadata;
