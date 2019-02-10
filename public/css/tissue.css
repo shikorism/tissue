@@ -36,14 +36,3 @@
 .timeline-action-item {
     margin-left: 16px;
 }
-
-.tis-noscript {
-    position: fixed;
-    top: 0;
-    z-index: 110000;
-    width: 100vw;
-    padding: 1.125rem; /* navbarが隠れるくらい */
-    background: #ffeeba;
-    text-align: center;
-    border-bottom: 1px solid #fb6;
-}
