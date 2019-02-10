@@ -58,10 +58,16 @@ class MetadataResolver implements Resolver
     public function resolveWithAcceptHeader(string $url): ?Metadata
     {
         try {
+            // Rails等はAcceptに */* が入っていると、ブラウザの適当なAcceptヘッダだと判断して全部無視してしまう。
+            // c.f. https://github.com/rails/rails/issues/9940
+            // そこでここでは */* を「Acceptヘッダを無視してきたレスポンス（よくある）」のハンドラとして扱い、
+            // Acceptヘッダには */* を足さないことにする。
+            $acceptTypes = array_diff(array_keys($this->mimeTypes), ['*/*']);
+
             $client = new \GuzzleHttp\Client();
             $res = $client->request('GET', $url, [
                 'headers' => [
-                    'Accept' => implode(', ', array_keys($this->mimeTypes))
+                    'Accept' => implode(', ', $acceptTypes)
                 ]
             ]);
 
