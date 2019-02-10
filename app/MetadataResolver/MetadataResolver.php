@@ -2,6 +2,9 @@
 
 namespace App\MetadataResolver;
 
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
+
 class MetadataResolver implements Resolver
 {
     public $rules = [
@@ -23,8 +26,11 @@ class MetadataResolver implements Resolver
     public $mimeTypes = [
         'application/activity+json' => ActivityPubResolver::class,
         'application/ld+json' => ActivityPubResolver::class,
-        'text/html' => OGPResolver::class
+        'text/html' => OGPResolver::class,
+        '*/*' => OGPResolver::class
     ];
+
+    public $defaultResolver = OGPResolver::class;
 
     public function resolve(string $url): Metadata
     {
@@ -36,27 +42,58 @@ class MetadataResolver implements Resolver
             }
         }
 
-        $client = new \GuzzleHttp\Client();
-        $res = $client->request('GET', $url, [
-            'headers' => [
-                'Accept' => implode(', ', array_keys($this->mimeTypes))
-            ]
-        ]);
-
-        if ($res->getStatusCode() === 200) {
-            preg_match('/^[^;\s]+/', $res->getHeaderLine('Content-Type'), $matches);
-            $mimeType = $matches[0];
-
-            if (isset($this->mimeTypes[$mimeType])) {
-                $class = $this->mimeTypes[$mimeType];
-                $parser = new $class();
-
-                return $parser->parse($res->getBody());
-            } else {
-                throw new \UnexpectedValueException('URL not matched.');
-            }
-        } else {
-            throw new \RuntimeException("{$res->getStatusCode()}: $url");
+        $result = $this->resolveWithAcceptHeader($url);
+        if ($result !== null) {
+            return $result;
         }
+
+        if (isset($this->defaultResolver)) {
+            $resolver = new $this->defaultResolver();
+            return $resolver->resolve($url);
+        }
+
+        throw new \UnexpectedValueException('URL not matched.');
+    }
+    
+    public function resolveWithAcceptHeader(string $url): ?Metadata
+    {
+        try {
+            $client = new \GuzzleHttp\Client();
+            $res = $client->request('GET', $url, [
+                'headers' => [
+                    'Accept' => implode(', ', array_keys($this->mimeTypes))
+                ]
+            ]);
+
+            if ($res->getStatusCode() === 200) {
+                preg_match('/^[^;\s]+/', $res->getHeaderLine('Content-Type'), $matches);
+                $mimeType = $matches[0];
+
+                if (isset($this->mimeTypes[$mimeType])) {
+                    $class = $this->mimeTypes[$mimeType];
+                    $parser = new $class();
+
+                    return $parser->parse($res->getBody());
+                }
+
+                if (isset($this->mimeTypes['*/*'])) {
+                    $class = $this->mimeTypes['*/*'];
+                    $parser = new $class();
+
+                    return $parser->parse($res->getBody());
+                }
+            } else {
+                // code < 400 && code !== 200 => fallback
+            }
+        } catch (ClientException $e) {
+            // 406 Not Acceptable は多分Acceptが原因なので無視してフォールバック
+            if ($e->getResponse()->getStatusCode() !== 406) {
+                throw $e;
+            }
+        } catch (ServerException $e) {
+            // 5xx は変なAcceptが原因かもしれない（？）ので無視してフォールバック
+        }
+
+        return null;
     }
 }
