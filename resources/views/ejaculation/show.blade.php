@@ -112,42 +112,8 @@
             form.submit();
         });
 
-        $('.link-card').each(function () {
-            var $this = $(this);
-            $.ajax({
-                url: '{{ url('/api/checkin/card') }}',
-                method: 'get',
-                type: 'json',
-                data: {
-                    url: $this.find('a').attr('href')
-                }
-            }).then(function (data) {
-                var $title = $this.find('.card-title');
-                var $desc = $this.find('.card-text');
-                var $image = $this.find('img');
-
-                if (data.title === '') {
-                    $title.hide();
-                } else {
-                    $title.text(data.title);
-                }
-
-                if (data.description === '') {
-                    $desc.hide();
-                } else {
-                    $desc.text(data.description);
-                }
-
-                if (data.image === '') {
-                    $image.hide();
-                } else {
-                    $image.attr('src', data.image);
-                }
-
-                if (data.title !== '' || data.description !== '' || data.image !== '') {
-                    $this.removeClass('d-none');
-                }
-            });
+        $('.link-card').linkCard({
+            endpoint: '{{ url('/api/checkin/card') }}'
         });
     </script>
 @endpush
