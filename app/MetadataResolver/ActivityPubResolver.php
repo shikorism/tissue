@@ -3,6 +3,8 @@
 namespace App\MetadataResolver;
 
 use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Exception\TransferException;
+use Illuminate\Support\Facades\Log;
 
 class ActivityPubResolver implements Resolver, Parser
 {
@@ -46,18 +48,24 @@ class ActivityPubResolver implements Resolver, Parser
 
     private function getTitleFromActor(string $url): string
     {
-        $res = $this->activityClient->get($url);
-        if ($res->getStatusCode() !== 200) {
+        try {
+            $res = $this->activityClient->get($url);
+            if ($res->getStatusCode() !== 200) {
+                Log::info(self::class . ': Actorの取得に失敗 URL=' . $url);
+                return '';
+            }
+
+            $actor = json_decode($res->getBody(), true);
+            $title = $actor['name'] ?? '';
+            if (isset($actor['preferredUsername'])) {
+                $title .= ' (@' . $actor['preferredUsername'] . '@' . parse_url($actor['id'], PHP_URL_HOST) . ')';
+            }
+
+            return $title;
+        } catch (TransferException $e) {
+            Log::info(self::class . ': Actorの取得に失敗 URL=' . $url);
             return '';
         }
-
-        $actor = json_decode($res->getBody(), true);
-        $title = $actor['name'] ?? '';
-        if (isset($actor['preferredUsername'])) {
-            $title .= ' (@' . $actor['preferredUsername'] . '@' . parse_url($actor['id'], PHP_URL_HOST) . ')';
-        }
-
-        return $title;
     }
 
     private function html2text(string $html): string
