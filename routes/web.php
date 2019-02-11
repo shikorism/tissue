@@ -51,4 +51,8 @@ Route::middleware('can:admin')
     ->name('admin.')
     ->group(function () {
         Route::get('/', 'DashboardController@index')->name('dashboard');
+        Route::get('/info', 'InfoController@index')->name('info');
+        Route::get('/info/create', 'InfoController@create')->name('info.create');
+        Route::get('/info/{id}', 'InfoController@edit')->name('info.edit');
+        Route::put('/info/{id}', 'InfoController@update')->name('info.update');
     });
