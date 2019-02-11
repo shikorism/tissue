@@ -2,7 +2,7 @@
 
 namespace App\MetadataResolver;
 
-class OGPResolver implements Resolver
+class OGPResolver implements Resolver, Parser
 {
     public function resolve(string $url): Metadata
     {
