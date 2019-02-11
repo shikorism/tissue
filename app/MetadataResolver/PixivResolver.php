@@ -8,6 +8,7 @@ class PixivResolver implements Resolver
      * サムネイル画像 URL から最大長辺 1200px の画像 URL に変換する
      *
      * @param string $thumbnailUrl サムネイル画像 URL
+     *
      * @return string 1200px の画像 URL
      */
     public function thumbnailToMasterUrl(string $thumbnailUrl): string
@@ -23,6 +24,7 @@ class PixivResolver implements Resolver
      * HUGE THANKS TO PIXIV.CAT!
      *
      * @param string $pixivUrl i.pximg URL
+     *
      * @return string i.pixiv.cat URL
      */
     public function proxize(string $pixivUrl): string
@@ -54,7 +56,7 @@ class PixivResolver implements Resolver
 
             $illustUrl = $this->thumbnailToMasterUrl($illustThumbnailUrl);
 
-            $metadata->image =  $this->proxize($illustUrl);
+            $metadata->image = $this->proxize($illustUrl);
 
             return $metadata;
         } else {
