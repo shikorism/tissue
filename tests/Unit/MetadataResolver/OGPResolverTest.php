@@ -35,4 +35,19 @@ class OGPResolverTest extends TestCase
         $this->assertEmpty($metadata->description);
         $this->assertEmpty($metadata->image);
     }
+
+    public function testResolveTitleAndDescription()
+    {
+        $resolver = new OGPResolver();
+
+        $html = <<<EOF
+<title>Welcome to my homepage</title>
+<meta name="description" content="This is my super hyper ultra homepage!!" />
+EOF;
+
+        $metadata = $resolver->parse($html);
+        $this->assertEquals('Welcome to my homepage', $metadata->title);
+        $this->assertEquals('This is my super hyper ultra homepage!!', $metadata->description);
+        $this->assertEmpty($metadata->image);
+    }
 }
