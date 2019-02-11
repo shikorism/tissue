@@ -24,6 +24,16 @@
     transition: filter .15s liner;
 }
 
+.list-group-item.no-side-border {
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+}
+
+.list-group-item.border-bottom-only:first-child {
+    border-top: none;
+}
+
 .list-group-item.border-bottom-only {
     border-left: none;
     border-right: none;
@@ -36,4 +46,15 @@
 
 .timeline-action-item {
     margin-left: 16px;
+}
+
+.tis-global-count-graph {
+    height: 90px;
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+}
+
+@media (min-width: 992px) {
+    .tis-sidebar-info {
+        font-size: small;
+    }
 }
