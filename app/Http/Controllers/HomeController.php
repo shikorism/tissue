@@ -36,6 +36,31 @@ class HomeController extends Controller
         $categories = Information::CATEGORIES;
 
         if (Auth::check()) {
+            // チェックイン動向グラフ用のデータ取得
+            $groupByDay = Ejaculation::select(DB::raw(
+                <<<'SQL'
+to_char(ejaculated_date, 'YYYY/MM/DD') AS "date",
+count(*) AS "count"
+SQL
+            ))
+                ->join('users', function ($join) {
+                    $join->on('users.id', '=', 'ejaculations.user_id')
+                        ->where('users.accept_analytics', true);
+                })
+                ->where('ejaculated_date', '>=', now()->subDays(14))
+                ->groupBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"))
+                ->orderBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"))
+                ->get()
+                ->mapWithKeys(function ($item) {
+                    return [$item['date'] => $item['count']];
+                });
+            $globalEjaculationCounts = [];
+            $day = Carbon::now()->subDays(29);
+            for ($i = 0; $i < 30; $i++) {
+                $globalEjaculationCounts[$day->format('Y/m/d') . ' の総チェックイン数'] = $groupByDay[$day->format('Y/m/d')] ?? 0;
+                $day->addDay();
+            }
+
             // お惣菜コーナー用のデータ取得
             $publicLinkedEjaculations = Ejaculation::join('users', 'users.id', '=', 'ejaculations.user_id')
                 ->where('users.is_protected', false)
@@ -47,7 +72,7 @@ class HomeController extends Controller
                 ->take(10)
                 ->get();
 
-            return view('home')->with(compact('informations', 'categories', 'publicLinkedEjaculations'));
+            return view('home')->with(compact('informations', 'categories', 'globalEjaculationCounts', 'publicLinkedEjaculations'));
         } else {
             return view('guest')->with(compact('informations', 'categories'));
         }

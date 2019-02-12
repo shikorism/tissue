@@ -2,7 +2,7 @@
 
 namespace App\MetadataResolver;
 
-class OGPResolver implements Resolver
+class OGPResolver implements Resolver, Parser
 {
     public function resolve(string $url): Metadata
     {
@@ -30,7 +30,7 @@ class OGPResolver implements Resolver
                 $metadata->title = $nodes->item(0)->textContent;
             }
         }
-        $metadata->description = $this->findContent($xpath, '//meta[@*="og:description"]', '//meta[@*="twitter:description"]');
+        $metadata->description = $this->findContent($xpath, '//meta[@*="og:description"]', '//meta[@*="twitter:description"]', '//meta[@name="description"]');
         $metadata->image = $this->findContent($xpath, '//meta[@*="og:image"]', '//meta[@*="twitter:image"]');
 
         return $metadata;

@@ -21,7 +21,8 @@ class SearchController extends Controller
             ->where('is_private', false)
             ->orderBy('ejaculated_date', 'desc')
             ->with(['user', 'tags'])
-            ->paginate(20);
+            ->paginate(20)
+            ->appends($inputs);
 
         return view('search.index')->with(compact('inputs', 'results'));
     }
@@ -34,7 +35,8 @@ class SearchController extends Controller
 
         $results = Tag::query()
             ->where('name', 'like', "%{$inputs['q']}%")
-            ->paginate(50);
+            ->paginate(50)
+            ->appends($inputs);
 
         return view('search.relatedTag')->with(compact('inputs', 'results'));
     }
