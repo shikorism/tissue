@@ -19,6 +19,17 @@
     @stack('head')
 </head>
 <body class="{{Auth::check() ? '' : 'tis-need-agecheck'}}">
+<noscript class="navbar navbar-light bg-warning">
+    <div class="container-fluid">
+        <div class="d-flex flex-column mx-auto">
+            <p class="m-0 text-dark">Tissueを利用するには、ブラウザのJavaScriptとCookieを有効にする必要があります。</p>
+            <p class="m-0 text-info">
+                <a href="https://www.enable-javascript.com/ja/" target="_blank" rel="nofollow noopener">ブラウザでJavaScriptを有効にする方法</a>
+                ･ <a href="https://www.whatismybrowser.com/guides/how-to-enable-cookies/auto" target="_blank" rel="nofollow noopener">ブラウザでCookieを有効にする方法</a>
+            </p>
+        </div>
+    </div>
+</noscript>
 <nav class="navbar navbar-expand-lg navbar-light bg-light {{ !Auth::check() && Route::currentRouteName() === 'home' ? '' : 'mb-4'}}">
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         {{ csrf_field() }}
@@ -129,7 +140,6 @@
   </div>
 </div>
 @endguest
-
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.js"></script>
