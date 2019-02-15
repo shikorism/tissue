@@ -47,7 +47,7 @@ SQL
                     $join->on('users.id', '=', 'ejaculations.user_id')
                         ->where('users.accept_analytics', true);
                 })
-                ->where('ejaculated_date', '>=', now()->subDays(14))
+                ->where('ejaculated_date', '>=', now()->subDays(30))
                 ->groupBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"))
                 ->orderBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"))
                 ->get()
