@@ -46,4 +46,10 @@
         });
     };
 
+    $.fn.pageSelector = function () {
+        return this.on('change', function () {
+            location.href = $(this).find(':selected').data('href');
+        });
+    };
+
 })(jQuery);

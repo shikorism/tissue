@@ -42,7 +42,13 @@
             <li class="page-item w-25 text-center"><a class="page-link" href="{{ $paginator->previousPageUrl() }}" rel="prev">&laquo;</a></li>
         @endif
 
-        <li class="page-item w-25 text-center"><span class="page-link">{{ $paginator->currentPage() }}</span></li>
+        <li class="page-item w-25 text-center">
+            <select class="custom-select tis-page-selector" aria-label="Page">
+                @for ($i = 1; $i <= $paginator->lastPage(); $i++)
+                    <option value="{{ $i }}" {{ $i === $paginator->currentPage() ? 'selected' : '' }} data-href="{{ $paginator->url($i) }}">{{ $i }}</option>
+                @endfor
+            </select>
+        </li>
 
         @if ($paginator->hasMorePages())
             <li class="page-item w-25 text-center"><a class="page-link" href="{{ $paginator->nextPageUrl() }}" rel="next">&raquo;</a></li>

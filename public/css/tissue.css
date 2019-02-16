@@ -53,6 +53,13 @@
     border-bottom: 1px solid rgba(0, 0, 0, .125);
 }
 
+.tis-page-selector {
+    margin-left: -1px;
+    width: calc(100% + 2px);
+    border: 1px solid #dee2e6;
+    border-radius: 0;
+}
+
 @media (min-width: 992px) {
     .tis-sidebar-info {
         font-size: small;
