@@ -36,6 +36,7 @@ class PixivResolver implements Resolver
     {
         parse_str(parse_url($url, PHP_URL_QUERY), $params);
         $illustId = $params['illust_id'];
+        $page = 0;
 
         // 漫画ページ（ページ数はmanga_bigならあるかも）
         if ($params['mode'] === 'manga_big' || $params['mode'] === 'manga') {
@@ -53,6 +54,10 @@ class PixivResolver implements Resolver
 
             preg_match("~https://i\.pximg\.net/c/128x128/img-master/img/\d{4}/\d{2}/\d{2}/\d{2}/\d{2}/\d{2}/{$illustId}(_p0)?_square1200\.jpg~", $res->getBody(), $match);
             $illustThumbnailUrl = $match[0];
+
+            if ($page != 0) {
+                $illustThumbnailUrl = str_replace('_p0', '_p'.$page, $illustThumbnailUrl);
+            }
 
             $illustUrl = $this->thumbnailToMasterUrl($illustThumbnailUrl);
 
