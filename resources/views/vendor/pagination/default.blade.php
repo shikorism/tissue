@@ -48,6 +48,7 @@
                     <option value="{{ $i }}" {{ $i === $paginator->currentPage() ? 'selected' : '' }} data-href="{{ $paginator->url($i) }}">{{ $i }}</option>
                 @endfor
             </select>
+            <small class="text-muted">/ {{ $paginator->lastPage() }}</small>
         </li>
 
         @if ($paginator->hasMorePages())
