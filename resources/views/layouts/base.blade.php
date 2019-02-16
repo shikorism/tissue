@@ -12,6 +12,7 @@
         <title>{{ config('app.name', 'Tissue') }}</title>
     @endif
 
+    <link href="{{ asset('manifest.json') }}" rel="manifest">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/open-iconic-bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/tissue.css') }}" rel="stylesheet">
@@ -236,6 +237,9 @@
             });
         }
         @endguest
+        if (navigator.serviceWorker) {
+            navigator.serviceWorker.register('/sw.js');
+        }
         $('[data-toggle="tooltip"]').tooltip();
         $('.alert').alert();
         $('.tis-page-selector').pageSelector();
