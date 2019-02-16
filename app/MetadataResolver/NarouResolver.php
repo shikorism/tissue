@@ -2,19 +2,33 @@
 
 namespace App\MetadataResolver;
 
+use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
 
 class NarouResolver implements Resolver
 {
+    /**
+     * @var Client
+     */
+    private $client;
+    /**
+     * @var OGPResolver
+     */
+    private $ogpResolver;
+
+    public function __construct(Client $client, OGPResolver $ogpResolver)
+    {
+        $this->client = $client;
+        $this->ogpResolver = $ogpResolver;
+    }
+
     public function resolve(string $url): Metadata
     {
         $cookieJar = CookieJar::fromArray(['over18' => 'yes'], '.syosetu.com');
 
-        $client = new \GuzzleHttp\Client();
-        $res = $client->get($url, ['cookies' => $cookieJar]);
+        $res = $this->client->get($url, ['cookies' => $cookieJar]);
         if ($res->getStatusCode() === 200) {
-            $ogpResolver = new OGPResolver();
-            $metadata = $ogpResolver->parse($res->getBody());
+            $metadata = $this->ogpResolver->parse($res->getBody());
             $metadata->description = '';
 
             $dom = new \DOMDocument();

@@ -2,8 +2,25 @@
 
 namespace App\MetadataResolver;
 
+use GuzzleHttp\Client;
+
 class PixivResolver implements Resolver
 {
+    /**
+     * @var Client
+     */
+    private $client;
+    /**
+     * @var OGPResolver
+     */
+    private $ogpResolver;
+
+    public function __construct(Client $client, OGPResolver $ogpResolver)
+    {
+        $this->client = $client;
+        $this->ogpResolver = $ogpResolver;
+    }
+
     /**
      * サムネイル画像 URL から最大長辺 1200px の画像 URL に変換する
      *
@@ -45,11 +62,9 @@ class PixivResolver implements Resolver
             $url = preg_replace('~mode=manga(_big)?~', 'mode=medium', $url);
         }
 
-        $client = new \GuzzleHttp\Client();
-        $res = $client->get($url);
+        $res = $this->client->get($url);
         if ($res->getStatusCode() === 200) {
-            $ogpResolver = new OGPResolver();
-            $metadata = $ogpResolver->parse($res->getBody());
+            $metadata = $this->ogpResolver->parse($res->getBody());
 
             preg_match("~https://i\.pximg\.net/c/128x128/img-master/img/\d{4}/\d{2}/\d{2}/\d{2}/\d{2}/\d{2}/{$illustId}(_p0)?_square1200\.jpg~", $res->getBody(), $match);
             $illustThumbnailUrl = $match[0];
