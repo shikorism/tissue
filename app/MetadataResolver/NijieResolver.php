@@ -6,12 +6,19 @@ use GuzzleHttp\Client;
 
 class NijieResolver implements Resolver
 {
-    /** @var Client */
+    /**
+     * @var Client
+     */
     protected $client;
+    /**
+     * @var OGPResolver
+     */
+    private $ogpResolver;
 
-    public function __construct(Client $client)
+    public function __construct(Client $client, OGPResolver $ogpResolver)
     {
         $this->client = $client;
+        $this->ogpResolver = $ogpResolver;
     }
 
     public function resolve(string $url): Metadata
@@ -26,8 +33,7 @@ class NijieResolver implements Resolver
         $client = $this->client;
         $res = $client->get($url);
         if ($res->getStatusCode() === 200) {
-            $ogpResolver = new OGPResolver();
-            $metadata = $ogpResolver->parse($res->getBody());
+            $metadata = $this->ogpResolver->parse($res->getBody());
 
             $dom = new \DOMDocument();
             @$dom->loadHTML(mb_convert_encoding($res->getBody(), 'HTML-ENTITIES', 'UTF-8'));
