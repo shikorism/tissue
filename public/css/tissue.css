@@ -56,8 +56,10 @@
 .tis-page-selector {
     margin-left: -1px;
     width: calc(100% + 2px);
+    height: 100%;
     border: 1px solid #dee2e6;
     border-radius: 0;
+    line-height: 1.25;
 }
 
 @media (min-width: 992px) {
