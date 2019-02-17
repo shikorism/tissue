@@ -2,12 +2,24 @@
 
 namespace App\MetadataResolver;
 
+use GuzzleHttp\Client;
+
 class IwaraResolver implements Resolver
 {
+    /**
+     * @var Client
+     */
+    private $client;
+
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+    }
+
     public function resolve(string $url): Metadata
     {
-        $client = new \GuzzleHttp\Client();
-        $res = $client->get($url);
+        $res = $this->client->get($url);
+
         if ($res->getStatusCode() === 200) {
             $dom = new \DOMDocument();
             @$dom->loadHTML(mb_convert_encoding($res->getBody(), 'HTML-ENTITIES', 'UTF-8'));

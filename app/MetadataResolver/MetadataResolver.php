@@ -37,7 +37,8 @@ class MetadataResolver implements Resolver
     {
         foreach ($this->rules as $pattern => $class) {
             if (preg_match($pattern, $url) === 1) {
-                $resolver = new $class();
+                /** @var Resolver $resolver */
+                $resolver = app($class);
 
                 return $resolver->resolve($url);
             }
@@ -49,13 +50,14 @@ class MetadataResolver implements Resolver
         }
 
         if (isset($this->defaultResolver)) {
-            $resolver = new $this->defaultResolver();
+            /** @var Resolver $resolver */
+            $resolver = app($this->defaultResolver);
             return $resolver->resolve($url);
         }
 
         throw new \UnexpectedValueException('URL not matched.');
     }
-    
+
     public function resolveWithAcceptHeader(string $url): ?Metadata
     {
         try {

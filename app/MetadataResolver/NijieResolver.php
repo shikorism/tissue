@@ -2,8 +2,25 @@
 
 namespace App\MetadataResolver;
 
+use GuzzleHttp\Client;
+
 class NijieResolver implements Resolver
 {
+    /**
+     * @var Client
+     */
+    protected $client;
+    /**
+     * @var OGPResolver
+     */
+    private $ogpResolver;
+
+    public function __construct(Client $client, OGPResolver $ogpResolver)
+    {
+        $this->client = $client;
+        $this->ogpResolver = $ogpResolver;
+    }
+
     public function resolve(string $url): Metadata
     {
         if (mb_strpos($url, '//sp.nijie.info') !== false) {
@@ -13,11 +30,10 @@ class NijieResolver implements Resolver
             $url = preg_replace('~view_popup\.php~', 'view.php', $url);
         }
 
-        $client = new \GuzzleHttp\Client();
+        $client = $this->client;
         $res = $client->get($url);
         if ($res->getStatusCode() === 200) {
-            $ogpResolver = new OGPResolver();
-            $metadata = $ogpResolver->parse($res->getBody());
+            $metadata = $this->ogpResolver->parse($res->getBody());
 
             $dom = new \DOMDocument();
             @$dom->loadHTML(mb_convert_encoding($res->getBody(), 'HTML-ENTITIES', 'UTF-8'));
