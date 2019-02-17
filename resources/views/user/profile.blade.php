@@ -87,23 +87,7 @@
             </li>
         @endforelse
     </ul>
-    <ul class="pagination mt-4 justify-content-center">
-        <li class="page-item {{ $ejaculations->currentPage() === 1 ? 'disabled' : '' }}">
-            <a class="page-link" href="{{ $ejaculations->previousPageUrl() }}" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
-            </a>
-        </li>
-        @for ($i = 1; $i <= $ejaculations->lastPage(); $i++)
-            <li class="page-item {{ $i === $ejaculations->currentPage() ? 'active' : '' }}"><a href="{{ $ejaculations->url($i) }}" class="page-link">{{ $i }}</a></li>
-        @endfor
-        <li class="page-item {{ $ejaculations->currentPage() === $ejaculations->lastPage() ? 'disabled' : '' }}">
-            <a class="page-link" href="{{ $ejaculations->nextPageUrl() }}" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-            </a>
-        </li>
-    </ul>
+    {{ $ejaculations->links(null, ['className' => 'mt-4 justify-content-center']) }}
 @endif
 
 @component('components.modal', ['id' => 'deleteCheckinModal'])

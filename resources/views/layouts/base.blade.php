@@ -160,6 +160,7 @@
         @endguest
         $('[data-toggle="tooltip"]').tooltip();
         $('.alert').alert();
+        $('.tis-page-selector').pageSelector();
         @if (session('status'))
         setTimeout(function () {
             $('#status').alert('close');
