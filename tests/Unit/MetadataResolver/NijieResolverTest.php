@@ -12,6 +12,10 @@ class NijieResolverTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+
+        if (!$this->shouldUseMock()) {
+            sleep(1);
+        }
     }
 
     public function testStandardPicture()
