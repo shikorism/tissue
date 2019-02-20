@@ -32,6 +32,7 @@ class KomifloResolver implements Resolver
             $metadata->description = ($json['content']['attributes']['artists']['children'][0]['data']['name'] ?? '?') .
                 ' - ' .
                 ($json['content']['parents'][0]['data']['title'] ?? '?');
+            $metadata->image = 'https://t.komiflo.com/564_mobile_large_3x/' . $json['content']['named_imgs']['cover']['filename'];
 
             return $metadata;
         } else {
