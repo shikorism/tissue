@@ -133,7 +133,7 @@
                         </div>
                     </div> --}}
                     <div class="row mt-2">
-                        <form action="{{ stripos(Route::currentRouteName(), 'search') === 0 ? route(Route::currentRouteName()) : route('search') }}" class="form-inline col">
+                        <form action="{{ stripos(Route::currentRouteName(), 'search') === 0 ? route(Route::currentRouteName()) : route('search') }}" class="col">
                             <div class="input-group">
                                 <input type="search" name="q" class="form-control" placeholder="検索..." value="{{ stripos(Route::currentRouteName(), 'search') === 0 ? $inputs['q'] : '' }}" required>
                                 <div class="input-group-append">
