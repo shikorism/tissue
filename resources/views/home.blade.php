@@ -76,15 +76,8 @@
                             <!-- okazu link -->
                             @if (!empty($ejaculation->link))
                                 <div class="row mx-0">
-                                    <div class="card link-card mb-2 px-0 col-12 col-md-6 d-none" style="font-size: small;">
-                                        <a class="text-dark card-link" href="{{ $ejaculation->link }}" target="_blank" rel="noopener">
-                                            <img src="" alt="Thumbnail" class="card-img-top bg-secondary">
-                                            <div class="card-body">
-                                                <h6 class="card-title font-weight-bold">タイトル</h6>
-                                                <p class="card-text">コンテンツの説明文</p>
-                                            </div>
-                                        </a>
-                                    </div>
+                                    @component('components.card', ['link' => $ejaculation->link])
+                                    @endcomponent
                                     <p class="d-flex align-items-baseline mb-2 col-12 px-0">
                                         <span class="oi oi-link-intact mr-1"></span><a class="overflow-hidden" href="{{ $ejaculation->link }}" target="_blank" rel="noopener">{{ $ejaculation->link }}</a>
                                     </p>
