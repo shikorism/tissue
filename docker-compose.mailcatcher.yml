@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  mailcatcher:
+    image: schickling/mailcatcher
+    ports:
+      - 1080:1080
+    networks:
+      - backend
+
