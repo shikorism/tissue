@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    //
+    public function redirectMypage()
+    {
+        return redirect()->route('user.profile', ['name' => auth()->user()->name]);
+    }
 
     public function profile($name)
     {
