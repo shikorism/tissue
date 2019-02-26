@@ -21,7 +21,7 @@
 }
 
 .container {
-    transition: filter .15s liner;
+    transition: filter .15s linear;
 }
 
 .list-group-item.no-side-border {
