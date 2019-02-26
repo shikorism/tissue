@@ -37,24 +37,26 @@
 
     <div class="container">
         <a href="{{ route('home') }}" class="navbar-brand mr-auto">{{ config('app.name', 'Tissue') }}</a>
-        <div class="d-lg-none navbar-nav">
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle p-2" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="{{ Auth::user()->getProfileImageUrl(30) }}" width="30" height="30" class="rounded d-inline-block align-top">
-                </a>
-                <div class="dropdown-menu dropdown-menu-right position-absolute" aria-labelledby="navbarDropdownMenuLink">
-                    <a href="{{ route('user.profile', ['name' => Auth::user()->name]) }}" class="dropdown-item">
-                        <strong>{{ Auth::user()->display_name }}</strong>
-                        <p class="mb-0 text-muted">
-                            <span>&commat;{{ Auth::user()->name }}</span>
-                        </p>
+        @auth
+            <div class="d-lg-none navbar-nav">
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle p-2" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="{{ Auth::user()->getProfileImageUrl(30) }}" width="30" height="30" class="rounded d-inline-block align-top">
                     </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="{{ route('setting') }}" class="dropdown-item">設定</a>
-                    <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
+                    <div class="dropdown-menu dropdown-menu-right position-absolute" aria-labelledby="navbarDropdownMenuLink">
+                        <a href="{{ route('user.profile', ['name' => Auth::user()->name]) }}" class="dropdown-item">
+                            <strong>{{ Auth::user()->display_name }}</strong>
+                            <p class="mb-0 text-muted">
+                                <span>&commat;{{ Auth::user()->name }}</span>
+                            </p>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{{ route('setting') }}" class="dropdown-item">設定</a>
+                        <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endauth
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
