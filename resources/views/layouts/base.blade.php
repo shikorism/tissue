@@ -43,8 +43,8 @@
                     <a href="#" class="nav-link dropdown-toggle p-2" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="{{ Auth::user()->getProfileImageUrl(30) }}" width="30" height="30" class="rounded d-inline-block align-top">
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right position-absolute" aria-labelledby="navbarDropdownMenuLink">
-                        <a href="{{ route('user.profile', ['name' => Auth::user()->name]) }}" class="dropdown-item">
+                    <div class="dropdown-menu dropdown-menu-right position-absolute" aria-labelledby="navbarDropdownMenuLink" id="navbarAccountDropdownSp">
+                        <a href="{{ route('user.profile', ['name' => Auth::user()->name]) }}" class="dropdown-item text-truncate">
                             <strong>{{ Auth::user()->display_name }}</strong>
                             <p class="mb-0 text-muted">
                                 <span>&commat;{{ Auth::user()->name }}</span>

@@ -81,3 +81,7 @@
 #navbarNav > .d-lg-none > .row > .col .btn {
     width: 100%;
 }
+
+#navbarAccountDropdownSp {
+    max-width: calc(100vw - 5em);
+}
