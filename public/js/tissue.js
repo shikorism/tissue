@@ -17,9 +17,11 @@
                     url: $this.find('a').attr('href')
                 }
             }).then(function (data) {
+                var $metaColumn = $this.find('.col-12:last-of-type');
+                var $imageColumn = $this.find('.col-12:first-of-type');
                 var $title = $this.find('.card-title');
                 var $desc = $this.find('.card-text');
-                var $image = $this.find('img');
+                var $image = $imageColumn.find('img');
 
                 if (data.title === '') {
                     $title.hide();
@@ -34,7 +36,8 @@
                 }
 
                 if (data.image === '') {
-                    $image.hide();
+                    $imageColumn.hide();
+                    $metaColumn.removeClass('col-md-6');
                 } else {
                     $image.attr('src', data.image);
                 }
