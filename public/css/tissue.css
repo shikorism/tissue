@@ -67,3 +67,21 @@
         font-size: small;
     }
 }
+
+#navbarNav > .d-lg-none > .row > div:first-of-type {
+    padding-left: 15px;
+    padding-right: 7.5px;
+}
+
+#navbarNav > .d-lg-none > .row > div {
+    padding-left: 7.5px;
+    padding-right: 15px;
+}
+
+#navbarNav > .d-lg-none > .row > .col .btn {
+    width: 100%;
+}
+
+#navbarAccountDropdownSp {
+    max-width: calc(100vw - 5em);
+}

@@ -36,68 +36,146 @@
     </form>
 
     <div class="container">
-        <a href="{{ route('home') }}" class="navbar-brand">{{ config('app.name', 'Tissue') }}</a>
+        <a href="{{ route('home') }}" class="navbar-brand mr-auto">{{ config('app.name', 'Tissue') }}</a>
+        @auth
+            <div class="d-lg-none navbar-nav">
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle p-2" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="{{ Auth::user()->getProfileImageUrl(30) }}" width="30" height="30" class="rounded d-inline-block align-top">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right position-absolute" aria-labelledby="navbarDropdownMenuLink" id="navbarAccountDropdownSp">
+                        <a href="{{ route('user.profile', ['name' => Auth::user()->name]) }}" class="dropdown-item text-truncate">
+                            <strong>{{ Auth::user()->display_name }}</strong>
+                            <p class="mb-0 text-muted">
+                                <span>&commat;{{ Auth::user()->name }}</span>
+                            </p>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{{ route('setting') }}" class="dropdown-item">設定</a>
+                        <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
+                    </div>
+                </div>
+            </div>
+        @endauth
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             @auth
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item {{ stripos(Route::currentRouteName(), 'home') === 0 ? 'active' : ''}}">
-                        <a class="nav-link" href="{{ route('home') }}">ホーム</a>
-                    </li>
-                    <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.profile') === 0 ? 'active' : ''}}">
-                        <a class="nav-link" href="{{ route('user.profile', ['name' => Auth::user()->name]) }}">タイムライン</a>
-                    </li>
-                    <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.stats') === 0 ? 'active' : ''}}">
-                        <a class="nav-link" href="{{ route('user.stats', ['name' => Auth::user()->name]) }}">グラフ</a>
-                    </li>
-                    <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.okazu') === 0 ? 'active' : ''}}">
-                        <a class="nav-link" href="{{ route('user.okazu', ['name' => Auth::user()->name]) }}">オカズ</a>
-                    </li>
-                    {{--<li class="nav-item">
-                        <a class="nav-link" href="{{ route('ranking') }}">ランキング</a>
-                    </li>--}}
-                </ul>
-                <form action="{{ stripos(Route::currentRouteName(), 'search') === 0 ? route(Route::currentRouteName()) : route('search') }}" class="form-inline mr-2">
-                    <div class="input-group">
-                        <input type="search" name="q" class="form-control" placeholder="検索..." value="{{ stripos(Route::currentRouteName(), 'search') === 0 ? $inputs['q'] : '' }}" required>
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="submit"><span class="oi oi-magnifying-glass" aria-hidden="true"></span><span class="sr-only">検索</span></button>
+                <!-- PC navbar -->
+                <div class="d-none d-lg-flex navbar-collapse ml-3">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item {{ stripos(Route::currentRouteName(), 'home') === 0 ? 'active' : ''}}">
+                            <a class="nav-link" href="{{ route('home') }}">ホーム</a>
+                        </li>
+                        <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.profile') === 0 ? 'active' : ''}}">
+                            <a class="nav-link" href="{{ route('user.profile', ['name' => Auth::user()->name]) }}">タイムライン</a>
+                        </li>
+                        <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.stats') === 0 ? 'active' : ''}}">
+                            <a class="nav-link" href="{{ route('user.stats', ['name' => Auth::user()->name]) }}">グラフ</a>
+                        </li>
+                        <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.okazu') === 0 ? 'active' : ''}}">
+                            <a class="nav-link" href="{{ route('user.okazu', ['name' => Auth::user()->name]) }}">オカズ</a>
+                        </li>
+                        {{--<li class="nav-item">
+                            <a class="nav-link" href="{{ route('ranking') }}">ランキング</a>
+                        </li>--}}
+                    </ul>
+                    <form action="{{ stripos(Route::currentRouteName(), 'search') === 0 ? route(Route::currentRouteName()) : route('search') }}" class="form-inline mr-2">
+                        <div class="input-group">
+                            <input type="search" name="q" class="form-control" placeholder="検索..." value="{{ stripos(Route::currentRouteName(), 'search') === 0 ? $inputs['q'] : '' }}" required>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit"><span class="oi oi-magnifying-glass" aria-hidden="true"></span><span class="sr-only">検索</span></button>
+                            </div>
+                        </div>
+                    </form>
+                    <form class="form-inline mr-2">
+                        <a href="{{ route('checkin') }}" class="btn btn-outline-success">チェックイン</a>
+                    </form>
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="{{ Auth::user()->getProfileImageUrl(30) }}" width="30" height="30" class="rounded d-inline-block align-top">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                <a href="{{ route('user.profile', ['name' => Auth::user()->name]) }}" class="dropdown-item">
+                                    <strong>{{ Auth::user()->display_name }}</strong>
+                                    <p class="mb-0 text-muted">
+                                        <span>&commat;{{ Auth::user()->name }}</span>
+                                    </p>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="{{ route('setting') }}" class="dropdown-item">設定</a>
+                                <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- SP navbar -->
+                <div class="d-lg-none">
+                    <div class="row mt-2">
+                        <div class="col">
+                            <a class="btn btn-outline-{{ stripos(Route::currentRouteName(), 'home') === 0 ? 'primary' : 'secondary'}}" href="{{ route('home') }}" role="button">ホーム</a>
+                        </div>
+                        <div class="col">
+                            <a class="btn btn-outline-{{ stripos(Route::currentRouteName(), 'user.profile') === 0 ? 'primary' : 'secondary'}}" href="{{ route('user.profile', ['name' => Auth::user()->name]) }}" role="button">タイムライン</a>
                         </div>
                     </div>
-                </form>
-                <form class="form-inline mr-2">
-                    <a href="{{ route('checkin') }}" class="btn btn-outline-success">チェックイン</a>
-                </form>
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="{{ Auth::user()->getProfileImageUrl(30) }}" width="30" height="30" class="rounded d-inline-block align-top">
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                            <a href="{{ route('user.profile', ['name' => Auth::user()->name]) }}" class="dropdown-item">
-                                <strong>{{ Auth::user()->display_name }}</strong>
-                                <p class="mb-0 text-muted">
-                                    <span>&commat;{{ Auth::user()->name }}</span>
-                                </p>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="{{ route('setting') }}" class="dropdown-item">設定</a>
-                            <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
+                    <div class="row mt-2">
+                        <div class="col">
+                            <a class="btn btn-outline-{{ stripos(Route::currentRouteName(), 'user.stats') === 0 ? 'primary' : 'secondary'}}" href="{{ route('user.stats', ['name' => Auth::user()->name]) }}" role="button">グラフ</a>
                         </div>
-                    </li>
-                </ul>
+                        <div class="col">
+                            <a class="btn btn-outline-{{ stripos(Route::currentRouteName(), 'user.okazu') === 0 ? 'primary' : 'secondary'}}" href="{{ route('user.okazu', ['name' => Auth::user()->name]) }}" role="button">オカズ</a>
+                        </div>
+                    </div>
+                    {{-- <div class="row mt-2">
+                        <div class="col">
+                            <a class="btn btn-outline-secondary" href="{{ route('ranking') }}">ランキング</a>
+                        </div>
+                    </div> --}}
+                    <div class="row mt-2">
+                        <form action="{{ stripos(Route::currentRouteName(), 'search') === 0 ? route(Route::currentRouteName()) : route('search') }}" class="col">
+                            <div class="input-group">
+                                <input type="search" name="q" class="form-control" placeholder="検索..." value="{{ stripos(Route::currentRouteName(), 'search') === 0 ? $inputs['q'] : '' }}" required>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="submit"><span class="oi oi-magnifying-glass" aria-hidden="true"></span><span class="sr-only">検索</span></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row mt-2">
+                        <form class="form-inline col">
+                            <a class="btn btn-outline-success" href="{{ route('checkin') }}">チェックイン</a>
+                        </form>
+                    </div>
+                </div>
             @endauth
             @guest
-                <ul class="navbar-nav ml-auto mr-2">
-                    <li class="nav-item">
-                        <a href="{{ route('register') }}" class="nav-link">会員登録</a>
-                    </li>
-                </ul>
-                <form class="form-inline">
-                    <a href="{{ route('login') }}" class="btn btn-outline-secondary">ログイン</a>
-                </form>
+                <!-- PC navbar -->
+                <div class="d-none d-lg-flex navbar-collapse">
+                    <ul class="navbar-nav ml-auto mr-2">
+                        <li class="nav-item">
+                            <a href="{{ route('register') }}" class="nav-link">会員登録</a>
+                        </li>
+                    </ul>
+                    <form class="form-inline">
+                        <a href="{{ route('login') }}" class="btn btn-outline-secondary">ログイン</a>
+                    </form>
+                </div>
+                <!-- SP navbar -->
+                <div class="d-lg-none">
+                    <div class="row mt-2">
+                        <div class="col">
+                            <a class="btn btn-outline-secondary" href="{{ route('register') }}" role="button">会員登録</a>
+                        </div>
+                        <div class="col">
+                            <form class="form-inline">
+                                <a class="btn btn-outline-secondary" href="{{ route('login') }}">ログイン</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             @endguest
         </div>
     </div>
