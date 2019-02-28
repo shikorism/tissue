@@ -23,6 +23,7 @@ class MetadataResolver implements Resolver
         '~www\.deviantart\.com/.*/art/.*~' => DeviantArtResolver::class,
         '~\.syosetu\.com/n\d+[a-z]{2,}~' => NarouResolver::class,
         '~ci-en\.jp/creator/\d+/article/\d+~' => CienResolver::class,
+        '~www\.plurk\.com\/p\/.*~' => PlurkResolver::class,
     ];
 
     public $mimeTypes = [
