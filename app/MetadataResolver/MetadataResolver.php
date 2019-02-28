@@ -2,6 +2,7 @@
 
 namespace App\MetadataResolver;
 
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 
@@ -67,7 +68,7 @@ class MetadataResolver implements Resolver
             // Acceptヘッダには */* を足さないことにする。
             $acceptTypes = array_diff(array_keys($this->mimeTypes), ['*/*']);
 
-            $client = new \GuzzleHttp\Client();
+            $client = app(Client::class);
             $res = $client->request('GET', $url, [
                 'headers' => [
                     'Accept' => implode(', ', $acceptTypes)
@@ -80,14 +81,14 @@ class MetadataResolver implements Resolver
 
                 if (isset($this->mimeTypes[$mimeType])) {
                     $class = $this->mimeTypes[$mimeType];
-                    $parser = new $class();
+                    $parser = app($class);
 
                     return $parser->parse($res->getBody());
                 }
 
                 if (isset($this->mimeTypes['*/*'])) {
                     $class = $this->mimeTypes['*/*'];
-                    $parser = new $class();
+                    $parser = app($class);
 
                     return $parser->parse($res->getBody());
                 }
