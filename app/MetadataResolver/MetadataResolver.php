@@ -53,6 +53,7 @@ class MetadataResolver implements Resolver
         if (isset($this->defaultResolver)) {
             /** @var Resolver $resolver */
             $resolver = app($this->defaultResolver);
+
             return $resolver->resolve($url);
         }
 

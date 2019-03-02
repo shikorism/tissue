@@ -21,6 +21,7 @@ class FantiaResolver implements Resolver
         $this->client = $client;
         $this->ogpResolver = $ogpResolver;
     }
+
     public function resolve(string $url): Metadata
     {
         preg_match("~\d+~", $url, $match);

@@ -28,7 +28,6 @@ class ToranoanaResolver implements Resolver
 
         $res = $this->client->get($url, ['cookies' => $cookieJar]);
         if ($res->getStatusCode() === 200) {
-
             return $this->ogpResolver->parse($res->getBody());
         } else {
             throw new \RuntimeException("{$res->getStatusCode()}: $url");

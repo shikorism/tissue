@@ -43,6 +43,7 @@ trait CreateMockedResolver
         $this->handler = new MockHandler([$mockResponse]);
         $client = new Client(['handler' => $this->handler]);
         $this->resolver = app()->make($resolverClass, ['client' => $client]);
+
         return $this->resolver;
     }
 

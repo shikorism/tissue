@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-
 use App\Metadata;
 use App\MetadataResolver\MetadataResolver;
 use App\Utilities\Formatter;
