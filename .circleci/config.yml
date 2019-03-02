@@ -1,0 +1,55 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/php:7.1
+        environment:
+          APP_DEBUG: true
+          APP_ENV: testing
+          APP_KEY: base64:f2tcw34GKT8EOtb5myZxJ8QLdgNivmyPhoQIPY2YfK8=
+          DB_CONNECTION: pgsql
+          DB_DATABASE: tissue
+          DB_USERNAME: tissue
+          DB_PASSWORD: tissue
+      - image: circleci/postgres:10-alpine
+        environment:
+          POSTGRES_DB: tissue
+          POSTGRES_USER: tissue
+          POSTGRES_PASSWORD: tissue
+    steps:
+      - checkout
+
+      - run: sudo apt update
+      - run: sudo apt install -y libpq-dev
+      - run: sudo docker-php-ext-install zip
+      - run: sudo docker-php-ext-install pdo_pgsql
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "composer.json" }}
+            - v1-dependencies-
+      - run: composer install -n --prefer-dist
+      - save_cache:
+          key: v1-dependencies-{{ checksum "composer.json" }}
+          paths:
+            - ./vendor
+
+      - run: php artisan migrate
+
+      # Run linter
+      - run:
+          command: |
+            mkdir -p /tmp/php-cs-fixer
+            ./vendor/bin/php-cs-fixer fix --dry-run --diff --format=junit > /tmp/php-cs-fixer/php-cs-fixer.xml
+          when: always
+      - store_test_results:
+          path: /tmp/php-cs-fixer
+
+      # Run unit test
+      - run:
+          command: |
+            mkdir -p /tmp/phpunit
+            ./vendor/bin/phpunit --log-junit /tmp/phpunit/phpunit.xml
+          when: always
+      - store_test_results:
+          path: /tmp/phpunit
