@@ -1,0 +1,30 @@
+{
+    "name": "Tissue",
+    "short_name": "Tissue",
+    "description": "気持ちよくティッシュを使った、そのあとの感想戦。",
+    "display": "minimal-ui",
+    "start_url": "/",
+    "share_target": {
+        "action": "/checkin",
+        "method": "GET",
+        "enctype": "application/x-www-form-urlencoded",
+        "url_template": "/checkin?link={url}",
+        "params": {
+            "title": "",
+            "text": "link",
+            "url": "link"
+        }
+    },
+    "icons": [
+        {
+            "src": "apple-touch-icon.png",
+            "type": "image/png",
+            "sizes": "180x180"
+        },
+        {
+            "src": "chrome-touch-icon-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        }
+    ]
+}
