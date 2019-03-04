@@ -13,9 +13,7 @@
     @endif
 
     <link href="{{ asset('manifest.json') }}" rel="manifest">
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/open-iconic-bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/tissue.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     @stack('head')
 </head>
@@ -219,11 +217,7 @@
   </div>
 </div>
 @endguest
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.js"></script>
-<script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/tissue.js') }}"></script>
+<script src="{{ mix('js/app.js') }}"></script>
 <script>
     $(function(){
         @guest
