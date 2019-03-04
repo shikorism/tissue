@@ -104,9 +104,5 @@
             form.attr('action', form.attr('action').replace('@', modal.data('id')));
             form.submit();
         });
-
-        $('.link-card').linkCard({
-            endpoint: '{{ url('/api/checkin/card') }}'
-        });
     </script>
 @endpush

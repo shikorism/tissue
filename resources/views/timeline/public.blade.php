@@ -54,11 +54,3 @@
         {{ $ejaculations->links(null, ['className' => 'mt-4 justify-content-center']) }}
     </div>
 @endsection
-
-@push('script')
-    <script>
-        $('.link-card').linkCard({
-            endpoint: '{{ url('/api/checkin/card') }}'
-        });
-    </script>
-@endpush
