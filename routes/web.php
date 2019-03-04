@@ -28,6 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/checkin/{id}', 'EjaculationController@update')->name('checkin.update');
     Route::delete('/checkin/{id}', 'EjaculationController@destroy')->name('checkin.destroy');
 
+    Route::get('/timeline/public', 'TimelineController@showPublic')->name('timeline.public');
+
     Route::redirect('/setting', '/setting/profile', 301);
     Route::get('/setting/profile', 'SettingController@profile')->name('setting');
     Route::post('/setting/profile', 'SettingController@updateProfile')->name('setting.profile.update');
