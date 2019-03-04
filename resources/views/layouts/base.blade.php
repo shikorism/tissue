@@ -218,32 +218,6 @@
 </div>
 @endguest
 <script src="{{ mix('js/app.js') }}"></script>
-<script>
-    $(function(){
-        @guest
-        if (Cookies.get('agechecked')) {
-            $('body').removeClass('tis-need-agecheck');
-        } else {
-            $('#ageCheckModal').modal({ backdrop: 'static' })
-            .on('hide.bs.modal', function() {
-                $('body').removeClass('tis-need-agecheck');
-                Cookies.set('agechecked', '1', { expires: 365 });
-            });
-        }
-        @endguest
-        if (navigator.serviceWorker) {
-            navigator.serviceWorker.register('/sw.js');
-        }
-        $('[data-toggle="tooltip"]').tooltip();
-        $('.alert').alert();
-        $('.tis-page-selector').pageSelector();
-        @if (session('status'))
-        setTimeout(function () {
-            $('#status').alert('close');
-        }, 5000);
-        @endif
-    });
-</script>
 @stack('script')
 </body>
 </html>
