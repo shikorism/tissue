@@ -30,13 +30,6 @@
 @endsection
 
 @push('script')
-<script id="graph-daily-sum" type="application/javascript">@json($dailySum)</script>
-<script id="graph-monthly-key" type="application/javascript">@json(array_keys($monthlySum))</script>
-<script id="graph-monthly-sum" type="application/javascript">@json(array_values($monthlySum))</script>
-<script id="graph-yearly-key" type="application/javascript">@json(array_keys($yearlySum))</script>
-<script id="graph-yearly-sum" type="application/javascript">@json(array_values($yearlySum))</script>
-<script id="graph-hourly-key" type="application/javascript">@json(array_keys($hourlySum))</script>
-<script id="graph-hourly-sum" type="application/javascript">@json(array_values($hourlySum))</script>
-<script id="graph-dow-sum" type="application/javascript">@json($dowSum)</script>
+<script id="graph-data" type="application/javascript">@json($graphData)</script>
 <script src="{{ mix('js/user/stats.js') }}"></script>
 @endpush

@@ -62,15 +62,7 @@ function createBarGraph(id, labels, data) {
     });
 }
 
-// TODO: これはいくらなんでもひどすぎるだろ
-const dailySum = JSON.parse(document.getElementById('graph-daily-sum').textContent);
-const monthlyKey = JSON.parse(document.getElementById('graph-monthly-key').textContent);
-const monthlySum = JSON.parse(document.getElementById('graph-monthly-sum').textContent);
-const yearlyKey = JSON.parse(document.getElementById('graph-yearly-key').textContent);
-const yearlySum = JSON.parse(document.getElementById('graph-yearly-sum').textContent);
-const hourlyKey = JSON.parse(document.getElementById('graph-hourly-key').textContent);
-const hourlySum = JSON.parse(document.getElementById('graph-hourly-sum').textContent);
-const dowSum = JSON.parse(document.getElementById('graph-dow-sum').textContent);
+const graphData = JSON.parse(document.getElementById('graph-data').textContent);
 
 new CalHeatMap().init({
     itemSelector: '#cal-heatmap',
@@ -80,11 +72,11 @@ new CalHeatMap().init({
     weekStartOnMonday: false,
     start: new Date().setMonth(new Date().getMonth() - 9),
     range: 10,
-    data: dailySum,
+    data: graphData.dailySum,
     legend: [1, 2, 3, 4]
 });
 
-createLineGraph('monthly-graph', monthlyKey, monthlySum);
-createLineGraph('yearly-graph', yearlyKey, yearlySum);
-createBarGraph('hourly-graph', hourlyKey, hourlySum);
-createBarGraph('dow-graph', ['日', '月', '火', '水', '木', '金', '土'], dowSum);
+createLineGraph('monthly-graph', graphData.monthlyKey, graphData.monthlySum);
+createLineGraph('yearly-graph', graphData.yearlyKey, graphData.yearlySum);
+createBarGraph('hourly-graph', graphData.hourlyKey, graphData.hourlySum);
+createBarGraph('dow-graph', ['日', '月', '火', '水', '木', '金', '土'], graphData.dowSum);
