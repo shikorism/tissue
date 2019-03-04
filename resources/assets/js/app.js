@@ -28,4 +28,5 @@ $(() => {
     }
 
     $('.link-card').linkCard();
+    $('#deleteCheckinModal').deleteCheckinModal();
 });
