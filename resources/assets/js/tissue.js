@@ -1,5 +1,3 @@
-// app.jsの名はモジュールバンドラーを投入する日まで予約しておく。CSSも同じ。
-
 (function ($) {
 
     $.fn.linkCard = function (options) {
