@@ -102,43 +102,7 @@
 @endsection
 
 @push('script')
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/chart.js@2.7.1/dist/Chart.min.js"></script>
-    <script>
-        $('.link-card').linkCard({
-            endpoint: '{{ url('/api/checkin/card') }}'
-        });
-
-        new Chart(document.getElementById('global-count-graph').getContext('2d'), {
-            type: 'bar',
-            data: {
-                labels: @json(array_keys($globalEjaculationCounts)),
-                datasets: [{
-                    data: @json(array_values($globalEjaculationCounts)),
-                    backgroundColor: 'rgba(0, 0, 0, .1)',
-                    borderColor: 'rgba(0, 0, 0, .25)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                legend: {
-                    display: false
-                },
-                elements: {
-                    line: {}
-                },
-                scales: {
-                    xAxes: [{
-                        display: false
-                    }],
-                    yAxes: [{
-                        display: false,
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-    </script>
+    <script id="global-count-labels" type="application/json">@json(array_keys($globalEjaculationCounts))</script>
+    <script id="global-count-data" type="application/json">@json(array_values($globalEjaculationCounts))</script>
+    <script src="{{ mix('js/home.js') }}"></script>
 @endpush

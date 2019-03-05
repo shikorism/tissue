@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/php:7.1
+      - image: circleci/php:7.1-node-browsers
         environment:
           APP_DEBUG: true
           APP_ENV: testing
@@ -34,7 +34,19 @@ jobs:
           paths:
             - ./vendor
 
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+            - ~/.yarn
+
       - run: php artisan migrate
+      - run: yarn run prod
 
       # Run linter
       - run:

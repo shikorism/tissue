@@ -54,11 +54,3 @@
         {{ $results->links(null, ['className' => 'mt-4 justify-content-center']) }}
     @endif
 @endsection
-
-@push('script')
-    <script>
-        $('.link-card').linkCard({
-            endpoint: '{{ url('/api/checkin/card') }}'
-        });
-    </script>
-@endpush

@@ -1,22 +1,32 @@
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+import Cookies from 'js-cookie';
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+$(() => {
+    if (Cookies.get('agechecked')) {
+        $('body').removeClass('tis-need-agecheck');
+    } else {
+        $('#ageCheckModal')
+            .modal({backdrop: 'static'})
+            .on('hide.bs.modal', function () {
+                $('body').removeClass('tis-need-agecheck');
+                Cookies.set('agechecked', '1', {expires: 365});
+            });
+    }
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+    if (navigator.serviceWorker) {
+        navigator.serviceWorker.register('/sw.js');
+    }
+    $('[data-toggle="tooltip"]').tooltip();
+    $('.alert').alert();
+    $('.tis-page-selector').pageSelector();
 
-Vue.component('example', require('./components/Example.vue'));
+    if (document.getElementById('status')) {
+        setTimeout(function () {
+            $('#status').alert('close');
+        }, 5000);
+    }
 
-const app = new Vue({
-    el: '#app'
+    $('.link-card').linkCard();
+    $('#deleteCheckinModal').deleteCheckinModal();
 });

@@ -89,24 +89,3 @@
     @endslot
 @endcomponent
 @endsection
-
-@push('script')
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/holderjs@2.9.4/holder.min.js"></script>
-    <script>
-        $('#deleteCheckinModal').on('show.bs.modal', function (event) {
-            var target = $(event.relatedTarget);
-            var modal = $(this);
-            modal.find('.modal-body .date-label').text(target.data('date'));
-            modal.data('id', target.data('id'));
-        }).find('.btn-danger').on('click', function (event) {
-            var modal = $('#deleteCheckinModal');
-            var form = modal.find('form');
-            form.attr('action', form.attr('action').replace('@', modal.data('id')));
-            form.submit();
-        });
-
-        $('.link-card').linkCard({
-            endpoint: '{{ url('/api/checkin/card') }}'
-        });
-    </script>
-@endpush

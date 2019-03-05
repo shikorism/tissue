@@ -1,5 +1,3 @@
-// app.jsの名はモジュールバンドラーを投入する日まで予約しておく。CSSも同じ。
-
 (function ($) {
 
     $.fn.linkCard = function (options) {
@@ -52,6 +50,22 @@
     $.fn.pageSelector = function () {
         return this.on('change', function () {
             location.href = $(this).find(':selected').data('href');
+        });
+    };
+
+    $.fn.deleteCheckinModal = function () {
+        return this.each(function () {
+            $(this).on('show.bs.modal', function (event) {
+                var target = $(event.relatedTarget);
+                var modal = $(this);
+                modal.find('.modal-body .date-label').text(target.data('date'));
+                modal.data('id', target.data('id'));
+            }).find('.btn-danger').on('click', function (event) {
+                var modal = $('#deleteCheckinModal');
+                var form = modal.find('form');
+                form.attr('action', form.attr('action').replace('@', modal.data('id')));
+                form.submit();
+            })
         });
     };
 
