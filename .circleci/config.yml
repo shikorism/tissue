@@ -46,6 +46,7 @@ jobs:
             - ~/.yarn
 
       - run: php artisan migrate
+      - run: yarn run prod
 
       # Run linter
       - run:
