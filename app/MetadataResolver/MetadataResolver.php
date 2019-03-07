@@ -16,6 +16,7 @@ class MetadataResolver implements Resolver
         '~ec\.toranoana\.jp/tora_r/ec/item/.*~' => ToranoanaResolver::class,
         '~iwara\.tv/videos/.*~' => IwaraResolver::class,
         '~www\.dlsite\.com/.*/work/=/product_id/..\d+\.html~' => DLsiteResolver::class,
+        '~dlsite\.jp/mawtw/..\d+~' => DLsiteResolver::class,
         '~www\.pixiv\.net/member_illust\.php\?illust_id=\d+~' => PixivResolver::class,
         '~fantia\.jp/posts/\d+~' => FantiaResolver::class,
         '~dmm\.co\.jp/~' => FanzaResolver::class,
