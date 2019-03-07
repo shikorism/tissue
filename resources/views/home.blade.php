@@ -104,5 +104,6 @@
 @push('script')
     <script id="global-count-labels" type="application/json">@json(array_keys($globalEjaculationCounts))</script>
     <script id="global-count-data" type="application/json">@json(array_values($globalEjaculationCounts))</script>
+    <script src="{{ mix('js/vendor/chart.js') }}"></script>
     <script src="{{ mix('js/home.js') }}"></script>
 @endpush

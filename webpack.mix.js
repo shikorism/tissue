@@ -21,6 +21,8 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .autoload({
         'jquery': ['$', 'jQuery', 'window.jQuery']
     })
+    .extract(['jquery', 'bootstrap'])
+    .extract(['chart.js', 'moment'], 'public/js/vendor/chart')
 
 if (process.argv.includes('-a')) {
     mix.bundleAnalyzer({analyzerMode: 'static'});
