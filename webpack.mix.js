@@ -22,7 +22,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
         'jquery': ['$', 'jQuery', 'window.jQuery']
     })
     .extract(['jquery', 'bootstrap'])
-    .extract(['chart.js', 'moment'], 'public/js/vendor/chart')
+    .extract(['chart.js', 'chartjs-color', 'color-name', 'moment'], 'public/js/vendor/chart')
     .version();
 
 if (process.argv.includes('-a')) {
