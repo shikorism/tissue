@@ -21,7 +21,7 @@
 }
 
 .container {
-    transition: filter .15s liner;
+    transition: filter .15s linear;
 }
 
 .list-group-item.no-side-border {
@@ -53,8 +53,47 @@
     border-bottom: 1px solid rgba(0, 0, 0, .125);
 }
 
+.tis-page-selector {
+    margin-left: -1px;
+    width: calc(100% + 2px);
+    height: 100%;
+    border: 1px solid #dee2e6;
+    border-radius: 0;
+    line-height: 1.25;
+}
+
 @media (min-width: 992px) {
     .tis-sidebar-info {
         font-size: small;
     }
+}
+
+#navbarNav > .d-lg-none > .row > div:first-of-type {
+    padding-left: 15px;
+    padding-right: 7.5px;
+}
+
+#navbarNav > .d-lg-none > .row > div {
+    padding-left: 7.5px;
+    padding-right: 15px;
+}
+
+#navbarNav > .d-lg-none > .row > .col .btn {
+    width: 100%;
+}
+
+#navbarAccountDropdownSp {
+    max-width: calc(100vw - 5em);
+}
+
+.card-img-left {
+    width: 100%;
+    border-top-left-radius: calc(.25rem - 1px);
+    border-bottom-left-radius: calc(.25rem - 1px);
+}
+
+.card-img-right {
+    width: 100%;
+    border-top-right-radius: calc(.25rem - 1px);
+    border-bottom-right-radius: calc(.25rem - 1px);
 }

@@ -12,4 +12,4 @@
 <p class="card-text mb-0">最長記録: {{ Formatter::formatInterval($summary[0]->longest) }}</p>
 <p class="card-text mb-0">最短記録: {{ Formatter::formatInterval($summary[0]->shortest) }}</p>
 <p class="card-text mb-0">合計時間: {{ Formatter::formatInterval($summary[0]->total_times) }}</p>
-<p class="card-text">通算回数: {{ $summary[0]->total_checkins }}回</p>
+<p class="card-text">通算回数: {{ number_format($summary[0]->total_checkins) }}回</p>

@@ -21,7 +21,8 @@ class LinkCollector
     /**
      * Create the event listener.
      *
-     * @return void
+     * @param Formatter $formatter
+     * @param MetadataResolver $metadataResolver
      */
     public function __construct(Formatter $formatter, MetadataResolver $metadataResolver)
     {

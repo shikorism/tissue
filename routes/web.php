@@ -15,9 +15,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/user', function () {
-    return redirect()->route('user.profile', ['name' => Auth::user()->name]);
-})->middleware('auth')->name('user.profile');
+Route::get('/user', 'UserController@redirectMypage')->middleware('auth');
 Route::get('/user/{name?}', 'UserController@profile')->name('user.profile');
 Route::get('/user/{name}/stats', 'UserController@stats')->name('user.stats');
 Route::get('/user/{name}/okazu', 'UserController@okazu')->name('user.okazu');
@@ -29,6 +27,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkin/{id}/edit', 'EjaculationController@edit')->name('checkin.edit');
     Route::put('/checkin/{id}', 'EjaculationController@update')->name('checkin.update');
     Route::delete('/checkin/{id}', 'EjaculationController@destroy')->name('checkin.destroy');
+
+    Route::get('/timeline/public', 'TimelineController@showPublic')->name('timeline.public');
 
     Route::redirect('/setting', '/setting/profile', 301);
     Route::get('/setting/profile', 'SettingController@profile')->name('setting');

@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    //
+    public function redirectMypage()
+    {
+        return redirect()->route('user.profile', ['name' => auth()->user()->name]);
+    }
 
     public function profile($name)
     {
@@ -124,8 +127,19 @@ SQL
             $hour = (int)$data->hour;
             $hourlySum[$hour] += $data->count;
         }
+        
+        $graphData = [
+            'dailySum' => $dailySum,
+            'dowSum' => $dowSum,
+            'monthlyKey' => array_keys($monthlySum),
+            'monthlySum' => array_values($monthlySum),
+            'yearlyKey' => array_keys($yearlySum),
+            'yearlySum' => array_values($yearlySum),
+            'hourlyKey' => array_keys($hourlySum),
+            'hourlySum' => array_values($hourlySum),
+        ];
 
-        return view('user.stats')->with(compact('user', 'dailySum', 'monthlySum', 'yearlySum', 'dowSum', 'hourlySum'));
+        return view('user.stats')->with(compact('user', 'graphData'));
     }
 
     public function okazu($name)

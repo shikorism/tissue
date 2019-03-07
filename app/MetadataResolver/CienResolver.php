@@ -3,16 +3,30 @@
 namespace App\MetadataResolver;
 
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 
 class CienResolver extends MetadataResolver
 {
+    /**
+     * @var Client
+     */
+    private $client;
+    /**
+     * @var OGPResolver
+     */
+    private $ogpResolver;
+
+    public function __construct(Client $client, OGPResolver $ogpResolver)
+    {
+        $this->client = $client;
+        $this->ogpResolver = $ogpResolver;
+    }
+
     public function resolve(string $url): Metadata
     {
-        $client = new \GuzzleHttp\Client();
-        $res = $client->get($url);
+        $res = $this->client->get($url);
         if ($res->getStatusCode() === 200) {
-            $ogpResolver = new OGPResolver();
-            $metadata = $ogpResolver->parse($res->getBody());
+            $metadata = $this->ogpResolver->parse($res->getBody());
 
             // 画像URLから有効期限の起点を拾う
             parse_str(parse_url($metadata->image, PHP_URL_QUERY), $params);

@@ -2,9 +2,9 @@
 
 namespace App\MetadataResolver;
 
-use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\TransferException;
 use Illuminate\Support\Facades\Log;
+use Psr\Http\Message\ResponseInterface;
 
 class ActivityPubResolver implements Resolver, Parser
 {
@@ -40,7 +40,7 @@ class ActivityPubResolver implements Resolver, Parser
         $metadata = new Metadata();
 
         $metadata->title = isset($object['attributedTo']) ? $this->getTitleFromActor($object['attributedTo']) : '';
-        $metadata->description .= isset($object['summary']) ? $object['summary'] . " | " : '';
+        $metadata->description .= isset($object['summary']) ? $object['summary'] . ' | ' : '';
         $metadata->description .= isset($object['content']) ? $this->html2text($object['content']) : '';
         $metadata->image = $object['attachment'][0]['url'] ?? '';
 
@@ -53,6 +53,7 @@ class ActivityPubResolver implements Resolver, Parser
             $res = $this->activityClient->get($url);
             if ($res->getStatusCode() !== 200) {
                 Log::info(self::class . ': Actorの取得に失敗 URL=' . $url);
+
                 return '';
             }
 
@@ -65,6 +66,7 @@ class ActivityPubResolver implements Resolver, Parser
             return $title;
         } catch (TransferException $e) {
             Log::info(self::class . ': Actorの取得に失敗 URL=' . $url);
+
             return '';
         }
     }
@@ -75,6 +77,7 @@ class ActivityPubResolver implements Resolver, Parser
         $html = preg_replace('~<br\s*/?\s*>|</p>\s*<p[^>]*>~i', "\n", $html);
         $dom = new \DOMDocument();
         $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
         return $dom->textContent;
     }
 }
