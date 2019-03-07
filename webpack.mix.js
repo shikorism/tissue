@@ -23,6 +23,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
     })
     .extract(['jquery', 'bootstrap'])
     .extract(['chart.js', 'moment'], 'public/js/vendor/chart')
+    .version();
 
 if (process.argv.includes('-a')) {
     mix.bundleAnalyzer({analyzerMode: 'static'});
