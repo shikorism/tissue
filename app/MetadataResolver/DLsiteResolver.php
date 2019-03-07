@@ -32,8 +32,8 @@ class DLsiteResolver implements Resolver
             $maker = $match[1];
 
             // 余分な文を消す
-            $metadata->title = preg_replace('~\[.+\] \| DLsite$~', '', $metadata->title);
-            $metadata->description = preg_replace('~「DLsite.+」は同人誌・同人ゲーム・同人音声のダウンロードショップ。お気に入りの作品をすぐダウンロードできてすぐ楽しめる！毎日更新しているのであなたが探している作品にきっと出会えます。国内最大級の二次元総合ダウンロードショップ「DLsite」！$~', '', $metadata->description);
+            $metadata->title = trim(preg_replace('~ \[.+\] \| DLsite$~', '', $metadata->title));
+            $metadata->description = trim(preg_replace('~「DLsite.+」は同人誌・同人ゲーム・同人音声のダウンロードショップ。お気に入りの作品をすぐダウンロードできてすぐ楽しめる！毎日更新しているのであなたが探している作品にきっと出会えます。国内最大級の二次元総合ダウンロードショップ「DLsite」！$~', '', $metadata->description));
 
             // 整形
             $metadata->description = 'サークル: ' . $maker . PHP_EOL . $metadata->description;
