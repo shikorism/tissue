@@ -1,11 +1,9 @@
 .card-img-left {
     width: 100%;
-    border-top-left-radius: calc(.25rem - 1px);
-    border-bottom-left-radius: calc(.25rem - 1px);
+    @include border-left-radius($card-inner-border-radius);
 }
 
 .card-img-right {
     width: 100%;
-    border-top-right-radius: calc(.25rem - 1px);
-    border-bottom-right-radius: calc(.25rem - 1px);
+    @include border-right-radius($card-inner-border-radius);
 }
