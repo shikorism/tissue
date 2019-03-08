@@ -27,7 +27,7 @@ class FanzaResolver implements Resolver
         if ($res->getStatusCode() === 200) {
             $metadata = $this->ogpResolver->parse($res->getBody());
             $metadata->image = preg_replace("~(pr|ps)\.jpg$~", 'pl.jpg', $metadata->image);
-            $metadata->description = str_replace('<>', "", $metadata->description);
+            $metadata->description = str_replace('<>', '', $metadata->description);
 
             return $metadata;
         } else {
