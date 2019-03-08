@@ -29,7 +29,7 @@ class PatreonResolver implements Resolver
             $metadata = $this->ogpResolver->parse($res->getBody());
 
             parse_str(parse_url($metadata->image, PHP_URL_QUERY), $query);
-            if(isset($query['token-time'])){
+            if (isset($query['token-time'])) {
                 $expires_at_unixtime = $query['token-time'];
                 $metadata->expires_at = Carbon::createFromTimestamp($expires_at_unixtime);
             }
