@@ -85,15 +85,3 @@
 #navbarAccountDropdownSp {
     max-width: calc(100vw - 5em);
 }
-
-.card-img-left {
-    width: 100%;
-    border-top-left-radius: calc(.25rem - 1px);
-    border-bottom-left-radius: calc(.25rem - 1px);
-}
-
-.card-img-right {
-    width: 100%;
-    border-top-right-radius: calc(.25rem - 1px);
-    border-bottom-right-radius: calc(.25rem - 1px);
-}
