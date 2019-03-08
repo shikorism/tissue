@@ -30,6 +30,7 @@
 @endsection
 
 @push('script')
-<script id="graph-data" type="application/javascript">@json($graphData)</script>
+<script id="graph-data" type="application/json">@json($graphData)</script>
+<script src="{{ mix('js/vendor/chart.js') }}"></script>
 <script src="{{ mix('js/user/stats.js') }}"></script>
 @endpush
