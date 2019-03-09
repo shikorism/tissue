@@ -97,23 +97,3 @@
     border-top-right-radius: calc(.25rem - 1px);
     border-bottom-right-radius: calc(.25rem - 1px);
 }
-
-.link-card .row > div:last-child {
-    max-height: 400px;
-    overflow: hidden;
-}
-
-/* 省略を表す影を付けるやつ */
-.link-card .row > div:last-child::before {
-    content: '';
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: linear-gradient(transparent 320px, white);
-}
-
-.link-card .card-text {
-    white-space: pre-line;
-}
