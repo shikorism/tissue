@@ -32,7 +32,7 @@ class PlurkResolver implements Resolver
             $xpath = new \DOMXPath($dom);
             $imageNode = $xpath->query('//div[@class="text_holder"]/a[1]')->item(0);
 
-            if($imageNode) {
+            if ($imageNode) {
                 $metadata->image = $imageNode->getAttribute('href');
             }
 
