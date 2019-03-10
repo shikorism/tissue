@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <div class="row mx-1">
             @foreach($ejaculations as $ejaculation)
-                <div class="col-12 col-lg-6 col-xl-4 py-3 tis-word-wrap border-top">
+                <div class="col-12 col-lg-6 col-xl-4 py-3 text-break border-top">
                     <!-- span -->
                     <div class="d-flex justify-content-between">
                         <h5>
@@ -44,7 +44,7 @@
                     @endif
                     <!-- note -->
                     @if (!empty($ejaculation->note))
-                        <p class="mb-0 tis-word-wrap">
+                        <p class="mb-0 text-break">
                             {!! Formatter::linkify(nl2br(e($ejaculation->note))) !!}
                         </p>
                     @endif

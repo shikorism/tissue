@@ -63,7 +63,7 @@
                         @endif
                         <!-- note -->
                         @if (!empty($ejaculation->note))
-                            <p class="mb-0 tis-word-wrap">
+                            <p class="mb-0 text-break">
                                 {!! Formatter::linkify(nl2br(e($ejaculation->note))) !!}
                             </p>
                         @endif
