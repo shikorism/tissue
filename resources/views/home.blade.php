@@ -92,7 +92,7 @@
                         </li>
                     @endforeach
                     <li class="list-group-item no-side-border text-right">
-                        <a href="{{ route('timeline.public') }}">もっと見る &raquo;</a>
+                        <a href="{{ route('timeline.public') }}" class="stretched-link">もっと見る &raquo;</a>
                     </li>
                 </ul>
             @endif
