@@ -1,9 +1,0 @@
-.card-img-left {
-    width: 100%;
-    @include border-left-radius($card-inner-border-radius);
-}
-
-.card-img-right {
-    width: 100%;
-    @include border-right-radius($card-inner-border-radius);
-}
