@@ -57,6 +57,12 @@ jobs:
       - store_test_results:
           path: /tmp/php-cs-fixer
 
+      # Run stylelint
+      - run:
+          name: stylelint
+          command: yarn run stylelint
+          when: always
+
       # Run unit test
       - run:
           command: |
