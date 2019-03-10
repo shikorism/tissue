@@ -6,7 +6,7 @@
     @else
         <ul class="list-group">
         @foreach($results as $ejaculation)
-            <li class="list-group-item border-bottom-only pt-3 pb-3 tis-word-wrap">
+            <li class="list-group-item border-bottom-only pt-3 pb-3 text-break">
                 <!-- span -->
                 <div class="d-flex justify-content-between">
                     <h5>
@@ -44,7 +44,7 @@
                 @endif
                 <!-- note -->
                 @if (!empty($ejaculation->note))
-                    <p class="mb-0 tis-word-wrap">
+                    <p class="mb-0 text-break">
                         {!! Formatter::linkify(nl2br(e($ejaculation->note))) !!}
                     </p>
                 @endif

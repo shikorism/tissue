@@ -7,10 +7,6 @@
     background: linear-gradient(to bottom, #f8f9fa, #fff)
 }
 
-.tis-word-wrap {
-    word-wrap: break-word;
-}
-
 .tis-contribution-graph {
     overflow-x: auto;
 }
