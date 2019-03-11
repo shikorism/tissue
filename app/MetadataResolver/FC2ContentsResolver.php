@@ -33,7 +33,7 @@ class FC2ContentsResolver implements Resolver
 
             $thumbnailNode = $xpath->query('//*[@class="main_thum_img"]/a')->item(0);
             if ($thumbnailNode) {
-                $metadata->image = preg_replace('~^http:~', "https:", $thumbnailNode->getAttribute('href'));
+                $metadata->image = preg_replace('~^http:~', 'https:', $thumbnailNode->getAttribute('href'));
             }
 
             return $metadata;
