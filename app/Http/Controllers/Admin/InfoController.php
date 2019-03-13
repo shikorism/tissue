@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Information;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class InfoController extends Controller
 {
@@ -24,7 +26,32 @@ class InfoController extends Controller
 
     public function create()
     {
-        // TODO
+        return view('admin.info.create')->with([
+            'categories' => Information::CATEGORIES
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $inputs = $request->all();
+        if ($request->has('content')) {
+            $inputs['content'] = str_replace(["\r\n", "\r"], "\n", $inputs['content']);
+        }
+        if (!$request->has('pinned')) {
+            $inputs['pinned'] = false;
+        }
+
+        // TODO: #updateと全く同じだし、フォームリクエストにしたほうがよいのでは？
+        Validator::make($inputs, [
+            'category' => ['required', Rule::in(array_keys(Information::CATEGORIES))],
+            'pinned' => 'nullable|boolean',
+            'title' => 'required|string|max:255',
+            'content' => 'required|string|max:10000'
+        ])->validate();
+
+        $info = Information::create($inputs);
+
+        return redirect()->route('admin.info.edit', ['info' => $info])->with('status', 'お知らせを更新しました。');
     }
 
     public function edit($id)
@@ -37,8 +64,32 @@ class InfoController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, Information $info)
     {
-        // TODO
+        $inputs = $request->all();
+        if ($request->has('content')) {
+            $inputs['content'] = str_replace(["\r\n", "\r"], "\n", $inputs['content']);
+        }
+        if (!$request->has('pinned')) {
+            $inputs['pinned'] = false;
+        }
+
+        Validator::make($inputs, [
+            'category' => ['required', Rule::in(array_keys(Information::CATEGORIES))],
+            'pinned' => 'nullable|boolean',
+            'title' => 'required|string|max:255',
+            'content' => 'required|string|max:10000'
+        ])->validate();
+
+        $info->fill($inputs)->save();
+
+        return redirect()->route('admin.info.edit', ['info' => $info])->with('status', 'お知らせを更新しました。');
+    }
+
+    public function destroy(Information $info)
+    {
+        $info->delete();
+
+        return redirect()->route('admin.info')->with('status', 'お知らせを削除しました。');
     }
 }

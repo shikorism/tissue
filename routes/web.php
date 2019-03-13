@@ -53,6 +53,8 @@ Route::middleware('can:admin')
         Route::get('/', 'DashboardController@index')->name('dashboard');
         Route::get('/info', 'InfoController@index')->name('info');
         Route::get('/info/create', 'InfoController@create')->name('info.create');
-        Route::get('/info/{id}', 'InfoController@edit')->name('info.edit');
-        Route::put('/info/{id}', 'InfoController@update')->name('info.update');
+        Route::post('/info', 'InfoController@store')->name('info.store');
+        Route::get('/info/{info}', 'InfoController@edit')->name('info.edit');
+        Route::put('/info/{info}', 'InfoController@update')->name('info.update');
+        Route::delete('/info/{info}', 'InfoController@destroy')->name('info.destroy');
     });
