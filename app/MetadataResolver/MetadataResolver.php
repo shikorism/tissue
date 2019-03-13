@@ -25,6 +25,7 @@ class MetadataResolver implements Resolver
         '~\.syosetu\.com/n\d+[a-z]{2,}~' => NarouResolver::class,
         '~ci-en\.jp/creator/\d+/article/\d+~' => CienResolver::class,
         '~www\.plurk\.com\/p\/.*~' => PlurkResolver::class,
+        '~(adult\.)?contents\.fc2\.com\/article_search\.php\?id=\d+~' => FC2ContentsResolver::class,
     ];
 
     public $mimeTypes = [
