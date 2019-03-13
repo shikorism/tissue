@@ -41,11 +41,13 @@ class DemoteUser extends Command
         $user = User::where('name', $this->argument('username'))->first();
         if ($user === null) {
             $this->error('No user with such username');
+
             return 1;
         }
 
         if (!$user->is_admin) {
             $this->info('@' . $user->name . ' is already an user.');
+
             return 0;
         }
 
