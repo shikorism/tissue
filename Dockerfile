@@ -1,3 +1,5 @@
+FROM node:10-jessie as node
+
 FROM php:7.1-apache
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
@@ -14,6 +16,16 @@ RUN apt-get update \
 
 COPY dist/bin /usr/local/bin/
 COPY dist/php.d /usr/local/etc/php/php.d/
+
+COPY --from=node /usr/local/bin/node /usr/local/bin/
+COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
+COPY --from=node /opt/yarn-* /opt/yarn
+
+RUN ln -s /opt/yarn/bin/yarn /usr/local/bin/yarn \
+    && ln -s ../lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
+    && ln -s ../lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
+
+
 
 ENTRYPOINT ["tissue-entrypoint.sh"]
 CMD ["apache2-foreground"]
