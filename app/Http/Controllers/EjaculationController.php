@@ -30,9 +30,6 @@ class EjaculationController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
-        if ($request->has('note')) {
-            $inputs['note'] = str_replace(["\r\n", "\r"], "\n", $inputs['note']);
-        }
 
         $validator = Validator::make($inputs, [
             'date' => 'required|date_format:Y/m/d',
@@ -113,9 +110,6 @@ class EjaculationController extends Controller
         $ejaculation = Ejaculation::findOrFail($id);
 
         $inputs = $request->all();
-        if ($request->has('note')) {
-            $inputs['note'] = str_replace(["\r\n", "\r"], "\n", $inputs['note']);
-        }
 
         $validator = Validator::make($inputs, [
             'date' => 'required|date_format:Y/m/d',
