@@ -34,9 +34,6 @@ class InfoController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
-        if ($request->has('content')) {
-            $inputs['content'] = str_replace(["\r\n", "\r"], "\n", $inputs['content']);
-        }
         if (!$request->has('pinned')) {
             $inputs['pinned'] = false;
         }
@@ -67,9 +64,6 @@ class InfoController extends Controller
     public function update(Request $request, Information $info)
     {
         $inputs = $request->all();
-        if ($request->has('content')) {
-            $inputs['content'] = str_replace(["\r\n", "\r"], "\n", $inputs['content']);
-        }
         if (!$request->has('pinned')) {
             $inputs['pinned'] = false;
         }
