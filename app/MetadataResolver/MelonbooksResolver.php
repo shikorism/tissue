@@ -30,10 +30,39 @@ class MelonbooksResolver implements Resolver
         if ($res->getStatusCode() === 200) {
             $metadata = $this->ogpResolver->parse($res->getBody());
 
+            $dom = new \DOMDocument();
+            @$dom->loadHTML(mb_convert_encoding($res->getBody(), 'HTML-ENTITIES', 'UTF-8'));
+            $xpath = new \DOMXPath($dom);
+            $descriptionNodelist = $xpath->query('//div[@id="description"]//p');
+            $specialDescriptionNodelist = $xpath->query('//div[@id="special_description"]//p');
+
             // censoredフラグの除去
             if (mb_strpos($metadata->image, '&c=1') !== false) {
                 $metadata->image = preg_replace('/&c=1/u', '', $metadata->image);
             }
+
+            // 抽出
+            preg_match('~^(.+)（(.+)）の通販・購入はメロンブックス$~', $metadata->title, $match);
+            $title = $match[1];
+            $maker = $match[2];
+
+            // 整形
+            $description = 'サークル: ' . $maker . "\n";
+
+            if ($specialDescriptionNodelist->length !== 0) {
+                $description .= trim(str_replace('<br>', "\n", $specialDescriptionNodelist->item(0)->nodeValue)) . "\n";
+                if ($specialDescriptionNodelist->length === 2) {
+                    $description .= "\n";
+                    $description .= trim(str_replace('<br>', "\n", $specialDescriptionNodelist->item(1)->nodeValue)) . "\n";
+                }
+            }
+
+            if ($descriptionNodelist->length !== 0) {
+                $description .= trim(str_replace('<br>', "\n", $descriptionNodelist->item(0)->nodeValue));
+            }
+
+            $metadata->title = $title;
+            $metadata->description = trim($description);
 
             return $metadata;
         } else {
