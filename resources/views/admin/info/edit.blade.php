@@ -29,14 +29,22 @@
             </div>
             <div class="form-group">
                 <label for="title">タイトル</label>
-                <input id="title" name="title" type="text" class="form-control" value="{{ old('title') ?? $info->title }}">
+                <input id="title" name="title" type="text" class="form-control {{ $errors->has('title') ? ' is-invalid' : '' }}" value="{{ old('title') ?? $info->title }}">
+
+                @if ($errors->has('title'))
+                    <div class="invalid-feedback">{{ $errors->first('title') }}</div>
+                @endif
             </div>
             <div class="form-group mt-3">
                 <label for="content">本文</label>
-                <textarea id="content" name="content" rows="15" class="form-control" maxlength="10000">{{ old('content') ?? $info->content }}</textarea>
+                <textarea id="content" name="content" rows="15" class="form-control {{ $errors->has('content') ? ' is-invalid' : '' }}" maxlength="10000">{{ old('content') ?? $info->content }}</textarea>
                 <small class="form-text text-muted">
                     最大 10000 文字、Markdown 形式
                 </small>
+
+                @if ($errors->has('content'))
+                    <div class="invalid-feedback">{{ $errors->first('content') }}</div>
+                @endif
             </div>
 
             <div class="d-flex justify-content-between">
