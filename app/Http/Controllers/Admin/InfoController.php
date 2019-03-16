@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminInfoStoreRequest;
 use App\Information;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -31,20 +32,12 @@ class InfoController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(AdminInfoStoreRequest $request)
     {
         $inputs = $request->all();
         if (!$request->has('pinned')) {
             $inputs['pinned'] = false;
         }
-
-        // TODO: #updateと全く同じだし、フォームリクエストにしたほうがよいのでは？
-        Validator::make($inputs, [
-            'category' => ['required', Rule::in(array_keys(Information::CATEGORIES))],
-            'pinned' => 'nullable|boolean',
-            'title' => 'required|string|max:255',
-            'content' => 'required|string|max:10000'
-        ])->validate();
 
         $info = Information::create($inputs);
 
@@ -61,19 +54,12 @@ class InfoController extends Controller
         ]);
     }
 
-    public function update(Request $request, Information $info)
+    public function update(AdminInfoStoreRequest $request, Information $info)
     {
         $inputs = $request->all();
         if (!$request->has('pinned')) {
             $inputs['pinned'] = false;
         }
-
-        Validator::make($inputs, [
-            'category' => ['required', Rule::in(array_keys(Information::CATEGORIES))],
-            'pinned' => 'nullable|boolean',
-            'title' => 'required|string|max:255',
-            'content' => 'required|string|max:10000'
-        ])->validate();
 
         $info->fill($inputs)->save();
 
