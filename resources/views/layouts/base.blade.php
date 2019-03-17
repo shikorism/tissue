@@ -105,6 +105,9 @@
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a href="{{ route('setting') }}" class="dropdown-item">設定</a>
+                                @can ('admin')
+                                    <a href="{{ route('admin.dashboard') }}" class="dropdown-item">管理</a>
+                                @endcan
                                 <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
                             </div>
                         </li>

@@ -44,3 +44,17 @@ Route::get('/info/{id}', 'InfoController@show')->where('id', '[0-9]+')->name('in
 Route::redirect('/search', '/search/checkin', 301);
 Route::get('/search/checkin', 'SearchController@index')->name('search');
 Route::get('/search/related-tag', 'SearchController@relatedTag')->name('search.related-tag');
+
+Route::middleware('can:admin')
+    ->namespace('Admin')
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/', 'DashboardController@index')->name('dashboard');
+        Route::get('/info', 'InfoController@index')->name('info');
+        Route::get('/info/create', 'InfoController@create')->name('info.create');
+        Route::post('/info', 'InfoController@store')->name('info.store');
+        Route::get('/info/{info}', 'InfoController@edit')->name('info.edit');
+        Route::put('/info/{info}', 'InfoController@update')->name('info.update');
+        Route::delete('/info/{info}', 'InfoController@destroy')->name('info.destroy');
+    });

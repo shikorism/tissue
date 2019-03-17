@@ -16,5 +16,9 @@ class Information extends Model
         3 => ['label' => 'メンテナンス', 'class' => 'badge-warning']
     ];
 
+    protected $fillable = [
+        'category', 'pinned', 'title', 'content'
+    ];
+
     protected $dates = ['deleted_at'];
 }
