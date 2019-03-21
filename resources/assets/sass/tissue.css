@@ -1,14 +1,10 @@
 @charset "UTF-8";
 
 .tis-footer {
-    color: #a2a2a2;
     font-size: small;
-    border-top: 1px solid #eee;
-    background: linear-gradient(to bottom, #f8f9fa, #fff)
-}
-
-.tis-word-wrap {
-    word-wrap: break-word;
+    color: #a2a2a2;
+    background: linear-gradient(to bottom, #f8f9fa, #fff);
+    border-top: 1px solid #eee
 }
 
 .tis-contribution-graph {
@@ -16,8 +12,8 @@
 }
 
 .tis-need-agecheck .container {
-    filter: blur(45px);
     pointer-events: none;
+    filter: blur(45px);
 }
 
 .container {
@@ -25,8 +21,8 @@
 }
 
 .list-group-item.no-side-border {
-    border-left: none;
     border-right: none;
+    border-left: none;
     border-radius: 0;
 }
 
@@ -35,8 +31,8 @@
 }
 
 .list-group-item.border-bottom-only {
-    border-left: none;
     border-right: none;
+    border-left: none;
     border-radius: 0;
 }
 
@@ -54,12 +50,12 @@
 }
 
 .tis-page-selector {
-    margin-left: -1px;
     width: calc(100% + 2px);
     height: 100%;
+    margin-left: -1px;
+    line-height: 1.25;
     border: 1px solid #dee2e6;
     border-radius: 0;
-    line-height: 1.25;
 }
 
 @media (min-width: 992px) {
@@ -69,13 +65,13 @@
 }
 
 #navbarNav > .d-lg-none > .row > div:first-of-type {
-    padding-left: 15px;
     padding-right: 7.5px;
+    padding-left: 15px;
 }
 
 #navbarNav > .d-lg-none > .row > div {
-    padding-left: 7.5px;
     padding-right: 15px;
+    padding-left: 7.5px;
 }
 
 #navbarNav > .d-lg-none > .row > .col .btn {
@@ -84,16 +80,4 @@
 
 #navbarAccountDropdownSp {
     max-width: calc(100vw - 5em);
-}
-
-.card-img-left {
-    width: 100%;
-    border-top-left-radius: calc(.25rem - 1px);
-    border-bottom-left-radius: calc(.25rem - 1px);
-}
-
-.card-img-right {
-    width: 100%;
-    border-top-right-radius: calc(.25rem - 1px);
-    border-bottom-right-radius: calc(.25rem - 1px);
 }

@@ -7,21 +7,38 @@
     "watch-poll": "npm run watch -- --watch-poll",
     "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "prod": "npm run production",
-    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "stylelint": "stylelint resources/assets/sass/**/*"
   },
   "devDependencies": {
-    "bootstrap": "^4.2.1",
+    "bootstrap": "^4.3.1",
     "cal-heatmap": "^3.3.10",
     "chart.js": "^2.7.1",
     "cross-env": "^5.2.0",
+    "husky": "^1.3.1",
     "jquery": "^3.2.1",
     "js-cookie": "^2.2.0",
     "laravel-mix": "^4.0.0",
+    "laravel-mix-bundle-analyzer": "^1.0.2",
+    "lint-staged": "^8.1.5",
     "open-iconic": "^1.1.1",
     "popper.js": "^1.14.7",
     "resolve-url-loader": "^2.3.1",
     "sass": "^1.17.0",
     "sass-loader": "^7.1.0",
+    "stylelint": "^9.10.1",
+    "stylelint-config-recess-order": "^2.0.1",
     "vue-template-compiler": "^2.6.6"
+  },
+  "stylelint": {
+    "extends": "stylelint-config-recess-order"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{css,scss}": ["stylelint --fix", "git add"]
   }
 }

@@ -21,12 +21,10 @@ $(() => {
     $('.alert').alert();
     $('.tis-page-selector').pageSelector();
 
-    if (document.getElementById('status')) {
-        setTimeout(function () {
-            $('#status').alert('close');
-        }, 5000);
-    }
-
     $('.link-card').linkCard();
-    $('#deleteCheckinModal').deleteCheckinModal();
+    const $deleteCheckinModal = $('#deleteCheckinModal').deleteCheckinModal();
+    $(document).on('click', '[data-target="#deleteCheckinModal"]', function (event) {
+        event.preventDefault();
+        $deleteCheckinModal.modal('show', this);
+    });
 });

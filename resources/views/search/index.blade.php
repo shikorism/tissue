@@ -6,7 +6,7 @@
     @else
         <ul class="list-group">
         @foreach($results as $ejaculation)
-            <li class="list-group-item border-bottom-only pt-3 pb-3 tis-word-wrap">
+            <li class="list-group-item border-bottom-only pt-3 pb-3 text-break">
                 <!-- span -->
                 <div class="d-flex justify-content-between">
                     <h5>
@@ -15,10 +15,6 @@
                     </h5>
                     <div>
                         <a class="text-secondary timeline-action-item" href="{{ route('checkin', ['link' => $ejaculation->link, 'tags' => $ejaculation->textTags()]) }}"><span class="oi oi-reload" data-toggle="tooltip" data-placement="bottom" title="同じオカズでチェックイン"></span></a>
-                        @if ($ejaculation->user->isMe())
-                            <a class="text-secondary timeline-action-item" href="{{ route('checkin.edit', ['id' => $ejaculation->id]) }}"><span class="oi oi-pencil" data-toggle="tooltip" data-placement="bottom" title="修正"></span></a>
-                            <a class="text-secondary timeline-action-item" href="#" data-toggle="modal" data-target="#deleteCheckinModal" data-id="{{ $ejaculation->id }}" data-date="{{ $ejaculation->ejaculated_date }}"><span class="oi oi-trash" data-toggle="tooltip" data-placement="bottom" title="削除"></span></a>
-                        @endif
                     </div>
                 </div>
                 <!-- tags -->
@@ -44,7 +40,7 @@
                 @endif
                 <!-- note -->
                 @if (!empty($ejaculation->note))
-                    <p class="mb-0 tis-word-wrap">
+                    <p class="mb-0 text-break">
                         {!! Formatter::linkify(nl2br(e($ejaculation->note))) !!}
                     </p>
                 @endif

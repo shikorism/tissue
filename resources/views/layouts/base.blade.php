@@ -89,7 +89,7 @@
                         </div>
                     </form>
                     <form class="form-inline mr-2">
-                        <a href="{{ route('checkin') }}" class="btn btn-outline-success">チェックイン</a>
+                        <a href="{{ route('checkin') }}" class="btn btn-outline-primary">チェックイン</a>
                     </form>
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
@@ -105,6 +105,9 @@
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a href="{{ route('setting') }}" class="dropdown-item">設定</a>
+                                @can ('admin')
+                                    <a href="{{ route('admin.dashboard') }}" class="dropdown-item">管理</a>
+                                @endcan
                                 <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
                             </div>
                         </li>
@@ -114,18 +117,18 @@
                 <div class="d-lg-none">
                     <div class="row mt-2">
                         <div class="col">
-                            <a class="btn btn-outline-{{ stripos(Route::currentRouteName(), 'home') === 0 ? 'primary' : 'secondary'}}" href="{{ route('home') }}" role="button">ホーム</a>
+                            <a class="btn btn-{{ stripos(Route::currentRouteName(), 'home') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('home') }}" role="button">ホーム</a>
                         </div>
                         <div class="col">
-                            <a class="btn btn-outline-{{ stripos(Route::currentRouteName(), 'user.profile') === 0 ? 'primary' : 'secondary'}}" href="{{ route('user.profile', ['name' => Auth::user()->name]) }}" role="button">タイムライン</a>
+                            <a class="btn btn-{{ stripos(Route::currentRouteName(), 'user.profile') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('user.profile', ['name' => Auth::user()->name]) }}" role="button">タイムライン</a>
                         </div>
                     </div>
                     <div class="row mt-2">
                         <div class="col">
-                            <a class="btn btn-outline-{{ stripos(Route::currentRouteName(), 'user.stats') === 0 ? 'primary' : 'secondary'}}" href="{{ route('user.stats', ['name' => Auth::user()->name]) }}" role="button">グラフ</a>
+                            <a class="btn btn-{{ stripos(Route::currentRouteName(), 'user.stats') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('user.stats', ['name' => Auth::user()->name]) }}" role="button">グラフ</a>
                         </div>
                         <div class="col">
-                            <a class="btn btn-outline-{{ stripos(Route::currentRouteName(), 'user.okazu') === 0 ? 'primary' : 'secondary'}}" href="{{ route('user.okazu', ['name' => Auth::user()->name]) }}" role="button">オカズ</a>
+                            <a class="btn btn-{{ stripos(Route::currentRouteName(), 'user.okazu') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('user.okazu', ['name' => Auth::user()->name]) }}" role="button">オカズ</a>
                         </div>
                     </div>
                     {{-- <div class="row mt-2">
@@ -145,7 +148,7 @@
                     </div>
                     <div class="row mt-2">
                         <form class="form-inline col">
-                            <a class="btn btn-outline-success" href="{{ route('checkin') }}">チェックイン</a>
+                            <a class="btn btn-outline-primary" href="{{ route('checkin') }}">チェックイン</a>
                         </form>
                     </div>
                 </div>
@@ -217,6 +220,8 @@
   </div>
 </div>
 @endguest
+<script src="{{ mix('js/manifest.js') }}"></script>
+<script src="{{ mix('js/vendor.js') }}"></script>
 <script src="{{ mix('js/app.js') }}"></script>
 @stack('script')
 </body>

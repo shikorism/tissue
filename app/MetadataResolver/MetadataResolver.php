@@ -16,6 +16,7 @@ class MetadataResolver implements Resolver
         '~ec\.toranoana\.jp/tora_r/ec/item/.*~' => ToranoanaResolver::class,
         '~iwara\.tv/videos/.*~' => IwaraResolver::class,
         '~www\.dlsite\.com/.*/work/=/product_id/..\d+\.html~' => DLsiteResolver::class,
+        '~dlsite\.jp/mawtw/..\d+~' => DLsiteResolver::class,
         '~www\.pixiv\.net/member_illust\.php\?illust_id=\d+~' => PixivResolver::class,
         '~fantia\.jp/posts/\d+~' => FantiaResolver::class,
         '~dmm\.co\.jp/~' => FanzaResolver::class,
@@ -23,6 +24,8 @@ class MetadataResolver implements Resolver
         '~www\.deviantart\.com/.*/art/.*~' => DeviantArtResolver::class,
         '~\.syosetu\.com/n\d+[a-z]{2,}~' => NarouResolver::class,
         '~ci-en\.jp/creator/\d+/article/\d+~' => CienResolver::class,
+        '~www\.plurk\.com\/p\/.*~' => PlurkResolver::class,
+        '~(adult\.)?contents\.fc2\.com\/article_search\.php\?id=\d+~' => FC2ContentsResolver::class,
     ];
 
     public $mimeTypes = [

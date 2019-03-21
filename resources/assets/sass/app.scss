@@ -1,8 +1,15 @@
+// Bootstrap Variable Overlide
+$primary: #e53fb1;
+
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
+@import "bootstrap-custom";
 
 // Open Iconic
 @import "~open-iconic/font/css/open-iconic-bootstrap";
 
 // Legacy app styles
 @import "tissue.css";
+
+// Components
+@import "components/link-card";
