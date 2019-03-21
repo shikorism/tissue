@@ -4,6 +4,7 @@
     "description": "気持ちよくティッシュを使った、そのあとの感想戦。",
     "display": "minimal-ui",
     "start_url": "/",
+    "theme_color": "#e53fb1",
     "share_target": {
         "action": "/checkin",
         "method": "GET",
