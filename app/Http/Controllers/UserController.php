@@ -67,6 +67,8 @@ SQL
             abort(404);
         }
 
+        $dateUntil = now()->addMonth()->startOfMonth();
+
         $groupByDay = Ejaculation::select(DB::raw(
             <<<'SQL'
 to_char(ejaculated_date, 'YYYY/MM/DD') AS "date",
@@ -74,6 +76,7 @@ count(*) AS "count"
 SQL
         ))
             ->where('user_id', $user->id)
+            ->where('ejaculated_date', '<', $dateUntil)
             ->groupBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"))
             ->orderBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"))
             ->get();
@@ -85,6 +88,7 @@ count(*) AS "count"
 SQL
         ))
             ->where('user_id', $user->id)
+            ->where('ejaculated_date', '<', $dateUntil)
             ->groupBy(DB::raw("to_char(ejaculated_date, 'HH24')"))
             ->orderBy(DB::raw('1'))
             ->get();
