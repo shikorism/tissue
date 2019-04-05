@@ -27,4 +27,69 @@ $(() => {
         event.preventDefault();
         $deleteCheckinModal.modal('show', this);
     });
+
+    $(document).on('click', '[data-href]', function (event) {
+        location.href = $(this).data('href');
+    });
+
+    $(document).on('click', '.like-button', function (event) {
+        event.preventDefault();
+
+        const $this = $(this);
+        const targetId = $this.data('id');
+        const isLiked = $this.data('liked');
+
+        if (isLiked) {
+            const callback = (data) => {
+                $this.data('liked', false);
+                $this.find('.oi-heart').removeClass('text-danger');
+
+                const count = data.ejaculation ? data.ejaculation.likes_count : 0;
+                $this.find('.like-count').text(count ? count : '');
+            };
+
+            $.ajax({
+                url: '/api/likes/' + encodeURIComponent(targetId),
+                method: 'delete',
+                type: 'json'
+            })
+                .then(callback)
+                .catch(function (xhr) {
+                    if (xhr.status === 404) {
+                        callback(JSON.parse(xhr.responseText));
+                        return;
+                    }
+
+                    console.error(xhr);
+                    alert('いいねを解除できませんでした。');
+                });
+        } else {
+            const callback = (data) => {
+                $this.data('liked', true);
+                $this.find('.oi-heart').addClass('text-danger');
+
+                const count = data.ejaculation ? data.ejaculation.likes_count : 0;
+                $this.find('.like-count').text(count ? count : '');
+            };
+
+            $.ajax({
+                url: '/api/likes',
+                method: 'post',
+                type: 'json',
+                data: {
+                    id: targetId
+                }
+            })
+                .then(callback)
+                .catch(function (xhr) {
+                    if (xhr.status === 409) {
+                        callback(JSON.parse(xhr.responseText));
+                        return;
+                    }
+
+                    console.error(xhr);
+                    alert('いいねできませんでした。');
+                });
+        }
+    });
 });

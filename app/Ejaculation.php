@@ -2,7 +2,9 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Ejaculation extends Model
 {
@@ -33,5 +35,26 @@ class Ejaculation extends Model
         return implode(' ', $this->tags->map(function ($v) {
             return $v->name;
         })->all());
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function scopeWithLikes(Builder $query)
+    {
+        if (Auth::check()) {
+            // (ejaculation_id, user_id) でユニークなわけですが、サブクエリ発行させるのとLeft JoinしてNULLかどうかで結果を見るのどっちがいいんでしょうね
+            return $query->withCount([
+                'likes',
+                'likes as is_liked' => function ($query) {
+                    $query->where('user_id', Auth::id());
+                }
+            ]);
+        } else {
+            return $query->withCount('likes')
+                ->addSelect('0 as is_liked');
+        }
     }
 }

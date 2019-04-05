@@ -41,6 +41,7 @@ SQL
         }
         $ejaculations = $query->orderBy('ejaculated_date', 'desc')
             ->with('tags')
+            ->withLikes()
             ->paginate(20);
 
         // よく使っているタグ

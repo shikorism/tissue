@@ -21,6 +21,7 @@ class SearchController extends Controller
             ->where('is_private', false)
             ->orderBy('ejaculated_date', 'desc')
             ->with(['user', 'tags'])
+            ->withLikes()
             ->paginate(20)
             ->appends($inputs);
 

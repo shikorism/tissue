@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return Auth::check() && $this->id === Auth::user()->id;
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }

@@ -13,3 +13,11 @@ $primary: #e53fb1;
 
 // Components
 @import "components/link-card";
+
+.like-button {
+  text-decoration: none !important;
+}
+
+.like-count:not(:empty) {
+  padding-left: 0.25rem;
+}
