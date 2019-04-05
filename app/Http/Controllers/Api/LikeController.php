@@ -30,10 +30,12 @@ class LikeController extends Controller
                 ],
                 'ejaculation' => $like->ejaculation
             ];
+
             return response()->json($data, 409);
         }
 
         $like = Like::create($keys);
+
         return [
             'ejaculation' => $like->ejaculation
         ];
