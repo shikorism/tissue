@@ -177,4 +177,23 @@ SQL
 
         return view('user.profile')->with(compact('user', 'ejaculations'));
     }
+
+    public function likes($name)
+    {
+        $user = User::where('name', $name)->first();
+        if (empty($user)) {
+            abort(404);
+        }
+
+        if (!$user->isMe()) {
+            abort(403);
+        }
+
+        $likes = $user->likes()
+            ->orderBy('created_at', 'desc')
+            ->with('ejaculation.user', 'ejaculation.tags')
+            ->paginate(20);
+
+        return view('user.likes')->with(compact('user', 'likes'));
+    }
 }

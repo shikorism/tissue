@@ -19,6 +19,7 @@ Route::get('/user', 'UserController@redirectMypage')->middleware('auth');
 Route::get('/user/{name?}', 'UserController@profile')->name('user.profile');
 Route::get('/user/{name}/stats', 'UserController@stats')->name('user.stats');
 Route::get('/user/{name}/okazu', 'UserController@okazu')->name('user.okazu');
+Route::get('/user/{name}/likes', 'UserController@likes')->name('user.likes');
 
 Route::get('/checkin/{id}', 'EjaculationController@show')->name('checkin.show');
 Route::middleware('auth')->group(function () {
