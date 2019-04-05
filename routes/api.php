@@ -16,3 +16,8 @@
 //});
 
 Route::get('/checkin/card', 'Api\\CardController@show');
+
+Route::middleware('auth')->group(function () {
+    Route::post('/likes', 'Api\\LikeController@store');
+    Route::delete('/likes/{id}', 'Api\\LikeController@destroy');
+});
