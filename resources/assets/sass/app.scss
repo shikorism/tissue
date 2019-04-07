@@ -14,10 +14,16 @@ $primary: #e53fb1;
 // Components
 @import "components/link-card";
 
+.ejaculation-actions {
+  & > button:not(:last-child) {
+    margin-right: 24px;
+  }
+}
+
 .like-button {
   text-decoration: none !important;
 }
 
 .like-count:not(:empty) {
-  padding-left: 0.25rem;
+  padding-left: 0.5rem;
 }
