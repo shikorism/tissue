@@ -29,6 +29,19 @@
         {!! Formatter::linkify(nl2br(e($ejaculation->note))) !!}
     </p>
 @endif
+<!-- likes -->
+@if ($ejaculation->likes_count > 0)
+    <div class="my-2 py-1 border-top border-bottom d-flex align-items-center">
+        <div class="ml-2 mr-3 text-secondary"><span class="oi oi-heart" title="いいねしたユーザー"></span></div>
+        <div class="like-users flex-grow-1 overflow-hidden">
+            @foreach ($ejaculation->likes as $like)
+                @if ($like->user !== null)
+                    <a href="{{ route('user.profile', ['name' => $like->user->name]) }}"><img src="{{ $like->user->getProfileImageUrl(30) }}" width="30" height="30" class="rounded" data-toggle="tooltip" data-placement="bottom" title="{{ $like->user->display_name }}"></a>
+                @endif
+            @endforeach
+        </div>
+    </div>
+@endif
 <!-- actions -->
 <div class="ejaculation-actions">
     <button type="button" class="btn btn-link text-secondary"

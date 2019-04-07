@@ -46,14 +46,23 @@ class Ejaculation extends Model
     {
         if (Auth::check()) {
             // (ejaculation_id, user_id) でユニークなわけですが、サブクエリ発行させるのとLeft JoinしてNULLかどうかで結果を見るのどっちがいいんでしょうね
-            return $query->withCount([
-                'likes',
-                'likes as is_liked' => function ($query) {
-                    $query->where('user_id', Auth::id());
-                }
-            ]);
+            return $query
+                ->with(['likes.user' => function ($query) {
+                    $query->where('is_protected', false)
+                        ->orWhere('id', Auth::id());
+                }])
+                ->withCount([
+                    'likes',
+                    'likes as is_liked' => function ($query) {
+                        $query->where('user_id', Auth::id());
+                    }
+                ]);
         } else {
-            return $query->withCount('likes')
+            return $query
+                ->with(['likes.user' => function ($query) {
+                    $query->where('is_protected', false);
+                }])
+                ->withCount('likes')
                 ->addSelect('0 as is_liked');
         }
     }
