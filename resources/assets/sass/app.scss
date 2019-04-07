@@ -12,22 +12,5 @@ $primary: #e53fb1;
 @import "tissue.css";
 
 // Components
+@import "components/ejaculation";
 @import "components/link-card";
-
-.ejaculation-actions {
-  & > button:not(:last-child) {
-    margin-right: 24px;
-  }
-}
-
-.like-button {
-  text-decoration: none !important;
-}
-
-.like-count:not(:empty) {
-  padding-left: 0.5rem;
-}
-
-.like-users {
-  height: 30px;
-}
