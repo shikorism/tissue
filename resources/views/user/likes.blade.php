@@ -3,7 +3,7 @@
 @section('title', $user->display_name . ' (@' . $user->name . ') さんがいいねしたチェックイン')
 
 @section('tab-content')
-@if ($user->is_protected && !$user->isMe())
+@if (($user->is_protected || $user->private_likes) && !$user->isMe())
     <p class="mt-4">
         <span class="oi oi-lock-locked"></span> このユーザはいいね一覧を公開していません。
     </p>

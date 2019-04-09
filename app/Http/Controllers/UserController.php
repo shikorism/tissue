@@ -185,10 +185,6 @@ SQL
             abort(404);
         }
 
-        if (!$user->isMe()) {
-            abort(403);
-        }
-
         $likes = $user->likes()
             ->orderBy('created_at', 'desc')
             ->with('ejaculation.user', 'ejaculation.tags')
