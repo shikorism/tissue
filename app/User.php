@@ -20,6 +20,7 @@ class User extends Authenticatable
         'is_protected', 'accept_analytics',
         'display_name', 'description',
         'twitter_id', 'twitter_name',
+        'private_likes',
     ];
 
     /**
