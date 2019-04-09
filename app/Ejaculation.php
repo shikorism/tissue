@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Ejaculation extends Model
 {
@@ -63,7 +64,7 @@ class Ejaculation extends Model
                     $query->where('is_protected', false);
                 }])
                 ->withCount('likes')
-                ->addSelect('0 as is_liked');
+                ->addSelect(DB::raw('0 as is_liked'));
         }
     }
 }
