@@ -31,6 +31,11 @@
             </div>
             <small class="form-text text-muted">現在は変更できません。</small>
         </div>
+        <div class="from-group mt-3">
+            <label for="name">メールアドレス</label>
+            <input id="name" name="name" type="text" class="form-control" value="{{ Auth::user()->email }}" disabled>
+            <small class="form-text text-muted">現在は変更できません。</small>
+        </div>
         <div class="form-group mt-3">
             <label for="bio">自己紹介</label>
             <textarea id="bio" name="bio" rows="3" class="form-control {{ $errors->has('bio') ? ' is-invalid' : '' }}">{{ old('bio') ?? Auth::user()->bio }}</textarea>
