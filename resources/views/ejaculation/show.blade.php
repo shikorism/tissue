@@ -64,10 +64,10 @@
                         @if ($ejaculation->likes_count > 0)
                             <div class="my-2 py-1 border-top border-bottom d-flex align-items-center">
                                 <div class="ml-2 mr-3 text-secondary flex-shrink-0"><small><strong>{{ $ejaculation->likes_count }}</strong> 件のいいね</small></div>
-                                <div class="like-users flex-grow-1 overflow-hidden">
+                                <div class="like-users-tall flex-grow-1 overflow-hidden">
                                     @foreach ($ejaculation->likes as $like)
                                         @if ($like->user !== null)
-                                            <a href="{{ route('user.profile', ['name' => $like->user->name]) }}"><img src="{{ $like->user->getProfileImageUrl(30) }}" width="30" height="30" class="rounded" data-toggle="tooltip" data-placement="bottom" title="{{ $like->user->display_name }}"></a>
+                                            <a href="{{ route('user.profile', ['name' => $like->user->name]) }}"><img src="{{ $like->user->getProfileImageUrl(36) }}" width="36" height="36" class="rounded" data-toggle="tooltip" data-placement="bottom" title="{{ $like->user->display_name }}"></a>
                                         @endif
                                     @endforeach
                                 </div>
