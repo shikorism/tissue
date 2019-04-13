@@ -32,7 +32,7 @@
 <!-- likes -->
 @if ($ejaculation->likes_count > 0)
     <div class="my-2 py-1 border-top border-bottom d-flex align-items-center">
-        <div class="ml-2 mr-3 text-secondary"><small><strong>{{ $ejaculation->likes_count }}</strong> 件のいいね</small></div>
+        <div class="ml-2 mr-3 text-secondary flex-shrink-0"><small><strong>{{ $ejaculation->likes_count }}</strong> 件のいいね</small></div>
         <div class="like-users flex-grow-1 overflow-hidden">
             @foreach ($ejaculation->likes as $like)
                 @if ($like->user !== null)
