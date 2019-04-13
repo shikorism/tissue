@@ -8,6 +8,11 @@
     <form action="{{ route('setting.profile.update') }}" method="post">
         {{ csrf_field() }}
         <div class="from-group">
+            <label for="name">アイコン</label>
+            <img src="{{ Auth::user()->getProfileImageUrl(128) }}" class="rounded d-block">
+            <small class="form-text text-muted">変更は<a href="https://gravatar.com/" target="_blank">Gravatar</a>から行えます。</small>
+        </div>
+        <div class="from-group mt-3">
             <label for="display_name">名前</label>
             <input id="display_name" name="display_name" type="text" class="form-control {{ $errors->has('display_name') ? ' is-invalid' : '' }}"
                    value="{{ old('display_name') ?? Auth::user()->display_name }}" maxlength="20" autocomplete="off">
@@ -24,6 +29,11 @@
                 </div>
                 <input id="name" name="name" type="text" class="form-control" value="{{ Auth::user()->name }}" disabled>
             </div>
+            <small class="form-text text-muted">現在は変更できません。</small>
+        </div>
+        <div class="from-group mt-3">
+            <label for="name">メールアドレス</label>
+            <input id="name" name="name" type="text" class="form-control" value="{{ Auth::user()->email }}" disabled>
             <small class="form-text text-muted">現在は変更できません。</small>
         </div>
         <div class="form-group mt-3">
