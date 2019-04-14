@@ -47,7 +47,8 @@ class Ejaculation extends Model
     public function scopeWithLikes(Builder $query)
     {
         if (Auth::check()) {
-            // (ejaculation_id, user_id) でユニークなわけですが、サブクエリ発行させるのとLeft JoinしてNULLかどうかで結果を見るのどっちがいいんでしょうね
+            // TODO - このスコープを使うことでlikesが常に直近10件で絞られるのは汚染されすぎ感がある。別名を付与できないか？
+            //      - (ejaculation_id, user_id) でユニークなわけですが、is_liked はサブクエリ発行させるのとLeft JoinしてNULLかどうかで結果を見るのどっちがいいんでしょうね
             return $query
                 ->with([
                     'likes' => function ($query) {
