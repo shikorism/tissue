@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class Ejaculation extends Model
 {
-    //
+    use HasEagerLimit;
 
     protected $fillable = [
         'user_id', 'ejaculated_date',
@@ -48,10 +49,15 @@ class Ejaculation extends Model
         if (Auth::check()) {
             // (ejaculation_id, user_id) でユニークなわけですが、サブクエリ発行させるのとLeft JoinしてNULLかどうかで結果を見るのどっちがいいんでしょうね
             return $query
-                ->with(['likes.user' => function ($query) {
-                    $query->where('is_protected', false)
-                        ->orWhere('id', Auth::id());
-                }])
+                ->with([
+                    'likes' => function ($query) {
+                        $query->latest()->take(10);
+                    },
+                    'likes.user' => function ($query) {
+                        $query->where('is_protected', false)
+                            ->orWhere('id', Auth::id());
+                    }
+                ])
                 ->withCount([
                     'likes',
                     'likes as is_liked' => function ($query) {
@@ -60,9 +66,14 @@ class Ejaculation extends Model
                 ]);
         } else {
             return $query
-                ->with(['likes.user' => function ($query) {
-                    $query->where('is_protected', false);
-                }])
+                ->with([
+                    'likes' => function ($query) {
+                        $query->latest()->take(10);
+                    },
+                    'likes.user' => function ($query) {
+                        $query->where('is_protected', false);
+                    }
+                ])
                 ->withCount('likes')
                 ->addSelect(DB::raw('0 as is_liked'));
         }
