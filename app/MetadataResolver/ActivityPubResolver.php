@@ -73,6 +73,10 @@ class ActivityPubResolver implements Resolver, Parser
 
     private function html2text(string $html): string
     {
+        if (empty($html)) {
+            return '';
+        }
+
         $html = mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
         $html = preg_replace('~<br\s*/?\s*>|</p>\s*<p[^>]*>~i', "\n", $html);
         $dom = new \DOMDocument();
