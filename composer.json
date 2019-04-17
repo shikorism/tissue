@@ -51,6 +51,9 @@
         ],
         "fix": [
             "php-cs-fixer fix"
+        ],
+        "test": [
+            "phpunit"
         ]
     },
     "config": {

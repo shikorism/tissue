@@ -86,6 +86,15 @@ docker-compose run --rm web yarn watch
 現在Docker環境でのHMRはサポートしてません。Docker外ならおそらく動くでしょう。  
 その他詳しくはlaravel-mixのドキュメントなどを当たってください。
 
+## phpunit によるテスト
+
+変更をしたらPull Requestを投げる前にテストが通ることを確認してください。  
+テストは以下のコマンドで実行できます。
+
+```
+docker-compose exec web composer test
+```
+
 ## 環境構築上の諸注意
 
 - 初版時点では、DB サーバとして PostgreSQL を使うよう .env ファイルを設定するくらいです。
