@@ -69,6 +69,7 @@ SQL
                 ->orderBy('ejaculations.ejaculated_date', 'desc')
                 ->select('ejaculations.*')
                 ->with('user', 'tags')
+                ->withLikes()
                 ->take(10)
                 ->get();
 

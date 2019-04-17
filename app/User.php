@@ -20,6 +20,7 @@ class User extends Authenticatable
         'is_protected', 'accept_analytics',
         'display_name', 'description',
         'twitter_id', 'twitter_name',
+        'private_likes',
     ];
 
     /**
@@ -50,5 +51,10 @@ class User extends Authenticatable
     public function isMe()
     {
         return Auth::check() && $this->id === Auth::user()->id;
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
     }
 }

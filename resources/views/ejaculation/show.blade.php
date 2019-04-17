@@ -30,15 +30,8 @@
                 <div class="card">
                     <div class="card-body">
                         <!-- span -->
-                        <div class="d-flex justify-content-between">
+                        <div>
                             <h5>{{ $ejaculatedSpan ?? '精通' }} <small class="text-muted">{{ $ejaculation->before_date }}{{ !empty($ejaculation->before_date) ? ' ～ ' : '' }}{{ $ejaculation->ejaculated_date->format('Y/m/d H:i') }}</small></h5>
-                            <div>
-                                <a class="text-secondary timeline-action-item" href="{{ route('checkin', ['link' => $ejaculation->link, 'tags' => $ejaculation->textTags()]) }}"><span class="oi oi-reload" data-toggle="tooltip" data-placement="bottom" title="同じオカズでチェックイン"></span></a>
-                                @if ($user->isMe())
-                                    <a class="text-secondary timeline-action-item" href="{{ route('checkin.edit', ['id' => $ejaculation->id]) }}"><span class="oi oi-pencil" data-toggle="tooltip" data-placement="bottom" title="修正"></span></a>
-                                    <a class="text-secondary timeline-action-item" href="#" data-target="#deleteCheckinModal" data-id="{{ $ejaculation->id }}" data-date="{{ $ejaculation->ejaculated_date }}"><span class="oi oi-trash" data-toggle="tooltip" data-placement="bottom" title="削除"></span></a>
-                                @endif
-                            </div>
                         </div>
                         <!-- tags -->
                         @if ($ejaculation->is_private || $ejaculation->tags->isNotEmpty())
@@ -63,10 +56,32 @@
                         @endif
                         <!-- note -->
                         @if (!empty($ejaculation->note))
-                            <p class="mb-0 text-break">
+                            <p class="mb-2 text-break">
                                 {!! Formatter::linkify(nl2br(e($ejaculation->note))) !!}
                             </p>
                         @endif
+                        <!-- likes -->
+                        @if ($ejaculation->likes_count > 0)
+                            <div class="my-2 py-1 border-top border-bottom d-flex align-items-center">
+                                <div class="ml-2 mr-3 text-secondary flex-shrink-0"><small><strong>{{ $ejaculation->likes_count }}</strong> 件のいいね</small></div>
+                                <div class="like-users-tall flex-grow-1 overflow-hidden">
+                                    @foreach ($ejaculation->likes as $like)
+                                        @if ($like->user !== null)
+                                            <a href="{{ route('user.profile', ['name' => $like->user->name]) }}"><img src="{{ $like->user->getProfileImageUrl(36) }}" width="36" height="36" class="rounded" data-toggle="tooltip" data-placement="bottom" title="{{ $like->user->display_name }}"></a>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+                        <!-- actions -->
+                        <div class="ejaculation-actions">
+                            <button type="button" class="btn btn-link text-secondary" data-toggle="tooltip" data-placement="bottom" title="同じオカズでチェックイン" data-href="{{ route('checkin', ['link' => $ejaculation->link, 'tags' => $ejaculation->textTags()]) }}"><span class="oi oi-reload"></span></button>
+                            <button type="button" class="btn btn-link text-secondary like-button" data-toggle="tooltip" data-placement="bottom" data-trigger="hover" title="いいね" data-id="{{ $ejaculation->id }}" data-liked="{{ (bool)$ejaculation->is_liked }}"><span class="oi oi-heart {{ $ejaculation->is_liked ? 'text-danger' : '' }}"></span><span class="like-count">{{ $ejaculation->likes_count ? $ejaculation->likes_count : '' }}</span></button>
+                            @if ($user->isMe())
+                                <button type="button" class="btn btn-link text-secondary" data-toggle="tooltip" data-placement="bottom" title="修正" data-href="{{ route('checkin.edit', ['id' => $ejaculation->id]) }}"><span class="oi oi-pencil"></span></button>
+                                <button type="button" class="btn btn-link text-secondary" data-toggle="tooltip" data-placement="bottom" title="削除" data-target="#deleteCheckinModal" data-id="{{ $ejaculation->id }}" data-date="{{ $ejaculation->ejaculated_date }}"><span class="oi oi-trash"></span></button>
+                            @endif
+                        </div>
                     </div>
                 </div>
             @endif
