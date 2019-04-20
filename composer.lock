@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "79423bebbfa31e28aab2d06ba7e19828",
+    "content-hash": "665f6f5eb180a1295fb60303d2ea5051",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -1872,6 +1872,48 @@
                 "uuid"
             ],
             "time": "2018-07-19T23:38:55+00:00"
+        },
+        {
+            "name": "staudenmeir/eloquent-eager-limit",
+            "version": "v1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/staudenmeir/eloquent-eager-limit.git",
+                "reference": "4ee5c70268b5bc019618c7de66145d7addb3c5dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/staudenmeir/eloquent-eager-limit/zipball/4ee5c70268b5bc019618c7de66145d7addb3c5dc",
+                "reference": "4ee5c70268b5bc019618c7de66145d7addb3c5dc",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "~5.5.43|~5.6.34|5.7.*",
+                "illuminate/support": "^5.5.14",
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "laravel/homestead": "^7.18",
+                "phpunit/phpunit": "~6.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Staudenmeir\\EloquentEagerLimit\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonas Staudenmeir",
+                    "email": "mail@jonas-staudenmeir.de"
+                }
+            ],
+            "description": "Laravel Eloquent eager loading with limit",
+            "time": "2019-01-23T19:25:27+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

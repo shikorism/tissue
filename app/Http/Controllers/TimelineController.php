@@ -16,6 +16,7 @@ class TimelineController extends Controller
             ->orderBy('ejaculations.ejaculated_date', 'desc')
             ->select('ejaculations.*')
             ->with('user', 'tags')
+            ->withLikes()
             ->paginate(21);
 
         return view('timeline.public')->with(compact('ejaculations'));

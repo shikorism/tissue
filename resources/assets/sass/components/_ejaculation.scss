@@ -1,0 +1,21 @@
+.ejaculation-actions {
+  & > button:not(:last-child) {
+    margin-right: 24px;
+  }
+}
+
+.like-button {
+  text-decoration: none !important;
+}
+
+.like-count:not(:empty) {
+  padding-left: 0.5rem;
+}
+
+.like-users {
+  height: 30px;
+}
+
+.like-users-tall {
+  height: 36px;
+}

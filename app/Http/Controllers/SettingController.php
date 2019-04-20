@@ -46,11 +46,12 @@ class SettingController extends Controller
 
     public function updatePrivacy(Request $request)
     {
-        $inputs = $request->all(['is_protected', 'accept_analytics']);
+        $inputs = $request->all(['is_protected', 'accept_analytics', 'private_likes']);
 
         $user = Auth::user();
         $user->is_protected = $inputs['is_protected'] ?? false;
         $user->accept_analytics = $inputs['accept_analytics'] ?? false;
+        $user->private_likes = $inputs['private_likes'] ?? false;
         $user->save();
 
         return redirect()->route('setting.privacy')->with('status', 'プライバシー設定を更新しました。');

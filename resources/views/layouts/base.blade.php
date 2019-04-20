@@ -50,6 +50,9 @@
                             </p>
                         </a>
                         <div class="dropdown-divider"></div>
+                        <a href="{{ route('user.profile', ['name' => Auth::user()->name]) }}" class="dropdown-item">プロフィール</a>
+                        <a href="{{ route('user.likes', ['name' => Auth::user()->name]) }}" class="dropdown-item">いいね</a>
+                        <div class="dropdown-divider"></div>
                         <a href="{{ route('setting') }}" class="dropdown-item">設定</a>
                         <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
                     </div>
@@ -103,6 +106,9 @@
                                         <span>&commat;{{ Auth::user()->name }}</span>
                                     </p>
                                 </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="{{ route('user.profile', ['name' => Auth::user()->name]) }}" class="dropdown-item">プロフィール</a>
+                                <a href="{{ route('user.likes', ['name' => Auth::user()->name]) }}" class="dropdown-item">いいね</a>
                                 <div class="dropdown-divider"></div>
                                 <a href="{{ route('setting') }}" class="dropdown-item">設定</a>
                                 @can ('admin')

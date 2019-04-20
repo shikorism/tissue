@@ -78,7 +78,9 @@ class EjaculationController extends Controller
 
     public function show($id)
     {
-        $ejaculation = Ejaculation::findOrFail($id);
+        $ejaculation = Ejaculation::where('id', $id)
+            ->withLikes()
+            ->firstOrFail();
         $user = User::findOrFail($ejaculation->user_id);
 
         // 1つ前のチェックインからの経過時間を求める

@@ -20,6 +20,13 @@
                     <li class="nav-item">
                         <a class="nav-link {{ Route::currentRouteName() === 'user.okazu' ? 'active' : '' }}" href="{{ route('user.okazu', ['name' => $user->name]) }}">オカズ</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::currentRouteName() === 'user.likes' ? 'active' : '' }}" href="{{ route('user.likes', ['name' => $user->name]) }}">いいね
+                            @if ($user->isMe() || !($user->is_protected || $user->private_likes))
+                                <span class="badge badge-primary">{{ $user->likes()->count() }}</span>
+                            @endif
+                        </a>
+                    </li>
                 </ul>
                 <div class="tab-content">
                     @yield('tab-content')

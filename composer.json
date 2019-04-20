@@ -12,7 +12,8 @@
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-        "misd/linkify": "^1.1"
+        "misd/linkify": "^1.1",
+        "staudenmeir/eloquent-eager-limit": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",
@@ -50,6 +51,9 @@
         ],
         "fix": [
             "php-cs-fixer fix"
+        ],
+        "test": [
+            "phpunit"
         ]
     },
     "config": {
