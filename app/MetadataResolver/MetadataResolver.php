@@ -13,7 +13,7 @@ class MetadataResolver implements Resolver
         '~nijie\.info/view(_popup)?\.php~' => NijieResolver::class,
         '~komiflo\.com(/#!)?/comics/(\\d+)~' => KomifloResolver::class,
         '~www\.melonbooks\.co\.jp/detail/detail\.php~' => MelonbooksResolver::class,
-        '~ec\.toranoana\.jp/tora_r/ec/item/.*~' => ToranoanaResolver::class,
+        '~ec\.toranoana\.(jp|shop)/(tora|joshi)(_[rd]+)?/(ec|digi)/item/~' => ToranoanaResolver::class,
         '~iwara\.tv/videos/.*~' => IwaraResolver::class,
         '~www\.dlsite\.com/.*/work/=/product_id/..\d+\.html~' => DLsiteResolver::class,
         '~dlsite\.jp/mawtw/..\d+~' => DLsiteResolver::class,
