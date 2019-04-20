@@ -188,6 +188,10 @@ SQL
         $likes = $user->likes()
             ->orderBy('created_at', 'desc')
             ->with('ejaculation.user', 'ejaculation.tags')
+            ->whereHas('ejaculation', function ($query) {
+                $query->where('user_id', Auth::id())
+                    ->orWhere('is_private', false);
+            })
             ->paginate(20);
 
         return view('user.likes')->with(compact('user', 'likes'));
