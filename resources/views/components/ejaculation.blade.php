@@ -6,8 +6,11 @@
     </h5>
 </div>
 <!-- tags -->
-@if ($ejaculation->tags->isNotEmpty())
+@if ($ejaculation->is_private || $ejaculation->tags->isNotEmpty())
     <p class="mb-2">
+        @if ($ejaculation->is_private)
+            <span class="badge badge-warning"><span class="oi oi-lock-locked"></span> 非公開</span>
+        @endif
         @foreach ($ejaculation->tags as $tag)
             <a class="badge badge-secondary" href="{{ route('search', ['q' => $tag->name]) }}"><span class="oi oi-tag"></span> {{ $tag->name }}</a>
         @endforeach
