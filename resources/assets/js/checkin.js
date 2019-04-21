@@ -11,7 +11,12 @@ function updateTags() {
 }
 
 function insertTag(value) {
-    $('#tags').append('<li class="list-inline-item badge badge-primary" style="cursor: pointer;" data-value="' + value + '"><span class="oi oi-tag"></span> ' + value + ' | x</li>');
+    $('<li class="list-inline-item badge badge-primary" style="cursor: pointer;"><span class="oi oi-tag"></span> <span></span> | x</li>')
+        .data('value', value)
+        .children(':last-child')
+            .text(value)
+            .end()
+        .appendTo('#tags');
 }
 
 var initTags = $('input[name=tags]').val();
