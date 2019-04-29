@@ -23,6 +23,12 @@ class DLsiteResolver implements Resolver
 
     public function resolve(string $url): Metadata
     {
+
+        //スマホページの場合はPCページに正規化
+        if (strpos($url, '-touch') !== false) {
+            $url = str_replace('-touch', '', $url);
+        }
+
         $res = $this->client->get($url);
         if ($res->getStatusCode() === 200) {
             $metadata = $this->ogpResolver->parse($res->getBody());
