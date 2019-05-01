@@ -39,14 +39,14 @@ class DLsiteResolver implements Resolver
 
             // 抽出
             $title = $xpath->query('//title')->item(0)->textContent;
-            preg_match('~\[(.+)\] \| DLsite.+$~', $title, $match);
+            preg_match('~\[([^\[\]]*)\] \| DLsite.+$~', $title, $match);
             $maker = $match[1];
 
             // makerに一致するthのテキストを探す
             $makerHead = $xpath->query('//a[contains(text(), "'.$maker.'")]/ancestor::tr/th')->item(0)->textContent;
 
             // 余分な文を消す
-            $metadata->title = trim(preg_replace('~ \[.+\] \| DLsite(がるまに)?$~', '', $metadata->title));
+            $metadata->title = trim(preg_replace('~ \[([^\[\]]*)\] \| DLsite(がるまに)?$~', '', $metadata->title));
             $metadata->description = trim(preg_replace('~「DLsite.+」は同人誌・同人ゲーム・同人音声のダウンロードショップ。お気に入りの作品をすぐダウンロードできてすぐ楽しめる！毎日更新しているのであなたが探している作品にきっと出会えます。国内最大級の二次元総合ダウンロードショップ「DLsite」！$~', '', $metadata->description));
 
             // 整形
