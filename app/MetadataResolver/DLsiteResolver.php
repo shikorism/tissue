@@ -43,11 +43,15 @@ class DLsiteResolver implements Resolver
             $maker = $match[1];
 
             // makerに一致するthのテキストを探す
-            $makerHead = $xpath->query('//a[contains(text(), "'.$maker.'")]/ancestor::tr/th')->item(0)->textContent;
+            $makerHead = trim($xpath->query('//a[contains(text(), "'.$maker.'")]/ancestor::tr/th')->item(0)->textContent);
 
             // 余分な文を消す
             $metadata->title = trim(preg_replace('~ \[([^\[\]]*)\] \| DLsite(がるまに)?$~', '', $metadata->title));
-            $metadata->description = trim(preg_replace('~「DLsite.+」は同人誌・同人ゲーム・同人音声のダウンロードショップ。お気に入りの作品をすぐダウンロードできてすぐ楽しめる！毎日更新しているのであなたが探している作品にきっと出会えます。国内最大級の二次元総合ダウンロードショップ「DLsite」！$~', '', $metadata->description));
+            if (strpos($url, 'dlsite.com/eng/') || strpos($url, 'dlsite.com/ecchi-eng/')) {
+                $metadata->description = trim(preg_replace('~DLsite.+ is a download shop for .+With a huge selection of products, we\'re sure you\'ll find whatever tickles your fancy\. DLsite is one of the greatest indie contents download shops in Japan\.$~', '', $metadata->description));
+            } else {
+                $metadata->description = trim(preg_replace('~「DLsite.+」は.+のダウンロードショップ。お気に入りの作品をすぐダウンロードできてすぐ楽しめる！毎日更新しているのであなたが探している作品にきっと出会えます。国内最大級の二次元総合ダウンロードショップ「DLsite」！$~', '', $metadata->description));
+            }
 
             // 整形
             $metadata->description = $makerHead.': ' . $maker . PHP_EOL . $metadata->description;
