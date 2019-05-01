@@ -56,7 +56,7 @@ class DLsiteResolverTest extends TestCase
 
         $metadata = $this->resolver->resolve('https://www.dlsite.com/comic/work/=/product_id/BJ138581.html');
         $this->assertEquals('快楽ヒストリエ', $metadata->title);
-        $this->assertEquals('出版社名: ワニマガジン社' . PHP_EOL . '天地創造と原初の人類を描いた「創世編」をはじめ、英雄たちの偉業を大真面目に考証した正真正銘の学術コミック全15編。', $metadata->description);
+        $this->assertEquals('著者: 火鳥' . PHP_EOL . '天地創造と原初の人類を描いた「創世編」をはじめ、英雄たちの偉業を大真面目に考証した正真正銘の学術コミック全15編。', $metadata->description);
         $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/books/BJ139000/BJ138581_img_main.jpg', $metadata->image);
         if ($this->shouldUseMock()) {
             $this->assertSame('https://www.dlsite.com/comic/work/=/product_id/BJ138581.html', (string) $this->handler->getLastRequest()->getUri());
@@ -101,7 +101,7 @@ class DLsiteResolverTest extends TestCase
 
         $metadata = $this->resolver->resolve('https://www.dlsite.com/books/work/=/product_id/BJ191317.html');
         $this->assertEquals('永遠娘 vol.6', $metadata->title);
-        $this->assertEquals('出版社名: 茜新社' . PHP_EOL . '君の命はどんな味なのだろうな?', $metadata->description);
+        $this->assertEquals('著者: あまがえる / 玉之けだま / びんせん / 甘露アメ / 源五郎 / すみやお / 宇宙烏賊 / 毒茸人 / あやね / ガロウド / ハードボイルドよし子 / 夜歌 / 黒青郎君' . PHP_EOL . '君の命はどんな味なのだろうな?', $metadata->description);
         $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/books/BJ192000/BJ191317_img_main.jpg', $metadata->image);
         if ($this->shouldUseMock()) {
             $this->assertSame('https://www.dlsite.com/books/work/=/product_id/BJ191317.html', (string) $this->handler->getLastRequest()->getUri());
@@ -131,7 +131,7 @@ class DLsiteResolverTest extends TestCase
 
         $metadata = $this->resolver->resolve('https://www.dlsite.com/girls-pro/work/=/product_id/BJ170641.html');
         $this->assertEquals('×××レクチャー', $metadata->title);
-        $this->assertEquals('出版社名: 竹書房' . PHP_EOL . '昔、告白してくれた地味な同級生・瀬尾は超人気セクシー男優になっていて!?', $metadata->description);
+        $this->assertEquals('著者: 江口尋' . PHP_EOL . '昔、告白してくれた地味な同級生・瀬尾は超人気セクシー男優になっていて!?', $metadata->description);
         $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/books/BJ171000/BJ170641_img_main.jpg', $metadata->image);
         if ($this->shouldUseMock()) {
             $this->assertSame('https://www.dlsite.com/girls-pro/work/=/product_id/BJ170641.html', (string) $this->handler->getLastRequest()->getUri());
