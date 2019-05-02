@@ -205,12 +205,12 @@ class DLsiteResolverTest extends TestCase
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
-        $metadata = $this->resolver->resolve('https://dlsite.jp/mawtw/RJ171695.html');
+        $metadata = $this->resolver->resolve('https://dlsite.jp/mawtw/RJ221761.html');
         $this->assertEquals('ひつじ、数えてあげるっ', $metadata->title);
         $this->assertEquals('サークル名: Butterfly Dream' . PHP_EOL . '眠れないあなたに彼女が羊を数えてくれる音声です。', $metadata->description);
         $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/doujin/RJ222000/RJ221761_img_main.jpg', $metadata->image);
         if ($this->shouldUseMock()) {
-            $this->assertSame('https://dlsite.jp/mawtw/RJ171695.html', (string) $this->handler->getLastRequest()->getUri());
+            $this->assertSame('https://dlsite.jp/mawtw/RJ221761.html', (string) $this->handler->getLastRequest()->getUri());
         }
     }
 }
