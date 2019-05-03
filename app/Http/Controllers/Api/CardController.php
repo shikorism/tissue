@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Metadata;
 use App\MetadataResolver\MetadataResolver;
+use App\Tag;
 use App\Utilities\Formatter;
 use Illuminate\Http\Request;
 
@@ -41,6 +42,13 @@ class CardController
                 'image' => $resolved->image,
                 'expires_at' => $resolved->expires_at
             ]);
+
+            $tagIds = [];
+            foreach ($resolved->tags as $tagName) {
+                $tag = Tag::firstOrCreate(['name' => $tagName]);
+                $tagIds[] = $tag->id;
+            }
+            $metadata->tags()->sync($tagIds);
         }
 
         $response = response($metadata);
