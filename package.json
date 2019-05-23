@@ -11,6 +11,7 @@
     "stylelint": "stylelint resources/assets/sass/**/*"
   },
   "devDependencies": {
+    "@types/jquery": "^3.3.29",
     "bootstrap": "^4.3.1",
     "cal-heatmap": "^3.3.10",
     "chart.js": "^2.7.1",
@@ -28,6 +29,8 @@
     "sass-loader": "^7.1.0",
     "stylelint": "^9.10.1",
     "stylelint-config-recess-order": "^2.0.1",
+    "ts-loader": "^6.0.1",
+    "typescript": "^3.4.5",
     "vue": "^2.6.10",
     "vue-template-compiler": "^2.6.6"
   },

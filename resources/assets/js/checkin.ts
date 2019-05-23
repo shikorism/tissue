@@ -10,7 +10,7 @@ function updateTags() {
     );
 }
 
-function insertTag(value) {
+function insertTag(value: string) {
     $('<li class="list-inline-item badge badge-primary" style="cursor: pointer;"><span class="oi oi-tag"></span> <span></span> | x</li>')
         .data('value', value)
         .children(':last-child')
@@ -19,22 +19,23 @@ function insertTag(value) {
         .appendTo('#tags');
 }
 
-var initTags = $('input[name=tags]').val();
+const initTags = $('input[name=tags]').val() as string;
 if (initTags.trim() !== '') {
     initTags.split(' ').forEach(function (value) {
         insertTag(value);
     });
 }
 
-$('#tagInput').on('keydown', function (ev) {
-    var $this = $(this);
-    if ($this.val().trim() !== '') {
+$('#tagInput').on('keydown', function (ev: JQuery.KeyDownEvent) {
+    const $this = $(this);
+    let value = $this.val() as string;
+    if (value.trim() !== '') {
         switch (ev.key) {
             case 'Tab':
             case 'Enter':
             case ' ':
-                if (ev.originalEvent.isComposing !== true) {
-                    insertTag($this.val().trim());
+                if ((ev.originalEvent as any).isComposing !== true) {
+                    insertTag(value.trim());
                     $this.val('');
                     updateTags();
                 }
