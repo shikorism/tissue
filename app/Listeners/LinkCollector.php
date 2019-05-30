@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App\Events\LinkDiscovered;
 use App\Metadata;
 use App\MetadataResolver\MetadataResolver;
+use App\Tag;
 use App\Utilities\Formatter;
 use GuzzleHttp\Exception\TransferException;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -47,12 +48,19 @@ class LinkCollector
         if ($metadata == null || ($metadata->expires_at !== null && $metadata->expires_at < now())) {
             try {
                 $resolved = $this->metadataResolver->resolve($url);
-                Metadata::updateOrCreate(['url' => $url], [
+                $metadata = Metadata::updateOrCreate(['url' => $url], [
                     'title' => $resolved->title,
                     'description' => $resolved->description,
                     'image' => $resolved->image,
                     'expires_at' => $resolved->expires_at
                 ]);
+
+                $tagIds = [];
+                foreach ($resolved->tags as $tagName) {
+                    $tag = Tag::firstOrCreate(['name' => $tagName]);
+                    $tagIds[] = $tag->id;
+                }
+                $metadata->tags()->sync($tagIds);
             } catch (TransferException $e) {
                 // 何らかの通信エラーによってメタデータの取得に失敗した時、とりあえずエラーログにURLを残す
                 Log::error(self::class . ': メタデータの取得に失敗 URL=' . $url);

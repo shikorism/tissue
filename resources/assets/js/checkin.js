@@ -33,9 +33,11 @@ $('#tagInput').on('keydown', function (ev) {
             case 'Tab':
             case 'Enter':
             case ' ':
-                insertTag($this.val().trim());
-                $this.val('');
-                updateTags();
+                if (ev.originalEvent.isComposing !== true) {
+                    insertTag($this.val().trim());
+                    $this.val('');
+                    updateTags();
+                }
                 ev.preventDefault();
                 break;
         }

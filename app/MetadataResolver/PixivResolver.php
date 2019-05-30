@@ -49,6 +49,43 @@ class PixivResolver implements Resolver
         return str_replace('i.pximg.net', 'i.pixiv.cat', $pixivUrl);
     }
 
+    /**
+     * HTMLからタグとして利用可能な情報を抽出する
+     * @param string $html ページ HTML
+     * @return string[] タグ
+     */
+    public function extractTags(string $html): array
+    {
+        $dom = new \DOMDocument();
+        @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+        $xpath = new \DOMXPath($dom);
+
+        $nodes = $xpath->query("//meta[@name='keywords']");
+        if ($nodes->length === 0) {
+            return [];
+        }
+
+        $keywords = $nodes->item(0)->getAttribute('content');
+        $tags = [];
+
+        foreach (mb_split(',', $keywords) as $keyword) {
+            $keyword = trim($keyword);
+
+            if (empty($keyword)) {
+                continue;
+            }
+
+            // 一部の固定キーワードは無視
+            if (array_search($keyword, ['R-18', 'イラスト', 'pixiv', 'ピクシブ'], true)) {
+                continue;
+            }
+
+            $tags[] = preg_replace('/\s/', '_', $keyword);
+        }
+
+        return $tags;
+    }
+
     public function resolve(string $url): Metadata
     {
         parse_str(parse_url($url, PHP_URL_QUERY), $params);
@@ -77,6 +114,8 @@ class PixivResolver implements Resolver
             $illustUrl = $this->thumbnailToMasterUrl($illustThumbnailUrl);
 
             $metadata->image = $this->proxize($illustUrl);
+
+            $metadata->tags = $this->extractTags($res->getBody());
 
             return $metadata;
         } else {
