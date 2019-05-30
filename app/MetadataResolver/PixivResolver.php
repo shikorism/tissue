@@ -76,7 +76,7 @@ class PixivResolver implements Resolver
             }
 
             // 一部の固定キーワードは無視
-            if (array_search($keyword, ['R-18', 'イラスト', 'pixiv', 'ピクシブ'], true)) {
+            if (array_search($keyword, ['R-18', 'イラスト', 'pixiv', 'ピクシブ'], true) !== false) {
                 continue;
             }
 
