@@ -22,34 +22,6 @@ class PixivResolver implements Resolver
     }
 
     /**
-     * サムネイル画像 URL から最大長辺 1200px の画像 URL に変換する
-     *
-     * @param string $thumbnailUrl サムネイル画像 URL
-     *
-     * @return string 1200px の画像 URL
-     */
-    public function thumbnailToMasterUrl(string $thumbnailUrl): string
-    {
-        $temp = str_replace('/c/128x128', '', $thumbnailUrl);
-        $largeUrl = str_replace('square1200.jpg', 'master1200.jpg', $temp);
-
-        return $largeUrl;
-    }
-
-    /**
-     * 直リン可能な pixiv.cat のプロキシ URL に変換する
-     * HUGE THANKS TO PIXIV.CAT!
-     *
-     * @param string $pixivUrl i.pximg URL
-     *
-     * @return string i.pixiv.cat URL
-     */
-    public function proxize(string $pixivUrl): string
-    {
-        return str_replace('i.pximg.net', 'i.pixiv.cat', $pixivUrl);
-    }
-
-    /**
      * HTMLからタグとして利用可能な情報を抽出する
      * @param string $html ページ HTML
      * @return string[] タグ
@@ -86,6 +58,57 @@ class PixivResolver implements Resolver
         return $tags;
     }
 
+    /**
+     * 作品が漫画かイラストか判定する
+     *
+     * @param string $html ページ HTML
+     * @return bool 漫画ならtrue
+     */
+    public function isManga(string $html): bool
+    {
+        $dom = new \DOMDocument();
+        @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+        $xpath = new \DOMXPath($dom);
+
+        $nodes = $xpath->query("//meta[@name='description']");
+        if ($nodes->length === 0) {
+            throw new \RuntimeException("meta[@name='description']が見つからなかった: $url");
+        }
+
+        $description = $nodes->item(0)->getAttribute('content');
+        logger($description);
+        $isManga = false;
+
+        if (preg_match('~さんの漫画です。 「.+」~', $description)) {
+            $isManga = true;
+        }
+
+        return $isManga;
+    }
+
+    /**
+     * 直リン可能な pixiv.cat のプロキシURLを作成する
+     * HUGE THANKS TO PIXIV.CAT!
+     *
+     * @param int    $illustId
+     * @param string $illustExt イラストの拡張子
+     * @param bool   $isManga 作品が漫画かどうか
+     * @param int    $page 参照するページ
+     * @return string i.pixiv.cat URL
+     */
+    public function createProxyURL(int $illustId, string $illustExt = jpg, bool $isManga = false, int $page = 0): string
+    {
+        // 拡張子はjpg png gifの場合があるが、わざわざ判別するためにjson読むのもめんどくさいしjpgで問題ないのでjpgにしている
+        $url = 'https://pixiv.cat/' . $illustId . '.' . $illustExt;
+        if ($isManga) {
+            // pixiv.cat では 1 からページを数えるため +1 する
+            $page = $page +1;
+            $url = 'https://pixiv.cat/' . $illustId . '-' . $page . '.' . $illustExt;
+        }
+
+        return $url;
+    }
+
     public function resolve(string $url): Metadata
     {
         parse_str(parse_url($url, PHP_URL_QUERY), $params);
@@ -104,17 +127,9 @@ class PixivResolver implements Resolver
         if ($res->getStatusCode() === 200) {
             $metadata = $this->ogpResolver->parse($res->getBody());
 
-            preg_match("~https://i\.pximg\.net/c/128x128/img-master/img/\d{4}/\d{2}/\d{2}/\d{2}/\d{2}/\d{2}/{$illustId}(_p0)?_square1200\.jpg~", $res->getBody(), $match);
-            $illustThumbnailUrl = $match[0];
+            $isManga = $this->isManga($res->getBody());
 
-            if ($page != 0) {
-                $illustThumbnailUrl = str_replace('_p0', '_p'.$page, $illustThumbnailUrl);
-            }
-
-            $illustUrl = $this->thumbnailToMasterUrl($illustThumbnailUrl);
-
-            $metadata->image = $this->proxize($illustUrl);
-
+            $metadata->image = $this->createProxyURL($illustId, 'jpg', $isManga, $page);
             $metadata->tags = $this->extractTags($res->getBody());
 
             return $metadata;
