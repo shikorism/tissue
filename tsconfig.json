@@ -3,7 +3,9 @@
     "sourceMap": true,
     "target": "es5",
     "module": "es2015",
-    "strict": true
+    "moduleResolution": "node",
+    "strict": true,
+    "experimentalDecorators": true
   },
   "include": [
     "resources/assets/js/**/*"
