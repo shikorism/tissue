@@ -96,7 +96,7 @@ class PixivResolver implements Resolver
      * @param int    $page 参照するページ
      * @return string i.pixiv.cat URL
      */
-    public function createProxyURL(int $illustId, string $illustExt = jpg, bool $isManga = false, int $page = 0): string
+    public function createProxyURL(int $illustId, string $illustExt = 'jpg', bool $isManga = false, int $page = 0): string
     {
         // 拡張子はjpg png gifの場合があるが、わざわざ判別するためにjson読むのもめんどくさいしjpgで問題ないのでjpgにしている
         $url = 'https://pixiv.cat/' . $illustId . '.' . $illustExt;
