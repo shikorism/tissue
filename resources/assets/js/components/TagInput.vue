@@ -2,14 +2,13 @@
     <div class="form-control h-auto" @click="$refs.input.focus()">
         <ul class="list-inline d-inline">
             <li v-for="(tag, i) in tags"
-                class="list-inline-item badge badge-primary"
-                style="cursor: pointer;"
+                class="list-inline-item badge badge-primary tag-item"
                 @click="removeTag(i)"><span class="oi oi-tag"></span> {{ tag }} | x</li>
         </ul>
         <input :id="id"
                ref="input"
                type="text"
-               style="border: 0; outline: 0;"
+               class="tag-input"
                v-model="buffer"
                @keydown="onKeyDown">
     </div>
@@ -75,3 +74,14 @@
         }
     }
 </script>
+
+<style lang="scss" scoped>
+    .tag-item {
+        cursor: pointer;
+    }
+
+    .tag-input {
+        border: 0;
+        outline: 0;
+    }
+</style>
