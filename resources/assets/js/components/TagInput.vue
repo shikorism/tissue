@@ -1,5 +1,5 @@
 <template>
-    <div class="form-control h-auto" @click="$refs.input.focus()">
+    <div :class="containerClass" @click="$refs.input.focus()">
         <input :name="name" type="hidden" :value="tagValue">
         <ul class="list-inline d-inline">
             <li v-for="(tag, i) in tags"
@@ -49,6 +49,14 @@
 
         removeTag(index: number) {
             this.tags.splice(index, 1);
+        }
+
+        get containerClass(): object {
+            return {
+                "form-control": true,
+                "h-auto": true,
+                "is-invalid": this.isInvalid
+            };
         }
 
         get tagValue(): string {
