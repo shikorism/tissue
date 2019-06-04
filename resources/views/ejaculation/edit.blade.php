@@ -39,9 +39,8 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-sm-12">
-                        <input name="tags" type="hidden" value="{{ old('tags') ?? $ejaculation->textTags() }}">
                         <label for="tagInput"><span class="oi oi-tags"></span> タグ</label>
-                        <tag-input id="tagInput" input="tags" :is-invalid="{{ $errors->has('tags') ? 'true' : 'false' }}"></tag-input>
+                        <tag-input id="tagInput" name="tags" value="{{ old('tags') ?? $ejaculation->textTags() }}" :is-invalid="{{ $errors->has('tags') ? 'true' : 'false' }}"></tag-input>
                         <small class="form-text text-muted">
                             Tab, Enter, 半角スペースのいずれかで入力確定します。
                         </small>

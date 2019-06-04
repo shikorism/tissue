@@ -1,5 +1,6 @@
 <template>
     <div class="form-control h-auto" @click="$refs.input.focus()">
+        <input :name="name" type="hidden" :value="tagValue">
         <ul class="list-inline d-inline">
             <li v-for="(tag, i) in tags"
                 class="list-inline-item badge badge-primary tag-item"
@@ -17,29 +18,15 @@
 <script lang="ts">
     import {Vue, Component, Prop} from "vue-property-decorator";
 
-    function getElementByName(elementName: string): HTMLElement | null {
-        const elements = document.getElementsByName(elementName);
-        if (elements.length) {
-            return elements[0];
-        }
-        return null;
-    }
-
     @Component
     export default class TagInput extends Vue {
         @Prop(String) readonly id!: string;
-        @Prop(String) readonly input!: string;
+        @Prop(String) readonly name!: string;
+        @Prop(String) readonly value!: string;
         @Prop(Boolean) readonly isInvalid!: boolean;
 
-        tags: string[] = [];
+        tags: string[] = this.value.trim() !== "" ? this.value.trim().split(" ") : [];
         buffer: string = "";
-
-        mounted() {
-            const tags = getElementByName(this.input);
-            if (tags instanceof HTMLInputElement && tags.value.trim() !== "") {
-                this.tags = tags.value.split(" ")
-            }
-        }
 
         onKeyDown(event: KeyboardEvent) {
             if (this.buffer.trim() !== "") {
@@ -50,7 +37,6 @@
                         if ((event as any).isComposing !== true) {
                             this.tags.push(this.buffer);
                             this.buffer = "";
-                            this.sync();
                         }
                         event.preventDefault();
                         break;
@@ -63,14 +49,10 @@
 
         removeTag(index: number) {
             this.tags.splice(index, 1);
-            this.sync();
         }
 
-        sync() {
-            const tags = getElementByName(this.input);
-            if (tags instanceof HTMLInputElement) {
-                tags.value = this.tags.join(" ");
-            }
+        get tagValue(): string {
+            return this.tags.join(" ");
         }
     }
 </script>
