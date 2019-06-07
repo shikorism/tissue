@@ -42,18 +42,18 @@
 <script>/dlsite_dozen=/.test(document.cookie) || (document.cookie = 'dlsite_dozen=' + Math.floor(Math.random() * 12) + '; path=/; max-age=63072000')</script>
 
 <link rel="stylesheet" href="/css/reset.css?1459221919" type="text/css" id="reset" />
-<link rel="stylesheet" href="/css/default_eng.css?1543377460" type="text/css" id="default" />
+<link rel="stylesheet" href="/css/default_eng.css?1559631936" type="text/css" id="default" />
 <link rel="stylesheet" href="/css/layout_2col_work_eng.css?1552988739" type="text/css" id="layout_2col_work" />
-<link rel="stylesheet" href="/css/common_eng.css?1556259018" type="text/css" id="common" />
+<link rel="stylesheet" href="/css/common_eng.css?1559631936" type="text/css" id="common" />
 <link rel="stylesheet" href="/css/switch_eng.css?1551748184" type="text/css" id="switch" />
-<link rel="stylesheet" href="/css/suggest.css?1532410575" type="text/css" id="suggest" />
-<link rel="stylesheet" href="/css/header_campaign_banner.css?1555661384" type="text/css" id="header_campaign_banner" />
+<link rel="stylesheet" href="/css/suggest.css?1559631936" type="text/css" id="suggest" />
+<link rel="stylesheet" href="/css/header_campaign_banner.css?1559723711" type="text/css" id="header_campaign_banner" />
 <link rel="stylesheet" href="/assets/share/css/universal/universal.css?" type="text/css" id="universal" />
-<link rel="stylesheet" href="/css/work_template_eng.css?1550539358" type="text/css" id="work_template" />
-<link rel="stylesheet" href="/css/work_slider.css?1536028348" type="text/css" id="work_slider" />
+<link rel="stylesheet" href="/css/work_template_eng.css?1559631936" type="text/css" id="work_template" />
+<link rel="stylesheet" href="/css/work_slider.css?1559631936" type="text/css" id="work_slider" />
 
 <script type="text/javascript" src="/js/libs/libraries-pack.js?1502345903"></script>
-<script type="text/javascript" src="/js/dlsite_util.js?1554195599"></script>
+<script type="text/javascript" src="/js/dlsite_util.js?1557910552"></script>
 <script type="text/javascript" src="/js/slide_menu.js?1511946236"></script>
 <script type="text/javascript" src="/js/dlsite_suggest.js?1550024738"></script>
 <script type="text/javascript" src="/js/dlsite_trigger.js?1544681008"></script>
@@ -287,21 +287,7 @@ if ($.cookie('loginchecked') >= 1) {
 
 <!--data-vue-component="header-banner"-->
 <div data-vue-component="header-banner" data-vue-async="true" data-section_name="campaign_header_banner">
-    <div v-if="loading" class="hd_cp_banner type_1bn">
-    <ul class="cp_bn_list">
-            <li class="cp_bn_item type_08">
-        <a href="https://www.dlsite.com/eng/campaign/sale201904">
-          <div class="cp_bn_inner">
-            <div class="cp_bn_reminder">
-              <div class="cp_bn_reminder_content"><i class="cp_bn_reminder_period type_date">~ MAY 13,</i><i class="cp_bn_reminder_period type_time">2 p.m.</i></div>
-            </div>
-            <div class="cp_bn"><img src="/images/campaign/doujin_sale_1904/bn_hd_cp_01_eng.png"></div>
-                        <div class="cp_bn_work blank"></div>
-                      </div>
-        </a>
-      </li>
-          </ul>
-  </div>
+    <div v-if="loading"></div>
     
   <div v-else-if="is_show_frame" :class="style" class="hd_cp_banner" v-cloak>
     <ul class="cp_bn_list">
@@ -362,7 +348,7 @@ if ($.cookie('loginchecked') >= 1) {
 <h1 itemprop="name" id="work_name">
 <a href="https://www.dlsite.com/eng/work/=/product_id/RE228866.html" itemprop="url">With Your First Girlfriend, at a Ghostly Night [Ear Cleaning] [Sleep Sharing]</a>
 </h1>
-<span class="link_twitter"><a href="https://twitter.com/share" class="twitter-share-button" data-url="https://dlsite.jp/enwtw/RE228866"  data-text="With Your First Girlfriend, at a Ghostly Night [Ear Cleaning] [Sleep Sharing]/Triangle! 50%OFF Til May. 13, 2 p.m. (JST)" data-lang="en" data-hashtags="DLsite">Tweet</a>
+<span class="link_twitter"><a href="https://twitter.com/share" class="twitter-share-button" data-url="https://dlsite.jp/enwtw/RE228866"  data-text="With Your First Girlfriend, at a Ghostly Night [Ear Cleaning] [Sleep Sharing]/Triangle!" data-lang="en" data-hashtags="DLsite">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 </span></div>
 </div>
@@ -376,20 +362,7 @@ if ($.cookie('loginchecked') >= 1) {
 <div id="main" data-section_name="main">
 <!-- main_inner -->
 <div id="main_inner">
-﻿<script language="JavaScript">
-<!--
-function open_trinity_window(url)
-{
-  wx = 850;
-  wy = 650;
-  x = (screen.width - wx) / 2;
-  y = (screen.height - wy) / 2;
-  window.open(url, "tricheck", 'scrollbars=yes,location=no,menubar=no,width='+wx+',height='+wy+',left='+x+',top='+y);
-}
--->
-</script>
-
-<div id="work_header" data-section_name="work_header">
+﻿<div id="work_header" data-section_name="work_header">
   <div id="work_left" data-vue-component="product-evaluate" data-product-id="RE228866">
     <table cellspacing="0" id="work_value">
       <tr>
@@ -504,11 +477,13 @@ function open_trinity_window(url)
         <div ref="swiper" class="slider_body_inner">
           <ul class="slider_items trans" ref="body_items" @click="showPopup">
 
-            <li v-if="items.length === 0" class="slider_item active"><img itemprop="image" src="//img.dlsite.jp/modpub/images2/work/doujin/RJ229000/RJ228866_img_main.jpg" width="auto" height="420"></li>
+            <li v-if="items.length === 0" class="slider_item active"><img itemprop="image" src="//img.dlsite.jp/modpub/images2/work/doujin/RJ229000/RJ228866_img_main.jpg" width="auto" height="420" alt="With Your First Girlfriend, at a Ghostly Night [Ear Cleaning] [Sleep Sharing] [Triangle!]"></li>
 
           <template v-for="(item, index) in items">
-            <li v-if="index === 0" class="slider_item active"><img itemprop="image" :src="item.src"></li>
-            <li v-else             class="slider_item" ><img :src="item.src"></li>
+
+            <li v-if="index === 0" class="slider_item active"><img itemprop="image" :src="item.src" alt="With Your First Girlfriend, at a Ghostly Night [Ear Cleaning] [Sleep Sharing] [Triangle!]"></li>
+            <li v-else             class="slider_item" ><img :src="item.src" alt="With Your First Girlfriend, at a Ghostly Night [Ear Cleaning] [Sleep Sharing] [Triangle!]"></li>
+
           </template>
           </ul>
         </div>
@@ -522,7 +497,9 @@ function open_trinity_window(url)
           <template v-for="(item, index) in items">
             <li class="controller_item" :class="{active:(index === swiper.realIndex)}" @click="slideTo(index)">
               <div class="thumb_box">
-                <img :src="item.thumb.src" :width="item.thumb.width" :height="item.thumb.height">
+
+                <img :src="item.thumb.src" :width="item.thumb.width" :height="item.thumb.height" alt="With Your First Girlfriend, at a Ghostly Night [Ear Cleaning] [Sleep Sharing] [Triangle!]">
+
               </div>
             </li>
           </template>
@@ -548,7 +525,9 @@ function open_trinity_window(url)
         <div class="slider_popup_sidebar">
         <template v-for="(item, index) in items">
           <div target="_blank" :class="{active:(index === swiper.realIndex)}" @click="slideTo(index, false)">
-            <img :src="item.thumb.src">
+
+            <img :src="item.thumb.src" alt="With Your First Girlfriend, at a Ghostly Night [Ear Cleaning] [Sleep Sharing] [Triangle!]">
+
           </div>
         </template>
         </div>
@@ -563,7 +542,9 @@ function open_trinity_window(url)
       <div class="slider_popup_leftpane">
         <div ref="mainbox" class="slider_popup_mainbox" @wheel.prevent="slideScroll">
           <div  class="slider_zoom_container" ref="zoom_container" @mousemove.prevent="setPopupPosition" @click="setPopupImage(true)">
-            <img :src="items[swiper.realIndex].src" ref="zoom_container_image">
+
+            <img :src="items[swiper.realIndex].src" ref="zoom_container_image" alt="With Your First Girlfriend, at a Ghostly Night [Ear Cleaning] [Sleep Sharing] [Triangle!]">
+
           </div>
         </div>
         <div class="slider_popup_tool">
@@ -1257,7 +1238,7 @@ jQuery(function($){
           <div class="work_buy_body">
             <div class="work_buy_label">Price</div>
             <div class="work_buy_content">
-              <span class="price">$4.35&nbsp;/&nbsp;&euro;3.89<i class="work_estimation">(estimation)</i><i class="work_jpy">486 JPY</i></span>
+              <span class="price">$8.95&nbsp;/&nbsp;&euro;7.94<i class="work_estimation">(estimation)</i><i class="work_jpy">972 JPY</i></span>
             </div>
           </div>
         </div>
@@ -1383,24 +1364,7 @@ jQuery(function($){
     </tbody>
   </table>
   
-  <table class="current_os" v-if="user.os" v-cloak>
-    <thead>
-      <tr>
-        <th>Compatible version(s) of <strong v-text="user.os == 'Mac' ? 'Mac' : 'Windows'"></strong></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td v-if="user.os == 'Mac'" v-cloak>MacOSX</td>
-        <td v-else>Windows7 / Windows8 / Windows8.1 / Windows10</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <ul class="guide_list"  v-cloak>
-    <li><a class="_osPopup" href="#" @click.stop.prevent="toggleDisplayMachineList()">View All OS Platforms</a></li>
-  </ul>
-
+  
   <div class="os_popup" :class="{ active: is_display_machine_list }">
     <div class="os_popup_header">OS Platforms</div>
     <div class="os_popup_body">
@@ -1455,44 +1419,44 @@ jQuery(function($){
     <table cellspacing="0" class="same_work">
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/eng/work/=/product_id/RE180674.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ181000/RJ180674_img_sam_mini.jpg" alt="Fireworks With First Love Girlfriend [Ear Cleaning] [Fall Asleep] [Triangle!]" title="Fireworks With First Love Girlfriend [Ear Cleaning] [Fall Asleep] [Triangle!]"  class="target_type" /></a></td>
-        <td class="name">          <div class="icon_wrap"><span class="icon_lead_01 type_sale">50%OFF</span></div>          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE180674.html">Fireworks With First Love Girlfriend [Ear Cleaning] [Fall Asleep]</a></span>
-          <span class="work_price">$4.35</span>
+        <td class="name">          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE180674.html">Fireworks With First Love Girlfriend [Ear Cleaning] [Fall Asleep]</a></span>
+          <span class="work_price">$8.95</span>
         </td>
       </tr>
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/eng/work/=/product_id/RE176184.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ177000/RJ176184_img_sam_mini.jpg" alt="Hanikami Commute Date-chu! [Soothing Audio] [Triangle!]" title="Hanikami Commute Date-chu! [Soothing Audio] [Triangle!]"  class="target_type" /></a></td>
-        <td class="name">          <div class="icon_wrap"><span class="icon_lead_01 type_sale">50%OFF</span></div>          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE176184.html">Hanikami Commute Date-chu! [Soothing Audio]</a></span>
-          <span class="work_price">$3.38</span>
+        <td class="name">          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE176184.html">Hanikami Commute Date-chu! [Soothing Audio]</a></span>
+          <span class="work_price">$6.96</span>
         </td>
       </tr>
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073910.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ074000/RJ073910_img_sam_mini.jpg" alt="Trianthology! ACE [Triangle!]" title="Trianthology! ACE [Triangle!]"  class="target_type" /></a></td>
-        <td class="name">          <div class="icon_wrap"><span class="icon_lead_01 type_sale">50%OFF</span></div>          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073910.html">Trianthology! ACE</a></span>
-          <span class="work_price">$1.45</span>
+        <td class="name">          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073910.html">Trianthology! ACE</a></span>
+          <span class="work_price">$2.98</span>
         </td>
       </tr>
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073917.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ074000/RJ073917_img_sam_mini.jpg" alt="Trianthology! X [Triangle!]" title="Trianthology! X [Triangle!]"  class="target_type" /></a></td>
-        <td class="name">          <div class="icon_wrap"><span class="icon_lead_01 type_sale">50%OFF</span></div>          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073917.html">Trianthology! X</a></span>
-          <span class="work_price">$1.93</span>
+        <td class="name">          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073917.html">Trianthology! X</a></span>
+          <span class="work_price">$3.98</span>
         </td>
       </tr>
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073911.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ074000/RJ073911_img_sam_mini.jpg" alt="Misato 4Coma Anthology [Triangle!]" title="Misato 4Coma Anthology [Triangle!]"  class="target_type" /></a></td>
-        <td class="name">          <div class="icon_wrap"><span class="icon_lead_01 type_sale">50%OFF</span></div>          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073911.html">Misato 4Coma Anthology</a></span>
-          <span class="work_price">$1.45</span>
+        <td class="name">          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073911.html">Misato 4Coma Anthology</a></span>
+          <span class="work_price">$2.98</span>
         </td>
       </tr>
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073920.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ074000/RJ073920_img_sam_mini.jpg" alt="TRIF: trif [Triangle!]" title="TRIF: trif [Triangle!]"  class="target_type" /></a></td>
-        <td class="name">          <div class="icon_wrap"><span class="icon_lead_01 type_sale">50%OFF</span></div>          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073920.html">TRIF: trif</a></span>
-          <span class="work_price">$7.25</span>
+        <td class="name">          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073920.html">TRIF: trif</a></span>
+          <span class="work_price">$14.93</span>
         </td>
       </tr>
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/eng/work/=/product_id/RE081812.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ082000/RJ081812_img_sam_mini.jpg" alt="See You Again in the SMILE  [Triangle!]" title="See You Again in the SMILE  [Triangle!]"  class="target_type" /></a></td>
-        <td class="name">          <div class="icon_wrap"><span class="icon_lead_01 type_sale">50%OFF</span></div>          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE081812.html">See You Again in the SMILE </a></span>
-          <span class="work_price">$1.93</span>
+        <td class="name">          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE081812.html">See You Again in the SMILE </a></span>
+          <span class="work_price">$3.98</span>
         </td>
       </tr>
             </table>
@@ -1665,7 +1629,7 @@ jQuery(function($){
 <div data-vue-component="cookie-policy" data-async="true"></div>
 
 <script type="text/javascript" src="/vue/js/pc/vendor.js?cdn_cache=1&v=0.1.2&_=1536029038"></script>
-<script type="text/javascript" src="/vue/js/pc/app.js?cdn_cache=1&v=0.1.2&_=1554881571"></script>
+<script type="text/javascript" src="/vue/js/pc/app.js?cdn_cache=1&v=0.1.2&_=1559289223"></script>
 
 
 <script type="text/javascript">
@@ -1708,6 +1672,6 @@ div.measure_tag {
 
 
 <!-- /script_footer -->
-<script type="text/javascript">var contents = {"impression":[],"detail":[{"id":"RE228866","name":"With Your First Girlfriend, at a Ghostly Night [Ear Cleaning] [Sleep Sharing]","category":"eng","brand":"RG14177","price":450,"regist_date":"2018\/10\/02","image_main":"\/\/img.dlsite.jp\/modpub\/images2\/work\/doujin\/RJ229000\/RJ228866_img_main.jpg","restore_price":"900"}],"time":0.00065708160400391};</script>
+<script type="text/javascript">var contents = {"impression":[],"detail":[{"id":"RE228866","name":"With Your First Girlfriend, at a Ghostly Night [Ear Cleaning] [Sleep Sharing]","category":"eng","brand":"RG14177","price":900,"regist_date":"2018\/10\/02","image_main":"\/\/img.dlsite.jp\/modpub\/images2\/work\/doujin\/RJ229000\/RJ228866_img_main.jpg","restore_price":null}],"time":0.0001552104949951172};</script>
 </body>
 </html>

@@ -43,18 +43,18 @@
 <script>/dlsite_dozen=/.test(document.cookie) || (document.cookie = 'dlsite_dozen=' + Math.floor(Math.random() * 12) + '; path=/; max-age=63072000')</script>
 
 <link rel="stylesheet" href="/css/reset.css?1459221919" type="text/css" id="reset" />
-<link rel="stylesheet" href="/css/default.css?1546847343" type="text/css" id="default" />
+<link rel="stylesheet" href="/css/default.css?1559631936" type="text/css" id="default" />
 <link rel="stylesheet" href="/css/layout_2col_work.css?1552974983" type="text/css" id="layout_2col_work" />
-<link rel="stylesheet" href="/css/common.css?1556259018" type="text/css" id="common" />
+<link rel="stylesheet" href="/css/common.css?1559876752" type="text/css" id="common" />
 <link rel="stylesheet" href="/css/switch.css?1551748184" type="text/css" id="switch" />
-<link rel="stylesheet" href="/css/suggest.css?1532410575" type="text/css" id="suggest" />
-<link rel="stylesheet" href="/css/header_campaign_banner.css?1555661384" type="text/css" id="header_campaign_banner" />
+<link rel="stylesheet" href="/css/suggest.css?1559631936" type="text/css" id="suggest" />
+<link rel="stylesheet" href="/css/header_campaign_banner.css?1559723711" type="text/css" id="header_campaign_banner" />
 <link rel="stylesheet" href="/assets/share/css/universal/universal.css?" type="text/css" id="universal" />
-<link rel="stylesheet" href="/css/work_template.css?1554196442" type="text/css" id="work_template" />
-<link rel="stylesheet" href="/css/work_slider.css?1536028348" type="text/css" id="work_slider" />
+<link rel="stylesheet" href="/css/work_template.css?1559631936" type="text/css" id="work_template" />
+<link rel="stylesheet" href="/css/work_slider.css?1559631936" type="text/css" id="work_slider" />
 
 <script type="text/javascript" src="/js/libs/libraries-pack.js?1502345903"></script>
-<script type="text/javascript" src="/js/dlsite_util.js?1554195599"></script>
+<script type="text/javascript" src="/js/dlsite_util.js?1557910552"></script>
 <script type="text/javascript" src="/js/slide_menu.js?1511946236"></script>
 <script type="text/javascript" src="/js/dlsite_suggest.js?1550024738"></script>
 <script type="text/javascript" src="/js/dlsite_trigger.js?1544681008"></script>
@@ -123,7 +123,7 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
       <li class="eisysGroupHeaderService-link type-nijiyome">
         <a href="https://www.nijiyome.jp?en=dlsite&em=text&et=pc_globalheader_maniax">オンラインゲーム</a>
       </li>
-      <li class="eisysGroupHeaderService-link type-cien type-new">
+      <li class="eisysGroupHeaderService-link type-cien">
         <a href="https://ci-en.jp/?pc_globalheader_dlsite">クリエイター支援</a>
       </li>
       <li class="eisysGroupHeaderService-link type-channel">
@@ -131,6 +131,9 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
       </li>
       <li class="eisysGroupHeaderService-link type-chobit">
         <a href="https://chobit.cc/?pc_globalheader_dlsite">無料体験版</a>
+      </li>
+      <li class="eisysGroupHeaderService-link type-triokini type-new">
+        <a href="https://triokini.com/how_to_use?pc_globalheader_dlsite">即売会取り置き</a>
       </li>
     </ul>
     <ul class="eisysGroupHeaderAccount" data-vue-component="header-account" data-vue-async="true">
@@ -238,6 +241,9 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
             <button id="search_button" class="globalSearchBtn" type="submit" @click="saveSelected()"><i>検索</i></button>
           </form>
         </div>
+        <div class="detailedSearch">
+          <a href="https://www.dlsite.com/maniax/fs">詳細検索</a>
+        </div>
             <!-- /検索 -->
       <!-- アイコンメニュー -->
       <ul class="globalNav">
@@ -272,7 +278,6 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
           <li class="floorTab-item type-ebook "><a href="https://www.dlsite.com/books/">成年コミック</a></li>
           <li class="floorTab-item type-com   "><a href="https://www.dlsite.com/pro/">美少女ゲーム</a>  </li>
           <li class="floorTab-item type-nijiyome"><a href="https://www.nijiyome.jp?en=dlsite&em=tab&et=maniax">にじよめ</a></li>
-          <li class="floorTab-item type-nijiyome type-new"><a href="https://www.nijiyome.com/app/top/milihime-taisen">ミリ姫大戦</a></li>
         </ul>
                         <div v-if="isAccountLogin" v-cloak class="noticeNav">
           <div class="noticeNav-item">
@@ -301,23 +306,7 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
         </div>
               </div>
 
-          <ul class="headerNav">
-                        <li class="headerNav-item">
-                    <a v-if="isRankingFilterCondition" v-cloak href="https://www.dlsite.com/maniax/ranking?date=30d">ランキング</a>
-            <a v-else href="https://www.dlsite.com/maniax/ranking">ランキング</a>
-                </li>
-                              <li class="headerNav-item"><a href="https://www.dlsite.com/maniax/fsr/=/dlsite_only/1/work_category/doujin/show_type/2/per_page/50">DLsite専売作品</a></li>
-            <li class="headerNav-item"><a href="https://www.dlsite.com/maniax/fsr/=/campaign/241">割引中の作品</a></li>
-                  
-                  <li class="headerNav-item"><a href="https://www.dlsite.com/maniax/new">発売カレンダー</a></li>
-        
-                  <li class="headerNav-item"><a href="https://www.dlsite.com/maniax/announce/list/day">発売予告作品</a></li>
-        
-                  <li class="headerNav-item"><a href="https://www.dlsite.com/maniax/circle/list">サークル一覧</a></li>
-        
-        <li class="headerNav-item"><a href="https://www.dlsite.com/maniax/fs">詳細検索</a></li>
-      </ul>
-        </div>
+    </div>
   </div>
 </header>
 
@@ -344,21 +333,7 @@ if (loginchecked & 1) {
 
 <!--data-vue-component="header-banner"-->
 <div data-vue-component="header-banner" data-vue-async="true" data-section_name="campaign_header_banner">
-    <div v-if="loading" class="hd_cp_banner type_1bn">
-    <ul class="cp_bn_list">
-            <li class="cp_bn_item type_08">
-        <a href="https://www.dlsite.com/maniax/campaign/sale201904">
-          <div class="cp_bn_inner">
-            <div class="cp_bn_reminder">
-              <div class="cp_bn_reminder_content"><i class="cp_bn_reminder_period type_date">5/13</i><i class="cp_bn_reminder_period type_time">14時</i>まで</div>
-            </div>
-            <div class="cp_bn"><img src="/images/campaign/doujin_sale_1904/bn_hd_cp_01.png"></div>
-                        <div class="cp_bn_work blank"></div>
-                      </div>
-        </a>
-      </li>
-          </ul>
-  </div>
+    <div v-if="loading"></div>
     
   <div v-else-if="is_show_frame" :class="style" class="hd_cp_banner" v-cloak>
     <ul class="cp_bn_list">
@@ -431,19 +406,6 @@ if (loginchecked & 1) {
 <div id="main_inner">
 
 
-
-<script language="JavaScript">
-<!--
-function open_trinity_window(url)
-{
-  wx = 850;
-  wy = 650;
-  x = (screen.width - wx) / 2;
-  y = (screen.height - wy) / 2;
-  window.open(url, "tricheck", 'scrollbars=yes,location=no,menubar=no,width='+wx+',height='+wy+',left='+x+',top='+y);
-}
--->
-</script>
 
 
 <!-- work_header -->
@@ -548,7 +510,7 @@ function open_trinity_window(url)
 
 <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
 <meta itemprop="ratingValue" content="4.67" />
-<meta itemprop="ratingCount" content="3747" />
+<meta itemprop="ratingCount" content="3802" />
 </div>
 <!-- 王冠/DL数/評価/レビュー ここまで -->
 
@@ -571,11 +533,13 @@ function open_trinity_window(url)
         <div ref="swiper" class="slider_body_inner">
           <ul class="slider_items trans" ref="body_items" @click="showPopup">
 
-            <li v-if="items.length === 0" class="slider_item active"><img itemprop="image" src="//img.dlsite.jp/modpub/images2/work/doujin/RJ206000/RJ205445_img_main.jpg" width="auto" height="420"></li>
+            <li v-if="items.length === 0" class="slider_item active"><img itemprop="image" src="//img.dlsite.jp/modpub/images2/work/doujin/RJ206000/RJ205445_img_main.jpg" width="auto" height="420" alt="催眠術で新婚人妻マナカさんとエッチしよう [デルタブレード]"></li>
 
           <template v-for="(item, index) in items">
-            <li v-if="index === 0" class="slider_item active"><img itemprop="image" :src="item.src"></li>
-            <li v-else             class="slider_item" ><img :src="item.src"></li>
+
+            <li v-if="index === 0" class="slider_item active"><img itemprop="image" :src="item.src" alt="催眠術で新婚人妻マナカさんとエッチしよう [デルタブレード]"></li>
+            <li v-else             class="slider_item" ><img :src="item.src" alt="催眠術で新婚人妻マナカさんとエッチしよう [デルタブレード]"></li>
+
           </template>
           </ul>
         </div>
@@ -589,7 +553,9 @@ function open_trinity_window(url)
           <template v-for="(item, index) in items">
             <li class="controller_item" :class="{active:(index === swiper.realIndex)}" @click="slideTo(index)">
               <div class="thumb_box">
-                <img :src="item.thumb.src" :width="item.thumb.width" :height="item.thumb.height">
+
+                <img :src="item.thumb.src" :width="item.thumb.width" :height="item.thumb.height" alt="催眠術で新婚人妻マナカさんとエッチしよう [デルタブレード]">
+
               </div>
             </li>
           </template>
@@ -615,7 +581,9 @@ function open_trinity_window(url)
         <div class="slider_popup_sidebar">
         <template v-for="(item, index) in items">
           <div target="_blank" :class="{active:(index === swiper.realIndex)}" @click="slideTo(index, false)">
-            <img :src="item.thumb.src">
+
+            <img :src="item.thumb.src" alt="催眠術で新婚人妻マナカさんとエッチしよう [デルタブレード]">
+
           </div>
         </template>
         </div>
@@ -630,7 +598,9 @@ function open_trinity_window(url)
       <div class="slider_popup_leftpane">
         <div ref="mainbox" class="slider_popup_mainbox" @wheel.prevent="slideScroll">
           <div  class="slider_zoom_container" ref="zoom_container" @mousemove.prevent="setPopupPosition" @click="setPopupImage(true)">
-            <img :src="items[swiper.realIndex].src" ref="zoom_container_image">
+
+            <img :src="items[swiper.realIndex].src" ref="zoom_container_image" alt="催眠術で新婚人妻マナカさんとエッチしよう [デルタブレード]">
+
           </div>
         </div>
         <div class="slider_popup_tool">
@@ -738,6 +708,9 @@ function open_trinity_window(url)
 <!-- /work_right-->
 </div>
 <!-- /work_header -->
+
+
+
 
 
 
@@ -1240,12 +1213,12 @@ jQuery(function($){
 確かに催眠セックスはゲスいことではありますが、後味の悪さはなく、むしろ夏の日のサイダーのような清々しさがあります。<br />
 <br />
 作者様の性癖を感じる事ができ、内容も堂々とオススメできる素晴らしい作品です。私のムスコも涙を流して感動しております。ごちそうさまでした。</p>
+            <p class="review_ref">
+              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="221532" data-product_id="RJ205445">
+              <span class="useful">4人 が役に立ったと答えています</span>              <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/maniax/contact/review/=/reviewer_id/REV0026060/product_id/RJ205445.html">報告する</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
           </div>
-          <p class="review_ref">
-            <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="221532" data-product_id="RJ205445">
-            <span class="useful">3人 が役に立ったと答えています</span>            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/maniax/contact/review/=/reviewer_id/REV0026060/product_id/RJ205445.html">報告する</a>&nbsp;]</span>
-          </p>
-          <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
         </td>
       </tr>
     </tbody>
@@ -1271,12 +1244,12 @@ jQuery(function($){
 <br />
 すみやおさんは過去に「オークの悪行を世に知らしめなさい【悪いオーク】」というお題に絵を書いていた方と同一の方で、その頃と比べると遥かに絵が可愛く綺麗になっています<br />
 ピクシブやツイッターなどでも活動しているようなので、興味のある方は是非そちらの方も覗いてみると良いでしょう</p>
+            <p class="review_ref">
+              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="221521" data-product_id="RJ205445">
+              <span class="useful">3人 が役に立ったと答えています</span>              <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/maniax/contact/review/=/reviewer_id/REV0011517/product_id/RJ205445.html">報告する</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
           </div>
-          <p class="review_ref">
-            <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="221521" data-product_id="RJ205445">
-            <span class="useful">3人 が役に立ったと答えています</span>            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/maniax/contact/review/=/reviewer_id/REV0011517/product_id/RJ205445.html">報告する</a>&nbsp;]</span>
-          </p>
-          <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
         </td>
       </tr>
     </tbody>
@@ -1308,12 +1281,12 @@ jQuery(function($){
             <p class="reviewer_descrip" itemprop="reviewBody">隣人の人妻を催眠術にかけてえっちするというありそうでなかったと思われる内容です。<br />
 催眠術で主人公を夫だと思い込ませているので、ラブラブなえっちをするマナカさんを楽しむことができます。<br />
 マナカさんが非常に可愛く、素晴らしかったです。</p>
+            <p class="review_ref">
+              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="330635" data-product_id="RJ205445">
+              <span class="useful">1人 が役に立ったと答えています</span>              <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/maniax/contact/review/=/reviewer_id/REV0038611/product_id/RJ205445.html">報告する</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
           </div>
-          <p class="review_ref">
-            <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="330635" data-product_id="RJ205445">
-                        <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/maniax/contact/review/=/reviewer_id/REV0038611/product_id/RJ205445.html">報告する</a>&nbsp;]</span>
-          </p>
-          <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
         </td>
       </tr>
     </tbody>
@@ -1324,6 +1297,7 @@ jQuery(function($){
             <div class="title"><span itemprop="name">新しい寝取り</span></div>
             <p>
               <meta itemprop="datePublished" content="2019-02-09">2019年02月09日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/maniax/reviewlist/=/reviewer/REV0030245">suiren</a></span> さん</span>
+                              <span class="popularity_reviewer bronze">人気レビュアー：Best600</span>
                                           <span class="purchased">購入済み</span>
                           </p>
           </div>
@@ -1361,12 +1335,12 @@ jQuery(function($){
 というのが新しくて、鬱々しい描写もないです。<br />
 絵柄が好みの人なら、問題なく楽しめると思います。<br />
 また、シコリティも高いので オススメです。</p>
+            <p class="review_ref">
+              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="325931" data-product_id="RJ205445">
+                            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/maniax/contact/review/=/reviewer_id/REV0030245/product_id/RJ205445.html">報告する</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
           </div>
-          <p class="review_ref">
-            <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="325931" data-product_id="RJ205445">
-                        <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/maniax/contact/review/=/reviewer_id/REV0030245/product_id/RJ205445.html">報告する</a>&nbsp;]</span>
-          </p>
-          <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
         </td>
       </tr>
     </tbody>
@@ -1377,6 +1351,7 @@ jQuery(function($){
             <div class="title"><span itemprop="name">寝取りっぽく見えて寝取りじゃない</span></div>
             <p>
               <meta itemprop="datePublished" content="2018-12-25">2018年12月25日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/maniax/reviewlist/=/reviewer/REV0033740">ズーリフフ</a></span> さん</span>
+                              <span class="popularity_reviewer bronze">人気レビュアー：Best1000</span>
                                           <span class="purchased">購入済み</span>
                           </p>
           </div>
@@ -1404,12 +1379,12 @@ jQuery(function($){
 むしろ竿役の男が、催眠術で犯しているとは言え若干の良心がある描写があるので、何とも新しい感じを受けました。<br />
 <br />
 個人的には終始可愛い絵が続くので、絵で気に入ったならストーリーも含めてしっかり楽しめると思います。</p>
+            <p class="review_ref">
+              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="311716" data-product_id="RJ205445">
+                            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/maniax/contact/review/=/reviewer_id/REV0033740/product_id/RJ205445.html">報告する</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
           </div>
-          <p class="review_ref">
-            <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="311716" data-product_id="RJ205445">
-                        <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/maniax/contact/review/=/reviewer_id/REV0033740/product_id/RJ205445.html">報告する</a>&nbsp;]</span>
-          </p>
-          <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
         </td>
       </tr>
     </tbody>
@@ -1436,12 +1411,12 @@ jQuery(function($){
             <p class="reviewer_descrip" itemprop="reviewBody">私はこのサークル様の絵に惹かれ、セール時を機に購入させていただきました。<br />
 この作品は寝取られのようで寝取られじゃないのが特徴であり、マナカさんが本当に可愛く表現されてるのがまた良い。<br />
 興味がありましたら購入を考えてみてはいかがでしょうか。</p>
+            <p class="review_ref">
+              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="300191" data-product_id="RJ205445">
+                            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/maniax/contact/review/=/reviewer_id/REV0035381/product_id/RJ205445.html">報告する</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
           </div>
-          <p class="review_ref">
-            <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="300191" data-product_id="RJ205445">
-                        <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/maniax/contact/review/=/reviewer_id/REV0035381/product_id/RJ205445.html">報告する</a>&nbsp;]</span>
-          </p>
-          <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
         </td>
       </tr>
     </tbody>
@@ -1506,25 +1481,12 @@ jQuery(function($){
                       <li class="matome_box_inner swiper-slide">
               <div class="matome_content">
                 <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/33198" target="_blank">
-                    <img src="https://media.dlsite.com/proxy/e75cfc8f357aa68cb7da1e10509d06ac588fef0d/68747470733a2f2f696d672e646c736974652e6a702f6d6f647075622f696d61676573322f776f726b2f646f756a696e2f524a3233393030302f524a3233383337355f696d675f6d61696e2e6a7067" alt="【149作】おっぱいと母性に挟まれて射精したい。パイズリ特化の成人作品まとめ"
-                         title="【149作】おっぱいと母性に挟まれて射精したい。パイズリ特化の成人作品まとめ"></a>
-                </div>
-                <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/33198"
-                     target="_blank">【149作】おっぱいと母性に挟まれて射精したい。パイズリ特化の成人作品まとめ</a>
-                </p>
-              </div>
-            </li>
-                      <li class="matome_box_inner swiper-slide">
-              <div class="matome_content">
-                <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/8834" target="_blank">
+                  <a href="https://ch.dlsite.com/matome/8834?dls=&k_matome_maniax_pc" target="_blank">
                     <img src="https://media.dlsite.com/proxy/941b66366b7e325b0ef787419f4398e5e0512bb2/687474703a2f2f696d672e646c736974652e6a702f6d6f647075622f696d61676573322f776f726b2f646f756a696e2f524a3231313030302f524a3231303230305f696d675f6d61696e2e6a7067" alt="割引率50％以上のおすすめ作品まとめ【CG集＆ゲーム編】二週目"
                          title="割引率50％以上のおすすめ作品まとめ【CG集＆ゲーム編】二週目"></a>
                 </div>
                 <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/8834"
+                  <a href="https://ch.dlsite.com/matome/8834?dls=&k_matome_maniax_pc"
                      target="_blank">割引率50％以上のおすすめ作品まとめ【CG集＆ゲーム編】二週目</a>
                 </p>
               </div>
@@ -1532,12 +1494,12 @@ jQuery(function($){
                       <li class="matome_box_inner swiper-slide">
               <div class="matome_content">
                 <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/33078" target="_blank">
+                  <a href="https://ch.dlsite.com/matome/33078?dls=&k_matome_maniax_pc" target="_blank">
                     <img src="https://media.dlsite.com/proxy/e1a194b6ff12f789ca12420301c27c15e8340473/68747470733a2f2f6d656469612e646c736974652e636f6d2f70726f78792f323036656634343337303337663330323064663130653239333236373939376236623039373061392f36383734373437303361326632663664363536343639363132653634366337333639373436353265363336663664326636333638326636663636363636393633363936313663326633313334333933363331333933323336333733363265366137303637" alt="女子高生になっちゃった神絵師ちゃんたちを見てみよう！"
                          title="女子高生になっちゃった神絵師ちゃんたちを見てみよう！"></a>
                 </div>
                 <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/33078"
+                  <a href="https://ch.dlsite.com/matome/33078?dls=&k_matome_maniax_pc"
                      target="_blank">女子高生になっちゃった神絵師ちゃんたちを見てみよう！</a>
                 </p>
               </div>
@@ -1545,25 +1507,25 @@ jQuery(function($){
                       <li class="matome_box_inner swiper-slide">
               <div class="matome_content">
                 <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/35196" target="_blank">
-                    <img src="https://media.dlsite.com/proxy/f1edfc56d8ef35afb3b559225056d9014031be5f/687474703a2f2f696d672e646c736974652e6a702f6d6f647075622f696d61676573322f776f726b2f646f756a696e2f524a3230313030302f524a3230303932385f696d675f6d61696e2e6a7067" alt="【2017年版】年間CG・イラスト＆同人誌ランキングTOP100！ノミネート作品は？"
-                         title="【2017年版】年間CG・イラスト＆同人誌ランキングTOP100！ノミネート作品は？"></a>
+                  <a href="https://ch.dlsite.com/matome/38387?dls=&k_matome_maniax_pc" target="_blank">
+                    <img src="https://media.dlsite.com/proxy/d0c26a5ade1ca95c11af842e4ed7bb7658c46382/68747470733a2f2f696d6167652e6b75736f6b6f72612e6a702f76312f62376461666639386332623734386466613663623832343063386163376333332f6b75736f6b6f72612f425a414971587543454145766f46382e706e67" alt="過去のまとめで紹介した中から選ぶ厳選寝取られ・人妻・寝取り五作品！"
+                         title="過去のまとめで紹介した中から選ぶ厳選寝取られ・人妻・寝取り五作品！"></a>
                 </div>
                 <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/35196"
-                     target="_blank">【2017年版】年間CG・イラスト＆同人誌ランキングTOP100！ノミネート作品は？</a>
+                  <a href="https://ch.dlsite.com/matome/38387?dls=&k_matome_maniax_pc"
+                     target="_blank">過去のまとめで紹介した中から選ぶ厳選寝取られ・人妻・寝取り五作品！</a>
                 </p>
               </div>
             </li>
                       <li class="matome_box_inner swiper-slide">
               <div class="matome_content">
                 <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/9677" target="_blank">
+                  <a href="https://ch.dlsite.com/matome/9677?dls=&k_matome_maniax_pc" target="_blank">
                     <img src="https://media.dlsite.com/proxy/1915ea07bad1031e6cfb3ab57a5ca6254c911e74/687474703a2f2f696d672e646c736974652e6a702f6d6f647075622f696d61676573322f776f726b2f646f756a696e2f524a3037353030302f524a3037343632365f696d675f736d70322e6a7067" alt="【part5】人妻CG集おすすめ作品【主婦がパートを続ける理由】"
                          title="【part5】人妻CG集おすすめ作品【主婦がパートを続ける理由】"></a>
                 </div>
                 <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/9677"
+                  <a href="https://ch.dlsite.com/matome/9677?dls=&k_matome_maniax_pc"
                      target="_blank">【part5】人妻CG集おすすめ作品【主婦がパートを続ける理由】</a>
                 </p>
               </div>
@@ -1571,12 +1533,12 @@ jQuery(function($){
                       <li class="matome_box_inner swiper-slide">
               <div class="matome_content">
                 <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/21501" target="_blank">
+                  <a href="https://ch.dlsite.com/matome/21501?dls=&k_matome_maniax_pc" target="_blank">
                     <img src="https://media.dlsite.com/proxy/12625326aa6680cc4f06e85d39995ca2fa47666d/68747470733a2f2f696d672e646c736974652e6a702f6d6f647075622f696d61676573322f776f726b2f646f756a696e2f524a3230363030302f524a3230353434355f696d675f6d61696e2e6a7067" alt="他人の恋人・人妻に中出し孕ませっクス！托卵作品まとめ！"
                          title="他人の恋人・人妻に中出し孕ませっクス！托卵作品まとめ！"></a>
                 </div>
                 <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/21501"
+                  <a href="https://ch.dlsite.com/matome/21501?dls=&k_matome_maniax_pc"
                      target="_blank">他人の恋人・人妻に中出し孕ませっクス！托卵作品まとめ！</a>
                 </p>
               </div>
@@ -1584,12 +1546,12 @@ jQuery(function($){
                       <li class="matome_box_inner swiper-slide">
               <div class="matome_content">
                 <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/7829" target="_blank">
+                  <a href="https://ch.dlsite.com/matome/7829?dls=&k_matome_maniax_pc" target="_blank">
                     <img src="https://media.dlsite.com/proxy/7ad88e29655bfd3b09aaa7a5886d50a140355466/687474703a2f2f6d656469612e646c736974652e636f6d2f63682f6f6666696369616c2f313439363139323538302e6a7067" alt="【孕ませ/妊娠系作品】個人的2017年満足度トップ10！"
                          title="【孕ませ/妊娠系作品】個人的2017年満足度トップ10！"></a>
                 </div>
                 <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/7829"
+                  <a href="https://ch.dlsite.com/matome/7829?dls=&k_matome_maniax_pc"
                      target="_blank">【孕ませ/妊娠系作品】個人的2017年満足度トップ10！</a>
                 </p>
               </div>
@@ -1597,12 +1559,12 @@ jQuery(function($){
                       <li class="matome_box_inner swiper-slide">
               <div class="matome_content">
                 <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/6053" target="_blank">
+                  <a href="https://ch.dlsite.com/matome/6053?dls=&k_matome_maniax_pc" target="_blank">
                     <img src="https://media.dlsite.com/proxy/aae0f0884dbef778ab1eb729bb87f6c455470553/687474703a2f2f696d672e646c736974652e6a702f6d6f647075622f696d61676573322f776f726b2f646f756a696e2f524a3231313030302f524a3231303232305f696d675f6d61696e2e6a7067" alt="人妻属性を獲得できてよかった"
                          title="人妻属性を獲得できてよかった"></a>
                 </div>
                 <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/6053"
+                  <a href="https://ch.dlsite.com/matome/6053?dls=&k_matome_maniax_pc"
                      target="_blank">人妻属性を獲得できてよかった</a>
                 </p>
               </div>
@@ -1610,12 +1572,12 @@ jQuery(function($){
                       <li class="matome_box_inner swiper-slide">
               <div class="matome_content">
                 <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/26406" target="_blank">
+                  <a href="https://ch.dlsite.com/matome/26406?dls=&k_matome_maniax_pc" target="_blank">
                     <img src="https://media.dlsite.com/proxy/a4fc58622a4ddddfc4db00ed66a5229a5d7324ed/68747470733a2f2f7062732e7477696d672e636f6d2f6d656469612f446f674f31505f5559414174766d4e2e6a7067" alt="なるほど！【女の子の断面図】人気ランキング(1位～50位)「こんな形をしているのか」"
                          title="なるほど！【女の子の断面図】人気ランキング(1位～50位)「こんな形をしているのか」"></a>
                 </div>
                 <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/26406"
+                  <a href="https://ch.dlsite.com/matome/26406?dls=&k_matome_maniax_pc"
                      target="_blank">なるほど！【女の子の断面図】人気ランキング(1位～50位)「こんな形をしているのか」</a>
                 </p>
               </div>
@@ -1623,13 +1585,26 @@ jQuery(function($){
                       <li class="matome_box_inner swiper-slide">
               <div class="matome_content">
                 <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/8212" target="_blank">
+                  <a href="https://ch.dlsite.com/matome/8212?dls=&k_matome_maniax_pc" target="_blank">
                     <img src="https://media.dlsite.com/proxy/21d7305804ef88ba8f61943ee6f8d333d0ffab9b/687474703a2f2f696d672e646c736974652e6a702f6d6f647075622f696d61676573322f776f726b2f646f756a696e2f524a3230363030302f524a3230353434355f696d675f6d61696e2e6a7067" alt="『催眠術で新婚人妻マナカさんとエッチしよう』感想　こっそり托卵する背徳"
                          title="『催眠術で新婚人妻マナカさんとエッチしよう』感想　こっそり托卵する背徳"></a>
                 </div>
                 <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/8212"
+                  <a href="https://ch.dlsite.com/matome/8212?dls=&k_matome_maniax_pc"
                      target="_blank">『催眠術で新婚人妻マナカさんとエッチしよう』感想　こっそり托卵する背徳</a>
+                </p>
+              </div>
+            </li>
+                      <li class="matome_box_inner swiper-slide">
+              <div class="matome_content">
+                <div class="matome_img_main">
+                  <a href="https://ch.dlsite.com/matome/1774?dls=&k_matome_maniax_pc" target="_blank">
+                    <img src="https://media.dlsite.com/proxy/3d67e45abe21029a8d0c3e99d0334b5ba6cfc66a/687474703a2f2f696d672e646c736974652e6a702f6d6f647075622f696d61676573322f776f726b2f646f756a696e2f524a3230363030302f524a3230353130375f696d675f6d61696e2e6a7067" alt="2017年 8月10日　DLsite 同人作品更新まとめ！"
+                         title="2017年 8月10日　DLsite 同人作品更新まとめ！"></a>
+                </div>
+                <p class="matome_content_title">
+                  <a href="https://ch.dlsite.com/matome/1774?dls=&k_matome_maniax_pc"
+                     target="_blank">2017年 8月10日　DLsite 同人作品更新まとめ！</a>
                 </p>
               </div>
             </li>
@@ -1999,24 +1974,7 @@ jQuery(function($){
     </tbody>
   </table>
     
-    <table class="current_os" v-if="user.os" v-cloak>
-    <thead>
-      <tr>
-        <th><strong v-text="user.os == 'Mac' ? 'Mac' : 'Windows'"></strong>の対応バージョン</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td v-if="user.os == 'Mac'" v-cloak>-</td>
-        <td v-else>Windows7 / Windows8 / Windows8.1 / Windows10</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  <ul class="guide_list"  v-cloak>
-    <li><a class="_osPopup" href="#" @click.stop.prevent="toggleDisplayMachineList()">すべての対応OSを表示する</a></li>
-  </ul>
-
+        
   <div class="os_popup" :class="{ active: is_display_machine_list }">
     <div class="os_popup_header">対応OS</div>
     <div class="os_popup_body">
@@ -2120,10 +2078,11 @@ jQuery(function($){
 
 
 
-              <div id="footer_nijiyome_banner" class="bn_footer_1box">
-      <a href="https://www.nijiyome.com/app/top/milihime-taisen?en=dlsite&em=banner&et=pc_work_detail_app526_0416"><img src="https://www.dlsite.com/modpub/images/banner/bn_milihime_01.jpg" alt="ミリ姫大戦～RELOAD～ | にじよめ" title="ミリ姫大戦～RELOAD～ | にじよめ" width="900" height="550"></a>
+          <!-- nijiyome_bnr -->
+    <div id="footer_nijiyome_banner" class="bn_footer_1box" data-section_name="footer_banner">
+      <div class="bcs_viewer" data-service="dlsite" data-site="common" data-frame="pc-long-banner" data-ext-action="random" data-ext-empty="footer_nijiyome_banner"></div>
     </div>
-      
+  
 
 
 
@@ -2255,7 +2214,7 @@ jQuery(function($){
 <div data-vue-component="cookie-policy" data-async="true"></div>
 
 <script type="text/javascript" src="/vue/js/pc/vendor.js?cdn_cache=1&v=0.1.2&_=1536029038"></script>
-<script type="text/javascript" src="/vue/js/pc/app.js?cdn_cache=1&v=0.1.2&_=1554881571"></script>
+<script type="text/javascript" src="/vue/js/pc/app.js?cdn_cache=1&v=0.1.2&_=1559289223"></script>
 
 
 <script type="text/javascript">
@@ -2298,6 +2257,6 @@ div.measure_tag {
 
 
 <!-- /script_footer -->
-<script type="text/javascript">var contents = {"impression":[],"detail":[{"id":"RJ205445","name":"\u50ac\u7720\u8853\u3067\u65b0\u5a5a\u4eba\u59bb\u30de\u30ca\u30ab\u3055\u3093\u3068\u30a8\u30c3\u30c1\u3057\u3088\u3046","category":"maniax","brand":"RG38449","price":700,"regist_date":"2017\/08\/10","image_main":"\/\/img.dlsite.jp\/modpub\/images2\/work\/doujin\/RJ206000\/RJ205445_img_main.jpg","restore_price":null}],"time":0.00059795379638672};</script>
+<script type="text/javascript">var contents = {"impression":[],"detail":[{"id":"RJ205445","name":"\u50ac\u7720\u8853\u3067\u65b0\u5a5a\u4eba\u59bb\u30de\u30ca\u30ab\u3055\u3093\u3068\u30a8\u30c3\u30c1\u3057\u3088\u3046","category":"maniax","brand":"RG38449","price":700,"regist_date":"2017\/08\/10","image_main":"\/\/img.dlsite.jp\/modpub\/images2\/work\/doujin\/RJ206000\/RJ205445_img_main.jpg","restore_price":null}],"time":0.00010800361633300781};</script>
 </body>
 </html>
