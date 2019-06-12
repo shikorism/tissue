@@ -43,18 +43,18 @@
 <script>/dlsite_dozen=/.test(document.cookie) || (document.cookie = 'dlsite_dozen=' + Math.floor(Math.random() * 12) + '; path=/; max-age=63072000')</script>
 
 <link rel="stylesheet" href="/css/reset.css?1459221919" type="text/css" id="reset" />
-<link rel="stylesheet" href="/css/default.css?1546847343" type="text/css" id="default" />
+<link rel="stylesheet" href="/css/default.css?1559631936" type="text/css" id="default" />
 <link rel="stylesheet" href="/css/layout_2col_work_girls.css?1552988739" type="text/css" id="layout_2col_work" />
-<link rel="stylesheet" href="/css/common_girls.css?1556259018" type="text/css" id="common" />
+<link rel="stylesheet" href="/css/common_girls.css?1559876752" type="text/css" id="common" />
 <link rel="stylesheet" href="/css/switch_girls.css?1551748184" type="text/css" id="switch" />
-<link rel="stylesheet" href="/css/suggest.css?1532410575" type="text/css" id="suggest" />
-<link rel="stylesheet" href="/css/header_campaign_banner.css?1555661384" type="text/css" id="header_campaign_banner" />
+<link rel="stylesheet" href="/css/suggest.css?1559631936" type="text/css" id="suggest" />
+<link rel="stylesheet" href="/css/header_campaign_banner.css?1559723711" type="text/css" id="header_campaign_banner" />
 <link rel="stylesheet" href="/assets/share/css/universal/universal.css?" type="text/css" id="universal" />
-<link rel="stylesheet" href="/css/work_template_girls.css?1549606161" type="text/css" id="work_template" />
-<link rel="stylesheet" href="/css/work_slider.css?1536028348" type="text/css" id="work_slider" />
+<link rel="stylesheet" href="/css/work_template_girls.css?1559631936" type="text/css" id="work_template" />
+<link rel="stylesheet" href="/css/work_slider.css?1559631936" type="text/css" id="work_slider" />
 
 <script type="text/javascript" src="/js/libs/libraries-pack.js?1502345903"></script>
-<script type="text/javascript" src="/js/dlsite_util.js?1554195599"></script>
+<script type="text/javascript" src="/js/dlsite_util.js?1557910552"></script>
 <script type="text/javascript" src="/js/slide_menu.js?1511946236"></script>
 <script type="text/javascript" src="/js/dlsite_suggest.js?1550024738"></script>
 <script type="text/javascript" src="/js/dlsite_trigger.js?1544681008"></script>
@@ -123,7 +123,7 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
       <li class="eisysGroupHeaderService-link type-nijiyome">
         <a href="https://www.nijiyome.jp?en=dlsite&em=text&et=pc_globalheader_girls">オンラインゲーム</a>
       </li>
-      <li class="eisysGroupHeaderService-link type-cien type-new">
+      <li class="eisysGroupHeaderService-link type-cien">
         <a href="https://ci-en.jp/?pc_globalheader_dlsite">クリエイター支援</a>
       </li>
       <li class="eisysGroupHeaderService-link type-channel">
@@ -131,6 +131,9 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
       </li>
       <li class="eisysGroupHeaderService-link type-chobit">
         <a href="https://chobit.cc/?pc_globalheader_dlsite">無料体験版</a>
+      </li>
+      <li class="eisysGroupHeaderService-link type-triokini type-new">
+        <a href="https://triokini.com/how_to_use?pc_globalheader_dlsite">即売会取り置き</a>
       </li>
     </ul>
     <ul class="eisysGroupHeaderAccount" data-vue-component="header-account" data-vue-async="true">
@@ -241,6 +244,9 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
             <button id="search_button" class="globalSearchBtn" type="submit" @click="saveSelected()"><i>検索</i></button>
           </form>
         </div>
+        <div class="detailedSearch">
+          <a href="https://www.dlsite.com/girls/fs">詳細検索</a>
+        </div>
             <!-- /検索 -->
       <!-- アイコンメニュー -->
       <ul class="globalNav">
@@ -307,22 +313,7 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
         </div>
               </div>
 
-          <ul class="headerNav">
-                        <li class="headerNav-item">
-                    <a href="https://www.dlsite.com/girls/ranking">ランキング</a>
-                </li>
-                              <li class="headerNav-item"><a href="https://www.dlsite.com/girls/fsr/=/dlsite_only/1/work_category/doujin/show_type/3/per_page/100">がるまに専売作品</a></li>
-            <li class="headerNav-item"><a href="https://www.dlsite.com/girls/fsr/=/campaign/241">割引中の作品</a></li>
-                  
-                  <li class="headerNav-item"><a href="https://www.dlsite.com/girls/new">発売カレンダー</a></li>
-        
-                  <li class="headerNav-item"><a href="https://www.dlsite.com/girls/announce/list/day">発売予告作品</a></li>
-        
-                  <li class="headerNav-item"><a href="https://www.dlsite.com/girls/circle/list">サークル一覧</a></li>
-        
-        <li class="headerNav-item"><a href="https://www.dlsite.com/girls/fs">詳細検索</a></li>
-      </ul>
-        </div>
+    </div>
   </div>
 </header>
 
@@ -349,21 +340,7 @@ if (loginchecked & 1) {
 
 <!--data-vue-component="header-banner"-->
 <div data-vue-component="header-banner" data-vue-async="true" data-section_name="campaign_header_banner">
-    <div v-if="loading" class="hd_cp_banner type_1bn">
-    <ul class="cp_bn_list">
-            <li class="cp_bn_item type_08">
-        <a href="https://www.dlsite.com/girls/campaign/sale201904">
-          <div class="cp_bn_inner">
-            <div class="cp_bn_reminder">
-              <div class="cp_bn_reminder_content"><i class="cp_bn_reminder_period type_date">5/13</i><i class="cp_bn_reminder_period type_time">14時</i>まで</div>
-            </div>
-            <div class="cp_bn"><img src="/images/campaign/doujin_sale_1904/bn_hd_cp_01.png"></div>
-                        <div class="cp_bn_work blank"></div>
-                      </div>
-        </a>
-      </li>
-          </ul>
-  </div>
+    <div v-if="loading"></div>
     
   <div v-else-if="is_show_frame" :class="style" class="hd_cp_banner" v-cloak>
     <ul class="cp_bn_list">
@@ -442,19 +419,6 @@ if (loginchecked & 1) {
 <div id="main_inner">
 
 
-
-<script language="JavaScript">
-<!--
-function open_trinity_window(url)
-{
-  wx = 850;
-  wy = 650;
-  x = (screen.width - wx) / 2;
-  y = (screen.height - wy) / 2;
-  window.open(url, "tricheck", 'scrollbars=yes,location=no,menubar=no,width='+wx+',height='+wy+',left='+x+',top='+y);
-}
--->
-</script>
 
 
 <!-- work_header -->
@@ -558,7 +522,7 @@ function open_trinity_window(url)
 
 <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
 <meta itemprop="ratingValue" content="4.8" />
-<meta itemprop="ratingCount" content="1758" />
+<meta itemprop="ratingCount" content="1831" />
 </div>
 <!-- 王冠/DL数/評価/レビュー ここまで -->
 
@@ -580,11 +544,13 @@ function open_trinity_window(url)
         <div ref="swiper" class="slider_body_inner">
           <ul class="slider_items trans" ref="body_items" @click="showPopup">
 
-            <li v-if="items.length === 0" class="slider_item active"><img itemprop="image" src="//img.dlsite.jp/modpub/images2/work/doujin/RJ218000/RJ217995_img_main.jpg" width="auto" height="420"></li>
+            <li v-if="items.length === 0" class="slider_item active"><img itemprop="image" src="//img.dlsite.jp/modpub/images2/work/doujin/RJ218000/RJ217995_img_main.jpg" width="auto" height="420" alt="体イク教師 [Dusk]"></li>
 
           <template v-for="(item, index) in items">
-            <li v-if="index === 0" class="slider_item active"><img itemprop="image" :src="item.src"></li>
-            <li v-else             class="slider_item" ><img :src="item.src"></li>
+
+            <li v-if="index === 0" class="slider_item active"><img itemprop="image" :src="item.src" alt="体イク教師 [Dusk]"></li>
+            <li v-else             class="slider_item" ><img :src="item.src" alt="体イク教師 [Dusk]"></li>
+
           </template>
           </ul>
         </div>
@@ -598,7 +564,9 @@ function open_trinity_window(url)
           <template v-for="(item, index) in items">
             <li class="controller_item" :class="{active:(index === swiper.realIndex)}" @click="slideTo(index)">
               <div class="thumb_box">
-                <img :src="item.thumb.src" :width="item.thumb.width" :height="item.thumb.height">
+
+                <img :src="item.thumb.src" :width="item.thumb.width" :height="item.thumb.height" alt="体イク教師 [Dusk]">
+
               </div>
             </li>
           </template>
@@ -624,7 +592,9 @@ function open_trinity_window(url)
         <div class="slider_popup_sidebar">
         <template v-for="(item, index) in items">
           <div target="_blank" :class="{active:(index === swiper.realIndex)}" @click="slideTo(index, false)">
-            <img :src="item.thumb.src">
+
+            <img :src="item.thumb.src" alt="体イク教師 [Dusk]">
+
           </div>
         </template>
         </div>
@@ -639,7 +609,9 @@ function open_trinity_window(url)
       <div class="slider_popup_leftpane">
         <div ref="mainbox" class="slider_popup_mainbox" @wheel.prevent="slideScroll">
           <div  class="slider_zoom_container" ref="zoom_container" @mousemove.prevent="setPopupPosition" @click="setPopupImage(true)">
-            <img :src="items[swiper.realIndex].src" ref="zoom_container_image">
+
+            <img :src="items[swiper.realIndex].src" ref="zoom_container_image" alt="体イク教師 [Dusk]">
+
           </div>
         </div>
         <div class="slider_popup_tool">
@@ -778,6 +750,9 @@ function open_trinity_window(url)
 
 
 
+
+
+
 <!-- work_story -->
 <div class="title_01 clearfix"><h2>作品内容</h2></div>
 <div itemprop="description" class="work_article work_story">
@@ -903,7 +878,7 @@ jQuery(function($){
 <script type="text/javascript">
 jQuery(function($){
     $('#__work_same_voice').slideProduct({
-        'keys' : ['RJ209533','RJ213087','RJ223721','RJ219841','RJ245241','RJ235302','RJ215660','RJ225769','RJ233688','RJ218309','RJ230064','RJ221268','RJ225804','RJ239823','RJ225803','RJ227801','RJ234432','BJ162782','BJ176785','RJ246965','BJ168888','RJ228224','BJ188431','BJ149159','BJ166472','BJ184569','BJ184214','BJ162781','BJ176784',null],
+        'keys' : ['RJ209533','RJ213087','RJ223721','RJ219841','RJ245241','RJ235302','RJ225769','RJ215660','RJ233688','RJ218309','RJ230064','RJ221268','RJ225804','RJ239823','RJ225803','RJ227801','RJ234432','BJ162782','BJ176785','RJ246965','RJ254065','BJ188431','BJ168888','RJ228224','BJ166472','BJ149159','BJ184569','BJ184214','BJ162781','BJ176784',null],
         'detailUrl' : 'https://www.dlsite.com/girls/load/recommend/detail/=/filter/on/rec/rec_work',
         'prevButton': '#_recommend_prev_same_voice',
         'nextButton': '#_recommend_next_same_voice',
@@ -1206,7 +1181,7 @@ jQuery(function($){
 
   <!-- review_head -->
   <div class="review_head clearfix">
-    <p class="float_l review_count">レビュー数 : <span class="review_work_count">59件</span></p>
+    <p class="float_l review_count">レビュー数 : <span class="review_work_count">62件</span></p>
         <div class="review_total_box">
       <table class="reviewer_most_genre" cellspacing="0">
         <tbody>
@@ -1215,16 +1190,16 @@ jQuery(function($){
               <p>レビュアーに多く選ばれたジャンル :</p>
             </th>
             <td>
-                            <span><a href="https://www.dlsite.com/girls/fsr/=/genre/227/from/work.review_genre">教師（39）</a></span>
-                            <span><a href="https://www.dlsite.com/girls/fsr/=/genre/001/from/work.review_genre">学校/学園（33）</a></span>
-                            <span><a href="https://www.dlsite.com/girls/fsr/=/genre/128/from/work.review_genre">中出し（30）</a></span>
-                            <span><a href="https://www.dlsite.com/girls/fsr/=/genre/114/from/work.review_genre">強制/無理矢理（29）</a></span>
-                            <span><a href="https://www.dlsite.com/girls/fsr/=/genre/113/from/work.review_genre">レイプ（26）</a></span>
+                            <span><a href="https://www.dlsite.com/girls/fsr/=/genre/227/from/work.review_genre">教師（41）</a></span>
+                            <span><a href="https://www.dlsite.com/girls/fsr/=/genre/001/from/work.review_genre">学校/学園（34）</a></span>
+                            <span><a href="https://www.dlsite.com/girls/fsr/=/genre/128/from/work.review_genre">中出し（33）</a></span>
+                            <span><a href="https://www.dlsite.com/girls/fsr/=/genre/114/from/work.review_genre">強制/無理矢理（31）</a></span>
+                            <span><a href="https://www.dlsite.com/girls/fsr/=/genre/113/from/work.review_genre">レイプ（29）</a></span>
                             <span><a href="https://www.dlsite.com/girls/fsr/=/genre/307/from/work.review_genre">無理矢理（16）</a></span>
-                            <span><a href="https://www.dlsite.com/girls/fsr/=/genre/209/from/work.review_genre">年上（13）</a></span>
-                            <span><a href="https://www.dlsite.com/girls/fsr/=/genre/068/from/work.review_genre">淫語（12）</a></span>
-                            <span><a href="https://www.dlsite.com/girls/fsr/=/genre/141/from/work.review_genre">変態（12）</a></span>
-                            <span><a href="https://www.dlsite.com/girls/fsr/=/genre/129/from/work.review_genre">妊娠/孕ませ（9）</a></span>
+                            <span><a href="https://www.dlsite.com/girls/fsr/=/genre/209/from/work.review_genre">年上（15）</a></span>
+                            <span><a href="https://www.dlsite.com/girls/fsr/=/genre/068/from/work.review_genre">淫語（14）</a></span>
+                            <span><a href="https://www.dlsite.com/girls/fsr/=/genre/141/from/work.review_genre">変態（14）</a></span>
+                            <span><a href="https://www.dlsite.com/girls/fsr/=/genre/129/from/work.review_genre">妊娠/孕ませ（10）</a></span>
                           </td>
           </tr>
         </tbody>
@@ -1242,7 +1217,7 @@ jQuery(function($){
             <div class="title"><span itemprop="name">新たに広がる監禁婚ワールド。</span></div>
             <p>
               <meta itemprop="datePublished" content="2018-01-28">2018年01月28日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/girls/reviewlist/=/reviewer/REV0027388">hamumaki</a></span> さん</span>
-                            <span class="number_rankin"><span>投稿数 : Best50</span></span>
+                              <span class="popularity_reviewer gold">人気レビュアー：6位</span>
                                           <span class="purchased">購入済み</span>
                           </p>
           </div>
@@ -1293,68 +1268,12 @@ jQuery(function($){
 しかし、山那学園と西条家の周囲で一体どれだけのヤバイ奴が集っているんでしょうね。(笑)<br />
 西条家の外にも話が広がったので、この先いくらでも続編の展望が見えてきて嬉しい次第です。<br />
 今後たくさんキャラが集ったら、相関図を作ってみるのも面白そうですね。</p>
+            <p class="review_ref">
+              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="247682" data-product_id="RJ217995">
+              <span class="useful">26人 が役に立ったと答えています</span>              <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/girls/contact/review/=/reviewer_id/REV0027388/product_id/RJ217995.html">報告する</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
           </div>
-          <p class="review_ref">
-            <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="247682" data-product_id="RJ217995">
-            <span class="useful">24人 が役に立ったと答えています</span>            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/girls/contact/review/=/reviewer_id/REV0027388/product_id/RJ217995.html">報告する</a>&nbsp;]</span>
-          </p>
-          <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
-        </td>
-      </tr>
-    </tbody>
-        <tbody itemprop="review" itemscope itemtype="https://schema.org/Review">
-      <tr>
-        <td class="review_title">
-          <p class="pickup_mark">ピックアップ</p>          <div class="review_title_l">
-            <div class="title"><span itemprop="name">さすがDuskさん!!</span></div>
-            <p>
-              <meta itemprop="datePublished" content="2018-02-01">2018年02月01日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/girls/reviewlist/=/reviewer/REV0029299">きのこもちもち</a></span> さん</span>
-                                          <span class="purchased">購入済み</span>
-                          </p>
-          </div>
-                  </td>
-      </tr>
-      <tr>
-        <td class="review_main _review_main">
-                    <div class="reviewer_genre">
-            <p>レビュアーが選んだジャンル :</p>
-            <ul class="reviewer_select_genre">
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/068/from/review.genre">淫語</a></li>
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/227/from/review.genre">教師</a></li>
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/074/from/review.genre">制服</a></li>
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/001/from/review.genre">学校/学園</a></li>
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/307/from/review.genre">無理矢理</a></li>
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/437/from/review.genre">初体験</a></li>
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/113/from/review.genre">レイプ</a></li>
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/114/from/review.genre">強制/無理矢理</a></li>
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/128/from/review.genre">中出し</a></li>
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/191/from/review.genre">巨根</a></li>
-                          </ul>
-          </div>
-          
-          
-          <div class="_SW2" >
-            <p class="reviewer_descrip" itemprop="reviewBody">今回もさすがDuskさんというシナリオでした!!<br />
-ストーリーは切なさとエロさが共存するとても素晴らしいものでした。<br />
-また深川さんの声もさわやかな教師と変態の二面性が出てて聞いててとてもドキドキしました。<br />
-また一応監禁婚シリーズの世界観ではありますが、こちら単体でも楽しめますので、初めての方にもおすすめです。<br />
-また監禁婚シリーズの方も視聴されますとより楽しめると思います。<br />
-また毎度のことながらDuskさんはアフターケア(?)も万全なのでHPをぜひご覧になってください。<br />
-今回のSSはほんとにキュンキュン来ました。<br />
-<br />
-最後にネタバレにならない程度でいいたいことは2つあります。<br />
-<br />
-先生、アピールポイントそこでいいんですか<br />
-ま　た　お　前　か<br />
-<br />
-こちらは聞いていただければわかると思いますので迷ってる方はぜひご購入ください!!<br />
-</p>
-          </div>
-          <p class="review_ref">
-            <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="248795" data-product_id="RJ217995">
-            <span class="useful">12人 が役に立ったと答えています</span>            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/girls/contact/review/=/reviewer_id/REV0029299/product_id/RJ217995.html">報告する</a>&nbsp;]</span>
-          </p>
-          <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
         </td>
       </tr>
     </tbody>
@@ -1365,7 +1284,7 @@ jQuery(function($){
             <div class="title"><span itemprop="name">絶望エンドかと思いきやまさかの展開</span></div>
             <p>
               <meta itemprop="datePublished" content="2018-02-01">2018年02月01日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/girls/reviewlist/=/reviewer/REV0022698">makinaCD</a></span> さん</span>
-                            <span class="number_rankin"><span>投稿数 : Best50</span></span>
+                              <span class="popularity_reviewer silver">人気レビュアー：17位</span>
                                           <span class="purchased">購入済み</span>
                           </p>
           </div>
@@ -1407,69 +1326,23 @@ jQuery(function($){
 ですが私は、変態でクズい酷い大人の先生と、素直に本心を告げられないヒロインが可愛くて仕方なくなりました。<br />
 <br />
 素敵な作品を聴けてとても嬉しいです。購入できて本っ当に満足です。もし続編が出たら私は迷わず買います!</p>
-          </div>
-          <p class="review_ref">
-            <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="248340" data-product_id="RJ217995">
-            <span class="useful">12人 が役に立ったと答えています</span>            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/girls/contact/review/=/reviewer_id/REV0022698/product_id/RJ217995.html">報告する</a>&nbsp;]</span>
-          </p>
-          <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
-        </td>
-      </tr>
-    </tbody>
-        <tbody itemprop="review" itemscope itemtype="https://schema.org/Review">
-      <tr>
-        <td class="review_title">
-                    <div class="review_title_l">
-            <div class="title"><span itemprop="name">先生!</span></div>
-            <p>
-              <meta itemprop="datePublished" content="2019-04-26">2019年04月26日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/girls/reviewlist/=/reviewer/REV0040629">えーな</a></span> さん</span>
-                                          <span class="purchased">購入済み</span>
-                          </p>
-          </div>
-                  </td>
-      </tr>
-      <tr>
-        <td class="review_main _review_main">
-                    <div class="reviewer_genre">
-            <p>レビュアーが選んだジャンル :</p>
-            <ul class="reviewer_select_genre">
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/209/from/review.genre">年上</a></li>
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/227/from/review.genre">教師</a></li>
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/411/from/review.genre">体育会系</a></li>
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/001/from/review.genre">学校/学園</a></li>
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/113/from/review.genre">レイプ</a></li>
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/128/from/review.genre">中出し</a></li>
-                          </ul>
-          </div>
-          
-                    <div class="_SW1">
-            <p class="review_caution">
-              <strong>※ネタバレ※</strong>
-              このレビューには作品の内容に関する記述が含まれています。
-              <span class="review_open"><a href="#" onclick="return false;">レビューを表示する</a></span>
+            <p class="review_ref">
+              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="248340" data-product_id="RJ217995">
+              <span class="useful">14人 が役に立ったと答えています</span>              <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/girls/contact/review/=/reviewer_id/REV0022698/product_id/RJ217995.html">報告する</a>&nbsp;]</span>
             </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
           </div>
-          
-          <div class="_SW2"  style="display: none;" >
-            <p class="reviewer_descrip" itemprop="reviewBody">先生と生徒のお話です。先生ものはあまり聴かないのでどうかな?と思いましたが先生ものいいなと思いました。学校でするシチュは見つからないかなとドキドキしました!<br />
-最後のヒロインちゃんが山那先生にキスしたところを聴くとこの2人には希望があるなと思いました。続編がもうでているので聴きたいと思います。<br />
-ぜひ買ってみてください!</p>
-          </div>
-          <p class="review_ref">
-            <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="351922" data-product_id="RJ217995">
-                        <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/girls/contact/review/=/reviewer_id/REV0040629/product_id/RJ217995.html">報告する</a>&nbsp;]</span>
-          </p>
-          <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
         </td>
       </tr>
     </tbody>
         <tbody itemprop="review" itemscope itemtype="https://schema.org/Review">
       <tr>
         <td class="review_title">
-                    <div class="review_title_l">
-            <div class="title"><span itemprop="name">最高でした</span></div>
+          <p class="pickup_mark">ピックアップ</p>          <div class="review_title_l">
+            <div class="title"><span itemprop="name">さすがDuskさん!!</span></div>
             <p>
-              <meta itemprop="datePublished" content="2019-04-25">2019年04月25日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/girls/reviewlist/=/reviewer/REV0039290">あんどんぱ</a></span> さん</span>
+              <meta itemprop="datePublished" content="2018-02-01">2018年02月01日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/girls/reviewlist/=/reviewer/REV0029299">きのこもちもち</a></span> さん</span>
+                              <span class="popularity_reviewer bronze">人気レビュアー：Best300</span>
                                           <span class="purchased">購入済み</span>
                           </p>
           </div>
@@ -1480,24 +1353,42 @@ jQuery(function($){
                     <div class="reviewer_genre">
             <p>レビュアーが選んだジャンル :</p>
             <ul class="reviewer_select_genre">
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/068/from/review.genre">淫語</a></li>
                             <li><a href="https://www.dlsite.com/girls/fsr/=/genre/227/from/review.genre">教師</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/074/from/review.genre">制服</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/001/from/review.genre">学校/学園</a></li>
                             <li><a href="https://www.dlsite.com/girls/fsr/=/genre/307/from/review.genre">無理矢理</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/437/from/review.genre">初体験</a></li>
                             <li><a href="https://www.dlsite.com/girls/fsr/=/genre/113/from/review.genre">レイプ</a></li>
                             <li><a href="https://www.dlsite.com/girls/fsr/=/genre/114/from/review.genre">強制/無理矢理</a></li>
                             <li><a href="https://www.dlsite.com/girls/fsr/=/genre/128/from/review.genre">中出し</a></li>
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/134/from/review.genre">陵辱</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/191/from/review.genre">巨根</a></li>
                           </ul>
           </div>
           
           
           <div class="_SW2" >
-            <p class="reviewer_descrip" itemprop="reviewBody">Duskさんの作品は監禁婚しか触れていませんが、ヤンデレ系なそちらとは違い少し違う暴走変態ストーカー教師という感じで大変美味しかったです。声も表面の印象もなにぶん爽やかなので欲望滾らせる狼に豹変した時の落差がたまらなかったです。</p>
+            <p class="reviewer_descrip" itemprop="reviewBody">今回もさすがDuskさんというシナリオでした!!<br />
+ストーリーは切なさとエロさが共存するとても素晴らしいものでした。<br />
+また深川さんの声もさわやかな教師と変態の二面性が出てて聞いててとてもドキドキしました。<br />
+また一応監禁婚シリーズの世界観ではありますが、こちら単体でも楽しめますので、初めての方にもおすすめです。<br />
+また監禁婚シリーズの方も視聴されますとより楽しめると思います。<br />
+また毎度のことながらDuskさんはアフターケア(?)も万全なのでHPをぜひご覧になってください。<br />
+今回のSSはほんとにキュンキュン来ました。<br />
+<br />
+最後にネタバレにならない程度でいいたいことは2つあります。<br />
+<br />
+先生、アピールポイントそこでいいんですか<br />
+ま　た　お　前　か<br />
+<br />
+こちらは聞いていただければわかると思いますので迷ってる方はぜひご購入ください!!<br />
+</p>
+            <p class="review_ref">
+              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="248795" data-product_id="RJ217995">
+              <span class="useful">13人 が役に立ったと答えています</span>              <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/girls/contact/review/=/reviewer_id/REV0029299/product_id/RJ217995.html">報告する</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
           </div>
-          <p class="review_ref">
-            <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="351206" data-product_id="RJ217995">
-                        <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/girls/contact/review/=/reviewer_id/REV0039290/product_id/RJ217995.html">報告する</a>&nbsp;]</span>
-          </p>
-          <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
         </td>
       </tr>
     </tbody>
@@ -1505,9 +1396,9 @@ jQuery(function($){
       <tr>
         <td class="review_title">
                     <div class="review_title_l">
-            <div class="title"><span itemprop="name">おとこはみんな</span></div>
+            <div class="title"><span itemprop="name">深川緑さんの魅力が素晴らしい!</span></div>
             <p>
-              <meta itemprop="datePublished" content="2019-04-18">2019年04月18日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/girls/reviewlist/=/reviewer/REV0031986">ナス子</a></span> さん</span>
+              <meta itemprop="datePublished" content="2019-05-22">2019年05月22日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/girls/reviewlist/=/reviewer/REV0041730">めろで</a></span> さん</span>
                                           <span class="purchased">購入済み</span>
                           </p>
           </div>
@@ -1521,14 +1412,14 @@ jQuery(function($){
                     <div class="reviewer_genre">
             <p>レビュアーが選んだジャンル :</p>
             <ul class="reviewer_select_genre">
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/049/from/review.genre">着衣</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/068/from/review.genre">淫語</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/209/from/review.genre">年上</a></li>
                             <li><a href="https://www.dlsite.com/girls/fsr/=/genre/227/from/review.genre">教師</a></li>
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/411/from/review.genre">体育会系</a></li>
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/001/from/review.genre">学校/学園</a></li>
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/307/from/review.genre">無理矢理</a></li>
                             <li><a href="https://www.dlsite.com/girls/fsr/=/genre/113/from/review.genre">レイプ</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/114/from/review.genre">強制/無理矢理</a></li>
                             <li><a href="https://www.dlsite.com/girls/fsr/=/genre/128/from/review.genre">中出し</a></li>
-                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/181/from/review.genre">筋肉</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/129/from/review.genre">妊娠/孕ませ</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/141/from/review.genre">変態</a></li>
                           </ul>
           </div>
           
@@ -1541,20 +1432,129 @@ jQuery(function($){
           </div>
           
           <div class="_SW2"  style="display: none;" >
-            <p class="reviewer_descrip" itemprop="reviewBody">妄信体育教師にレイプされるか弱い女子高生<br />
-さながら悪い大人オオカミに捕まった子ヒツジ…<br />
+            <p class="reviewer_descrip" itemprop="reviewBody">深川緑さんが好きでこちらの作品を購入しました。<br />
+とにかく、誠さんスゴいです(笑)<br />
+変態の域を超えてます!!<br />
+ですが、深川緑さんの演技力に惹き込まれてしまいますので聴いててドキドキしっぱなしでした<br />
+リアル過ぎるリップ音やセリフの一つ一つがとても丁寧だし、とにかく素晴らしい!!!<br />
+爽やかな声なのに、いきなり豹変した声になったりと何度聴いても全く飽きません。<br />
+深川緑さんの魅力が詰まった作品です。<br />
 <br />
-開始早々化けの皮が剥がれ、激ヤバレイプ魔になる山那先生ですが彼の中には彼なりの運命がありそこが今後のシリーズにも大きく関わっていくことになります。<br />
-他人から見て猟奇的に見えていても山那先生にとって運命の相手を手放すことより恐ろしいことはないのです。<br />
-<br />
-男性向け顔負けの濡場の多さ(全トラック濡場あり!)に声優さんには頭が上がりません…<br />
-強姦に次ぐ強姦ではありますが性行為以外の暴力はありませんので、安心してお聴きください〜</p>
+強姦のシーンもあるので、苦手な方はオススメ出来ませんが...<br />
+ヒロインちゃんを愛するが故の、歪んだ愛情も誠さんの魅力だと思います。</p>
+            <p class="review_ref">
+              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="364809" data-product_id="RJ217995">
+                            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/girls/contact/review/=/reviewer_id/REV0041730/product_id/RJ217995.html">報告する</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
           </div>
-          <p class="review_ref">
-            <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="347760" data-product_id="RJ217995">
-                        <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/girls/contact/review/=/reviewer_id/REV0031986/product_id/RJ217995.html">報告する</a>&nbsp;]</span>
-          </p>
-          <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
+        </td>
+      </tr>
+    </tbody>
+        <tbody itemprop="review" itemscope itemtype="https://schema.org/Review">
+      <tr>
+        <td class="review_title">
+                    <div class="review_title_l">
+            <div class="title"><span itemprop="name">先生が自分だけに見せる《雄》の顔</span></div>
+            <p>
+              <meta itemprop="datePublished" content="2019-05-05">2019年05月05日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/girls/reviewlist/=/reviewer/REV0041009">あめりん</a></span> さん</span>
+                              <span class="popularity_reviewer bronze">人気レビュアー：Best400</span>
+                                          <span class="purchased">購入済み</span>
+                          </p>
+          </div>
+                    <div class="review_title_r">
+            <span class="reviewer_recommend">レビュアーオススメ！</span>
+          </div>
+                  </td>
+      </tr>
+      <tr>
+        <td class="review_main _review_main">
+                    <div class="reviewer_genre">
+            <p>レビュアーが選んだジャンル :</p>
+            <ul class="reviewer_select_genre">
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/068/from/review.genre">淫語</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/209/from/review.genre">年上</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/227/from/review.genre">教師</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/428/from/review.genre">スポユニ</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/001/from/review.genre">学校/学園</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/028/from/review.genre">歳の差</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/113/from/review.genre">レイプ</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/128/from/review.genre">中出し</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/191/from/review.genre">巨根</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/193/from/review.genre">処女</a></li>
+                          </ul>
+          </div>
+          
+                    <div class="_SW1">
+            <p class="review_caution">
+              <strong>※ネタバレ※</strong>
+              このレビューには作品の内容に関する記述が含まれています。
+              <span class="review_open"><a href="#" onclick="return false;">レビューを表示する</a></span>
+            </p>
+          </div>
+          
+          <div class="_SW2"  style="display: none;" >
+            <p class="reviewer_descrip" itemprop="reviewBody">監禁婚シリーズの派生作品、体イクシリーズの第一作目。<br />
+両親を事故で失い、失意のまま転校してきた山那学園で親身になって接してくれた担任の《山那誠》に信頼を寄せるヒロイン。しかしひょんなハプニングから山那先生はヒロインに対してあからさまな愛情と欲望をぶつけてくるように──。立場故か余り話を聞かず、強引に事を勧めてくるのでまあとんでもない男なのですが、先生自身もひどく悲惨な過去を持っていて、そのせいで自分がどこか壊れていることを自覚しています。根底にあるのはヒロインへの真摯な愛なのでそこは安心(???)(なのですが、いくらヒロインが可愛くても処女相手に1.5倍(隠語)で●回はヤり過ぎでは!??) また深川緑さんのお声もバッチリハマっていて最高です!!!</p>
+            <p class="review_ref">
+              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="357322" data-product_id="RJ217995">
+                            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/girls/contact/review/=/reviewer_id/REV0041009/product_id/RJ217995.html">報告する</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+        <tbody itemprop="review" itemscope itemtype="https://schema.org/Review">
+      <tr>
+        <td class="review_title">
+                    <div class="review_title_l">
+            <div class="title"><span itemprop="name">病んでました</span></div>
+            <p>
+              <meta itemprop="datePublished" content="2019-05-04">2019年05月04日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/girls/reviewlist/=/reviewer/REV0040607">JuJu♡♡</a></span> さん</span>
+                              <span class="popularity_reviewer bronze">人気レビュアー：Best600</span>
+                                          <span class="purchased">購入済み</span>
+                          </p>
+          </div>
+                    <div class="review_title_r">
+            <span class="reviewer_recommend">レビュアーオススメ！</span>
+          </div>
+                  </td>
+      </tr>
+      <tr>
+        <td class="review_main _review_main">
+                    <div class="reviewer_genre">
+            <p>レビュアーが選んだジャンル :</p>
+            <ul class="reviewer_select_genre">
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/113/from/review.genre">レイプ</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/114/from/review.genre">強制/無理矢理</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/128/from/review.genre">中出し</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/141/from/review.genre">変態</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/144/from/review.genre">言葉責め</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/191/from/review.genre">巨根</a></li>
+                            <li><a href="https://www.dlsite.com/girls/fsr/=/genre/193/from/review.genre">処女</a></li>
+                          </ul>
+          </div>
+          
+                    <div class="_SW1">
+            <p class="review_caution">
+              <strong>※ネタバレ※</strong>
+              このレビューには作品の内容に関する記述が含まれています。
+              <span class="review_open"><a href="#" onclick="return false;">レビューを表示する</a></span>
+            </p>
+          </div>
+          
+          <div class="_SW2"  style="display: none;" >
+            <p class="reviewer_descrip" itemprop="reviewBody">今回も病んでました(笑)<br />
+「いや、絶対バレるだろ」ってとこでも平気でやっちゃいます。寧ろ萌えます<br />
+この主人公は普通の人の1.5倍の大きさだそうでそれを出し入れされる水音もやばい。耳が犯されるー!!!!って悶えました(笑)<br />
+写真をネタにヒロインを犯し続けるとこはひたすら酷い男ですが、やっぱり一途すぎるほど一途だから憎めないんですねー</p>
+            <p class="review_ref">
+              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="356834" data-product_id="RJ217995">
+                            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/girls/contact/review/=/reviewer_id/REV0040607/product_id/RJ217995.html">報告する</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
+          </div>
         </td>
       </tr>
     </tbody>
@@ -1564,7 +1564,7 @@ jQuery(function($){
     <tr>
             <td>
         <div class="review_more">
-          <p><a href="https://www.dlsite.com/girls/work/reviewlist/=/product_id/RJ217995.html">すべてのレビューを見る （59件）</a></p>
+          <p><a href="https://www.dlsite.com/girls/work/reviewlist/=/product_id/RJ217995.html">すべてのレビューを見る （62件）</a></p>
         </div>
       </td>
             <td><div class="review_btn"><a href="https://www.dlsite.com/girls/review/write/work/=/product_id/RJ217995.html" class="btn_post size_xxl fs15"><i>レビューを投稿する</i></a></div></td>
@@ -1918,24 +1918,7 @@ jQuery(function($){
     </tbody>
   </table>
     
-    <table class="current_os" v-if="user.os" v-cloak>
-    <thead>
-      <tr>
-        <th><strong v-text="user.os == 'Mac' ? 'Mac' : 'Windows'"></strong>の対応バージョン</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td v-if="user.os == 'Mac'" v-cloak>-</td>
-        <td v-else>Windows7 / Windows8 / Windows8.1 / Windows10</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  <ul class="guide_list"  v-cloak>
-    <li><a class="_osPopup" href="#" @click.stop.prevent="toggleDisplayMachineList()">すべての対応OSを表示する</a></li>
-  </ul>
-
+        
   <div class="os_popup" :class="{ active: is_display_machine_list }">
     <div class="os_popup_header">対応OS</div>
     <div class="os_popup_body">
@@ -1987,6 +1970,15 @@ jQuery(function($){
     
         <div class="list_head"><h4>販売作品</h4></div>
     <table cellspacing="0" class="same_work">
+              <tr>
+        <td class="work_img"><a href="https://www.dlsite.com/girls/work/=/product_id/RJ254065.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ255000/RJ254065_img_sam_mini.jpg" alt="黄昏時に終わる恋 [Dusk]" title="黄昏時に終わる恋 [Dusk]"  class="target_type" /></a></td>
+        <td class="name">
+                      <div class="icon_wrap">
+              <span class="icon_option type_exclusive">専売</span>                          </div>
+                    <span class="work_name"><a href="https://www.dlsite.com/girls/work/=/product_id/RJ254065.html">黄昏時に終わる恋</a></span>
+          <span class="work_price">￥1,944</span>
+        </td>
+      </tr>
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/girls/work/=/product_id/RJ249289.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ250000/RJ249289_img_sam_mini.jpg" alt="私の整体師さん [Dusk]" title="私の整体師さん [Dusk]"  class="target_type" /></a></td>
         <td class="name">
@@ -2051,20 +2043,20 @@ jQuery(function($){
         </td>
       </tr>
               <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/girls/work/=/product_id/RJ225804.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ226000/RJ225804_img_sam_mini.jpg" alt="桜華譚～漆黒の日々～ [Dusk]" title="桜華譚～漆黒の日々～ [Dusk]"  class="target_type" /></a></td>
-        <td class="name">
-                      <div class="icon_wrap">
-              <span class="icon_option type_exclusive">専売</span>                          </div>
-                    <span class="work_name"><a href="https://www.dlsite.com/girls/work/=/product_id/RJ225804.html">桜華譚～漆黒の日々～</a></span>
-          <span class="work_price">￥1,944</span>
-        </td>
-      </tr>
-              <tr>
         <td class="work_img"><a href="https://www.dlsite.com/girls/work/=/product_id/RJ225803.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ226000/RJ225803_img_sam_mini.jpg" alt="桜華譚～純白の日々～ [Dusk]" title="桜華譚～純白の日々～ [Dusk]"  class="target_type" /></a></td>
         <td class="name">
                       <div class="icon_wrap">
               <span class="icon_option type_exclusive">専売</span>                          </div>
                     <span class="work_name"><a href="https://www.dlsite.com/girls/work/=/product_id/RJ225803.html">桜華譚～純白の日々～</a></span>
+          <span class="work_price">￥1,944</span>
+        </td>
+      </tr>
+              <tr>
+        <td class="work_img"><a href="https://www.dlsite.com/girls/work/=/product_id/RJ225804.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ226000/RJ225804_img_sam_mini.jpg" alt="桜華譚～漆黒の日々～ [Dusk]" title="桜華譚～漆黒の日々～ [Dusk]"  class="target_type" /></a></td>
+        <td class="name">
+                      <div class="icon_wrap">
+              <span class="icon_option type_exclusive">専売</span>                          </div>
+                    <span class="work_name"><a href="https://www.dlsite.com/girls/work/=/product_id/RJ225804.html">桜華譚～漆黒の日々～</a></span>
           <span class="work_price">￥1,944</span>
         </td>
       </tr>
@@ -2110,15 +2102,6 @@ jQuery(function($){
                       <div class="icon_wrap">
               <span class="icon_option type_exclusive">専売</span>                          </div>
                     <span class="work_name"><a href="https://www.dlsite.com/girls/work/=/product_id/RJ215660.html">征徒会～略奪の日々～</a></span>
-          <span class="work_price">￥1,944</span>
-        </td>
-      </tr>
-              <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/girls/work/=/product_id/RJ213087.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ214000/RJ213087_img_sam_mini.jpg" alt="監禁婚～絶望の日々～ [Dusk]" title="監禁婚～絶望の日々～ [Dusk]"  class="target_type" /></a></td>
-        <td class="name">
-                      <div class="icon_wrap">
-              <span class="icon_option type_exclusive">専売</span>                          </div>
-                    <span class="work_name"><a href="https://www.dlsite.com/girls/work/=/product_id/RJ213087.html">監禁婚～絶望の日々～</a></span>
           <span class="work_price">￥1,944</span>
         </td>
       </tr>
@@ -2309,7 +2292,7 @@ jQuery(function($){
 <div data-vue-component="cookie-policy" data-async="true"></div>
 
 <script type="text/javascript" src="/vue/js/pc/vendor.js?cdn_cache=1&v=0.1.2&_=1536029038"></script>
-<script type="text/javascript" src="/vue/js/pc/app.js?cdn_cache=1&v=0.1.2&_=1554881571"></script>
+<script type="text/javascript" src="/vue/js/pc/app.js?cdn_cache=1&v=0.1.2&_=1559289223"></script>
 
 
 <script type="text/javascript">
@@ -2352,6 +2335,6 @@ div.measure_tag {
 
 
 <!-- /script_footer -->
-<script type="text/javascript">var contents = {"impression":[],"detail":[{"id":"RJ217995","name":"\u4f53\u30a4\u30af\u6559\u5e2b","category":"girls","brand":"RG38521","price":1800,"regist_date":"2018\/01\/26","image_main":"\/\/img.dlsite.jp\/modpub\/images2\/work\/doujin\/RJ218000\/RJ217995_img_main.jpg","restore_price":null}],"time":0.00034713745117188};</script>
+<script type="text/javascript">var contents = {"impression":[],"detail":[{"id":"RJ217995","name":"\u4f53\u30a4\u30af\u6559\u5e2b","category":"girls","brand":"RG38521","price":1800,"regist_date":"2018\/01\/26","image_main":"\/\/img.dlsite.jp\/modpub\/images2\/work\/doujin\/RJ218000\/RJ217995_img_main.jpg","restore_price":null}],"time":0.00010895729064941406};</script>
 </body>
 </html>

@@ -42,18 +42,18 @@
 <script>/dlsite_dozen=/.test(document.cookie) || (document.cookie = 'dlsite_dozen=' + Math.floor(Math.random() * 12) + '; path=/; max-age=63072000')</script>
 
 <link rel="stylesheet" href="/css/reset.css?1459221919" type="text/css" id="reset" />
-<link rel="stylesheet" href="/css/default_eng.css?1543377460" type="text/css" id="default" />
+<link rel="stylesheet" href="/css/default_eng.css?1559631936" type="text/css" id="default" />
 <link rel="stylesheet" href="/css/layout_2col_work_eng.css?1552988739" type="text/css" id="layout_2col_work" />
-<link rel="stylesheet" href="/css/common_eng.css?1556259018" type="text/css" id="common" />
+<link rel="stylesheet" href="/css/common_eng.css?1559631936" type="text/css" id="common" />
 <link rel="stylesheet" href="/css/switch_eng.css?1551748184" type="text/css" id="switch" />
-<link rel="stylesheet" href="/css/suggest.css?1532410575" type="text/css" id="suggest" />
-<link rel="stylesheet" href="/css/header_campaign_banner.css?1555661384" type="text/css" id="header_campaign_banner" />
+<link rel="stylesheet" href="/css/suggest.css?1559631936" type="text/css" id="suggest" />
+<link rel="stylesheet" href="/css/header_campaign_banner.css?1559723711" type="text/css" id="header_campaign_banner" />
 <link rel="stylesheet" href="/assets/share/css/universal/universal.css?" type="text/css" id="universal" />
-<link rel="stylesheet" href="/css/work_template_eng.css?1550539358" type="text/css" id="work_template" />
-<link rel="stylesheet" href="/css/work_slider.css?1536028348" type="text/css" id="work_slider" />
+<link rel="stylesheet" href="/css/work_template_eng.css?1559631936" type="text/css" id="work_template" />
+<link rel="stylesheet" href="/css/work_slider.css?1559631936" type="text/css" id="work_slider" />
 
 <script type="text/javascript" src="/js/libs/libraries-pack.js?1502345903"></script>
-<script type="text/javascript" src="/js/dlsite_util.js?1554195599"></script>
+<script type="text/javascript" src="/js/dlsite_util.js?1557910552"></script>
 <script type="text/javascript" src="/js/slide_menu.js?1511946236"></script>
 <script type="text/javascript" src="/js/dlsite_suggest.js?1550024738"></script>
 <script type="text/javascript" src="/js/dlsite_trigger.js?1544681008"></script>
@@ -295,21 +295,7 @@ if ($.cookie('loginchecked') >= 1) {
 
 <!--data-vue-component="header-banner"-->
 <div data-vue-component="header-banner" data-vue-async="true" data-section_name="campaign_header_banner">
-    <div v-if="loading" class="hd_cp_banner type_1bn">
-    <ul class="cp_bn_list">
-            <li class="cp_bn_item type_08">
-        <a href="https://www.dlsite.com/ecchi-eng/campaign/sale201904">
-          <div class="cp_bn_inner">
-            <div class="cp_bn_reminder">
-              <div class="cp_bn_reminder_content"><i class="cp_bn_reminder_period type_date">~ MAY 13,</i><i class="cp_bn_reminder_period type_time">2 p.m.</i></div>
-            </div>
-            <div class="cp_bn"><img src="/images/campaign/doujin_sale_1904/bn_hd_cp_01_eng.png"></div>
-                        <div class="cp_bn_work blank"></div>
-                      </div>
-        </a>
-      </li>
-          </ul>
-  </div>
+    <div v-if="loading"></div>
     
   <div v-else-if="is_show_frame" :class="style" class="hd_cp_banner" v-cloak>
     <ul class="cp_bn_list">
@@ -364,7 +350,7 @@ if ($.cookie('loginchecked') >= 1) {
 
 
 
-<span class="icon_lead_01 type_lang" title="English Version">English Ver.</span>
+<span class="icon_lead_01 type_lang" title="English Version">English Ver.</span><span class="icon_lead_01 type_lang" title="Chinese Version">Chinese Ver.</span>
 
 </div>
 <h1 itemprop="name" id="work_name">
@@ -384,20 +370,7 @@ if ($.cookie('loginchecked') >= 1) {
 <div id="main" data-section_name="main">
 <!-- main_inner -->
 <div id="main_inner">
-﻿<script language="JavaScript">
-<!--
-function open_trinity_window(url)
-{
-  wx = 850;
-  wy = 650;
-  x = (screen.width - wx) / 2;
-  y = (screen.height - wy) / 2;
-  window.open(url, "tricheck", 'scrollbars=yes,location=no,menubar=no,width='+wx+',height='+wy+',left='+x+',top='+y);
-}
--->
-</script>
-
-<div id="work_header" data-section_name="work_header">
+﻿<div id="work_header" data-section_name="work_header">
   <div id="work_left" data-vue-component="product-evaluate" data-product-id="RE144678">
     <table cellspacing="0" id="work_value">
       <tr>
@@ -517,11 +490,13 @@ function open_trinity_window(url)
         <div ref="swiper" class="slider_body_inner">
           <ul class="slider_items trans" ref="body_items" @click="showPopup">
 
-            <li v-if="items.length === 0" class="slider_item active"><img itemprop="image" src="//img.dlsite.jp/modpub/images2/work/doujin/RJ145000/RJ144678_img_main.jpg" width="auto" height="420"></li>
+            <li v-if="items.length === 0" class="slider_item active"><img itemprop="image" src="//img.dlsite.jp/modpub/images2/work/doujin/RJ145000/RJ144678_img_main.jpg" width="auto" height="420" alt="NEKOPARA vol.1 [NEKO WORKs]"></li>
 
           <template v-for="(item, index) in items">
-            <li v-if="index === 0" class="slider_item active"><img itemprop="image" :src="item.src"></li>
-            <li v-else             class="slider_item" ><img :src="item.src"></li>
+
+            <li v-if="index === 0" class="slider_item active"><img itemprop="image" :src="item.src" alt="NEKOPARA vol.1 [NEKO WORKs]"></li>
+            <li v-else             class="slider_item" ><img :src="item.src" alt="NEKOPARA vol.1 [NEKO WORKs]"></li>
+
           </template>
           </ul>
         </div>
@@ -535,7 +510,9 @@ function open_trinity_window(url)
           <template v-for="(item, index) in items">
             <li class="controller_item" :class="{active:(index === swiper.realIndex)}" @click="slideTo(index)">
               <div class="thumb_box">
-                <img :src="item.thumb.src" :width="item.thumb.width" :height="item.thumb.height">
+
+                <img :src="item.thumb.src" :width="item.thumb.width" :height="item.thumb.height" alt="NEKOPARA vol.1 [NEKO WORKs]">
+
               </div>
             </li>
           </template>
@@ -561,7 +538,9 @@ function open_trinity_window(url)
         <div class="slider_popup_sidebar">
         <template v-for="(item, index) in items">
           <div target="_blank" :class="{active:(index === swiper.realIndex)}" @click="slideTo(index, false)">
-            <img :src="item.thumb.src">
+
+            <img :src="item.thumb.src" alt="NEKOPARA vol.1 [NEKO WORKs]">
+
           </div>
         </template>
         </div>
@@ -576,7 +555,9 @@ function open_trinity_window(url)
       <div class="slider_popup_leftpane">
         <div ref="mainbox" class="slider_popup_mainbox" @wheel.prevent="slideScroll">
           <div  class="slider_zoom_container" ref="zoom_container" @mousemove.prevent="setPopupPosition" @click="setPopupImage(true)">
-            <img :src="items[swiper.realIndex].src" ref="zoom_container_image">
+
+            <img :src="items[swiper.realIndex].src" ref="zoom_container_image" alt="NEKOPARA vol.1 [NEKO WORKs]">
+
           </div>
         </div>
         <div class="slider_popup_tool">
@@ -1108,7 +1089,8 @@ jQuery(function($){
           <p class="pickup_mark">Pick Up</p>          <div class="review_title_l">
           <div class="title">This is going to the top!</div>
           <p>
-            Jan/04/2015&nbsp;&nbsp;By <a href="https://www.dlsite.com/ecchi-eng/reviewlist/=/reviewer/REN0001459">Computer Dr.</a>                                    <span class="purchased">Verified Buyer</span>
+            Jan/04/2015&nbsp;&nbsp;By <a href="https://www.dlsite.com/ecchi-eng/reviewlist/=/reviewer/REN0001459">Computer Dr.</a>                          <span class="popularity_reviewer silver">Top Reviewer: 35th</span>
+                                    <span class="purchased">Verified Buyer</span>
                       </p>
           </div>
                     <div class="review_title_r">
@@ -1149,12 +1131,12 @@ The H scenes are splendidly animated just like the rest of the day-to-day scenes
 I&#039;m probably one of the most guilty when it comes to holding Ctrl through the majority of eroge, and never once have I replayed a game after clearing the heroine&#039;s route I wanted.  This is the first game where I could play it multiple times and still enjoy it.<br />
 <br />
 For it to impress me says something.  Buy it!</p>
+            <p class="review_ref">
+              <input value="Helpful" type="button" class="_btn_good_review btn_default" data-review_id="8937" data-product_id="RE144678">
+              <span class="useful">38 users found this helpful.</span>              <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/ecchi-eng/contact/review/=/reviewer_id/REN0001459/product_id/RE144678.html">Report Abuse</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
           </div>
-          <p class="review_ref">
-            <input value="Helpful" type="button" class="_btn_good_review btn_default" data-review_id="8937" data-product_id="RE144678">
-            <span class="useful">38 users found this helpful.</span>            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/ecchi-eng/contact/review/=/reviewer_id/REN0001459/product_id/RE144678.html">Report Abuse</a>&nbsp;]</span>
-          </p>
-          <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
         </td>
       </tr>
     </tbody>
@@ -1164,7 +1146,8 @@ For it to impress me says something.  Buy it!</p>
           <p class="pickup_mark">Pick Up</p>          <div class="review_title_l">
           <div class="title">If you love catgirls and a heart warming story, this is it.</div>
           <p>
-            Jan/06/2015&nbsp;&nbsp;By <a href="https://www.dlsite.com/ecchi-eng/reviewlist/=/reviewer/REN0001463">Shadowfox643</a>                                    <span class="purchased">Verified Buyer</span>
+            Jan/06/2015&nbsp;&nbsp;By <a href="https://www.dlsite.com/ecchi-eng/reviewlist/=/reviewer/REN0001463">Shadowfox643</a>                          <span class="popularity_reviewer bronze">Top Reviewer: Top300</span>
+                                    <span class="purchased">Verified Buyer</span>
                       </p>
           </div>
                   </td>
@@ -1175,12 +1158,12 @@ For it to impress me says something.  Buy it!</p>
           
           <div class="_SW2" >
             <p class="reviewer_descrip">I have been following Sayori Neko Works for like, 5 years now? When I heard that a game is coming out, I was already hyped, then the demo came out and I heard Chocola&#039;s and Vanilla&#039;s voice, my heart melted into million pieces, overall, this game is a beacon of love from catgirl heaven, if you love catgirls, this game is, like, totally for you! The animation is great, watching the main characters, &quot;come to life&quot; feels like a nice pace of change from all the other stoic visual novels, there&#039;s a lot of comedy, &quot;easter eggs&quot; if you may call those, I really enjoyed this piece, would recommend to my best friends.</p>
+            <p class="review_ref">
+              <input value="Helpful" type="button" class="_btn_good_review btn_default" data-review_id="8944" data-product_id="RE144678">
+              <span class="useful">9 users found this helpful.</span>              <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/ecchi-eng/contact/review/=/reviewer_id/REN0001463/product_id/RE144678.html">Report Abuse</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
           </div>
-          <p class="review_ref">
-            <input value="Helpful" type="button" class="_btn_good_review btn_default" data-review_id="8944" data-product_id="RE144678">
-            <span class="useful">9 users found this helpful.</span>            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/ecchi-eng/contact/review/=/reviewer_id/REN0001463/product_id/RE144678.html">Report Abuse</a>&nbsp;]</span>
-          </p>
-          <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
         </td>
       </tr>
     </tbody>
@@ -1190,7 +1173,7 @@ For it to impress me says something.  Buy it!</p>
           <p class="pickup_mark">Pick Up</p>          <div class="review_title_l">
           <div class="title">Catgirl goodness!</div>
           <p>
-            Jan/19/2015&nbsp;&nbsp;By <a href="https://www.dlsite.com/ecchi-eng/reviewlist/=/reviewer/REN0000842">Grandiaplayer</a>                        <span class="number"><span>Top : 2 Reviewer</span></span>
+            Jan/19/2015&nbsp;&nbsp;By <a href="https://www.dlsite.com/ecchi-eng/reviewlist/=/reviewer/REN0000842">Grandiaplayer</a>                          <span class="popularity_reviewer gold">Top Reviewer: 1st</span>
                                     <span class="purchased">Verified Buyer</span>
                       </p>
           </div>
@@ -1217,12 +1200,12 @@ For it to impress me says something.  Buy it!</p>
 There&#039;s a lot to like about this game, the well done personalities of the girls (ranging from clingy to stingy like actual cats, to happy and jovial), the well done animation of the game, including the H scenes, the voice acting which is superb, and the replay ability of the entire game. <br />
 <br />
 If you know Sayori and or like cat girls, pick this game up, Even if you don&#039;t, pick it up.</p>
+            <p class="review_ref">
+              <input value="Helpful" type="button" class="_btn_good_review btn_default" data-review_id="8985" data-product_id="RE144678">
+              <span class="useful">6 users found this helpful.</span>              <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/ecchi-eng/contact/review/=/reviewer_id/REN0000842/product_id/RE144678.html">Report Abuse</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
           </div>
-          <p class="review_ref">
-            <input value="Helpful" type="button" class="_btn_good_review btn_default" data-review_id="8985" data-product_id="RE144678">
-            <span class="useful">6 users found this helpful.</span>            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/ecchi-eng/contact/review/=/reviewer_id/REN0000842/product_id/RE144678.html">Report Abuse</a>&nbsp;]</span>
-          </p>
-          <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
         </td>
       </tr>
     </tbody>
@@ -1253,12 +1236,12 @@ If you know Sayori and or like cat girls, pick this game up, Even if you don&#03
           
           <div class="_SW2" >
             <p class="reviewer_descrip">I totally enjoyed Nekopara Volume 1. So much so that I purchased the other two volumes as well. The visual novel has a very good set of tools that give you a lot of control over how it displays and works - bounciness, text display speed, text display time, etc., that add a lot to the story. The graphics and artwork are outstanding, and the story line is charming and entertaining. What makes this an outstanding work, though, are the voice actors. Each one brings her character to life through their energy and emotion. Even the &quot;G&quot; rated versions available on Steam, without the X-rated scenes, are very good. But you won&#039;t want to miss those, so either purchase the full X-rated versions on DL Site, or the Steam add-on packs to get the full versions. Of course, if you purchase on Steam you get the trading cards, if you&#039;re into that sort of thing.</p>
+            <p class="review_ref">
+              <input value="Helpful" type="button" class="_btn_good_review btn_default" data-review_id="14366" data-product_id="RE144678">
+              <span class="useful">1 users found this helpful.</span>              <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/ecchi-eng/contact/review/=/reviewer_id/REN0002754/product_id/RE144678.html">Report Abuse</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
           </div>
-          <p class="review_ref">
-            <input value="Helpful" type="button" class="_btn_good_review btn_default" data-review_id="14366" data-product_id="RE144678">
-            <span class="useful">1 users found this helpful.</span>            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/ecchi-eng/contact/review/=/reviewer_id/REN0002754/product_id/RE144678.html">Report Abuse</a>&nbsp;]</span>
-          </p>
-          <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
         </td>
       </tr>
     </tbody>
@@ -1268,7 +1251,7 @@ If you know Sayori and or like cat girls, pick this game up, Even if you don&#03
                     <div class="review_title_l">
           <div class="title">An amazing game</div>
           <p>
-            Dec/10/2017&nbsp;&nbsp;By <a href="https://www.dlsite.com/ecchi-eng/reviewlist/=/reviewer/REN0001802">KTEZ</a>                        <span class="number"><span>Top : 9 Reviewer</span></span>
+            Dec/10/2017&nbsp;&nbsp;By <a href="https://www.dlsite.com/ecchi-eng/reviewlist/=/reviewer/REN0001802">KTEZ</a>                          <span class="popularity_reviewer gold">Top Reviewer: 9th</span>
                                     <span class="purchased">Verified Buyer</span>
                       </p>
           </div>
@@ -1292,12 +1275,12 @@ If you know Sayori and or like cat girls, pick this game up, Even if you don&#03
           
           <div class="_SW2" >
             <p class="reviewer_descrip">Well, what else is there to be said that hasn&#039;t been covered in the other glowing reviews? Nekopara is an excellent, professionally made visual novel. Everything about the game screams pure quality; the character art and designs are stellar, the music and voice acting are outstanding, and the English translation is one of the best I&#039;ve ever seen, being really accurate and well written. The E-mote system is a great addition, and the adorable animations will make you fall in love with the characters even more. Very highly recommended!</p>
+            <p class="review_ref">
+              <input value="Helpful" type="button" class="_btn_good_review btn_default" data-review_id="14051" data-product_id="RE144678">
+                            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/ecchi-eng/contact/review/=/reviewer_id/REN0001802/product_id/RE144678.html">Report Abuse</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
           </div>
-          <p class="review_ref">
-            <input value="Helpful" type="button" class="_btn_good_review btn_default" data-review_id="14051" data-product_id="RE144678">
-                        <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/ecchi-eng/contact/review/=/reviewer_id/REN0001802/product_id/RE144678.html">Report Abuse</a>&nbsp;]</span>
-          </p>
-          <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
         </td>
       </tr>
     </tbody>
@@ -1343,12 +1326,12 @@ The story-telling is as adorable as the characterdesign and with the E-mote Syst
 I really enjoyed the story because of these features and because I like light stories in general.<br />
 So if you think my above stated points are appealing to you: PICK IT UP!<br />
 The Catgirls are waiting, nyaa~</p>
+            <p class="review_ref">
+              <input value="Helpful" type="button" class="_btn_good_review btn_default" data-review_id="13643" data-product_id="RE144678">
+                            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/ecchi-eng/contact/review/=/reviewer_id/REN0002587/product_id/RE144678.html">Report Abuse</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
           </div>
-          <p class="review_ref">
-            <input value="Helpful" type="button" class="_btn_good_review btn_default" data-review_id="13643" data-product_id="RE144678">
-                        <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/ecchi-eng/contact/review/=/reviewer_id/REN0002587/product_id/RE144678.html">Report Abuse</a>&nbsp;]</span>
-          </p>
-          <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
         </td>
       </tr>
     </tbody>
@@ -1549,7 +1532,7 @@ jQuery(function($){
           <div class="work_buy_body">
             <div class="work_buy_label">Price</div>
             <div class="work_buy_content">
-              <span class="price">$19.35&nbsp;/&nbsp;&euro;17.36<i class="work_estimation">(estimation)</i><i class="work_jpy">2,160 JPY</i></span>
+              <span class="price">$19.90&nbsp;/&nbsp;&euro;17.66<i class="work_estimation">(estimation)</i><i class="work_jpy">2,160 JPY</i></span>
             </div>
           </div>
         </div>
@@ -1675,24 +1658,24 @@ jQuery(function($){
     </tbody>
   </table>
   
-  <table class="current_os" v-if="user.os" v-cloak>
-    <thead>
-      <tr>
-        <th>Compatible version(s) of <strong v-text="user.os == 'Mac' ? 'Mac' : 'Windows'"></strong></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td v-if="user.os == 'Mac'" v-cloak>-</td>
-        <td v-else>WindowsVista / Windows7 / Windows8</td>
-      </tr>
-    </tbody>
-  </table>
+      <table class="current_os" v-if="user.os" v-cloak>
+      <thead>
+        <tr>
+          <th>Compatible version(s) of <strong v-text="user.os == 'Mac' ? 'Mac' : 'Windows'"></strong></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td v-if="user.os == 'Mac'" v-cloak>-</td>
+          <td v-else>WindowsVista / Windows7 / Windows8</td>
+        </tr>
+      </tbody>
+    </table>
 
-  <ul class="guide_list"  v-cloak>
-    <li><a class="_osPopup" href="#" @click.stop.prevent="toggleDisplayMachineList()">View All OS Platforms</a></li>
-  </ul>
-
+    <ul class="guide_list"  v-cloak>
+      <li><a class="_osPopup" href="#" @click.stop.prevent="toggleDisplayMachineList()">View All OS Platforms</a></li>
+    </ul>
+  
   <div class="os_popup" :class="{ active: is_display_machine_list }">
     <div class="os_popup_header">OS Platforms</div>
     <div class="os_popup_body">
@@ -1748,31 +1731,31 @@ jQuery(function($){
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/ecchi-eng/work/=/product_id/RE205281.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ206000/RJ205281_img_sam_mini.jpg" alt="Nekopara vol.2 R18 DLC for Steam [NEKO WORKs]" title="Nekopara vol.2 R18 DLC for Steam [NEKO WORKs]"  class="target_type" /></a></td>
         <td class="name">          <span class="work_name"><a href="https://www.dlsite.com/ecchi-eng/work/=/product_id/RE205281.html">Nekopara vol.2 R18 DLC for Steam</a></span>
-          <span class="work_price">$8.70</span>
+          <span class="work_price">$8.95</span>
         </td>
       </tr>
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/ecchi-eng/work/=/product_id/RE205284.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ206000/RJ205284_img_sam_mini.jpg" alt="Nekopara vol.1 R18 DLC for Steam [NEKO WORKs]" title="Nekopara vol.1 R18 DLC for Steam [NEKO WORKs]"  class="target_type" /></a></td>
         <td class="name">          <span class="work_name"><a href="https://www.dlsite.com/ecchi-eng/work/=/product_id/RE205284.html">Nekopara vol.1 R18 DLC for Steam</a></span>
-          <span class="work_price">$8.70</span>
+          <span class="work_price">$8.95</span>
         </td>
       </tr>
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/ecchi-eng/work/=/product_id/RE200500.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ201000/RJ200500_img_sam_mini.jpg" alt="NEKOPARA Vol.3 Aromatiser des filles-chats [NEKO WORKs]" title="NEKOPARA Vol.3 Aromatiser des filles-chats [NEKO WORKs]"  class="target_type" /></a></td>
         <td class="name">          <span class="work_name"><a href="https://www.dlsite.com/ecchi-eng/work/=/product_id/RE200500.html">NEKOPARA Vol.3 Aromatiser des filles-chats</a></span>
-          <span class="work_price">$19.35</span>
+          <span class="work_price">$19.90</span>
         </td>
       </tr>
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/ecchi-eng/work/=/product_id/RE200911.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ201000/RJ200911_img_sam_mini.jpg" alt="Nekopara vol.3 R18 DLC for Steam [NEKO WORKs]" title="Nekopara vol.3 R18 DLC for Steam [NEKO WORKs]"  class="target_type" /></a></td>
         <td class="name">          <span class="work_name"><a href="https://www.dlsite.com/ecchi-eng/work/=/product_id/RE200911.html">Nekopara vol.3 R18 DLC for Steam</a></span>
-          <span class="work_price">$8.70</span>
+          <span class="work_price">$8.95</span>
         </td>
       </tr>
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/ecchi-eng/work/=/product_id/RE170327.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ171000/RJ170327_img_sam_mini.jpg" alt="NEKOPARA vol.2 Des soeurs filles-chat tres gentilles [NEKO WORKs]" title="NEKOPARA vol.2 Des soeurs filles-chat tres gentilles [NEKO WORKs]"  class="target_type" /></a></td>
         <td class="name">          <span class="work_name"><a href="https://www.dlsite.com/ecchi-eng/work/=/product_id/RE170327.html">NEKOPARA vol.2 Des soeurs filles-chat tres gentilles</a></span>
-          <span class="work_price">$19.35</span>
+          <span class="work_price">$19.90</span>
         </td>
       </tr>
             </table>
@@ -1945,7 +1928,7 @@ jQuery(function($){
 <div data-vue-component="cookie-policy" data-async="true"></div>
 
 <script type="text/javascript" src="/vue/js/pc/vendor.js?cdn_cache=1&v=0.1.2&_=1536029038"></script>
-<script type="text/javascript" src="/vue/js/pc/app.js?cdn_cache=1&v=0.1.2&_=1554881571"></script>
+<script type="text/javascript" src="/vue/js/pc/app.js?cdn_cache=1&v=0.1.2&_=1559289223"></script>
 
 
 <script type="text/javascript">
@@ -1988,6 +1971,6 @@ div.measure_tag {
 
 
 <!-- /script_footer -->
-<script type="text/javascript">var contents = {"impression":[],"detail":[{"id":"RE144678","name":"NEKOPARA vol.1","category":"ecchieng","brand":"RG23422","price":2000,"regist_date":"2014\/12\/30","image_main":"\/\/img.dlsite.jp\/modpub\/images2\/work\/doujin\/RJ145000\/RJ144678_img_main.jpg","restore_price":null}],"time":0.00034308433532715};</script>
+<script type="text/javascript">var contents = {"impression":[],"detail":[{"id":"RE144678","name":"NEKOPARA vol.1","category":"ecchieng","brand":"RG23422","price":2000,"regist_date":"2014\/12\/30","image_main":"\/\/img.dlsite.jp\/modpub\/images2\/work\/doujin\/RJ145000\/RJ144678_img_main.jpg","restore_price":null}],"time":0.00010609626770019531};</script>
 </body>
 </html>

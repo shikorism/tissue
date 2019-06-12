@@ -42,18 +42,18 @@
 <script>/dlsite_dozen=/.test(document.cookie) || (document.cookie = 'dlsite_dozen=' + Math.floor(Math.random() * 12) + '; path=/; max-age=63072000')</script>
 
 <link rel="stylesheet" href="/css/reset.css?1459221919" type="text/css" id="reset" />
-<link rel="stylesheet" href="/css/default.css?1546847343" type="text/css" id="default" />
+<link rel="stylesheet" href="/css/default.css?1559631936" type="text/css" id="default" />
 <link rel="stylesheet" href="/css/layout_2col_work.css?1552974983" type="text/css" id="layout_2col_work" />
-<link rel="stylesheet" href="/css/common.css?1556259018" type="text/css" id="common" />
+<link rel="stylesheet" href="/css/common.css?1559876752" type="text/css" id="common" />
 <link rel="stylesheet" href="/css/switch.css?1551748184" type="text/css" id="switch" />
-<link rel="stylesheet" href="/css/suggest.css?1532410575" type="text/css" id="suggest" />
-<link rel="stylesheet" href="/css/header_campaign_banner.css?1555661384" type="text/css" id="header_campaign_banner" />
+<link rel="stylesheet" href="/css/suggest.css?1559631936" type="text/css" id="suggest" />
+<link rel="stylesheet" href="/css/header_campaign_banner.css?1559723711" type="text/css" id="header_campaign_banner" />
 <link rel="stylesheet" href="/assets/share/css/universal/universal.css?" type="text/css" id="universal" />
-<link rel="stylesheet" href="/css/work_template.css?1554196442" type="text/css" id="work_template" />
-<link rel="stylesheet" href="/css/work_slider.css?1536028348" type="text/css" id="work_slider" />
+<link rel="stylesheet" href="/css/work_template.css?1559631936" type="text/css" id="work_template" />
+<link rel="stylesheet" href="/css/work_slider.css?1559631936" type="text/css" id="work_slider" />
 
 <script type="text/javascript" src="/js/libs/libraries-pack.js?1502345903"></script>
-<script type="text/javascript" src="/js/dlsite_util.js?1554195599"></script>
+<script type="text/javascript" src="/js/dlsite_util.js?1557910552"></script>
 <script type="text/javascript" src="/js/slide_menu.js?1511946236"></script>
 <script type="text/javascript" src="/js/dlsite_suggest.js?1550024738"></script>
 <script type="text/javascript" src="/js/dlsite_trigger.js?1544681008"></script>
@@ -122,7 +122,7 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
       <li class="eisysGroupHeaderService-link type-nijiyome">
         <a href="https://www.nijiyome.jp?en=dlsite&em=text&et=pc_globalheader_books">オンラインゲーム</a>
       </li>
-      <li class="eisysGroupHeaderService-link type-cien type-new">
+      <li class="eisysGroupHeaderService-link type-cien">
         <a href="https://ci-en.jp/?pc_globalheader_dlsite">クリエイター支援</a>
       </li>
       <li class="eisysGroupHeaderService-link type-channel">
@@ -130,6 +130,9 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
       </li>
       <li class="eisysGroupHeaderService-link type-chobit">
         <a href="https://chobit.cc/?pc_globalheader_dlsite">無料体験版</a>
+      </li>
+      <li class="eisysGroupHeaderService-link type-triokini type-new">
+        <a href="https://triokini.com/how_to_use?pc_globalheader_dlsite">即売会取り置き</a>
       </li>
     </ul>
     <ul class="eisysGroupHeaderAccount" data-vue-component="header-account" data-vue-async="true">
@@ -237,6 +240,9 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
             <button id="search_button" class="globalSearchBtn" type="submit" @click="saveSelected()"><i>検索</i></button>
           </form>
         </div>
+        <div class="detailedSearch">
+          <a href="https://www.dlsite.com/books/fs">詳細検索</a>
+        </div>
             <!-- /検索 -->
       <!-- アイコンメニュー -->
       <ul class="globalNav">
@@ -271,7 +277,6 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
           <li class="floorTab-item type-ebook  is-active"><a href="https://www.dlsite.com/books/">成年コミック</a></li>
           <li class="floorTab-item type-com   "><a href="https://www.dlsite.com/pro/">美少女ゲーム</a>  </li>
           <li class="floorTab-item type-nijiyome"><a href="https://www.nijiyome.jp?en=dlsite&em=tab&et=books">にじよめ</a></li>
-          <li class="floorTab-item type-nijiyome type-new"><a href="https://www.nijiyome.com/app/top/milihime-taisen">ミリ姫大戦</a></li>
         </ul>
                         <div v-if="isAccountLogin" v-cloak class="noticeNav">
           <div class="noticeNav-item">
@@ -300,22 +305,7 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
         </div>
               </div>
 
-          <ul class="headerNav">
-                        <li class="headerNav-item">
-                    <a v-if="isRankingFilterCondition" v-cloak href="https://www.dlsite.com/books/ranking?date=30d">ランキング</a>
-            <a v-else href="https://www.dlsite.com/books/ranking">ランキング</a>
-                </li>
-                              <li class="headerNav-item"><a href="https://www.dlsite.com/books/fsr/=/dlsite_only/1/dlsite_lead/1/work_category/books/show_type/2/per_page/50">DLsite独占/先行作品</a></li>
-            <li class="headerNav-item"><a href="https://www.dlsite.com/books/fsr/=/work_category/books/campaign/campaign/show_type/2/per_page/50">割引中の作品</a></li>
-                  
-                  <li class="headerNav-item"><a href="https://www.dlsite.com/books/new">発売カレンダー</a></li>
-        
-        
-                  <li class="headerNav-item"><a href="https://www.dlsite.com/books/circle/list">出版社/著者一覧</a></li>
-        
-        <li class="headerNav-item"><a href="https://www.dlsite.com/books/fs">詳細検索</a></li>
-      </ul>
-        </div>
+    </div>
   </div>
 </header>
 
@@ -342,21 +332,7 @@ if (loginchecked & 1) {
 
 <!--data-vue-component="header-banner"-->
 <div data-vue-component="header-banner" data-vue-async="true" data-section_name="campaign_header_banner">
-    <div v-if="loading" class="hd_cp_banner type_1bn">
-    <ul class="cp_bn_list">
-            <li class="cp_bn_item type_16">
-        <a href="https://www.dlsite.com/books/campaign/half201904c">
-          <div class="cp_bn_inner">
-            <div class="cp_bn_reminder">
-              <div class="cp_bn_reminder_content"><i class="cp_bn_reminder_period type_date">5/13</i><i class="cp_bn_reminder_period type_time">14時</i>まで</div>
-            </div>
-            <div class="cp_bn"><img src="/images/campaign/pro_sale1904/bn_hd_cp_books.png"></div>
-                        <div class="cp_bn_work"><div class="cp_bn_work_inner">対象作品<i class="cp_bn_work_count">7,000</i>作品以上！</div></div>
-                      </div>
-        </a>
-      </li>
-          </ul>
-  </div>
+    <div v-if="loading"></div>
     
   <div v-else-if="is_show_frame" :class="style" class="hd_cp_banner" v-cloak>
     <ul class="cp_bn_list">
@@ -433,20 +409,6 @@ if (loginchecked & 1) {
 <div id="main" data-section_name="main">
 <!-- main_inner -->
 <div id="main_inner">
-
-<script language="JavaScript">
-<!--
-function open_trinity_window(url)
-{
-  wx = 850;
-  wy = 650;
-  x = (screen.width - wx) / 2;
-  y = (screen.height - wy) / 2;
-  window.open(url, "tricheck", 'scrollbars=yes,location=no,menubar=no,width='+wx+',height='+wy+',left='+x+',top='+y);
-}
--->
-</script>
-
 
 <!-- work_header -->
 <div id="work_header">
@@ -548,8 +510,8 @@ function open_trinity_window(url)
 
 <!--
 <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
-<meta itemprop="ratingValue" content="4.83" />
-<meta itemprop="ratingCount" content="98" />
+<meta itemprop="ratingValue" content="4.82" />
+<meta itemprop="ratingCount" content="695" />
 </div>
 -->
 <!-- 王冠/DL数/評価/レビュー ここまで -->
@@ -573,11 +535,13 @@ function open_trinity_window(url)
         <div ref="swiper" class="slider_body_inner">
           <ul class="slider_items trans" ref="body_items" @click="showPopup">
 
-            <li v-if="items.length === 0" class="slider_item active"><img itemprop="image" src="//img.dlsite.jp/modpub/images2/work/books/BJ192000/BJ191317_img_main.jpg" width="auto" height="450"></li>
+            <li v-if="items.length === 0" class="slider_item active"><img itemprop="image" src="//img.dlsite.jp/modpub/images2/work/books/BJ192000/BJ191317_img_main.jpg" width="auto" height="450" alt="永遠娘 vol.6 [茜新社]"></li>
 
           <template v-for="(item, index) in items">
-            <li v-if="index === 0" class="slider_item active"><img itemprop="image" :src="item.src"></li>
-            <li v-else             class="slider_item" ><img :src="item.src"></li>
+
+            <li v-if="index === 0" class="slider_item active"><img itemprop="image" :src="item.src" alt="永遠娘 vol.6 [茜新社]"></li>
+            <li v-else             class="slider_item" ><img :src="item.src" alt="永遠娘 vol.6 [茜新社]"></li>
+
           </template>
           </ul>
         </div>
@@ -591,7 +555,9 @@ function open_trinity_window(url)
           <template v-for="(item, index) in items">
             <li class="controller_item" :class="{active:(index === swiper.realIndex)}" @click="slideTo(index)">
               <div class="thumb_box">
-                <img :src="item.thumb.src" :width="item.thumb.width" :height="item.thumb.height">
+
+                <img :src="item.thumb.src" :width="item.thumb.width" :height="item.thumb.height" alt="永遠娘 vol.6 [茜新社]">
+
               </div>
             </li>
           </template>
@@ -617,7 +583,9 @@ function open_trinity_window(url)
         <div class="slider_popup_sidebar">
         <template v-for="(item, index) in items">
           <div target="_blank" :class="{active:(index === swiper.realIndex)}" @click="slideTo(index, false)">
-            <img :src="item.thumb.src">
+
+            <img :src="item.thumb.src" alt="永遠娘 vol.6 [茜新社]">
+
           </div>
         </template>
         </div>
@@ -632,7 +600,9 @@ function open_trinity_window(url)
       <div class="slider_popup_leftpane">
         <div ref="mainbox" class="slider_popup_mainbox" @wheel.prevent="slideScroll">
           <div  class="slider_zoom_container" ref="zoom_container" @mousemove.prevent="setPopupPosition" @click="setPopupImage(true)">
-            <img :src="items[swiper.realIndex].src" ref="zoom_container_image">
+
+            <img :src="items[swiper.realIndex].src" ref="zoom_container_image" alt="永遠娘 vol.6 [茜新社]">
+
           </div>
         </div>
         <div class="slider_popup_tool">
@@ -684,7 +654,9 @@ function open_trinity_window(url)
 <tr><th>シリーズ名</th><td><a href="https://www.dlsite.com/books/fsr/=/keyword_work_name/%E6%B0%B8%E9%81%A0%E5%A8%98+TITLE00002658/order/title_d/from/work.titles">永遠娘</a></td></tr>
 <tr><th>年齢指定</th><td><div class="work_genre"><a href="https://www.dlsite.com/books/fsr/=/work_category%5B0%5D/books/age_category/3/from/icon.work"><span class="icon_ADL" title="18禁">18禁</span></a></div></td></tr>
 <tr><th>作品形式</th><td><div class="work_genre"><a href="https://www.dlsite.com/books/fsr/=/work_category%5B0%5D/books/work_type/MNG/from/icon.work"><span class="icon_MNG" title="マンガ">マンガ</span></a><a href="https://www.dlsite.com/books/fsr/=/work_category%5B0%5D/books/keyword/%E9%9B%91%E8%AA%8C%2F%E3%82%A2%E3%83%B3%E3%82%BD%E3%83%AD/from/icon.work"><span class="icon_MAG" title="雑誌/アンソロ">雑誌/アンソロ</span></a></div></td></tr>
+
 <tr><th>ファイル形式</th><td><div class="work_genre"><span class="icon_PVA" title="専用ビューア">専用ビューア</span></div></td></tr>
+
 <tr><th>ページ数</th><td>360</td></tr>
 <tr><th>ジャンル</th><td><div class="main_genre"><a href="https://www.dlsite.com/books/fsr/=/genre/059/work_category%5B0%5D/books/from/work.genre">ツンデレ</a><a href="https://www.dlsite.com/books/fsr/=/genre/207/work_category%5B0%5D/books/from/work.genre">ロリ</a><a href="https://www.dlsite.com/books/fsr/=/genre/243/work_category%5B0%5D/books/from/work.genre">妖怪</a><a href="https://www.dlsite.com/books/fsr/=/genre/317/work_category%5B0%5D/books/from/work.genre">人外娘/モンスター娘</a><a href="https://www.dlsite.com/books/fsr/=/genre/075/work_category%5B0%5D/books/from/work.genre">セーラー服</a><a href="https://www.dlsite.com/books/fsr/=/genre/078/work_category%5B0%5D/books/from/work.genre">メイド</a><a href="https://www.dlsite.com/books/fsr/=/genre/102/work_category%5B0%5D/books/from/work.genre">ストッキング</a><a href="https://www.dlsite.com/books/fsr/=/genre/016/work_category%5B0%5D/books/from/work.genre">ファンタジー</a><a href="https://www.dlsite.com/books/fsr/=/genre/126/work_category%5B0%5D/books/from/work.genre">ぶっかけ</a><a href="https://www.dlsite.com/books/fsr/=/genre/128/work_category%5B0%5D/books/from/work.genre">中出し</a><a href="https://www.dlsite.com/books/fsr/=/genre/120/work_category%5B0%5D/books/from/work.genre">近親相姦</a><a href="https://www.dlsite.com/books/fsr/=/genre/323/work_category%5B0%5D/books/from/work.genre">アヘ顔</a><a href="https://www.dlsite.com/books/fsr/=/genre/488/work_category%5B0%5D/books/from/work.genre">口内射精</a></div></td></tr>
 <tr><th>ファイル容量</th><td><div class="main_genre">
@@ -1154,12 +1126,64 @@ jQuery(function($){
                       <li class="matome_box_inner swiper-slide">
               <div class="matome_content">
                 <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/36365" target="_blank">
+                  <a href="https://ch.dlsite.com/matome/24747?dls=&k_matome_books_pc" target="_blank">
+                    <img src="https://media.dlsite.com/proxy/165e2341d0aacdaec0eb0a86bd1ff6ae5484b309/68747470733a2f2f626c6f672d696d67732d3130312e6663322e636f6d2f6e2f692f6a2f6e696a6965726f686179756d65746f6b69626f752f32303139303530323131333034303431322e676966" alt="【TOP50】平成３１年総決算！同人・成年コミック・美少女ゲーム・総合ＤＬ数ランキング！！"
+                         title="【TOP50】平成３１年総決算！同人・成年コミック・美少女ゲーム・総合ＤＬ数ランキング！！"></a>
+                </div>
+                <p class="matome_content_title">
+                  <a href="https://ch.dlsite.com/matome/24747?dls=&k_matome_books_pc"
+                     target="_blank">【TOP50】平成３１年総決算！同人・成年コミック・美少女ゲーム・総合ＤＬ数ランキング！！</a>
+                </p>
+              </div>
+            </li>
+                      <li class="matome_box_inner swiper-slide">
+              <div class="matome_content">
+                <div class="matome_img_main">
+                  <a href="https://ch.dlsite.com/matome/37077?dls=&k_matome_books_pc" target="_blank">
+                    <img src="https://media.dlsite.com/proxy/4e058843df944a33071800813fba7f3a0196f098/68747470733a2f2f696d672e646c736974652e6a702f6d6f647075622f696d61676573322f776f726b2f626f6f6b732f424a3139343030302f424a3139333930395f696d675f6d61696e2e6a7067" alt="【5月2日～5月9日】成年コミック週間ランキング！"
+                         title="【5月2日～5月9日】成年コミック週間ランキング！"></a>
+                </div>
+                <p class="matome_content_title">
+                  <a href="https://ch.dlsite.com/matome/37077?dls=&k_matome_books_pc"
+                     target="_blank">【5月2日～5月9日】成年コミック週間ランキング！</a>
+                </p>
+              </div>
+            </li>
+                      <li class="matome_box_inner swiper-slide">
+              <div class="matome_content">
+                <div class="matome_img_main">
+                  <a href="https://ch.dlsite.com/matome/37848?dls=&k_matome_books_pc" target="_blank">
+                    <img src="https://media.dlsite.com/proxy/7e0e5ef2e5e5f642251f77fbc1a427a60c7fc939/68747470733a2f2f696d672e646c736974652e6a702f6d6f647075622f696d61676573322f776f726b2f626f6f6b732f424a3139363030302f424a3139353630375f696d675f6d61696e2e6a7067" alt="【5月16日～5月23日】成年コミック週間ランキング！"
+                         title="【5月16日～5月23日】成年コミック週間ランキング！"></a>
+                </div>
+                <p class="matome_content_title">
+                  <a href="https://ch.dlsite.com/matome/37848?dls=&k_matome_books_pc"
+                     target="_blank">【5月16日～5月23日】成年コミック週間ランキング！</a>
+                </p>
+              </div>
+            </li>
+                      <li class="matome_box_inner swiper-slide">
+              <div class="matome_content">
+                <div class="matome_img_main">
+                  <a href="https://ch.dlsite.com/matome/36917?dls=&k_matome_books_pc" target="_blank">
+                    <img src="https://media.dlsite.com/proxy/e75401dd3cc1ab203c1c4624eb9c83bffb847f07/68747470733a2f2f6f67616d693131302e636f6d2f33336e616d65766f6963652f77702d636f6e74656e742f75706c6f6164732f323031392f30332f3230313930345f2545362538382539302545352542392542342545332538322542332545332538332539462545332538332538332545332538322541462545332538332541392545332538332542332545332538322541442545332538332542332545332538322542302e676966" alt="㊗令和🎉【2019年4月】成年コミック・電子書籍ランキング『1位～50位』洗い屋さんがアニメ化！？"
+                         title="㊗令和🎉【2019年4月】成年コミック・電子書籍ランキング『1位～50位』洗い屋さんがアニメ化！？"></a>
+                </div>
+                <p class="matome_content_title">
+                  <a href="https://ch.dlsite.com/matome/36917?dls=&k_matome_books_pc"
+                     target="_blank">㊗令和🎉【2019年4月】成年コミック・電子書籍ランキング『1位～50位』洗い屋さんがアニメ化！？</a>
+                </p>
+              </div>
+            </li>
+                      <li class="matome_box_inner swiper-slide">
+              <div class="matome_content">
+                <div class="matome_img_main">
+                  <a href="https://ch.dlsite.com/matome/36365?dls=&k_matome_books_pc" target="_blank">
                     <img src="https://media.dlsite.com/proxy/033cc4485b816aaffd464357394132502ed40359/68747470733a2f2f696d672e646c736974652e6a702f6d6f647075622f696d61676573322f776f726b2f626f6f6b732f424a3139323030302f424a3139313331375f696d675f6d61696e2e6a7067" alt="永遠娘 vol.6"
                          title="永遠娘 vol.6"></a>
                 </div>
                 <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/36365"
+                  <a href="https://ch.dlsite.com/matome/36365?dls=&k_matome_books_pc"
                      target="_blank">永遠娘 vol.6</a>
                 </p>
               </div>
@@ -1171,7 +1195,7 @@ jQuery(function($){
     </div>
     <ul class="matome_more">
               <li><p class="matome_text"><a href="https://ch.dlsite.com/antenna/425376/contents?mode=matome"
-                                      target="_blank">すべてのまとめ記事を見る（3件）</a></p></li>
+                                      target="_blank">すべてのまとめ記事を見る（9件）</a></p></li>
             <li class="matome_btn"><a href="https://ch.dlsite.com/matome/create" target="_blank"
                                 class="btn_post size_xxl fs15"><i>まとめ記事を作成する</i></a></li>
     </ul>
@@ -1511,10 +1535,6 @@ jQuery(function($){
   </div>
     
   
-  <ul class="guide_list"  v-cloak>
-    <li><a class="_osPopup" href="#" @click.stop.prevent="toggleDisplayMachineList()">すべての対応OSを表示する</a></li>
-  </ul>
-
   <div class="os_popup" :class="{ active: is_display_machine_list }">
     <div class="os_popup_header">対応OS</div>
     <div class="os_popup_body">
@@ -1560,6 +1580,22 @@ jQuery(function($){
 
   <div class="right_module_content">
         <table cellspacing="0" class="same_work">
+              <tr>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ196336.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ197000/BJ196336_img_sam_mini.jpg" alt="永遠娘 朧絵巻 参 [茜新社]" title="永遠娘 朧絵巻 参 [茜新社]"  class="target_type" /></a></td>
+        <td class="name">
+                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ196336.html">永遠娘 朧絵巻 参</a></span>
+          <span class="work_price">￥648</span>
+        </td>
+      </tr>
+              <tr>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ196410.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ197000/BJ196410_img_sam_mini.jpg" alt="妖怪小料理屋にようこそ【DLsite限定特典付き】 [茜新社]" title="妖怪小料理屋にようこそ【DLsite限定特典付き】 [茜新社]"  class="target_type" /></a></td>
+        <td class="name">
+                      <div class="icon_wrap">
+              <span class="icon_option type_exclusive">専売</span>                          </div>
+                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ196410.html">妖怪小料理屋にようこそ【DLsite限定特典付き】</a></span>
+          <span class="work_price">￥1,199</span>
+        </td>
+      </tr>
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ190242.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ191000/BJ190242_img_sam_mini.jpg" alt="COMIC快楽天 2019年5月号 [ワニマガジン社]" title="COMIC快楽天 2019年5月号 [ワニマガジン社]"  class="target_type" /></a></td>
         <td class="name">
@@ -1654,25 +1690,18 @@ jQuery(function($){
           <span class="work_price">￥756</span>
         </td>
       </tr>
-              <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ150784.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ151000/BJ150784_img_sam_mini.jpg" alt="人形の蔵【単話】 [キルタイムコミュニケーション]" title="人形の蔵【単話】 [キルタイムコミュニケーション]"  class="target_type" /></a></td>
-        <td class="name">
-                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ150784.html">人形の蔵【単話】</a></span>
-          <span class="work_price">￥324</span>
-        </td>
-      </tr>
-              <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ150747.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ151000/BJ150747_img_sam_mini.jpg" alt="牧場の牛娘しあん【単話】 [キルタイムコミュニケーション]" title="牧場の牛娘しあん【単話】 [キルタイムコミュニケーション]"  class="target_type" /></a></td>
-        <td class="name">
-                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ150747.html">牧場の牛娘しあん【単話】</a></span>
-          <span class="work_price">￥324</span>
-        </td>
-      </tr>
             </table>
     <p class="more_right"><a href="https://www.dlsite.com/books/fsr/=/keyword_maker_name/AJ013716%7CAJ012937%7CAJ020908%7CAJ018419%7CAJ010863%7CAJ013908%7CAJ019558%7CAJ020909%7CAJ013911%7CAJ020910%7CAJ019557%7CAJ008754%7CAJ016794/from/work.same_author">作品をもっと見る</a></p>
     
                 <div class="list_head"><h4>レーベルの作品</h4></div>
             <table cellspacing="0" class="same_work">
+              <tr>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ196336.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ197000/BJ196336_img_sam_mini.jpg" alt="永遠娘 朧絵巻 参 [茜新社]" title="永遠娘 朧絵巻 参 [茜新社]"  class="target_type" /></a></td>
+        <td class="name">
+          <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ196336.html">永遠娘 朧絵巻 参</a></span>
+          <span class="work_price">￥648</span>
+        </td>
+      </tr>
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ177762.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ178000/BJ177762_img_sam_mini.jpg" alt="永遠娘 朧絵巻 弐 [茜新社]" title="永遠娘 朧絵巻 弐 [茜新社]"  class="target_type" /></a></td>
         <td class="name">
@@ -1740,11 +1769,11 @@ jQuery(function($){
 
 
 
-              <!-- nijiyome_bnr -->
+          <!-- nijiyome_bnr -->
     <div id="footer_nijiyome_banner" class="bn_footer_1box" data-section_name="footer_banner">
       <div class="bcs_viewer" data-service="dlsite" data-site="common" data-frame="pc-long-banner" data-ext-action="random" data-ext-empty="footer_nijiyome_banner"></div>
     </div>
-      
+  
 
 
 
@@ -1876,7 +1905,7 @@ jQuery(function($){
 <div data-vue-component="cookie-policy" data-async="true"></div>
 
 <script type="text/javascript" src="/vue/js/pc/vendor.js?cdn_cache=1&v=0.1.2&_=1536029038"></script>
-<script type="text/javascript" src="/vue/js/pc/app.js?cdn_cache=1&v=0.1.2&_=1554881571"></script>
+<script type="text/javascript" src="/vue/js/pc/app.js?cdn_cache=1&v=0.1.2&_=1559289223"></script>
 
 
 <script type="text/javascript">
@@ -1919,6 +1948,6 @@ div.measure_tag {
 
 
 <!-- /script_footer -->
-<script type="text/javascript">var contents = {"impression":[],"detail":[{"id":"BJ191317","name":"\u6c38\u9060\u5a18 vol.6","category":"books","brand":"BG01273","price":1000,"regist_date":"2019\/04\/26","image_main":"\/\/img.dlsite.jp\/modpub\/images2\/work\/books\/BJ192000\/BJ191317_img_main.jpg","restore_price":null}],"time":0.00047993659973145};</script>
+<script type="text/javascript">var contents = {"impression":[],"detail":[{"id":"BJ191317","name":"\u6c38\u9060\u5a18 vol.6","category":"books","brand":"BG01273","price":1000,"regist_date":"2019\/04\/26","image_main":"\/\/img.dlsite.jp\/modpub\/images2\/work\/books\/BJ192000\/BJ191317_img_main.jpg","restore_price":null}],"time":0.00010704994201660156};</script>
 </body>
 </html>

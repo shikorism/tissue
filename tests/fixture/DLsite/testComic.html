@@ -41,18 +41,18 @@
 <script>/dlsite_dozen=/.test(document.cookie) || (document.cookie = 'dlsite_dozen=' + Math.floor(Math.random() * 12) + '; path=/; max-age=63072000')</script>
 
 <link rel="stylesheet" href="/css/reset.css?1459221919" type="text/css" id="reset" />
-<link rel="stylesheet" href="/css/default.css?1546847343" type="text/css" id="default" />
+<link rel="stylesheet" href="/css/default.css?1559631936" type="text/css" id="default" />
 <link rel="stylesheet" href="/css/layout_2col_work.css?1552974983" type="text/css" id="layout_2col_work" />
-<link rel="stylesheet" href="/css/common.css?1556259018" type="text/css" id="common" />
+<link rel="stylesheet" href="/css/common.css?1559876752" type="text/css" id="common" />
 <link rel="stylesheet" href="/css/switch.css?1551748184" type="text/css" id="switch" />
-<link rel="stylesheet" href="/css/suggest.css?1532410575" type="text/css" id="suggest" />
-<link rel="stylesheet" href="/css/header_campaign_banner.css?1555661384" type="text/css" id="header_campaign_banner" />
+<link rel="stylesheet" href="/css/suggest.css?1559631936" type="text/css" id="suggest" />
+<link rel="stylesheet" href="/css/header_campaign_banner.css?1559723711" type="text/css" id="header_campaign_banner" />
 <link rel="stylesheet" href="/assets/share/css/universal/universal.css?" type="text/css" id="universal" />
-<link rel="stylesheet" href="/css/work_template.css?1554196442" type="text/css" id="work_template" />
-<link rel="stylesheet" href="/css/work_slider.css?1536028348" type="text/css" id="work_slider" />
+<link rel="stylesheet" href="/css/work_template.css?1559631936" type="text/css" id="work_template" />
+<link rel="stylesheet" href="/css/work_slider.css?1559631936" type="text/css" id="work_slider" />
 
 <script type="text/javascript" src="/js/libs/libraries-pack.js?1502345903"></script>
-<script type="text/javascript" src="/js/dlsite_util.js?1554195599"></script>
+<script type="text/javascript" src="/js/dlsite_util.js?1557910552"></script>
 <script type="text/javascript" src="/js/slide_menu.js?1511946236"></script>
 <script type="text/javascript" src="/js/dlsite_suggest.js?1550024738"></script>
 <script type="text/javascript" src="/js/dlsite_trigger.js?1544681008"></script>
@@ -120,7 +120,7 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
       <li class="eisysGroupHeaderService-link type-nijiyome">
         <a href="https://www.nijiyome.com?en=dlsite&em=text&et=pc_globalheader_comic">オンラインゲーム</a>
       </li>
-      <li class="eisysGroupHeaderService-link type-cien type-new">
+      <li class="eisysGroupHeaderService-link type-cien">
         <a href="https://ci-en.net/?pc_globalheader_dlsite">クリエイター支援</a>
       </li>
       <li class="eisysGroupHeaderService-link type-channel">
@@ -128,6 +128,9 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
       </li>
       <li class="eisysGroupHeaderService-link type-chobit">
         <a href="https://chobit.cc/?pc_globalheader_dlsite">無料体験版</a>
+      </li>
+      <li class="eisysGroupHeaderService-link type-triokini type-new">
+        <a href="https://triokini.com/how_to_use?pc_globalheader_dlsite">即売会取り置き</a>
       </li>
     </ul>
     <ul class="eisysGroupHeaderAccount" data-vue-component="header-account" data-vue-async="true">
@@ -235,6 +238,9 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
             <button id="search_button" class="globalSearchBtn" type="submit" @click="saveSelected()"><i>検索</i></button>
           </form>
         </div>
+        <div class="detailedSearch">
+          <a href="https://www.dlsite.com/comic/fs">詳細検索</a>
+        </div>
             <!-- /検索 -->
       <!-- アイコンメニュー -->
       <ul class="globalNav">
@@ -269,7 +275,6 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
           <li class="floorTab-item type-ebook  is-active"><a href="https://www.dlsite.com/comic/">コミック</a></li>
           <li class="floorTab-item type-com   "><a href="https://www.dlsite.com/soft/">PCソフト</a> </li>
           <li class="floorTab-item type-nijiyome"><a href="https://www.nijiyome.com/app?en=dlsite&em=tab&et=comic">にじよめ</a></li>
-          <li class="floorTab-item type-nijiyome type-new"><a href="https://www.nijiyome.com/app/top/milihime-taisen">ミリ姫大戦</a></li>
         </ul>
                         <div v-if="isAccountLogin" v-cloak class="noticeNav">
           <div class="noticeNav-item">
@@ -298,22 +303,7 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
         </div>
               </div>
 
-          <ul class="headerNav">
-                                          <li class="headerNav-item">
-                    <a v-if="isRankingFilterCondition" v-cloak href="https://www.dlsite.com/comic/ranking/week?date=30d">ランキング</a>
-            <a v-else href="https://www.dlsite.com/comic/ranking/week">ランキング</a>
-                </li>
-                              <li class="headerNav-item"><a href="https://www.dlsite.com/comic/fsr/=/work_category/books/campaign/campaign/show_type/2/per_page/50">割引中の作品</a></li>
-            <li class="headerNav-item"><a href="https://www.dlsite.com/comic/new/review">新着レビュー</a></li>
-                  
-                  <li class="headerNav-item"><a href="https://www.dlsite.com/comic/new">発売カレンダー</a></li>
-        
-        
-                  <li class="headerNav-item"><a href="https://www.dlsite.com/comic/circle/list">出版社/著者一覧</a></li>
-        
-        <li class="headerNav-item"><a href="https://www.dlsite.com/comic/fs">詳細検索</a></li>
-      </ul>
-        </div>
+    </div>
   </div>
 </header>
 
@@ -340,21 +330,7 @@ if (loginchecked & 1) {
 
 <!--data-vue-component="header-banner"-->
 <div data-vue-component="header-banner" data-vue-async="true" data-section_name="campaign_header_banner">
-    <div v-if="loading" class="hd_cp_banner type_1bn">
-    <ul class="cp_bn_list">
-            <li class="cp_bn_item type_16">
-        <a href="https://www.dlsite.com/comic/campaign/half201904c">
-          <div class="cp_bn_inner">
-            <div class="cp_bn_reminder">
-              <div class="cp_bn_reminder_content"><i class="cp_bn_reminder_period type_date">5/13</i><i class="cp_bn_reminder_period type_time">14時</i>まで</div>
-            </div>
-            <div class="cp_bn"><img src="/images/campaign/pro_sale1904/bn_hd_cp_comic.png"></div>
-                        <div class="cp_bn_work"><div class="cp_bn_work_inner">対象作品<i class="cp_bn_work_count">2,600</i>作品以上！</div></div>
-                      </div>
-        </a>
-      </li>
-          </ul>
-  </div>
+    <div v-if="loading"></div>
     
   <div v-else-if="is_show_frame" :class="style" class="hd_cp_banner" v-cloak>
     <ul class="cp_bn_list">
@@ -431,20 +407,6 @@ if (loginchecked & 1) {
 <div id="main" data-section_name="main">
 <!-- main_inner -->
 <div id="main_inner">
-
-<script language="JavaScript">
-<!--
-function open_trinity_window(url)
-{
-  wx = 850;
-  wy = 650;
-  x = (screen.width - wx) / 2;
-  y = (screen.height - wy) / 2;
-  window.open(url, "tricheck", 'scrollbars=yes,location=no,menubar=no,width='+wx+',height='+wy+',left='+x+',top='+y);
-}
--->
-</script>
-
 
 <!-- work_header -->
 <div id="work_header">
@@ -547,7 +509,7 @@ function open_trinity_window(url)
 <!--
 <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
 <meta itemprop="ratingValue" content="4.77" />
-<meta itemprop="ratingCount" content="279" />
+<meta itemprop="ratingCount" content="283" />
 </div>
 -->
 <!-- 王冠/DL数/評価/レビュー ここまで -->
@@ -571,11 +533,13 @@ function open_trinity_window(url)
         <div ref="swiper" class="slider_body_inner">
           <ul class="slider_items trans" ref="body_items" @click="showPopup">
 
-            <li v-if="items.length === 0" class="slider_item active"><img itemprop="image" src="//img.dlsite.jp/modpub/images2/work/books/BJ139000/BJ138581_img_main.jpg" width="auto" height="450"></li>
+            <li v-if="items.length === 0" class="slider_item active"><img itemprop="image" src="//img.dlsite.jp/modpub/images2/work/books/BJ139000/BJ138581_img_main.jpg" width="auto" height="450" alt="快楽ヒストリエ [ワニマガジン社]"></li>
 
           <template v-for="(item, index) in items">
-            <li v-if="index === 0" class="slider_item active"><img itemprop="image" :src="item.src"></li>
-            <li v-else             class="slider_item" ><img :src="item.src"></li>
+
+            <li v-if="index === 0" class="slider_item active"><img itemprop="image" :src="item.src" alt="快楽ヒストリエ [ワニマガジン社]"></li>
+            <li v-else             class="slider_item" ><img :src="item.src" alt="快楽ヒストリエ [ワニマガジン社]"></li>
+
           </template>
           </ul>
         </div>
@@ -589,7 +553,9 @@ function open_trinity_window(url)
           <template v-for="(item, index) in items">
             <li class="controller_item" :class="{active:(index === swiper.realIndex)}" @click="slideTo(index)">
               <div class="thumb_box">
-                <img :src="item.thumb.src" :width="item.thumb.width" :height="item.thumb.height">
+
+                <img :src="item.thumb.src" :width="item.thumb.width" :height="item.thumb.height" alt="快楽ヒストリエ [ワニマガジン社]">
+
               </div>
             </li>
           </template>
@@ -615,7 +581,9 @@ function open_trinity_window(url)
         <div class="slider_popup_sidebar">
         <template v-for="(item, index) in items">
           <div target="_blank" :class="{active:(index === swiper.realIndex)}" @click="slideTo(index, false)">
-            <img :src="item.thumb.src">
+
+            <img :src="item.thumb.src" alt="快楽ヒストリエ [ワニマガジン社]">
+
           </div>
         </template>
         </div>
@@ -630,7 +598,9 @@ function open_trinity_window(url)
       <div class="slider_popup_leftpane">
         <div ref="mainbox" class="slider_popup_mainbox" @wheel.prevent="slideScroll">
           <div  class="slider_zoom_container" ref="zoom_container" @mousemove.prevent="setPopupPosition" @click="setPopupImage(true)">
-            <img :src="items[swiper.realIndex].src" ref="zoom_container_image">
+
+            <img :src="items[swiper.realIndex].src" ref="zoom_container_image" alt="快楽ヒストリエ [ワニマガジン社]">
+
           </div>
         </div>
         <div class="slider_popup_tool">
@@ -682,7 +652,9 @@ function open_trinity_window(url)
 <tr><th>シリーズ名</th><td><a href="https://www.dlsite.com/comic/fsr/=/keyword_work_name/%E5%BF%AB%E6%A5%BD%E3%83%92%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A8+TITLE00040537/order/title_d/from/work.titles">快楽ヒストリエ</a></td></tr>
 <tr><th>年齢指定</th><td><div class="work_genre"><span class="icon_GEN">全年齢</span></div></td></tr>
 <tr><th>作品形式</th><td><div class="work_genre"><a href="https://www.dlsite.com/comic/fsr/=/work_category%5B0%5D/books/work_type/MNG/from/icon.work"><span class="icon_MNG" title="マンガ">マンガ</span></a><a href="https://www.dlsite.com/comic/fsr/=/work_category%5B0%5D/books/keyword/%E5%8D%98%E8%A1%8C%E6%9C%AC/from/icon.work"><span class="icon_TNB" title="単行本">単行本</span></a></div></td></tr>
+
 <tr><th>ファイル形式</th><td><div class="work_genre"><span class="icon_PVA" title="専用ビューア">専用ビューア</span></div></td></tr>
+
 <tr><th>ページ数</th><td>155</td></tr>
 <tr><th>ジャンル</th><td><div class="main_genre"><a href="https://www.dlsite.com/comic/fsr/=/genre/065/work_category%5B0%5D/books/from/work.genre">おっぱい</a><a href="https://www.dlsite.com/comic/fsr/=/genre/207/work_category%5B0%5D/books/from/work.genre">ロリ</a><a href="https://www.dlsite.com/comic/fsr/=/genre/211/work_category%5B0%5D/books/from/work.genre">ショタ</a><a href="https://www.dlsite.com/comic/fsr/=/genre/212/work_category%5B0%5D/books/from/work.genre">妹</a><a href="https://www.dlsite.com/comic/fsr/=/genre/236/work_category%5B0%5D/books/from/work.genre">男性/おやじ</a><a href="https://www.dlsite.com/comic/fsr/=/genre/234/work_category%5B0%5D/books/from/work.genre">女王様/お姫様</a><a href="https://www.dlsite.com/comic/fsr/=/genre/427/work_category%5B0%5D/books/from/work.genre">王子様/王子系</a><a href="https://www.dlsite.com/comic/fsr/=/genre/233/work_category%5B0%5D/books/from/work.genre">戦士</a><a href="https://www.dlsite.com/comic/fsr/=/genre/075/work_category%5B0%5D/books/from/work.genre">セーラー服</a><a href="https://www.dlsite.com/comic/fsr/=/genre/091/work_category%5B0%5D/books/from/work.genre">着物/和服</a><a href="https://www.dlsite.com/comic/fsr/=/genre/452/work_category%5B0%5D/books/from/work.genre">青年コミック</a><a href="https://www.dlsite.com/comic/fsr/=/genre/005/work_category%5B0%5D/books/from/work.genre">ギャグ</a><a href="https://www.dlsite.com/comic/fsr/=/genre/007/work_category%5B0%5D/books/from/work.genre">コメディ</a><a href="https://www.dlsite.com/comic/fsr/=/genre/017/work_category%5B0%5D/books/from/work.genre">歴史/時代物</a><a href="https://www.dlsite.com/comic/fsr/=/genre/321/work_category%5B0%5D/books/from/work.genre">褐色/日焼け</a><a href="https://www.dlsite.com/comic/fsr/=/genre/483/work_category%5B0%5D/books/from/work.genre">爺</a></div></td></tr>
 <tr><th>ファイル容量</th><td><div class="main_genre">
@@ -1097,7 +1069,7 @@ jQuery(function($){
             <div class="title"><span itemprop="name">そもそもR-18じゃないのが驚きなのだが</span></div>
             <p>
               <meta itemprop="datePublished" content="2018-01-20">2018年01月20日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/comic/reviewlist/=/reviewer/REV0014802">穂積</a></span> さん</span>
-                            <span class="number"><span>投稿数 : 6位</span></span>
+                              <span class="popularity_reviewer gold">人気レビュアー：1位</span>
                                           <span class="purchased">購入済み</span>
                           </p>
           </div>
@@ -1140,12 +1112,12 @@ jQuery(function($){
 そして、本作の最も恐ろしい所は画力です。<br />
 ギャグとデッサン力の融合は危険だと再認識させられます。<br />
 劇画的とすら言える素晴らしい絵で、真面目な顔の偉人がエロ漫画を大絶賛しているとそれだけで面白いのは間違いありません。</p>
+            <p class="review_ref">
+              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="12660" data-product_id="BJ138581">
+              <span class="useful">23人 が役に立ったと答えています</span>              <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/comic/contact/review/=/reviewer_id/REV0014802/product_id/BJ138581.html">報告する</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
           </div>
-          <p class="review_ref">
-            <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="12660" data-product_id="BJ138581">
-            <span class="useful">23人 が役に立ったと答えています</span>            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/comic/contact/review/=/reviewer_id/REV0014802/product_id/BJ138581.html">報告する</a>&nbsp;]</span>
-          </p>
-          <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
         </td>
       </tr>
     </tbody>
@@ -1156,7 +1128,7 @@ jQuery(function($){
             <div class="title"><span itemprop="name">本業だからこそ描けるディープな世界</span></div>
             <p>
               <meta itemprop="datePublished" content="2018-03-12">2018年03月12日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/comic/reviewlist/=/reviewer/REV0025845">iahon</a></span> さん</span>
-                            <span class="number_rankin"><span>投稿数 : Best50</span></span>
+                              <span class="popularity_reviewer gold">人気レビュアー：5位</span>
                                           <span class="purchased">購入済み</span>
                           </p>
           </div>
@@ -1192,12 +1164,12 @@ jQuery(function($){
 このようにマンガという読みやすい形式を採用しながらも深い歴史考察が盛り込まれた良書であることがわかります。<br />
 これを読んで皆さんも歴史学についての見聞を深めましょう。<br />
 多分一生役に立たないと思います。</p>
+            <p class="review_ref">
+              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="13156" data-product_id="BJ138581">
+              <span class="useful">10人 が役に立ったと答えています</span>              <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/comic/contact/review/=/reviewer_id/REV0025845/product_id/BJ138581.html">報告する</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
           </div>
-          <p class="review_ref">
-            <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="13156" data-product_id="BJ138581">
-            <span class="useful">10人 が役に立ったと答えています</span>            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/comic/contact/review/=/reviewer_id/REV0025845/product_id/BJ138581.html">報告する</a>&nbsp;]</span>
-          </p>
-          <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
         </td>
       </tr>
     </tbody>
@@ -1262,12 +1234,12 @@ jQuery(function($){
                       <li class="matome_box_inner swiper-slide">
               <div class="matome_content">
                 <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/18502" target="_blank">
+                  <a href="https://ch.dlsite.com/matome/18502?dls=&k_matome_comic_pc" target="_blank">
                     <img src="https://media.dlsite.com/proxy/cfd77f4bba76ede190df105dd15ca5bd73b08dc4/687474703a2f2f696d672e646c736974652e6a702f6d6f647075622f696d61676573322f776f726b2f626f6f6b732f424a3036343030302f424a3036333937355f696d675f6d61696e2e6a7067" alt="エロ漫画雑誌に載ってる非エロ漫画を集めてみた"
                          title="エロ漫画雑誌に載ってる非エロ漫画を集めてみた"></a>
                 </div>
                 <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/18502"
+                  <a href="https://ch.dlsite.com/matome/18502?dls=&k_matome_comic_pc"
                      target="_blank">エロ漫画雑誌に載ってる非エロ漫画を集めてみた</a>
                 </p>
               </div>
@@ -1275,12 +1247,12 @@ jQuery(function($){
                       <li class="matome_box_inner swiper-slide">
               <div class="matome_content">
                 <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/15651" target="_blank">
+                  <a href="https://ch.dlsite.com/matome/15651?dls=&k_matome_comic_pc" target="_blank">
                     <img src="https://media.dlsite.com/proxy/c5f7c1745c98f9859a4f90a9b5d326bdbbfed3f4/687474703a2f2f7777772e62696e672e636f6d2f63723f49473d3538383630353430353345303436464442413235364333454533363338363131264349443d32334144423833334237393536434241324342414233433542363544364441342672643d3126683d7a766f4c5f6730335a33445252397159735352594c55657463376c765a524139764d50305530384d7a446726763d3126723d68747470253361253266253266626c6f672d696d67732d33312e6663322e636f6d2532666d25326679253266622532666d7962616b6572797325326631303037323031313831302e6a706726703d44657645782e4c422e312c353032372e31" alt="DLsiteで買える一般書籍（漫画）　おすすめ作品一覧＆一言感想"
                          title="DLsiteで買える一般書籍（漫画）　おすすめ作品一覧＆一言感想"></a>
                 </div>
                 <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/15651"
+                  <a href="https://ch.dlsite.com/matome/15651?dls=&k_matome_comic_pc"
                      target="_blank">DLsiteで買える一般書籍（漫画）　おすすめ作品一覧＆一言感想</a>
                 </p>
               </div>
@@ -1288,12 +1260,12 @@ jQuery(function($){
                       <li class="matome_box_inner swiper-slide">
               <div class="matome_content">
                 <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/20995" target="_blank">
+                  <a href="https://ch.dlsite.com/matome/20995?dls=&k_matome_comic_pc" target="_blank">
                     <img src="https://media.dlsite.com/proxy/d577d5f58c9b0ae33e118e4200306f9b54e0d4cf/687474703a2f2f6d656469612e646c736974652e636f6d2f63682f6f6666696369616c2f313439363139323639362e6a7067" alt="教えて、エロ偉人(いひと)！　前編"
                          title="教えて、エロ偉人(いひと)！　前編"></a>
                 </div>
                 <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/20995"
+                  <a href="https://ch.dlsite.com/matome/20995?dls=&k_matome_comic_pc"
                      target="_blank">教えて、エロ偉人(いひと)！　前編</a>
                 </p>
               </div>
@@ -1301,12 +1273,12 @@ jQuery(function($){
                       <li class="matome_box_inner swiper-slide">
               <div class="matome_content">
                 <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/21190" target="_blank">
+                  <a href="https://ch.dlsite.com/matome/21190?dls=&k_matome_comic_pc" target="_blank">
                     <img src="https://media.dlsite.com/proxy/d577d5f58c9b0ae33e118e4200306f9b54e0d4cf/687474703a2f2f6d656469612e646c736974652e636f6d2f63682f6f6666696369616c2f313439363139323639362e6a7067" alt="教えて、エロ偉人(いひと)！　後編"
                          title="教えて、エロ偉人(いひと)！　後編"></a>
                 </div>
                 <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/21190"
+                  <a href="https://ch.dlsite.com/matome/21190?dls=&k_matome_comic_pc"
                      target="_blank">教えて、エロ偉人(いひと)！　後編</a>
                 </p>
               </div>
@@ -1314,12 +1286,12 @@ jQuery(function($){
                       <li class="matome_box_inner swiper-slide">
               <div class="matome_content">
                 <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/21382" target="_blank">
+                  <a href="https://ch.dlsite.com/matome/21382?dls=&k_matome_comic_pc" target="_blank">
                     <img src="https://media.dlsite.com/proxy/d577d5f58c9b0ae33e118e4200306f9b54e0d4cf/687474703a2f2f6d656469612e646c736974652e636f6d2f63682f6f6666696369616c2f313439363139323639362e6a7067" alt="下郎と学ぶ、犬公方"
                          title="下郎と学ぶ、犬公方"></a>
                 </div>
                 <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/21382"
+                  <a href="https://ch.dlsite.com/matome/21382?dls=&k_matome_comic_pc"
                      target="_blank">下郎と学ぶ、犬公方</a>
                 </p>
               </div>
@@ -1327,12 +1299,12 @@ jQuery(function($){
                       <li class="matome_box_inner swiper-slide">
               <div class="matome_content">
                 <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/12214" target="_blank">
+                  <a href="https://ch.dlsite.com/matome/12214?dls=&k_matome_comic_pc" target="_blank">
                     <img src="https://media.dlsite.com/proxy/5e6fa3a7815ca6a068b20531ccde0b90fbc3c92f/687474703a2f2f696d672e646c736974652e6a702f6d6f647075622f696d61676573322f776f726b2f626f6f6b732f424a3133393030302f424a3133383538315f696d675f6d61696e2e6a7067" alt="神は7日間でエロ漫画を作る。"
                          title="神は7日間でエロ漫画を作る。"></a>
                 </div>
                 <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/12214"
+                  <a href="https://ch.dlsite.com/matome/12214?dls=&k_matome_comic_pc"
                      target="_blank">神は7日間でエロ漫画を作る。</a>
                 </p>
               </div>
@@ -1340,38 +1312,12 @@ jQuery(function($){
                       <li class="matome_box_inner swiper-slide">
               <div class="matome_content">
                 <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/18268" target="_blank">
-                    <img src="https://media.dlsite.com/proxy/5e6fa3a7815ca6a068b20531ccde0b90fbc3c92f/687474703a2f2f696d672e646c736974652e6a702f6d6f647075622f696d61676573322f776f726b2f626f6f6b732f424a3133393030302f424a3133383538315f696d675f6d61696e2e6a7067" alt="襲った武士からエロマンガを奪う弁慶"
-                         title="襲った武士からエロマンガを奪う弁慶"></a>
-                </div>
-                <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/18268"
-                     target="_blank">襲った武士からエロマンガを奪う弁慶</a>
-                </p>
-              </div>
-            </li>
-                      <li class="matome_box_inner swiper-slide">
-              <div class="matome_content">
-                <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/18020" target="_blank">
-                    <img src="https://media.dlsite.com/proxy/5e6fa3a7815ca6a068b20531ccde0b90fbc3c92f/687474703a2f2f696d672e646c736974652e6a702f6d6f647075622f696d61676573322f776f726b2f626f6f6b732f424a3133393030302f424a3133383538315f696d675f6d61696e2e6a7067" alt="快楽ヒストリエ「原始編」考察"
-                         title="快楽ヒストリエ「原始編」考察"></a>
-                </div>
-                <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/18020"
-                     target="_blank">快楽ヒストリエ「原始編」考察</a>
-                </p>
-              </div>
-            </li>
-                      <li class="matome_box_inner swiper-slide">
-              <div class="matome_content">
-                <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/8662" target="_blank">
+                  <a href="https://ch.dlsite.com/matome/8662?dls=&k_matome_comic_pc" target="_blank">
                     <img src="https://media.dlsite.com/proxy/5e6fa3a7815ca6a068b20531ccde0b90fbc3c92f/687474703a2f2f696d672e646c736974652e6a702f6d6f647075622f696d61676573322f776f726b2f626f6f6b732f424a3133393030302f424a3133383538315f696d675f6d61696e2e6a7067" alt="この漫画で歴史を学んであらゆる場で恥をかこう！　快楽ヒストリエ"
                          title="この漫画で歴史を学んであらゆる場で恥をかこう！　快楽ヒストリエ"></a>
                 </div>
                 <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/8662"
+                  <a href="https://ch.dlsite.com/matome/8662?dls=&k_matome_comic_pc"
                      target="_blank">この漫画で歴史を学んであらゆる場で恥をかこう！　快楽ヒストリエ</a>
                 </p>
               </div>
@@ -1379,12 +1325,12 @@ jQuery(function($){
                       <li class="matome_box_inner swiper-slide">
               <div class="matome_content">
                 <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/8431" target="_blank">
+                  <a href="https://ch.dlsite.com/matome/8431?dls=&k_matome_comic_pc" target="_blank">
                     <img src="https://media.dlsite.com/proxy/5e6fa3a7815ca6a068b20531ccde0b90fbc3c92f/687474703a2f2f696d672e646c736974652e6a702f6d6f647075622f696d61676573322f776f726b2f626f6f6b732f424a3133393030302f424a3133383538315f696d675f6d61696e2e6a7067" alt="2018年 1月20日 DLsite 全年齢商業作品更新まとめ！"
                          title="2018年 1月20日 DLsite 全年齢商業作品更新まとめ！"></a>
                 </div>
                 <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/8431"
+                  <a href="https://ch.dlsite.com/matome/8431?dls=&k_matome_comic_pc"
                      target="_blank">2018年 1月20日 DLsite 全年齢商業作品更新まとめ！</a>
                 </p>
               </div>
@@ -1736,10 +1682,6 @@ jQuery(function($){
   </div>
     
   
-  <ul class="guide_list"  v-cloak>
-    <li><a class="_osPopup" href="#" @click.stop.prevent="toggleDisplayMachineList()">すべての対応OSを表示する</a></li>
-  </ul>
-
   <div class="os_popup" :class="{ active: is_display_machine_list }">
     <div class="os_popup_header">対応OS</div>
     <div class="os_popup_body">
@@ -1895,11 +1837,11 @@ jQuery(function($){
 
 
 
-              <!-- nijiyome_bnr -->
+          <!-- nijiyome_bnr -->
     <div id="footer_nijiyome_banner" class="bn_footer_1box" data-section_name="footer_banner">
       <div class="bcs_viewer" data-service="dlsite" data-site="common" data-frame="pc-long-banner-general" data-ext-action="random" data-ext-empty="footer_nijiyome_banner"></div>
     </div>
-      
+  
 
 
 
@@ -2030,7 +1972,7 @@ jQuery(function($){
 <div data-vue-component="cookie-policy" data-async="true"></div>
 
 <script type="text/javascript" src="/vue/js/pc/vendor.js?cdn_cache=1&v=0.1.2&_=1536029038"></script>
-<script type="text/javascript" src="/vue/js/pc/app.js?cdn_cache=1&v=0.1.2&_=1554881571"></script>
+<script type="text/javascript" src="/vue/js/pc/app.js?cdn_cache=1&v=0.1.2&_=1559289223"></script>
 
 
 <script type="text/javascript">
@@ -2073,6 +2015,6 @@ div.measure_tag {
 
 
 <!-- /script_footer -->
-<script type="text/javascript">var contents = {"impression":[],"detail":[{"id":"BJ138581","name":"\u5feb\u697d\u30d2\u30b9\u30c8\u30ea\u30a8","category":"comic","brand":"BG01095","price":900,"regist_date":"2018\/01\/20","image_main":"\/\/img.dlsite.jp\/modpub\/images2\/work\/books\/BJ139000\/BJ138581_img_main.jpg","restore_price":null}],"time":0.00050616264343262};</script>
+<script type="text/javascript">var contents = {"impression":[],"detail":[{"id":"BJ138581","name":"\u5feb\u697d\u30d2\u30b9\u30c8\u30ea\u30a8","category":"comic","brand":"BG01095","price":900,"regist_date":"2018\/01\/20","image_main":"\/\/img.dlsite.jp\/modpub\/images2\/work\/books\/BJ139000\/BJ138581_img_main.jpg","restore_price":null}],"time":0.00013899803161621094};</script>
 </body>
 </html>

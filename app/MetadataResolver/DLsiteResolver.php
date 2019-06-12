@@ -21,6 +21,35 @@ class DLsiteResolver implements Resolver
         $this->ogpResolver = $ogpResolver;
     }
 
+    /**
+     * HTMLからタグとして利用可能な情報を抽出する
+     * @param string $html ページ HTML
+     * @return string[] タグ
+     */
+    public function extractTags(string $html): array
+    {
+        $dom = new \DOMDocument();
+        @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+        $xpath = new \DOMXPath($dom);
+
+        $genreNode = $xpath->query("//div[@class='main_genre'][1]");
+        if ($genreNode->length === 0) {
+            return [];
+        }
+
+        $tagsNode = $genreNode->item(0)->getElementsByTagName('a');
+        $tags = [];
+
+        for ($i = 0; $i <= $tagsNode->length - 1; $i++) {
+            $tags[] = $tagsNode->item($i)->textContent;
+        }
+
+        // 重複削除
+        $tags = array_values(array_unique($tags));
+
+        return $tags;
+    }
+
     public function resolve(string $url): Metadata
     {
 
@@ -76,6 +105,7 @@ class DLsiteResolver implements Resolver
             // 整形
             $metadata->description = $makersHead . ': ' . $makers . PHP_EOL . $metadata->description;
             $metadata->image = str_replace('img_sam.jpg', 'img_main.jpg', $metadata->image);
+            $metadata->tags = $this->extractTags($res->getBody());
 
             return $metadata;
         } else {
