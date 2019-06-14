@@ -18,6 +18,7 @@ class MetadataResolver implements Resolver
         '~www\.dlsite\.com/.*/work/=/product_id/..\d+(\.html)?~' => DLsiteResolver::class,
         '~dlsite\.jp/mawtw/..\d+~' => DLsiteResolver::class,
         '~www\.pixiv\.net/member_illust\.php\?illust_id=\d+~' => PixivResolver::class,
+        '~www\.pixiv\.net/user/\d+/series/\d+~' => PixivResolver::class,
         '~fantia\.jp/posts/\d+~' => FantiaResolver::class,
         '~dmm\.co\.jp/~' => FanzaResolver::class,
         '~www\.patreon\.com/~' => PatreonResolver::class,

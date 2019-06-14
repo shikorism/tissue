@@ -36,6 +36,18 @@ class PixivResolver implements Resolver
 
     public function resolve(string $url): Metadata
     {
+        if (preg_match('~www\.pixiv\.net/user/\d+/series/\d+~', $url, $matches)) {
+            $res = $this->client->get($url);
+            if ($res->getStatusCode() === 200) {
+                $metadata = $this->ogpResolver->parse($res->getBody());
+                $metadata->image = $this->proxize($metadata->image);
+
+                return $metadata;
+            } else {
+                throw new \RuntimeException("{$res->getStatusCode()}: $url");
+            }
+        }
+
         parse_str(parse_url($url, PHP_URL_QUERY), $params);
         $illustId = $params['illust_id'];
         $page = 0;
