@@ -48,6 +48,10 @@
     "*.{css,scss}": [
       "stylelint --fix",
       "git add"
+    ],
+    "*.php": [
+      "composer fix",
+      "git add"
     ]
   }
 }
