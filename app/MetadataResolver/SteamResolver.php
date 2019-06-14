@@ -26,6 +26,9 @@ class SteamResolver implements Resolver
         $res = $this->client->get('https://store.steampowered.com/api/appdetails/?l=japanese&appids=' . $appid);
         if ($res->getStatusCode() === 200) {
             $json = json_decode($res->getBody()->getContents(), true);
+            if($json[$appid]['success'] === false){
+                throw new \RuntimeException("API response [$appid][success] is false: $url");
+            }
             $data = $json[$appid]['data'];
             $metadata = new Metadata();
 
