@@ -27,6 +27,7 @@ class MetadataResolver implements Resolver
         '~ci-en\.jp/creator/\d+/article/\d+~' => CienResolver::class,
         '~www\.plurk\.com\/p\/.*~' => PlurkResolver::class,
         '~(adult\.)?contents\.fc2\.com\/article_search\.php\?id=\d+~' => FC2ContentsResolver::class,
+        '~store\.steampowered\.com/app/\d+~' => SteamResolver::class,
     ];
 
     public $mimeTypes = [
