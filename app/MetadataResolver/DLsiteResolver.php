@@ -69,7 +69,7 @@ class DLsiteResolver implements Resolver
             // OGPタイトルから[]に囲まれているmakerを取得する
             // 複数の作者がいる場合スペース区切りになるためexplodeしている
             // スペースを含むmakerの場合名前の一部しか取れないが動作には問題ない
-            preg_match('~ \[([^\[\]]*)\] \| DLsite(がるまに)?$~', $metadata->title, $match);
+            preg_match('~ \[([^\[\]]*)\] (予告作品 )?\| DLsite(がるまに)?$~', $metadata->title, $match);
             $makers = explode(' ', $match[1]);
 
             //フォローボタン(.btn_follow)はテキストを含んでしまうことがあるので要素を削除しておく
@@ -93,7 +93,7 @@ class DLsiteResolver implements Resolver
             // 余分な文を消す
 
             // OGPタイトルから作者名とサイト名を消す
-            $metadata->title = trim(preg_replace('~ \[([^\[\]]*)\] \| DLsite(がるまに)?$~', '', $metadata->title));
+            $metadata->title = trim(preg_replace('~ \[[^\[\]]*\] (予告作品 )?\| DLsite(がるまに)?$~', '', $metadata->title));
 
             // OGP説明文から定型文を消す
             if (strpos($url, 'dlsite.com/eng/') || strpos($url, 'dlsite.com/ecchi-eng/')) {
