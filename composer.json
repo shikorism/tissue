@@ -50,7 +50,7 @@
             "@php artisan package:discover"
         ],
         "fix": [
-            "php-cs-fixer fix"
+            "php-cs-fixer fix --config=.php_cs.dist"
         ],
         "test": [
             "phpunit"
