@@ -51,7 +51,7 @@ docker-compose exec web php artisan migrate
 6. ファイルに書き込めるように権限を設定します。
 
 ```
-docker-compose exec web chown -R www-data /var/www/html
+docker-compose exec web chown -R www-data /var/www/html/storage
 ```
 
 7. アセットをビルドします。
