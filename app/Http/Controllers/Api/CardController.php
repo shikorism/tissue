@@ -51,6 +51,8 @@ class CardController
             $metadata->tags()->sync($tagIds);
         }
 
+        $metadata->load('tags');
+
         $response = response($metadata);
         if (!config('app.debug')) {
             $response = $response->setCache(['public' => true, 'max_age' => 86400]);

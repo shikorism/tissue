@@ -11,6 +11,9 @@ class Tag extends Model
     protected $fillable = [
         'name'
     ];
+    protected $visible = [
+        'name'
+    ];
 
     public function ejaculations()
     {
