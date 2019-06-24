@@ -35,7 +35,7 @@ class Formatter
      */
     public function linkify($text)
     {
-        return $this->linkify->processUrls($text);
+        return $this->linkify->processUrls($text, ['attr' => ['target' => '_blank', 'rel' => 'noopener']]);
     }
 
     /**
