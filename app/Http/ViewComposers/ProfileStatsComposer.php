@@ -35,9 +35,27 @@ class ProfileStatsComposer
         }
 
         // 概況欄のデータ取得
+        $average = DB::select(<<<'SQL'
+SELECT
+  avg(span) AS average
+FROM
+  (
+    SELECT
+      extract(epoch from ejaculated_date - lead(ejaculated_date, 1, NULL) OVER (ORDER BY ejaculated_date DESC)) AS span
+    FROM
+      ejaculations
+    WHERE
+      user_id = :user_id
+    ORDER BY
+      ejaculated_date DESC
+    LIMIT
+      30
+  ) AS temp
+SQL
+            , ['user_id' => $user->id]);
+
         $summary = DB::select(<<<'SQL'
 SELECT
-  avg(span) AS average,
   max(span) AS longest,
   min(span) AS shortest,
   sum(span) AS total_times,
@@ -56,6 +74,6 @@ FROM
 SQL
             , ['user_id' => $user->id]);
 
-        $view->with(compact('latestEjaculation', 'currentSession', 'summary'));
+        $view->with(compact('latestEjaculation', 'currentSession', 'average', 'summary'));
     }
 }

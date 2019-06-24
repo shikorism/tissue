@@ -8,7 +8,7 @@
 @endif
 
 <h6 class="font-weight-bold"><span class="oi oi-graph"></span> 概況</h6>
-<p class="card-text mb-0">平均記録: {{ Formatter::formatInterval($summary[0]->average) }}</p>
+<p class="card-text mb-0">平均記録: {{ Formatter::formatInterval($average[0]->average) }}</p>
 <p class="card-text mb-0">最長記録: {{ Formatter::formatInterval($summary[0]->longest) }}</p>
 <p class="card-text mb-0">最短記録: {{ Formatter::formatInterval($summary[0]->shortest) }}</p>
 <p class="card-text mb-0">合計時間: {{ Formatter::formatInterval($summary[0]->total_times) }}</p>
