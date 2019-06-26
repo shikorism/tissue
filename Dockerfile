@@ -8,6 +8,7 @@ RUN apt-get update \
     && apt-get install -y git libpq-dev unzip \
     && docker-php-ext-install pdo_pgsql \
     && pecl install xdebug \
+    && docker-php-ext-enable xdebug  \
     && curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
     && sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \

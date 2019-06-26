@@ -1,4 +1,5 @@
 version: 2
+
 jobs:
   build:
     docker:
@@ -67,7 +68,15 @@ jobs:
       - run:
           command: |
             mkdir -p /tmp/phpunit
-            ./vendor/bin/phpunit --log-junit /tmp/phpunit/phpunit.xml
+            ./vendor/bin/phpunit --log-junit /tmp/phpunit/phpunit.xml --coverage-clover=/tmp/phpunit/coverage.xml
           when: always
       - store_test_results:
           path: /tmp/phpunit
+      - store_artifacts:
+          path: /tmp/phpunit/coverage.xml
+
+      # Upload coverage
+      - run:
+          command: |
+            bash <(curl -s https://codecov.io/bash) -f /tmp/phpunit/coverage.xml
+          when: always
