@@ -30,7 +30,7 @@
         buffer: string = "";
 
         created() {
-            bus.$on("add-tag", (tag: string) => this.tags.push(tag));
+            bus.$on("add-tag", (tag: string) => this.tags.indexOf(tag) === -1 && this.tags.push(tag));
         }
 
         onKeyDown(event: KeyboardEvent) {
