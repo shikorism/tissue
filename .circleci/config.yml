@@ -77,6 +77,5 @@ jobs:
 
       # Upload coverage
       - run:
-          command: |
-            bash <(curl -s https://codecov.io/bash) -f /tmp/phpunit/coverage.xml
+          command: bash <(curl -s https://codecov.io/bash) -f /tmp/phpunit/coverage.xml
           when: always
