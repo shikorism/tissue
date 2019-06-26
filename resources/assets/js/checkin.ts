@@ -14,7 +14,11 @@ new Vue({
         MetadataPreview
     },
     mounted() {
-        // TODO: 編集モード時はすぐにメタデータを取得する
+        // オカズリンクにURLがセットされている場合は、すぐにメタデータを取得する
+        const linkInput = this.$el.querySelector<HTMLInputElement>("#link");
+        if (linkInput && /^https?:\/\//.test(linkInput.value)) {
+            this.fetchMetadata(linkInput.value);
+        }
     },
     methods: {
         // オカズリンクの変更時
@@ -27,19 +31,23 @@ new Vue({
                     return;
                 }
 
-                $.ajax({
-                    url: '/api/checkin/card',
-                    method: 'get',
-                    type: 'json',
-                    data: {
-                        url
-                    }
-                }).then(data => {
-                    this.metadata = data;
-                }).catch(e => {
-                    this.metadata = null;
-                });
+                this.fetchMetadata(url);
             }
+        },
+        // メタデータの取得
+        fetchMetadata(url: string) {
+            $.ajax({
+                url: '/api/checkin/card',
+                method: 'get',
+                type: 'json',
+                data: {
+                    url
+                }
+            }).then(data => {
+                this.metadata = data;
+            }).catch(e => {
+                this.metadata = null;
+            });
         }
     }
 });
