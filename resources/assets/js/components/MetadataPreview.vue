@@ -1,8 +1,15 @@
 <template>
-    <div class="form-row" v-if="metadata !== null">
+    <div class="form-row" v-if="state !== MetadataLoadState.Inactive">
         <div class="form-group col-sm-12">
             <div class="card link-card-mini mb-2 px-0">
-                <div class="row no-gutters">
+                <div v-if="state === MetadataLoadState.Loading" class="row no-gutters">
+                    <div class="col-12">
+                        <div class="card-body">
+                            <h6 class="card-title text-center font-weight-bold text-info" style="font-size: small;"><span class="oi oi-loop-circular"></span> オカズの情報を読み込んでいます…</h6>
+                        </div>
+                    </div>
+                </div>
+                <div v-else-if="state === MetadataLoadState.Success" class="row no-gutters">
                     <div v-if="hasImage" class="col-4 justify-content-center align-items-center">
                         <img :src="metadata.image" alt="Thumbnail" class="card-img-top-to-left bg-secondary">
                     </div>
@@ -20,6 +27,13 @@
                         </div>
                     </div>
                 </div>
+                <div v-else class="row no-gutters">
+                    <div class="col-12">
+                        <div class="card-body">
+                            <h6 class="card-title text-center font-weight-bold text-danger" style="font-size: small;"><span class="oi oi-circle-x"></span> オカズの情報を読み込めませんでした</h6>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -27,7 +41,7 @@
 
 <script lang="ts">
     import {Vue, Component, Prop} from "vue-property-decorator";
-    import {bus} from "../checkin";
+    import {bus, MetadataLoadState} from "../checkin";
 
     type Metadata = {
         url: string,
@@ -42,7 +56,11 @@
 
     @Component
     export default class MetadataPreview extends Vue {
+        @Prop() readonly state!: MetadataLoadState;
         @Prop() readonly metadata!: Metadata | null;
+
+        // for use in v-if
+        private readonly MetadataLoadState = MetadataLoadState;
 
         addTag(tag: string) {
             bus.$emit("add-tag", tag);

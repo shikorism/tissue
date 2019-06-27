@@ -4,10 +4,18 @@ import MetadataPreview from './components/MetadataPreview.vue';
 
 export const bus = new Vue({name: "EventBus"});
 
+export enum MetadataLoadState {
+    Inactive,
+    Loading,
+    Success,
+    Failed,
+}
+
 new Vue({
     el: '#app',
     data: {
-        metadata: null
+        metadata: null,
+        metadataLoadState: MetadataLoadState.Inactive,
     },
     components: {
         TagInput,
@@ -28,6 +36,7 @@ new Vue({
 
                 if (url.trim() === '' || !/^https?:\/\//.test(url)) {
                     this.metadata = null;
+                    this.metadataLoadState = MetadataLoadState.Inactive;
                     return;
                 }
 
@@ -36,6 +45,8 @@ new Vue({
         },
         // メタデータの取得
         fetchMetadata(url: string) {
+            this.metadataLoadState = MetadataLoadState.Loading;
+
             $.ajax({
                 url: '/api/checkin/card',
                 method: 'get',
@@ -45,8 +56,10 @@ new Vue({
                 }
             }).then(data => {
                 this.metadata = data;
+                this.metadataLoadState = MetadataLoadState.Success;
             }).catch(e => {
                 this.metadata = null;
+                this.metadataLoadState = MetadataLoadState.Failed;
             });
         }
     }

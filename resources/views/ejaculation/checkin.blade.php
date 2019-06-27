@@ -63,7 +63,7 @@
                         @endif
                     </div>
                 </div>
-                <metadata-preview :metadata="metadata"></metadata-preview>
+                <metadata-preview :metadata="metadata" :state="metadataLoadState"></metadata-preview>
                 <div class="form-row">
                     <div class="form-group col-sm-12">
                         <label for="note"><span class="oi oi-comment-square"></span> ノート</label>
