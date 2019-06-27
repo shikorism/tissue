@@ -41,7 +41,7 @@ class User extends Authenticatable
     {
         $hash = md5(strtolower(trim($this->email)));
 
-        return '//www.gravatar.com/avatar/' . $hash . '?s=' . $size;
+        return '//www.gravatar.com/avatar/' . $hash . '?s=' . $size . '&d=retro';
     }
 
     /**
