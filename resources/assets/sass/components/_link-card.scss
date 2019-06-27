@@ -42,7 +42,11 @@
         display: flex;
 
         &:not([display=none]) {
-            height: $height;
+            min-height: $height;
+            
+            img {
+                position: absolute;
+            }
         }
     }
 
