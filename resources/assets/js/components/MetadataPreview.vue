@@ -3,10 +3,10 @@
         <div class="form-group col-sm-12">
             <div class="card link-card-mini mb-2 px-0">
                 <div class="row no-gutters">
-                    <div class="col-4 justify-content-center align-items-center">
+                    <div v-if="hasImage" class="col-4 justify-content-center align-items-center">
                         <img :src="metadata.image" alt="Thumbnail" class="card-img-top-to-left bg-secondary">
                     </div>
-                    <div class="col-8">
+                    <div :class="descClasses">
                         <div class="card-body">
                             <h6 class="card-title font-weight-bold" style="font-size: small;">{{ metadata.title }}</h6>
                             <template v-if="suggestions.length > 0">
@@ -31,9 +31,9 @@
 
     type Metadata = {
         url: string,
-        title: string | null,
-        description: string | null,
-        image: string | null,
+        title: string,
+        description: string,
+        image: string,
         expires_at: string | null,
         tags: {
             name: string
@@ -54,6 +54,17 @@
             }
 
             return this.metadata.tags.map(t => t.name);
+        }
+
+        get hasImage() {
+            return this.metadata !== null && this.metadata.image !== ''
+        }
+
+        get descClasses() {
+            return {
+                "col-8": this.hasImage,
+                "col-12": !this.hasImage,
+            };
         }
     }
 </script>
