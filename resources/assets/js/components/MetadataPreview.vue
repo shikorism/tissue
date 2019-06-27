@@ -70,6 +70,30 @@
 </script>
 
 <style lang="scss" scoped>
+    .link-card-mini {
+        $height: 150px;
+
+        .row > div {
+            overflow: hidden;
+        }
+
+        .row > div:first-child {
+            display: flex;
+
+            &:not([display=none]) {
+                min-height: $height;
+
+                img {
+                    position: absolute;
+                }
+            }
+        }
+
+        .card-text {
+            white-space: pre-line;
+        }
+    }
+
     .metadata-tag-item {
         cursor: pointer;
         user-select: none;

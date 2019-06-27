@@ -29,28 +29,3 @@
     white-space: pre-line;
   }
 }
-
-// チェックイン画面用
-.link-card-mini {
-    $height: 150px;
-
-    .row > div {
-        overflow: hidden;
-    }
-
-    .row > div:first-child {
-        display: flex;
-
-        &:not([display=none]) {
-            min-height: $height;
-            
-            img {
-                position: absolute;
-            }
-        }
-    }
-
-    .card-text {
-        white-space: pre-line;
-    }
-}
