@@ -22,21 +22,6 @@ class PixivResolver implements Resolver
     }
 
     /**
-     * サムネイル画像 URL から最大長辺 1200px の画像 URL に変換する
-     *
-     * @param string $thumbnailUrl サムネイル画像 URL
-     *
-     * @return string 1200px の画像 URL
-     */
-    public function thumbnailToMasterUrl(string $thumbnailUrl): string
-    {
-        $temp = str_replace('/c/128x128', '', $thumbnailUrl);
-        $largeUrl = str_replace('square1200.jpg', 'master1200.jpg', $temp);
-
-        return $largeUrl;
-    }
-
-    /**
      * 直リン可能な pixiv.cat のプロキシ URL に変換する
      * HUGE THANKS TO PIXIV.CAT!
      *
@@ -49,45 +34,20 @@ class PixivResolver implements Resolver
         return str_replace('i.pximg.net', 'i.pixiv.cat', $pixivUrl);
     }
 
-    /**
-     * HTMLからタグとして利用可能な情報を抽出する
-     * @param string $html ページ HTML
-     * @return string[] タグ
-     */
-    public function extractTags(string $html): array
-    {
-        $dom = new \DOMDocument();
-        @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
-        $xpath = new \DOMXPath($dom);
-
-        $nodes = $xpath->query("//meta[@name='keywords']");
-        if ($nodes->length === 0) {
-            return [];
-        }
-
-        $keywords = $nodes->item(0)->getAttribute('content');
-        $tags = [];
-
-        foreach (mb_split(',', $keywords) as $keyword) {
-            $keyword = trim($keyword);
-
-            if (empty($keyword)) {
-                continue;
-            }
-
-            // 一部の固定キーワードは無視
-            if (array_search($keyword, ['R-18', 'イラスト', 'pixiv', 'ピクシブ'], true)) {
-                continue;
-            }
-
-            $tags[] = preg_replace('/\s/', '_', $keyword);
-        }
-
-        return $tags;
-    }
-
     public function resolve(string $url): Metadata
     {
+        if (preg_match('~www\.pixiv\.net/user/\d+/series/\d+~', $url, $matches)) {
+            $res = $this->client->get($url);
+            if ($res->getStatusCode() === 200) {
+                $metadata = $this->ogpResolver->parse($res->getBody());
+                $metadata->image = $this->proxize($metadata->image);
+
+                return $metadata;
+            } else {
+                throw new \RuntimeException("{$res->getStatusCode()}: $url");
+            }
+        }
+
         parse_str(parse_url($url, PHP_URL_QUERY), $params);
         $illustId = $params['illust_id'];
         $page = 0;
@@ -95,27 +55,31 @@ class PixivResolver implements Resolver
         // 漫画ページ（ページ数はmanga_bigならあるかも）
         if ($params['mode'] === 'manga_big' || $params['mode'] === 'manga') {
             $page = $params['page'] ?? 0;
-
-            // 未ログインでは漫画ページを開けないため、URL を作品ページに変換する
-            $url = preg_replace('~mode=manga(_big)?~', 'mode=medium', $url);
         }
 
-        $res = $this->client->get($url);
+        $res = $this->client->get('https://www.pixiv.net/ajax/illust/' . $illustId);
         if ($res->getStatusCode() === 200) {
-            $metadata = $this->ogpResolver->parse($res->getBody());
+            $json = json_decode($res->getBody()->getContents(), true);
+            $metadata = new Metadata();
 
-            preg_match("~https://i\.pximg\.net/c/128x128/img-master/img/\d{4}/\d{2}/\d{2}/\d{2}/\d{2}/\d{2}/{$illustId}(_p0)?_square1200\.jpg~", $res->getBody(), $match);
-            $illustThumbnailUrl = $match[0];
+            $metadata->title = $json['body']['illustTitle'] ?? '';
+            $metadata->description = '投稿者: ' . $json['body']['userName'] . PHP_EOL . strip_tags(str_replace('<br />', PHP_EOL, $json['body']['illustComment'] ?? ''));
+            $metadata->image = $this->proxize($json['body']['urls']['regular'] ?? '');
 
+            // ページ数の指定がある場合は画像URLをそのページにする
             if ($page != 0) {
-                $illustThumbnailUrl = str_replace('_p0', '_p'.$page, $illustThumbnailUrl);
+                $metadata->image = str_replace('_p0', '_p'.$page, $metadata->image);
             }
 
-            $illustUrl = $this->thumbnailToMasterUrl($illustThumbnailUrl);
-
-            $metadata->image = $this->proxize($illustUrl);
-
-            $metadata->tags = $this->extractTags($res->getBody());
+            // タグ
+            if (!empty($json['body']['tags']['tags'])) {
+                foreach ($json['body']['tags']['tags'] as $tag) {
+                    // 一部の固定キーワードは無視
+                    if (array_search($tag['tag'], ['R-18', 'イラスト', 'pixiv', 'ピクシブ'], true) === false) {
+                        $metadata->tags[] = preg_replace('/\s/', '_', $tag['tag']);
+                    }
+                }
+            }
 
             return $metadata;
         } else {

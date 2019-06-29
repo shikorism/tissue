@@ -15,9 +15,10 @@ class MetadataResolver implements Resolver
         '~www\.melonbooks\.co\.jp/detail/detail\.php~' => MelonbooksResolver::class,
         '~ec\.toranoana\.(jp|shop)/(tora|joshi)(_[rd]+)?/(ec|digi)/item/~' => ToranoanaResolver::class,
         '~iwara\.tv/videos/.*~' => IwaraResolver::class,
-        '~www\.dlsite\.com/.*/work/=/product_id/..\d+(\.html)?~' => DLsiteResolver::class,
-        '~dlsite\.jp/mawtw/..\d+~' => DLsiteResolver::class,
+        '~www\.dlsite\.com/.*/(work|announce)/=/product_id/..\d+(\.html)?~' => DLsiteResolver::class,
+        '~dlsite\.jp/...tw/..\d+~' => DLsiteResolver::class,
         '~www\.pixiv\.net/member_illust\.php\?illust_id=\d+~' => PixivResolver::class,
+        '~www\.pixiv\.net/user/\d+/series/\d+~' => PixivResolver::class,
         '~fantia\.jp/posts/\d+~' => FantiaResolver::class,
         '~dmm\.co\.jp/~' => FanzaResolver::class,
         '~www\.patreon\.com/~' => PatreonResolver::class,
@@ -26,6 +27,7 @@ class MetadataResolver implements Resolver
         '~ci-en\.jp/creator/\d+/article/\d+~' => CienResolver::class,
         '~www\.plurk\.com\/p\/.*~' => PlurkResolver::class,
         '~(adult\.)?contents\.fc2\.com\/article_search\.php\?id=\d+~' => FC2ContentsResolver::class,
+        '~store\.steampowered\.com/app/\d+~' => SteamResolver::class,
     ];
 
     public $mimeTypes = [

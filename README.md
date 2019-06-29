@@ -36,6 +36,7 @@ docker-compose up -d
 4. Composer と yarn を使い必要なライブラリをインストールします。
 
 ```
+docker-compose exec web composer global require hirak/prestissimo
 docker-compose exec web composer install
 docker-compose exec web yarn install
 ```
@@ -50,7 +51,7 @@ docker-compose exec web php artisan migrate
 6. ファイルに書き込めるように権限を設定します。
 
 ```
-docker-compose exec web chown -R www-data /var/www/html
+docker-compose exec web chown -R www-data /var/www/html/storage
 ```
 
 7. アセットをビルドします。

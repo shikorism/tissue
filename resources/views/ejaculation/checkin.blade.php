@@ -3,7 +3,7 @@
 @section('title', 'チェックイン')
 
 @section('content')
-<div class="container">
+<div id="app" class="container">
     <h2>今致してる？</h2>
     <hr>
     <div class="row justify-content-center mt-5">
@@ -38,12 +38,8 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-sm-12">
-                        <input name="tags" type="hidden" value="{{ old('tags') ?? $defaults['tags'] }}">
                         <label for="tagInput"><span class="oi oi-tags"></span> タグ</label>
-                        <div class="form-control h-auto {{ $errors->has('tags') ? ' is-invalid' : '' }}">
-                            <ul id="tags" class="list-inline d-inline"></ul>
-                            <input id="tagInput" type="text" style="outline: 0; border: 0;">
-                        </div>
+                        <tag-input id="tagInput" name="tags" value="{{ old('tags') ?? $defaults['tags'] }}" :is-invalid="{{ $errors->has('tags') ? 'true' : 'false' }}"></tag-input>
                         <small class="form-text text-muted">
                             Tab, Enter, 半角スペースのいずれかで入力確定します。
                         </small>
@@ -56,7 +52,9 @@
                 <div class="form-row">
                     <div class="form-group col-sm-12">
                         <label for="link"><span class="oi oi-link-intact"></span> オカズリンク</label>
-                        <input id="link" name="link" type="text" autocomplete="off" class="form-control {{ $errors->has('link') ? ' is-invalid' : '' }}" placeholder="http://..." value="{{ old('link') ?? $defaults['link'] }}">
+                        <input id="link" name="link" type="text" autocomplete="off" class="form-control {{ $errors->has('link') ? ' is-invalid' : '' }}"
+                               placeholder="http://..." value="{{ old('link') ?? $defaults['link'] }}"
+                               @change="onChangeLink">
                         <small class="form-text text-muted">
                             オカズのURLを貼り付けて登録することができます。
                         </small>
@@ -65,6 +63,7 @@
                         @endif
                     </div>
                 </div>
+                <metadata-preview :metadata="metadata" :state="metadataLoadState"></metadata-preview>
                 <div class="form-row">
                     <div class="form-group col-sm-12">
                         <label for="note"><span class="oi oi-comment-square"></span> ノート</label>

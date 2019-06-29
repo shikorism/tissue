@@ -1,8 +1,18 @@
 .link-card {
-  .row > div:last-child {
+  .row > div {
     max-height: 400px;
     overflow: hidden;
+  }
 
+  .row > div:first-child {
+    display: flex;
+
+    &:not([display=none]) {
+      height: 400px;
+    }
+  }
+
+  .row > div:last-child {
     // 省略を表す影を付けるやつ
     &::before {
       position: absolute;
@@ -11,7 +21,7 @@
       width: 100%;
       height: 100%;
       content: '';
-      background: linear-gradient(transparent 320px, white);
+      background: linear-gradient(rgba(255, 255, 255, 0) 320px, white);
     }
   }
 
