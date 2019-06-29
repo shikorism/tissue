@@ -17,6 +17,7 @@
 
 <script lang="ts">
     import {Vue, Component, Prop} from "vue-property-decorator";
+    import {bus} from "../checkin";
 
     @Component
     export default class TagInput extends Vue {
@@ -27,6 +28,10 @@
 
         tags: string[] = this.value.trim() !== "" ? this.value.trim().split(" ") : [];
         buffer: string = "";
+
+        created() {
+            bus.$on("add-tag", (tag: string) => this.tags.indexOf(tag) === -1 && this.tags.push(tag));
+        }
 
         onKeyDown(event: KeyboardEvent) {
             if (this.buffer.trim() !== "") {

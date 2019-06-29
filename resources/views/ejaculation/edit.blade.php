@@ -53,7 +53,9 @@
                 <div class="form-row">
                     <div class="form-group col-sm-12">
                         <label for="link"><span class="oi oi-link-intact"></span> オカズリンク</label>
-                        <input id="link" name="link" type="text" autocomplete="off" class="form-control {{ $errors->has('link') ? ' is-invalid' : '' }}" placeholder="http://..." value="{{ old('link') ?? $ejaculation->link }}">
+                        <input id="link" name="link" type="text" autocomplete="off" class="form-control {{ $errors->has('link') ? ' is-invalid' : '' }}"
+                               placeholder="http://..." value="{{ old('link') ?? $ejaculation->link }}"
+                               @change="onChangeLink">
                         <small class="form-text text-muted">
                             オカズのURLを貼り付けて登録することができます。
                         </small>
@@ -62,6 +64,7 @@
                         @endif
                     </div>
                 </div>
+                <metadata-preview :metadata="metadata" :state="metadataLoadState"></metadata-preview>
                 <div class="form-row">
                     <div class="form-group col-sm-12">
                         <label for="note"><span class="oi oi-comment-square"></span> ノート</label>
