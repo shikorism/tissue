@@ -40,13 +40,13 @@ class PixivResolverTest extends TestCase
 
         $this->createResolver(PixivResolver::class, $responseText);
 
-        $metadata = $this->resolver->resolve('https://www.pixiv.net/member_illust.php?mode=medium&illust_id=74939802');
-        $this->assertEquals('T-20S', $metadata->title);
-        $this->assertEquals('投稿者: amssc' . PHP_EOL . 'JUST FOR FUN' . PHP_EOL . '现在可以做到游戏内立绘修改拉！立绘动态皮肤都可以支持，想要资助获得新技术请站内信联系我。', $metadata->description);
-        $this->assertEquals('https://i.pixiv.cat/img-master/img/2019/05/28/01/16/24/74939802_p0_master1200.jpg', $metadata->image);
-        $this->assertEquals(['巨乳', '母乳', 'lastorigin', 'Last_Origin', 'T-20S', 'おっぱい', '라스트오리진', '노움'], $metadata->tags);
+        $metadata = $this->resolver->resolve('https://www.pixiv.net/member_illust.php?mode=medium&illust_id=47220843');
+        $this->assertEquals('がぶ飲みミルクティー', $metadata->title);
+        $this->assertEquals('投稿者: きっぷる' . PHP_EOL . '劇中で度々お見かけするお姿がたまらなく愛おしいのです' . PHP_EOL . 'チラリズムでしょうか', $metadata->description);
+        $this->assertEquals('https://i.pixiv.cat/img-master/img/2014/11/23/15/52/00/47220843_p0_master1200.jpg', $metadata->image);
+        $this->assertEquals(['SHIROBAKO', '小笠原綸子', 'ゴスロリ様', '中出し', 'SHIRUPAKO', 'くわえたくしあげ', 'ずらし挿入', 'SHIROBAKO1000users入り', '破れストッキング'], $metadata->tags);
         if ($this->shouldUseMock()) {
-            $this->assertSame('https://www.pixiv.net/ajax/illust/74939802', (string) $this->handler->getLastRequest()->getUri());
+            $this->assertSame('https://www.pixiv.net/ajax/illust/47220843', (string) $this->handler->getLastRequest()->getUri());
         }
     }
 
