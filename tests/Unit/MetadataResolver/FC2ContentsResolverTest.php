@@ -20,7 +20,7 @@ class FC2ContentsResolverTest extends TestCase
 
     public function testAdult()
     {
-        $responseText = file_get_contents(__DIR__.'/../../fixture/FC2Contents/adult.html');
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/FC2Contents/adult.html');
 
         $this->createResolver(FC2ContentsResolver::class, $responseText);
 
@@ -35,7 +35,7 @@ class FC2ContentsResolverTest extends TestCase
 
     public function testGeneral()
     {
-        $responseText = file_get_contents(__DIR__.'/../../fixture/FC2Contents/general.html');
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/FC2Contents/general.html');
 
         $this->createResolver(FC2ContentsResolver::class, $responseText);
 

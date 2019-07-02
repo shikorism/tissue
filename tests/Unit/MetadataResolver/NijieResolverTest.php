@@ -30,7 +30,7 @@ class NijieResolverTest extends TestCase
         $this->assertRegExp('/pic\d+\.nijie\.info/', $metadata->image);
         $this->assertNotRegExp('~/diff/main/~', $metadata->image);
         if ($this->shouldUseMock()) {
-            $this->assertSame('https://nijie.info/view.php?id=66384', (string)$this->handler->getLastRequest()->getUri());
+            $this->assertSame('https://nijie.info/view.php?id=66384', (string) $this->handler->getLastRequest()->getUri());
         }
     }
 
@@ -46,7 +46,7 @@ class NijieResolverTest extends TestCase
         $this->assertRegExp('/pic\d+\.nijie\.info/', $metadata->image);
         $this->assertNotRegExp('~/diff/main/~', $metadata->image);
         if ($this->shouldUseMock()) {
-            $this->assertSame('https://nijie.info/view.php?id=202707', (string)$this->handler->getLastRequest()->getUri());
+            $this->assertSame('https://nijie.info/view.php?id=202707', (string) $this->handler->getLastRequest()->getUri());
         }
     }
 
@@ -61,7 +61,7 @@ class NijieResolverTest extends TestCase
         $this->assertEquals('アニメgifとか専門外なのでよくわかりませんでした', $metadata->description);
         $this->assertRegExp('~/nijie\.info/pic/logo~', $metadata->image);
         if ($this->shouldUseMock()) {
-            $this->assertSame('https://nijie.info/view.php?id=9537', (string)$this->handler->getLastRequest()->getUri());
+            $this->assertSame('https://nijie.info/view.php?id=9537', (string) $this->handler->getLastRequest()->getUri());
         }
     }
 
@@ -76,7 +76,7 @@ class NijieResolverTest extends TestCase
         $this->assertEquals("H264動画てすと　あとで消します\r\n\r\n今の所、H264コーデックのみ、出力時に音声なしにしないと投稿できません\r\n動画は勝手にループします", $metadata->description);
         $this->assertRegExp('~/nijie\.info/pic/logo~', $metadata->image);
         if ($this->shouldUseMock()) {
-            $this->assertSame('https://nijie.info/view.php?id=256283', (string)$this->handler->getLastRequest()->getUri());
+            $this->assertSame('https://nijie.info/view.php?id=256283', (string) $this->handler->getLastRequest()->getUri());
         }
     }
 
@@ -92,7 +92,7 @@ class NijieResolverTest extends TestCase
         $this->assertRegExp('/pic\d+\.nijie\.info/', $metadata->image);
         $this->assertNotRegExp('~/diff/main/~', $metadata->image);
         if ($this->shouldUseMock()) {
-            $this->assertSame('https://nijie.info/view.php?id=66384', (string)$this->handler->getLastRequest()->getUri());
+            $this->assertSame('https://nijie.info/view.php?id=66384', (string) $this->handler->getLastRequest()->getUri());
         }
     }
 
@@ -108,7 +108,7 @@ class NijieResolverTest extends TestCase
         $this->assertRegExp('/pic\d+\.nijie\.info/', $metadata->image);
         $this->assertNotRegExp('~/diff/main/~', $metadata->image);
         if ($this->shouldUseMock()) {
-            $this->assertSame('https://nijie.info/view.php?id=202707', (string)$this->handler->getLastRequest()->getUri());
+            $this->assertSame('https://nijie.info/view.php?id=202707', (string) $this->handler->getLastRequest()->getUri());
         }
     }
 
@@ -124,7 +124,7 @@ class NijieResolverTest extends TestCase
         $this->assertEquals('アニメgifとか専門外なのでよくわかりませんでした', $metadata->description);
         $this->assertRegExp('~/nijie\.info/pic/logo~', $metadata->image);
         if ($this->shouldUseMock()) {
-            $this->assertSame('https://nijie.info/view.php?id=9537', (string)$this->handler->getLastRequest()->getUri());
+            $this->assertSame('https://nijie.info/view.php?id=9537', (string) $this->handler->getLastRequest()->getUri());
         }
     }
 
@@ -139,7 +139,7 @@ class NijieResolverTest extends TestCase
         $this->assertEquals("H264動画てすと　あとで消します\r\n\r\n今の所、H264コーデックのみ、出力時に音声なしにしないと投稿できません\r\n動画は勝手にループします", $metadata->description);
         $this->assertRegExp('~/nijie\.info/pic/logo~', $metadata->image);
         if ($this->shouldUseMock()) {
-            $this->assertSame('https://nijie.info/view.php?id=256283', (string)$this->handler->getLastRequest()->getUri());
+            $this->assertSame('https://nijie.info/view.php?id=256283', (string) $this->handler->getLastRequest()->getUri());
         }
     }
 }
