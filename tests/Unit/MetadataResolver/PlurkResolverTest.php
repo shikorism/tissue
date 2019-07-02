@@ -20,7 +20,7 @@ class PlurkResolverTest extends TestCase
 
     public function test()
     {
-        $responseText = file_get_contents(__DIR__.'/../../fixture/Plurk/test.html');
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/Plurk/test.html');
 
         $this->createResolver(PlurkResolver::class, $responseText);
 

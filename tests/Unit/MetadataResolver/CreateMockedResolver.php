@@ -49,6 +49,6 @@ trait CreateMockedResolver
 
     protected function shouldUseMock(): bool
     {
-        return (bool)env('TEST_USE_HTTP_MOCK', true);
+        return (bool) env('TEST_USE_HTTP_MOCK', true);
     }
 }
