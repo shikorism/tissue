@@ -196,8 +196,7 @@ class DLsiteResolverTest extends TestCase
 
     public function testSPLink()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testHome.html');
-        // SP版（touch）のURLのテストだがリゾルバ側でURLから-touchを削除してPC版を取得するので、PC版の内容を使用する
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testSPLink.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
@@ -213,7 +212,7 @@ class DLsiteResolverTest extends TestCase
 
     public function testShortLink()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testHome.html');
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testShortLink.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 

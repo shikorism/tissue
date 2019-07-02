@@ -20,7 +20,7 @@ class NijieResolverTest extends TestCase
 
     public function testStandardPicture()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Nijie/testStandardPictureResponse.html');
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/Nijie/testStandardPicture.html');
 
         $this->createResolver(NijieResolver::class, $responseText);
 
@@ -36,7 +36,7 @@ class NijieResolverTest extends TestCase
 
     public function testMultiplePicture()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Nijie/testMultiplePictureResponse.html');
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/Nijie/testMultiplePicture.html');
 
         $this->createResolver(NijieResolver::class, $responseText);
 
@@ -52,7 +52,7 @@ class NijieResolverTest extends TestCase
 
     public function testAnimationGif()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Nijie/testAnimationGifResponse.html');
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/Nijie/testAnimationGif.html');
 
         $this->createResolver(NijieResolver::class, $responseText);
 
@@ -67,7 +67,7 @@ class NijieResolverTest extends TestCase
 
     public function testMp4Movie()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Nijie/testMp4MovieResponse.html');
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/Nijie/testMp4Movie.html');
 
         $this->createResolver(NijieResolver::class, $responseText);
 
@@ -82,7 +82,7 @@ class NijieResolverTest extends TestCase
 
     public function testStandardPictureSp()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Nijie/testStandardPictureResponse.html');
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/Nijie/testStandardPictureSp.html');
 
         $this->createResolver(NijieResolver::class, $responseText);
 
@@ -98,7 +98,7 @@ class NijieResolverTest extends TestCase
 
     public function testMultiplePictureSp()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Nijie/testMultiplePictureResponse.html');
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/Nijie/testMultiplePictureSp.html');
 
         $this->createResolver(NijieResolver::class, $responseText);
 
@@ -114,7 +114,7 @@ class NijieResolverTest extends TestCase
 
     public function testAnimationGifSp()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Nijie/testAnimationGifResponse.html');
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/Nijie/testAnimationGifSp.html');
 
         $this->createResolver(NijieResolver::class, $responseText);
 
@@ -130,7 +130,7 @@ class NijieResolverTest extends TestCase
 
     public function testMp4MovieSp()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Nijie/testMp4MovieResponse.html');
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/Nijie/testMp4MovieSp.html');
 
         $this->createResolver(NijieResolver::class, $responseText);
 

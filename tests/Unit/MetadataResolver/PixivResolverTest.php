@@ -20,7 +20,7 @@ class PixivResolverTest extends TestCase
 
     public function testIllust()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Pixiv/illust.json');
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/Pixiv/testIllust.json');
 
         $this->createResolver(PixivResolver::class, $responseText);
 
@@ -36,7 +36,7 @@ class PixivResolverTest extends TestCase
 
     public function testIllustMultiPages()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Pixiv/illustMultiPages.json');
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/Pixiv/testIllustMultiPages.json');
 
         $this->createResolver(PixivResolver::class, $responseText);
 
@@ -52,7 +52,7 @@ class PixivResolverTest extends TestCase
 
     public function testManga()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Pixiv/manga.json');
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/Pixiv/testManga.json');
 
         $this->createResolver(PixivResolver::class, $responseText);
 
