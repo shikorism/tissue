@@ -52,7 +52,7 @@ class UpdateFixture extends Command
                     $test_file_without_comment .= $token;
                 } else {
                     list($id, $text) = $token;
-                    if (token_name($id) != 'T_COMMENT') {
+                    if (token_name($id) !== 'T_COMMENT') {
                         $test_file_without_comment .= $text;
                     }
                 }
