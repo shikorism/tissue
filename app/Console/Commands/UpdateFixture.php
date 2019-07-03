@@ -44,8 +44,21 @@ class UpdateFixture extends Command
             $this->info($this->argument('resolver') . 'ResolverTest.php is found.');
 
             $test_file = file_get_contents($test_file_path);
-            preg_match_all('~file_get_contents\(__DIR__ . \'/(.+)\'\);~', $test_file, $fixtures);
-            preg_match_all('~\$this->assertSame\(\'(.+)\', \(string\) \$this->handler->getLastRequest\(\)->getUri\(\)\);~', $test_file, $urls);
+            $test_file_without_comment = '';
+            // コメントを削除する
+            $tokens = token_get_all($test_file);
+            foreach ($tokens as $token) {
+                if (is_string($token)) {
+                    $test_file_without_comment .= $token;
+                } else {
+                    list($id, $text) = $token;
+                    if (token_name($id) != 'T_COMMENT') {
+                        $test_file_without_comment .= $text;
+                    }
+                }
+            }
+            preg_match_all('~file_get_contents\(__DIR__ . \'/(.+)\'\);~', $test_file_without_comment, $fixtures);
+            preg_match_all('~\$this->assertSame\(\'(.+)\', \(string\) \$this->handler->getLastRequest\(\)->getUri\(\)\);~m', $test_file_without_comment, $urls);
             $update_list = array_combine($fixtures[1], $urls[1]);
 
             $progress = $this->output->createProgressBar(count($update_list));
