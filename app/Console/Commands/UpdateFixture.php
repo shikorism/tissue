@@ -46,15 +46,16 @@ class UpdateFixture extends Command
             $test_file = file_get_contents($test_file_path);
             preg_match_all('~file_get_contents\(__DIR__ . \'/(.+)\'\);~', $test_file, $fixtures);
             preg_match_all('~\$this->assertSame\(\'(.+)\', \(string\) \$this->handler->getLastRequest\(\)->getUri\(\)\);~', $test_file, $urls);
+            $update_list = array_combine($fixtures[1], $urls[1]);
 
-            $progress = $this->output->createProgressBar(count($fixtures[1]));
-            $progress->setFormat('Updating %file% from %url%' . PHP_EOL . '%current%/%max% [%bar%] %percent:3s%%');
+            $progress = $this->output->createProgressBar(count($update_list));
+            $progress->setFormat('Updating %path% from %url%' . PHP_EOL . '%current%/%max% [%bar%] %percent:3s%%');
 
-            for ($i = 0; $i < count($urls[1]); $i++) {
+            foreach ($update_list as $path => $url) {
                 sleep(1);
-                $progress->setMessage($fixtures[1][$i], 'file');
-                $progress->setMessage($urls[1][$i], 'url');
-                file_put_contents($resolver_base_path . $fixtures[1][$i], file_get_contents($urls[1][$i]));
+                $progress->setMessage($path, 'path');
+                $progress->setMessage($url, 'url');
+                file_put_contents($resolver_base_path . $path, file_get_contents($url));
                 $progress->advance();
             }
 
