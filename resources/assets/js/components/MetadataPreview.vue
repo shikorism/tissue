@@ -71,6 +71,7 @@
 
         created() {
             bus.$on("change-tag", (tags: string[]) => this.tags = tags);
+            bus.$emit("resend-tag");
         }
 
         addTag(tag: string) {

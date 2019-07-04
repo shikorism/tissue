@@ -31,6 +31,7 @@
 
         created() {
             bus.$on("add-tag", (tag: string) => this.tags.indexOf(tag) === -1 && this.tags.push(tag));
+            bus.$on("resend-tag", () => bus.$emit("change-tag", this.tags));
         }
 
         onKeyDown(event: KeyboardEvent) {
