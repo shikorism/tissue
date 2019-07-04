@@ -7,13 +7,3 @@
     width: 100%;
     @include border-right-radius($card-inner-border-radius);
 }
-
-.card-img-top-to-left {
-    width: 100%;
-    @include media-breakpoint-down(md) {
-        @include border-top-radius($card-inner-border-radius);
-    }
-    @include media-breakpoint-up(lg) {
-        @include border-left-radius($card-inner-border-radius);
-    }
-}
