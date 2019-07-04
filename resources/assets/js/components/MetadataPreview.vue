@@ -11,7 +11,7 @@
                 </div>
                 <div v-else-if="state === MetadataLoadState.Success" class="row no-gutters">
                     <div v-if="hasImage" class="col-4 justify-content-center align-items-center">
-                        <img :src="metadata.image" alt="Thumbnail" class="card-img-top-to-left bg-secondary">
+                        <img :src="metadata.image" alt="Thumbnail" class="w-100 bg-secondary">
                     </div>
                     <div :class="descClasses">
                         <div class="card-body">
@@ -90,10 +90,7 @@
 <style lang="scss" scoped>
     .link-card-mini {
         $height: 150px;
-
-        .row > div {
-            overflow: hidden;
-        }
+        overflow: hidden;
 
         .row > div:first-child {
             display: flex;
