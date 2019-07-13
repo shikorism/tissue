@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-    import {Vue, Component, Prop} from "vue-property-decorator";
+    import {Vue, Component, Prop, Watch} from "vue-property-decorator";
     import {bus} from "../checkin";
 
     @Component
@@ -31,6 +31,7 @@
 
         created() {
             bus.$on("add-tag", (tag: string) => this.tags.indexOf(tag) === -1 && this.tags.push(tag));
+            bus.$on("resend-tag", () => bus.$emit("change-tag", this.tags));
         }
 
         onKeyDown(event: KeyboardEvent) {
@@ -54,6 +55,11 @@
 
         removeTag(index: number) {
             this.tags.splice(index, 1);
+        }
+
+        @Watch("tags")
+        onTagsChanged() {
+            bus.$emit("change-tag", this.tags);
         }
 
         get containerClass(): object {
