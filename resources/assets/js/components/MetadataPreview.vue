@@ -11,7 +11,7 @@
                 </div>
                 <div v-else-if="state === MetadataLoadState.Success" class="row no-gutters">
                     <div v-if="hasImage" class="col-4 justify-content-center align-items-center">
-                        <img :src="metadata.image" alt="Thumbnail" class="card-img-top-to-left bg-secondary">
+                        <img :src="metadata.image" alt="Thumbnail" class="w-100 bg-secondary">
                     </div>
                     <div :class="descClasses">
                         <div class="card-body">
@@ -20,8 +20,8 @@
                                 <p class="card-text mb-2" style="font-size: small;">タグ候補<br><span class="text-secondary">(クリックするとタグ入力欄にコピーできます)</span></p>
                                 <ul class="list-inline d-inline">
                                     <li v-for="tag in suggestions"
-                                        class="list-inline-item badge badge-primary metadata-tag-item"
-                                        @click="addTag(tag)"><span class="oi oi-tag"></span> {{ tag }}</li>
+                                        :class="tagClasses(tag)"
+                                        @click="addTag(tag.name)"><span class="oi oi-tag"></span> {{ tag.name }}</li>
                                 </ul>
                             </template>
                         </div>
@@ -54,6 +54,11 @@
         }[],
     };
 
+    type Suggestion = {
+        name: string,
+        used: boolean,
+    }
+
     @Component
     export default class MetadataPreview extends Vue {
         @Prop() readonly state!: MetadataLoadState;
@@ -62,16 +67,38 @@
         // for use in v-if
         private readonly MetadataLoadState = MetadataLoadState;
 
+        tags: string[] = [];
+
+        created() {
+            bus.$on("change-tag", (tags: string[]) => this.tags = tags);
+            bus.$emit("resend-tag");
+        }
+
         addTag(tag: string) {
             bus.$emit("add-tag", tag);
         }
 
-        get suggestions() {
+        tagClasses(s: Suggestion) {
+            return {
+                "list-inline-item": true,
+                "badge": true,
+                "badge-primary": !s.used,
+                "badge-secondary": s.used,
+                "metadata-tag-item": true,
+            };
+        }
+
+        get suggestions(): Suggestion[] {
             if (this.metadata === null) {
                 return [];
             }
 
-            return this.metadata.tags.map(t => t.name);
+            return this.metadata.tags.map(t => {
+                return {
+                    name: t.name,
+                    used: this.tags.indexOf(t.name) !== -1
+                };
+            });
         }
 
         get hasImage() {
@@ -90,10 +117,7 @@
 <style lang="scss" scoped>
     .link-card-mini {
         $height: 150px;
-
-        .row > div {
-            overflow: hidden;
-        }
+        overflow: hidden;
 
         .row > div:first-child {
             display: flex;

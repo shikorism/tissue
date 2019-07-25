@@ -2,7 +2,7 @@
     <a class="text-dark card-link" href="{{ $link }}" target="_blank" rel="noopener">
         <div class="row no-gutters">
             <div class="col-12 col-md-6 justify-content-center align-items-center">
-                <img src="" alt="Thumbnail" class="card-img-top-to-left bg-secondary">
+                <img src="" alt="Thumbnail" class="w-100 bg-secondary">
             </div>
             <div class="col-12 col-md-6">
                 <div class="card-body">
