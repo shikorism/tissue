@@ -1,6 +1,6 @@
-version: 2
+version: 2.1
 
-jobs:
+executors:
   build:
     docker:
       - image: circleci/php:7.1-node-browsers
@@ -17,37 +17,74 @@ jobs:
           POSTGRES_DB: tissue
           POSTGRES_USER: tissue
           POSTGRES_PASSWORD: tissue
+
+commands:
+  initialize:
     steps:
       - checkout
-
       - run: sudo apt update
       - run: sudo apt install -y libpq-dev
       - run: sudo docker-php-ext-install zip
       - run: sudo docker-php-ext-install pdo_pgsql
-
+  restore_composer:
+    steps:
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "composer.json" }}
             - v1-dependencies-
-      - run: composer install -n --prefer-dist
+  save_composer:
+    steps:
       - save_cache:
           key: v1-dependencies-{{ checksum "composer.json" }}
           paths:
             - ./vendor
-
+  restore_npm:
+    steps:
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
-      - run: yarn install
+  save_npm:
+    steps:
       - save_cache:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
             - ./node_modules
             - ~/.yarn
 
-      - run: php artisan migrate
+jobs:
+  build:
+    executor: build
+    steps:
+      - initialize
+
+      - restore_composer
+      - run: composer install -n --prefer-dist
+      - save_composer
+
+      - restore_npm
+      - run: yarn install
+      - save_npm
+
       - run: yarn run prod
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - public
+
+  test:
+    executor: build
+    steps:
+      - initialize
+
+      - restore_composer
+      - restore_npm
+
+      - attach_workspace:
+          at: .
+
+      - run: php artisan migrate
 
       # Run linter
       - run:
@@ -79,3 +116,51 @@ jobs:
       - run:
           command: bash <(curl -s https://codecov.io/bash) -f /tmp/phpunit/coverage.xml
           when: always
+
+  test_resolver:
+    executor: build
+    environment:
+      TEST_USE_HTTP_MOCK: false
+    steps:
+      - initialize
+
+      - restore_composer
+
+      - attach_workspace:
+          at: .
+
+      - run: php artisan migrate
+
+      # Run unit test
+      - run:
+          command: |
+            mkdir -p /tmp/phpunit
+            ./vendor/bin/phpunit --log-junit /tmp/phpunit/phpunit.xml --coverage-clover=/tmp/phpunit/coverage.xml
+          when: always
+      - store_test_results:
+          path: /tmp/phpunit
+      - store_artifacts:
+          path: /tmp/phpunit/coverage.xml
+
+workflows:
+  version: 2.1
+  test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+  scheduled_resolver_test:
+    triggers:
+      - schedule:
+          cron: "4 0 * * 1"
+          filters:
+            branches:
+              only:
+                - develop
+    jobs:
+      - build
+      - test_resolver:
+          requires:
+            - build
+
