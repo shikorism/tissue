@@ -24,9 +24,7 @@ class ToranoanaResolver implements Resolver
 
     public function resolve(string $url): Metadata
     {
-        $cookieJar = CookieJar::fromArray(['adflg' => '0'], 'ec.toranoana.jp');
-
-        $res = $this->client->get($url, ['cookies' => $cookieJar]);
+        $res = $this->client->get($url);
         if ($res->getStatusCode() === 200) {
             $metadata = $this->ogpResolver->parse($res->getBody());
 
