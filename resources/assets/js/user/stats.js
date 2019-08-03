@@ -108,7 +108,7 @@ const monthlyTermSelector = document.getElementById('monthly-term');
 for (let year = monthlyTermFrom.getFullYear(); year <= new Date().getFullYear(); year++) {
     const opt = document.createElement('option');
     opt.setAttribute('value', year);
-    opt.textContent = year;
+    opt.textContent = `${year}年`;
     monthlyTermSelector.insertBefore(opt, monthlyTermSelector.firstChild);
 }
 if (monthlyTermSelector.children.length) {

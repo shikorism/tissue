@@ -19,7 +19,7 @@
         <div class="col-12 col-lg-6 d-flex align-items-center">
             <h5 class="my-0">月間チェックイン回数</h5>
         </div>
-        <div class="col-12 col-lg-6">
+        <div class="col-12 col-lg-6 mt-2 mt-lg-0">
             <select id="monthly-term" class="form-control"></select>
         </div>
     </div>
