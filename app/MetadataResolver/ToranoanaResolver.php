@@ -24,11 +24,19 @@ class ToranoanaResolver implements Resolver
 
     public function resolve(string $url): Metadata
     {
-        $cookieJar = CookieJar::fromArray(['adflg' => '0'], 'ec.toranoana.jp');
-
-        $res = $this->client->get($url, ['cookies' => $cookieJar]);
+        $res = $this->client->get($url);
         if ($res->getStatusCode() === 200) {
-            return $this->ogpResolver->parse($res->getBody());
+            $metadata = $this->ogpResolver->parse($res->getBody());
+
+            $dom = new \DOMDocument();
+            @$dom->loadHTML(mb_convert_encoding($res->getBody(), 'HTML-ENTITIES', 'UTF-8'));
+            $xpath = new \DOMXPath($dom);
+            $imgNode = $xpath->query('//*[@id="preview"]//img')->item(0);
+            if ($imgNode !== null) {
+                $metadata->image = $imgNode->getAttribute('src');
+            }
+
+            return $metadata;
         } else {
             throw new \RuntimeException("{$res->getStatusCode()}: $url");
         }
