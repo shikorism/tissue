@@ -1,5 +1,6 @@
 import CalHeatMap from 'cal-heatmap';
 import Chart from 'chart.js';
+import {addMonths, format, startOfMonth, subMonths} from 'date-fns';
 
 function createLineGraph(id, labels, data) {
     const context = document.getElementById(id).getContext('2d');
@@ -76,7 +77,18 @@ new CalHeatMap().init({
     legend: [1, 2, 3, 4]
 });
 
-createLineGraph('monthly-graph', graphData.monthlyKey, graphData.monthlySum);
+// 直近1年の月間グラフのデータを準備
+const monthlyKey = [];
+const monthlySum = [];
+const monthlyTermFrom = subMonths(startOfMonth(new Date()), 11);
+for (let i = 0; i < 12; i++) {
+    const current = addMonths(monthlyTermFrom, i);
+    const yearAndMonth = format(current, 'YYYY/MM');
+    monthlyKey.push(yearAndMonth);
+    monthlySum.push(graphData.monthlySum[yearAndMonth] || 0);
+}
+
+createLineGraph('monthly-graph', monthlyKey, monthlySum);
 createLineGraph('yearly-graph', graphData.yearlyKey, graphData.yearlySum);
 createBarGraph('hourly-graph', graphData.hourlyKey, graphData.hourlySum);
 createBarGraph('dow-graph', ['日', '月', '火', '水', '木', '金', '土'], graphData.dowSum);
