@@ -36,7 +36,6 @@ docker-compose up -d
 4. Composer と yarn を使い必要なライブラリをインストールします。
 
 ```
-docker-compose exec web composer global require hirak/prestissimo
 docker-compose exec web composer install
 docker-compose exec web yarn install
 ```
