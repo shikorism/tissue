@@ -28,6 +28,7 @@ class MetadataResolver implements Resolver
         '~www\.plurk\.com\/p\/.*~' => PlurkResolver::class,
         '~(adult\.)?contents\.fc2\.com\/article_search\.php\?id=\d+~' => FC2ContentsResolver::class,
         '~store\.steampowered\.com/app/\d+~' => SteamResolver::class,
+        '~www\.xtube\.com/video-watch/.*-\d+$~'=> XtubeResolver::class,
     ];
 
     public $mimeTypes = [
