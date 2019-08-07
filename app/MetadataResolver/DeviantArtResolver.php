@@ -23,31 +23,25 @@ class DeviantArtResolver implements Resolver
 
     public function resolve(string $url): Metadata
     {
-        $res = $this->client->get($url);
+        $res = $this->client->get('https://backend.deviantart.com/oembed?url=' . $url);
         if ($res->getStatusCode() === 200) {
-            $metadata = $this->ogpResolver->parse($res->getBody());
+            $data = json_decode($res->getBody()->getContents(), true);
+            $metadata = new Metadata();
 
-            $dom = new \DOMDocument();
-            @$dom->loadHTML(mb_convert_encoding($res->getBody(), 'HTML-ENTITIES', 'UTF-8'));
-            $xpath = new \DOMXPath($dom);
-
-            $node = $xpath->query('//*[@id="pimp-preload"]/following-sibling::div//img')->item(0);
-            $srcset = $node->getAttribute('srcset');
-            $srcset_array = explode('w,', $srcset);
-            $src = end($srcset_array);
-            $src = preg_replace('~ \d+w$~', '', $src);
-
-            if (preg_match('~\.wixmp\.com$~', parse_url($src)['host'])) {
+            if (preg_match('~\.wixmp\.com$~', parse_url($data['url'])['host'])) {
                 // アスペクト比を保ったまま、縦か横が最大700pxになるように変換する。
                 // Ref: https://support.wixmp.com/en/article/image-service-3835799
-                if (strpos($src, '/v1/fill/')) {
-                    $src = preg_replace('~/v1/fill/w_\d+,h_\d+,q_\d+,strp~', '/v1/fit/w_700,h_700,q_70,strp', $src);
+                if (strpos($data['url'], '/v1/fill/')) {
+                    $metadata->image  = preg_replace('~/v1/fill/w_\d+,h_\d+,q_\d+,strp~', '/v1/fit/w_700,h_700,q_70,strp', $data['url']);
                 } else {
-                    $src = $src . '/v1/fit/w_700,h_700,q_70,strp/image.jpg';
+                    $metadata->image = $data['url'] . '/v1/fit/w_700,h_700,q_70,strp/image.jpg';
                 }
+            } else {
+                $metadata->image = $data['url'];
             }
 
-            $metadata->image = $src;
+            $metadata->title = $data['title'] ?? '';
+            $metadata->description = 'By ' . $data['author_name'];
 
             return $metadata;
         } else {
