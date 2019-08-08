@@ -46,6 +46,14 @@
                         }
                         event.preventDefault();
                         break;
+                    case 'Unidentified':
+                        // 実際にテキストボックスに入力されている文字を見に行く (フォールバック処理)
+                        if (event.srcElement && (event.srcElement as HTMLInputElement).value.slice(-1) == ' ') {
+                            this.tags.push(this.buffer);
+                            this.buffer = "";
+                            event.preventDefault();
+                        }
+                        break;
                 }
             } else if (event.key === "Enter") {
                 // 誤爆防止
