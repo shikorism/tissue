@@ -135,7 +135,7 @@ jobs:
       - run:
           command: |
             mkdir -p /tmp/phpunit
-            ./vendor/bin/phpunit --log-junit /tmp/phpunit/phpunit.xml --coverage-clover=/tmp/phpunit/coverage.xml
+            ./vendor/bin/phpunit --testsuite MetadataResolver --log-junit /tmp/phpunit/phpunit.xml --coverage-clover=/tmp/phpunit/coverage.xml
           when: always
       - store_test_results:
           path: /tmp/phpunit
