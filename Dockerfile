@@ -1,6 +1,6 @@
 FROM node:10-jessie as node
 
-FROM php:7.1-apache
+FROM php:7.3-apache
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
