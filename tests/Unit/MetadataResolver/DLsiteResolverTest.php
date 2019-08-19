@@ -106,7 +106,7 @@ class DLsiteResolverTest extends TestCase
 
         $metadata = $this->resolver->resolve('https://www.dlsite.com/books/work/=/product_id/BJ191317.html');
         $this->assertEquals('永遠娘 vol.6', $metadata->title);
-        $this->assertEquals('著者: あまがえる / 玉之けだま / びんせん / 甘露アメ / 源五郎 / すみやお / 宇宙烏賊 / 毒茸人 / あやね / ガロウド / ハードボイルドよし子 / 夜歌 / 黒青郎君' . PHP_EOL . '君の命はどんな味なのだろうな?', $metadata->description);
+        $this->assertEquals('著者: あまがえる / 玉之けだま / びんせん / 甘露アメ / 源五郎 / すみやお / 宇宙烏賊 / 毒茸人 / あやね / ガロウド / ハードボイルドよし子 / 夜歌 / 黒青郎君' . PHP_EOL . '君の命はどんな味なのだろうな?', $metadata->description);
         $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/books/BJ192000/BJ191317_img_main.jpg', $metadata->image);
         $this->assertEquals(['ツンデレ', 'ロリ', '妖怪', '人外娘/モンスター娘', 'セーラー服', 'メイド', 'ストッキング', 'ファンタジー', 'ぶっかけ', '中出し', '近親相姦', 'アヘ顔', '口内射精'], $metadata->tags);
         if ($this->shouldUseMock()) {
