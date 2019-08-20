@@ -40,13 +40,13 @@ class PixivResolverTest extends TestCase
 
         $this->createResolver(PixivResolver::class, $responseText);
 
-        $metadata = $this->resolver->resolve('https://www.pixiv.net/member_illust.php?mode=medium&illust_id=74939802');
-        $this->assertEquals('T-20S', $metadata->title);
-        $this->assertEquals('投稿者: amssc' . PHP_EOL . 'JUST FOR FUN' . PHP_EOL . '现在可以做到游戏内立绘修改拉！立绘动态皮肤都可以支持，想要资助获得新技术请站内信联系我。', $metadata->description);
-        $this->assertEquals('https://i.pixiv.cat/img-master/img/2019/05/28/01/16/24/74939802_p0_master1200.jpg', $metadata->image);
-        $this->assertEquals(['巨乳', '母乳', 'lastorigin', 'Last_Origin', 'T-20S', 'おっぱい', '라스트오리진', '노움'], $metadata->tags);
+        $metadata = $this->resolver->resolve('https://www.pixiv.net/member_illust.php?mode=medium&illust_id=75899985');
+        $this->assertEquals('コミッション絵33', $metadata->title);
+        $this->assertEquals('投稿者: ナゼ(NAZE)' . PHP_EOL . 'Leak' . PHP_EOL . PHP_EOL . 'Character:アリッサさん（依頼主のオリキャラ）', $metadata->description);
+        $this->assertEquals('https://i.pixiv.cat/img-master/img/2019/07/25/13/02/59/75899985_p0_master1200.jpg', $metadata->image);
+        $this->assertEquals(['巨乳輪', '超乳', '巨乳首', '母乳'], $metadata->tags);
         if ($this->shouldUseMock()) {
-            $this->assertSame('https://www.pixiv.net/ajax/illust/74939802', (string) $this->handler->getLastRequest()->getUri());
+            $this->assertSame('https://www.pixiv.net/ajax/illust/75899985', (string) $this->handler->getLastRequest()->getUri());
         }
     }
 
