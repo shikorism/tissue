@@ -14,6 +14,7 @@
         "laravel/tinker": "~1.0",
         "misd/linkify": "^1.1",
         "staudenmeir/eloquent-eager-limit": "^1.0",
+        "symfony/css-selector": "^4.3",
         "symfony/dom-crawler": "^4.3"
     },
     "require-dev": {
