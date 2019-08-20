@@ -33,6 +33,7 @@ class MetadataResolver implements Resolver
         '~store\.steampowered\.com/app/\d+~' => SteamResolver::class,
         '~www\.xtube\.com/video-watch/.*-\d+$~'=> XtubeResolver::class,
         '~ss\.kb10uy\.org/posts/\d+$~' => Kb10uyShortStoryServerResolver::class,
+        '~www\.hentai-foundry\.com/pictures/user/.+/\d+/.+~'=> HentaiFoundryResolver::class,
     ];
 
     public $mimeTypes = [
