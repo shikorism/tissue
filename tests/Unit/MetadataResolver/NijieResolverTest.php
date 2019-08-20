@@ -73,8 +73,8 @@ class NijieResolverTest extends TestCase
         $this->createResolver(NijieResolver::class, $responseText);
 
         $metadata = $this->resolver->resolve('https://nijie.info/view.php?id=256283');
-        $this->assertEquals('てすと', $metadata->title);
-        $this->assertEquals('投稿者: ニジエ運営' . PHP_EOL . 'H264動画てすと　あとで消します' . PHP_EOL .  PHP_EOL . '今の所、H264コーデックのみ、出力時に音声なしにしないと投稿できません' . PHP_EOL . '動画は勝手にループします', $metadata->description);
+        $this->assertSame('てすと', $metadata->title);
+        $this->assertSame('投稿者: ニジエ運営' . PHP_EOL . 'H264動画てすと　あとで消します' . PHP_EOL .  PHP_EOL . '今の所、H264コーデックのみ、出力時に音声なしにしないと投稿できません' . PHP_EOL . '動画は勝手にループします', $metadata->description);
         $this->assertStringStartsWith('https://nijie.info/pic/logo/nijie_logo_og.png', $metadata->image);
         $this->assertSame([], $metadata->tags);
         if ($this->shouldUseMock()) {
