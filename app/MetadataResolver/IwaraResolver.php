@@ -25,14 +25,14 @@ class IwaraResolver implements Resolver
             $html = (string) $res->getBody();
             $crawler = new Crawler($html);
 
-            $descriptionElement = $crawler->filter('#video-player + div, .field-name-field-video-url + div, .field-name-field-images + div');
-            $title = $descriptionElement->filter('h1.title')->text();
-            $author = $descriptionElement->filter('.username')->text();
+            $infoElements = $crawler->filter('#video-player + div, .field-name-field-video-url + div, .field-name-field-images + div');
+            $title = $infoElements->filter('h1.title')->text();
+            $author = $infoElements->filter('.username')->text();
             $description = '';
-            if ($descriptionElement->filter('.field-type-text-with-summary')->count()) {
-                $description = $descriptionElement->filter('.field-type-text-with-summary')->text();
+            if ($infoElements->filter('.field-type-text-with-summary')->count()) {
+                $description = $infoElements->filter('.field-type-text-with-summary')->text();
             }
-            $tags =  $descriptionElement->filter('a[href^="/video-categories"], a[href^="/images"]')->extract('_text');
+            $tags =  $infoElements->filter('a[href^="/video-categories"], a[href^="/images"]')->extract('_text');
             // 役に立たないタグを削除する
             $tags = array_values(array_diff($tags, ['Uncategorized', 'Other']));
             array_push($tags, $author);
