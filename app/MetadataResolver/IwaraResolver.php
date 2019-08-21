@@ -32,6 +32,7 @@ class IwaraResolver implements Resolver
             $tags =  $descriptionElement->filter('a[href^="/video-categories"], a[href^="/images"]')->extract('_text');
             // 役に立たないタグを削除する
             $tags = array_values(array_diff($tags, ['Uncategorized', 'Other']));
+            array_push($tags, $author);
 
             $metadata->title = $title;
             $metadata->description = '投稿者: ' . $author . PHP_EOL . $description;
