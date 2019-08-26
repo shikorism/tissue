@@ -258,4 +258,14 @@ class DLsiteResolverTest extends TestCase
             $this->assertSame('https://www.dlsite.com/home/work/=/product_id/RJ221761.html', (string) $this->handler->getLastRequest()->getUri());
         }
     }
+
+    public function testAffiliateBadUrl()
+    {
+        $this->createResolver(DLsiteResolver::class, '');
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('アフィリエイト先のリンクがDLsiteのタイトルではありません: https://www.dlsite.com/home/');
+
+        $this->resolver->resolve('http://www.dlsite.com/home/dlaf/=/aid/eai04191/url/https%3A%2F%2Fwww.dlsite.com%2Fhome%2F');
+    }
 }
