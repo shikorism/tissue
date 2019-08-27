@@ -106,7 +106,7 @@ class DLsiteResolverTest extends TestCase
 
         $metadata = $this->resolver->resolve('https://www.dlsite.com/books/work/=/product_id/BJ191317.html');
         $this->assertEquals('永遠娘 vol.6', $metadata->title);
-        $this->assertEquals('著者: あまがえる / 玉之けだま / びんせん / 甘露アメ / 源五郎 / すみやお / 宇宙烏賊 / 毒茸人 / あやね / ガロウド / ハードボイルドよし子 / 夜歌 / 黒青郎君' . PHP_EOL . '君の命はどんな味なのだろうな?', $metadata->description);
+        $this->assertEquals('著者: あまがえる / 玉之けだま / びんせん / 甘露アメ / 源五郎 / すみやお / 宇宙烏賊 / 毒茸人 / あやね / ガロウド / ハードボイルドよし子 / 夜歌 / 黒青郎君' . PHP_EOL . '君の命はどんな味なのだろうな?', $metadata->description);
         $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/books/BJ192000/BJ191317_img_main.jpg', $metadata->image);
         $this->assertEquals(['ツンデレ', 'ロリ', '妖怪', '人外娘/モンスター娘', 'セーラー服', 'メイド', 'ストッキング', 'ファンタジー', 'ぶっかけ', '中出し', '近親相姦', 'アヘ顔', '口内射精'], $metadata->tags);
         if ($this->shouldUseMock()) {
@@ -224,6 +224,22 @@ class DLsiteResolverTest extends TestCase
         $this->assertEquals(['癒し', 'バイノーラル/ダミヘ', '日常/生活', 'ほのぼの', '恋人同士'], $metadata->tags);
         if ($this->shouldUseMock()) {
             $this->assertSame('https://dlsite.jp/howtw/RJ221761.html', (string) $this->handler->getLastRequest()->getUri());
+        }
+    }
+
+    public function testHTMLdescription()
+    {
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testHTMLdescription.html');
+
+        $this->createResolver(DLsiteResolver::class, $responseText);
+
+        $metadata = $this->resolver->resolve('https://www.dlsite.com/books/work/=/product_id/BJ123822.html');
+        $this->assertEquals('獣○彼女カタログ', $metadata->title);
+        $this->assertEquals('著者: チキコ / MUJIN編集部' . PHP_EOL . '【DLsite.com独占販売】 エロ漫画界騒然、1冊まるごと獣○オンリー単行本! 人間チ×ポは出てきませんっ!!', $metadata->description);
+        $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/books/BJ124000/BJ123822_img_main.jpg', $metadata->image);
+        $this->assertEquals(['断面図', '制服', '水着', 'メイド', '巫女', '軍服', '中出し', 'フェラチオ', '複数プレイ/乱交', '異種姦', '巨乳/爆乳', '処女', '褐色/日焼け'], $metadata->tags);
+        if ($this->shouldUseMock()) {
+            $this->assertSame('https://www.dlsite.com/books/work/=/product_id/BJ123822.html', (string) $this->handler->getLastRequest()->getUri());
         }
     }
 }

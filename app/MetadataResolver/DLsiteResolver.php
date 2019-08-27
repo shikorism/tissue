@@ -82,7 +82,8 @@ class DLsiteResolver implements Resolver
             // #work_makerから「makerを含むテキスト」を持つ要素を持つtdを探す
             // 作者名単体の場合もあるし、"作者A / 作者B"のようになることもある
             $makersNode = $xpath->query('//*[@id="work_maker"]//*[contains(text(), "' . $makers[0] . '")]/ancestor::td')->item(0);
-            $makers = trim($makersNode->textContent);
+            // nbspをspaceに置換
+            $makers = trim(str_replace("\xc2\xa0", ' ', $makersNode->textContent));
 
             // makersHaed
             // $makerNode(td)に対するthを探す
@@ -97,10 +98,11 @@ class DLsiteResolver implements Resolver
 
             // OGP説明文から定型文を消す
             if (strpos($url, 'dlsite.com/eng/') || strpos($url, 'dlsite.com/ecchi-eng/')) {
-                $metadata->description = trim(preg_replace('~DLsite.+ is a download shop for .+With a huge selection of products, we\'re sure you\'ll find whatever tickles your fancy\. DLsite is one of the greatest indie contents download shops in Japan\.$~', '', $metadata->description));
+                $metadata->description = preg_replace('~DLsite.+ is a download shop for .+With a huge selection of products, we\'re sure you\'ll find whatever tickles your fancy\. DLsite is one of the greatest indie contents download shops in Japan\.$~', '', $metadata->description);
             } else {
-                $metadata->description = trim(preg_replace('~「DLsite.+」は.+のダウンロードショップ。お気に入りの作品をすぐダウンロードできてすぐ楽しめる！毎日更新しているのであなたが探している作品にきっと出会えます。国内最大級の二次元総合ダウンロードショップ「DLsite」！$~', '', $metadata->description));
+                $metadata->description = preg_replace('~「DLsite.+」は.+のダウンロードショップ。お気に入りの作品をすぐダウンロードできてすぐ楽しめる！毎日更新しているのであなたが探している作品にきっと出会えます。国内最大級の二次元総合ダウンロードショップ「DLsite」！$~', '', $metadata->description);
             }
+            $metadata->description = trim(strip_tags($metadata->description));
 
             // 整形
             $metadata->description = $makersHead . ': ' . $makers . PHP_EOL . $metadata->description;
