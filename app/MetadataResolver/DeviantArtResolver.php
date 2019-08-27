@@ -34,7 +34,8 @@ class DeviantArtResolver implements Resolver
                 if (strpos($data['url'], '/v1/fill/')) {
                     $metadata->image  = preg_replace('~/v1/fill/w_\d+,h_\d+,q_\d+,strp~', '/v1/fit/w_700,h_700,q_70,strp', $data['url']);
                 } else {
-                    $metadata->image = $data['url'] . '/v1/fit/w_700,h_700,q_70,strp/image.jpg';
+                    $queryStartPos = strpos($data['url'], '?');
+                    $metadata->image = substr_replace($data['url'], '/v1/fit/w_700,h_700,strp/image.jpg', $queryStartPos, 0);
                 }
             } else {
                 $metadata->image = $data['url'];
