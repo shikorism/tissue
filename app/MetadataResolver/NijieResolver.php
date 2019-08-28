@@ -33,8 +33,8 @@ class NijieResolver implements Resolver
 
         $res =  $this->client->get($url);
         if ($res->getStatusCode() === 200) {
-            $metadata = $this->ogpResolver->parse((string) $res->getBody());
             $html = (string) $res->getBody();
+            $metadata = $this->ogpResolver->parse($html);
             $crawler = new Crawler($html);
 
             // DomCrawler内でjson内の日本語がHTMLエンティティに変換されるのでhtml_entity_decode
@@ -42,8 +42,6 @@ class NijieResolver implements Resolver
 
             // 改行がそのまま入っていることがあるのでデコード前にエスケープが必要
             $data = json_decode(preg_replace('/\r?\n/', '\n', $json), true);
-
-            $tags = $crawler->filter('#view-tag span.tag_name')->extract('_text');
 
             $metadata->title = $data['name'];
             $metadata->description = '投稿者: ' . $data['author']['name'] . PHP_EOL . $data['description'];
@@ -55,7 +53,7 @@ class NijieResolver implements Resolver
                 // サムネイルからメイン画像に
                 $metadata->image = str_replace('__rs_l160x160/', '', $data['thumbnailUrl']);
             }
-            $metadata->tags = $tags;
+            $metadata->tags = $crawler->filter('#view-tag span.tag_name')->extract('_text');
 
             return $metadata;
         } else {
