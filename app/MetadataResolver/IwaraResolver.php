@@ -28,10 +28,7 @@ class IwaraResolver implements Resolver
             $infoElements = $crawler->filter('#video-player + div, .field-name-field-video-url + div, .field-name-field-images + div');
             $title = $infoElements->filter('h1.title')->text();
             $author = $infoElements->filter('.username')->text();
-            $description = '';
-            if ($infoElements->filter('.field-type-text-with-summary')->count()) {
-                $description = $infoElements->filter('.field-type-text-with-summary')->text();
-            }
+            $description = $infoElements->filter('.field-type-text-with-summary')->text('');
             $tags =  $infoElements->filter('a[href^="/video-categories"], a[href^="/images"]')->extract('_text');
             // 役に立たないタグを削除する
             $tags = array_values(array_diff($tags, ['Uncategorized', 'Other']));
