@@ -29,7 +29,7 @@ class IwaraResolver implements Resolver
             $title = $infoElements->filter('h1.title')->text();
             $author = $infoElements->filter('.username')->text();
             $description = $infoElements->filter('.field-type-text-with-summary')->text('');
-            $tags =  $infoElements->filter('a[href^="/video-categories"], a[href^="/images"]')->extract('_text');
+            $tags =  $infoElements->filter('a[href^="/videos"], a[href^="/images"]')->extract('_text');
             // 役に立たないタグを削除する
             $tags = array_values(array_diff($tags, ['Uncategorized', 'Other']));
             array_push($tags, $author);
