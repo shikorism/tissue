@@ -12,7 +12,7 @@ a.k.a. shikorism.net
 
 ## 実行環境
 
-- PHP 7.1
+- PHP 7.3
 - PostgreSQL 9.6
 
 ## 開発環境の構築
