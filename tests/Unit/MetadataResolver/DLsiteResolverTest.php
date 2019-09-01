@@ -227,6 +227,48 @@ class DLsiteResolverTest extends TestCase
         }
     }
 
+    public function testAffiliateLink()
+    {
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testHome.html');
+
+        $this->createResolver(DLsiteResolver::class, $responseText);
+
+        $metadata = $this->resolver->resolve('https://www.dlsite.com/home/dlaf/=/link/work/aid/eai04191/id/RJ221761.html');
+        $this->assertEquals('ひつじ、数えてあげるっ', $metadata->title);
+        $this->assertEquals('サークル名: Butterfly Dream' . PHP_EOL . '眠れないあなたに彼女が羊を数えてくれる音声です。', $metadata->description);
+        $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/doujin/RJ222000/RJ221761_img_main.jpg', $metadata->image);
+        $this->assertEquals(['癒し', 'バイノーラル/ダミヘ', '日常/生活', 'ほのぼの', '恋人同士'], $metadata->tags);
+        if ($this->shouldUseMock()) {
+            $this->assertSame('https://www.dlsite.com/home/work/=/product_id/RJ221761.html', (string) $this->handler->getLastRequest()->getUri());
+        }
+    }
+
+    public function testAffiliateUrl()
+    {
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testHome.html');
+
+        $this->createResolver(DLsiteResolver::class, $responseText);
+
+        $metadata = $this->resolver->resolve('http://www.dlsite.com/home/dlaf/=/aid/eai04191/url/https%3A%2F%2Fwww.dlsite.com%2Fhome%2Fwork%2F=%2Fproduct_id%2FRJ221761.html');
+        $this->assertEquals('ひつじ、数えてあげるっ', $metadata->title);
+        $this->assertEquals('サークル名: Butterfly Dream' . PHP_EOL . '眠れないあなたに彼女が羊を数えてくれる音声です。', $metadata->description);
+        $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/doujin/RJ222000/RJ221761_img_main.jpg', $metadata->image);
+        $this->assertEquals(['癒し', 'バイノーラル/ダミヘ', '日常/生活', 'ほのぼの', '恋人同士'], $metadata->tags);
+        if ($this->shouldUseMock()) {
+            $this->assertSame('https://www.dlsite.com/home/work/=/product_id/RJ221761.html', (string) $this->handler->getLastRequest()->getUri());
+        }
+    }
+
+    public function testAffiliateBadUrl()
+    {
+        $this->createResolver(DLsiteResolver::class, '');
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('アフィリエイト先のリンクがDLsiteのタイトルではありません: https://www.dlsite.com/home/');
+
+        $this->resolver->resolve('http://www.dlsite.com/home/dlaf/=/aid/eai04191/url/https%3A%2F%2Fwww.dlsite.com%2Fhome%2F');
+    }
+
     public function testHTMLdescription()
     {
         $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testHTMLdescription.html');

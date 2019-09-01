@@ -52,6 +52,20 @@ class DLsiteResolver implements Resolver
 
     public function resolve(string $url): Metadata
     {
+        //アフィリエイトの場合は普通のURLに変換
+        if (strpos($url, '/dlaf/=/link/') !== false) {
+            preg_match('~www\.dlsite\.com/(?P<genre>.+)/dlaf/=/link/work/aid/.+/id/(?P<titleId>..\d+)(\.html)?~', $url, $matches);
+            $url = "https://www.dlsite.com/{$matches['genre']}/work/=/product_id/{$matches['titleId']}.html";
+        }
+        if (strpos($url, '/dlaf/=/aid/') !== false) {
+            preg_match('~www\.dlsite\.com/.+/dlaf/=/aid/.+/url/(?P<url>.+)~', $url, $matches);
+            $affiliate_url = urldecode($matches['url']);
+            if (preg_match('~www\.dlsite\.com/.+/(work|announce)/=/product_id/..\d+(\.html)?~', $affiliate_url, $matches)) {
+                $url = $affiliate_url;
+            } else {
+                throw new \RuntimeException("アフィリエイト先のリンクがDLsiteのタイトルではありません: $affiliate_url");
+            }
+        }
 
         //スマホページの場合はPCページに正規化
         if (strpos($url, '-touch') !== false) {
