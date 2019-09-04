@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class SettingController extends Controller
 {
@@ -18,10 +19,18 @@ class SettingController extends Controller
         $inputs = $request->all();
         $validator = Validator::make($inputs, [
             'display_name' => 'required|string|max:20',
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('users')->ignore(Auth::user()->email, 'email')
+            ],
             'bio' => 'nullable|string|max:160',
             'url' => 'nullable|url|max:2000'
         ], [], [
             'display_name' => '名前',
+            'email' => 'メールアドレス',
             'bio' => '自己紹介',
             'url' => 'URL'
         ]);
@@ -32,6 +41,7 @@ class SettingController extends Controller
 
         $user = Auth::user();
         $user->display_name = $inputs['display_name'];
+        $user->email = $inputs['email'];
         $user->bio = $inputs['bio'] ?? '';
         $user->url = $inputs['url'] ?? '';
         $user->save();
