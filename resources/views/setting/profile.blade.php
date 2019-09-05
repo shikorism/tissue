@@ -32,9 +32,12 @@
             <small class="form-text text-muted">現在は変更できません。</small>
         </div>
         <div class="from-group mt-3">
-            <label for="name">メールアドレス</label>
-            <input id="name" name="name" type="text" class="form-control" value="{{ Auth::user()->email }}" disabled>
-            <small class="form-text text-muted">現在は変更できません。</small>
+            <label for="email">メールアドレス</label>
+            <input id="email" name="email" type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') ?? Auth::user()->email }}">
+
+            @if ($errors->has('email'))
+                <div class="invalid-feedback">{{ $errors->first('email') }}</div>
+            @endif
         </div>
         <div class="form-group mt-3">
             <label for="bio">自己紹介</label>

@@ -14,8 +14,10 @@ class MetadataResolver implements Resolver
         '~komiflo\.com(/#!)?/comics/(\\d+)~' => KomifloResolver::class,
         '~www\.melonbooks\.co\.jp/detail/detail\.php~' => MelonbooksResolver::class,
         '~ec\.toranoana\.(jp|shop)/(tora|joshi)(_[rd]+)?/(ec|digi)/item/~' => ToranoanaResolver::class,
-        '~iwara\.tv/videos/.*~' => IwaraResolver::class,
+        '~iwara\.tv/(videos|images)/.*~' => IwaraResolver::class,
         '~www\.dlsite\.com/.*/(work|announce)/=/product_id/..\d+(\.html)?~' => DLsiteResolver::class,
+        '~www\.dlsite\.com/.*/dlaf/=/link/(work|announce)/aid/.+/..\d+(\.html)?~' => DLsiteResolver::class,
+        '~www\.dlsite\.com/.*/dlaf/=/aid/.+/url/.+~' => DLsiteResolver::class,
         '~dlsite\.jp/...tw/..\d+~' => DLsiteResolver::class,
         '~www\.pixiv\.net/member_illust\.php\?illust_id=\d+~' => PixivResolver::class,
         '~www\.pixiv\.net/user/\d+/series/\d+~' => PixivResolver::class,
@@ -28,6 +30,7 @@ class MetadataResolver implements Resolver
         '~www\.plurk\.com\/p\/.*~' => PlurkResolver::class,
         '~(adult\.)?contents\.fc2\.com\/article_search\.php\?id=\d+~' => FC2ContentsResolver::class,
         '~store\.steampowered\.com/app/\d+~' => SteamResolver::class,
+        '~www\.xtube\.com/video-watch/.*-\d+$~'=> XtubeResolver::class,
     ];
 
     public $mimeTypes = [

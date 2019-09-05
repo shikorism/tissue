@@ -15,7 +15,14 @@
     <h5 class="my-4">Shikontribution graph</h5>
     <div id="cal-heatmap" class="tis-contribution-graph"></div>
     <hr class="my-4">
-    <h5 class="my-4">月間チェックイン回数</h5>
+    <div class="row my-4">
+        <div class="col-12 col-lg-6 d-flex align-items-center">
+            <h5 class="my-0">月間チェックイン回数</h5>
+        </div>
+        <div class="col-12 col-lg-6 mt-2 mt-lg-0">
+            <select id="monthly-term" class="form-control"></select>
+        </div>
+    </div>
     <canvas id="monthly-graph" class="w-100"></canvas>
     <hr class="my-4">
     <h5 class="my-4">年間チェックイン回数</h5>

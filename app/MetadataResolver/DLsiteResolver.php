@@ -52,6 +52,20 @@ class DLsiteResolver implements Resolver
 
     public function resolve(string $url): Metadata
     {
+        //アフィリエイトの場合は普通のURLに変換
+        if (strpos($url, '/dlaf/=/link/') !== false) {
+            preg_match('~www\.dlsite\.com/(?P<genre>.+)/dlaf/=/link/work/aid/.+/id/(?P<titleId>..\d+)(\.html)?~', $url, $matches);
+            $url = "https://www.dlsite.com/{$matches['genre']}/work/=/product_id/{$matches['titleId']}.html";
+        }
+        if (strpos($url, '/dlaf/=/aid/') !== false) {
+            preg_match('~www\.dlsite\.com/.+/dlaf/=/aid/.+/url/(?P<url>.+)~', $url, $matches);
+            $affiliate_url = urldecode($matches['url']);
+            if (preg_match('~www\.dlsite\.com/.+/(work|announce)/=/product_id/..\d+(\.html)?~', $affiliate_url, $matches)) {
+                $url = $affiliate_url;
+            } else {
+                throw new \RuntimeException("アフィリエイト先のリンクがDLsiteのタイトルではありません: $affiliate_url");
+            }
+        }
 
         //スマホページの場合はPCページに正規化
         if (strpos($url, '-touch') !== false) {
@@ -82,7 +96,8 @@ class DLsiteResolver implements Resolver
             // #work_makerから「makerを含むテキスト」を持つ要素を持つtdを探す
             // 作者名単体の場合もあるし、"作者A / 作者B"のようになることもある
             $makersNode = $xpath->query('//*[@id="work_maker"]//*[contains(text(), "' . $makers[0] . '")]/ancestor::td')->item(0);
-            $makers = trim($makersNode->textContent);
+            // nbspをspaceに置換
+            $makers = trim(str_replace("\xc2\xa0", ' ', $makersNode->textContent));
 
             // makersHaed
             // $makerNode(td)に対するthを探す
@@ -97,10 +112,11 @@ class DLsiteResolver implements Resolver
 
             // OGP説明文から定型文を消す
             if (strpos($url, 'dlsite.com/eng/') || strpos($url, 'dlsite.com/ecchi-eng/')) {
-                $metadata->description = trim(preg_replace('~DLsite.+ is a download shop for .+With a huge selection of products, we\'re sure you\'ll find whatever tickles your fancy\. DLsite is one of the greatest indie contents download shops in Japan\.$~', '', $metadata->description));
+                $metadata->description = preg_replace('~DLsite.+ is a download shop for .+With a huge selection of products, we\'re sure you\'ll find whatever tickles your fancy\. DLsite is one of the greatest indie contents download shops in Japan\.$~', '', $metadata->description);
             } else {
-                $metadata->description = trim(preg_replace('~「DLsite.+」は.+のダウンロードショップ。お気に入りの作品をすぐダウンロードできてすぐ楽しめる！毎日更新しているのであなたが探している作品にきっと出会えます。国内最大級の二次元総合ダウンロードショップ「DLsite」！$~', '', $metadata->description));
+                $metadata->description = preg_replace('~「DLsite.+」は.+のダウンロードショップ。お気に入りの作品をすぐダウンロードできてすぐ楽しめる！毎日更新しているのであなたが探している作品にきっと出会えます。国内最大級の二次元総合ダウンロードショップ「DLsite」！$~', '', $metadata->description);
             }
+            $metadata->description = trim(strip_tags($metadata->description));
 
             // 整形
             $metadata->description = $makersHead . ': ' . $makers . PHP_EOL . $metadata->description;

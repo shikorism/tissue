@@ -12,7 +12,7 @@ a.k.a. shikorism.net
 
 ## 実行環境
 
-- PHP 7.1
+- PHP 7.3
 - PostgreSQL 9.6
 
 ## 開発環境の構築
@@ -36,7 +36,6 @@ docker-compose up -d
 4. Composer と yarn を使い必要なライブラリをインストールします。
 
 ```
-docker-compose exec web composer global require hirak/prestissimo
 docker-compose exec web composer install
 docker-compose exec web yarn install
 ```

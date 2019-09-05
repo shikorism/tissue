@@ -106,7 +106,7 @@ class DLsiteResolverTest extends TestCase
 
         $metadata = $this->resolver->resolve('https://www.dlsite.com/books/work/=/product_id/BJ191317.html');
         $this->assertEquals('永遠娘 vol.6', $metadata->title);
-        $this->assertEquals('著者: あまがえる / 玉之けだま / びんせん / 甘露アメ / 源五郎 / すみやお / 宇宙烏賊 / 毒茸人 / あやね / ガロウド / ハードボイルドよし子 / 夜歌 / 黒青郎君' . PHP_EOL . '君の命はどんな味なのだろうな?', $metadata->description);
+        $this->assertEquals('著者: あまがえる / 玉之けだま / びんせん / 甘露アメ / 源五郎 / すみやお / 宇宙烏賊 / 毒茸人 / あやね / ガロウド / ハードボイルドよし子 / 夜歌 / 黒青郎君' . PHP_EOL . '君の命はどんな味なのだろうな?', $metadata->description);
         $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/books/BJ192000/BJ191317_img_main.jpg', $metadata->image);
         $this->assertEquals(['ツンデレ', 'ロリ', '妖怪', '人外娘/モンスター娘', 'セーラー服', 'メイド', 'ストッキング', 'ファンタジー', 'ぶっかけ', '中出し', '近親相姦', 'アヘ顔', '口内射精'], $metadata->tags);
         if ($this->shouldUseMock()) {
@@ -224,6 +224,64 @@ class DLsiteResolverTest extends TestCase
         $this->assertEquals(['癒し', 'バイノーラル/ダミヘ', '日常/生活', 'ほのぼの', '恋人同士'], $metadata->tags);
         if ($this->shouldUseMock()) {
             $this->assertSame('https://dlsite.jp/howtw/RJ221761.html', (string) $this->handler->getLastRequest()->getUri());
+        }
+    }
+
+    public function testAffiliateLink()
+    {
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testHome.html');
+
+        $this->createResolver(DLsiteResolver::class, $responseText);
+
+        $metadata = $this->resolver->resolve('https://www.dlsite.com/home/dlaf/=/link/work/aid/eai04191/id/RJ221761.html');
+        $this->assertEquals('ひつじ、数えてあげるっ', $metadata->title);
+        $this->assertEquals('サークル名: Butterfly Dream' . PHP_EOL . '眠れないあなたに彼女が羊を数えてくれる音声です。', $metadata->description);
+        $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/doujin/RJ222000/RJ221761_img_main.jpg', $metadata->image);
+        $this->assertEquals(['癒し', 'バイノーラル/ダミヘ', '日常/生活', 'ほのぼの', '恋人同士'], $metadata->tags);
+        if ($this->shouldUseMock()) {
+            $this->assertSame('https://www.dlsite.com/home/work/=/product_id/RJ221761.html', (string) $this->handler->getLastRequest()->getUri());
+        }
+    }
+
+    public function testAffiliateUrl()
+    {
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testHome.html');
+
+        $this->createResolver(DLsiteResolver::class, $responseText);
+
+        $metadata = $this->resolver->resolve('http://www.dlsite.com/home/dlaf/=/aid/eai04191/url/https%3A%2F%2Fwww.dlsite.com%2Fhome%2Fwork%2F=%2Fproduct_id%2FRJ221761.html');
+        $this->assertEquals('ひつじ、数えてあげるっ', $metadata->title);
+        $this->assertEquals('サークル名: Butterfly Dream' . PHP_EOL . '眠れないあなたに彼女が羊を数えてくれる音声です。', $metadata->description);
+        $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/doujin/RJ222000/RJ221761_img_main.jpg', $metadata->image);
+        $this->assertEquals(['癒し', 'バイノーラル/ダミヘ', '日常/生活', 'ほのぼの', '恋人同士'], $metadata->tags);
+        if ($this->shouldUseMock()) {
+            $this->assertSame('https://www.dlsite.com/home/work/=/product_id/RJ221761.html', (string) $this->handler->getLastRequest()->getUri());
+        }
+    }
+
+    public function testAffiliateBadUrl()
+    {
+        $this->createResolver(DLsiteResolver::class, '');
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('アフィリエイト先のリンクがDLsiteのタイトルではありません: https://www.dlsite.com/home/');
+
+        $this->resolver->resolve('http://www.dlsite.com/home/dlaf/=/aid/eai04191/url/https%3A%2F%2Fwww.dlsite.com%2Fhome%2F');
+    }
+
+    public function testHTMLdescription()
+    {
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testHTMLdescription.html');
+
+        $this->createResolver(DLsiteResolver::class, $responseText);
+
+        $metadata = $this->resolver->resolve('https://www.dlsite.com/books/work/=/product_id/BJ123822.html');
+        $this->assertEquals('獣○彼女カタログ', $metadata->title);
+        $this->assertEquals('著者: チキコ / MUJIN編集部' . PHP_EOL . '【DLsite.com独占販売】 エロ漫画界騒然、1冊まるごと獣○オンリー単行本! 人間チ×ポは出てきませんっ!!', $metadata->description);
+        $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/books/BJ124000/BJ123822_img_main.jpg', $metadata->image);
+        $this->assertEquals(['断面図', '制服', '水着', 'メイド', '巫女', '軍服', '中出し', 'フェラチオ', '複数プレイ/乱交', '異種姦', '巨乳/爆乳', '処女', '褐色/日焼け'], $metadata->tags);
+        if ($this->shouldUseMock()) {
+            $this->assertSame('https://www.dlsite.com/books/work/=/product_id/BJ123822.html', (string) $this->handler->getLastRequest()->getUri());
         }
     }
 }

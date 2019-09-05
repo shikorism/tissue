@@ -109,13 +109,6 @@ SQL
             }
         }
 
-        // 月間グラフ用の配列初期化
-        $month = Carbon::now()->firstOfMonth()->subMonth(11); // 直近12ヶ月
-        for ($i = 0; $i < 12; $i++) {
-            $monthlySum[$month->format('Y/m')] = 0;
-            $month->addMonth();
-        }
-
         foreach ($groupByDay as $data) {
             $date = Carbon::createFromFormat('Y/m/d', $data->date);
             $yearAndMonth = $date->format('Y/m');
@@ -123,21 +116,18 @@ SQL
             $dailySum[$date->timestamp] = $data->count;
             $yearlySum[$date->year] += $data->count;
             $dowSum[$date->dayOfWeek] += $data->count;
-            if (isset($monthlySum[$yearAndMonth])) {
-                $monthlySum[$yearAndMonth] += $data->count;
-            }
+            $monthlySum[$yearAndMonth] = ($monthlySum[$yearAndMonth] ?? 0) + $data->count;
         }
 
         foreach ($groupByHour as $data) {
             $hour = (int)$data->hour;
             $hourlySum[$hour] += $data->count;
         }
-        
+
         $graphData = [
             'dailySum' => $dailySum,
             'dowSum' => $dowSum,
-            'monthlyKey' => array_keys($monthlySum),
-            'monthlySum' => array_values($monthlySum),
+            'monthlySum' => $monthlySum,
             'yearlyKey' => array_keys($yearlySum),
             'yearlySum' => array_values($yearlySum),
             'hourlyKey' => array_keys($hourlySum),

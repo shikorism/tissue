@@ -3,6 +3,7 @@
 namespace App\MetadataResolver;
 
 use GuzzleHttp\Client;
+use Symfony\Component\DomCrawler\Crawler;
 
 class NijieResolver implements Resolver
 {
@@ -30,23 +31,29 @@ class NijieResolver implements Resolver
             $url = preg_replace('~view_popup\.php~', 'view.php', $url);
         }
 
-        $client = $this->client;
-        $res = $client->get($url);
+        $res =  $this->client->get($url);
         if ($res->getStatusCode() === 200) {
-            $metadata = $this->ogpResolver->parse($res->getBody());
+            $html = (string) $res->getBody();
+            $metadata = $this->ogpResolver->parse($html);
+            $crawler = new Crawler($html);
 
-            $dom = new \DOMDocument();
-            @$dom->loadHTML(mb_convert_encoding($res->getBody(), 'HTML-ENTITIES', 'UTF-8'));
-            $xpath = new \DOMXPath($dom);
-            $dataNode = $xpath->query('//script[substring(@type, string-length(@type) - 3, 4) = "json"]');
-            foreach ($dataNode as $node) {
-                // 改行がそのまま入っていることがあるのでデコード前にエスケープが必要
-                $imageData = json_decode(preg_replace('/\r?\n/', '\n', $node->nodeValue), true);
-                if (isset($imageData['thumbnailUrl']) && !ends_with($imageData['thumbnailUrl'], '.gif') && !ends_with($imageData['thumbnailUrl'], '.mp4')) {
-                    $metadata->image = preg_replace('~nijie\\.info/.*/nijie_picture/~', 'nijie.info/nijie_picture/', $imageData['thumbnailUrl']);
-                    break;
-                }
+            // DomCrawler内でjson内の日本語がHTMLエンティティに変換されるのでhtml_entity_decode
+            $json = html_entity_decode($crawler->filter('script[type="application/ld+json"]')->first()->text());
+
+            // 改行がそのまま入っていることがあるのでデコード前にエスケープが必要
+            $data = json_decode(preg_replace('/\r?\n/', '\n', $json), true);
+
+            $metadata->title = $data['name'];
+            $metadata->description = '投稿者: ' . $data['author']['name'] . PHP_EOL . $data['description'];
+            if (
+                isset($data['thumbnailUrl']) &&
+                !ends_with($data['thumbnailUrl'], '.gif') &&
+                !ends_with($data['thumbnailUrl'], '.mp4')
+            ) {
+                // サムネイルからメイン画像に
+                $metadata->image = str_replace('__rs_l160x160/', '', $data['thumbnailUrl']);
             }
+            $metadata->tags = $crawler->filter('#view-tag span.tag_name')->extract('_text');
 
             return $metadata;
         } else {
