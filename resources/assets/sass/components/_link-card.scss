@@ -43,9 +43,9 @@
 
     .warning-text {
       padding: 10px;
+      user-select: none;
       background-color: rgba(240, 240, 240, 0.8);
       border-radius: 5px;
-      user-select: none;
     }
   }
 
