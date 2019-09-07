@@ -92,4 +92,10 @@ $(() => {
                 });
         }
     });
+
+    $(document).on('click', '.card-spoiler-overlay', function (event) {
+        const $this = $(this);
+        $this.siblings(".card-link").removeClass("card-spoiler");
+        $this.remove();
+    });
 });

@@ -53,7 +53,7 @@
                 <!-- okazu link -->
                 @if (!empty($ejaculation->link))
                     <div class="row mx-0">
-                        @component('components.link-card', ['link' => $ejaculation->link])
+                        @component('components.link-card', ['link' => $ejaculation->link, 'is_too_sensitive' => $ejaculation->is_too_sensitive])
                         @endcomponent
                         <p class="d-flex align-items-baseline mb-2 col-12 px-0">
                             <span class="oi oi-link-intact mr-1"></span><a class="overflow-hidden" href="{{ $ejaculation->link }}" target="_blank" rel="noopener">{{ $ejaculation->link }}</a>
