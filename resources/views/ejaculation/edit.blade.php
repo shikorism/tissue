@@ -89,7 +89,7 @@
                         <div class="custom-control custom-checkbox mb-3">
                             <input id="isTooSensitive" name="is_too_sensitive" type="checkbox" class="custom-control-input" {{ (is_bool(old('is_too_sensitive')) ? old('is_too_sensitive') : $ejaculation->is_too_sensitive) ? 'checked' : '' }}>
                             <label class="custom-control-label" for="isTooSensitive">
-                            <span class="oi oi-lock-locked"></span> チェックイン対象のオカズをより過激なオカズとして設定する
+                            <span class="oi oi-warning"></span> チェックイン対象のオカズをより過激なオカズとして設定する
                             </label>
                         </div>
                     </div>
