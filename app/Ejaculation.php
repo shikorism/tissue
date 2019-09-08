@@ -79,4 +79,17 @@ class Ejaculation extends Model
                 ->addSelect(DB::raw('0 as is_liked'));
         }
     }
+
+    /**
+     * このチェックインと同じ情報を流用してチェックインするためのURLを生成
+     * @return string
+     */
+    public function makeCheckinURL(): string
+    {
+        return route('checkin', [
+            'link' => $this->link,
+            'tags' => $this->textTags(),
+            'is_too_sensitive' => $this->is_too_sensitive,
+        ]);
+    }
 }

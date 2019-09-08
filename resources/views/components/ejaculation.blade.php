@@ -49,7 +49,7 @@
 <div class="ejaculation-actions">
     <button type="button" class="btn btn-link text-secondary"
             data-toggle="tooltip" data-placement="bottom"
-            title="同じオカズでチェックイン" data-href="{{ route('checkin', ['link' => $ejaculation->link, 'tags' => $ejaculation->textTags()]) }}"><span class="oi oi-reload"></span></button>
+            title="同じオカズでチェックイン" data-href="{{ $ejaculation->makeCheckinURL() }}"><span class="oi oi-reload"></span></button>
     <button type="button" class="btn btn-link text-secondary like-button"
             data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
             title="いいね" data-id="{{ $ejaculation->id }}" data-liked="{{ (bool)$ejaculation->is_liked }}"><span class="oi oi-heart {{ $ejaculation->is_liked ? 'text-danger' : '' }}"></span><span class="like-count">{{ $ejaculation->likes_count ? $ejaculation->likes_count : '' }}</span></button>
