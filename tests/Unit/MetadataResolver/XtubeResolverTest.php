@@ -42,13 +42,4 @@ class XtubeResolverTest extends TestCase
         $this->createResolver(XtubeResolver::class, '');
         $this->resolver->resolve('https://www.xtube.com/gallery/black-celebs-free-7686657');
     }
-
-    public function testNotOK()
-    {
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('404: https://www.xtube.com/video-watch/notfound-404');
-
-        $this->createResolver(XtubeResolver::class, '', [], 404);
-        $this->resolver->resolve('https://www.xtube.com/video-watch/notfound-404');
-    }
 }
