@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" xmlns:mixi="http://mixi-platform.com/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" xmlns:mixi="http://mixi-platform.com/ns#" xmlns:fb="http://www.facebook.com/2008/fbml" lang="ja-jp">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=991">
+<meta name="viewport" content="width=1024">
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta http-equiv="Content-Script-Type" content="text/javascript" />
 <meta name="google-site-verification" content="S2Jzwn_Dm4hGoyTfPnxEUSKnbHSuT73N6SZbTanWbEM" />
@@ -40,20 +40,20 @@
 <script>/dlsite_dozen=/.test(document.cookie) || (document.cookie = 'dlsite_dozen=' + Math.floor(Math.random() * 12) + '; path=/; max-age=63072000')</script>
 
 <link rel="stylesheet" href="/css/reset.css?1459221919" type="text/css" id="reset" />
-<link rel="stylesheet" href="/css/default.css?1559631936" type="text/css" id="default" />
+<link rel="stylesheet" href="/css/default.css?1566881566" type="text/css" id="default" />
 <link rel="stylesheet" href="/css/layout_2col_work.css?1552974983" type="text/css" id="layout_2col_work" />
-<link rel="stylesheet" href="/css/common.css?1559876752" type="text/css" id="common" />
-<link rel="stylesheet" href="/css/switch.css?1551748184" type="text/css" id="switch" />
-<link rel="stylesheet" href="/css/suggest.css?1559631936" type="text/css" id="suggest" />
-<link rel="stylesheet" href="/css/header_campaign_banner.css?1559723711" type="text/css" id="header_campaign_banner" />
+<link rel="stylesheet" href="/css/common.css?1567559800" type="text/css" id="common" />
+<link rel="stylesheet" href="/css/switch.css?1560415705" type="text/css" id="switch" />
+<link rel="stylesheet" href="/css/suggest.css?1565749496" type="text/css" id="suggest" />
+<link rel="stylesheet" href="/css/header_campaign_banner.css?1567745943" type="text/css" id="header_campaign_banner" />
 <link rel="stylesheet" href="/assets/share/css/universal/universal.css?" type="text/css" id="universal" />
-<link rel="stylesheet" href="/css/work_template.css?1559631936" type="text/css" id="work_template" />
+<link rel="stylesheet" href="/css/work_template.css?1566876049" type="text/css" id="work_template" />
 <link rel="stylesheet" href="/css/work_slider.css?1559631936" type="text/css" id="work_slider" />
 
 <script type="text/javascript" src="/js/libs/libraries-pack.js?1502345903"></script>
-<script type="text/javascript" src="/js/dlsite_util.js?1557910552"></script>
+<script type="text/javascript" src="/js/dlsite_util.js?1561689497"></script>
 <script type="text/javascript" src="/js/slide_menu.js?1511946236"></script>
-<script type="text/javascript" src="/js/dlsite_suggest.js?1550024738"></script>
+<script type="text/javascript" src="/js/dlsite_suggest.js?1565749496"></script>
 <script type="text/javascript" src="/js/dlsite_trigger.js?1544681008"></script>
 <script type="text/javascript" src="/js/jquery.slideproduct.js?1524728551"></script>
 <script type="text/javascript" src="/js/dlsite_img_filter.js?1544681008"></script>
@@ -90,7 +90,7 @@ $.extend({
     if ($.useAdultcheck) return;
     $.useAdultcheck = true;
     var s = document.createElement('script');
-    s.src = '/js/adultcheck.js?1553837147';
+    s.src = '/js/adultcheck.js?1566881566';
     s.defer = true;
     document.querySelector('head').appendChild(s);
   }
@@ -117,19 +117,22 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
                 <a href="https://www.dlsite.com/girls/" class="female">女性向け</a>
       </li>
       <li class="eisysGroupHeaderService-link type-nijiyome">
-        <a href="https://www.nijiyome.com?en=dlsite&em=text&et=pc_globalheader_soft">オンラインゲーム</a>
+        <a href="https://www.nijiyome.com?en=dlsite&em=text&et=pc_globalheader_soft">にじよめ</a>
       </li>
       <li class="eisysGroupHeaderService-link type-cien">
-        <a href="https://ci-en.net/?pc_globalheader_dlsite">クリエイター支援</a>
+        <a href="https://ci-en.net/?pc_globalheader_dlsite">Ci-en</a>
       </li>
       <li class="eisysGroupHeaderService-link type-channel">
-        <a href="https://ch.dlsite.com/?pc_globalheader_dlsite">コミュニティ</a>
+        <a href="https://ch.dlsite.com/?pc_globalheader_dlsite">DLチャンネル</a>
       </li>
       <li class="eisysGroupHeaderService-link type-chobit">
-        <a href="https://chobit.cc/?pc_globalheader_dlsite">無料体験版</a>
+        <a href="https://chobit.cc/?pc_globalheader_dlsite">chobit</a>
       </li>
-      <li class="eisysGroupHeaderService-link type-triokini type-new">
-        <a href="https://triokini.com/how_to_use?pc_globalheader_dlsite">即売会取り置き</a>
+      <li class="eisysGroupHeaderService-link type-triokini">
+        <a href="https://triokini.com/how_to_use?pc_globalheader_dlsite">トリオキニ</a>
+      </li>
+      <li class="eisysGroupHeaderService-link type-studio type-new">
+        <a href="https://dlsitestudio.com/?pc_globalheader_dlsite">DLsiteスタジオ</a>
       </li>
     </ul>
     <ul class="eisysGroupHeaderAccount" data-vue-component="header-account" data-vue-async="true">
@@ -142,11 +145,10 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
           <div class="eisysGroupHeaderAccountBox">
             <div class="eisysGroupHeaderAccountBox-inner">
               <div v-if="login_id" v-cloak class="eisysGroupHeaderLoginAccount">
-                <span>{{ login_id.substr(0, 30) }}{{ login_id.length > 30 ? '...' : '' }}</span>でログイン中
-              </div>
+                <span>{{ login_id.substr(0, 30) }}{{ login_id.length > 30 ? '...' : '' }}</span>でログイン中              </div>
               <ul class="eisysGroupHeaderLinkNav">
                 <li>
-                  <a href="https://login.dlsite.com/user/self?lang=ja&redirect_uri=https://www.dlsite.com/soft/" target="_blank">アカウント管理</a>
+                  <a rel="noopener" href="https://login.dlsite.com/user/self?lang=ja&redirect_uri=https://www.dlsite.com/soft/" target="_blank">アカウント管理</a>
                 </li>
                 <li>
                   <a class="logout" href="https://ssl.dlsite.com/soft/logout">ログアウト</a>
@@ -158,12 +160,18 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
         <div class="eisysGroupHeaderAccountBoxOuter type-message" :class="{'is-active': isAlert}">
           <div class="eisysGroupHeaderAccountBox">
             <div class="eisysGroupHeaderAccountBox-inner">
-              <p class="eisysGroupHeaderMessageText">ログイン中のアカウントが変更されました</p>
+              <p v-if="login_id" class="eisysGroupHeaderMessageText"><span>{{ login_id.substr(0, 30) }}{{ login_id.length > 30 ? '...' : '' }}</span>でログインしています</p>
+              <p v-else class="eisysGroupHeaderMessageText">ログアウトしました</p>
             </div>
           </div>
         </div>
       </li>
     </ul>
+
+        <div class="eisysGroupHeaderLanguage" data-vue-component="header-locale" data-vue-async="true">
+      <div class="eisysGroupHeaderLanguage-Link">Language</div>
+    </div>
+
   </div>
 </div>
 <!-- /エイシスグローバルヘッダ -->
@@ -200,10 +208,10 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
     <header class="l-header" data-vue-component="header" data-search-category="soft">
   <div class="headerCore">
     <div class="headerCore-sub">
-      <a href="https://www.dlsite.com/soft/" class="logo" >
+      <a href="https://www.dlsite.com/soft/" class="logo">
                 <img src="/images/web/common/logo/pc/logo-dlsite.png" alt="DLsite" width="89" height="25">
               </a>
-            <!-- 検索 -->
+      <!-- 検索 -->
               <div class="globalSearch">
           <form class="globalSearch-form" action="https://www.dlsite.com/soft/fs" method="post">
             <input name="_qf__fulltext_search" type="hidden" value="" />
@@ -247,21 +255,33 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
             <a :href="hasUnboughtFavorites ? 'https://www.dlsite.com/soft/mypage/wishlist' : 'https://www.dlsite.com/soft/mypage/wishlist'"><i>お気に入り</i></a><template v-if="hasUnboughtFavorites" v-cloak><a href="https://www.dlsite.com/soft/mypage/wishlist/=/discount/1" class="notificationBadge" >割引になった<br>作品があります</a></template>
         </li>
         <li class="globalNav-item type-cart"><a href="https://www.dlsite.com/soft/cart"><i>カート</i></a><span v-if="cartActives.length" v-cloak class="cartBadge" v-text="Math.min(cartActives.length, 100)"></span></li>
-        <li class="globalNav-item type-play"><a href="https://play.dlsite.com/#/library" target="_blank"><i>購入済作品</i></a></li>
-        <li class="globalNav-item type-mypage"><a href="https://ssl.dlsite.com/soft/mypage"><i>マイページ</i></a></li>
-        <li v-if="isCircleLogin" v-cloak class="globalNav-item type-circle"><a href="https://ssl.dlsite.com/circle/"><i>サークル管理</i></a></li>
+        <li class="globalNav-item type-play"><a rel="noopener" href="https://play.dlsite.com/#/library" target="_blank"><i>購入済作品</i></a></li>
+        <li class="globalNav-item type-circle">
+          <a :href="isMemberLogin && isCircleLogin ? void(0) : isCircleLogin ? 'https://ssl.dlsite.com/circle/' : 'https://ssl.dlsite.com/soft/mypage'"><i>アカウント</i></a>
+          <div v-if="isMemberLogin && isCircleLogin" class="dropdown_list" v-cloak>
+            <div class="dropdown_list_inner">
+              <ul class="menu_list">
+                <li class="menu_list_item"><a class="link" href="https://ssl.dlsite.com/soft/mypage"><i>マイページ</i></a></li>
+                <li v-if="isCircleLogin" class="menu_list_item"><a class="link" href="https://ssl.dlsite.com/circle/"><i>サークル管理</i></a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
       </ul>
       <!-- /アイコンメニュー -->
       <!-- ガイドメニュー -->
-      <div class="globalGuide"><a href="#" class="globalGuide-btn" @click.stop.prevent="toggleMenu()"><i>ガイド</i></a>
-        <div class="globalGuideLink" :class="{ 'is-active': isActive }">
-        <ul class="globalGuideLink-item">
-          <li class="link"><a href="https://www.dlsite.com/soft/faq/=/type/user" target="_blank"><i>ヘルプ</i></a></li>
-          <li class="link"><a href="https://www.dlsite.com/soft/welcome"><i>初めての方へ</i></a></li>
-          <li class="link"><a href="https://www.dlsite.com/soft/circle/invite"><i>サークル登録について</i></a></li>
-          <li class="link"><a href="https://www.dlsite.com/soft/guide/payment"><i>お支払方法について</i></a></li>
-          <li class="link"><a href="https://www.dlsite.com/soft/mypage/aboutpoint"><i>ポイントについて</i></a></li>
-        </ul>
+      <div class="header_guide hover_menu">
+        <a href="javascript:void(0)" class="header_guide_btn"><i>ガイド</i></a>
+        <div class="dropdown_list">
+          <div class="dropdown_list_inner">
+            <ul class="menu_list">
+              <li class="menu_list_item"><a rel="noopener" class="link" href="https://www.dlsite.com/soft/faq/=/type/user" target="_blank"><i>ヘルプ</i></a></li>
+              <li class="menu_list_item"><a class="link" href="https://www.dlsite.com/soft/welcome"><i>初めての方へ</i></a></li>
+              <li class="menu_list_item"><a class="link" href="https://www.dlsite.com/soft/circle/invite"><i>サークル登録について</i></a></li>
+              <li class="menu_list_item"><a class="link" href="https://www.dlsite.com/soft/guide/payment"><i>お支払方法について</i></a></li>
+              <li class="menu_list_item"><a class="link" href="https://www.dlsite.com/soft/mypage/aboutpoint"><i>ポイントについて</i></a></li>
+            </ul>
+          </div>
         </div>
       </div>
       <!-- /ガイドメニュー -->
@@ -301,6 +321,26 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
                     <div class="floorNavLink-item type-female"><a href="https://www.dlsite.com/girls-pro/">女性向けへ</a></div>
         </div>
               </div>
+
+      <div class="floorSubNav">
+        <div class="floorSubNav-item">
+          <ul class="headerNav">
+
+      
+                  <li class="headerNav-item"><a href="https://www.dlsite.com/soft/" class="top">TOP</a></li>
+                                  <li class="headerNav-item">
+              <a v-if="isRankingFilterCondition" v-cloak href="https://www.dlsite.com/soft/works/game?date=30d" class="game">ゲーム</a>
+              <a v-else  href="https://www.dlsite.com/soft/works/game" class="game">ゲーム</a>
+            </li>
+                      <li class="headerNav-item">
+              <a v-if="isRankingFilterCondition" v-cloak href="https://www.dlsite.com/soft/works/music?date=30d" class="music">音声・音楽</a>
+              <a v-else  href="https://www.dlsite.com/soft/works/music" class="music">音声・音楽</a>
+            </li>
+            <li class="headerNav-item"><a href="https://www.dlsite.com/soft/ranking" class="ranking">ランキング</a></li>
+            <li class="headerNav-item"><a href="https://www.dlsite.com/soft/new/review" class="review">新着レビュー</a></li>
+                        </ul>
+        </div>
+      </div>
 
     </div>
   </div>
@@ -386,7 +426,7 @@ if (loginchecked & 1) {
 <h1 itemprop="name" id="work_name">
 <a href="https://www.dlsite.com/soft/work/=/product_id/VJ011276.html" itemprop="url">ことのはアムリラート</a>
 </h1>
-<template data-vue-component="product-dlchannel" data-product-id="VJ011276"></template><span class="link_twitter"><a href="https://twitter.com/share" class="twitter-share-button" data-url="https://dlsite.jp/sowtw/VJ011276"  data-text="ことのはアムリラート/SukeraSparo" data-lang="ja" data-hashtags="DLsite">ツイート</a>
+<template data-vue-component="dlchannel-topic" data-product-id="VJ011276"></template><span class="link_twitter"><a href="https://twitter.com/share" class="twitter-share-button" data-url="https://dlsite.jp/sowtw/VJ011276"  data-text="ことのはアムリラート/SukeraSparo" data-lang="ja" data-hashtags="DLsite">ツイート</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 </span></div>
 </div>
@@ -404,24 +444,23 @@ if (loginchecked & 1) {
 <!-- work_header -->
 <div id="work_header">
 <!-- work_left -->
-<div id="work_left" data-vue-component="product-evaluate" data-product-id="VJ011276">
-
-<!-- 王冠/DL数/評価/レビュー ここから -->
-<table cellspacing="0" id="work_value">
-<tr>
-<td class="work_rankin">
-<table cellspacing="0">
-<tr>
-<td v-if="product.ranks.total" v-cloak class="crown_total" :title="'累計ランキング(' + product.ranks.total.rank_date + ') ' + product.ranks.total.rank + '位'">&nbsp;</td>
-<td v-if="product.ranks.year" v-cloak class="crown_year" :title="'年間ランキング(' + product.ranks.year.rank_date + ') ' + product.ranks.year.rank + '位'">&nbsp;</td>
-<td v-if="product.ranks.month" v-cloak class="crown_month" :title="'月間ランキング(' + product.ranks.month.rank_date + ') ' + product.ranks.month.rank + '位'">&nbsp;</td>
-<td v-if="product.ranks.week" v-cloak class="crown_week" :title="'週間ランキング(' + product.ranks.week.rank_date + ') ' + product.ranks.week.rank + '位'">&nbsp;</td>
-<td v-if="product.ranks.day" v-cloak class="crown_hour" :title="'24時間ランキング(' + product.ranks.day.rank_date + ') ' + product.ranks.day.rank + '位'">&nbsp;</td>
-</tr>
-</table>
-</td>
-<td class="work_rating" v-cloak>
-    
+  <div id="work_left">
+    <!-- 王冠/DL数/評価/レビュー ここから -->
+    <table cellspacing="0" id="work_value" data-vue-component="product-evaluate" data-product-id="VJ011276">
+      <tr>
+        <td class="work_rankin">
+          <table cellspacing="0">
+            <tr>
+              <td v-if="product.ranks.total" v-cloak class="crown_total" :title="$t('product.evaluate.ranking_total'  , [ product.ranks.total.rank_date, product.ranks.total.rank ])">&nbsp;</td>
+              <td v-if="product.ranks.year"  v-cloak class="crown_year"  :title="$t('product.evaluate.ranking_year'   , [ product.ranks.year.rank_date , product.ranks.year.rank  ])">&nbsp;</td>
+              <td v-if="product.ranks.month" v-cloak class="crown_month" :title="$t('product.evaluate.ranking_monthly', [ product.ranks.month.rank_date, product.ranks.month.rank ])">&nbsp;</td>
+              <td v-if="product.ranks.week"  v-cloak class="crown_week"  :title="$t('product.evaluate.ranking_weekly' , [ product.ranks.week.rank_date , product.ranks.week.rank  ])">&nbsp;</td>
+              <td v-if="product.ranks.day"   v-cloak class="crown_hour"  :title="$t('product.evaluate.ranking_daily'  , [ product.ranks.day.rank_date  , product.ranks.day.rank   ])">&nbsp;</td>
+            </tr>
+          </table>
+        </td>
+        <td class="work_rating" v-cloak>
+            
 <div class="star_rating_wrap" v-if="product.rate_count > 0">
   
   <div class="star_rating" :class="'star_' + product.rate_average_star" @mouseenter="showRateDetail" @mouseleave="hideRateDetail">({{ product.rate_count }})</div>
@@ -494,18 +533,21 @@ if (loginchecked & 1) {
   </div>
 </div>
 
-</td>
-<td v-if="product.review_count" class="work_review" v-cloak><a class="_review_count" href="#review_link"><div title="レビューあり">({{ product.review_count }})</div></a></td>
-</tr>
-</table>
+        </td>
+        <td v-if="product.review_count" class="work_review" v-cloak>
+          <a class="_review_count" href="#review_link">
+            <div :title="$t('product.evaluate.with_review')" v-text="product.review_count"></div>
+          </a>
+        </td>
+              </tr>
+    </table>
+          <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+        <meta itemprop="ratingValue" content="4.88" />
+        <meta itemprop="ratingCount" content="199" />
+      </div>
+        <!-- 王冠/DL数/評価/レビュー ここまで -->
 
-<div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
-<meta itemprop="ratingValue" content="4.88" />
-<meta itemprop="ratingCount" content="162" />
-</div>
-<!-- 王冠/DL数/評価/レビュー ここまで -->
-
-<product-slider product_id="VJ011276" inline-template>
+<div data-vue-component="product-slider" data-product-id="VJ011276">
 
 <div class="product-slider">
   <!-- Sample image data -->
@@ -566,9 +608,10 @@ if (loginchecked & 1) {
   </div>
   <div v-cloak class="work_slider_comp" v-if="items.length > 1">
 
-    <a href="https://www.dlsite.com/soft/popup/=/file/smp1/product_id/VJ011276.html" target="_blank">HTML版で表示</a>
+    <a rel="noopener" href="https://www.dlsite.com/soft/popup/=/file/smp1/product_id/VJ011276.html" target="_blank">HTML版で表示</a>
 
-    <span>{{ __('totalImages', {count: items.length}) }}</span>  
+    <!-- 枚数 -->
+    <span v-t="{ path: 'product.slider.totalImages', args: [items.length] }"></span>
   </div>
 
   <!-- Popup viewer -->
@@ -578,7 +621,7 @@ if (loginchecked & 1) {
       <div class="slider_popup_rightpane">
         <div class="slider_popup_sidebar">
         <template v-for="(item, index) in items">
-          <div target="_blank" :class="{active:(index === swiper.realIndex)}" @click="slideTo(index, false)">
+          <div rel="noopener" target="_blank" :class="{active:(index === swiper.realIndex)}" @click="slideTo(index, false)">
 
             <img :src="item.thumb.src" alt="ことのはアムリラート [SukeraSparo]">
 
@@ -603,15 +646,15 @@ if (loginchecked & 1) {
         </div>
         <div class="slider_popup_tool">
           <input id="target1" class="checkbox" name="target" type="checkbox" value="1" v-model="alwaysActualSize" @change="toggleActualSize" @click="toggleActualSize">
-          <label for="target1" class="checkbox-label">{{ __('alwaysActual') }}</label>
-          <span class="slider_popup_description">{{ __('tools') }}</span>
+          <label for="target1" class="checkbox-label" v-t="'product.slider.alwaysActual'"></label>
+          <span class="slider_popup_description" v-t="'product.slider.tools'"></span>
         </div>
       </div>
     </div>
   </div>
 
 </div>
-</product-slider>
+</div>
 
 
 </div>
@@ -678,9 +721,9 @@ if (loginchecked & 1) {
 
 
 <tr><th>年齢指定</th><td><div class="work_genre"><span class="icon_GEN">全年齢</span></div></td></tr>
-<tr><th>作品形式</th><td><div class="work_genre"><a href="https://www.dlsite.com/soft/fsr/=/work_category%5B0%5D/pc/work_type/ADV/from/icon.work"><span class="icon_ADV" title="アドベンチャー">アドベンチャー</span></a>&nbsp;/&nbsp;純百合アドベンチャー</div></td></tr>
-<tr><th>その他</th><td><div class="work_genre"><a href="https://www.dlsite.com/soft/fsr/=/work_category%5B0%5D/pc/options/SND/from/icon.work"><span class="icon_SND" title="音声あり">音声あり</span></a><a href="https://www.dlsite.com/soft/fsr/=/work_category%5B0%5D/pc/options/MS2/from/icon.work"><span class="icon_MS2" title="音楽あり">音楽あり</span></a><a href="https://www.dlsite.com/soft/fsr/=/work_category%5B0%5D/pc/options/TRI/from/icon.work"><span class="icon_TRI" title="体験版">体験版</span></a></div></td></tr>
-<tr><th>ジャンル</th><td><div class="main_genre"><a href="https://www.dlsite.com/soft/fsr/=/genre/206/work_category%5B0%5D/pc/from/work.genre">少女</a><a href="https://www.dlsite.com/soft/fsr/=/genre/008/work_category%5B0%5D/pc/from/work.genre">日常/生活</a><a href="https://www.dlsite.com/soft/fsr/=/genre/032/work_category%5B0%5D/pc/from/work.genre">純愛</a><a href="https://www.dlsite.com/soft/fsr/=/genre/158/work_category%5B0%5D/pc/from/work.genre">百合</a></div></td></tr>
+<tr><th>作品形式</th><td><div class="work_genre"><a href="https://www.dlsite.com/soft/fsr/=/work_category%5B0%5D/pc/work_type/ADV/from/icon.work"><span class="icon_ADV" title="アドベンチャー">アドベンチャー</span></a><a href="https://www.dlsite.com/soft/fsr/=/work_category%5B0%5D/pc/options/SND/from/icon.work"><span class="icon_SND" title="音声あり">音声あり</span></a><a href="https://www.dlsite.com/soft/fsr/=/work_category%5B0%5D/pc/options/MS2/from/icon.work"><span class="icon_MS2" title="音楽あり">音楽あり</span></a>&nbsp;/&nbsp;純百合アドベンチャー</div></td></tr>
+<tr><th>ジャンル</th><td><div class="main_genre"><a href="https://www.dlsite.com/soft/fsr/=/genre/008/work_category%5B0%5D/pc/from/work.genre">日常/生活</a><a href="https://www.dlsite.com/soft/fsr/=/genre/032/work_category%5B0%5D/pc/from/work.genre">純愛</a><a href="https://www.dlsite.com/soft/fsr/=/genre/158/work_category%5B0%5D/pc/from/work.genre">百合</a><a href="https://www.dlsite.com/soft/fsr/=/genre/206/work_category%5B0%5D/pc/from/work.genre">少女</a>
+</div></td></tr>
 </table>
 
 
@@ -721,7 +764,9 @@ if (loginchecked & 1) {
 
 </div>
 
+<div class="work_streaming">
 <a href="http://www.dlsite.com/soft/circle/report/=/report/2017122221"><img src="http://img.dlsite.jp/modpub/images2/ana/professional/etc/2017/122221/bn_kotonoha.gif" alt="ことのはアムリラート 特集ページ" title="ことのはアムリラート"></a>
+</div>
 
 <div class="trial_download clearfix">
 <ul><li><p class="trial_file"><a href="//trial.dlsite.com/professional/VJ012000/VJ011276_trial.zip" class="btn_trial" title="体験版ダウンロード">体験版ダウンロード</a></p><span>(533.96MB)</span></li></ul>
@@ -857,7 +902,7 @@ if (loginchecked & 1) {
 <script type="text/javascript">
 jQuery(function($){
     $('#__work_relation').slideProduct({
-        'keys' : ['VJ011588','VJ011723',null],
+        'keys' : ['VJ011588','VJ011723','VJ012496',null],
         'detailUrl' : 'https://www.dlsite.com/soft/load/recommend/detail/=/filter/on/rec/rec_work',
         'prevButton': '#_recommend_prev_relation',
         'nextButton': '#_recommend_next_relation',
@@ -933,7 +978,7 @@ jQuery(function($){
         .delegate('#dummy,a.btn_cart,a.btn_favorite,a.btn_nodisplay,a.btn_possession', 'click', function(e){
             var cl = $(e.target).attr('class');
             var op = {
-                'cart'      :{'u':'cart',      's':'_in', 'm':'カートに追加済み'},
+                'cart'      :{'u':'cart',      's':'_in', 'm':'追加済み'},
                 'favorite'  :{'u':'wishlist',  's':'_in', 'm':'お気に入り追加済み'},
                 'nodisplay' :{'u':'nothanks_s','s':'_end','m':'設定済み', 'c':'設定済み[オススメに表示しない]'},
                 'possession':{'u':'already_s', 's':'_end','m':'設定済み', 'c':'設定済み[他で持っている]'}
@@ -1046,7 +1091,7 @@ jQuery(function($){
         .delegate('#dummy,a.btn_cart,a.btn_favorite,a.btn_nodisplay,a.btn_possession', 'click', function(e){
             var cl = $(e.target).attr('class');
             var op = {
-                'cart'      :{'u':'cart',      's':'_in', 'm':'カートに追加済み'},
+                'cart'      :{'u':'cart',      's':'_in', 'm':'追加済み'},
                 'favorite'  :{'u':'wishlist',  's':'_in', 'm':'お気に入り追加済み'},
                 'nodisplay' :{'u':'nothanks_s','s':'_end','m':'設定済み', 'c':'設定済み[オススメに表示しない]'},
                 'possession':{'u':'already_s', 's':'_end','m':'設定済み', 'c':'設定済み[他で持っている]'}
@@ -1129,7 +1174,7 @@ jQuery(function($){
         .delegate('#dummy,a.btn_cart,a.btn_favorite,a.btn_nodisplay,a.btn_possession', 'click', function(e){
             var cl = $(e.target).attr('class');
             var op = {
-                'cart'      :{'u':'cart',      's':'_in', 'm':'カートに追加済み'},
+                'cart'      :{'u':'cart',      's':'_in', 'm':'追加済み'},
                 'favorite'  :{'u':'wishlist',  's':'_in', 'm':'お気に入り追加済み'},
                 'nodisplay' :{'u':'nothanks_s','s':'_end','m':'設定済み', 'c':'設定済み[オススメに表示しない]'},
                 'possession':{'u':'already_s', 's':'_end','m':'設定済み', 'c':'設定済み[他で持っている]'}
@@ -1165,33 +1210,160 @@ jQuery(function($){
 
 <div class="work_article" id="work_review" data-section_name="work_review">
 
-  <!-- review_head -->
-  <div class="review_head clearfix">
-    <p class="float_l review_count">レビュー数 : <span class="review_work_count">4件</span></p>
-        <div class="review_total_box">
-      <table class="reviewer_most_genre" cellspacing="0">
-        <tbody>
-          <tr>
-            <th>
-              <p>レビュアーに多く選ばれたジャンル :</p>
-            </th>
-            <td>
-                            <span><a href="https://www.dlsite.com/soft/fsr/=/genre/056/from/work.review_genre">癒し（4）</a></span>
-                            <span><a href="https://www.dlsite.com/soft/fsr/=/genre/206/from/work.review_genre">少女（4）</a></span>
-                            <span><a href="https://www.dlsite.com/soft/fsr/=/genre/158/from/work.review_genre">百合（4）</a></span>
-                            <span><a href="https://www.dlsite.com/soft/fsr/=/genre/051/from/work.review_genre">萌え（3）</a></span>
-                            <span><a href="https://www.dlsite.com/soft/fsr/=/genre/004/from/work.review_genre">ラブラブ/あまあま（2）</a></span>
-                            <span><a href="https://www.dlsite.com/soft/fsr/=/genre/013/from/work.review_genre">ほのぼの（2）</a></span>
-                          </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-      </div>
-  <!-- /review_head -->
+    <table class="reviewer_most_genre" cellspacing="0">
+    <tbody>
+      <tr>
+        <th>
+          <p>レビュアーに多く選ばれたジャンル :</p>
+        </th>
+        <td>
+                    <span><a href="https://www.dlsite.com/soft/fsr/=/genre/158/from/work.review_genre">百合（6）</a></span>
+                    <span><a href="https://www.dlsite.com/soft/fsr/=/genre/206/from/work.review_genre">少女（6）</a></span>
+                    <span><a href="https://www.dlsite.com/soft/fsr/=/genre/056/from/work.review_genre">癒し（4）</a></span>
+                    <span><a href="https://www.dlsite.com/soft/fsr/=/genre/051/from/work.review_genre">萌え（3）</a></span>
+                    <span><a href="https://www.dlsite.com/soft/fsr/=/genre/013/from/work.review_genre">ほのぼの（3）</a></span>
+                    <span><a href="https://www.dlsite.com/soft/fsr/=/genre/010/from/work.review_genre">SF（2）</a></span>
+                    <span><a href="https://www.dlsite.com/soft/fsr/=/genre/004/from/work.review_genre">ラブラブ/あまあま（2）</a></span>
+                  </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <div class="review_head">
+      <p class="float_l review_count">レビュー数 : <span class="review_work_count">6件</span></p>
+              <template data-vue-component="product-review-order" data-layout="pc" data-product_id="VJ011276"></template>
+        </div>
 
   <!-- work_review_list -->
   <table id="work_review_list" cellspacing="0">
+        <tbody itemprop="review" itemscope itemtype="https://schema.org/Review">
+      <tr>
+        <td class="review_title">
+                    <div class="review_title_l">
+            <div class="title"><span itemprop="name">Tre bone lilia ludo!</span></div>
+            <p>
+              <meta itemprop="datePublished" content="2018-03-08">2018年03月08日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/soft/reviewlist/=/reviewer/REV0013200">RD2</a></span> さん</span>
+                              <span class="popularity_reviewer silver">人気レビュアー：48位</span>
+                                          <span class="purchased">購入済み</span>
+                          </p>
+          </div>
+                  </td>
+      </tr>
+      <tr>
+        <td class="review_main _review_main">
+                    <div class="reviewer_genre">
+            <p>レビュアーが選んだジャンル :</p>
+            <ul class="reviewer_select_genre">
+                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/056/from/review.genre">癒し</a></li>
+                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/206/from/review.genre">少女</a></li>
+                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/158/from/review.genre">百合</a></li>
+                          </ul>
+          </div>
+          
+          
+          <div class="_SW2" >
+            <p class="reviewer_descrip" itemprop="reviewBody">Rukaの言っていることを理解しようとすると自然とJuliamo(Esperanto)を勉強することになり、結果として一通りプレイし終えたら簡単なEsperantoの読み書きができるようになります。また2週目は序盤何言ってるのかわからなかった会話が理解できるようになり、それもまた楽しいです。<br />
+もちろん百合作品としてもとても楽しめる内容なので、おススメです!<br />
+Post kiam vi ludis la ludon, mi pensas ke vi povos kompreni kaj skribas texston. Cetere, la vocxo de Ruka estas tre cxarma, cxu ne? Mi petas oni vendos ludon kiel cxi tiu, gxi faras nin ke ni lernas lingvojn!</p>
+            <p class="review_ref">
+              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="15249" data-product_id="VJ011276">
+              <span class="useful">2人 が役に立ったと答えています</span>              <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/soft/contact/review/=/reviewer_id/REV0013200/product_id/VJ011276.html">報告する</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+        <tbody itemprop="review" itemscope itemtype="https://schema.org/Review">
+      <tr>
+        <td class="review_title">
+                    <div class="review_title_l">
+            <div class="title"><span itemprop="name">気が付いたらドハマり!</span></div>
+            <p>
+              <meta itemprop="datePublished" content="2018-01-29">2018年01月29日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/soft/reviewlist/=/reviewer/REV0029193">Amrilato</a></span> さん</span>
+                              <span class="popularity_reviewer silver">人気レビュアー：48位</span>
+                                          <span class="purchased">購入済み</span>
+                          </p>
+          </div>
+                    <div class="review_title_r">
+            <span class="reviewer_recommend">レビュアーオススメ！</span>
+          </div>
+                  </td>
+      </tr>
+      <tr>
+        <td class="review_main _review_main">
+                    <div class="reviewer_genre">
+            <p>レビュアーが選んだジャンル :</p>
+            <ul class="reviewer_select_genre">
+                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/051/from/review.genre">萌え</a></li>
+                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/056/from/review.genre">癒し</a></li>
+                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/206/from/review.genre">少女</a></li>
+                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/004/from/review.genre">ラブラブ/あまあま</a></li>
+                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/013/from/review.genre">ほのぼの</a></li>
+                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/158/from/review.genre">百合</a></li>
+                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/438/from/review.genre">同棲</a></li>
+                          </ul>
+          </div>
+          
+          
+          <div class="_SW2" >
+            <p class="reviewer_descrip" itemprop="reviewBody">作品内容のところでも紹介されている通り、エスペラント語ベースのユリアーモという言語が使われている異世界へ行くという話ですが、このゲームをプレイすると実際に主人公と同じ感覚でこの言語を学ぶことが出来るという企画側の狙い通りの感じに仕上がっています。<br />
+なおかつ、肝心のストーリーの方も繊細な心情が綴られていて美しい作品だと思います。<br />
+<br />
+百合が好きな方、新しい切り口のゲームを探している方におすすめします。<br />
+<br />
+このゲームにドハマりして軽くエスペラント語を勉強してみましたが、このゲーム内の勉強ミニゲームと辞書の例文(700個程度)を丁寧にみていけば、市販の参考書を買わずとも済んでしまいます。</p>
+            <p class="review_ref">
+              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="15126" data-product_id="VJ011276">
+              <span class="useful">2人 が役に立ったと答えています</span>              <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/soft/contact/review/=/reviewer_id/REV0029193/product_id/VJ011276.html">報告する</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+        <tbody itemprop="review" itemscope itemtype="https://schema.org/Review">
+      <tr>
+        <td class="review_title">
+                    <div class="review_title_l">
+            <div class="title"><span itemprop="name">まさかの言語の授業</span></div>
+            <p>
+              <meta itemprop="datePublished" content="2019-08-02">2019年08月02日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/soft/reviewlist/=/reviewer/REV0042177">α１号</a></span> さん</span>
+                              <span class="popularity_reviewer bronze">人気レビュアー：Best100</span>
+                                          <span class="purchased">購入済み</span>
+                          </p>
+          </div>
+                  </td>
+      </tr>
+      <tr>
+        <td class="review_main _review_main">
+                    <div class="reviewer_genre">
+            <p>レビュアーが選んだジャンル :</p>
+            <ul class="reviewer_select_genre">
+                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/206/from/review.genre">少女</a></li>
+                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/010/from/review.genre">SF</a></li>
+                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/158/from/review.genre">百合</a></li>
+                          </ul>
+          </div>
+          
+          
+          <div class="_SW2" >
+            <p class="reviewer_descrip" itemprop="reviewBody">異世界に行くとはこういう事だと大観させてくれる作品でした。<br />
+英語とか、ドイツ語なら辞書を片手に翻訳しながら読み進めれますが、まさかエスペラント語を基にした架空の言語とは恐れ入ります。<br />
+何を言っているのかわからない、何を書いているのかわからない、そんな状況を主人公と共に体験する事で主人公への共感性が高まり、物語への没入感がとても高かったです。<br />
+後、結構な頻度でお勉強の時間があるのですが、本気で覚えて勉強しようとしないとサッパリ分からないお手上げ状態になります。幸い、お勉強を簡略化できる機能があるので面倒な人はその機能を使うといいでしょう。<br />
+さて、一週目を終えたら今度は翻訳機能が解禁されるので次は純粋に物語を楽しんでいきましょう。<br />
+そう、このゲーム、一週目は本格異世界転移を楽しめ、二週目は百合を楽しめるという二段構えとなっているのです。<br />
+シナリオ自体は短め、選択肢もほぼ最後の三択のみでエンディング分岐と大ボリュームというわけではありませんが、一度に二度美味しいゲームなので百合に興味があるならお勧めいたします。</p>
+            <p class="review_ref">
+              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="19465" data-product_id="VJ011276">
+              <span class="useful">1人 が役に立ったと答えています</span>              <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/soft/contact/review/=/reviewer_id/REV0042177/product_id/VJ011276.html">報告する</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
+          </div>
+        </td>
+      </tr>
+    </tbody>
         <tbody itemprop="review" itemscope itemtype="https://schema.org/Review">
       <tr>
         <td class="review_title">
@@ -1217,7 +1389,7 @@ jQuery(function($){
                             <li><a href="https://www.dlsite.com/soft/fsr/=/genre/055/from/review.genre">感動</a></li>
                             <li><a href="https://www.dlsite.com/soft/fsr/=/genre/056/from/review.genre">癒し</a></li>
                             <li><a href="https://www.dlsite.com/soft/fsr/=/genre/060/from/review.genre">女性視点</a></li>
-                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/432/from/review.genre">女主人公のみ</a></li>
+                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/432/from/review.genre">女主人公</a></li>
                             <li><a href="https://www.dlsite.com/soft/fsr/=/genre/206/from/review.genre">少女</a></li>
                             <li><a href="https://www.dlsite.com/soft/fsr/=/genre/158/from/review.genre">百合</a></li>
                           </ul>
@@ -1231,44 +1403,6 @@ jQuery(function($){
             <p class="review_ref">
               <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="17374" data-product_id="VJ011276">
               <span class="useful">1人 が役に立ったと答えています</span>              <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/soft/contact/review/=/reviewer_id/REV0035834/product_id/VJ011276.html">報告する</a>&nbsp;]</span>
-            </p>
-            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-        <tbody itemprop="review" itemscope itemtype="https://schema.org/Review">
-      <tr>
-        <td class="review_title">
-                    <div class="review_title_l">
-            <div class="title"><span itemprop="name">Tre bone lilia ludo!</span></div>
-            <p>
-              <meta itemprop="datePublished" content="2018-03-08">2018年03月08日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/soft/reviewlist/=/reviewer/REV0013200">RD2</a></span> さん</span>
-                              <span class="popularity_reviewer bronze">人気レビュアー：Best100</span>
-                                          <span class="purchased">購入済み</span>
-                          </p>
-          </div>
-                  </td>
-      </tr>
-      <tr>
-        <td class="review_main _review_main">
-                    <div class="reviewer_genre">
-            <p>レビュアーが選んだジャンル :</p>
-            <ul class="reviewer_select_genre">
-                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/056/from/review.genre">癒し</a></li>
-                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/206/from/review.genre">少女</a></li>
-                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/158/from/review.genre">百合</a></li>
-                          </ul>
-          </div>
-          
-          
-          <div class="_SW2" >
-            <p class="reviewer_descrip" itemprop="reviewBody">Rukaの言っていることを理解しようとすると自然とJuliamo(Esperanto)を勉強することになり、結果として一通りプレイし終えたら簡単なEsperantoの読み書きができるようになります。また2週目は序盤何言ってるのかわからなかった会話が理解できるようになり、それもまた楽しいです。<br />
-もちろん百合作品としてもとても楽しめる内容なので、おススメです!<br />
-Post kiam vi ludis la ludon, mi pensas ke vi povos kompreni kaj skribas texston. Cetere, la vocxo de Ruka estas tre cxarma, cxu ne? Mi petas oni vendos ludon kiel cxi tiu, gxi faras nin ke ni lernas lingvojn!</p>
-            <p class="review_ref">
-              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="15249" data-product_id="VJ011276">
-              <span class="useful">1人 が役に立ったと答えています</span>              <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/soft/contact/review/=/reviewer_id/REV0013200/product_id/VJ011276.html">報告する</a>&nbsp;]</span>
             </p>
             <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
           </div>
@@ -1323,15 +1457,12 @@ Post kiam vi ludis la ludon, mi pensas ke vi povos kompreni kaj skribas texston.
       <tr>
         <td class="review_title">
                     <div class="review_title_l">
-            <div class="title"><span itemprop="name">気が付いたらドハマり!</span></div>
+            <div class="title"><span itemprop="name">エスペラントの学習+百合ゲー</span></div>
             <p>
-              <meta itemprop="datePublished" content="2018-01-29">2018年01月29日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/soft/reviewlist/=/reviewer/REV0029193">Amrilato</a></span> さん</span>
-                              <span class="popularity_reviewer silver">人気レビュアー：45位</span>
+              <meta itemprop="datePublished" content="2019-08-03">2019年08月03日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/soft/reviewlist/=/reviewer/REV0007233">YY</a></span> さん</span>
+                              <span class="popularity_reviewer gold">人気レビュアー：3位</span>
                                           <span class="purchased">購入済み</span>
                           </p>
-          </div>
-                    <div class="review_title_r">
-            <span class="reviewer_recommend">レビュアーオススメ！</span>
           </div>
                   </td>
       </tr>
@@ -1340,27 +1471,22 @@ Post kiam vi ludis la ludon, mi pensas ke vi povos kompreni kaj skribas texston.
                     <div class="reviewer_genre">
             <p>レビュアーが選んだジャンル :</p>
             <ul class="reviewer_select_genre">
-                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/051/from/review.genre">萌え</a></li>
-                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/056/from/review.genre">癒し</a></li>
                             <li><a href="https://www.dlsite.com/soft/fsr/=/genre/206/from/review.genre">少女</a></li>
-                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/004/from/review.genre">ラブラブ/あまあま</a></li>
+                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/010/from/review.genre">SF</a></li>
                             <li><a href="https://www.dlsite.com/soft/fsr/=/genre/013/from/review.genre">ほのぼの</a></li>
                             <li><a href="https://www.dlsite.com/soft/fsr/=/genre/158/from/review.genre">百合</a></li>
-                            <li><a href="https://www.dlsite.com/soft/fsr/=/genre/438/from/review.genre">同棲</a></li>
                           </ul>
           </div>
           
           
           <div class="_SW2" >
-            <p class="reviewer_descrip" itemprop="reviewBody">作品内容のところでも紹介されている通り、エスペラント語ベースのユリアーモという言語が使われている異世界へ行くという話ですが、このゲームをプレイすると実際に主人公と同じ感覚でこの言語を学ぶことが出来るという企画側の狙い通りの感じに仕上がっています。<br />
-なおかつ、肝心のストーリーの方も繊細な心情が綴られていて美しい作品だと思います。<br />
-<br />
-百合が好きな方、新しい切り口のゲームを探している方におすすめします。<br />
-<br />
-このゲームにドハマりして軽くエスペラント語を勉強してみましたが、このゲーム内の勉強ミニゲームと辞書の例文(700個程度)を丁寧にみていけば、市販の参考書を買わずとも済んでしまいます。</p>
+            <p class="reviewer_descrip" itemprop="reviewBody">セールで偶然見たので購入したのですが、思いのほかエスペラントの学習という側面が強い作品でした。<br />
+作中の会話はもちろん、単語や文法の基本をテストを通じ学ぶことができ、クリアした時には大分エスペラントが理解できた気がしました。<br />
+物語としては、何といってもルカの可愛さが際立ってましたね。<br />
+エスペラントに少しでも興味があるなら、プレイする価値はあると思います。</p>
             <p class="review_ref">
-              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="15126" data-product_id="VJ011276">
-              <span class="useful">2人 が役に立ったと答えています</span>              <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/soft/contact/review/=/reviewer_id/REV0029193/product_id/VJ011276.html">報告する</a>&nbsp;]</span>
+              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="19476" data-product_id="VJ011276">
+                            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/soft/contact/review/=/reviewer_id/REV0007233/product_id/VJ011276.html">報告する</a>&nbsp;]</span>
             </p>
             <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
           </div>
@@ -1373,7 +1499,7 @@ Post kiam vi ludis la ludon, mi pensas ke vi povos kompreni kaj skribas texston.
     <tr>
             <td>
         <div class="review_more">
-          <p><a href="https://www.dlsite.com/soft/work/reviewlist/=/product_id/VJ011276.html">すべてのレビューを見る （4件）</a></p>
+          <p><a href="https://www.dlsite.com/soft/work/reviewlist/=/product_id/VJ011276.html">すべてのレビューを見る （6件）</a></p>
         </div>
       </td>
             <td><div class="review_btn"><a href="https://www.dlsite.com/soft/review/write/work/=/product_id/VJ011276.html" class="btn_post size_xxl fs15"><i>レビューを投稿する</i></a></div></td>
@@ -1413,8 +1539,8 @@ jQuery(function($){
     <tbody>
     <tr>
       <td>
-        <p class="base_text">この作品のまとめ記事を投稿しよう！ 書き方や詳細については <a
-                  href="https://ch.dlsite.com/matome/185" target="_blank">まとめの作り方</a> をご覧ください。</p>
+        <p class="base_text">
+          この作品のまとめ記事を投稿しよう！                     書き方や詳細については <a rel="noopener" href="https://ch.dlsite.com/matome/185" target="_blank">まとめの作り方</a> をご覧ください。        </p>
       </td>
       <td>
       </td>
@@ -1424,56 +1550,30 @@ jQuery(function($){
   <div class="dlchannel">
     <div class="matome_container">
       <div id="matome-swiper" class="swiper-container">
-        <ul class="matome_box swiper-wrapper">
+        <ul class="matome_box swiper-wrapper" style="display:none;">
                       <li class="matome_box_inner swiper-slide">
               <div class="matome_content">
                 <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/10953?dls=&k_matome_soft_pc" target="_blank">
+                  <a rel="noopener" href="https://ch.dlsite.com/matome/10953?dls=&k_matome_soft_pc" target="_blank">
                     <img src="https://media.dlsite.com/proxy/d096e1f9036f7b00821682b1cb3c46e3dbc42c12/687474703a2f2f7777772e62696e672e636f6d2f63723f49473d4334383841433232324545353430314242374434314441363244443733413034264349443d31364237443937303036393036444131313043394432443630373530364331302672643d3126683d466443394f6a6e5a484d38686d4d6d433146566754486a4a3274765a7076764a4d4f422d354248316d687326763d3126723d6874747025336125326625326661322e6d7a7374617469632e636f6d2532666a70253266723330253266507572706c65253266763425326632632532663462253266663925326632633462663961322d616530622d646231612d623766362d61623461306430663361616325326673637265656e343830783438302e6a70656726703d44657645782c353036392e31" alt="百合ゲームまとめ"
                          title="百合ゲームまとめ"></a>
                 </div>
                 <p class="matome_content_title">
                   <a href="https://ch.dlsite.com/matome/10953?dls=&k_matome_soft_pc"
-                     target="_blank">百合ゲームまとめ</a>
+                     rel="noopener" target="_blank">百合ゲームまとめ</a>
                 </p>
               </div>
             </li>
                       <li class="matome_box_inner swiper-slide">
               <div class="matome_content">
                 <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/9295?dls=&k_matome_soft_pc" target="_blank">
+                  <a rel="noopener" href="https://ch.dlsite.com/matome/9295?dls=&k_matome_soft_pc" target="_blank">
                     <img src="https://media.dlsite.com/proxy/26b90916022b32866713508a1378807b7b174384/687474703a2f2f696d672e646c736974652e6a702f6d6f647075622f696d61676573322f776f726b2f70726f66657373696f6e616c2f564a3031323030302f564a3031313237365f696d675f6d61696e2e6a7067" alt="純百合異世界アドベンチャー、ことのはアムリラート"
                          title="純百合異世界アドベンチャー、ことのはアムリラート"></a>
                 </div>
                 <p class="matome_content_title">
                   <a href="https://ch.dlsite.com/matome/9295?dls=&k_matome_soft_pc"
-                     target="_blank">純百合異世界アドベンチャー、ことのはアムリラート</a>
-                </p>
-              </div>
-            </li>
-                      <li class="matome_box_inner swiper-slide">
-              <div class="matome_content">
-                <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/33576?dls=&k_matome_soft_pc" target="_blank">
-                    <img src="https://media.dlsite.com/proxy/e1a194b6ff12f789ca12420301c27c15e8340473/68747470733a2f2f6d656469612e646c736974652e636f6d2f70726f78792f323036656634343337303337663330323064663130653239333236373939376236623039373061392f36383734373437303361326632663664363536343639363132653634366337333639373436353265363336663664326636333638326636663636363636393633363936313663326633313334333933363331333933323336333733363265366137303637" alt="百合ゲー 同人＆商業 (おすすめ)"
-                         title="百合ゲー 同人＆商業 (おすすめ)"></a>
-                </div>
-                <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/33576?dls=&k_matome_soft_pc"
-                     target="_blank">百合ゲー 同人＆商業 (おすすめ)</a>
-                </p>
-              </div>
-            </li>
-                      <li class="matome_box_inner swiper-slide">
-              <div class="matome_content">
-                <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/36368?dls=&k_matome_soft_pc" target="_blank">
-                    <img src="https://media.dlsite.com/proxy/493fd9e182b4d7a8a991a6ac69b4088d997dcb51/68747470733a2f2f6d656469612e646c736974652e636f6d2f70726f78792f623530383539643736366230303933366565616333383839646231663339383630313832383930302f36383734373437303361326632663664363536343639363132653634366337333639373436353265363336663664326636333638326636663636363636393633363936313663326633313334333933363331333933323336333033343265366137303637" alt="隠れた良作マンガ（タイトルに「百合」「ゆり」がつくマンガ編）"
-                         title="隠れた良作マンガ（タイトルに「百合」「ゆり」がつくマンガ編）"></a>
-                </div>
-                <p class="matome_content_title">
-                  <a href="https://ch.dlsite.com/matome/36368?dls=&k_matome_soft_pc"
-                     target="_blank">隠れた良作マンガ（タイトルに「百合」「ゆり」がつくマンガ編）</a>
+                     rel="noopener" target="_blank">純百合異世界アドベンチャー、ことのはアムリラート</a>
                 </p>
               </div>
             </li>
@@ -1484,8 +1584,8 @@ jQuery(function($){
     </div>
     <ul class="matome_more">
               <li><p class="matome_text"><a href="https://ch.dlsite.com/antenna/319000/contents?mode=matome"
-                                      target="_blank">すべてのまとめ記事を見る（4件）</a></p></li>
-            <li class="matome_btn"><a href="https://ch.dlsite.com/matome/create" target="_blank"
+                                      rel="noopener" target="_blank">すべてのまとめ記事を見る（4件）</a></p></li>
+            <li class="matome_btn"><a href="https://ch.dlsite.com/matome/create" rel="noopener" target="_blank"
                                 class="btn_post size_xxl fs15"><i>まとめ記事を作成する</i></a></li>
     </ul>
   </div>
@@ -1519,9 +1619,105 @@ jQuery(function($){
                   }
               }
           });
+
+          $('.matome_box').show();
       });
   </script>
 
+
+<div class="title_01 clearfix">
+  <h2>開催中の企画・キャンペーン</h2>
+</div>
+  <div class="content_scroller" data-section-name="eisys-campaign">
+    <div class="relation_content_container">
+      <div id="content-swiper" class="swiper-container">
+        <ul class="relation_content_list swiper-wrapper" style="display:none;">
+                      <li class="relation_content_list_item swiper-slide">
+              <div class="content_item">
+                <div class="content_item_img">
+                  <a rel="noopener" href="http://www.nijiyome.com/app/start/533?en=dlsite&em=banner&et=pc_work_detail_app553_1907" target="_blank">
+                    <img src="//media.dlsite.com/bcs/dlchannel/1564498800/bn_be05309736932d07b9e6f3fa70c347beece5b886.jpg" alt="【最大虹石3,000個無料！】事前登録だけでスタートダッシュ報酬GET♪事前登録受付中"></a>
+                </div>
+                <p class="content_item_title">
+                  <a rel="noopener" href="http://www.nijiyome.com/app/start/533?en=dlsite&em=banner&et=pc_work_detail_app553_1907" target="_blank">【にじよめ】最大虹石3,000個｜事前登録で無料報酬GET♪</a>
+                </p>
+              </div>
+            </li>
+                      <li class="relation_content_list_item swiper-slide">
+              <div class="content_item">
+                <div class="content_item_img">
+                  <a rel="noopener" href="https://ch.dlsite.com/matome/40504?from=event_matome_normal_2019a_ranking" target="_blank">
+                    <img src="//media.dlsite.com/bcs/dlchannel/1567177200/bn_e410dc8d4f9fbd636d283dbc2f8ed22531ce4adf.jpg" alt="DLsite上半期ランキングを公開中"></a>
+                </div>
+                <p class="content_item_title">
+                  <a rel="noopener" href="https://ch.dlsite.com/matome/40504?from=event_matome_normal_2019a_ranking" target="_blank">DLsite上半期ランキングを公開中</a>
+                </p>
+              </div>
+            </li>
+                      <li class="relation_content_list_item swiper-slide">
+              <div class="content_item">
+                <div class="content_item_img">
+                  <a rel="noopener" href="https://www.dlsite.com/home/promo/contest1904h" >
+                    <img src="//media.dlsite.com/bcs/dlsite/1564498800/bn_d06ea8fb8d0d7622eb863fd18477e68f0fc07fcc.jpg" alt="【グランプリはDLsiteで作品化】DLsite男性向け音声作品シナリオコンテスト結果発表！"></a>
+                </div>
+                <p class="content_item_title">
+                  <a rel="noopener" href="https://www.dlsite.com/home/promo/contest1904h" target="_blank">【グランプリはDLsiteで作品化】コンテスト結果発表！</a>
+                </p>
+              </div>
+            </li>
+                  </ul>
+      </div>
+      <div class="carousel_arrow_left content-swiper-button-prev"></div>
+      <div class="carousel_arrow_right content-swiper-button-next"></div>
+    </div>
+  </div>
+
+
+<script>
+$(function () {
+
+  //作品並びシャッフル
+  function shuffleContent(container) {
+    var content = container.find('> li');
+    var total = content.size();
+    content.each(function() {
+        content.eq(Math.floor(Math.random()*total)).prependTo(container);
+    });
+    return true;
+  }
+  shuffleContent($('.relation_content_list'));
+
+  // Swiper3系
+  var swiper = new Swiper('#content-swiper', {
+      slidesPerView: 6,
+      slidesPerGroup: 6,
+      spaceBetween: 20,
+      watchSlidesVisibility: true,
+      nextButton: '.content-swiper-button-next',
+      prevButton: '.content-swiper-button-prev',
+      breakpoints: {
+          1900: {
+              slidesPerView: 5,
+              slidesPerGroup: 5,
+          },
+          1620: {
+              slidesPerView: 4,
+              slidesPerGroup: 4,
+          },
+          1390: {
+              slidesPerView: 3,
+              slidesPerGroup: 3,
+          },
+          1150: {
+              slidesPerGroup: 2,
+              slidesPerView: 2,
+          }
+      }
+  });
+
+  $('.relation_content_list').show();
+});
+</script>
 
 
 
@@ -1549,73 +1745,84 @@ jQuery(function($){
         
 
         <template v-if="product.is_rental">
-        <p   v-if="is_bought" class="label_static">通常購入</p>
-        <div v-else class="type_label">
-          <input type="radio" name="rental" value="sell" id="_form_rental_disable" v-model="buy_type">
-          <label for="_form_rental_disable">通常購入</label>
-        </div>
+          <!-- 通常購入 -->
+          <p v-if="is_bought" class="label_static" v-t="'product.price.buy_normal'"></p>
+          <div v-else class="type_label">
+            <input type="radio" name="rental" value="sell" id="_form_rental_disable" v-model="buy_type">
+            <label for="_form_rental_disable" v-t="'product.price.buy_normal'"></label>
+          </div>
         </template>
 
         <div v-if="product.is_discount || product.is_pointup || rentaled" class="campaign_info">
-          <p v-if="rentaled" class="type_rental"><span>レンタル期間中割引<span class="limit">あと{{ rentaled.limit }}</span><span class="period">{{ rentaled.period }}まで</span></span></p>
-          <p v-if="product.is_discount" class="type_sale">
-            <a    v-if="product.discount_to" :href="product.discount_to" :title="product.discount_rate == 100 ? '無料販売' : product.discount_rate + '%OFF'" target="_blank"><span>{{ product.discount_rate == 100 ? '無料販売' : product.discount_rate + '%OFF' }}<span v-if="product.discount_end_date" class="period">{{ product.discount_end_date }}まで</span></span></a>
-            <span v-else>{{ product.discount_rate == 100 ? '無料販売' : product.discount_rate + '%OFF' }}<span class="period" v-if="product.discount_end_date">{{ product.discount_end_date }} まで</span></span>
+          <p v-if="rentaled" class="type_rental">
+            <span>{{$t('product.price.discount_rental')}}<span class="limit">あと{{ rentaled.limit }}</span><span class="period">{{ rentaled.period }}まで</span></span>
           </p>
-          <p v-if="product.is_pointup && (product.product_point || product.default_point)" class="type_point"><span>{{ product.product_point_rate }}%還元<span v-if="product.pointup_end_date" class="period">{{ product.pointup_end_date }}まで</span></span></p>
+          <!-- 割引・無料販売 -->
+          <p v-if="product.is_discount" class="type_sale">
+            <a rel="noopener" v-if="product.discount_to" :href="product.discount_to" :title="product.discount_rate == 100 ? $t('product.price.discount_free') : product.discount_rate + '%OFF'" target="_blank">
+              <span>{{ product.discount_rate == 100 ? $t('product.price.discount_free') : product.discount_rate + '%OFF' }}<span v-if="product.discount_end_date" class="period">{{ $t('product.price.til', [product.discount_end_date]) }}</span></span>
+            </a>
+            <span v-else>{{ product.discount_rate == 100 ? $t('product.price.discount_free') : product.discount_rate + '%OFF' }}<span class="period" v-if="product.discount_end_date">{{ $t('product.price.til', [product.discount_end_date]) }}</span></span>
+          </p>
+          <!-- ポイント還元 -->
+          <p v-if="product.is_pointup && (product.product_point || product.default_point)" class="type_point">
+            <span>{{ $t('product.price.point_return', [product.product_point_rate]) }}<span v-if="product.pointup_end_date" class="period">{{ $t('product.price.til', [product.pointup_end_date]) }}</span></span>
+          </p>
         </div>
+
         <div class="work_buy_container">
           <div class="work_buy_body">
-
-            <div v-if="rentaled"  class="work_buy_label">割引価格</div>
-            <div v-else-if="product.is_discount" class="work_buy_label">セール特価</div>
-            <div v-else class="work_buy_label">価格</div>
+            <div v-if="rentaled" class="work_buy_label" v-t="'product.price.sale_price'"><!-- 割引価格 --></div>
+            <div v-else-if="product.is_discount" class="work_buy_label" v-t="'product.price.special_price'"><!-- セール特価 --></div>
+            <div v-else class="work_buy_label" v-t="'product.price.price'"><!-- 価格 --></div>
 
             <div class="work_buy_content">
-              <strong v-if="product.is_discount || rentaled" class="price">{{ real_price | number_format }}<i>円</i><span v-if="rentaled" class="discount_rate">({{ real_discount_rate }}%OFF)</span></strong>
-              <span   v-else class="price">{{ product.price_str }}<i>円</i></span>
+              <strong v-if="product.is_discount || rentaled" class="price">{{ real_price | number_format }}<i v-t="'product.price.yen'"></i><span v-if="rentaled" class="discount_rate">({{ real_discount_rate }}%OFF)</span></strong>
+              <span   v-else class="price">{{ product.price_str }}<i v-t="'product.price.yen'"></i></span>
             </div>
           </div>
           <div v-if="product.is_discount || rentaled" class="work_buy_body">
-            <div class="work_buy_label">通常価格</div>
-            <div class="work_buy_content"><span class="price strike">{{ product.official_price_str || product.price_str }}<i>円</i></span></div>
+            <div class="work_buy_label" v-t="'product.price.normal_price'"><!-- 通常価格 --></div>
+            <div class="work_buy_content"><span class="price strike">{{ product.official_price_str || product.price_str }}<i v-t="'product.price.yen'"></i></span></div>
           </div>
           <div v-if="real_point" class="work_buy_body">
-            <div class="work_buy_label">ポイント</div>
+            <div class="work_buy_label" v-t="'product.price.point'"><!-- ポイント --></div>
             <div class="work_buy_content">
-              <strong class="work_point point_up">{{ real_point }}<i v-if="real_point">pt ({{ real_point_rate }}%還元)</i><i v-else>pt</i></strong>
+              <strong class="work_point point_up">{{ real_point }}<i v-if="real_point">pt ({{ $t('product.price.point_return', [real_point_rate]) }})</i><i v-else>pt</i></strong>
             </div>
           </div>
         </div>
       </div>
+
       <div v-if="product.is_rental" v-cloak class="work_buy_type" :class="class_buy_type_rental" @click.stop=" ! is_bought && ! rentaled && (buy_type = 'rental')">
         <div v-if="product.on_sale && ! is_bought" class="type_label">
           <input type="radio" name="rental" value="rental" id="_form_rental_enable" :disabled="is_bought || rentaled" v-model="buy_type">
-          <label for="_form_rental_enable">レンタル</label>
+          <label for="_form_rental_enable" v-t="'product.price.rental'"><!-- レンタル --></label>
         </div>
-        <p   v-else class="label_static">レンタル</p>
+        <p   v-else class="label_static" v-t="'product.price.rental'"><!-- レンタル --></p>
         <div class="work_buy_container">
           <div class="work_buy_body">
-            <div class="work_buy_label">価格</div>
-            <div class="work_buy_content"><span class="price">{{ rental.price | number_format }}<i>円</i></span></div>
+            <div class="work_buy_label" v-t="'product.price.price'"><!-- 価格 --></div>
+            <div class="work_buy_content"><span class="price">{{ rental.price | number_format }}<i v-t="'product.price.yen'"></i></span></div>
           </div>
           <div class="work_buy_body">
-            <div class="work_buy_label">レンタル期間</div>
+            <div class="work_buy_label" v-t="'product.price.rental_period'"><!-- レンタル期間 --></div>
             <div class="work_buy_content">
               <span v-if="product.work_rentals.length > 1" class="rental_period">
                 <select name="rental_id" v-model="rental_id" :disabled="is_bought || rentaled">
-                  <option v-for="work_rental in product.work_rentals" :value="work_rental.id">{{ work_rental.time_str }}{{ work_rental.time_unit_jp }}間</option>
+                  <option v-for="work_rental in product.work_rentals" :value="work_rental.id">{{ work_rental.time_str }}{{ work_rental.time_unit_jp }}{{ $t('product.price.days') }}</option>
                 </select>
               </span>
-              <span v-else class="rental_period">{{ rental.time_str }}<i>{{ rental.time_unit_jp }}間</i></span>
+              <span v-else class="rental_period">{{ rental.time_str }}<i>{{ rental.time_unit_jp }}{{ $t('product.price.days') }}</i></span>
             </div>
           </div>
           <div class="work_buy_body">
-            <p v-if="user.os == 'Mac'" v-cloak class="work_buy_message">Macではレンタル版は<br />プレイできません。</p>
-            <p v-if="user.ua.os.name == 'Windows' && /^(Vista|XP|2000|ME|98(SE)?|95|3\.1)$/.test(user.ua.os.version)" v-cloak class="work_buy_message">レンタル版をプレイするには<br />Windows 7以上が必要です。</p>
+            <p v-if="user.os == 'Mac'" v-cloak class="work_buy_message" v-html="$t('product.price.guide_rental_mac')"><!-- Mac案内 --></p>
+            <p v-if="user.ua.os.name == 'Windows' && /^(Vista|XP|2000|ME|98(SE)?|95|3\.1)$/.test(user.ua.os.version)" v-cloak class="work_buy_message" v-html="$t('product.price.guide_rental_win')"><!-- Win案内 --></p>
             <ul class="guide_rental">
-              <li v-if="product.on_sale">レンタル期間中は販売価格から{{ rental.price | number_format }}円引きで通常購入できます。[ <a href="https://www.dlsite.com/soft/guide/rental">レンタルとは</a> ]</li>
-              <li v-else>こちらの作品はレンタル販売のみとなります。[ <a href="https://www.dlsite.com/soft/guide/rental">レンタルとは</a> ]</li>
+              <!-- レンタル中割引 -->
+              <li v-if="product.on_sale" v-html="$t('product.price.guide_rented', [ $options.filters.number_format(rental.price), makeUrl('/guide/rental') ])"></li>
+              <li v-else v-html="$t('product.price.guide_not_rented', [ makeUrl('/guide/rental') ])"></li>
             </ul>
           </div>
         </div>
@@ -1628,7 +1835,7 @@ jQuery(function($){
         <div class="pre_work_message">
           <span class="title">販売開始予定</span>
           <span class="date">12月22日 0時</span>
-          <span class="note">※状況により販売延期される<br />場合もあります</span>
+          <span class="note">※状況により販売延期される&lt;br /&gt;場合もあります</span>
         </div>
       </template>
       <template v-else-if=" ! product.is_sale && product.on_sale && ! is_check">
@@ -1638,7 +1845,7 @@ jQuery(function($){
         <template v-if="is_bought">
           
                     
-          <p class="work_stream"><a href="https://play.dlsite.com/?workno=VJ011276" class="btn_st" :class="{ disabled: ! product.dlsiteplay_work || product.dl_format == 16 }" title="ブラウザ視聴" target="_blank">ブラウザ視聴</a></p>
+          <p class="work_stream"><a rel="noopener" href="https://play.dlsite.com/?workno=VJ011276" class="btn_st" :class="{ disabled: ! product.dlsiteplay_work || product.dl_format == 16 }" title="ブラウザ視聴" target="_blank">ブラウザ視聴</a></p>
           <p class="work_cart"><a :href="product.down_url" class="btn_dl" :class="{ disabled: product.dl_format == 17 }">ダウンロード</a></p>
           
                     
@@ -1655,43 +1862,44 @@ jQuery(function($){
         <p v-if="product.is_rental && ! rentaled && ((product.work_rentals || []).length + ( ! is_bought && product.on_sale ? 1 : 0) > 1) && carted" class="message_cart_in" :key="carted.rental_id"><span>{{ carted.name }}</span>追加済み</p>
         </transition>
 
-        <!-- カートに入れる -->
         <template v-if="is_check">
-          <p class="work_cart"><a class="btn_cart">カートに入れる</a></p>
+          <p class="work_cart">
+            <a class="btn_cart" v-t="'cart.add_cart'"><!-- カートに入れる --></a>
+          </p>
         </template>
         <template v-else-if="buy_type == 'rental' || ! is_bought && ! rentaled && ! product.on_sale">
-          <p v-if="carted && carted.rental_id == rental.id" class="work_cart"><a :href="'https://www.dlsite.com/soft/cart/=/rental_id/_rental_/product_id/VJ011276.html'.replace('_rental_', rental_id)" class="btn_cart_in">カートに入っています</a></p>
-          <p v-else class="work_cart"><a @click.prevent="addCart({ product_id:product.product_id, rental_id: rental.id }); showCartPopup()" :href="'https://www.dlsite.com/soft/cart/=/rental_id/_rental_/product_id/VJ011276.html'.replace('_rental_', rental_id)" class="btn_cart">カートに入れる</a></p>
+          <p v-if="carted && carted.rental_id == rental.id" class="work_cart">
+            <a :href="makeUrl('/cart', { rental_id: rental_id, product_id: product.product_id })" class="btn_cart_in" v-t="'cart.in_cart'"><!-- カートに入っています--></a>
+          </p>
+          <p v-else class="work_cart">
+            <a @click.prevent="addCart({ product_id:product.product_id, rental_id: rental.id }); showCartPopup()" :href="makeUrl('/cart', { rental_id: rental_id, product_id: product.product_id })" class="btn_cart" v-t="'cart.add_cart'"><!-- カートに入れる --></a>
+          </p>
         </template>
         <template v-else-if=" ! is_bought && product.on_sale">
           <p v-if="carted && ! carted.rental_id" class="work_cart">
           
-                      
-            <a href="https://www.dlsite.com/soft/cart/=/product_id/VJ011276.html" class="btn_cart_in">カートに入っています</a>
-          
+                          <a :href="makeUrl('/cart', { product_id: product.product_id })" class="btn_cart_in" v-t="'cart.in_cart'"><!-- カートに入っています --></a>
                       
           </p>
           <p v-else class="work_cart">
           
-                      
-            <a @click.prevent="addCart({ product_id:product.product_id }); showCartPopup()" href="https://www.dlsite.com/soft/cart/=/product_id/VJ011276.html" class="btn_cart">カートに入れる</a>
-          
+                          <a @click.prevent="addCart({ product_id:product.product_id }); showCartPopup()" :href="makeUrl('/cart', { product_id: product.product_id })" class="btn_cart" v-t="'cart.add_cart'"><!-- カートに入れる --></a>
                       
           </p>
         </template>
 
         <!-- お気に入り -->
-        <p v-if="is_check" class="work_favorite"><a class="btn_favorite">お気に入りに追加</a></p>
-        <p v-else-if="user.customer_id && ! is_favorite" class="work_favorite"><a @click.prevent="addFavorite({ product_id:product.product_id })" href="https://www.dlsite.com/soft/mypage/wishlist/=/product_id/VJ011276.html" class="btn_favorite" :class="{ btn_favorite_in: is_favorite }">{{ is_favorite ? 'お気に入りに追加済み' : 'お気に入りに追加' }}</a></p>
-        <p v-else-if="! user.customer_id && ! is_favorite" class="work_favorite"><a @click.prevent="showPopup()" href="https://www.dlsite.com/soft/mypage/wishlist/=/product_id/VJ011276.html" class="btn_favorite" :class="{ btn_favorite_in: is_favorite }">{{ is_favorite ? 'お気に入りに追加済み' : 'お気に入りに追加' }}</a></p>
-        <p v-else class="work_favorite"><a href="https://www.dlsite.com/soft/mypage/wishlist/=/product_id/VJ011276.html" class="btn_favorite" :class="{ btn_favorite_in: is_favorite }">{{ is_favorite ? 'お気に入りに追加済み' : 'お気に入りに追加' }}</a></p>
+        <p v-if="is_check" class="work_favorite"><a class="btn_favorite" v-t="favorite.add_fav"><!-- お気に入りに追加 --></a></p>
+        <p v-else-if="user.customer_id && ! is_favorite" class="work_favorite"><a @click.prevent="addFavorite({ product_id:product.product_id })" href="https://www.dlsite.com/soft/mypage/wishlist/=/product_id/VJ011276.html" class="btn_favorite" :class="{ btn_favorite_in: is_favorite }">{{ is_favorite ? $t('favorite.in_fav') : $t('favorite.add_fav') }}</a></p>
+        <p v-else-if="! user.customer_id && ! is_favorite" class="work_favorite"><a @click.prevent="showPopup()" href="https://www.dlsite.com/soft/mypage/wishlist/=/product_id/VJ011276.html" class="btn_favorite" :class="{ btn_favorite_in: is_favorite }">{{ is_favorite ? $t('favorite.in_fav') : $t('favorite.add_fav') }}</a></p>
+        <p v-else class="work_favorite"><a href="https://www.dlsite.com/soft/mypage/wishlist/=/product_id/VJ011276.html" class="btn_favorite" :class="{ btn_favorite_in: is_favorite }">{{ is_favorite ? $t('favorite.in_fav') : $t('favorite.add_fav') }}</a></p>
 
         <div v-show="is_display_cart_popup" class="add_cart_popup_container">
           <div class="add_cart_popup">
-            <p class="add_cart_title">カートに追加しました</p>
+            <p class="add_cart_title" v-t="'cart.added_cart'"><!-- カートに追加しました --></p>
             <div class="add_cart_btn type_go_cart">
-              <a v-if="user.customer_id" href="https://www.dlsite.com/soft/cart/=/product_id/VJ011276.html">購入手続きへ</a>
-              <a v-else href="https://www.dlsite.com/soft/cart/=/product_id/VJ011276.html">カートを見る</a>
+              <a v-if="user.customer_id" :href="makeUrl('/cart', { product_id: product.product_id })" v-t="'cart.go_buy'"><!-- 購入手続きへ --></a>
+              <a v-else :href="makeUrl('/cart', { product_id: product.product_id })" v-t="'cart.go_cart'"><!-- カートを見る --></a>
             </div>
           </div>
         </div>
@@ -1713,7 +1921,9 @@ jQuery(function($){
                     <div class="work_buy_body">
             <div class="work_buy_label">ポイント</div>
             <div class="work_buy_content">
-              <strong class="work_point">105<i>pt (3%還元)</i></strong>
+              <strong class="work_point">
+                105<i>pt (3%還元)</i>
+              </strong>
             </div>
           </div>
                   </div>
@@ -1724,8 +1934,9 @@ jQuery(function($){
         <p class="work_favorite _work_favorite" id="_work_favorite_VJ011276"><a href="https://www.dlsite.com/soft/mypage/wishlist/=/product_id/VJ011276.html" class="btn_favorite _btn_favorite" id="_btn_favorite_VJ011276">お気に入りに追加</a></p>
           </div>
   </div>
-  <div v-if="product.is_sale && ! is_bought && (product.on_sale || product.is_rental)" v-cloak class="floating_cart_box" :class="class_floating_cart_box">
-    <div class="cart_box_header" @click.prevent="toggleDisplayFloat">この作品を買う<div class="hide">隠す</div></div>
+
+    <div v-if="product.is_sale && ! is_bought && (product.on_sale || product.is_rental)" v-cloak class="floating_cart_box" :class="class_floating_cart_box">
+    <div class="cart_box_header" @click.prevent="toggleDisplayFloat">{{$t('cart.buy_this')}}<div class="hide" v-t="'cart.hide'"></div></div>
     <div class="cart_box_body">
       <div class="cart_box_body_inner">
         <div class="work_thumb">
@@ -1736,35 +1947,35 @@ jQuery(function($){
         <div v-if="product.on_sale" class="cart_box_type" :class="{ select: buy_type == 'sell' }" @click.prevent="buy_type = 'sell'">
           <div class="type_label">
             <input type="radio" name="buy_type_display" id="buy_type_display" :checked="buy_type == 'sell'">
-            <label for="buy_type_display">通常購入</label>
+            <label for="buy_type_display" v-t="'product.price.buy_normal'"></label>
           </div>
           <div class="work_buy_body">
-           <p class="work_price"><span>{{ real_price | number_format }}円</span>&nbsp;<span class="gray">/</span>&nbsp;<span class="work_point">{{ product.product_point || product.default_point }}pt</span></p>
+           <p class="work_price"><span>{{ real_price | number_format }}{{ $t('product.price.yen') }}</span>&nbsp;<span class="gray">/</span>&nbsp;<span class="work_point">{{ product.product_point || product.default_point }}pt</span></p>
           </div>
         </div>
         <div v-for="work_rental in product.work_rentals" class="cart_box_type" :class="{ select: buy_type == 'rental' && rental_id == work_rental.id, disabled: rentaled }" @click.prevent=" ! rentaled && (buy_type = 'rental') && (rental_id = work_rental.id)">
           <div v-if="product.on_sale || product.work_rentals.length > 1" class="type_label">
             <input type="radio" name="buy_type_display" :id="'by_type_display_' + work_rental.id" :disabled="rentaled" :checked="buy_type == 'rental' && rental_id == work_rental.id">
-            <label :for="'by_type_display_' + work_rental.id">レンタル</label>
+            <label :for="'by_type_display_' + work_rental.id" v-t="'product.price.rental'"><!-- レンタル --></label>
           </div>
-          <p   v-else class="label_static">レンタル</p>
+          <p   v-else class="label_static" v-t="'product.price.rental'"><!-- レンタル --></p>
           <div class="work_buy_body">
-            <div class="work_buy_label rental_period">（{{ work_rental.time_str }}{{ work_rental.time_unit_jp }}間）</div>
+            <div class="work_buy_label rental_period">（{{ work_rental.time_str }}{{ work_rental.time_unit_jp }}{{ $t('product.price.days') }}）</div>
             <div class="work_buy_content">
-              <p class="work_price"><span>{{ work_rental.price | number_format }}円</span></p>
+              <p class="work_price"><span>{{ work_rental.price | number_format }}{{ $t('product.price.yen') }}</span></p>
             </div>
           </div>
         </div>
         </template>
         <template v-else>
         <div class="work_buy_body">
-          <div class="work_buy_label">価格</div>
+          <div class="work_buy_label" v-t="'product.price.price'"><!-- 価格 --></div>
           <div class="work_buy_content">
-            <strong class="price">{{ real_price | number_format }}<i>円</i></strong>
+            <strong class="price">{{ real_price | number_format }}<i v-t="'product.price.yen'"></i></strong>
           </div>
         </div>
         <div v-if="product.product_point || product.default_point" class="work_buy_body">
-          <div class="work_buy_label">ポイント</div>
+          <div class="work_buy_label" v-t="'product.price.point'"><!-- ポイント --></div>
           <div class="work_buy_content">
             <strong class="work_point">{{ product.product_point || product.default_point }}<i>pt</i></strong>
           </div>
@@ -1773,24 +1984,37 @@ jQuery(function($){
 
         <div class="btn_wrap">
           <template v-if="buy_type == 'rental' || ! is_bought && ! rentaled && ! product.on_sale">
-            <p v-if="carted && carted.rental_id == rental.id" class="work_cart"><a :href="'https://www.dlsite.com/soft/cart/=/rental_id/_rental_/product_id/VJ011276.html'.replace('_rental_', rental_id)" class="btn_cart_in">カートに追加済み</a></p>
-            <p v-else class="work_cart"><a @click.prevent="addCart({ product_id:product.product_id, rental_id: rental.id })" :href="'https://www.dlsite.com/soft/cart/=/rental_id/_rental_/product_id/VJ011276.html'.replace('_rental_', rental_id)" class="btn_cart" data-link-name="float">カートに追加</a></p>
+            <p v-if="carted && carted.rental_id == rental.id" class="work_cart">
+              <a :href="'https://www.dlsite.com/soft/cart/=/rental_id/_rental_/product_id/VJ011276.html'.replace('_rental_', rental_id)" class="btn_cart_in" v-t="'product.item.into_cart_result'"></a>
+            </p>
+            <p v-else class="work_cart">
+              <a @click.prevent="addCart({ product_id:product.product_id, rental_id: rental.id })" :href="'https://www.dlsite.com/soft/cart/=/rental_id/_rental_/product_id/VJ011276.html'.replace('_rental_', rental_id)" class="btn_cart" data-link-name="float" v-t="'product.item.into_cart'"></a>
+            </p>
           </template>
+
           <template v-else-if=" ! is_bought && product.on_sale">
           
-            <p v-if="carted && ! carted.rental_id" class="work_cart"><a href="https://www.dlsite.com/soft/cart/=/product_id/VJ011276.html" class="btn_cart_in">カートに追加済み</a></p>
-            <p v-else class="work_cart"><a @click.prevent="addCart({ product_id:product.product_id })" href="https://www.dlsite.com/soft/cart/=/product_id/VJ011276.html" class="btn_cart" data-link-name="float">カートに追加</a></p>
+            <p v-if="carted && ! carted.rental_id" class="work_cart">
+              <a href="https://www.dlsite.com/soft/cart/=/product_id/VJ011276.html" class="btn_cart_in" v-t="'cart.in_cart_s'"><!-- カートに追加済み --></a>
+            </p>
+            <p v-else class="work_cart">
+              <a @click.prevent="addCart({ product_id:product.product_id })" href="https://www.dlsite.com/soft/cart/=/product_id/VJ011276.html" class="btn_cart" data-link-name="float" v-t="'cart.add_cart_s'"><!-- カートに追加 --></a>
+            </p>
           
           </template>
 
-          <p v-if="user.customer_id && ! is_favorite" class="work_favorite"><a @click.prevent="addFavorite({ product_id:product.product_id })" href="https://www.dlsite.com/soft/mypage/wishlist/=/product_id/VJ011276.html" class="btn_favorite">お気に入りに追加</a></p>
-          <p v-else class="work_favorite"><a href="https://www.dlsite.com/soft/mypage/wishlist/=/product_id/VJ011276.html" :class="{ btn_favorite_in: is_favorite, btn_favorite: !is_favorite }" data-link-name="float">{{ is_favorite ? 'お気に入りに追加済み' : 'お気に入りに追加' }}</a></p>
+          <p v-if="user.customer_id && ! is_favorite" class="work_favorite">
+            <a @click.prevent="addFavorite({ product_id:product.product_id })" href="https://www.dlsite.com/soft/mypage/wishlist/=/product_id/VJ011276.html" class="btn_favorite" v-t="'favorite.add_fav'"><!-- お気に入りに追加 --></a>
+          </p>
+          <p v-else class="work_favorite">
+            <a href="https://www.dlsite.com/soft/mypage/wishlist/=/product_id/VJ011276.html" :class="{ btn_favorite_in: is_favorite, btn_favorite: !is_favorite }" data-link-name="float">{{ is_favorite ? $t('favorite.in_fav') : $t('favorite.add_fav') }}</a>
+          </p>
         </div>
         
       </div>
     </div>
   </div>
-
+  
     
   <div class="work_privilege_guide" v-if="gift && gift.title || coupons.length" v-cloak>
     <p class="separate_title"><span>購入特典</span></p>
@@ -1852,7 +2076,8 @@ jQuery(function($){
         <tbody>
           <tr>
             <td v-if="user.os == 'Mac'" v-cloak>-</td>
-            <td v-else>Windows7 / Windows8 / Windows10</td>
+            <td v-else>
+                                                                                          7 / 8 / 10                            </td>
           </tr>
         </tbody>
       </table>
@@ -1868,7 +2093,7 @@ jQuery(function($){
         <tbody>
           <tr>
             <td>Windows</td>
-            <td>Windows7 / Windows8 / Windows10</td>
+            <td>                                                                          7 / 8 / 10                            </td>
           </tr>
                     <tr>
             <td>Mac</td>
@@ -1912,6 +2137,20 @@ jQuery(function($){
     
         <div class="list_head"><h4>販売作品</h4></div>
     <table cellspacing="0" class="same_work">
+              <tr>
+        <td class="work_img"><a href="https://www.dlsite.com/soft/work/=/product_id/VJ012877.html"><img src="//img.dlsite.jp/modpub/images2/work/professional/VJ013000/VJ012877_img_sam_mini.jpg" alt="クダンノフォークロア [SukeraSparo]" title="クダンノフォークロア [SukeraSparo]"  class="target_type" /></a></td>
+        <td class="name">
+                    <span class="work_name"><a href="https://www.dlsite.com/soft/work/=/product_id/VJ012877.html">クダンノフォークロア</a></span>
+          <span class="work_price">￥3,800</span>
+        </td>
+      </tr>
+              <tr>
+        <td class="work_img"><a href="https://www.dlsite.com/soft/work/=/product_id/VJ012496.html"><img src="//img.dlsite.jp/modpub/images2/work/professional/VJ013000/VJ012496_img_sam_mini.jpg" alt="いつかのメモラージョ ～ことのはアムリラート～ [SukeraSparo]" title="いつかのメモラージョ ～ことのはアムリラート～ [SukeraSparo]"  class="target_type" /></a></td>
+        <td class="name">
+                    <span class="work_name"><a href="https://www.dlsite.com/soft/work/=/product_id/VJ012496.html">いつかのメモラージョ ～ことのはアムリラート～</a></span>
+          <span class="work_price">￥2,800</span>
+        </td>
+      </tr>
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/soft/work/=/product_id/VJ011723.html"><img src="//img.dlsite.jp/modpub/images2/work/professional/VJ012000/VJ011723_img_sam_mini.jpg" alt="ことのはアムリラート ドラマCD 『どこでも アンリラート』 [SukeraSparo]" title="ことのはアムリラート ドラマCD 『どこでも アンリラート』 [SukeraSparo]"  class="target_type" /></a></td>
         <td class="name">
@@ -1971,116 +2210,113 @@ jQuery(function($){
 
 
 
-          <!-- nijiyome_bnr -->
-    <div id="footer_nijiyome_banner" class="bn_footer_1box" data-section_name="footer_banner">
-      <div class="bcs_viewer" data-service="dlsite" data-site="common" data-frame="pc-long-banner-general" data-ext-action="random" data-ext-empty="footer_nijiyome_banner"></div>
-    </div>
-  
-
 
 
 <!-- footer -->
 <div id="footer" data-section_name="footer">
     
-    <div class="pagetop_block clearfix">
+    <div class="pagetop_block">
     <p class="pagetop"><a href="#header">このページの上部へ</a></p>
 </div>
-<div class="footer_link_01">
-<ul>
-<li><a href="https://www.dlsite.com">総合トップ</a></li>
-<li><a href="https://www.dlsite.com/home/">同人</a></li>
-<li><a href="https://www.dlsite.com/comic/">コミック</a></li>
-<li><a href="https://www.dlsite.com/soft/">PCソフト</a></li>
+<div class="footer_floor_nav">
+<ul class="floor_list">
+<li class="floor_list_item"><a href="https://www.dlsite.com">総合トップ</a></li>
+<li class="floor_list_item"><a href="https://www.dlsite.com/home/">同人</a></li>
+<li class="floor_list_item"><a href="https://www.dlsite.com/comic/">コミック</a></li>
+<li class="floor_list_item"><a href="https://www.dlsite.com/soft/">PCソフト</a></li>
 </ul>
 </div>
 
     <div class="footer_section">
-    <div class="section_container clearfix">
-        <ul class="link_list">
-            <li class="list_item">
+    <div class="footer_section_inner">
+        <div class="link_list_wrap">
+            <div class="link_list_box col_2">
                 <div class="label">DLsiteについて</div>
-                <dl>
-                    <dd><a href="https://www.eisys.co.jp/company/company-info.html" target="_blank">会社概要</a></dd>
-                    <dd><a href="https://eisys.talentcld.com/" target="_blank">採用情報</a></dd>
-                                        <dd><a href="https://www.dlsite.com/soft/guide/dlnest">専用アプリ DLsite nest</a></dd>
-                                                            <dd><a href="https://twitter.com/DLsite" target="_blank" class="twitter">Twitter</a></dd>
-                                    </dl>
-            </li>
-            <li class="list_item">
+                <ul class="link_list">
+                    <li class="link_list_item"><a rel="noopener" href="https://www.eisys.co.jp/company/company-info.html" target="_blank">会社概要</a></li>
+                    <li class="link_list_item"><a rel="noopener" href="https://eisys.talentcld.com/" target="_blank">採用情報</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/soft/user/regulations">利用規約</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/soft/guide/law">特定商取引法に基づく表示</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/soft/guide/settlement">資金決済法に基づく表記</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/soft/guide/privacy">個人情報の取扱いについて</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/soft/mosaic">コンプライアンスポリシー</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/soft/guide/copy">著作権</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/soft/banners">リンクについて</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/soft/sitemap">サイトマップ</a></li>
+                </ul>
+            </div>
+            <div class="link_list_box">
                 <div class="label">お支払い&amp;ポイント</div>
-                <dl>
-                    <dd><a href="https://www.dlsite.com/soft/guide/payment">お支払い方法</a></dd>
-                    <dd><a href="https://www.dlsite.com/soft/mypage/aboutpoint">ポイントについて</a></dd>
-                                        <dd><a href="https://www.dlsite.com/soft/guide/pointonly">ポイント購入方法</a></dd>
-                    <dd><a href="https://www.dlsite.com/soft/show/pointitem">ポイント交換アイテム</a></dd>
-                                    </dl>
-            </li>
-            <li class="list_item">
+                <ul class="link_list">
+                    <li class="link_list_item"><a href="https://www.dlsite.com/soft/guide/payment">お支払い方法</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/soft/mypage/aboutpoint">ポイントについて</a></li>
+                                        <li class="link_list_item"><a href="https://www.dlsite.com/soft/guide/pointonly#link_point">ポイント購入方法</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/soft/show/pointitem">ポイント交換アイテム</a></li>
+                                    </ul>
+            </div>
+            <div class="link_list_box">
                 <div class="label">ヘルプ&amp;ガイド</div>
-                <dl>
-                    <dd><a href="https://www.dlsite.com/soft/welcome">初めての方へ</a></dd>
-                    <dd><a href="https://www.dlsite.com/soft/faq/=/type/user" target="_blank">よくある質問</a></dd>
-                    <dd><a href="https://www.dlsite.com/soft/opinion/contribution">作品リクエスト</a></dd>
-                    <dd><a href="https://ssl.dlsite.com/soft/mypage/setting/mail">メールマガジン</a></dd>
-                    <dd><a href="https://www.dlsite.com/soft/sitemap">サイトマップ</a></dd>
-                </dl>
-            </li>
-            <li class="list_item">
+                <ul class="link_list">
+                    <li class="link_list_item"><a href="https://www.dlsite.com/soft/welcome">初めての方へ</a></li>
+                    <li class="link_list_item"><a rel="noopener" href="https://www.dlsite.com/soft/faq/=/type/user" target="_blank">よくある質問</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/soft/opinion/contribution">作品リクエスト</a></li>
+                </ul>
+            </div>
+            <div class="link_list_box">
                 <div class="label">DLsiteのサービス</div>
-                <dl>
-                    <dd><a href="https://www.dlsite.com/soft/circle/invite">作品を販売したい方へ</a></dd>
-                                        <dd><a href="https://www.dlsite.com/soft/sell/steam">Steamパブリッシャーサービス</a></dd>
-                                        <dd><a href="https://www.dlsite.com/soft/guide/affiliate">アフィリエイト</a></dd>
-                                        <dd><a href="https://www.dlsite.com/event-pub/top.html" target="_blank">広告出稿サービス</a></dd>
-                                    </dl>
-            </li>
-                        <li class="list_item">
-                  <div class="label">姉妹サイト</div>
-                  <dl>
-                    <dd><a href="https://www.nijiyome.com" target="_blank">にじよめ</a></dd>
-                    <dd><a href="https://chobit.cc/" target="_blank">chobit</a></dd>
-                    <dd><a href="https://ch.dlsite.com/" target="_blank">DLチャンネル</a></dd>
-                    <dd><a href="http://blog.dlsite.com/" target="_blank">DLsiteBlog</a></dd>
-                  </dl>
-            </li>
+                <ul class="link_list">
+                    <li class="link_list_item"><a href="https://www.dlsite.com/soft/circle/invite">作品を販売したい方へ</a></li>
+                                        <li class="link_list_item"><a href="https://www.dlsite.com/soft/sell/steam">Steamパブリッシャーサービス</a></li>
+                                        <li class="link_list_item"><a href="https://www.dlsite.com/soft/guide/affiliate">アフィリエイト</a></li>
+                    <li class="link_list_item"><a href="https://ssl.dlsite.com/soft/mypage/setting/mail">メールマガジン</a></li>
+                                        <li class="link_list_item"><a rel="noopener" href="https://www.dlsite.com/event-pub/top.html" target="_blank">広告出稿サービス</a></li>
+                    <li class="link_list_item"><a rel="noopener" href="https://play.dlsite.com/ja" target="_blank">Webビューア DLsite Play</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/soft/guide/dlnest">PCクライアント DLsite Nest</a></li>
+                                    </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer_section_inner sns">
+        <div class="label">SNS公式アカウント</div>
+        <ul class="footer_sns">
+                        <li class="footer_sns_item"><a rel="noopener" href="https://twitter.com/DLsite" target="_blank" class="twitter_g">全年齢</a></li>
+            <li class="footer_sns_item"><a rel="noopener" href="https://twitter.com/DLsiteManiax" target="_blank" class="twitter_r18">R18</a></li>
+            <li class="footer_sns_item"><a rel="noopener" href="https://twitter.com/GirlsManiax" target="_blank" class="twitter_bl">BL</a></li>
+            <li class="footer_sns_item"><a rel="noopener" href="https://twitter.com/girlsmaniax_OTM" target="_blank" class="twitter_otm">乙女</a></li>
+            <li class="footer_sns_item"><a rel="noopener" href="https://twitter.com/DLsiteEnglish" target="_blank" class="twitter_eng">English</a></li>
+            <li class="footer_sns_item"><a rel="noopener" href="https://twitter.com/DLsite_info" target="_blank" class="twitter_info">広報</a></li>
+            <li class="footer_sns_item"><a rel="noopener" href="https://www.youtube.com/channel/UC-GBo1SVvZUWkyIjRSRTs7g" target="_blank" class="youtube_dl">DLsite</a></li>
+            <li class="footer_sns_item"><a rel="noopener" href="https://www.youtube.com/channel/UCvcIQvSYDdzE-o3377ZoK_Q" target="_blank" class="youtube_gm">がるまに</a></li>
+            <li class="footer_sns_item"><a rel="noopener" href="https://www.youtube.com/channel/UCQEN3LsNnqottC2mXx3tAjA" target="_blank" class="youtube_info">広報</a></li>
                     </ul>
     </div>
-    <div class="section_container type_multilingual clearfix">
-        <ul class="link_list">
-            <li class="list_item">
+    <div class="footer_section_inner multilingual">
+        <div class="link_list_wrap">
+            <div class="link_list_box">
+                <div class="label">International</div>
+                <ul class="link_list type_horizontal">
+                    <li class="link_list_item"><a href="https://www.dlsite.com/home/">日本語</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/">English</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com.tw/home/">繁體中文</a></li>
+                </ul>
+            </div>
+            <div class="link_list_box">
                 <div class="label">Global Guide</div>
-                <dl>
-                    <dd class="list_item"><a href="https://www.dlsite.com/eng/welcome">English</a></dd>
-                    <dd class="list_item"><a href="https://www.dlsite.com/eng/welcome/deu">Deutsch</a></dd>
-                    <dd class="list_item"><a href="https://www.dlsite.com/eng/welcome/fra">Français</a></dd>
-                    <dd class="list_item"><a href="https://www.dlsite.com/eng/welcome/ita">Italiano</a></dd>
-                    <dd class="list_item"><a href="https://www.dlsite.com/eng/welcome/esp">Español</a></dd>
-                    <dd class="list_item"><a href="https://www.dlsite.com/eng/welcome/chi">繁體中文</a></dd>
+                <ul class="link_list type_horizontal">
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/welcome">English</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/welcome/deu">Deutsch</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/welcome/fra">Français</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/welcome/ita">Italiano</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/welcome/esp">Español</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/welcome/chi">繁體中文</a></li>
                 </dl>
-            </li>
-        </ul>
-        <div class="language_container">
-            <div class="label">Language</div>
-            <select name="language" id="language_select" onchange="location.href=value;">
-                <option value="https://www.dlsite.com/home/" selected>日本語</option>
-                <option value="https://www.dlsite.com/eng/" >English</option>
-                <option value="https://www.dlsite.com.tw/home/">繁體中文</option>
-            </select>
+            </div>
         </div>
     </div>
 </div>
 <div id="copyright">
     <div class="container clearfix">
         <div id="system">推奨環境：最新版のInternet Explorer、Microsoft Edge、Safari、Chrome、Firefox（JavaScript・Cookieを許可）</div>
-        <ul id="footer_nav">
-            <li><a href="https://www.dlsite.com/soft/user/regulations">利用規約</a></li>
-            <li><a href="https://www.dlsite.com/soft/guide/law">特定商取引法に基づく表示</a></li>
-            <li><a href="https://www.dlsite.com/soft/guide/settlement">資金決済法に基づく表記</a></li>
-            <li><a href="https://www.dlsite.com/soft/guide/privacy">個人情報の取扱いについて</a></li>
-            <li><a href="https://www.dlsite.com/soft/mosaic">コンプライアンスポリシー</a></li>
-            <li><a href="https://www.dlsite.com/soft/guide/copy">著作権</a></li>
-            <li><a href="https://www.dlsite.com/soft/banners">リンクについて</a></li>
-        </ul>
         <p>&copy; 1996 DLsite</p>
     </div>
 </div>
@@ -2105,8 +2341,8 @@ jQuery(function($){
 
 <div data-vue-component="cookie-policy" data-async="true"></div>
 
-<script type="text/javascript" src="/vue/js/pc/vendor.js?cdn_cache=1&v=0.1.2&_=1536029038"></script>
-<script type="text/javascript" src="/vue/js/pc/app.js?cdn_cache=1&v=0.1.2&_=1559289223"></script>
+<script type="text/javascript" src="/vue/js/pc/vendor.js?cdn_cache=1&v=0.1.2&_=1561425273"></script>
+<script type="text/javascript" src="/vue/js/pc/app.js?cdn_cache=1&v=0.1.2&_=1567559800"></script>
 
 
 <script type="text/javascript">
@@ -2149,6 +2385,6 @@ div.measure_tag {
 
 
 <!-- /script_footer -->
-<script type="text/javascript">var contents = {"impression":[],"detail":[{"id":"VJ011276","name":"\u3053\u3068\u306e\u306f\u30a2\u30e0\u30ea\u30e9\u30fc\u30c8","category":"soft","brand":"VG02531","price":3519,"regist_date":"2017\/12\/22","image_main":"\/\/img.dlsite.jp\/modpub\/images2\/work\/professional\/VJ012000\/VJ011276_img_main.jpg","restore_price":null}],"time":0.00012302398681640625};</script>
+<script type="text/javascript">var contents = {"impression":[],"detail":[{"id":"VJ011276","name":"\u3053\u3068\u306e\u306f\u30a2\u30e0\u30ea\u30e9\u30fc\u30c8","category":"soft","brand":"VG02531","price":3519,"regist_date":"2017\/12\/22","image_main":"\/\/img.dlsite.jp\/modpub\/images2\/work\/professional\/VJ012000\/VJ011276_img_main.jpg","restore_price":null}],"time":0.00010991096496582031};</script>
 </body>
 </html>
