@@ -42,14 +42,14 @@
 <script>/dlsite_dozen=/.test(document.cookie) || (document.cookie = 'dlsite_dozen=' + Math.floor(Math.random() * 12) + '; path=/; max-age=63072000')</script>
 
 <link rel="stylesheet" href="/css/reset.css?1459221919" type="text/css" id="reset" />
-<link rel="stylesheet" href="/css/default.css?1565752639" type="text/css" id="default" />
+<link rel="stylesheet" href="/css/default.css?1566881566" type="text/css" id="default" />
 <link rel="stylesheet" href="/css/layout_2col_work.css?1552974983" type="text/css" id="layout_2col_work" />
-<link rel="stylesheet" href="/css/common.css?1565918556" type="text/css" id="common" />
+<link rel="stylesheet" href="/css/common.css?1567559800" type="text/css" id="common" />
 <link rel="stylesheet" href="/css/switch.css?1560415705" type="text/css" id="switch" />
 <link rel="stylesheet" href="/css/suggest.css?1565749496" type="text/css" id="suggest" />
-<link rel="stylesheet" href="/css/header_campaign_banner.css?1565230495" type="text/css" id="header_campaign_banner" />
+<link rel="stylesheet" href="/css/header_campaign_banner.css?1567745943" type="text/css" id="header_campaign_banner" />
 <link rel="stylesheet" href="/assets/share/css/universal/universal.css?" type="text/css" id="universal" />
-<link rel="stylesheet" href="/css/work_template.css?1564447906" type="text/css" id="work_template" />
+<link rel="stylesheet" href="/css/work_template.css?1566876049" type="text/css" id="work_template" />
 <link rel="stylesheet" href="/css/work_slider.css?1559631936" type="text/css" id="work_slider" />
 
 <script type="text/javascript" src="/js/libs/libraries-pack.js?1502345903"></script>
@@ -93,7 +93,7 @@ $.extend({
     if ($.useAdultcheck) return;
     $.useAdultcheck = true;
     var s = document.createElement('script');
-    s.src = '/js/adultcheck.js?1560151441';
+    s.src = '/js/adultcheck.js?1566881566';
     s.defer = true;
     document.querySelector('head').appendChild(s);
   }
@@ -123,7 +123,7 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
         <a href="https://www.nijiyome.jp?en=dlsite&em=text&et=pc_globalheader_books">にじよめ</a>
       </li>
       <li class="eisysGroupHeaderService-link type-cien">
-        <a href="https://ci-en.jp/?pc_globalheader_dlsite">Ci-en</a>
+        <a href="https://ci-en.dlsite.com/?pc_globalheader_dlsite">Ci-en</a>
       </li>
       <li class="eisysGroupHeaderService-link type-channel">
         <a href="https://ch.dlsite.com/?pc_globalheader_dlsite">DLチャンネル</a>
@@ -131,8 +131,11 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
       <li class="eisysGroupHeaderService-link type-chobit">
         <a href="https://chobit.cc/?pc_globalheader_dlsite">chobit</a>
       </li>
-      <li class="eisysGroupHeaderService-link type-triokini type-new">
+      <li class="eisysGroupHeaderService-link type-triokini">
         <a href="https://triokini.com/how_to_use?pc_globalheader_dlsite">トリオキニ</a>
+      </li>
+      <li class="eisysGroupHeaderService-link type-studio type-new">
+        <a href="https://dlsitestudio.com/?pc_globalheader_dlsite">DLsiteスタジオ</a>
       </li>
     </ul>
     <ul class="eisysGroupHeaderAccount" data-vue-component="header-account" data-vue-async="true">
@@ -148,7 +151,7 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
                 <span>{{ login_id.substr(0, 30) }}{{ login_id.length > 30 ? '...' : '' }}</span>でログイン中              </div>
               <ul class="eisysGroupHeaderLinkNav">
                 <li>
-                  <a href="https://login.dlsite.com/user/self?lang=ja&redirect_uri=https://www.dlsite.com/books/" target="_blank">アカウント管理</a>
+                  <a rel="noopener" href="https://login.dlsite.com/user/self?lang=ja&redirect_uri=https://www.dlsite.com/books/" target="_blank">アカウント管理</a>
                 </li>
                 <li>
                   <a class="logout" href="https://ssl.dlsite.com/books/logout">ログアウト</a>
@@ -255,21 +258,33 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
             <a :href="hasUnboughtFavorites ? 'https://www.dlsite.com/books/mypage/wishlist' : 'https://www.dlsite.com/books/mypage/wishlist'"><i>お気に入り</i></a><template v-if="hasUnboughtFavorites" v-cloak><a href="https://www.dlsite.com/books/mypage/wishlist/=/discount/1" class="notificationBadge" >割引になった<br>作品があります</a></template>
         </li>
         <li class="globalNav-item type-cart"><a href="https://www.dlsite.com/books/cart"><i>カート</i></a><span v-if="cartActives.length" v-cloak class="cartBadge" v-text="Math.min(cartActives.length, 100)"></span></li>
-        <li class="globalNav-item type-play"><a href="https://play.dlsite.com/#/library" target="_blank"><i>購入済作品</i></a></li>
-        <li class="globalNav-item type-mypage"><a href="https://ssl.dlsite.com/books/mypage"><i>マイページ</i></a></li>
-        <li v-if="isCircleLogin" v-cloak class="globalNav-item type-circle"><a href="https://ssl.dlsite.com/circle/"><i>サークル管理</i></a></li>
+        <li class="globalNav-item type-play"><a rel="noopener" href="https://play.dlsite.com/#/library" target="_blank"><i>購入済作品</i></a></li>
+        <li class="globalNav-item type-circle">
+          <a :href="isMemberLogin && isCircleLogin ? void(0) : isCircleLogin ? 'https://ssl.dlsite.com/circle/' : 'https://ssl.dlsite.com/books/mypage'"><i>アカウント</i></a>
+          <div v-if="isMemberLogin && isCircleLogin" class="dropdown_list" v-cloak>
+            <div class="dropdown_list_inner">
+              <ul class="menu_list">
+                <li class="menu_list_item"><a class="link" href="https://ssl.dlsite.com/books/mypage"><i>マイページ</i></a></li>
+                <li v-if="isCircleLogin" class="menu_list_item"><a class="link" href="https://ssl.dlsite.com/circle/"><i>サークル管理</i></a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
       </ul>
       <!-- /アイコンメニュー -->
       <!-- ガイドメニュー -->
-      <div class="globalGuide"><a href="#" class="globalGuide-btn" @click.stop.prevent="toggleMenu()"><i>ガイド</i></a>
-        <div class="globalGuideLink" :class="{ 'is-active': isActive }">
-        <ul class="globalGuideLink-item">
-          <li class="link"><a href="https://www.dlsite.com/books/faq/=/type/user" target="_blank"><i>ヘルプ</i></a></li>
-          <li class="link"><a href="https://www.dlsite.com/books/welcome"><i>初めての方へ</i></a></li>
-          <li class="link"><a href="https://www.dlsite.com/books/circle/invite"><i>サークル登録について</i></a></li>
-          <li class="link"><a href="https://www.dlsite.com/books/guide/payment"><i>お支払方法について</i></a></li>
-          <li class="link"><a href="https://www.dlsite.com/books/mypage/aboutpoint"><i>ポイントについて</i></a></li>
-        </ul>
+      <div class="header_guide hover_menu">
+        <a href="javascript:void(0)" class="header_guide_btn"><i>ガイド</i></a>
+        <div class="dropdown_list">
+          <div class="dropdown_list_inner">
+            <ul class="menu_list">
+              <li class="menu_list_item"><a rel="noopener" class="link" href="https://www.dlsite.com/books/faq/=/type/user" target="_blank"><i>ヘルプ</i></a></li>
+              <li class="menu_list_item"><a class="link" href="https://www.dlsite.com/books/welcome"><i>初めての方へ</i></a></li>
+              <li class="menu_list_item"><a class="link" href="https://www.dlsite.com/books/circle/invite"><i>サークル登録について</i></a></li>
+              <li class="menu_list_item"><a class="link" href="https://www.dlsite.com/books/guide/payment"><i>お支払方法について</i></a></li>
+              <li class="menu_list_item"><a class="link" href="https://www.dlsite.com/books/mypage/aboutpoint"><i>ポイントについて</i></a></li>
+            </ul>
+          </div>
         </div>
       </div>
       <!-- /ガイドメニュー -->
@@ -362,7 +377,21 @@ if (loginchecked & 1) {
 
 <!--data-vue-component="header-banner"-->
 <div data-vue-component="header-banner" data-vue-async="true" data-section_name="campaign_header_banner">
-    <div v-if="loading"></div>
+    <div v-if="loading" class="hd_cp_banner type_1bn">
+    <ul class="cp_bn_list">
+            <li class="cp_bn_item type_02">
+        <a href="https://www.dlsite.com/books/discount/=/campaign/elwiio/show_type/3">
+          <div class="cp_bn_inner">
+            <div class="cp_bn_reminder">
+              <div class="cp_bn_reminder_content"><i class="cp_bn_reminder_period type_date">9/12</i><i class="cp_bn_reminder_period type_time">14時</i>まで</div>
+            </div>
+            <div class="cp_bn"><img src=" /modpub/images/banner/floor_header/bn_books_hitoduma50per.png"></div>
+                        <div class="cp_bn_work blank"></div>
+                      </div>
+        </a>
+      </li>
+          </ul>
+  </div>
     
   <div v-else-if="is_show_frame" :class="style" class="hd_cp_banner" v-cloak>
     <ul class="cp_bn_list">
@@ -537,7 +566,7 @@ if (loginchecked & 1) {
 <!--
 <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
 <meta itemprop="ratingValue" content="4.42" />
-<meta itemprop="ratingCount" content="821" />
+<meta itemprop="ratingCount" content="828" />
 </div>
 -->
 <!-- 王冠/DL数/評価/レビュー ここまで -->
@@ -603,7 +632,7 @@ if (loginchecked & 1) {
   </div>
   <div v-cloak class="work_slider_comp" v-if="items.length > 1">
 
-    <a href="https://www.dlsite.com/books/popup/=/file/smp1/product_id/BJ123822.html" target="_blank">HTML版で表示</a>
+    <a rel="noopener" href="https://www.dlsite.com/books/popup/=/file/smp1/product_id/BJ123822.html" target="_blank">HTML版で表示</a>
 
     <!-- 枚数 -->
     <span v-t="{ path: 'product.slider.totalImages', args: [items.length] }"></span>
@@ -616,7 +645,7 @@ if (loginchecked & 1) {
       <div class="slider_popup_rightpane">
         <div class="slider_popup_sidebar">
         <template v-for="(item, index) in items">
-          <div target="_blank" :class="{active:(index === swiper.realIndex)}" @click="slideTo(index, false)">
+          <div rel="noopener" target="_blank" :class="{active:(index === swiper.realIndex)}" @click="slideTo(index, false)">
 
             <img :src="item.thumb.src" alt="獣○彼女カタログ [ティーアイネット]">
 
@@ -691,7 +720,7 @@ if (loginchecked & 1) {
 <tr><th>ファイル形式</th><td><div class="work_genre"><span class="icon_PVA" title="専用ビューア">専用ビューア</span></div></td></tr>
 
 <tr><th>ページ数</th><td>218</td></tr>
-<tr><th>ジャンル</th><td><div class="main_genre"><a href="https://www.dlsite.com/books/fsr/=/genre/071/work_category%5B0%5D/books/from/work.genre">断面図</a><a href="https://www.dlsite.com/books/fsr/=/genre/074/work_category%5B0%5D/books/from/work.genre">制服</a><a href="https://www.dlsite.com/books/fsr/=/genre/077/work_category%5B0%5D/books/from/work.genre">水着</a><a href="https://www.dlsite.com/books/fsr/=/genre/078/work_category%5B0%5D/books/from/work.genre">メイド</a><a href="https://www.dlsite.com/books/fsr/=/genre/080/work_category%5B0%5D/books/from/work.genre">巫女</a><a href="https://www.dlsite.com/books/fsr/=/genre/081/work_category%5B0%5D/books/from/work.genre">軍服</a><a href="https://www.dlsite.com/books/fsr/=/genre/128/work_category%5B0%5D/books/from/work.genre">中出し</a><a href="https://www.dlsite.com/books/fsr/=/genre/138/work_category%5B0%5D/books/from/work.genre">フェラチオ</a><a href="https://www.dlsite.com/books/fsr/=/genre/116/work_category%5B0%5D/books/from/work.genre">複数プレイ/乱交</a><a href="https://www.dlsite.com/books/fsr/=/genre/324/work_category%5B0%5D/books/from/work.genre">異種姦</a><a href="https://www.dlsite.com/books/fsr/=/genre/182/work_category%5B0%5D/books/from/work.genre">巨乳/爆乳</a><a href="https://www.dlsite.com/books/fsr/=/genre/193/work_category%5B0%5D/books/from/work.genre">処女</a><a href="https://www.dlsite.com/books/fsr/=/genre/321/work_category%5B0%5D/books/from/work.genre">褐色/日焼け</a>
+<tr><th>ジャンル</th><td><div class="main_genre"><a href="https://www.dlsite.com/books/fsr/=/genre/071/work_category%5B0%5D/books/from/work.genre">断面図</a><a href="https://www.dlsite.com/books/fsr/=/genre/128/work_category%5B0%5D/books/from/work.genre">中出し</a><a href="https://www.dlsite.com/books/fsr/=/genre/138/work_category%5B0%5D/books/from/work.genre">フェラチオ</a><a href="https://www.dlsite.com/books/fsr/=/genre/116/work_category%5B0%5D/books/from/work.genre">複数プレイ/乱交</a><a href="https://www.dlsite.com/books/fsr/=/genre/324/work_category%5B0%5D/books/from/work.genre">異種姦</a><a href="https://www.dlsite.com/books/fsr/=/genre/074/work_category%5B0%5D/books/from/work.genre">制服</a><a href="https://www.dlsite.com/books/fsr/=/genre/077/work_category%5B0%5D/books/from/work.genre">水着</a><a href="https://www.dlsite.com/books/fsr/=/genre/078/work_category%5B0%5D/books/from/work.genre">メイド</a><a href="https://www.dlsite.com/books/fsr/=/genre/080/work_category%5B0%5D/books/from/work.genre">巫女</a><a href="https://www.dlsite.com/books/fsr/=/genre/081/work_category%5B0%5D/books/from/work.genre">軍服</a><a href="https://www.dlsite.com/books/fsr/=/genre/182/work_category%5B0%5D/books/from/work.genre">巨乳/爆乳</a><a href="https://www.dlsite.com/books/fsr/=/genre/193/work_category%5B0%5D/books/from/work.genre">処女</a><a href="https://www.dlsite.com/books/fsr/=/genre/321/work_category%5B0%5D/books/from/work.genre">褐色/日焼け</a>
 </div></td></tr>
 <tr><th>ファイル容量</th><td><div class="main_genre">
 122.36MB
@@ -1087,14 +1116,14 @@ jQuery(function($){
           <p>レビュアーに多く選ばれたジャンル :</p>
         </th>
         <td>
-                    <span><a href="https://www.dlsite.com/books/fsr/=/genre/163/from/work.review_genre">獣姦（4）</a></span>
+                    <span><a href="https://www.dlsite.com/books/fsr/=/genre/163/from/work.review_genre">獣姦（5）</a></span>
                   </td>
       </tr>
     </tbody>
   </table>
   
   <div class="review_head">
-      <p class="float_l review_count">レビュー数 : <span class="review_work_count">6件</span></p>
+      <p class="float_l review_count">レビュー数 : <span class="review_work_count">7件</span></p>
               <template data-vue-component="product-review-order" data-layout="pc" data-product_id="BJ123822"></template>
         </div>
 
@@ -1212,10 +1241,46 @@ jQuery(function($){
       <tr>
         <td class="review_title">
                     <div class="review_title_l">
+            <div class="title"><span itemprop="name">しっかりケモ○ン、たっぷり獣○</span></div>
+            <p>
+              <meta itemprop="datePublished" content="2019-08-24">2019年08月24日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/books/reviewlist/=/reviewer/REV0008444">ｍｋｙ</a></span> さん</span>
+                                          <span class="purchased">購入済み</span>
+                          </p>
+          </div>
+                  </td>
+      </tr>
+      <tr>
+        <td class="review_main _review_main">
+                    <div class="reviewer_genre">
+            <p>レビュアーが選んだジャンル :</p>
+            <ul class="reviewer_select_genre">
+                            <li><a href="https://www.dlsite.com/books/fsr/=/genre/069/from/review.genre">汁/液大量</a></li>
+                            <li><a href="https://www.dlsite.com/books/fsr/=/genre/163/from/review.genre">獣姦</a></li>
+                          </ul>
+          </div>
+          
+          
+          <div class="_SW2" >
+            <p class="reviewer_descrip" itemprop="reviewBody">獣○好きなら買って一切損はない一冊。<br />
+各動物のペニスがしっかりとその動物らしく描かれており、人ではありえないレベルの精をたっぷりと中出しされ大変エロい。<br />
+無理やりに近い話もあるが、基本的に和姦もしくは女の子が進んで犯されに行く話が多いので、犯される女の子たちはみな気持ちよさそうでこちらも気持ちよく抜ける。</p>
+            <p class="review_ref">
+              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="32667" data-product_id="BJ123822">
+                            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/books/contact/review/=/reviewer_id/REV0008444/product_id/BJ123822.html">報告する</a>&nbsp;]</span>
+            </p>
+            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+        <tbody itemprop="review" itemscope itemtype="https://schema.org/Review">
+      <tr>
+        <td class="review_title">
+                    <div class="review_title_l">
             <div class="title"><span itemprop="name">明るく楽しい作品</span></div>
             <p>
               <meta itemprop="datePublished" content="2019-08-06">2019年08月06日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/books/reviewlist/=/reviewer/REV0035871">はいいろぬこ</a></span> さん</span>
-                              <span class="popularity_reviewer bronze">人気レビュアー：Best400</span>
+                              <span class="popularity_reviewer bronze">人気レビュアー：Best300</span>
                                           <span class="purchased">購入済み</span>
                           </p>
           </div>
@@ -1278,53 +1343,13 @@ jQuery(function($){
         </td>
       </tr>
     </tbody>
-        <tbody itemprop="review" itemscope itemtype="https://schema.org/Review">
-      <tr>
-        <td class="review_title">
-                    <div class="review_title_l">
-            <div class="title"><span itemprop="name">よき</span></div>
-            <p>
-              <meta itemprop="datePublished" content="2019-02-12">2019年02月12日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/books/reviewlist/=/reviewer/REV0038204">スイカバー</a></span> さん</span>
-                              <span class="popularity_reviewer bronze">人気レビュアー：Best200</span>
-                                          <span class="purchased">購入済み</span>
-                          </p>
-          </div>
-                    <div class="review_title_r">
-            <span class="reviewer_recommend">レビュアーオススメ！</span>
-          </div>
-                  </td>
-      </tr>
-      <tr>
-        <td class="review_main _review_main">
-                    <div class="reviewer_genre">
-            <p>レビュアーが選んだジャンル :</p>
-            <ul class="reviewer_select_genre">
-                            <li><a href="https://www.dlsite.com/books/fsr/=/genre/163/from/review.genre">獣姦</a></li>
-                          </ul>
-          </div>
-          
-          
-          <div class="_SW2" >
-            <p class="reviewer_descrip" itemprop="reviewBody">絵は少し独特でしたが、女の子は特に嫌がることなくむしろ積極的に楽しんでいるので良かったです。<br />
-終わり方もいい感じでしたし、オチもあってみていて楽しかったです。<br />
-<br />
-このジャンルを見たことがない方にもオススメできます。</p>
-            <p class="review_ref">
-              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="18254" data-product_id="BJ123822">
-                            <span class="review_report">[&nbsp;<a href="https://ssl.dlsite.com/books/contact/review/=/reviewer_id/REV0038204/product_id/BJ123822.html">報告する</a>&nbsp;]</span>
-            </p>
-            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
-          </div>
-        </td>
-      </tr>
-    </tbody>
       </table>
 
   <table class="review_write">
     <tr>
             <td>
         <div class="review_more">
-          <p><a href="https://www.dlsite.com/books/work/reviewlist/=/product_id/BJ123822.html">すべてのレビューを見る （6件）</a></p>
+          <p><a href="https://www.dlsite.com/books/work/reviewlist/=/product_id/BJ123822.html">すべてのレビューを見る （7件）</a></p>
         </div>
       </td>
             <td><div class="review_btn"><a href="https://www.dlsite.com/books/review/write/work/=/product_id/BJ123822.html" class="btn_post size_xxl fs15"><i>レビューを投稿する</i></a></div></td>
@@ -1365,7 +1390,7 @@ jQuery(function($){
     <tr>
       <td>
         <p class="base_text">
-          この作品のまとめ記事を投稿しよう！                     書き方や詳細については <a href="https://ch.dlsite.com/matome/185" target="_blank">まとめの作り方</a> をご覧ください。        </p>
+          この作品のまとめ記事を投稿しよう！                     書き方や詳細については <a rel="noopener" href="https://ch.dlsite.com/matome/185" target="_blank">まとめの作り方</a> をご覧ください。        </p>
       </td>
       <td>
       </td>
@@ -1379,13 +1404,13 @@ jQuery(function($){
                       <li class="matome_box_inner swiper-slide">
               <div class="matome_content">
                 <div class="matome_img_main">
-                  <a href="https://ch.dlsite.com/matome/6968?dls=&k_matome_books_pc" target="_blank">
+                  <a rel="noopener" href="https://ch.dlsite.com/matome/6968?dls=&k_matome_books_pc" target="_blank">
                     <img src="https://media.dlsite.com/proxy/91c796768240561c1d372e5e0dd2ea311ea14fb1/687474703a2f2f696d672e646c736974652e6a702f6d6f647075622f696d61676573322f776f726b2f626f6f6b732f424a3132343030302f424a3132333832325f696d675f6d61696e2e6a7067" alt="人間と動物のラブコメディ"
                          title="人間と動物のラブコメディ"></a>
                 </div>
                 <p class="matome_content_title">
                   <a href="https://ch.dlsite.com/matome/6968?dls=&k_matome_books_pc"
-                     target="_blank">人間と動物のラブコメディ</a>
+                     rel="noopener" target="_blank">人間と動物のラブコメディ</a>
                 </p>
               </div>
             </li>
@@ -1396,8 +1421,8 @@ jQuery(function($){
     </div>
     <ul class="matome_more">
               <li><p class="matome_text"><a href="https://ch.dlsite.com/antenna/329505/contents?mode=matome"
-                                      target="_blank">すべてのまとめ記事を見る（4件）</a></p></li>
-            <li class="matome_btn"><a href="https://ch.dlsite.com/matome/create" target="_blank"
+                                      rel="noopener" target="_blank">すべてのまとめ記事を見る（4件）</a></p></li>
+            <li class="matome_btn"><a href="https://ch.dlsite.com/matome/create" rel="noopener" target="_blank"
                                 class="btn_post size_xxl fs15"><i>まとめ記事を作成する</i></a></li>
     </ul>
   </div>
@@ -1447,66 +1472,33 @@ jQuery(function($){
                       <li class="relation_content_list_item swiper-slide">
               <div class="content_item">
                 <div class="content_item_img">
-                  <a href="https://www.dlsite.com/girls-drama/promo/otome-announce" >
-                    <img src="//media.dlsite.com/bcs/girlsmaniax/1567177200/bn_3e0b2c7aaf051ff7576e0504946708f2daf4986e.jpg" alt="DLsiteがるまに｜シチュエーションボイス｜フォロー＆RTで「カズキヨネ」さんのサインプレゼント！"></a>
-                </div>
-                <p class="content_item_title">
-                  <a href="https://www.dlsite.com/girls-drama/promo/otome-announce" target="_blank">フォロー＆RTで「カズキヨネ」さんのサインプレゼント！</a>
-                </p>
-              </div>
-            </li>
-                      <li class="relation_content_list_item swiper-slide">
-              <div class="content_item">
-                <div class="content_item_img">
-                  <a href="https://triokini.com/air_book_cp?from=event_matome_normal_1908cp" target="_blank">
-                    <img src="//media.dlsite.com/bcs/girlsmaniax/1567177200/bn_61ee6c9b6c37dc2110376f6b6cd40873b868fde6.jpg" alt="【トリオキニ】サービス利用でAmazonギフト券プレゼント"></a>
-                </div>
-                <p class="content_item_title">
-                  <a href="https://triokini.com/air_book_cp?from=event_matome_normal_1908cp" target="_blank">【トリオキニ】サービス利用でAmazonギフト券プレゼント</a>
-                </p>
-              </div>
-            </li>
-                      <li class="relation_content_list_item swiper-slide">
-              <div class="content_item">
-                <div class="content_item_img">
-                  <a href="https://www.dlsite.com/modpub/campaign/home/gift1907/" >
-                    <img src="//media.dlsite.com/bcs/dlsite/1567177200/bn_4faab9fd1202061f9281ab942158985be9298337.png" alt="【先着1,000名】作品のコメント投稿で、今ならギフトプレゼント！"></a>
-                </div>
-                <p class="content_item_title">
-                  <a href="https://www.dlsite.com/modpub/campaign/home/gift1907/" target="_blank">【先着1,000名限定】作品の感想投稿でギフトプレゼント！</a>
-                </p>
-              </div>
-            </li>
-                      <li class="relation_content_list_item swiper-slide">
-              <div class="content_item">
-                <div class="content_item_img">
-                  <a href="http://www.nijiyome.com/app/start/533?en=dlsite&em=banner&et=pc_work_detail_app553_1907" target="_blank">
+                  <a rel="noopener" href="http://www.nijiyome.com/app/start/533?en=dlsite&em=banner&et=pc_work_detail_app553_1907" target="_blank">
                     <img src="//media.dlsite.com/bcs/dlchannel/1564498800/bn_be05309736932d07b9e6f3fa70c347beece5b886.jpg" alt="【最大虹石3,000個無料！】事前登録だけでスタートダッシュ報酬GET♪事前登録受付中"></a>
                 </div>
                 <p class="content_item_title">
-                  <a href="http://www.nijiyome.com/app/start/533?en=dlsite&em=banner&et=pc_work_detail_app553_1907" target="_blank">【にじよめ】最大虹石3,000個｜事前登録で無料報酬GET♪</a>
+                  <a rel="noopener" href="http://www.nijiyome.com/app/start/533?en=dlsite&em=banner&et=pc_work_detail_app553_1907" target="_blank">【にじよめ】最大虹石3,000個｜事前登録で無料報酬GET♪</a>
                 </p>
               </div>
             </li>
                       <li class="relation_content_list_item swiper-slide">
               <div class="content_item">
                 <div class="content_item_img">
-                  <a href="https://www.dlsite.com/home/promo/contest1904h" target="_blank">
+                  <a rel="noopener" href="https://www.dlsite.com/home/promo/contest1904h" target="_blank">
                     <img src="//media.dlsite.com/bcs/dlsite/1564498800/bn_d06ea8fb8d0d7622eb863fd18477e68f0fc07fcc.jpg" alt="【グランプリはDLsiteで作品化】DLsite男性向け音声作品シナリオコンテスト結果発表！"></a>
                 </div>
                 <p class="content_item_title">
-                  <a href="https://www.dlsite.com/home/promo/contest1904h" target="_blank">【グランプリはDLsiteで作品化】コンテスト結果発表！</a>
+                  <a rel="noopener" href="https://www.dlsite.com/home/promo/contest1904h" target="_blank">【グランプリはDLsiteで作品化】コンテスト結果発表！</a>
                 </p>
               </div>
             </li>
                       <li class="relation_content_list_item swiper-slide">
               <div class="content_item">
                 <div class="content_item_img">
-                  <a href="https://ch.dlsite.com/matome/40498?from=event_matome_adult_2019a_ranking" >
+                  <a rel="noopener" href="https://ch.dlsite.com/matome/40498?from=event_matome_adult_2019a_ranking" >
                     <img src="//media.dlsite.com/bcs/dlchannel/1567177200/bn_e410dc8d4f9fbd636d283dbc2f8ed22531ce4adf.jpg" alt="DLsite上半期ランキングを公開中"></a>
                 </div>
                 <p class="content_item_title">
-                  <a href="https://ch.dlsite.com/matome/40498?from=event_matome_adult_2019a_ranking" target="_blank">DLsite上半期ランキングを公開中</a>
+                  <a rel="noopener" href="https://ch.dlsite.com/matome/40498?from=event_matome_adult_2019a_ranking" target="_blank">DLsite上半期ランキングを公開中</a>
                 </p>
               </div>
             </li>
@@ -1604,7 +1596,7 @@ $(function () {
           </p>
           <!-- 割引・無料販売 -->
           <p v-if="product.is_discount" class="type_sale">
-            <a v-if="product.discount_to" :href="product.discount_to" :title="product.discount_rate == 100 ? $t('product.price.discount_free') : product.discount_rate + '%OFF'" target="_blank">
+            <a rel="noopener" v-if="product.discount_to" :href="product.discount_to" :title="product.discount_rate == 100 ? $t('product.price.discount_free') : product.discount_rate + '%OFF'" target="_blank">
               <span>{{ product.discount_rate == 100 ? $t('product.price.discount_free') : product.discount_rate + '%OFF' }}<span v-if="product.discount_end_date" class="period">{{ $t('product.price.til', [product.discount_end_date]) }}</span></span>
             </a>
             <span v-else>{{ product.discount_rate == 100 ? $t('product.price.discount_free') : product.discount_rate + '%OFF' }}<span class="period" v-if="product.discount_end_date">{{ $t('product.price.til', [product.discount_end_date]) }}</span></span>
@@ -1690,7 +1682,7 @@ $(function () {
         <template v-if="is_bought">
           
                     
-          <p class="work_stream"><a href="https://play.dlsite.com/?workno=BJ123822" class="btn_st" :class="{ disabled: ! product.dlsiteplay_work || product.dl_format == 16 }" title="ブラウザ視聴" target="_blank">ブラウザ視聴</a></p>
+          <p class="work_stream"><a rel="noopener" href="https://play.dlsite.com/?workno=BJ123822" class="btn_st" :class="{ disabled: ! product.dlsiteplay_work || product.dl_format == 16 }" title="ブラウザ視聴" target="_blank">ブラウザ視聴</a></p>
           <p class="work_cart"><a :href="product.down_url" class="btn_dl" :class="{ disabled: product.dl_format == 17 }">ダウンロード</a></p>
           
                     
@@ -1939,122 +1931,110 @@ $(function () {
   <div class="right_module_content">
         <table cellspacing="0" class="same_work">
               <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204864.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ205000/BJ204864_img_sam_mini.jpg" alt="【無料お試し版】天使のおしっこ [ティーアイネット]" title="【無料お試し版】天使のおしっこ [ティーアイネット]"  class="target_type" /></a></td>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ206309.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ207000/BJ206309_img_sam_mini.jpg" alt="僕の専用女教師 [ティーアイネット]" title="僕の専用女教師 [ティーアイネット]"  class="target_type" /></a></td>
         <td class="name">
-                      <div class="icon_wrap">
-                                            <span class="icon_lead_01 type_free">無料</span>
-                          </div>
-                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204864.html">【無料お試し版】天使のおしっこ</a></span>
-          <span class="work_price">￥0</span>
-        </td>
-      </tr>
-              <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204862.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ205000/BJ204862_img_sam_mini.jpg" alt="にょうけんっ! [ティーアイネット]" title="にょうけんっ! [ティーアイネット]"  class="target_type" /></a></td>
-        <td class="name">
-                      <div class="icon_wrap">
-              <span class="icon_option type_exclusive">専売</span>                          </div>
-                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204862.html">にょうけんっ!</a></span>
+                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ206309.html">僕の専用女教師</a></span>
           <span class="work_price">￥1,080</span>
         </td>
       </tr>
               <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204865.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ205000/BJ204865_img_sam_mini.jpg" alt="【無料お試し版】にょうけんっ! [ティーアイネット]" title="【無料お試し版】にょうけんっ! [ティーアイネット]"  class="target_type" /></a></td>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ206334.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ207000/BJ206334_img_sam_mini.jpg" alt="【無料お試し版】僕の専用女教師 [ティーアイネット]" title="【無料お試し版】僕の専用女教師 [ティーアイネット]"  class="target_type" /></a></td>
         <td class="name">
                       <div class="icon_wrap">
                                             <span class="icon_lead_01 type_free">無料</span>
                           </div>
-                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204865.html">【無料お試し版】にょうけんっ!</a></span>
+                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ206334.html">【無料お試し版】僕の専用女教師</a></span>
           <span class="work_price">￥0</span>
         </td>
       </tr>
               <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204860.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ205000/BJ204860_img_sam_mini.jpg" alt="ピスisらぶ [ティーアイネット]" title="ピスisらぶ [ティーアイネット]"  class="target_type" /></a></td>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208491.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ209000/BJ208491_img_sam_mini.jpg" alt="まひる姫（シオロク） [ティーアイネット]" title="まひる姫（シオロク） [ティーアイネット]"  class="target_type" /></a></td>
         <td class="name">
-                      <div class="icon_wrap">
-              <span class="icon_option type_exclusive">専売</span>                          </div>
-                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204860.html">ピスisらぶ</a></span>
-          <span class="work_price">￥1,080</span>
-        </td>
-      </tr>
-              <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204863.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ205000/BJ204863_img_sam_mini.jpg" alt="【無料お試し版】ピスisらぶ [ティーアイネット]" title="【無料お試し版】ピスisらぶ [ティーアイネット]"  class="target_type" /></a></td>
-        <td class="name">
-                      <div class="icon_wrap">
-                                            <span class="icon_lead_01 type_free">無料</span>
-                          </div>
-                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204863.html">【無料お試し版】ピスisらぶ</a></span>
-          <span class="work_price">￥0</span>
-        </td>
-      </tr>
-              <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204861.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ205000/BJ204861_img_sam_mini.jpg" alt="天使のおしっこ [ティーアイネット]" title="天使のおしっこ [ティーアイネット]"  class="target_type" /></a></td>
-        <td class="name">
-                      <div class="icon_wrap">
-              <span class="icon_option type_exclusive">専売</span>                          </div>
-                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204861.html">天使のおしっこ</a></span>
-          <span class="work_price">￥1,080</span>
-        </td>
-      </tr>
-              <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204157.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ205000/BJ204157_img_sam_mini.jpg" alt="COMIC 夢幻転生 2019年8月号 [ティーアイネット]" title="COMIC 夢幻転生 2019年8月号 [ティーアイネット]"  class="target_type" /></a></td>
-        <td class="name">
-                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204157.html">COMIC 夢幻転生 2019年8月号</a></span>
-          <span class="work_price">￥749</span>
-        </td>
-      </tr>
-              <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204160.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ205000/BJ204160_img_sam_mini.jpg" alt="囚われの華（椿十四郎） [ティーアイネット]" title="囚われの華（椿十四郎） [ティーアイネット]"  class="target_type" /></a></td>
-        <td class="name">
-                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204160.html">囚われの華（椿十四郎）</a></span>
+                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208491.html">まひる姫（シオロク）</a></span>
           <span class="work_price">￥324</span>
         </td>
       </tr>
               <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204163.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ205000/BJ204163_img_sam_mini.jpg" alt="せいぎ部!!〈第4話〉（奈塚Q弥） [ティーアイネット]" title="せいぎ部!!〈第4話〉（奈塚Q弥） [ティーアイネット]"  class="target_type" /></a></td>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208494.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ209000/BJ208494_img_sam_mini.jpg" alt="俺らの頭は女体化ヤンキー（ポリウレたん） [ティーアイネット]" title="俺らの頭は女体化ヤンキー（ポリウレたん） [ティーアイネット]"  class="target_type" /></a></td>
         <td class="name">
-                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204163.html">せいぎ部!!〈第4話〉（奈塚Q弥）</a></span>
+                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208494.html">俺らの頭は女体化ヤンキー（ポリウレたん）</a></span>
           <span class="work_price">￥324</span>
         </td>
       </tr>
               <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204166.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ205000/BJ204166_img_sam_mini.jpg" alt="令嬢地獄〈王子様は助けに来ない〉（ZUKI樹） [ティーアイネット]" title="令嬢地獄〈王子様は助けに来ない〉（ZUKI樹） [ティーアイネット]"  class="target_type" /></a></td>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208497.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ209000/BJ208497_img_sam_mini.jpg" alt="アネガレ（平野河重） [ティーアイネット]" title="アネガレ（平野河重） [ティーアイネット]"  class="target_type" /></a></td>
         <td class="name">
-                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204166.html">令嬢地獄〈王子様は助けに来ない〉（ZUKI樹）</a></span>
+                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208497.html">アネガレ（平野河重）</a></span>
           <span class="work_price">￥324</span>
         </td>
       </tr>
               <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204169.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ205000/BJ204169_img_sam_mini.jpg" alt="瞳先輩のヤりたい放題（九栗おいも） [ティーアイネット]" title="瞳先輩のヤりたい放題（九栗おいも） [ティーアイネット]"  class="target_type" /></a></td>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208500.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ209000/BJ208500_img_sam_mini.jpg" alt="兄妹になろうよ〈後編〉（今河ようじん） [ティーアイネット]" title="兄妹になろうよ〈後編〉（今河ようじん） [ティーアイネット]"  class="target_type" /></a></td>
         <td class="name">
-                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204169.html">瞳先輩のヤりたい放題（九栗おいも）</a></span>
+                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208500.html">兄妹になろうよ〈後編〉（今河ようじん）</a></span>
           <span class="work_price">￥324</span>
         </td>
       </tr>
               <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204172.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ205000/BJ204172_img_sam_mini.jpg" alt="あの奥さんは僕の女〈第1話〉（じゃみんぐ） [ティーアイネット]" title="あの奥さんは僕の女〈第1話〉（じゃみんぐ） [ティーアイネット]"  class="target_type" /></a></td>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208503.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ209000/BJ208503_img_sam_mini.jpg" alt="治して!乳医さん〈第3話〉（有賀冬） [ティーアイネット]" title="治して!乳医さん〈第3話〉（有賀冬） [ティーアイネット]"  class="target_type" /></a></td>
         <td class="name">
-                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204172.html">あの奥さんは僕の女〈第1話〉（じゃみんぐ）</a></span>
+                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208503.html">治して!乳医さん〈第3話〉（有賀冬）</a></span>
           <span class="work_price">￥324</span>
         </td>
       </tr>
               <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204158.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ205000/BJ204158_img_sam_mini.jpg" alt="逆痴漢専用電車〈Episode 01〉（史鬼匠人） [ティーアイネット]" title="逆痴漢専用電車〈Episode 01〉（史鬼匠人） [ティーアイネット]"  class="target_type" /></a></td>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208489.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ209000/BJ208489_img_sam_mini.jpg" alt="COMIC 夢幻転生 2019年9月号 [ティーアイネット]" title="COMIC 夢幻転生 2019年9月号 [ティーアイネット]"  class="target_type" /></a></td>
         <td class="name">
-                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204158.html">逆痴漢専用電車〈Episode 01〉（史鬼匠人）</a></span>
+                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208489.html">COMIC 夢幻転生 2019年9月号</a></span>
+          <span class="work_price">￥779</span>
+        </td>
+      </tr>
+              <tr>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208492.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ209000/BJ208492_img_sam_mini.jpg" alt="小松崎さんは上からがお好き（創田ぐみ） [ティーアイネット]" title="小松崎さんは上からがお好き（創田ぐみ） [ティーアイネット]"  class="target_type" /></a></td>
+        <td class="name">
+                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208492.html">小松崎さんは上からがお好き（創田ぐみ）</a></span>
           <span class="work_price">￥324</span>
         </td>
       </tr>
               <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204161.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ205000/BJ204161_img_sam_mini.jpg" alt="治して!乳医さん〈第2話〉（有賀冬） [ティーアイネット]" title="治して!乳医さん〈第2話〉（有賀冬） [ティーアイネット]"  class="target_type" /></a></td>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208495.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ209000/BJ208495_img_sam_mini.jpg" alt="三人の姉に（浅ひるゆう） [ティーアイネット]" title="三人の姉に（浅ひるゆう） [ティーアイネット]"  class="target_type" /></a></td>
         <td class="name">
-                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204161.html">治して!乳医さん〈第2話〉（有賀冬）</a></span>
+                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208495.html">三人の姉に（浅ひるゆう）</a></span>
           <span class="work_price">￥324</span>
         </td>
       </tr>
               <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204164.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ205000/BJ204164_img_sam_mini.jpg" alt="カム様 HELP!!〈最終話〉（綺堂無一） [ティーアイネット]" title="カム様 HELP!!〈最終話〉（綺堂無一） [ティーアイネット]"  class="target_type" /></a></td>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208498.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ209000/BJ208498_img_sam_mini.jpg" alt="再会（ぞんだ） [ティーアイネット]" title="再会（ぞんだ） [ティーアイネット]"  class="target_type" /></a></td>
         <td class="name">
-                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204164.html">カム様 HELP!!〈最終話〉（綺堂無一）</a></span>
+                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208498.html">再会（ぞんだ）</a></span>
+          <span class="work_price">￥324</span>
+        </td>
+      </tr>
+              <tr>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208501.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ209000/BJ208501_img_sam_mini.jpg" alt="夢の終わり（墓場） [ティーアイネット]" title="夢の終わり（墓場） [ティーアイネット]"  class="target_type" /></a></td>
+        <td class="name">
+                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208501.html">夢の終わり（墓場）</a></span>
+          <span class="work_price">￥324</span>
+        </td>
+      </tr>
+              <tr>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208504.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ209000/BJ208504_img_sam_mini.jpg" alt="せいぎ部!!〈第5話〉（奈塚Q弥） [ティーアイネット]" title="せいぎ部!!〈第5話〉（奈塚Q弥） [ティーアイネット]"  class="target_type" /></a></td>
+        <td class="name">
+                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208504.html">せいぎ部!!〈第5話〉（奈塚Q弥）</a></span>
+          <span class="work_price">￥324</span>
+        </td>
+      </tr>
+              <tr>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208490.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ209000/BJ208490_img_sam_mini.jpg" alt="異世界ハーレムパラダイス〈第2話〉（赤月みゅうと） [ティーアイネット]" title="異世界ハーレムパラダイス〈第2話〉（赤月みゅうと） [ティーアイネット]"  class="target_type" /></a></td>
+        <td class="name">
+                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208490.html">異世界ハーレムパラダイス〈第2話〉（赤月みゅうと）</a></span>
+          <span class="work_price">￥324</span>
+        </td>
+      </tr>
+              <tr>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208493.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ209000/BJ208493_img_sam_mini.jpg" alt="あの人に…（樺島あきら） [ティーアイネット]" title="あの人に…（樺島あきら） [ティーアイネット]"  class="target_type" /></a></td>
+        <td class="name">
+                    <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ208493.html">あの人に…（樺島あきら）</a></span>
           <span class="work_price">￥324</span>
         </td>
       </tr>
@@ -2064,37 +2044,37 @@ $(function () {
                 <div class="list_head"><h4>レーベルの作品</h4></div>
             <table cellspacing="0" class="same_work">
               <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204865.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ205000/BJ204865_img_sam_mini.jpg" alt="【無料お試し版】にょうけんっ! [ティーアイネット]" title="【無料お試し版】にょうけんっ! [ティーアイネット]"  class="target_type" /></a></td>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ206334.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ207000/BJ206334_img_sam_mini.jpg" alt="【無料お試し版】僕の専用女教師 [ティーアイネット]" title="【無料お試し版】僕の専用女教師 [ティーアイネット]"  class="target_type" /></a></td>
         <td class="name">
-          <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204865.html">【無料お試し版】にょうけんっ!</a></span>
+          <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ206334.html">【無料お試し版】僕の専用女教師</a></span>
           <span class="work_price">￥0</span>
         </td>
       </tr>
               <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204864.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ205000/BJ204864_img_sam_mini.jpg" alt="【無料お試し版】天使のおしっこ [ティーアイネット]" title="【無料お試し版】天使のおしっこ [ティーアイネット]"  class="target_type" /></a></td>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ206309.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ207000/BJ206309_img_sam_mini.jpg" alt="僕の専用女教師 [ティーアイネット]" title="僕の専用女教師 [ティーアイネット]"  class="target_type" /></a></td>
         <td class="name">
-          <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204864.html">【無料お試し版】天使のおしっこ</a></span>
-          <span class="work_price">￥0</span>
-        </td>
-      </tr>
-              <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204863.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ205000/BJ204863_img_sam_mini.jpg" alt="【無料お試し版】ピスisらぶ [ティーアイネット]" title="【無料お試し版】ピスisらぶ [ティーアイネット]"  class="target_type" /></a></td>
-        <td class="name">
-          <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204863.html">【無料お試し版】ピスisらぶ</a></span>
-          <span class="work_price">￥0</span>
-        </td>
-      </tr>
-              <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204862.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ205000/BJ204862_img_sam_mini.jpg" alt="にょうけんっ! [ティーアイネット]" title="にょうけんっ! [ティーアイネット]"  class="target_type" /></a></td>
-        <td class="name">
-          <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204862.html">にょうけんっ!</a></span>
+          <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ206309.html">僕の専用女教師</a></span>
           <span class="work_price">￥1,080</span>
         </td>
       </tr>
               <tr>
-        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204861.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ205000/BJ204861_img_sam_mini.jpg" alt="天使のおしっこ [ティーアイネット]" title="天使のおしっこ [ティーアイネット]"  class="target_type" /></a></td>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ206308.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ207000/BJ206308_img_sam_mini.jpg" alt="おしっこは飲み物です! [ティーアイネット]" title="おしっこは飲み物です! [ティーアイネット]"  class="target_type" /></a></td>
         <td class="name">
-          <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ204861.html">天使のおしっこ</a></span>
+          <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ206308.html">おしっこは飲み物です!</a></span>
+          <span class="work_price">￥1,080</span>
+        </td>
+      </tr>
+              <tr>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ206332.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ207000/BJ206332_img_sam_mini.jpg" alt="【無料お試し版】姉・コントロール [ティーアイネット]" title="【無料お試し版】姉・コントロール [ティーアイネット]"  class="target_type" /></a></td>
+        <td class="name">
+          <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ206332.html">【無料お試し版】姉・コントロール</a></span>
+          <span class="work_price">￥0</span>
+        </td>
+      </tr>
+              <tr>
+        <td class="work_img"><a href="https://www.dlsite.com/books/work/=/product_id/BJ206307.html"><img src="//img.dlsite.jp/modpub/images2/work/books/BJ207000/BJ206307_img_sam_mini.jpg" alt="姉・コントロール [ティーアイネット]" title="姉・コントロール [ティーアイネット]"  class="target_type" /></a></td>
+        <td class="name">
+          <span class="work_name"><a href="https://www.dlsite.com/books/work/=/product_id/BJ206307.html">姉・コントロール</a></span>
           <span class="work_price">￥1,080</span>
         </td>
       </tr>
@@ -2168,8 +2148,8 @@ $(function () {
             <div class="link_list_box col_2">
                 <div class="label">DLsiteについて</div>
                 <ul class="link_list">
-                    <li class="link_list_item"><a href="https://www.eisys.co.jp/company/company-info.html" target="_blank">会社概要</a></li>
-                    <li class="link_list_item"><a href="https://eisys.talentcld.com/" target="_blank">採用情報</a></li>
+                    <li class="link_list_item"><a rel="noopener" href="https://www.eisys.co.jp/company/company-info.html" target="_blank">会社概要</a></li>
+                    <li class="link_list_item"><a rel="noopener" href="https://eisys.talentcld.com/" target="_blank">採用情報</a></li>
                     <li class="link_list_item"><a href="https://www.dlsite.com/books/user/regulations">利用規約</a></li>
                     <li class="link_list_item"><a href="https://www.dlsite.com/books/guide/law">特定商取引法に基づく表示</a></li>
                     <li class="link_list_item"><a href="https://www.dlsite.com/books/guide/settlement">資金決済法に基づく表記</a></li>
@@ -2193,7 +2173,7 @@ $(function () {
                 <div class="label">ヘルプ&amp;ガイド</div>
                 <ul class="link_list">
                     <li class="link_list_item"><a href="https://www.dlsite.com/books/welcome">初めての方へ</a></li>
-                    <li class="link_list_item"><a href="https://www.dlsite.com/books/faq/=/type/user" target="_blank">よくある質問</a></li>
+                    <li class="link_list_item"><a rel="noopener" href="https://www.dlsite.com/books/faq/=/type/user" target="_blank">よくある質問</a></li>
                     <li class="link_list_item"><a href="https://www.dlsite.com/books/opinion/contribution">作品リクエスト</a></li>
                 </ul>
             </div>
@@ -2204,8 +2184,8 @@ $(function () {
                                         <li class="link_list_item"><a href="https://www.dlsite.com/books/sell/steam">Steamパブリッシャーサービス</a></li>
                                         <li class="link_list_item"><a href="https://www.dlsite.com/books/guide/affiliate">アフィリエイト</a></li>
                     <li class="link_list_item"><a href="https://ssl.dlsite.com/books/mypage/setting/mail">メールマガジン</a></li>
-                                        <li class="link_list_item"><a href="https://www.dlsite.com/event-pub/top.html" target="_blank">広告出稿サービス</a></li>
-                    <li class="link_list_item"><a href="https://play.dlsite.com/ja" target="_blank">Webビューア DLsite Play</a></li>
+                                        <li class="link_list_item"><a rel="noopener" href="https://www.dlsite.com/event-pub/top.html" target="_blank">広告出稿サービス</a></li>
+                    <li class="link_list_item"><a rel="noopener" href="https://play.dlsite.com/ja" target="_blank">Webビューア DLsite Play</a></li>
                     <li class="link_list_item"><a href="https://www.dlsite.com/books/guide/dlnest">PCクライアント DLsite Nest</a></li>
                                     </ul>
             </div>
@@ -2214,15 +2194,15 @@ $(function () {
     <div class="footer_section_inner sns">
         <div class="label">SNS公式アカウント</div>
         <ul class="footer_sns">
-                        <li class="footer_sns_item"><a href="https://twitter.com/DLsite" target="_blank" class="twitter_g">全年齢</a></li>
-            <li class="footer_sns_item"><a href="https://twitter.com/DLsiteManiax" target="_blank" class="twitter_r18">R18</a></li>
-            <li class="footer_sns_item"><a href="https://twitter.com/GirlsManiax" target="_blank" class="twitter_bl">BL</a></li>
-            <li class="footer_sns_item"><a href="https://twitter.com/girlsmaniax_OTM" target="_blank" class="twitter_otm">乙女</a></li>
-            <li class="footer_sns_item"><a href="https://twitter.com/DLsiteEnglish" target="_blank" class="twitter_eng">English</a></li>
-            <li class="footer_sns_item"><a href="https://twitter.com/DLsite_info" target="_blank" class="twitter_info">広報</a></li>
-            <li class="footer_sns_item"><a href="https://www.youtube.com/channel/UC-GBo1SVvZUWkyIjRSRTs7g" target="_blank" class="youtube_dl">DLsite</a></li>
-            <li class="footer_sns_item"><a href="https://www.youtube.com/channel/UCvcIQvSYDdzE-o3377ZoK_Q" target="_blank" class="youtube_gm">がるまに</a></li>
-            <li class="footer_sns_item"><a href="https://www.youtube.com/channel/UCQEN3LsNnqottC2mXx3tAjA" target="_blank" class="youtube_info">広報</a></li>
+                        <li class="footer_sns_item"><a rel="noopener" href="https://twitter.com/DLsite" target="_blank" class="twitter_g">全年齢</a></li>
+            <li class="footer_sns_item"><a rel="noopener" href="https://twitter.com/DLsiteManiax" target="_blank" class="twitter_r18">R18</a></li>
+            <li class="footer_sns_item"><a rel="noopener" href="https://twitter.com/GirlsManiax" target="_blank" class="twitter_bl">BL</a></li>
+            <li class="footer_sns_item"><a rel="noopener" href="https://twitter.com/girlsmaniax_OTM" target="_blank" class="twitter_otm">乙女</a></li>
+            <li class="footer_sns_item"><a rel="noopener" href="https://twitter.com/DLsiteEnglish" target="_blank" class="twitter_eng">English</a></li>
+            <li class="footer_sns_item"><a rel="noopener" href="https://twitter.com/DLsite_info" target="_blank" class="twitter_info">広報</a></li>
+            <li class="footer_sns_item"><a rel="noopener" href="https://www.youtube.com/channel/UC-GBo1SVvZUWkyIjRSRTs7g" target="_blank" class="youtube_dl">DLsite</a></li>
+            <li class="footer_sns_item"><a rel="noopener" href="https://www.youtube.com/channel/UCvcIQvSYDdzE-o3377ZoK_Q" target="_blank" class="youtube_gm">がるまに</a></li>
+            <li class="footer_sns_item"><a rel="noopener" href="https://www.youtube.com/channel/UCQEN3LsNnqottC2mXx3tAjA" target="_blank" class="youtube_info">広報</a></li>
                     </ul>
     </div>
     <div class="footer_section_inner multilingual">
@@ -2277,7 +2257,7 @@ $(function () {
 <div data-vue-component="cookie-policy" data-async="true"></div>
 
 <script type="text/javascript" src="/vue/js/pc/vendor.js?cdn_cache=1&v=0.1.2&_=1561425273"></script>
-<script type="text/javascript" src="/vue/js/pc/app.js?cdn_cache=1&v=0.1.2&_=1565834933"></script>
+<script type="text/javascript" src="/vue/js/pc/app.js?cdn_cache=1&v=0.1.2&_=1567559800"></script>
 
 
 <script type="text/javascript">
@@ -2320,6 +2300,6 @@ div.measure_tag {
 
 
 <!-- /script_footer -->
-<script type="text/javascript">var contents = {"impression":[],"detail":[{"id":"BJ123822","name":"\u7363\u25cb\u5f7c\u5973\u30ab\u30bf\u30ed\u30b0","category":"books","brand":"BG01058","price":1000,"regist_date":"2017\/10\/27","image_main":"\/\/img.dlsite.jp\/modpub\/images2\/work\/books\/BJ124000\/BJ123822_img_main.jpg","restore_price":null}],"time":0.00013184547424316406};</script>
+<script type="text/javascript">var contents = {"impression":[],"detail":[{"id":"BJ123822","name":"\u7363\u25cb\u5f7c\u5973\u30ab\u30bf\u30ed\u30b0","category":"books","brand":"BG01058","price":1000,"regist_date":"2017\/10\/27","image_main":"\/\/img.dlsite.jp\/modpub\/images2\/work\/books\/BJ124000\/BJ123822_img_main.jpg","restore_price":null}],"time":0.00012922286987304688};</script>
 </body>
 </html>
