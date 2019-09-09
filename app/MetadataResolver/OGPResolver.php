@@ -18,8 +18,7 @@ class OGPResolver implements Resolver, Parser
 
     public function resolve(string $url): Metadata
     {
-        $res = $this->client->get($url);
-        return $this->parse($res->getBody());
+        return $this->parse($this->client->get($url)->getBody());
     }
 
     public function parse(string $html): Metadata
