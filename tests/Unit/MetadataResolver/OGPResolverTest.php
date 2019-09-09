@@ -3,20 +3,11 @@
 namespace Tests\Unit\MetadataResolver;
 
 use App\MetadataResolver\OGPResolver;
-use GuzzleHttp\Exception\ClientException;
 use Tests\TestCase;
 
 class OGPResolverTest extends TestCase
 {
     use CreateMockedResolver;
-
-    public function testMissingUrl()
-    {
-        $this->createResolver(OGPResolver::class, '', [], 404);
-
-        $this->expectException(\RuntimeException::class);
-        $this->resolver->resolve('http://example.com/404');
-    }
 
     public function testResolve()
     {

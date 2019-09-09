@@ -24,33 +24,28 @@ class KomifloResolver implements Resolver
         $id = $matches[1];
 
         $res = $this->client->get('https://api.komiflo.com/content/id/' . $id);
-        if ($res->getStatusCode() === 200) {
-            $json = json_decode($res->getBody()->getContents(), true);
-            $metadata = new Metadata();
+        $json = json_decode($res->getBody()->getContents(), true);
+        $metadata = new Metadata();
 
-            $metadata->title = $json['content']['data']['title'] ?? '';
-            $metadata->description = ($json['content']['attributes']['artists']['children'][0]['data']['name'] ?? '?') .
-                ' - ' .
-                ($json['content']['parents'][0]['data']['title'] ?? '?');
-            $metadata->image = 'https://t.komiflo.com/564_mobile_large_3x/' . $json['content']['named_imgs']['cover']['filename'];
+        $metadata->title = $json['content']['data']['title'] ?? '';
+        $metadata->description = ($json['content']['attributes']['artists']['children'][0]['data']['name'] ?? '?') .
+            ' - ' . ($json['content']['parents'][0]['data']['title'] ?? '?');
+        $metadata->image = 'https://t.komiflo.com/564_mobile_large_3x/' . $json['content']['named_imgs']['cover']['filename'];
 
-            // 作者情報
-            if (!empty($json['content']['attributes']['artists']['children'])) {
-                foreach ($json['content']['attributes']['artists']['children'] as $artist) {
-                    $metadata->tags[] = preg_replace('/\s/', '_', $artist['data']['name']);
-                }
+        // 作者情報
+        if (!empty($json['content']['attributes']['artists']['children'])) {
+            foreach ($json['content']['attributes']['artists']['children'] as $artist) {
+                $metadata->tags[] = preg_replace('/\s/', '_', $artist['data']['name']);
             }
-
-            // タグ
-            if (!empty($json['content']['attributes']['tags']['children'])) {
-                foreach ($json['content']['attributes']['tags']['children'] as $tag) {
-                    $metadata->tags[] = preg_replace('/\s/', '_', $tag['data']['name']);
-                }
-            }
-
-            return $metadata;
-        } else {
-            throw new \RuntimeException("{$res->getStatusCode()}: $url");
         }
+
+        // タグ
+        if (!empty($json['content']['attributes']['tags']['children'])) {
+            foreach ($json['content']['attributes']['tags']['children'] as $tag) {
+                $metadata->tags[] = preg_replace('/\s/', '_', $tag['data']['name']);
+            }
+        }
+
+        return $metadata;
     }
 }
