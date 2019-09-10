@@ -85,6 +85,9 @@ $(() => {
                     if (xhr.status === 409) {
                         callback(JSON.parse(xhr.responseText));
                         return;
+                    } else if (xhr.status === 401) {
+                        alert('いいねするためにはログインしてください。');
+                        return;
                     }
 
                     console.error(xhr);
