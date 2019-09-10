@@ -24,12 +24,13 @@ class DeviantArtResolverTest extends TestCase
 
         $this->createResolver(DeviantArtResolver::class, $responseText);
 
-        $metadata = $this->resolver->resolve('https://www.deviantart.com/rasbii/art/backstage-620617246');
-        $this->assertSame('backstage', $metadata->title);
-        $this->assertSame('By Rasbii', $metadata->description);
-        $this->assertStringStartsWith('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/bee96c7a-4956-44a4-81aa-7587cf0b85d1/da9hzby-b9640ac3-1815-4c77-9410-0d4882a20e25.png/v1/fit/w_1024,h_1024,strp/image.jpg?token=', $metadata->image);
+        $metadata = $this->resolver->resolve('https://www.deviantart.com/gatanii69/art/R-15-mabel-and-will-update-686016962');
+        $this->assertSame('R-15 mabel and will update', $metadata->title);
+        $this->assertSame('By gatanii69', $metadata->description);
+        $this->assertStringStartsWith('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/6854f36d-8010-4cd0-9d62-0cf9b7829764/dbcfq2q-d78c9f6e-dced-4e5c-a345-2a1bfd5d7620.jpg', $metadata->image);
+        $this->assertSame(['nsfw', 'reversefalls', 'gravityfalls', 'gravityfallsfanart', 'mabelpines', 'billcipher', 'reversemabel', 'willcipher', 'reversebill', 'reversebillcipher', 'mawill'], $metadata->tags);
         if ($this->shouldUseMock()) {
-            $this->assertSame('https://backend.deviantart.com/oembed?url=https://www.deviantart.com/rasbii/art/backstage-620617246', (string) $this->handler->getLastRequest()->getUri());
+            $this->assertSame('https://backend.deviantart.com/oembed?url=https://www.deviantart.com/gatanii69/art/R-15-mabel-and-will-update-686016962', (string) $this->handler->getLastRequest()->getUri());
         }
     }
 }
