@@ -24,21 +24,17 @@ class FC2ContentsResolver implements Resolver
     public function resolve(string $url): Metadata
     {
         $res = $this->client->get($url);
-        if ($res->getStatusCode() === 200) {
-            $metadata = $this->ogpResolver->parse($res->getBody());
+        $metadata = $this->ogpResolver->parse($res->getBody());
 
-            $dom = new \DOMDocument();
-            @$dom->loadHTML(mb_convert_encoding($res->getBody(), 'HTML-ENTITIES', 'UTF-8'));
-            $xpath = new \DOMXPath($dom);
+        $dom = new \DOMDocument();
+        @$dom->loadHTML(mb_convert_encoding($res->getBody(), 'HTML-ENTITIES', 'UTF-8'));
+        $xpath = new \DOMXPath($dom);
 
-            $thumbnailNode = $xpath->query('//*[@class="main_thum_img"]/a')->item(0);
-            if ($thumbnailNode) {
-                $metadata->image = preg_replace('~^http:~', 'https:', $thumbnailNode->getAttribute('href'));
-            }
-
-            return $metadata;
-        } else {
-            throw new \RuntimeException("{$res->getStatusCode()}: $url");
+        $thumbnailNode = $xpath->query('//*[@class="main_thum_img"]/a')->item(0);
+        if ($thumbnailNode) {
+            $metadata->image = preg_replace('~^http:~', 'https:', $thumbnailNode->getAttribute('href'));
         }
+
+        return $metadata;
     }
 }

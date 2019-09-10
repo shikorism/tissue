@@ -38,14 +38,10 @@ class PixivResolver implements Resolver
     {
         if (preg_match('~www\.pixiv\.net/user/\d+/series/\d+~', $url, $matches)) {
             $res = $this->client->get($url);
-            if ($res->getStatusCode() === 200) {
-                $metadata = $this->ogpResolver->parse($res->getBody());
-                $metadata->image = $this->proxize($metadata->image);
+            $metadata = $this->ogpResolver->parse($res->getBody());
+            $metadata->image = $this->proxize($metadata->image);
 
-                return $metadata;
-            } else {
-                throw new \RuntimeException("{$res->getStatusCode()}: $url");
-            }
+            return $metadata;
         }
 
         parse_str(parse_url($url, PHP_URL_QUERY), $params);
@@ -58,32 +54,28 @@ class PixivResolver implements Resolver
         }
 
         $res = $this->client->get('https://www.pixiv.net/ajax/illust/' . $illustId);
-        if ($res->getStatusCode() === 200) {
-            $json = json_decode($res->getBody()->getContents(), true);
-            $metadata = new Metadata();
+        $json = json_decode($res->getBody()->getContents(), true);
+        $metadata = new Metadata();
 
-            $metadata->title = $json['body']['illustTitle'] ?? '';
-            $metadata->description = '投稿者: ' . $json['body']['userName'] . PHP_EOL . strip_tags(str_replace('<br />', PHP_EOL, $json['body']['illustComment'] ?? ''));
-            $metadata->image = $this->proxize($json['body']['urls']['regular'] ?? '');
+        $metadata->title = $json['body']['illustTitle'] ?? '';
+        $metadata->description = '投稿者: ' . $json['body']['userName'] . PHP_EOL . strip_tags(str_replace('<br />', PHP_EOL, $json['body']['illustComment'] ?? ''));
+        $metadata->image = $this->proxize($json['body']['urls']['regular'] ?? '');
 
-            // ページ数の指定がある場合は画像URLをそのページにする
-            if ($page != 0) {
-                $metadata->image = str_replace('_p0', '_p'.$page, $metadata->image);
-            }
+        // ページ数の指定がある場合は画像URLをそのページにする
+        if ($page != 0) {
+            $metadata->image = str_replace('_p0', '_p' . $page, $metadata->image);
+        }
 
-            // タグ
-            if (!empty($json['body']['tags']['tags'])) {
-                foreach ($json['body']['tags']['tags'] as $tag) {
-                    // 一部の固定キーワードは無視
-                    if (array_search($tag['tag'], ['R-18', 'イラスト', 'pixiv', 'ピクシブ'], true) === false) {
-                        $metadata->tags[] = preg_replace('/\s/', '_', $tag['tag']);
-                    }
+        // タグ
+        if (!empty($json['body']['tags']['tags'])) {
+            foreach ($json['body']['tags']['tags'] as $tag) {
+                // 一部の固定キーワードは無視
+                if (array_search($tag['tag'], ['R-18', 'イラスト', 'pixiv', 'ピクシブ'], true) === false) {
+                    $metadata->tags[] = preg_replace('/\s/', '_', $tag['tag']);
                 }
             }
-
-            return $metadata;
-        } else {
-            throw new \RuntimeException("{$res->getStatusCode()}: $url");
         }
+
+        return $metadata;
     }
 }
