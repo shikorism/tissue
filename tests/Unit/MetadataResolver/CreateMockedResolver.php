@@ -5,6 +5,7 @@ namespace Tests\Unit\MetadataResolver;
 use App\MetadataResolver\Resolver;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Monolog\Handler\AbstractHandler;
 
@@ -41,7 +42,7 @@ trait CreateMockedResolver
 
         $mockResponse = new Response($status, $headers, $responseText);
         $this->handler = new MockHandler([$mockResponse]);
-        $client = new Client(['handler' => $this->handler]);
+        $client = new Client(['handler' => HandlerStack::create($this->handler)]);
         $this->resolver = app()->make($resolverClass, ['client' => $client]);
 
         return $this->resolver;
