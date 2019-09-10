@@ -21,7 +21,8 @@ class EjaculationController extends Controller
             'link' => $request->input('link', ''),
             'tags' => $request->input('tags', ''),
             'note' => $request->input('note', ''),
-            'is_private' => $request->input('is_private', 0) == 1
+            'is_private' => $request->input('is_private', 0) == 1,
+            'is_too_sensitive' => $request->input('is_too_sensitive', 0) == 1
         ];
 
         return view('ejaculation.checkin')->with('defaults', $defaults);
@@ -56,7 +57,8 @@ class EjaculationController extends Controller
             'ejaculated_date' => Carbon::createFromFormat('Y/m/d H:i', $inputs['date'] . ' ' . $inputs['time']),
             'note' => $inputs['note'] ?? '',
             'link' => $inputs['link'] ?? '',
-            'is_private' => $request->has('is_private') ?? false
+            'is_private' => $request->has('is_private') ?? false,
+            'is_too_sensitive' => $request->has('is_too_sensitive') ?? false
         ]);
 
         $tagIds = [];
@@ -137,7 +139,8 @@ class EjaculationController extends Controller
             'ejaculated_date' => Carbon::createFromFormat('Y/m/d H:i', $inputs['date'] . ' ' . $inputs['time']),
             'note' => $inputs['note'] ?? '',
             'link' => $inputs['link'] ?? '',
-            'is_private' => $request->has('is_private') ?? false
+            'is_private' => $request->has('is_private') ?? false,
+            'is_too_sensitive' => $request->has('is_too_sensitive') ?? false
         ])->save();
 
         $tagIds = [];
