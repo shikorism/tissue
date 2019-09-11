@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/setting/profile', 'SettingController@updateProfile')->name('setting.profile.update');
     Route::get('/setting/privacy', 'SettingController@privacy')->name('setting.privacy');
     Route::post('/setting/privacy', 'SettingController@updatePrivacy')->name('setting.privacy.update');
+    Route::get('/setting/deactivate', 'SettingController@deactivate')->name('setting.deactivate');
+    Route::post('/setting/deactivate', 'SettingController@destroyUser')->name('setting.deactivate.destroy');
 //    Route::get('/setting/password', 'SettingController@password')->name('setting.password');
 });
 
