@@ -37,6 +37,7 @@ class FanzaResolver implements Resolver
         }), $array);
         $array = array_unique($array);
         $array = array_values($array);
+
         return $array;
     }
 
@@ -98,6 +99,7 @@ class FanzaResolver implements Resolver
         // 上で特に対応しなかったURL 画像の置換くらいはしておく
         $metadata =  $this->ogpResolver->parse($html);
         $metadata->image = preg_replace("~(pr|ps)\.jpg$~", 'pl.jpg', $metadata->image);
+
         return $metadata;
     }
 }
