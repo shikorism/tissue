@@ -29,7 +29,7 @@ class FanzaResolver implements Resolver
      *
      * @return array 処理されたarray
      */
-    public function array_finish(array $array)
+    public function array_finish(array $array): array
     {
         $array = array_map('trim', $array);
         $array = array_map((function ($value) {
