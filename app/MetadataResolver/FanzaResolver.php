@@ -80,7 +80,7 @@ class FanzaResolver implements Resolver
             $metadata->title =  trim($crawler->filter('#title')->text(''));
             $metadata->description = trim($crawler->filter('.m-boxDetailProduct__info__story')->text(''));
             $metadata->image = preg_replace("~(pr|ps)\.jpg$~", 'pl.jpg', $crawler->filter('meta[property="og:image"]')->attr('content'));
-            $metadata->tags = $this->array_finish($crawler->filter('.m-boxDetailProductInfoMainList__description__list__item, .m-boxDetailProductInfo__list__description__item')->extract(['_text']));
+            $metadata->tags = $this->array_finish($crawler->filter('.m-boxDetailProductInfoMainList__description__list__item, .m-boxDetailProductInfo__list__description__item a')->extract(['_text']));
 
             return $metadata;
         }
