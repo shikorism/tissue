@@ -56,6 +56,7 @@ class Ejaculation extends Model
                     },
                     'likes.user' => function ($query) {
                         $query->where('is_protected', false)
+                            ->where('private_likes', false)
                             ->orWhere('id', Auth::id());
                     }
                 ])
@@ -72,7 +73,8 @@ class Ejaculation extends Model
                         $query->latest()->take(10);
                     },
                     'likes.user' => function ($query) {
-                        $query->where('is_protected', false);
+                        $query->where('is_protected', false)
+                            ->where('private_likes', false);
                     }
                 ])
                 ->withCount('likes')
