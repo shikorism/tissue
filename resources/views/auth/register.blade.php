@@ -24,6 +24,7 @@
                 <div class="form-group">
                     <label for="name"><span class="oi oi-person"></span> ユーザー名</label>
                     <input id="name" name="name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" type="text" value="{{ old('name') }}" required>
+                    <small class="form-text text-muted">半角英数字と一部記号が使用できます。一度決めたら変更できません。</small>
 
                     @if ($errors->has('name'))
                         <div class="invalid-feedback">{{ $errors->first('name') }}</div>
