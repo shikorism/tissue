@@ -79,6 +79,9 @@
                         <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.okazu') === 0 ? 'active' : ''}}">
                             <a class="nav-link" href="{{ route('user.okazu', ['name' => Auth::user()->name]) }}">オカズ</a>
                         </li>
+                        <li class="nav-item {{ stripos(Route::currentRouteName(), 'tag') === 0 ? 'active' : ''}}">
+                            <a class="nav-link" href="{{ route('tag') }}">タグ一覧</a>
+                        </li>
                         {{--<li class="nav-item">
                             <a class="nav-link" href="{{ route('ranking') }}">ランキング</a>
                         </li>--}}
