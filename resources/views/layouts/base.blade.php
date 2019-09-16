@@ -140,6 +140,13 @@
                             <a class="btn btn-{{ stripos(Route::currentRouteName(), 'user.okazu') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('user.okazu', ['name' => Auth::user()->name]) }}" role="button">オカズ</a>
                         </div>
                     </div>
+                    <div class="row mt-2">
+                        <div class="col">
+                            <a class="btn btn-{{ stripos(Route::currentRouteName(), 'tag') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('tag') }}" role="button">タグ一覧</a>
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
                     {{-- <div class="row mt-2">
                         <div class="col">
                             <a class="btn btn-outline-secondary" href="{{ route('ranking') }}">ランキング</a>
