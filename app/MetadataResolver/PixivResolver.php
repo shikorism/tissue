@@ -44,13 +44,17 @@ class PixivResolver implements Resolver
             return $metadata;
         }
 
-        parse_str(parse_url($url, PHP_URL_QUERY), $params);
-        $illustId = $params['illust_id'];
         $page = 0;
+        if (preg_match('~www\.pixiv\.net/artworks/(\d+)~', $url, $matches)) {
+            $illustId = $matches[1];
+        } else {
+            parse_str(parse_url($url, PHP_URL_QUERY), $params);
+            $illustId = $params['illust_id'];
 
-        // 漫画ページ（ページ数はmanga_bigならあるかも）
-        if ($params['mode'] === 'manga_big' || $params['mode'] === 'manga') {
-            $page = $params['page'] ?? 0;
+            // 漫画ページ（ページ数はmanga_bigならあるかも）
+            if ($params['mode'] === 'manga_big' || $params['mode'] === 'manga') {
+                $page = $params['page'] ?? 0;
+            }
         }
 
         $res = $this->client->get('https://www.pixiv.net/ajax/illust/' . $illustId);
