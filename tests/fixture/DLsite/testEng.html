@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" xmlns:mixi="http://mixi-platform.com/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" xmlns:mixi="http://mixi-platform.com/ns#" xmlns:fb="http://www.facebook.com/2008/fbml" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=991">
+<meta name="viewport" content="width=1024">
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta http-equiv="Content-Script-Type" content="text/javascript" />
 <meta name="google-site-verification" content="S2Jzwn_Dm4hGoyTfPnxEUSKnbHSuT73N6SZbTanWbEM" />
@@ -42,20 +42,20 @@
 <script>/dlsite_dozen=/.test(document.cookie) || (document.cookie = 'dlsite_dozen=' + Math.floor(Math.random() * 12) + '; path=/; max-age=63072000')</script>
 
 <link rel="stylesheet" href="/css/reset.css?1459221919" type="text/css" id="reset" />
-<link rel="stylesheet" href="/css/default_eng.css?1559631936" type="text/css" id="default" />
+<link rel="stylesheet" href="/css/default_eng.css?1566881566" type="text/css" id="default" />
 <link rel="stylesheet" href="/css/layout_2col_work_eng.css?1552988739" type="text/css" id="layout_2col_work" />
-<link rel="stylesheet" href="/css/common_eng.css?1559631936" type="text/css" id="common" />
-<link rel="stylesheet" href="/css/switch_eng.css?1551748184" type="text/css" id="switch" />
-<link rel="stylesheet" href="/css/suggest.css?1559631936" type="text/css" id="suggest" />
-<link rel="stylesheet" href="/css/header_campaign_banner.css?1559723711" type="text/css" id="header_campaign_banner" />
+<link rel="stylesheet" href="/css/common_eng.css?1567473359" type="text/css" id="common" />
+<link rel="stylesheet" href="/css/switch_eng.css?1560415705" type="text/css" id="switch" />
+<link rel="stylesheet" href="/css/suggest.css?1565749496" type="text/css" id="suggest" />
+<link rel="stylesheet" href="/css/header_campaign_banner.css?1567745943" type="text/css" id="header_campaign_banner" />
 <link rel="stylesheet" href="/assets/share/css/universal/universal.css?" type="text/css" id="universal" />
-<link rel="stylesheet" href="/css/work_template_eng.css?1559631936" type="text/css" id="work_template" />
+<link rel="stylesheet" href="/css/work_template_eng.css?1566876049" type="text/css" id="work_template" />
 <link rel="stylesheet" href="/css/work_slider.css?1559631936" type="text/css" id="work_slider" />
 
 <script type="text/javascript" src="/js/libs/libraries-pack.js?1502345903"></script>
-<script type="text/javascript" src="/js/dlsite_util.js?1557910552"></script>
+<script type="text/javascript" src="/js/dlsite_util.js?1561689497"></script>
 <script type="text/javascript" src="/js/slide_menu.js?1511946236"></script>
-<script type="text/javascript" src="/js/dlsite_suggest.js?1550024738"></script>
+<script type="text/javascript" src="/js/dlsite_suggest.js?1565749496"></script>
 <script type="text/javascript" src="/js/dlsite_trigger.js?1544681008"></script>
 <script type="text/javascript" src="/js/jquery.slideproduct.js?1524728551"></script>
 <script type="text/javascript" src="/js/dlsite_img_filter.js?1544681008"></script>
@@ -90,7 +90,7 @@ $.extend({
     if ($.useAdultcheck) return;
     $.useAdultcheck = true;
     var s = document.createElement('script');
-    s.src = '/js/adultcheck.js?1553837147';
+    s.src = '/js/adultcheck.js?1566881566';
     s.defer = true;
     document.querySelector('head').appendChild(s);
   }
@@ -130,7 +130,7 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
               </div>
               <ul class="eisysGroupHeaderLinkNav">
                 <li>
-                  <a href="https://login.dlsite.com/user/self?lang=en&redirect_uri=https://www.dlsite.com/eng/" target="_blank">Account Management</a>
+                  <a rel="noopener" href="https://login.dlsite.com/user/self?lang=en&redirect_uri=https://www.dlsite.com/eng/" target="_blank">Account Management</a>
                 </li>
                 <li>
                   <a class="logout" href="https://ssl.dlsite.com/eng/logout">Log out</a>
@@ -213,20 +213,23 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
             <a :href="hasUnboughtFavorites ? 'https://www.dlsite.com/eng/mypage/wishlist' : 'https://www.dlsite.com/eng/mypage/wishlist'"><i>Favorites</i></a><template v-if="hasUnboughtFavorites" v-cloak><a href="https://www.dlsite.com/eng/mypage/wishlist/=/discount/1" class="notificationBadge" >On SALE</a></template>
         </li>
         <li class="globalNav-item type-cart"><a href="https://www.dlsite.com/eng/cart"><i>Cart</i></a><span v-if="cartActives.length" v-cloak class="cartBadge" v-text="Math.min(cartActives.length, 100)"></span></li>
-        <li class="globalNav-item type-play"><a href="https://play.dlsite.com/eng/" target="_blank"><i>My Items</i></a></li>
+        <li class="globalNav-item type-play"><a rel="noopener" href="https://play.dlsite.com/eng/" target="_blank"><i>My Items</i></a></li>
         <li class="globalNav-item type-mypage"><a href="https://ssl.dlsite.com/eng/mypage"><i>My Page</i></a></li>
       </ul>
       <!-- /アイコンメニュー -->
-      <!-- ガイドメニュー --> 
-      <div class="globalGuide"><a href="#" class="globalGuide-btn" @click.stop.prevent="toggleMenu()"><i>Help</i></a>
-        <div class="globalGuideLink" :class="{ 'is-active': isActive }">
-          <ul class="globalGuideLink-item">
-            <li class="link"><a href="https://www.dlsite.com/eng/faq/=/type/user" target="_blank"><i>Help / FAQ</i></a></li>
-            <li class="link"><a href="https://www.dlsite.com/eng/welcome"><i>New to DLsite?</i></a></li>
-            <li class="link"><a href="https://www.dlsite.com/eng/circle/invite"><i>Submit Your Works</i></a></li>
-            <li class="link"><a href="https://www.dlsite.com/eng/guide/payment"><i>About Payment Method</i></a></li>
-            <li class="link"><a href="https://www.dlsite.com/eng/mypage/aboutpoint"><i>About Points</i></a></li>
-          </ul>
+      <!-- ガイドメニュー -->
+      <div class="header_guide hover_menu">
+        <a href="javascript:void(0)" class="header_guide_btn"><i>Help</i></a>
+        <div class="dropdown_list">
+          <div class="dropdown_list_inner">
+            <ul class="menu_list">
+              <li class="menu_list_item"><a rel="noopener" href="https://www.dlsite.com/eng/faq/=/type/user" target="_blank"><i>Help / FAQ</i></a></li>
+              <li class="menu_list_item"><a href="https://www.dlsite.com/eng/welcome"><i>New to DLsite?</i></a></li>
+              <li class="menu_list_item"><a href="https://www.dlsite.com/eng/circle/invite"><i>Submit Your Works</i></a></li>
+              <li class="menu_list_item"><a href="https://www.dlsite.com/eng/guide/payment"><i>About Payment Method</i></a></li>
+              <li class="menu_list_item"><a href="https://www.dlsite.com/eng/mypage/aboutpoint"><i>About Points</i></a></li>
+            </ul>
+          </div>
         </div>
       </div>
       <!-- /ガイドメニュー -->
@@ -252,18 +255,22 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
 
                 <div class="floorNavLink"><div class="floorNavLink-item type-adult"><a href="https://www.dlsite.com/ecchi-eng/">View R18 Products</a></div></div>
               </div>
-      <ul class="headerNav">
-                <li class="headerNav-item">
-          <a v-if="isRankingFilterCondition" v-cloak href="https://www.dlsite.com/eng/ranking/month?date=30d">Ranking</a>
-          <a v-else href="https://www.dlsite.com/eng/ranking/month">Ranking</a>
-        </li>
-        <li class="headerNav-item"><a href="https://www.dlsite.com/eng/fsr/=/options/ENG">English Version</a></li>
-        <li class="headerNav-item"><a href="https://www.dlsite.com/eng/fsr/=/campaign/241">Discount</a></li>
-        <li class="headerNav-item"><a href="https://www.dlsite.com/eng/new">Releases</a></li>
-        <li class="headerNav-item"><a href="https://www.dlsite.com/eng/announce/list/day">Upcoming</a></li>
-        <li class="headerNav-item"><a href="https://www.dlsite.com/eng/circle/list">Circle</a></li>
-        <li class="headerNav-item"><a href="https://www.dlsite.com/eng/fs">Advanced Search</a></li>
-              </ul>
+      <div class="floorSubNav">
+        <div class="floorSubNav-item">
+          <ul class="headerNav">
+                        <li class="headerNav-item">
+              <a v-if="isRankingFilterCondition" v-cloak href="https://www.dlsite.com/eng/ranking/month?date=30d">Ranking</a>
+              <a v-else href="https://www.dlsite.com/eng/ranking/month">Ranking</a>
+            </li>
+            <li class="headerNav-item"><a href="https://www.dlsite.com/eng/fsr/=/options/ENG">English Version</a></li>
+            <li class="headerNav-item"><a href="https://www.dlsite.com/eng/fsr/=/campaign/241">Discount</a></li>
+            <li class="headerNav-item"><a href="https://www.dlsite.com/eng/new">Releases</a></li>
+            <li class="headerNav-item"><a href="https://www.dlsite.com/eng/announce/list/day">Upcoming</a></li>
+            <li class="headerNav-item"><a href="https://www.dlsite.com/eng/circle/list">Circle</a></li>
+            <li class="headerNav-item"><a href="https://www.dlsite.com/eng/fs">Advanced Search</a></li>
+                      </ul>
+        </div>
+      </div>
     </div>
   </div>
 </header>
@@ -287,7 +294,21 @@ if ($.cookie('loginchecked') >= 1) {
 
 <!--data-vue-component="header-banner"-->
 <div data-vue-component="header-banner" data-vue-async="true" data-section_name="campaign_header_banner">
-    <div v-if="loading"></div>
+    <div v-if="loading" class="hd_cp_banner type_1bn">
+    <ul class="cp_bn_list">
+            <li class="cp_bn_item type_15">
+        <a href="https://www.dlsite.com/eng/campaign/sale201907">
+          <div class="cp_bn_inner">
+            <div class="cp_bn_reminder">
+              <div class="cp_bn_reminder_content"><i class="cp_bn_reminder_period type_date">~ SEP 17,</i><i class="cp_bn_reminder_period type_time">14:00</i></div>
+            </div>
+            <div class="cp_bn"><img src="/images/campaign/doujin_sale_1907/bn_hd_cp_01_eng.png"></div>
+                        <div class="cp_bn_work blank"></div>
+                      </div>
+        </a>
+      </li>
+          </ul>
+  </div>
     
   <div v-else-if="is_show_frame" :class="style" class="hd_cp_banner" v-cloak>
     <ul class="cp_bn_list">
@@ -348,7 +369,7 @@ if ($.cookie('loginchecked') >= 1) {
 <h1 itemprop="name" id="work_name">
 <a href="https://www.dlsite.com/eng/work/=/product_id/RE228866.html" itemprop="url">With Your First Girlfriend, at a Ghostly Night [Ear Cleaning] [Sleep Sharing]</a>
 </h1>
-<span class="link_twitter"><a href="https://twitter.com/share" class="twitter-share-button" data-url="https://dlsite.jp/enwtw/RE228866"  data-text="With Your First Girlfriend, at a Ghostly Night [Ear Cleaning] [Sleep Sharing]/Triangle!" data-lang="en" data-hashtags="DLsite">Tweet</a>
+<span class="link_twitter"><a href="https://twitter.com/share" class="twitter-share-button" data-url="https://dlsite.jp/enwtw/RE228866"  data-text="With Your First Girlfriend, at a Ghostly Night [Ear Cleaning] [Sleep Sharing]/Triangle! 50%OFF Til Sep. 17, 2 p.m. (JST)" data-lang="en" data-hashtags="DLsite">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 </span></div>
 </div>
@@ -363,17 +384,17 @@ if ($.cookie('loginchecked') >= 1) {
 <!-- main_inner -->
 <div id="main_inner">
 ﻿<div id="work_header" data-section_name="work_header">
-  <div id="work_left" data-vue-component="product-evaluate" data-product-id="RE228866">
-    <table cellspacing="0" id="work_value">
+  <div id="work_left">
+    <table cellspacing="0" id="work_value" data-vue-component="product-evaluate" data-product-id="RE228866">
       <tr>
         <td class="work_rankin">
           <table cellspacing="0">
             <tr>
-            <td v-if="product.ranks.total" v-cloak class="crown_total" :title="'Total ranking (' + product.ranks.total.rank_date + ') / ' + product.ranks.total.rank">&nbsp;</td>
-            <td v-if="product.ranks.year" v-cloak class="crown_year" :title="'Year ' + product.ranks.year.rank_date + ' ranking / ' + product.ranks.year.rank">&nbsp;</td>
-            <td v-if="product.ranks.month" v-cloak class="crown_month" :title="'Monthly chart (' + product.ranks.month.rank_date + ') / ' + product.ranks.month.rank">&nbsp;</td>
-            <td v-if="product.ranks.week" v-cloak class="crown_week" :title="'Weekly chart (' + product.ranks.week.rank_date + ') / ' + product.ranks.week.rank">&nbsp;</td>
-            <td v-if="product.ranks.day" v-cloak class="crown_hour" :title="'Daily chart (' + product.ranks.day.rank_date + ') / ' + product.ranks.day.rank">&nbsp;</td>
+              <td v-if="product.ranks.total" v-cloak class="crown_total" :title="$t('product.evaluate.ranking_total'  , [ product.ranks.total.rank_date, product.ranks.total.rank ])">&nbsp;</td>
+              <td v-if="product.ranks.year"  v-cloak class="crown_year"  :title="$t('product.evaluate.ranking_year'   , [ product.ranks.year.rank_date , product.ranks.year.rank  ])">&nbsp;</td>
+              <td v-if="product.ranks.month" v-cloak class="crown_month" :title="$t('product.evaluate.ranking_monthly', [ product.ranks.month.rank_date, product.ranks.month.rank ])">&nbsp;</td>
+              <td v-if="product.ranks.week"  v-cloak class="crown_week"  :title="$t('product.evaluate.ranking_weekly' , [ product.ranks.week.rank_date , product.ranks.week.rank  ])">&nbsp;</td>
+              <td v-if="product.ranks.day"   v-cloak class="crown_hour"  :title="$t('product.evaluate.ranking_daily'  , [ product.ranks.day.rank_date  , product.ranks.day.rank   ])">&nbsp;</td>
             </tr>
           </table>
         </td>
@@ -452,14 +473,22 @@ if ($.cookie('loginchecked') >= 1) {
 </div>
 
         </td>
-        <td v-if="product.review_count" v-cloak class="work_review"><a class="_review_count" href="#review_link"><div title="レビューあり">({{ product.review_count }})</div></a></td>
-                <td class="work_dl" v-if="product.dl_count !== undefined && product.dl_count > 0" v-cloak><div>Purchased:&nbsp;<span class="_dl_count">{{ product.dl_count }}</span>&nbsp;times</div></td>
-        <td class="work_dl" v-if="product.wishlist_count !== undefined && product.wishlist_count > 0" v-cloak><div>Favorited:&nbsp;<span>{{ product.wishlist_count }}</span></div></td>
+        <td v-if="product.review_count" v-cloak class="work_review">
+          <a class="_review_count" href="#review_link"><div :title="$t('product.evaluate.with_review')" v-text="product.review_count"></div></a>
+        </td>
+                  <!-- 販売 / DL数 -->
+          <td class="work_dl" v-if="product.dl_count !== undefined && product.dl_count > 0" v-cloak>
+            <div v-html="$t('product.evaluate.purchase_count', [ product.dl_count ])"></div>
+          </td>
+          <!-- お気に入り数 -->
+          <td class="work_dl" v-if="product.wishlist_count !== undefined && product.wishlist_count > 0" v-cloak>
+            <div v-html="$t('product.evaluate.favorite_count', [ product.wishlist_count ])"></div>
+          </td>
               </tr>
     </table>
 
   
-<product-slider product_id="RE228866" inline-template>
+<div data-vue-component="product-slider" data-product-id="RE228866">
 
 <div class="product-slider">
   <!-- Sample image data -->
@@ -512,9 +541,10 @@ if ($.cookie('loginchecked') >= 1) {
   </div>
   <div v-cloak class="work_slider_comp" v-if="items.length > 1">
 
-    <a href="https://www.dlsite.com/eng/popup/=/file/smp1/product_id/RE228866.html" target="_blank">Display in HTML format</a>
+    <a rel="noopener" href="https://www.dlsite.com/eng/popup/=/file/smp1/product_id/RE228866.html" target="_blank">Display in HTML format</a>
 
-    <span>{{ __('totalImages', {count: items.length}) }}</span>  
+    <!-- 枚数 -->
+    <span v-t="{ path: 'product.slider.totalImages', args: [items.length] }"></span>
   </div>
 
   <!-- Popup viewer -->
@@ -524,7 +554,7 @@ if ($.cookie('loginchecked') >= 1) {
       <div class="slider_popup_rightpane">
         <div class="slider_popup_sidebar">
         <template v-for="(item, index) in items">
-          <div target="_blank" :class="{active:(index === swiper.realIndex)}" @click="slideTo(index, false)">
+          <div rel="noopener" target="_blank" :class="{active:(index === swiper.realIndex)}" @click="slideTo(index, false)">
 
             <img :src="item.thumb.src" alt="With Your First Girlfriend, at a Ghostly Night [Ear Cleaning] [Sleep Sharing] [Triangle!]">
 
@@ -549,15 +579,15 @@ if ($.cookie('loginchecked') >= 1) {
         </div>
         <div class="slider_popup_tool">
           <input id="target1" class="checkbox" name="target" type="checkbox" value="1" v-model="alwaysActualSize" @change="toggleActualSize" @click="toggleActualSize">
-          <label for="target1" class="checkbox-label">{{ __('alwaysActual') }}</label>
-          <span class="slider_popup_description">{{ __('tools') }}</span>
+          <label for="target1" class="checkbox-label" v-t="'product.slider.alwaysActual'"></label>
+          <span class="slider_popup_description" v-t="'product.slider.tools'"></span>
         </div>
       </div>
     </div>
   </div>
 
 </div>
-</product-slider>
+</div>
 
 
   </div>
@@ -609,16 +639,11 @@ if ($.cookie('loginchecked') >= 1) {
         </tr>
 
 
-        <tr>
-          <th>Option</th>
-          <td>
-            <div class="work_genre"><a href="https://www.dlsite.com/eng/fsr/=/work_category%5B0%5D/doujin/options/SND/from/icon.work"><span class="icon_SND" title="Inc. Voice">Inc. Voice</span></a><a href="https://www.dlsite.com/eng/fsr/=/work_category%5B0%5D/doujin/options/TRI/from/icon.work"><span class="icon_TRI" title="Trial">Trial</span></a></div>
-          </td>
-        </tr>
+                
 
 
-
-        <tr><th>Genre</th><td><div class="main_genre"><a href="https://www.dlsite.com/eng/fsr/=/genre/056/from/work.genre">Healing</a><a href="https://www.dlsite.com/eng/fsr/=/genre/496/from/work.genre">Binaural</a><a href="https://www.dlsite.com/eng/fsr/=/genre/497/from/work.genre">ASMR</a><a href="https://www.dlsite.com/eng/fsr/=/genre/222/from/work.genre">Childhood Friend</a><a href="https://www.dlsite.com/eng/fsr/=/genre/442/from/work.genre">Ear Cleaning</a><a href="https://www.dlsite.com/eng/fsr/=/genre/004/from/work.genre">Romance</a><a href="https://www.dlsite.com/eng/fsr/=/genre/306/from/work.genre">Romance</a><a href="https://www.dlsite.com/eng/fsr/=/genre/494/from/work.genre">Romance</a></div></td></tr>
+        <tr><th>Genre</th><td><div class="main_genre"><a href="https://www.dlsite.com/eng/fsr/=/genre/056/from/work.genre">Healing</a><a href="https://www.dlsite.com/eng/fsr/=/genre/496/from/work.genre">Binaural</a><a href="https://www.dlsite.com/eng/fsr/=/genre/497/from/work.genre">ASMR</a><a href="https://www.dlsite.com/eng/fsr/=/genre/442/from/work.genre">Ear Cleaning</a><a href="https://www.dlsite.com/eng/fsr/=/genre/004/from/work.genre">Lovey Dovey/Sweet Love</a><a href="https://www.dlsite.com/eng/fsr/=/genre/222/from/work.genre">Childhood Friend</a>
+</div></td></tr>
 
         <tr><th>File Size</th><td><div class="main_genre">1.35GB</div></td></tr>
 
@@ -668,7 +693,7 @@ if ($.cookie('loginchecked') >= 1) {
 
 <div class="title_01 clearfix"><h2>Contents</h2></div>
 <div itemprop="description" class="work_article work_story">** Special Site **<br />
-<a rel="nofollow" href="http://www.miyuki-web.net/hatsukoiobake/" target="_blank">http://www.miyuki-web.net/hatsukoiobake/</a><br />
+<a rel="noopener nofollow" href="http://www.miyuki-web.net/hatsukoiobake/" target="_blank">http://www.miyuki-web.net/hatsukoiobake/</a><br />
 <br />
 "Yui Asami meets First Love"<br />
 <br />
@@ -683,7 +708,7 @@ To look silly in public may affect your social status.<br />
 [Synopsis]<br />
 <br />
 * Prequel:<br />
-<a href="http://www.dlsite.com/eng/work/=/product_id/RE180674.html" target="_blank">http://www.dlsite.com/eng/work/=/product_id/RE180674.html</a><br />
+<a rel="noopener" href="http://www.dlsite.com/eng/work/=/product_id/RE180674.html" target="_blank">http://www.dlsite.com/eng/work/=/product_id/RE180674.html</a><br />
 <br />
 Having got in a relationship, you and Natsumi go to a mountain for camping.<br />
 However...there is a thing that traumatized young Natsumi in the mountain...!?<br />
@@ -727,7 +752,7 @@ Bonuses:<br />
 <br />
 [Credits]<br />
 CV: Yui Asami<br />
-Script: TOMOYA HIRATA (Project E.L.C)<br />
+Script: Project E.L.C<br />
 Illustration: Yatomi<br />
 Web Design: Guzuri Takamachi / Aoi Kazuki<br />
 Logo Design: juda53 / SAKANAC<br />
@@ -1035,11 +1060,10 @@ jQuery(function($){
 
 <div class="work_article" id="work_review" data-section_name="work_review">
 
-  <!-- review_head -->
-  <div class="review_head clearfix">
+  
+  <div class="review_head">
     <p class="float_l review_count"><span class="fs20">0</span> user reviews</p>
       </div>
-  <!-- /review_head -->
 
   <!-- work_review_list -->
   <table id="work_review_list" cellspacing="0">
@@ -1116,7 +1140,7 @@ jQuery(function($){
         <div v-if="product.is_discount || product.is_pointup || rentaled" class="campaign_info">
           <p v-if="rentaled" class="type_rental"><span>レンタル期間中割引<span class="limit">あと{{ rentaled.limit }}</span><span class="period">{{ rentaled.period }}まで</span></span></p>
           <p v-if="product.is_discount" class="type_sale">
-            <a    v-if="product.discount_to" :href="product.discount_to" :title="product.discount_rate == 100 ? 'Free' : product.discount_rate + '%OFF'" target="_blank"><span>{{ product.discount_rate == 100 ? 'Free' : product.discount_rate + '%OFF' }}<span class="period" v-if="product.discount_end_date">Til {{ product.discount_end_date }}</span></span></a>
+            <a rel="noopener"    v-if="product.discount_to" :href="product.discount_to" :title="product.discount_rate == 100 ? 'Free' : product.discount_rate + '%OFF'" target="_blank"><span>{{ product.discount_rate == 100 ? 'Free' : product.discount_rate + '%OFF' }}<span class="period" v-if="product.discount_end_date">Til {{ product.discount_end_date }}</span></span></a>
             <span v-else>{{ product.discount_rate == 100 ? 'Free' : product.discount_rate + '%OFF' }}<span class="period" v-if="product.discount_end_date">Til {{ product.discount_end_date }}</span></span>
           </p>
         </div>
@@ -1182,7 +1206,7 @@ jQuery(function($){
       </template>
       <template v-else>
         <template v-if="is_bought">
-          <p class="work_stream"><a href="https://play.dlsite.com/eng/?workno=RE228866" class="btn_st" :class="{ disabled: ! product.dlsiteplay_work || product.dl_format == 16 }" title="Open in DLsite Play" target="_blank">Open in DLsite Play</a></p>
+          <p class="work_stream"><a rel="noopener" href="https://play.dlsite.com/eng/?workno=RE228866" class="btn_st" :class="{ disabled: ! product.dlsiteplay_work || product.dl_format == 16 }" title="Open in DLsite Play" target="_blank">Open in DLsite Play</a></p>
           <p class="work_cart"><a :href="product.down_url" class="btn_dl" :class="{ disabled: product.dl_format == 17 }">Download</a></p>
         </template>
         <template v-else-if="is_already">
@@ -1238,7 +1262,7 @@ jQuery(function($){
           <div class="work_buy_body">
             <div class="work_buy_label">Price</div>
             <div class="work_buy_content">
-              <span class="price">$8.95&nbsp;/&nbsp;&euro;7.94<i class="work_estimation">(estimation)</i><i class="work_jpy">972 JPY</i></span>
+              <span class="price">$4.54&nbsp;/&nbsp;&euro;4.12<i class="work_estimation">(estimation)</i><i class="work_jpy">486 JPY</i></span>
             </div>
           </div>
         </div>
@@ -1330,7 +1354,7 @@ jQuery(function($){
     <p v-if="product.is_rental" class="guide_message">レンタルでは購入特典は<br>付与されません。</p>
     
     <ul class="guide_list">
-      <li><a href="https://www.dlsite.com/eng/faq/detail/=/type/user/mid/5/did/297" target="_blank">About Purchase Bonus</a></li>
+      <li><a rel="noopener" href="https://www.dlsite.com/eng/faq/detail/=/type/user/mid/5/did/297" target="_blank">About Purchase Bonus</a></li>
     </ul>
   </div>
 
@@ -1372,7 +1396,7 @@ jQuery(function($){
         <tbody>
           <tr>
             <td>Windows</td>
-            <td>Windows7 / Windows8 / Windows8.1 / Windows10</td>
+            <td>-</td>
           </tr>
                     <tr>
             <td>Mac</td>
@@ -1419,44 +1443,44 @@ jQuery(function($){
     <table cellspacing="0" class="same_work">
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/eng/work/=/product_id/RE180674.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ181000/RJ180674_img_sam_mini.jpg" alt="Fireworks With First Love Girlfriend [Ear Cleaning] [Fall Asleep] [Triangle!]" title="Fireworks With First Love Girlfriend [Ear Cleaning] [Fall Asleep] [Triangle!]"  class="target_type" /></a></td>
-        <td class="name">          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE180674.html">Fireworks With First Love Girlfriend [Ear Cleaning] [Fall Asleep]</a></span>
-          <span class="work_price">$8.95</span>
+        <td class="name">          <div class="icon_wrap"><span class="icon_lead_01 type_sale">50%OFF</span></div>          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE180674.html">Fireworks With First Love Girlfriend [Ear Cleaning] [Fall Asleep]</a></span>
+          <span class="work_price">$4.54</span>
         </td>
       </tr>
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/eng/work/=/product_id/RE176184.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ177000/RJ176184_img_sam_mini.jpg" alt="Hanikami Commute Date-chu! [Soothing Audio] [Triangle!]" title="Hanikami Commute Date-chu! [Soothing Audio] [Triangle!]"  class="target_type" /></a></td>
-        <td class="name">          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE176184.html">Hanikami Commute Date-chu! [Soothing Audio]</a></span>
-          <span class="work_price">$6.96</span>
+        <td class="name">          <div class="icon_wrap"><span class="icon_lead_01 type_sale">50%OFF</span></div>          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE176184.html">Hanikami Commute Date-chu! [Soothing Audio]</a></span>
+          <span class="work_price">$3.53</span>
         </td>
       </tr>
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073910.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ074000/RJ073910_img_sam_mini.jpg" alt="Trianthology! ACE [Triangle!]" title="Trianthology! ACE [Triangle!]"  class="target_type" /></a></td>
-        <td class="name">          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073910.html">Trianthology! ACE</a></span>
-          <span class="work_price">$2.98</span>
+        <td class="name">          <div class="icon_wrap"><span class="icon_lead_01 type_sale">50%OFF</span></div>          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073910.html">Trianthology! ACE</a></span>
+          <span class="work_price">$1.51</span>
         </td>
       </tr>
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073917.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ074000/RJ073917_img_sam_mini.jpg" alt="Trianthology! X [Triangle!]" title="Trianthology! X [Triangle!]"  class="target_type" /></a></td>
-        <td class="name">          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073917.html">Trianthology! X</a></span>
-          <span class="work_price">$3.98</span>
+        <td class="name">          <div class="icon_wrap"><span class="icon_lead_01 type_sale">50%OFF</span></div>          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073917.html">Trianthology! X</a></span>
+          <span class="work_price">$2.01</span>
         </td>
       </tr>
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073911.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ074000/RJ073911_img_sam_mini.jpg" alt="Misato 4Coma Anthology [Triangle!]" title="Misato 4Coma Anthology [Triangle!]"  class="target_type" /></a></td>
-        <td class="name">          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073911.html">Misato 4Coma Anthology</a></span>
-          <span class="work_price">$2.98</span>
+        <td class="name">          <div class="icon_wrap"><span class="icon_lead_01 type_sale">50%OFF</span></div>          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073911.html">Misato 4Coma Anthology</a></span>
+          <span class="work_price">$1.51</span>
         </td>
       </tr>
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073920.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ074000/RJ073920_img_sam_mini.jpg" alt="TRIF: trif [Triangle!]" title="TRIF: trif [Triangle!]"  class="target_type" /></a></td>
-        <td class="name">          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073920.html">TRIF: trif</a></span>
-          <span class="work_price">$14.93</span>
+        <td class="name">          <div class="icon_wrap"><span class="icon_lead_01 type_sale">50%OFF</span></div>          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE073920.html">TRIF: trif</a></span>
+          <span class="work_price">$7.57</span>
         </td>
       </tr>
               <tr>
         <td class="work_img"><a href="https://www.dlsite.com/eng/work/=/product_id/RE081812.html"><img src="//img.dlsite.jp/modpub/images2/work/doujin/RJ082000/RJ081812_img_sam_mini.jpg" alt="See You Again in the SMILE  [Triangle!]" title="See You Again in the SMILE  [Triangle!]"  class="target_type" /></a></td>
-        <td class="name">          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE081812.html">See You Again in the SMILE </a></span>
-          <span class="work_price">$3.98</span>
+        <td class="name">          <div class="icon_wrap"><span class="icon_lead_01 type_sale">50%OFF</span></div>          <span class="work_name"><a href="https://www.dlsite.com/eng/work/=/product_id/RE081812.html">See You Again in the SMILE </a></span>
+          <span class="work_price">$2.01</span>
         </td>
       </tr>
             </table>
@@ -1513,97 +1537,103 @@ jQuery(function($){
 
 
 
-
-
 <!-- footer -->
 <div id="footer" data-section_name="footer">
     
     <div class="pagetop_block clearfix">
     <p class="pagetop"><a href="#header">Back to Top</a></p>
 </div>
-<div class="footer_link_01">
-<ul>
-<li><a href="https://www.dlsite.com/">DLsite Home Page</a></li>
-<li><a href="https://www.dlsite.com/eng/">Doujin</a></li>
-<li><a href="https://www.dlsite.com/ecchi-eng/">Adult Doujin</a></li>
-<li class="sp_switch"><a id="_touch_link" href="https://www.dlsite.com/eng-touch/work/=/product_id/RE228866.html" data-platform="touch">DLsite Mobile Site</a></li>
+<div class="footer_floor_nav">
+<ul class="floor_list">
+<li class="floor_list_item"><a href="https://www.dlsite.com/">DLsite Home Page</a></li>
+<li class="floor_list_item"><a href="https://www.dlsite.com/eng/">Doujin</a></li>
+<li class="floor_list_item"><a href="https://www.dlsite.com/ecchi-eng/">Adult Doujin</a></li>
+<li class="floor_list_item sp_switch"><a id="_touch_link" href="https://www.dlsite.com/eng-touch/work/=/product_id/RE228866.html" data-platform="touch">For Smartphone</a></li>
 </ul>
 </div>
 
         <div class="footer_section">
-    <div class="section_container clearfix">
-        <ul class="link_list">
-            <li class="list_item">
+    <div class="footer_section_inner">
+        <div class="link_list_wrap">
+            <div class="link_list_box col_2">
                 <div class="label">About DLsite</div>
-                <dl>
-                    <dd><a href="https://www.eisys.co.jp/company/company-overview.html" target="_blank">About our Company</a></dd>
-                    <dd><a href="https://eisys.talentcld.com/" target="_blank">Career Information</a></dd>
-                                                            <dd><a href="https://twitter.com/DLsiteEnglish" target="_blank" class="twitter">Twitter</a> / <a href="https://www.facebook.com/DLsite-English-159690760755693/" target="_blank" class="facebook">Facebook</a> / <a href="http://dlsite-english.tumblr.com/" target="_blank" class="tumblr">Tumblr</a></dd>
-                                    </dl>
-            </li>
-            <li class="list_item">
+                <ul class="link_list">
+                    <li class="link_list_item"><a rel="noopener" href="https://www.eisys.co.jp/company/company-overview.html" target="_blank">About our Company</a></li>
+                    <li class="link_list_item"><a rel="noopener" href="https://eisys.talentcld.com/" target="_blank">Career Information</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/user/regulations">User Agreement</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/guide/law">Legal Statement (ASCT)</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/guide/settlement">Legal Statement (PSA)</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/guide/privacy">Privacy Policy</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/mosaic">Compliance Policy</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/guide/copy">Copyright</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/banners">Link to DLsite</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/sitemap">Site Map</a></li>
+                </ul>
+            </div>
+            <div class="link_list_box">
                 <div class="label">Payment / Points</div>
-                <dl>
-                    <dd><a href="https://www.dlsite.com/eng/guide/payment">Payment Methods</a></dd>
-                    <dd><a href="https://www.dlsite.com/eng/mypage/aboutpoint">About Points</a></dd>
-                                        <dd><a href="https://www.dlsite.com/eng/mypage/aboutpoint#gp3">How to Buy Points</a></dd>
-                                    </dl>
-            </li>
-            <li class="list_item">
+                <ul class="link_list">
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/guide/payment">Payment Methods</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/mypage/aboutpoint">About Points</a></li>
+                                        <li class="link_list_item"><a href="https://www.dlsite.com/eng/mypage/aboutpoint#gp3">How to Buy Points</a></li>
+                                    </ul>
+            </div>
+            <div class="link_list_box">
                 <div class="label">Help / Guide</div>
-                <dl>
-                    <dd><a href="https://www.dlsite.com/eng/welcome">New to DLsite?</a></dd>
-                    <dd><a href="https://www.dlsite.com/eng/faq/=/type/user" target="_blank">Frequently Asked Questions</a></dd>
-                    <dd><a href="https://www.dlsite.com/eng/opinion/contribution">Product Request / Feedback</a></dd>
-                    <dd><a href="https://ssl.dlsite.com/eng/mypage/setting/mail">Newsletter</a></dd>
-                    <dd><a href="https://www.dlsite.com/eng/sitemap">Site Map</a></dd>
-                </dl>
-            </li>
-            <li class="list_item">
+                <ul class="link_list">
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/welcome">New to DLsite?</a></li>
+                    <li class="link_list_item"><a rel="noopener" href="https://www.dlsite.com/eng/faq/=/type/user" target="_blank">Frequently Asked Questions</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/opinion/contribution">Product Request / Feedback</a></li>
+                </ul>
+            </div>
+            <div class="link_list_box">
                 <div class="label">DLsite Services</div>
-                <dl>
-                    <dd><a href="https://www.dlsite.com/eng/circle/invite">Submit Your Works</a></dd>
-                                        <dd><a href="https://www.dlsite.com/eng/guide/affiliate">Affiliate Program</a></dd>
-                                    </dl>
-            </li>
+                <ul class="link_list">
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/circle/invite">Submit Your Works</a></li>
+                                        <li class="link_list_item"><a href="https://www.dlsite.com/eng/guide/affiliate">Affiliate Program</a></li>
+                    <li class="link_list_item"><a href="https://ssl.dlsite.com/eng/mypage/setting/mail">Newsletter</a></li>
+                                    </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer_section_inner sns">
+        <div class="label">Official SNS Accounts</div>
+        <ul class="footer_sns">
+                        <li class="footer_sns_item"><a rel="noopener" href="https://twitter.com/DLsiteEnglish" target="_blank" class="twitter">Twitter</a></li>
+            <li class="footer_sns_item"><a rel="noopener" href="https://www.facebook.com/DLsite-English-159690760755693/" target="_blank" class="facebook">Facebook</a></li>
+            <li class="footer_sns_item"><a rel="noopener" href="http://dlsite-english.tumblr.com/" target="_blank" class="tumblr">Tumblr</a></li>
+            <li class="footer_sns_item"><a rel="noopener" href="https://www.instagram.com/dlsite_english/" target="_blank" class="instagram">Instagram</a></li>
+            <li class="footer_sns_item"><a rel="noopener" href="https://www.youtube.com/channel/UCGKtTGBPGmB5d9jg-fIZc8w" target="_blank" class="youtube">Youtube</a></li>
+            <li class="footer_sns_item"><a rel="noopener" href="https://discordapp.com/channels/555918616793710592/" target="_blank" class="discord">Discord</a></li>
                     </ul>
     </div>
-    <div class="section_container type_multilingual clearfix">
-        <ul class="link_list">
-            <li class="list_item">
+    <div class="footer_section_inner multilingual">
+        <div class="link_list_wrap">
+            <div class="link_list_box">
+                <div class="label">International</div>
+                <ul class="link_list type_horizontal">
+                    <li class="link_list_item"><a href="https://www.dlsite.com/home/">日本語</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/">English</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com.tw/home/">繁體中文</a></li>
+                </ul>
+            </div>
+            <div class="link_list_box">
                 <div class="label">Global Guide</div>
-                <dl>
-                    <dd class="list_item"><a href="https://www.dlsite.com/eng/welcome">English</a></dd>
-                    <dd class="list_item"><a href="https://www.dlsite.com/eng/welcome/deu">Deutsch</a></dd>
-                    <dd class="list_item"><a href="https://www.dlsite.com/eng/welcome/fra">Français</a></dd>
-                    <dd class="list_item"><a href="https://www.dlsite.com/eng/welcome/ita">Italiano</a></dd>
-                    <dd class="list_item"><a href="https://www.dlsite.com/eng/welcome/esp">Español</a></dd>
-                    <dd class="list_item"><a href="https://www.dlsite.com/eng/welcome/chi">繁體中文</a></dd>
+                <ul class="link_list type_horizontal">
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/welcome">English</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/welcome/deu">Deutsch</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/welcome/fra">Français</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/welcome/ita">Italiano</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/welcome/esp">Español</a></li>
+                    <li class="link_list_item"><a href="https://www.dlsite.com/eng/welcome/chi">繁體中文</a></li>
                 </dl>
-            </li>
-        </ul>
-        <div class="language_container">
-            <div class="label">Language</div>
-            <select name="language" id="language_select" onchange="location.href=value;">
-                <option value="https://www.dlsite.com/home/" >日本語</option>
-                <option value="https://www.dlsite.com/eng/" selected>English</option>
-                <option value="https://www.dlsite.com.tw/home/">繁體中文</option>
-            </select>
+            </div>
         </div>
     </div>
 </div>
 <div id="copyright">
     <div class="container clearfix">
         <div id="system">Recommended browsers: The latest version of Internet Explorer, Microsoft Edge, Safari, Chrome or Firefox with JavaScript/cookies enabled.</div>
-        <ul id="footer_nav">
-            <li><a href="https://www.dlsite.com/eng/user/regulations">User Agreement</a></li>
-            <li><a href="https://www.dlsite.com/eng/guide/law">Legal Statement (ASCT)</a></li>
-            <li><a href="https://www.dlsite.com/eng/guide/settlement">Legal Statement (PSA)</a></li>
-            <li><a href="https://www.dlsite.com/eng/guide/privacy">Privacy Policy</a></li>
-            <li><a href="https://www.dlsite.com/eng/mosaic">Compliance Policy</a></li>
-            <li><a href="https://www.dlsite.com/eng/guide/copy">Copyright</a></li>
-            <li><a href="https://www.dlsite.com/eng/banners">Link to DLsite</a></li>
-        </ul>
         <p>&copy; 1996 DLsite</p>
     </div>
 </div>
@@ -1628,8 +1658,8 @@ jQuery(function($){
 
 <div data-vue-component="cookie-policy" data-async="true"></div>
 
-<script type="text/javascript" src="/vue/js/pc/vendor.js?cdn_cache=1&v=0.1.2&_=1536029038"></script>
-<script type="text/javascript" src="/vue/js/pc/app.js?cdn_cache=1&v=0.1.2&_=1559289223"></script>
+<script type="text/javascript" src="/vue/js/pc/vendor.js?cdn_cache=1&v=0.1.2&_=1561425273"></script>
+<script type="text/javascript" src="/vue/js/pc/app.js?cdn_cache=1&v=0.1.2&_=1567559800"></script>
 
 
 <script type="text/javascript">
@@ -1672,6 +1702,6 @@ div.measure_tag {
 
 
 <!-- /script_footer -->
-<script type="text/javascript">var contents = {"impression":[],"detail":[{"id":"RE228866","name":"With Your First Girlfriend, at a Ghostly Night [Ear Cleaning] [Sleep Sharing]","category":"eng","brand":"RG14177","price":900,"regist_date":"2018\/10\/02","image_main":"\/\/img.dlsite.jp\/modpub\/images2\/work\/doujin\/RJ229000\/RJ228866_img_main.jpg","restore_price":null}],"time":0.0001552104949951172};</script>
+<script type="text/javascript">var contents = {"impression":[],"detail":[{"id":"RE228866","name":"With Your First Girlfriend, at a Ghostly Night [Ear Cleaning] [Sleep Sharing]","category":"eng","brand":"RG14177","price":450,"regist_date":"2018\/10\/02","image_main":"\/\/img.dlsite.jp\/modpub\/images2\/work\/doujin\/RJ229000\/RJ228866_img_main.jpg","restore_price":"900"}],"time":0.00013399124145507812};</script>
 </body>
 </html>

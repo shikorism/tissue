@@ -65,4 +65,20 @@ class PixivResolverTest extends TestCase
             $this->assertSame('https://www.pixiv.net/ajax/illust/46713544', (string) $this->handler->getLastRequest()->getUri());
         }
     }
+
+    public function testArtworkUrl()
+    {
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/Pixiv/illust.json');
+
+        $this->createResolver(PixivResolver::class, $responseText);
+
+        $metadata = $this->resolver->resolve('https://www.pixiv.net/artworks/68188073');
+        $this->assertEquals('coffee break', $metadata->title);
+        $this->assertEquals('投稿者: 裕' . PHP_EOL, $metadata->description);
+        $this->assertEquals('https://i.pixiv.cat/img-master/img/2018/04/12/00/01/28/68188073_p0_master1200.jpg', $metadata->image);
+        $this->assertEquals(['オリジナル', 'カフェ', '眼鏡', 'イヤホン', 'ぱっつん', '艶ぼくろ', '眼鏡っ娘', 'オリジナル5000users入り'], $metadata->tags);
+        if ($this->shouldUseMock()) {
+            $this->assertSame('https://www.pixiv.net/ajax/illust/68188073', (string) $this->handler->getLastRequest()->getUri());
+        }
+    }
 }

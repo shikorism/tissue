@@ -3,7 +3,7 @@
 namespace Tests\Unit\MetadataResolver;
 
 use App\MetadataResolver\OGPResolver;
-use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\BadResponseException;
 use Tests\TestCase;
 
 class OGPResolverTest extends TestCase
@@ -14,7 +14,7 @@ class OGPResolverTest extends TestCase
     {
         $this->createResolver(OGPResolver::class, '', [], 404);
 
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(BadResponseException::class);
         $this->resolver->resolve('http://example.com/404');
     }
 

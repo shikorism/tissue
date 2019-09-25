@@ -15,7 +15,7 @@ class Ejaculation extends Model
     protected $fillable = [
         'user_id', 'ejaculated_date',
         'note', 'geo_latitude', 'geo_longitude', 'link',
-        'is_private'
+        'is_private', 'is_too_sensitive'
     ];
 
     protected $dates = [
@@ -56,6 +56,7 @@ class Ejaculation extends Model
                     },
                     'likes.user' => function ($query) {
                         $query->where('is_protected', false)
+                            ->where('private_likes', false)
                             ->orWhere('id', Auth::id());
                     }
                 ])
@@ -72,11 +73,25 @@ class Ejaculation extends Model
                         $query->latest()->take(10);
                     },
                     'likes.user' => function ($query) {
-                        $query->where('is_protected', false);
+                        $query->where('is_protected', false)
+                            ->where('private_likes', false);
                     }
                 ])
                 ->withCount('likes')
                 ->addSelect(DB::raw('0 as is_liked'));
         }
+    }
+
+    /**
+     * このチェックインと同じ情報を流用してチェックインするためのURLを生成
+     * @return string
+     */
+    public function makeCheckinURL(): string
+    {
+        return route('checkin', [
+            'link' => $this->link,
+            'tags' => $this->textTags(),
+            'is_too_sensitive' => $this->is_too_sensitive,
+        ]);
     }
 }

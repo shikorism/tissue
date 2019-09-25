@@ -29,7 +29,7 @@
                 </div>
                 <input id="name" name="name" type="text" class="form-control" value="{{ Auth::user()->name }}" disabled>
             </div>
-            <small class="form-text text-muted">現在は変更できません。</small>
+            <small class="form-text text-muted">変更することはできません。</small>
         </div>
         <div class="from-group mt-3">
             <label for="email">メールアドレス</label>

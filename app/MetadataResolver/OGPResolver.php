@@ -18,12 +18,7 @@ class OGPResolver implements Resolver, Parser
 
     public function resolve(string $url): Metadata
     {
-        $res = $this->client->get($url);
-        if ($res->getStatusCode() === 200) {
-            return $this->parse($res->getBody());
-        } else {
-            throw new \RuntimeException("{$res->getStatusCode()}: $url");
-        }
+        return $this->parse($this->client->get($url)->getBody());
     }
 
     public function parse(string $html): Metadata

@@ -1,5 +1,10 @@
 <div class="card link-card mb-2 px-0 col-12 d-none" style="font-size: small;">
-    <a class="text-dark card-link" href="{{ $link }}" target="_blank" rel="noopener">
+    @if ($is_too_sensitive)
+        <div class="card-spoiler-overlay">
+            <span class="warning-text">クリックまたはタップで表示</span>
+        </div>
+    @endif
+    <a class="text-dark card-link {{ $is_too_sensitive ? 'card-spoiler' : '' }}" href="{{ $link }}" target="_blank" rel="noopener">
         <div class="row no-gutters">
             <div class="col-12 col-md-6 justify-content-center align-items-center">
                 <img src="" alt="Thumbnail" class="w-100 bg-secondary">

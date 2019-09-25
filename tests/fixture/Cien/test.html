@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  
+  <meta name="google-site-verification" content="4UtUmaro4aJIR94PZdv-GoliXlDvtUVFL03-9CTh68s" />
+  <meta charset="UTF-8"><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={xpid:"VgIBU1dVDhADUlRQBQUEU10="};window.NREUM||(NREUM={}),__nr_require=function(t,n,e){function r(e){if(!n[e]){var o=n[e]={exports:{}};t[e][0].call(o.exports,function(n){var o=t[e][1][n];return r(o||n)},o,o.exports)}return n[e].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<e.length;o++)r(e[o]);return r}({1:[function(t,n,e){function r(t){try{s.console&&console.log(t)}catch(n){}}var o,i=t("ee"),a=t(18),s={};try{o=localStorage.getItem("__nr_flags").split(","),console&&"function"==typeof console.log&&(s.console=!0,o.indexOf("dev")!==-1&&(s.dev=!0),o.indexOf("nr_dev")!==-1&&(s.nrDev=!0))}catch(c){}s.nrDev&&i.on("internal-error",function(t){r(t.stack)}),s.dev&&i.on("fn-err",function(t,n,e){r(e.stack)}),s.dev&&(r("NR AGENT IN DEVELOPMENT MODE"),r("flags: "+a(s,function(t,n){return t}).join(", ")))},{}],2:[function(t,n,e){function r(t,n,e,r,s){try{p?p-=1:o(s||new UncaughtException(t,n,e),!0)}catch(f){try{i("ierr",[f,c.now(),!0])}catch(d){}}return"function"==typeof u&&u.apply(this,a(arguments))}function UncaughtException(t,n,e){this.message=t||"Uncaught error with no additional information",this.sourceURL=n,this.line=e}function o(t,n){var e=n?null:c.now();i("err",[t,e])}var i=t("handle"),a=t(19),s=t("ee"),c=t("loader"),f=t("gos"),u=window.onerror,d=!1,l="nr@seenError",p=0;c.features.err=!0,t(1),window.onerror=r;try{throw new Error}catch(h){"stack"in h&&(t(8),t(7),"addEventListener"in window&&t(5),c.xhrWrappable&&t(9),d=!0)}s.on("fn-start",function(t,n,e){d&&(p+=1)}),s.on("fn-err",function(t,n,e){d&&!e[l]&&(f(e,l,function(){return!0}),this.thrown=!0,o(e))}),s.on("fn-end",function(){d&&!this.thrown&&p>0&&(p-=1)}),s.on("internal-error",function(t){i("ierr",[t,c.now(),!0])})},{}],3:[function(t,n,e){t("loader").features.ins=!0},{}],4:[function(t,n,e){function r(t){}if(window.performance&&window.performance.timing&&window.performance.getEntriesByType){var o=t("ee"),i=t("handle"),a=t(8),s=t(7),c="learResourceTimings",f="addEventListener",u="resourcetimingbufferfull",d="bstResource",l="resource",p="-start",h="-end",m="fn"+p,w="fn"+h,v="bstTimer",y="pushState",g=t("loader");g.features.stn=!0,t(6);var x=NREUM.o.EV;o.on(m,function(t,n){var e=t[0];e instanceof x&&(this.bstStart=g.now())}),o.on(w,function(t,n){var e=t[0];e instanceof x&&i("bst",[e,n,this.bstStart,g.now()])}),a.on(m,function(t,n,e){this.bstStart=g.now(),this.bstType=e}),a.on(w,function(t,n){i(v,[n,this.bstStart,g.now(),this.bstType])}),s.on(m,function(){this.bstStart=g.now()}),s.on(w,function(t,n){i(v,[n,this.bstStart,g.now(),"requestAnimationFrame"])}),o.on(y+p,function(t){this.time=g.now(),this.startPath=location.pathname+location.hash}),o.on(y+h,function(t){i("bstHist",[location.pathname+location.hash,this.startPath,this.time])}),f in window.performance&&(window.performance["c"+c]?window.performance[f](u,function(t){i(d,[window.performance.getEntriesByType(l)]),window.performance["c"+c]()},!1):window.performance[f]("webkit"+u,function(t){i(d,[window.performance.getEntriesByType(l)]),window.performance["webkitC"+c]()},!1)),document[f]("scroll",r,{passive:!0}),document[f]("keypress",r,!1),document[f]("click",r,!1)}},{}],5:[function(t,n,e){function r(t){for(var n=t;n&&!n.hasOwnProperty(u);)n=Object.getPrototypeOf(n);n&&o(n)}function o(t){s.inPlace(t,[u,d],"-",i)}function i(t,n){return t[1]}var a=t("ee").get("events"),s=t(21)(a,!0),c=t("gos"),f=XMLHttpRequest,u="addEventListener",d="removeEventListener";n.exports=a,"getPrototypeOf"in Object?(r(document),r(window),r(f.prototype)):f.prototype.hasOwnProperty(u)&&(o(window),o(f.prototype)),a.on(u+"-start",function(t,n){var e=t[1],r=c(e,"nr@wrapped",function(){function t(){if("function"==typeof e.handleEvent)return e.handleEvent.apply(e,arguments)}var n={object:t,"function":e}[typeof e];return n?s(n,"fn-",null,n.name||"anonymous"):e});this.wrapped=t[1]=r}),a.on(d+"-start",function(t){t[1]=this.wrapped||t[1]})},{}],6:[function(t,n,e){var r=t("ee").get("history"),o=t(21)(r);n.exports=r;var i=window.history&&window.history.constructor&&window.history.constructor.prototype,a=window.history;i&&i.pushState&&i.replaceState&&(a=i),o.inPlace(a,["pushState","replaceState"],"-")},{}],7:[function(t,n,e){var r=t("ee").get("raf"),o=t(21)(r),i="equestAnimationFrame";n.exports=r,o.inPlace(window,["r"+i,"mozR"+i,"webkitR"+i,"msR"+i],"raf-"),r.on("raf-start",function(t){t[0]=o(t[0],"fn-")})},{}],8:[function(t,n,e){function r(t,n,e){t[0]=a(t[0],"fn-",null,e)}function o(t,n,e){this.method=e,this.timerDuration=isNaN(t[1])?0:+t[1],t[0]=a(t[0],"fn-",this,e)}var i=t("ee").get("timer"),a=t(21)(i),s="setTimeout",c="setInterval",f="clearTimeout",u="-start",d="-";n.exports=i,a.inPlace(window,[s,"setImmediate"],s+d),a.inPlace(window,[c],c+d),a.inPlace(window,[f,"clearImmediate"],f+d),i.on(c+u,r),i.on(s+u,o)},{}],9:[function(t,n,e){function r(t,n){d.inPlace(n,["onreadystatechange"],"fn-",s)}function o(){var t=this,n=u.context(t);t.readyState>3&&!n.resolved&&(n.resolved=!0,u.emit("xhr-resolved",[],t)),d.inPlace(t,y,"fn-",s)}function i(t){g.push(t),h&&(b?b.then(a):w?w(a):(E=-E,R.data=E))}function a(){for(var t=0;t<g.length;t++)r([],g[t]);g.length&&(g=[])}function s(t,n){return n}function c(t,n){for(var e in t)n[e]=t[e];return n}t(5);var f=t("ee"),u=f.get("xhr"),d=t(21)(u),l=NREUM.o,p=l.XHR,h=l.MO,m=l.PR,w=l.SI,v="readystatechange",y=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"],g=[];n.exports=u;var x=window.XMLHttpRequest=function(t){var n=new p(t);try{u.emit("new-xhr",[n],n),n.addEventListener(v,o,!1)}catch(e){try{u.emit("internal-error",[e])}catch(r){}}return n};if(c(p,x),x.prototype=p.prototype,d.inPlace(x.prototype,["open","send"],"-xhr-",s),u.on("send-xhr-start",function(t,n){r(t,n),i(n)}),u.on("open-xhr-start",r),h){var b=m&&m.resolve();if(!w&&!m){var E=1,R=document.createTextNode(E);new h(a).observe(R,{characterData:!0})}}else f.on("fn-end",function(t){t[0]&&t[0].type===v||a()})},{}],10:[function(t,n,e){function r(){var t=window.NREUM,n=t.info.accountID||null,e=t.info.agentID||null,r=t.info.trustKey||null,i="btoa"in window&&"function"==typeof window.btoa;if(!n||!e||!i)return null;var a={v:[0,1],d:{ty:"Browser",ac:n,ap:e,id:o.generateCatId(),tr:o.generateCatId(),ti:Date.now()}};return r&&n!==r&&(a.d.tk=r),btoa(JSON.stringify(a))}var o=t(16);n.exports={generateTraceHeader:r}},{}],11:[function(t,n,e){function r(t){var n=this.params,e=this.metrics;if(!this.ended){this.ended=!0;for(var r=0;r<p;r++)t.removeEventListener(l[r],this.listener,!1);n.aborted||(e.duration=s.now()-this.startTime,this.loadCaptureCalled||4!==t.readyState?null==n.status&&(n.status=0):a(this,t),e.cbTime=this.cbTime,d.emit("xhr-done",[t],t),c("xhr",[n,e,this.startTime]))}}function o(t,n){var e=t.responseType;if("json"===e&&null!==n)return n;var r="arraybuffer"===e||"blob"===e||"json"===e?t.response:t.responseText;return w(r)}function i(t,n){var e=f(n),r=t.params;r.host=e.hostname+":"+e.port,r.pathname=e.pathname,t.sameOrigin=e.sameOrigin}function a(t,n){t.params.status=n.status;var e=o(n,t.lastSize);if(e&&(t.metrics.rxSize=e),t.sameOrigin){var r=n.getResponseHeader("X-NewRelic-App-Data");r&&(t.params.cat=r.split(", ").pop())}t.loadCaptureCalled=!0}var s=t("loader");if(s.xhrWrappable){var c=t("handle"),f=t(12),u=t(10).generateTraceHeader,d=t("ee"),l=["load","error","abort","timeout"],p=l.length,h=t("id"),m=t(15),w=t(14),v=window.XMLHttpRequest;s.features.xhr=!0,t(9),d.on("new-xhr",function(t){var n=this;n.totalCbs=0,n.called=0,n.cbTime=0,n.end=r,n.ended=!1,n.xhrGuids={},n.lastSize=null,n.loadCaptureCalled=!1,t.addEventListener("load",function(e){a(n,t)},!1),m&&(m>34||m<10)||window.opera||t.addEventListener("progress",function(t){n.lastSize=t.loaded},!1)}),d.on("open-xhr-start",function(t){this.params={method:t[0]},i(this,t[1]),this.metrics={}}),d.on("open-xhr-end",function(t,n){"loader_config"in NREUM&&"xpid"in NREUM.loader_config&&this.sameOrigin&&n.setRequestHeader("X-NewRelic-ID",NREUM.loader_config.xpid);var e=!1;if("init"in NREUM&&"distributed_tracing"in NREUM.init&&(e=!!NREUM.init.distributed_tracing.enabled),e&&this.sameOrigin){var r=u();r&&n.setRequestHeader("newrelic",r)}}),d.on("send-xhr-start",function(t,n){var e=this.metrics,r=t[0],o=this;if(e&&r){var i=w(r);i&&(e.txSize=i)}this.startTime=s.now(),this.listener=function(t){try{"abort"!==t.type||o.loadCaptureCalled||(o.params.aborted=!0),("load"!==t.type||o.called===o.totalCbs&&(o.onloadCalled||"function"!=typeof n.onload))&&o.end(n)}catch(e){try{d.emit("internal-error",[e])}catch(r){}}};for(var a=0;a<p;a++)n.addEventListener(l[a],this.listener,!1)}),d.on("xhr-cb-time",function(t,n,e){this.cbTime+=t,n?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof e.onload||this.end(e)}),d.on("xhr-load-added",function(t,n){var e=""+h(t)+!!n;this.xhrGuids&&!this.xhrGuids[e]&&(this.xhrGuids[e]=!0,this.totalCbs+=1)}),d.on("xhr-load-removed",function(t,n){var e=""+h(t)+!!n;this.xhrGuids&&this.xhrGuids[e]&&(delete this.xhrGuids[e],this.totalCbs-=1)}),d.on("addEventListener-end",function(t,n){n instanceof v&&"load"===t[0]&&d.emit("xhr-load-added",[t[1],t[2]],n)}),d.on("removeEventListener-end",function(t,n){n instanceof v&&"load"===t[0]&&d.emit("xhr-load-removed",[t[1],t[2]],n)}),d.on("fn-start",function(t,n,e){n instanceof v&&("onload"===e&&(this.onload=!0),("load"===(t[0]&&t[0].type)||this.onload)&&(this.xhrCbStart=s.now()))}),d.on("fn-end",function(t,n){this.xhrCbStart&&d.emit("xhr-cb-time",[s.now()-this.xhrCbStart,this.onload,n],n)})}},{}],12:[function(t,n,e){n.exports=function(t){var n=document.createElement("a"),e=window.location,r={};n.href=t,r.port=n.port;var o=n.href.split("://");!r.port&&o[1]&&(r.port=o[1].split("/")[0].split("@").pop().split(":")[1]),r.port&&"0"!==r.port||(r.port="https"===o[0]?"443":"80"),r.hostname=n.hostname||e.hostname,r.pathname=n.pathname,r.protocol=o[0],"/"!==r.pathname.charAt(0)&&(r.pathname="/"+r.pathname);var i=!n.protocol||":"===n.protocol||n.protocol===e.protocol,a=n.hostname===document.domain&&n.port===e.port;return r.sameOrigin=i&&(!n.hostname||a),r}},{}],13:[function(t,n,e){function r(){}function o(t,n,e){return function(){return i(t,[f.now()].concat(s(arguments)),n?null:this,e),n?void 0:this}}var i=t("handle"),a=t(18),s=t(19),c=t("ee").get("tracer"),f=t("loader"),u=NREUM;"undefined"==typeof window.newrelic&&(newrelic=u);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],l="api-",p=l+"ixn-";a(d,function(t,n){u[n]=o(l+n,!0,"api")}),u.addPageAction=o(l+"addPageAction",!0),u.setCurrentRouteName=o(l+"routeName",!0),n.exports=newrelic,u.interaction=function(){return(new r).get()};var h=r.prototype={createTracer:function(t,n){var e={},r=this,o="function"==typeof n;return i(p+"tracer",[f.now(),t,e],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],e),o)try{return n.apply(this,arguments)}catch(t){throw c.emit("fn-err",[arguments,this,t],e),t}finally{c.emit("fn-end",[f.now()],e)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,n){h[n]=o(p+n)}),newrelic.noticeError=function(t,n){"string"==typeof t&&(t=new Error(t)),i("err",[t,f.now(),!1,n])}},{}],14:[function(t,n,e){n.exports=function(t){if("string"==typeof t&&t.length)return t.length;if("object"==typeof t){if("undefined"!=typeof ArrayBuffer&&t instanceof ArrayBuffer&&t.byteLength)return t.byteLength;if("undefined"!=typeof Blob&&t instanceof Blob&&t.size)return t.size;if(!("undefined"!=typeof FormData&&t instanceof FormData))try{return JSON.stringify(t).length}catch(n){return}}}},{}],15:[function(t,n,e){var r=0,o=navigator.userAgent.match(/Firefox[\/\s](\d+\.\d+)/);o&&(r=+o[1]),n.exports=r},{}],16:[function(t,n,e){function r(){function t(){return n?15&n[e++]:16*Math.random()|0}var n=null,e=0,r=window.crypto||window.msCrypto;r&&r.getRandomValues&&(n=r.getRandomValues(new Uint8Array(31)));for(var o,i="xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx",a="",s=0;s<i.length;s++)o=i[s],"x"===o?a+=t().toString(16):"y"===o?(o=3&t()|8,a+=o.toString(16)):a+=o;return a}function o(){function t(){return n?15&n[e++]:16*Math.random()|0}var n=null,e=0,r=window.crypto||window.msCrypto;r&&r.getRandomValues&&Uint8Array&&(n=r.getRandomValues(new Uint8Array(31)));for(var o=[],i=0;i<16;i++)o.push(t().toString(16));return o.join("")}n.exports={generateUuid:r,generateCatId:o}},{}],17:[function(t,n,e){function r(t,n){if(!o)return!1;if(t!==o)return!1;if(!n)return!0;if(!i)return!1;for(var e=i.split("."),r=n.split("."),a=0;a<r.length;a++)if(r[a]!==e[a])return!1;return!0}var o=null,i=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var s=navigator.userAgent,c=s.match(a);c&&s.indexOf("Chrome")===-1&&s.indexOf("Chromium")===-1&&(o="Safari",i=c[1])}n.exports={agent:o,version:i,match:r}},{}],18:[function(t,n,e){function r(t,n){var e=[],r="",i=0;for(r in t)o.call(t,r)&&(e[i]=n(r,t[r]),i+=1);return e}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],19:[function(t,n,e){function r(t,n,e){n||(n=0),"undefined"==typeof e&&(e=t?t.length:0);for(var r=-1,o=e-n||0,i=Array(o<0?0:o);++r<o;)i[r]=t[n+r];return i}n.exports=r},{}],20:[function(t,n,e){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],21:[function(t,n,e){function r(t){return!(t&&t instanceof Function&&t.apply&&!t[a])}var o=t("ee"),i=t(19),a="nr@original",s=Object.prototype.hasOwnProperty,c=!1;n.exports=function(t,n){function e(t,n,e,o){function nrWrapper(){var r,a,s,c;try{a=this,r=i(arguments),s="function"==typeof e?e(r,a):e||{}}catch(f){l([f,"",[r,a,o],s])}u(n+"start",[r,a,o],s);try{return c=t.apply(a,r)}catch(d){throw u(n+"err",[r,a,d],s),d}finally{u(n+"end",[r,a,c],s)}}return r(t)?t:(n||(n=""),nrWrapper[a]=t,d(t,nrWrapper),nrWrapper)}function f(t,n,o,i){o||(o="");var a,s,c,f="-"===o.charAt(0);for(c=0;c<n.length;c++)s=n[c],a=t[s],r(a)||(t[s]=e(a,f?s+o:o,i,s))}function u(e,r,o){if(!c||n){var i=c;c=!0;try{t.emit(e,r,o,n)}catch(a){l([a,e,r,o])}c=i}}function d(t,n){if(Object.defineProperty&&Object.keys)try{var e=Object.keys(t);return e.forEach(function(e){Object.defineProperty(n,e,{get:function(){return t[e]},set:function(n){return t[e]=n,n}})}),n}catch(r){l([r])}for(var o in t)s.call(t,o)&&(n[o]=t[o]);return n}function l(n){try{t.emit("internal-error",n)}catch(e){}}return t||(t=o),e.inPlace=f,e.flag=a,e}},{}],ee:[function(t,n,e){function r(){}function o(t){function n(t){return t&&t instanceof r?t:t?c(t,s,i):i()}function e(e,r,o,i){if(!l.aborted||i){t&&t(e,r,o);for(var a=n(o),s=m(e),c=s.length,f=0;f<c;f++)s[f].apply(a,r);var d=u[g[e]];return d&&d.push([x,e,r,a]),a}}function p(t,n){y[t]=m(t).concat(n)}function h(t,n){var e=y[t];if(e)for(var r=0;r<e.length;r++)e[r]===n&&e.splice(r,1)}function m(t){return y[t]||[]}function w(t){return d[t]=d[t]||o(e)}function v(t,n){f(t,function(t,e){n=n||"feature",g[e]=n,n in u||(u[n]=[])})}var y={},g={},x={on:p,addEventListener:p,removeEventListener:h,emit:e,get:w,listeners:m,context:n,buffer:v,abort:a,aborted:!1};return x}function i(){return new r}function a(){(u.api||u.feature)&&(l.aborted=!0,u=l.backlog={})}var s="nr@context",c=t("gos"),f=t(18),u={},d={},l=n.exports=o();l.backlog=u},{}],gos:[function(t,n,e){function r(t,n,e){if(o.call(t,n))return t[n];var r=e();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return t[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(t,n,e){function r(t,n,e,r){o.buffer([t],r),o.emit(t,n,e)}var o=t("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(t,n,e){function r(t){var n=typeof t;return!t||"object"!==n&&"function"!==n?-1:t===window?0:a(t,i,function(){return o++})}var o=1,i="nr@id",a=t("gos");n.exports=r},{}],loader:[function(t,n,e){function r(){if(!E++){var t=b.info=NREUM.info,n=p.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&n))return u.abort();f(g,function(n,e){t[n]||(t[n]=e)}),c("mark",["onload",a()+b.offset],null,"api");var e=p.createElement("script");e.src="https://"+t.agent,n.parentNode.insertBefore(e,n)}}function o(){"complete"===p.readyState&&i()}function i(){c("mark",["domContent",a()+b.offset],null,"api")}function a(){return R.exists&&performance.now?Math.round(performance.now()):(s=Math.max((new Date).getTime(),s))-b.offset}var s=(new Date).getTime(),c=t("handle"),f=t(18),u=t("ee"),d=t(17),l=window,p=l.document,h="addEventListener",m="attachEvent",w=l.XMLHttpRequest,v=w&&w.prototype;NREUM.o={ST:setTimeout,SI:l.setImmediate,CT:clearTimeout,XHR:w,REQ:l.Request,EV:l.Event,PR:l.Promise,MO:l.MutationObserver};var y=""+location,g={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1130.min.js"},x=w&&v&&v[h]&&!/CriOS/.test(navigator.userAgent),b=n.exports={offset:s,now:a,origin:y,features:{},xhrWrappable:x,userAgent:d};t(13),p[h]?(p[h]("DOMContentLoaded",i,!1),l[h]("load",r,!1)):(p[m]("onreadystatechange",o),l[m]("onload",r)),c("mark",["firstbyte",s],null,"api");var E=0,R=t(20)},{}]},{},["loader",2,11,4,3]);</script>
+      <meta name="viewport" id="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+    <meta name="csrf-token" content="4ChSmlbHTfNgDr51QXGb0XuPEIWvrkvWv8H4So3Z">
+  <meta name="app-auth-check" content="0">
+
+    <meta property="og:title" content="進捗とボツ立ち絵">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://ci-en.dlsite.com/creator/2462/article/87502">
+  <meta property="og:image" content="https://media.ci-en.jp/private/attachment/creator/00002462/a7afd3b02a6d1caa6afe6a3bf5550fb6a42aefba686f17a0a2f63c97fd6867ab/image-800.jpg?px-time=1568231879&amp;px-hash=70c57e9a73d5afb4ac5363d1f37a851af8e0cb1f">
+  <meta property="og:site_name" content="Ci-en">
+  <meta property="og:description" content="ドット製２D ACTを製作しています。
+恐ろしい存在に襲われる絶望感や、被虐的な官能がテーマです。">
+    <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="進捗とボツ立ち絵">
+  <meta name="twitter:description" content="ドット製２D ACTを製作しています。
+恐ろしい存在に襲われる絶望感や、被虐的な官能がテーマです。">
+  <meta name="twitter:image:src" content="https://media.ci-en.jp/private/attachment/creator/00002462/a7afd3b02a6d1caa6afe6a3bf5550fb6a42aefba686f17a0a2f63c97fd6867ab/image-800.jpg?px-time=1568231879&amp;px-hash=70c57e9a73d5afb4ac5363d1f37a851af8e0cb1f">
+
+      <meta name="description" content="ドット製２D ACTを製作しています。
+恐ろしい存在に襲われる絶望感や、被虐的な官能がテーマです。進捗とボツ立ち絵">
+  <meta name="keyword" content="Ci-en">
+  <meta name="sentry-public-dsn" content="7319f62f11fe408b932254c5fe87eb64@sentry.io/301968">
+  <meta name="sentry-release" content="fd2635a6350eda85e4dbec5559f0172e7f8086df">
+  <meta name="app-locale" content="ja">
+  <title>進捗とボツ立ち絵 - ねんない５ - Ci-en</title>
+  <link media="all" type="text/css" rel="stylesheet" href="https://ci-en.dlsite.com/assets/css/app.css?1567667013">
+    <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://www.dlsite.com/assets/share/css/universal/universal.css">
+
+  
+  
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-NNPHW5Z');</script>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109913020-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-109913020-1', {
+      'send_page_view': false,
+      'custom_map': {
+        'dimension1':'logined',
+              },
+    });
+    gtag('set', 'linker', {
+      'accept_incoming': true,
+      'domains': ['ci-en.net','ci-en.dlsite.com']
+    });
+    gtag('event', 'page_view', {
+      'logined': '',
+            'has_creator': '0',
+          });
+
+
+
+
+  </script>
+</head>
+
+<body class="global-layout p-rightColumn p-article ">
+        <!-- グローバルヘッダー -->
+<div class="l-eisysGroupHeader type-cien">
+  <vue-global-header
+    account-settings-url="https://login.dlsite.com/user/self?redirect_uri=https%3A%2F%2Fci-en.dlsite.com%2Flogout&amp;lang=ja"
+    is-adult="1"
+          user-id=""
+      creator-id=""
+      ></vue-global-header>
+</div>
+    <header class="global-layout-item type-header">
+  <div class="header-inner">
+
+    <div class="cien-logo type-r18">
+      <a href="/">Ci-en</a>
+    </div>
+
+    <form method="GET" action="https://ci-en.dlsite.com/search" accept-charset="UTF-8" class="hd-searchBox">
+      <input type="text" class="hd-searchInput" name="keyword" placeholder="クリエイターを検索">
+      <input type="submit" class="hd-searchButton" value="&#xe90f;">
+    </form>
+
+    
+    <div class="nav-drawer type-menu">
+      <input id="nav-inputMenu" type="checkbox" class="nav-unshown">
+      <label id="nav-open" for="nav-inputMenu">
+                  <span></span>
+              </label>
+      <label class="nav-unshown icon-navClose" id="nav-close" for="nav-inputMenu"><span></span></label>
+      <div class="nav-content type-left">
+
+        
+                  <div class="navEntry">
+            <p class="text">DLsiteアカウントをお持ちの方はログインできます。</p>
+            <div class="btnBox">
+              <a href="https://ci-en.dlsite.com/login" class="btn type-basic">ログイン</a>
+              <a href="https://ci-en.dlsite.com/login" class="btn type-important">新規登録</a>
+            </div>
+            <p class="notice">株式会社エイシスが運営しているサービスをDLsiteアカウント一つでご利用いただけます。</p>
+          </div>
+          <ul class="nav-submenuList">
+            <li class="nav-submenuList-item"><a href="https://ci-en.dlsite.com/about/supporter">Ci-enとは？</a></li>
+            <li class="nav-submenuList-item"><a href="https://ci-en.dlsite.com/about/creator">クリエイター登録</a></li>
+            <li class="nav-submenuList-item"><a href="https://ci-en.dlsite.com/about/faq">よくある質問</a></li>
+          </ul>
+
+        
+        
+      </div>
+    </div>
+
+    
+    
+    <div class="globalNav-wrap">
+  <ul class="globalNav is-guest">
+
+    <li class="globalNav-item type-bell">
+
+              <a href="https://ci-en.dlsite.com/mypage/activity">
+          <span class="globalNav-icon">通知</span>
+        </a>
+          </li>
+
+    <li class="globalNav-item type-searchBox">
+      <form method="GET" action="https://ci-en.dlsite.com/search" accept-charset="UTF-8" class="hd-search">
+      <input type="submit" class="hd-searchButton" value="&#xe90f;">
+      <input type="text" class="hd-searchInput" name="keyword" placeholder="クリエイターを検索">
+      </form>
+    </li>
+
+    
+    <li class="globalNav-item type-search ">
+      <a href="https://ci-en.dlsite.com/search/top">
+        <span class="globalNav-icon"></span>
+      </a>
+    </li>
+
+    <li class="globalNav-item type-signup">
+      <a href="https://ci-en.dlsite.com/login">Ci-enをはじめる</a>
+    </li>
+
+    <li class="globalNav-item type-mypage">
+      <a href="https://ci-en.dlsite.com/mypage">
+        <span class="globalNav-icon">マイページ</span>
+      </a>
+    </li>
+
+    
+    <li class="globalNav-item type-help">
+      <a href="https://ci-en.dlsite.com/about/faq">
+        <span class="globalNav-icon">ヘルプ</span>
+      </a>
+    </li>
+
+
+  </ul>
+</div>
+
+  </div>
+
+  
+</header>
+    <section class="global-layout-item type-contentsNav">
+                <div class="wideSection type-guestMode">
+      <div class="inner-wideSection">
+        <div class="vertical-box type-guestMode">
+          <h2 class="wideSection-heading type-guestMode"><span>ねんない５</span>さんをフォローして、最新情報をチェックしよう！</h2>
+          <a class="btn type-loginInduction" href="https://ci-en.dlsite.com/mypage">マイページへ</a>
+          <p>Ci-enはクリエイターに対して、金銭的な支援を送ることができるサービスです。</p>
+        </div>
+      </div>
+    </div>
+      
+  
+  <div class="grid-item grid-nav">
+    <div class="creatorPage-">
+              <div class="creatorPage-image">
+          <a href="https://ci-en.dlsite.com/creator/2462">
+            <img class="creatorPage-image" src="https://media.ci-en.jp/public/cover/creator/00002462/6e39359c13406101292920e75cbe56354cd235e82522a7a48d2a39ee1aa63bf6/image-990-c.jpg" alt="">
+          </a>
+        </div>
+            <nav class="creatorNav">
+        <ul class="creatorNavList">
+          <li class="creatorNavList-item">
+            <a href="/creator/2462"
+               dusk="profile"
+               class="type-profile ">プロフィール</a>
+          </li>
+          <li class="creatorNavList-item">
+            <a href="/creator/2462/article"
+               dusk="articles"
+               class="type-articleList is-current">投稿記事</a>
+          </li>
+          <li class="creatorNavList-item">
+            <a href="/creator/2462/plan"
+               dusk="plans"
+               class="type-plan ">プラン</a>
+          </li>
+          <li class="creatorNavList-item">
+            <a href="/creator/2462/supporter"
+               dusk="supporters"
+               class="type-supporter ">支援者</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+    </section>
+  <section id="detail" class="global-layout-item type-contents">
+    <section class="grid-container inner-layout">
+      
+  
+  <div class="grid-item grid-main">
+
+      <div class="contents-wrap innerSpaceFront ">
+
+  
+  <div class="articleFrame-item">
+        <table class="l-userInfoTable">
+      <tr>
+        <td class="l-userInfoTable-item type-icon">
+          <a href="https://ci-en.dlsite.com/creator/2462" class="l-icon type-userFace size-m">
+            <img src="https://media.ci-en.jp/public/icon/creator/00002462/54c9d44506da9e71cc7dd1c688cf1cdb02a3654e7069f3b6d8fcc204c1334d35/image-200-c.jpg" alt="ねんない５">
+          </a>
+        </td>
+        <td class="l-userInfoTable-item">
+          <ul class="userInfoList">
+            <li class="userInfoList-item">
+              <a href="https://ci-en.dlsite.com/creator/2462">ねんない５</a>
+            </li>
+                          <li class="userInfoList-item type-postDate">
+                <a href="https://ci-en.dlsite.com/creator/2462/article/87502">2019年08月06日 17:00</a>
+              </li>
+                      </ul>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="articleFrame-item">
+    <h1 class="article-title"><a href="https://ci-en.dlsite.com/creator/2462/article/87502">進捗とボツ立ち絵</a></h1>
+    <article>
+                        <p></p><div class="file-player-image-wrapper" style="max-width:800px;">
+  <figure style="padding-bottom: calc((471/800)*100%); position: relative;"><img class="file-player-image" src="https://media.ci-en.jp/private/attachment/creator/00002462/a7afd3b02a6d1caa6afe6a3bf5550fb6a42aefba686f17a0a2f63c97fd6867ab/image-800.jpg?px-time=1568231879&px-hash=70c57e9a73d5afb4ac5363d1f37a851af8e0cb1f" alt="" width="800" height="471" data-size="900x530" data-actual="https://media.ci-en.jp/private/attachment/creator/00002462/a7afd3b02a6d1caa6afe6a3bf5550fb6a42aefba686f17a0a2f63c97fd6867ab/image-web.jpg?px-time=1568231879&px-hash=70c57e9a73d5afb4ac5363d1f37a851af8e0cb1f" data-raw="https://media.ci-en.jp/private/attachment/creator/00002462/a7afd3b02a6d1caa6afe6a3bf5550fb6a42aefba686f17a0a2f63c97fd6867ab/upload/%E3%82%AD%E3%83%A3%E3%83%A9%E7%B4%B9%E4%BB%8B%E7%9F%AD%E3%81%84.png?px-time=1568231879&px-hash=70c57e9a73d5afb4ac5363d1f37a851af8e0cb1f" /></figure></div>
+<p>今日のサムネイルはストアページに掲載する予定のキャラクター紹介画像です。</p>
+<p>ドットでない解像度の高いイラストは時間も体力も精神力もかかるので、こういうのを行うタスクを開発終盤に残さないでよかったと本気で思っています。</p>
+<br /><br /><hr /><br /><br /><p>【作業進捗】</p>
+<p>現在は引き続き、音入れ・敵の調整・やられ演出の設定を行っています。<br />
+バグもよくみつかります。</p>
+<br /><p>みつかるバグはいいバグです。</p>
+<br /><br /><br /><p>◆完了したステージ<br />
+・森<br />
+・大樹<br />
+・砦<br />
+・廃村</p>
+<p>◆まだ<br />
+・下水←着手中<br />
+・聖堂</p>
+<br /><p>下水は残すところボスのみですが、ボスの動きにやや大きめの調整が必要で、そこで少し時間を使っています。</p>
+<p>森～廃村ステージまではずっと１日１ステージ単位でやってきましたが、さすがにちょっとペースが早すぎて消耗してきたので、少し速度を落としているというのもあります。</p>
+<br /><br /><br /><hr /><br /><br /><p>◆ボツの立ち絵</p>
+<p>最近は開発も終盤なので、お見せできる絵的な進捗が少なかったと思います。<br />
+おそらくボツになる立ち絵が出てきましたのでそれを掲載させて頂きます。</p>
+<br /><p>ネタバレではないと思いますが、一応エロなので下に置きます。</p>
+<p>お題箱の下記に掲載します。</p>
+
+                                <div class="rewardBox for-follow is-sealed">
+    <div class="rewardBox-heading">フォロワー以上限定<span class="planPrice is-pconly">無料</span></div>
+<div class="grid-rewardBox inner-rewardBox is-past">
+
+
+        <p class="grid-rewardBox-item type-left">開発に関する記事の観覧を行えます。</p>
+    <div class="grid-rewardBox-item type-right">
+      <div class="planPrice is-sponly">無料</div>
+      <vue-follow
+              can-subscribe="false"
+              initial-subscribing-price="null"
+              creator-id="2462"
+              count-target="follower-count-2462"
+              type="reward"
+              reload="true"
+      ></vue-follow>
+        </div>
+</div>
+</div>
+                    </article>
+  </div>
+  <!-- 今後のデフォ -->
+  <div class="articleFrame-item">
+    <div class="sns-voteMessage">＼いいね・ツイートで応援！／</div>
+    <ul class="sns-buttons">
+
+      <li vue-is="vote"
+         vertical-vote="1"
+         article-id="87502"
+         initial-has-voted="0"
+         initial-vote-count="334">
+      </li>
+
+      <li class="twitter is-active">
+        <a href="https://twitter.com/intent/tweet?text=%E9%80%B2%E6%8D%97%E3%81%A8%E3%83%9C%E3%83%84%E7%AB%8B%E3%81%A1%E7%B5%B5+%7C+%E3%81%AD%E3%82%93%E3%81%AA%E3%81%84%EF%BC%95&amp;url=https%3A%2F%2Fci-en.dlsite.com%2Fcreator%2F2462%2Farticle%2F87502&amp;hashtags=Ci_en" target="_blank" rel="noopener noreferrer nofollow">
+          <div class="header">ツイート</div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <!-- end 今後のデフォ -->
+  <div class="articleFrame-item">
+    <div class="articleCommentLink"><a href="https://ci-en.dlsite.com/creator/2462/article/87502#comment">コメント(11)</a></div>
+  </div>
+
+</div>
+
+    <div class="articlePager-wrap">
+      <ul class="articlePager">
+                  <li class="articlePager-item type-next">
+            <a href="https://ci-en.dlsite.com/creator/2462/article/88245" class="grid-articlePager type-next">
+              <div class="grid-articlePager-item type-nav">次の記事</div>
+                              <div class="grid-articlePager-item type-thum l-icon type-articleThum size-pager">
+                  <img src="https://media.ci-en.jp/private/attachment/creator/00002462/89b2f2e1333c1d9f1459f46373a3e0cebe84d2e5f43085cec5ce846f723b15c7/image-200-c.jpg?px-time=1568231879&amp;px-hash=2b193e3afd1dcd9765980ccecb5f0a8b211e8d2d" alt="言語設定の対応">
+                </div>
+                            <div class="grid-articlePager-item type-title">
+                <p class="text-ellipsis">言語設定の対応</p>
+              </div>
+            </a>
+          </li>
+                          <li class="articlePager-item type-prev">
+            <a href="https://ci-en.dlsite.com/creator/2462/article/86858" class="grid-articlePager type-prev">
+              <div class="grid-articlePager-item type-nav">前の記事</div>
+                              <div class="grid-articlePager-item type-thum l-icon type-articleThum size-pager">
+                  <img src="https://media.ci-en.jp/private/attachment/creator/00002462/d971f59c6516b8c17b29f1a5d8478c431c70d963d27d4494cc5b42b61809326e/image-200-c.jpg?px-time=1568231879&amp;px-hash=ea9a8f7a1faf6efab1ea1228558848dec3f7d738" alt="牢屋シーンも入ります">
+                </div>
+                            <div class="grid-articlePager-item type-title">
+                <p class="text-ellipsis">牢屋シーンも入ります</p>
+              </div>
+            </a>
+          </li>
+                <li class="articlePager-item type-latestArticle">
+          <a href="https://ci-en.dlsite.com/creator/2462/article/98417" class="pagerLink">最新の記事</a>
+        </li>
+      </ul>
+    </div>
+
+          <vue-article-comment
+        creator-user-id="24894"
+        creator-id="2462"
+        article-id="87502"
+        creator-name="ねんない５"
+        creator-icon="https://media.ci-en.jp/public/icon/creator/00002462/54c9d44506da9e71cc7dd1c688cf1cdb02a3654e7069f3b6d8fcc204c1334d35/image-200-c.jpg"
+        can-subscribe="false"
+        subscribing-price="null"
+              ></vue-article-comment>
+    
+  </div>
+        <aside class="grid-item grid-side1 side-column">
+  <div class="contents-wrap mod-sideCreatorInfo">
+    <ul class="accountInfo">
+
+      <li class="accountInfo-item type-center">
+
+        
+        <table class="accountInfoTable type-vertical">
+          <tr>
+            <td class="accountInfoTable-item">
+              <p class="l-icon type-userFace size-creatorInfo">
+                <img src="https://media.ci-en.jp/public/icon/creator/00002462/54c9d44506da9e71cc7dd1c688cf1cdb02a3654e7069f3b6d8fcc204c1334d35/image-200-c.jpg" alt="ねんない５">
+              </p>
+            </td>
+            <td class="accountInfoTable-item">
+              <ul class="inner-accountInfo">
+                <li class="inner-accountInfo-item">
+                  <h2 class="type-creatorName">ねんない５</h2>
+                </li>
+                <li class="inner-accountInfo-item">
+                  <a class="item-tag type-activityGenre" href="/search?categoryId=9">ゲーム</a>
+                </li>
+                <li class="inner-accountInfo-item">
+                  <p class="follower">9,847</p>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+
+        <div class="accountInfoGroup">
+          <p class="accountSelfIntro">ドット製２D ACTを製作しています。
+恐ろしい存在に襲われる絶望感や、被虐的な官能がテーマです。</p>
+        </div>
+
+        <div class="accountInfoGroup">
+          <vue-follow
+            can-subscribe="false"
+            initial-subscribing-price="null"
+            creator-id="2462"
+            count-target="follower-count-2462"
+            reload="true"
+          ></vue-follow>
+        </div>
+      </li>
+
+
+      <li class="accountInfo-item">
+        <h3>クリエイタータグ</h3>
+
+        
+        <ul class="tagList type-creator">
+                                    <li class="tagList-item type-creator">
+                <a href="https://ci-en.dlsite.com/search?tag=%23R-18" class="item-tag type-creator">#R-18</a>
+              </li>
+                          <li class="tagList-item type-creator">
+                <a href="https://ci-en.dlsite.com/search?tag=%E3%83%AA%E3%83%A7%E3%83%8A%E3%82%B2%E3%83%BC" class="item-tag type-creator">リョナゲー</a>
+              </li>
+                          <li class="tagList-item type-creator">
+                <a href="https://ci-en.dlsite.com/search?tag=%E3%83%89%E3%83%83%E3%83%88%E7%B5%B5" class="item-tag type-creator">ドット絵</a>
+              </li>
+                          <li class="tagList-item type-creator">
+                <a href="https://ci-en.dlsite.com/search?tag=%E3%82%A2%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%B2%E3%83%BC%E3%83%A0" class="item-tag type-creator">アクションゲーム</a>
+              </li>
+                          <li class="tagList-item type-creator">
+                <a href="https://ci-en.dlsite.com/search?tag=%E3%83%AA%E3%83%A7%E3%83%8A" class="item-tag type-creator">リョナ</a>
+              </li>
+                              </ul>
+      </li>
+
+              <li class="accountInfo-item">
+
+          
+          <h3>外部リンク</h3>
+          <ul class="snsList">
+                          <li class="snsList-item text-ellipsis icon-sns type-twitter">
+                <a href="https://twitter.com/eencya?lang=ja" target="_blank">Twitter</a>
+              </li>
+                          <li class="snsList-item text-ellipsis icon-sns type-else">
+                <a href="https://www.dlsite.com/maniax/announce/=/product_id/RJ247641.html" target="_blank">DLsite</a>
+              </li>
+                      </ul>
+        </li>
+      
+          </ul>
+  </div>
+
+</aside>
+
+  <aside class="grid-item grid-side2 side-column">
+      
+  <div class="sideContent-heading">最新の記事</div>
+  <div class="contents-wrap">
+    <ul class="newArticleList">
+              <li class="newArticleList-item type-sideWrapInner grid-contentBlock type-column-2 at-latestArticle">
+          <div class="grid-contentBlock-item type-left">
+            <ul class="latestArticleList">
+              <li class="latestArticleList-item type-articleTitle">
+                <a class="type-articleTitle" href="https://ci-en.dlsite.com/creator/2462/article/98417">アップデートぜんぱんの進捗</a>
+              </li>
+              <li class="latestArticleList-item subInfo">
+                <span class="type-postDate"><a href="https://ci-en.dlsite.com/creator/2462/article/98417">2019年09月11日 17:00</a></span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="grid-contentBlock-item type-right">
+                          <a href="https://ci-en.dlsite.com/creator/2462/article/98417" class="l-icon type-articleThum at-sideNewArticle">
+                <img src="https://media.ci-en.jp/private/attachment/creator/00002462/7f076c527db61f1d3b05c61334ef441b9e3927163ed45e1ac50e4ed74fc06561/image-200-c.jpg?px-time=1568231879&amp;px-hash=033592e7454db669b51cf748c5e5d9fc2fa117e7" alt="アップデートぜんぱんの進捗">
+              </a>
+                      </div>
+        </li>
+              <li class="newArticleList-item type-sideWrapInner grid-contentBlock type-column-2 at-latestArticle">
+          <div class="grid-contentBlock-item type-left">
+            <ul class="latestArticleList">
+              <li class="latestArticleList-item type-articleTitle">
+                <a class="type-articleTitle" href="https://ci-en.dlsite.com/creator/2462/article/97939">新廃村ステージをかんがえる</a>
+              </li>
+              <li class="latestArticleList-item subInfo">
+                <span class="type-postDate"><a href="https://ci-en.dlsite.com/creator/2462/article/97939">2019年09月09日 17:00</a></span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="grid-contentBlock-item type-right">
+                          <a href="https://ci-en.dlsite.com/creator/2462/article/97939" class="l-icon type-articleThum at-sideNewArticle">
+                <img src="https://media.ci-en.jp/private/attachment/creator/00002462/d088979f703ff9f6c6b89775701a2a0a68c6ca95d4c13881721a1bed702ea387/image-200-c.jpg?px-time=1568231879&amp;px-hash=4deb8cf788a001780914f624c27837094127d4a2" alt="新廃村ステージをかんがえる">
+              </a>
+                      </div>
+        </li>
+              <li class="newArticleList-item type-sideWrapInner grid-contentBlock type-column-2 at-latestArticle">
+          <div class="grid-contentBlock-item type-left">
+            <ul class="latestArticleList">
+              <li class="latestArticleList-item type-articleTitle">
+                <a class="type-articleTitle" href="https://ci-en.dlsite.com/creator/2462/article/96783">新衣装もすすめています</a>
+              </li>
+              <li class="latestArticleList-item subInfo">
+                <span class="type-postDate"><a href="https://ci-en.dlsite.com/creator/2462/article/96783">2019年09月07日 17:00</a></span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="grid-contentBlock-item type-right">
+                          <a href="https://ci-en.dlsite.com/creator/2462/article/96783" class="l-icon type-articleThum at-sideNewArticle">
+                <img src="https://media.ci-en.jp/private/attachment/creator/00002462/0a1b069c21e3969fee044e4bdfb838825834457a41e21b3869b396ae1259aeb5/image-200-c.jpg?px-time=1568231879&amp;px-hash=47247a7c7fa523acc5b66b01ea31dbbeef8619c6" alt="新衣装もすすめています">
+              </a>
+                      </div>
+        </li>
+              <li class="newArticleList-item type-sideWrapInner grid-contentBlock type-column-2 at-latestArticle">
+          <div class="grid-contentBlock-item type-left">
+            <ul class="latestArticleList">
+              <li class="latestArticleList-item type-articleTitle">
+                <a class="type-articleTitle" href="https://ci-en.dlsite.com/creator/2462/article/96167">更新とおっぱい</a>
+              </li>
+              <li class="latestArticleList-item subInfo">
+                <span class="type-postDate"><a href="https://ci-en.dlsite.com/creator/2462/article/96167">2019年09月05日 17:00</a></span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="grid-contentBlock-item type-right">
+                          <a href="https://ci-en.dlsite.com/creator/2462/article/96167" class="l-icon type-articleThum at-sideNewArticle">
+                <img src="https://media.ci-en.jp/private/attachment/creator/00002462/5b20ac667690c262d67f83c945441a1ba8766c355dcb711611c8dd2b368ba612/image-200-c.jpg?px-time=1568231879&amp;px-hash=1335f4c9b663b8a75ec64de2d4c7ac3eb5307d4e" alt="更新とおっぱい">
+              </a>
+                      </div>
+        </li>
+              <li class="newArticleList-item type-sideWrapInner grid-contentBlock type-column-2 at-latestArticle">
+          <div class="grid-contentBlock-item type-left">
+            <ul class="latestArticleList">
+              <li class="latestArticleList-item type-articleTitle">
+                <a class="type-articleTitle" href="https://ci-en.dlsite.com/creator/2462/article/95352">機能追加をすすめています</a>
+              </li>
+              <li class="latestArticleList-item subInfo">
+                <span class="type-postDate"><a href="https://ci-en.dlsite.com/creator/2462/article/95352">2019年09月03日 17:00</a></span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="grid-contentBlock-item type-right">
+                          <a href="https://ci-en.dlsite.com/creator/2462/article/95352" class="l-icon type-articleThum at-sideNewArticle">
+                <img src="https://media.ci-en.jp/private/attachment/creator/00002462/fac3f1da2163f382096098b65ccae10419054c55c23e645f9dde11ca46165f36/image-200-c.jpg?px-time=1568231879&amp;px-hash=ecc73b99724331acc205556184da84d2436acbbc" alt="機能追加をすすめています">
+              </a>
+                      </div>
+        </li>
+          </ul>
+  </div>
+  <div class="sideContent-heading">月別アーカイブ</div>
+  <div class="contents-wrap">
+    <ul class="accordionList">
+              <li class="accordionList-item is-open _triggerObj">
+          <div class="accordion-heading type-sideWrapInner" onclick="this.parentElement.classList.toggle('is-open')">2019</div>
+          <ul class="inner-accordionList _targetObj">
+                          <li class="inner-accordionList-item"><a href="https://ci-en.dlsite.com/creator/2462/article/archive/2019/09">09月</a>
+                （6）
+              </li>
+                          <li class="inner-accordionList-item"><a href="https://ci-en.dlsite.com/creator/2462/article/archive/2019/08">08月</a>
+                （15）
+              </li>
+                          <li class="inner-accordionList-item"><a href="https://ci-en.dlsite.com/creator/2462/article/archive/2019/07">07月</a>
+                （23）
+              </li>
+                          <li class="inner-accordionList-item"><a href="https://ci-en.dlsite.com/creator/2462/article/archive/2019/06">06月</a>
+                （21）
+              </li>
+                          <li class="inner-accordionList-item"><a href="https://ci-en.dlsite.com/creator/2462/article/archive/2019/05">05月</a>
+                （15）
+              </li>
+                          <li class="inner-accordionList-item"><a href="https://ci-en.dlsite.com/creator/2462/article/archive/2019/04">04月</a>
+                （15）
+              </li>
+                          <li class="inner-accordionList-item"><a href="https://ci-en.dlsite.com/creator/2462/article/archive/2019/03">03月</a>
+                （22）
+              </li>
+                      </ul>
+        </li>
+          </ul>
+  </div>
+  <div class="sideContent-heading">記事のタグから探す</div>
+  <div class="contents-wrap">
+    <ul class="tagList type-sideWrapInner">
+              <li class="tagList-item"><a href="https://ci-en.dlsite.com/creator/2462/article/tag/%E3%82%B2%E3%83%BC%E3%83%A0">ゲーム</a>
+          (2)
+        </li>
+              <li class="tagList-item"><a href="https://ci-en.dlsite.com/creator/2462/article/tag/%E3%83%89%E3%83%83%E3%83%88">ドット</a>
+          (2)
+        </li>
+              <li class="tagList-item"><a href="https://ci-en.dlsite.com/creator/2462/article/tag/%E4%BD%93%E9%A8%93%E7%89%88">体験版</a>
+          (2)
+        </li>
+      
+    </ul>
+  </div>
+  <div class="sideContent-heading">限定特典から探す</div>
+  <div class="contents-wrap">
+    <ul class="usuallyList">
+              <li class="usuallyList-item">
+                      <a href="https://ci-en.dlsite.com/creator/2462/article/plan/0">見守る限定</a> (117)
+                  </li>
+              <li class="usuallyList-item">
+                      <a href="https://ci-en.dlsite.com/creator/2462/article/plan/500">開発せよプラン限定</a> (10)
+                  </li>
+          </ul>
+  </div>
+  </aside>
+    </section>
+  </section>
+    <footer class="global-layout-item type-footer">
+  <div class="gotoTOPContainer">
+    <a href="#" class="ankerlink">ページトップ</a>
+  </div>
+
+  <div class="globalFooter">
+    <div class="footerContainer innerSpaceFooter">
+      <dl class="footerNav itemNum1">
+        <dt class="footerNav-title">Ci-enについて</dt>
+        <dd class="footerNav-item"><a href="https://ci-en.dlsite.com/about/supporter" class="footerLink">Ci-enとは？</a></dd>
+        <dd class="footerNav-item"><a href="https://ci-en.dlsite.com/about/creator" class="footerLink">クリエイター登録</a></dd>
+        <dd class="footerNav-item"><a href="https://ci-en.dlsite.com/about/faq" class="footerLink">よくある質問（支援者）</a></dd>
+        <dd class="footerNav-item"><a href="https://ci-en.dlsite.com/about/creator-faq" class="footerLink">よくある質問（クリエイター）</a></dd>
+        <dd class="footerNav-item"><a href="https://ci-en.dlsite.com/inquiry" class="footerLink">お問い合わせ</a></dd>
+        <dd class="footerNav-item"><a href="http://info.ci-en.net" target="_blank" class="footerLink">お知らせブログ</a></dd>
+      </dl>
+
+      <dl class="footerNav itemNum2">
+        <dt class="footerNav-title">運営情報</dt>
+        <dd class="footerNav-item"><a href="http://www.eisys.co.jp/company/company-info.html" target="_blank" class="footerLink">会社概要</a></dd>
+        <dd class="footerNav-item"><a href="https://ci-en.dlsite.com/legal/regulation" class="footerLink">利用規約</a></dd>
+        <dd class="footerNav-item"><a href="https://ci-en.dlsite.com/legal/law" class="footerLink">特定商取引法に基づく表示</a></dd>
+        <dd class="footerNav-item"><a href="https://ci-en.dlsite.com/legal/censorship" class="footerLink">コンプライアンスポリシー</a></dd>
+        <dd class="footerNav-item"><a href="https://ci-en.dlsite.com/legal/privacy" class="footerLink">個人情報の取り扱いについて</a></dd>
+      </dl>
+
+      <div class="l-eisysGroupFooter type-cien is-sponly">
+        <div class="eisysGroupFooterInner">
+          <p class="eisysGroupFooterHeading">関連サービス</p>
+          <ul class="eisysGroupFooterService">
+                          <li class="eisysGroupFooterService-link type-dlsite">
+                <a href="https://www.dlsite.com/maniax-touch/?utm_campaign=cien&amp;utm_medium=text&amp;utm_content=sp_globalfooter"><span>ダウンロードショップ</span>DLsite</a>
+              </li>
+              <li class="eisysGroupFooterService-link type-nijiyome">
+                <a href="https://www.nijiyome.jp/?en=cien&amp;em=text&amp;et=sp_globalfooter"><span>オンラインゲームサイト</span>にじよめ</a>
+              </li>
+                        <li class="eisysGroupFooterService-link type-channel">
+              <a href="https://ch.dlsite.com/?from=sp_globalfooter_cien"><span>二次元コミュニティサイト</span>DLチャンネル</a>
+            </li>
+            <li class="eisysGroupFooterService-link type-chobit">
+              <a href="https://chobit.cc/?from=sp_globalfooter_cien"><span>無料体験版サイト</span>chobit</a>
+            </li>
+            <li class="eisysGroupFooterService-link type-triokini">
+              <a href="https://triokini.com/how_to_use?from=sp_globalfooter_cien"><span>即売会取り置きサイト</span>トリオキニ</a>
+            </li>
+            <li class="eisysGroupFooterService-link type-studio">
+              <a href="https://dlsitestudio.com/?from=sp_globalfooter_cien"><span>音声収録スタジオ</span>DLsiteスタジオ</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="snsArea">
+      <p class="heading">SNS公式アカウント</p>
+      <a href="https://twitter.com/cien_info?lang=ja" class="twitter_link" target="_blink" rel="nofollow noopener"></a>
+    </div>
+    <p class="copyright">&copy; 2018 Ci-en</p>
+  </div>
+</footer>
+    <script src="https://ci-en.dlsite.com/assets/js/vendor.bundle.js?1568167511"></script>
+  <script src="https://ci-en.dlsite.com/assets/js/app.bundle.js?1568167511"></script>
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"134a3ac1f5","applicationID":"365224359","transactionName":"NlQGNkFVWkcDVUFcWQ8eJQFHXVtaTVVHUFcVXhZMUkZAXQFaUBtFCV4T","queueTime":0,"applicationTime":123,"atts":"GhMFQAlPSUk=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>
+
