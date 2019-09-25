@@ -16,7 +16,7 @@ class TagController extends Controller
 tags.name,
 count(*) AS "checkins_count"
 SQL
-            ))
+        ))
             ->join('ejaculation_tag', 'tags.id', '=', 'ejaculation_tag.tag_id')
             ->join('ejaculations', 'ejaculations.id', '=', 'ejaculation_tag.ejaculation_id')
             ->join('users', 'users.id', '=', 'ejaculations.user_id')
