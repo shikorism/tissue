@@ -32,6 +32,7 @@ class MetadataResolver implements Resolver
         '~(adult\.)?contents\.fc2\.com\/article_search\.php\?id=\d+~' => FC2ContentsResolver::class,
         '~store\.steampowered\.com/app/\d+~' => SteamResolver::class,
         '~www\.xtube\.com/video-watch/.*-\d+$~'=> XtubeResolver::class,
+        '~ss\.kb10uy\.org/posts/\d+$~' => Kb10uyShortStoryServerResolver::class,
     ];
 
     public $mimeTypes = [
