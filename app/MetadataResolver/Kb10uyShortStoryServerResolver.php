@@ -22,12 +22,6 @@ class Kb10uyShortStoryServerResolver implements Resolver
     public function resolve(string $url): Metadata
     {
         $res = $this->client->get($url);
-        if ($res->getStatusCode() !== 200) {
-            throw new \RuntimeException("{$res->getStatusCode()}: $url");
-
-            return $this->parse($res->getBody());
-        }
-
         $html = (string) $res->getBody();
         $crawler = new Crawler($html);
         $infoElement = $crawler->filter('div.post-info');
