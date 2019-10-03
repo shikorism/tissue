@@ -36,11 +36,15 @@ class NijieResolver implements Resolver
         $metadata = $this->ogpResolver->parse($html);
         $crawler = new Crawler($html);
 
-        // DomCrawler内でjson内の日本語がHTMLエンティティに変換されるのでhtml_entity_decode
-        $json = html_entity_decode($crawler->filter('script[type="application/ld+json"]')->first()->text());
+        $json = $crawler->filter('script[type="application/ld+json"]')->first()->text();
 
         // 改行がそのまま入っていることがあるのでデコード前にエスケープが必要
         $data = json_decode(preg_replace('/\r?\n/', '\n', $json), true);
+
+        // DomCrawler内でjson内の日本語がHTMLエンティティに変換されるので、全要素に対してhtml_entity_decode
+        array_walk_recursive($data, function (&$v) {
+            $v = html_entity_decode($v);
+        });
 
         $metadata->title = $data['name'];
         $metadata->description = '投稿者: ' . $data['author']['name'] . PHP_EOL . $data['description'];
