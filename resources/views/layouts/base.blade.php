@@ -79,6 +79,9 @@
                         <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.okazu') === 0 ? 'active' : ''}}">
                             <a class="nav-link" href="{{ route('user.okazu', ['name' => Auth::user()->name]) }}">オカズ</a>
                         </li>
+                        <li class="nav-item {{ stripos(Route::currentRouteName(), 'tag') === 0 ? 'active' : ''}}">
+                            <a class="nav-link" href="{{ route('tag') }}">タグ一覧</a>
+                        </li>
                         {{--<li class="nav-item">
                             <a class="nav-link" href="{{ route('ranking') }}">ランキング</a>
                         </li>--}}
@@ -135,6 +138,13 @@
                         </div>
                         <div class="col">
                             <a class="btn btn-{{ stripos(Route::currentRouteName(), 'user.okazu') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('user.okazu', ['name' => Auth::user()->name]) }}" role="button">オカズ</a>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col">
+                            <a class="btn btn-{{ stripos(Route::currentRouteName(), 'tag') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('tag') }}" role="button">タグ一覧</a>
+                        </div>
+                        <div class="col">
                         </div>
                     </div>
                     {{-- <div class="row mt-2">

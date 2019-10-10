@@ -46,6 +46,8 @@ Route::redirect('/search', '/search/checkin', 301);
 Route::get('/search/checkin', 'SearchController@index')->name('search');
 Route::get('/search/related-tag', 'SearchController@relatedTag')->name('search.related-tag');
 
+Route::get('/tag', 'TagController@index')->name('tag');
+
 Route::middleware('can:admin')
     ->namespace('Admin')
     ->prefix('admin')
