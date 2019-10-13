@@ -106,12 +106,20 @@ class EjaculationController extends Controller
     {
         $ejaculation = Ejaculation::findOrFail($id);
 
+        if (Auth::user()->cant('edit', $ejaculation)) {
+            abort(403);
+        }
+
         return view('ejaculation.edit')->with(compact('ejaculation'));
     }
 
     public function update(Request $request, $id)
     {
         $ejaculation = Ejaculation::findOrFail($id);
+
+        if (Auth::user()->cant('edit', $ejaculation)) {
+            abort(403);
+        }
 
         $inputs = $request->all();
 
@@ -163,6 +171,11 @@ class EjaculationController extends Controller
     public function destroy($id)
     {
         $ejaculation = Ejaculation::findOrFail($id);
+
+        if (Auth::user()->cant('edit', $ejaculation)) {
+            abort(403);
+        }
+
         $user = User::findOrFail($ejaculation->user_id);
         $ejaculation->tags()->detach();
         $ejaculation->delete();
