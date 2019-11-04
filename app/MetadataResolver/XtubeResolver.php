@@ -37,13 +37,7 @@ class XtubeResolver implements Resolver
         $metadata->description =  trim($crawler->filter('.fullDescription ')->text(''));
         $metadata->image = str_replace('m=eSuQ8f', 'm=eaAaaEFb', $metadata->image);
         $metadata->image = str_replace('240X180', 'original', $metadata->image);
-        $metadata->tags =
-            array_map(
-                function ($text) {
-                    return trim($text);
-                },
-                $crawler->filter('.tagsCategories a')->extract('_text')
-            );
+        $metadata->tags = array_map('trim', $crawler->filter('.tagsCategories a')->extract('_text'));
 
         return $metadata;
     }
