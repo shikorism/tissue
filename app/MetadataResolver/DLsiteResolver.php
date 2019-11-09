@@ -54,7 +54,7 @@ class DLsiteResolver implements Resolver
     {
         //アフィリエイトの場合は普通のURLに変換
         // ID型
-        if (strpos($url, '/dlaf/=/link/') !== false || preg_match('~/dlaf/=(/.+/.+)?/link/~', $url)) {
+        if (preg_match('~/dlaf/=(/.+/.+)?/link/~', $url)) {
             preg_match('~www\.dlsite\.com/(?P<genre>.+)/dlaf/=(/.+/.+)?/link/work/aid/(?P<AffiliateId>.+)/id/(?P<titleId>..\d+)(\.html)?~', $url, $matches);
             $url = "https://www.dlsite.com/{$matches['genre']}/work/=/product_id/{$matches['titleId']}.html";
         }
