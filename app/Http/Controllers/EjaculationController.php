@@ -65,6 +65,10 @@ class EjaculationController extends Controller
         if (!empty($inputs['tags'])) {
             $tags = explode(' ', $inputs['tags']);
             foreach ($tags as $tag) {
+                if ($tag === '') {
+                    continue;
+                }
+
                 $tag = Tag::firstOrCreate(['name' => $tag]);
                 $tagIds[] = $tag->id;
             }
@@ -151,6 +155,10 @@ class EjaculationController extends Controller
         if (!empty($inputs['tags'])) {
             $tags = explode(' ', $inputs['tags']);
             foreach ($tags as $tag) {
+                if ($tag === '') {
+                    continue;
+                }
+
                 $tag = Tag::firstOrCreate(['name' => $tag]);
                 $tagIds[] = $tag->id;
             }
