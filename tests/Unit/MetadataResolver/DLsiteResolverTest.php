@@ -227,13 +227,45 @@ class DLsiteResolverTest extends TestCase
         }
     }
 
-    public function testAffiliateLink()
+    public function testOldAffiliateLink()
     {
         $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testHome.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
         $metadata = $this->resolver->resolve('https://www.dlsite.com/home/dlaf/=/link/work/aid/eai04191/id/RJ221761.html');
+        $this->assertEquals('ひつじ、数えてあげるっ', $metadata->title);
+        $this->assertEquals('サークル名: Butterfly Dream' . PHP_EOL . '眠れないあなたに彼女が羊を数えてくれる音声です。', $metadata->description);
+        $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/doujin/RJ222000/RJ221761_img_main.jpg', $metadata->image);
+        $this->assertEquals(['癒し', 'バイノーラル/ダミヘ', '日常/生活', 'ほのぼの', '恋人同士'], $metadata->tags);
+        if ($this->shouldUseMock()) {
+            $this->assertSame('https://www.dlsite.com/home/work/=/product_id/RJ221761.html', (string) $this->handler->getLastRequest()->getUri());
+        }
+    }
+
+    public function testSnsAffiliateLink()
+    {
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testHome.html');
+
+        $this->createResolver(DLsiteResolver::class, $responseText);
+
+        $metadata = $this->resolver->resolve('https://www.dlsite.com/home/dlaf/=/t/s/link/work/aid/eai04191/id/RJ221761.html');
+        $this->assertEquals('ひつじ、数えてあげるっ', $metadata->title);
+        $this->assertEquals('サークル名: Butterfly Dream' . PHP_EOL . '眠れないあなたに彼女が羊を数えてくれる音声です。', $metadata->description);
+        $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/doujin/RJ222000/RJ221761_img_main.jpg', $metadata->image);
+        $this->assertEquals(['癒し', 'バイノーラル/ダミヘ', '日常/生活', 'ほのぼの', '恋人同士'], $metadata->tags);
+        if ($this->shouldUseMock()) {
+            $this->assertSame('https://www.dlsite.com/home/work/=/product_id/RJ221761.html', (string) $this->handler->getLastRequest()->getUri());
+        }
+    }
+
+    public function testAffiliateLink()
+    {
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testHome.html');
+
+        $this->createResolver(DLsiteResolver::class, $responseText);
+
+        $metadata = $this->resolver->resolve('https://www.dlsite.com/home/dlaf/=/t/t/link/work/aid/eai04191/id/RJ221761.html');
         $this->assertEquals('ひつじ、数えてあげるっ', $metadata->title);
         $this->assertEquals('サークル名: Butterfly Dream' . PHP_EOL . '眠れないあなたに彼女が羊を数えてくれる音声です。', $metadata->description);
         $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/doujin/RJ222000/RJ221761_img_main.jpg', $metadata->image);
