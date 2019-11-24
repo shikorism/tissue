@@ -37,6 +37,10 @@ class ActivityPubResolver implements Resolver, Parser
         $activityOrObject = json_decode($json, true);
         $object = $activityOrObject['object'] ?? $activityOrObject;
 
+        if ($object['type'] !== 'Note') {
+            throw new UnsupportedContentException('Unsupported object type: ' . $object['type']);
+        }
+
         $metadata = new Metadata();
 
         $metadata->title = isset($object['attributedTo']) ? $this->getTitleFromActor($object['attributedTo']) : '';

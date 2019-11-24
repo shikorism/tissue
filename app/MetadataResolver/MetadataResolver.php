@@ -48,16 +48,19 @@ class MetadataResolver implements Resolver
     {
         foreach ($this->rules as $pattern => $class) {
             if (preg_match($pattern, $url) === 1) {
-                /** @var Resolver $resolver */
-                $resolver = app($class);
+                try {
+                    /** @var Resolver $resolver */
+                    $resolver = app($class);
 
-                return $resolver->resolve($url);
+                    return $resolver->resolve($url);
+                } catch (UnsupportedContentException $e) {
+                }
             }
         }
 
-        $result = $this->resolveWithAcceptHeader($url);
-        if ($result !== null) {
-            return $result;
+        try {
+            return $this->resolveWithAcceptHeader($url);
+        } catch (UnsupportedContentException $e) {
         }
 
         if (isset($this->defaultResolver)) {
@@ -70,7 +73,7 @@ class MetadataResolver implements Resolver
         throw new \UnexpectedValueException('URL not matched.');
     }
 
-    public function resolveWithAcceptHeader(string $url): ?Metadata
+    public function resolveWithAcceptHeader(string $url): Metadata
     {
         try {
             // Rails等はAcceptに */* が入っていると、ブラウザの適当なAcceptヘッダだと判断して全部無視してしまう。
@@ -115,6 +118,6 @@ class MetadataResolver implements Resolver
             // 5xx は変なAcceptが原因かもしれない（？）ので無視してフォールバック
         }
 
-        return null;
+        throw new UnsupportedContentException();
     }
 }
