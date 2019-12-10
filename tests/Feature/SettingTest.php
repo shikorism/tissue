@@ -45,6 +45,7 @@ class SettingTest extends TestCase
         $this->assertDatabaseMissing('ejaculations', ['id' => $ejaculation->id]);
         $this->assertDatabaseMissing('likes', ['id' => $like->id]);
         $this->assertDatabaseMissing('likes', ['id' => $anotherLike->id]);
+        $this->assertDatabaseHas('deactivated_users', ['name' => $user->name]);
     }
 
     /**
