@@ -45,8 +45,8 @@ class PixivResolver implements Resolver
         }
 
         $page = 0;
-        if (preg_match('~www\.pixiv\.net/artworks/(\d+)~', $url, $matches)) {
-            $illustId = $matches[1];
+        if (preg_match('~www\.pixiv\.net/(en/)?artworks/(?P<illustId>\d+)~', $url, $matches)) {
+            $illustId = $matches['illustId'];
         } else {
             parse_str(parse_url($url, PHP_URL_QUERY), $params);
             $illustId = $params['illust_id'];
