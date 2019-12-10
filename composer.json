@@ -10,6 +10,7 @@
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "~3.3",
         "guzzlehttp/guzzle": "^6.3",
+        "jakeasmith/http_build_url": "^1.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "misd/linkify": "^1.1",
