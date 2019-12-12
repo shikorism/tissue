@@ -65,6 +65,10 @@ class EjaculationController extends Controller
         if (!empty($inputs['tags'])) {
             $tags = explode(' ', $inputs['tags']);
             foreach ($tags as $tag) {
+                if ($tag === '') {
+                    continue;
+                }
+
                 $tag = Tag::firstOrCreate(['name' => $tag]);
                 $tagIds[] = $tag->id;
             }
@@ -106,9 +110,7 @@ class EjaculationController extends Controller
     {
         $ejaculation = Ejaculation::findOrFail($id);
 
-        if (Auth::user()->cant('edit', $ejaculation)) {
-            abort(403);
-        }
+        $this->authorize('edit', $ejaculation);
 
         return view('ejaculation.edit')->with(compact('ejaculation'));
     }
@@ -117,9 +119,7 @@ class EjaculationController extends Controller
     {
         $ejaculation = Ejaculation::findOrFail($id);
 
-        if (Auth::user()->cant('edit', $ejaculation)) {
-            abort(403);
-        }
+        $this->authorize('edit', $ejaculation);
 
         $inputs = $request->all();
 
@@ -155,6 +155,10 @@ class EjaculationController extends Controller
         if (!empty($inputs['tags'])) {
             $tags = explode(' ', $inputs['tags']);
             foreach ($tags as $tag) {
+                if ($tag === '') {
+                    continue;
+                }
+
                 $tag = Tag::firstOrCreate(['name' => $tag]);
                 $tagIds[] = $tag->id;
             }
@@ -172,9 +176,7 @@ class EjaculationController extends Controller
     {
         $ejaculation = Ejaculation::findOrFail($id);
 
-        if (Auth::user()->cant('edit', $ejaculation)) {
-            abort(403);
-        }
+        $this->authorize('edit', $ejaculation);
 
         $user = User::findOrFail($ejaculation->user_id);
         $ejaculation->tags()->detach();

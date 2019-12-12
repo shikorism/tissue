@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/setting/profile', 'SettingController@updateProfile')->name('setting.profile.update');
     Route::get('/setting/privacy', 'SettingController@privacy')->name('setting.privacy');
     Route::post('/setting/privacy', 'SettingController@updatePrivacy')->name('setting.privacy.update');
+    Route::get('/setting/deactivate', 'SettingController@deactivate')->name('setting.deactivate');
+    Route::post('/setting/deactivate', 'SettingController@destroyUser')->name('setting.deactivate.destroy');
 //    Route::get('/setting/password', 'SettingController@password')->name('setting.password');
 });
 
@@ -45,6 +47,8 @@ Route::get('/info/{id}', 'InfoController@show')->where('id', '[0-9]+')->name('in
 Route::redirect('/search', '/search/checkin', 301);
 Route::get('/search/checkin', 'SearchController@index')->name('search');
 Route::get('/search/related-tag', 'SearchController@relatedTag')->name('search.related-tag');
+
+Route::get('/tag', 'TagController@index')->name('tag');
 
 Route::middleware('can:admin')
     ->namespace('Admin')

@@ -129,4 +129,23 @@ class NijieResolverTest extends TestCase
             $this->assertSame('https://nijie.info/view.php?id=66384', (string) $this->handler->getLastRequest()->getUri());
         }
     }
+
+    public function testHasHtmlInAuthorProfile()
+    {
+        $responseText = file_get_contents(__DIR__ . '/../../fixture/Nijie/testHasHtmlInAuthorProfileResponse.html');
+
+        $this->createResolver(NijieResolver::class, $responseText);
+
+        $metadata = $this->resolver->resolve('https://nijie.info/view.php?id=285698');
+        $this->assertSame('ＪＫ文化祭コスプレ喫茶', $metadata->title);
+        $this->assertSame('投稿者: ままままま' . PHP_EOL .
+            'https://www.pixiv.net/fanbox/creator/32045169' . PHP_EOL .
+            'ピクシブのファンボックスでこっちに上げてた一次創作のノリでえっちなやつ描いてます' . PHP_EOL .
+            '二次創作のえっちなやつは相変わらずこっち' . PHP_EOL . '健全目なのはついったー', $metadata->description);
+        $this->assertSame('https://pic.nijie.net/02/nijie_picture/540086_20181028112046_0.png', $metadata->image);
+        $this->assertSame(['バニーガール'], $metadata->tags);
+        if ($this->shouldUseMock()) {
+            $this->assertSame('https://nijie.info/view.php?id=285698', (string) $this->handler->getLastRequest()->getUri());
+        }
+    }
 }

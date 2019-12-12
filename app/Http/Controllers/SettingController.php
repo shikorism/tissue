@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\DeactivatedUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class SettingController extends Controller
 {
@@ -65,6 +69,51 @@ class SettingController extends Controller
         $user->save();
 
         return redirect()->route('setting.privacy')->with('status', 'プライバシー設定を更新しました。');
+    }
+
+    public function deactivate()
+    {
+        return view('setting.deactivate');
+    }
+
+    public function destroyUser(Request $request)
+    {
+        // パスワードチェック
+        $validated = $request->validate([
+            'password' => 'required|string'
+        ]);
+
+        if (!Hash::check($validated['password'], Auth::user()->getAuthPassword())) {
+            throw ValidationException::withMessages([
+                'password' => 'パスワードが正しくありません。'
+            ]);
+        }
+
+        // データの削除
+        set_time_limit(0);
+        DB::transaction(function () {
+            $user = Auth::user();
+
+            // 関連レコードの削除
+            // TODO: 別にDELETE文相当のクエリを一発発行するだけでもいい？
+            foreach ($user->ejaculations as $ejaculation) {
+                $ejaculation->delete();
+            }
+            foreach ($user->likes as $like) {
+                $like->delete();
+            }
+
+            // 先にログアウトしないとユーザーは消せない
+            Auth::logout();
+
+            // ユーザーの削除
+            $user->delete();
+
+            // ユーザー名履歴に追記
+            DeactivatedUser::create(['name' => $user->name]);
+        });
+
+        return view('setting.deactivated');
     }
 
     // ( ◠‿◠ )☛ここに気づいたか・・・消えてもらう ▂▅▇█▓▒░(’ω’)░▒▓█▇▅▂うわあああああああ

@@ -53,6 +53,11 @@ class User extends Authenticatable
         return Auth::check() && $this->id === Auth::user()->id;
     }
 
+    public function ejaculations()
+    {
+        return $this->hasMany(Ejaculation::class);
+    }
+
     public function likes()
     {
         return $this->hasMany(Like::class);

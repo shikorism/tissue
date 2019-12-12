@@ -53,17 +53,19 @@ class DLsiteResolver implements Resolver
     public function resolve(string $url): Metadata
     {
         //アフィリエイトの場合は普通のURLに変換
-        if (strpos($url, '/dlaf/=/link/') !== false) {
-            preg_match('~www\.dlsite\.com/(?P<genre>.+)/dlaf/=/link/work/aid/.+/id/(?P<titleId>..\d+)(\.html)?~', $url, $matches);
+        // ID型
+        if (preg_match('~/dlaf/=(/.+/.+)?/link/~', $url)) {
+            preg_match('~www\.dlsite\.com/(?P<genre>.+)/dlaf/=(/.+/.+)?/link/work/aid/(?P<AffiliateId>.+)/id/(?P<titleId>..\d+)(\.html)?~', $url, $matches);
             $url = "https://www.dlsite.com/{$matches['genre']}/work/=/product_id/{$matches['titleId']}.html";
         }
+        // URL型
         if (strpos($url, '/dlaf/=/aid/') !== false) {
             preg_match('~www\.dlsite\.com/.+/dlaf/=/aid/.+/url/(?P<url>.+)~', $url, $matches);
-            $affiliate_url = urldecode($matches['url']);
-            if (preg_match('~www\.dlsite\.com/.+/(work|announce)/=/product_id/..\d+(\.html)?~', $affiliate_url, $matches)) {
-                $url = $affiliate_url;
+            $affiliateUrl = urldecode($matches['url']);
+            if (preg_match('~www\.dlsite\.com/.+/(work|announce)/=/product_id/..\d+(\.html)?~', $affiliateUrl, $matches)) {
+                $url = $affiliateUrl;
             } else {
-                throw new \RuntimeException("アフィリエイト先のリンクがDLsiteのタイトルではありません: $affiliate_url");
+                throw new \RuntimeException("アフィリエイト先のリンクがDLsiteのタイトルではありません: $affiliateUrl");
             }
         }
 
