@@ -105,7 +105,8 @@ createBarGraph('dow-graph', ['日', '月', '火', '水', '木', '金', '土'], g
 
 // 月間グラフの期間セレクターを準備
 const monthlyTermSelector = document.getElementById('monthly-term');
-for (let year = monthlyTermFrom.getFullYear(); year <= new Date().getFullYear(); year++) {
+const earliestYear = [...new Set(Object.keys(graphData.monthlySum).map(v => v.substr(0, 4)))].shift();
+for (let year = earliestYear; year <= new Date().getFullYear(); year++) {
     const opt = document.createElement('option');
     opt.setAttribute('value', year);
     opt.textContent = `${year}年`;
