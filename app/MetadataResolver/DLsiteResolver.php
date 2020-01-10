@@ -87,8 +87,8 @@ class DLsiteResolver implements Resolver
         preg_match('~ \[([^\[\]]*)\] (予告作品 )?\| DLsite(がるまに)?$~', $metadata->title, $match);
         $makers = explode(' ', $match[1]);
 
-        //フォローボタン(.btn_follow)はテキストを含んでしまうことがあるので要素を削除しておく
-        $followButtonNode = $xpath->query('//*[@class="btn_follow"]')->item(0);
+        //フォローボタン(.add_follow)はテキストを含んでしまうことがあるので要素を削除しておく
+        $followButtonNode = $xpath->query('//*[@class="add_follow"]')->item(0);
         $followButtonNode->parentNode->removeChild($followButtonNode);
 
         // maker, makerHeadを探す

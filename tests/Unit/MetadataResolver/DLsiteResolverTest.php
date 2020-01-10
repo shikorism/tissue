@@ -60,7 +60,7 @@ class DLsiteResolverTest extends TestCase
         $this->assertEquals('快楽ヒストリエ', $metadata->title);
         $this->assertEquals('著者: 火鳥' . PHP_EOL . '天地創造と原初の人類を描いた「創世編」をはじめ、英雄たちの偉業を大真面目に考証した正真正銘の学術コミック全15編。', $metadata->description);
         $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/books/BJ139000/BJ138581_img_main.jpg', $metadata->image);
-        $this->assertEquals(['おっぱい', '青年コミック', 'ギャグ', 'コメディ', '歴史/時代物', 'ロリ', 'ショタ', '妹', '男性/おやじ', '女王様/お姫様', '王子様/王子系', '戦士', 'セーラー服', '着物/和服', '褐色/日焼け', '爺'], $metadata->tags);
+        $this->assertEquals(['おっぱい', '青年コミック', 'ギャグ', 'コメディ', '歴史/時代物', 'ロリ', 'ショタ', '妹', 'おやじ', '女王様/お姫様', '王子様/王子系', '戦士', 'セーラー服', '着物/和服', '褐色/日焼け'], $metadata->tags);
         if ($this->shouldUseMock()) {
             $this->assertSame('https://www.dlsite.com/comic/work/=/product_id/BJ138581.html', (string) $this->handler->getLastRequest()->getUri());
         }
@@ -92,7 +92,7 @@ class DLsiteResolverTest extends TestCase
         $this->assertEquals('euphoria （HDリマスター） Best Price版', $metadata->title);
         $this->assertEquals('ブランド名: CLOCK UP' . PHP_EOL . 'インモラルハードコアADV「euphoria」が高解像度（1024×768）版、「euphoria HDリマスター」となって登場！', $metadata->description);
         $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/professional/VJ009000/VJ008455_img_main.jpg', $metadata->image);
-        $this->assertEquals(['アブノーマル', 'アヘ顔', '退廃/背徳/インモラル', '拘束', '強制/無理矢理', 'スカトロ', '幼なじみ', '女教師', '拷問', '血液/流血', '狂気'], $metadata->tags);
+        $this->assertEquals(['マニアック/変態', 'アヘ顔', '退廃/背徳/インモラル', '拘束', '強制/無理矢理', 'スカトロ', '幼なじみ', '女教師', '拷問', '血液/流血', '狂気'], $metadata->tags);
         if ($this->shouldUseMock()) {
             $this->assertSame('https://www.dlsite.com/pro/work/=/product_id/VJ008455.html', (string) $this->handler->getLastRequest()->getUri());
         }
@@ -124,7 +124,7 @@ class DLsiteResolverTest extends TestCase
         $this->assertEquals('体イク教師', $metadata->title);
         $this->assertEquals('サークル名: Dusk' . PHP_EOL . '思い込みの激しい体育教師に執着されるお話', $metadata->description);
         $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/doujin/RJ218000/RJ217995_img_main.jpg', $metadata->image);
-        $this->assertEquals(['中出し', '陵辱', '変態', '強制/無理矢理', 'レイプ', '教師'], $metadata->tags);
+        $this->assertEquals(['マニアック/変態', '中出し', '陵辱', '強制/無理矢理', 'レイプ', '教師'], $metadata->tags);
         if ($this->shouldUseMock()) {
             $this->assertSame('https://www.dlsite.com/girls/work/=/product_id/RJ217995.html', (string) $this->handler->getLastRequest()->getUri());
         }
