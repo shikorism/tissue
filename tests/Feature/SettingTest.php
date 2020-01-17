@@ -30,13 +30,9 @@ class SettingTest extends TestCase
             'ejaculation_id' => $ejaculation->id,
         ]);
 
-        $token = $this->getCsrfToken($user, '/setting/deactivate');
         $response = $this->actingAs($user)
             ->followingRedirects()
-            ->post('/setting/deactivate', [
-                '_token' => $token,
-                'password' => 'secret',
-            ]);
+            ->post('/setting/deactivate', ['password' => 'secret']);
 
         $response->assertStatus(200)
             ->assertViewIs('setting.deactivated');
@@ -46,19 +42,5 @@ class SettingTest extends TestCase
         $this->assertDatabaseMissing('likes', ['id' => $like->id]);
         $this->assertDatabaseMissing('likes', ['id' => $anotherLike->id]);
         $this->assertDatabaseHas('deactivated_users', ['name' => $user->name]);
-    }
-
-    /**
-     * テスト対象を呼び出す前にGETリクエストを行い、CSRFトークンを得る
-     * @param Authenticatable $user 認証情報
-     * @param string $uri リクエスト先
-     * @return string CSRFトークン
-     */
-    private function getCsrfToken(Authenticatable $user, string $uri): string
-    {
-        $response = $this->actingAs($user)->get($uri);
-        $crawler = new Crawler($response->getContent());
-
-        return $crawler->filter('input[name=_token]')->attr('value');
     }
 }

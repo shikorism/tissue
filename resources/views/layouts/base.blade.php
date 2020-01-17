@@ -214,7 +214,7 @@
 @yield('content')
 <footer class="tis-footer mt-4">
     <div class="container p-3 p-md-4">
-        <p>Copyright (c) 2017-2019 shikorism.net</p>
+        <p>Copyright (c) 2017-2020 shikorism.net</p>
         <ul class="list-inline">
             <li class="list-inline-item"><a href="https://github.com/shibafu528" class="text-dark">Admin(@shibafu528)</a></li>
             <li class="list-inline-item"><a href="https://github.com/shikorism/tissue" class="text-dark">GitHub</a></li>
