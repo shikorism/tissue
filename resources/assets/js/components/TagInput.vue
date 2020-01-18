@@ -41,7 +41,7 @@
                     case 'Enter':
                     case ' ':
                         if ((event as any).isComposing !== true) {
-                            this.tags.push(this.buffer);
+                            this.tags.push(this.buffer.trim());
                             this.buffer = "";
                         }
                         event.preventDefault();
@@ -49,7 +49,7 @@
                     case 'Unidentified':
                         // 実際にテキストボックスに入力されている文字を見に行く (フォールバック処理)
                         if (event.srcElement && (event.srcElement as HTMLInputElement).value.slice(-1) == ' ') {
-                            this.tags.push(this.buffer);
+                            this.tags.push(this.buffer.trim());
                             this.buffer = "";
                             event.preventDefault();
                         }
