@@ -67,7 +67,7 @@
                                 <div class="like-users-tall flex-grow-1 overflow-hidden">
                                     @foreach ($ejaculation->likes as $like)
                                         @if ($like->user !== null)
-                                            <a href="{{ route('user.profile', ['name' => $like->user->name]) }}"><img src="{{ $like->user->getProfileImageUrl(36) }}" width="36" height="36" class="rounded" data-toggle="tooltip" data-placement="bottom" title="{{ $like->user->display_name }}"></a>
+                                            <a href="{{ route('user.profile', ['name' => $like->user->name]) }}"><img src="{{ $like->user->getProfileImageUrl(36) }}" srcset="{{ Formatter::profileImageSrcSet($like->user, 36) }}" width="36" height="36" class="rounded" data-toggle="tooltip" data-placement="bottom" title="{{ $like->user->display_name }}"></a>
                                         @endif
                                     @endforeach
                                 </div>

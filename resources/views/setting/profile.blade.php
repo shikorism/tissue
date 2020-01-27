@@ -9,7 +9,7 @@
         {{ csrf_field() }}
         <div class="from-group">
             <label for="name">アイコン</label>
-            <img src="{{ Auth::user()->getProfileImageUrl(128) }}" class="rounded d-block">
+            <img src="{{ Auth::user()->getProfileImageUrl(128) }}" srcset="{{ Formatter::profileImageSrcSet(Auth::user(), 128) }}" class="rounded d-block">
             <small class="form-text text-muted">変更は<a href="https://gravatar.com/" target="_blank">Gravatar</a>から行えます。</small>
         </div>
         <div class="from-group mt-3">

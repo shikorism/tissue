@@ -1,6 +1,6 @@
 <div class="card mb-4">
     <div class="card-body">
-        <img src="{{ $user->getProfileImageUrl(128) }}" class="rounded mb-1">
+        <img src="{{ $user->getProfileImageUrl(128) }}" srcset="{{ Formatter::profileImageSrcSet($user, 128) }}" class="rounded mb-1">
         <h4 class="card-title">
             <a class="text-dark" href="{{ route('user.profile', ['name' => $user->name]) }}">{{ $user->display_name }}</a>
         </h4>
