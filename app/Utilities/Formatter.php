@@ -80,13 +80,13 @@ class Formatter
      * imgタグのsrcsetで使用できる形式で、プロフィール画像URLを生成します。
      * @param object $user Userなど、getProfileImageUrl()が実装されているオブジェクト
      * @param int $baseSize 1x解像度における画像サイズ
-     * @param int $maxResolution 最大倍率
+     * @param int $maxDensity 最高密度
      * @return string srcset用の文字列
      */
-    public function profileImageSrcSet($user, int $baseSize, int $maxResolution = 3)
+    public function profileImageSrcSet($user, int $baseSize, int $maxDensity = 3)
     {
         $srcset = [];
-        for ($i = 1; $i <= $maxResolution; $i++) {
+        for ($i = 1; $i <= $maxDensity; $i++) {
             $srcset[] = $user->getProfileImageUrl($baseSize * $i) . " {$i}x";
         }
 
