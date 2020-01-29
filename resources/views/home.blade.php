@@ -10,7 +10,7 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <div class="d-flex flex-row align-items-end mb-4">
-                        <img src="{{ Auth::user()->getProfileImageUrl(48) }}" class="rounded mr-2">
+                        <img src="{{ Auth::user()->getProfileImageUrl(48) }}" srcset="{{ Formatter::profileImageSrcSet(Auth::user(), 48) }}" class="rounded mr-2">
                         <div class="d-flex flex-column overflow-hidden">
                             <h5 class="card-title text-truncate">
                                 <a class="text-dark" href="{{ route('user.profile', ['name' => Auth::user()->name]) }}">{{ Auth::user()->display_name }}</a>
