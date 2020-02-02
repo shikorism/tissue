@@ -32,6 +32,10 @@ function createLineGraph(id, labels, data) {
                         beginAtZero: true
                     }
                 }]
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
             }
         }
     });
@@ -60,6 +64,10 @@ function createBarGraph(id, labels, data) {
                         beginAtZero: true
                     }
                 }]
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
             }
         }
     });
