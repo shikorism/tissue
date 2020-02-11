@@ -27,7 +27,7 @@ class MetadataResolver implements Resolver
         '~www\.patreon\.com/~' => PatreonResolver::class,
         '~www\.deviantart\.com/.*/art/.*~' => DeviantArtResolver::class,
         '~\.syosetu\.com/n\d+[a-z]{2,}~' => NarouResolver::class,
-        '~ci-en\.jp/creator/\d+/article/\d+~' => CienResolver::class,
+        '~ci-en\.(jp|dlsite\.com)/creator/\d+/article/\d+~' => CienResolver::class,
         '~www\.plurk\.com\/p\/.*~' => PlurkResolver::class,
         '~(adult\.)?contents\.fc2\.com\/article_search\.php\?id=\d+~' => FC2ContentsResolver::class,
         '~store\.steampowered\.com/app/\d+~' => SteamResolver::class,
