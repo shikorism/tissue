@@ -4,18 +4,24 @@ namespace App\Io;
 
 use App\Ejaculation;
 use App\Exceptions\CsvImportException;
+use App\Rules\CsvDateTime;
 use App\Tag;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use League\Csv\Reader;
 
 class CheckinCsvImporter
 {
+    /** @var User Target user */
+    private $user;
     /** @var string CSV filename */
     private $filename;
 
-    public function __construct(string $filename)
+    public function __construct(User $user, string $filename)
     {
+        $this->user = $user;
         $this->filename = $filename;
     }
 
@@ -45,48 +51,24 @@ class CheckinCsvImporter
             }
 
             foreach ($csv->getRecords() as $offset => $record) {
-                $ejaculation = new Ejaculation();
+                $ejaculation = new Ejaculation(['user_id' => $this->user->id]);
 
-                $checkinAt = $record['日時'] ?? null;
-                if (empty($checkinAt)) {
-                    $errors[] = "{$offset} 行 : 日時列は必須です。";
-                    continue;
-                }
-                if (preg_match('/\A20\d{2}[-/](1[0-2]|0?\d)[-/](0?\d|[1-2]\d|3[01]) (0?\d|1\d|2[0-4]):(0?\d|[1-5]\d)(:(0?\d|[1-5]\d))?\z/', $checkinAt) !== 1) {
-                    $errors[] = "{$offset} 行 : 日時列の書式が正しくありません。";
-                    continue;
-                }
-                $checkinAt = str_replace('/', '-', $checkinAt);
-                try {
-                    $ejaculation->ejaculated_date = Carbon::createFromFormat('!Y-m-d H:i+', $checkinAt);
-                } catch (\InvalidArgumentException $e) {
-                    $errors[] = "{$offset} 行 : 日時列に不正な値が入力されています。";
-                    continue;
-                }
+                $validator = Validator::make($record, [
+                    '日時' => ['required', new CsvDateTime()],
+                    'ノート' => 'nullable|string|max:500',
+                    'オカズリンク' => 'nullable|url|max:2000',
+                ]);
 
-                if (!empty($record['ノート'])) {
-                    $note = $record['ノート'];
-
-                    if (mb_strlen($note) > 500) {
-                        $errors[] = "{$offset} 行 : ノート列は500文字以内にしてください。";
-                        continue;
+                if ($validator->fails()) {
+                    foreach ($validator->errors()->all() as $message) {
+                        $errors[] = "{$offset} 行 : {$message}";
                     }
-
-                    $ejaculation->note = $note;
+                    continue;
                 }
 
-                if (!empty($record['オカズリンク'])) {
-                    $link = $record['オカズリンク'];
-
-                    if (mb_strlen($link) > 2000) {
-                        $errors[] = "{$offset} 行 : オカズリンク列は500文字以内にしてください。";
-                        continue;
-                    }
-
-                    // TODO: URL Validation
-
-                    $ejaculation->link = $link;
-                }
+                $ejaculation->ejaculated_date = Carbon::createFromFormat('!Y/m/d H:i+', $record['日時']);
+                $ejaculation->note = $record['ノート'] ?? '';
+                $ejaculation->link = $record['オカズリンク'] ?? '';
 
                 $tagIds = [];
                 for ($i = 1; $i <= 32; $i++) {
