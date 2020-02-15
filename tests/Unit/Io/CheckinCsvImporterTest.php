@@ -23,71 +23,51 @@ class CheckinCsvImporterTest extends TestCase
         $importer->execute();
     }
 
-    public function testMissingTimeUTF8()
+    /**
+     * @dataProvider provideMissingTime
+     */
+    public function testMissingTime($filename)
     {
         $user = factory(User::class)->create();
         $this->expectException(CsvImportException::class);
         $this->expectExceptionMessage('日時列は必須です。');
 
-        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/missing-time.utf8.csv');
+        $importer = new CheckinCsvImporter($user, $filename);
         $importer->execute();
     }
 
-    public function testMissingTimeSJIS()
+    public function provideMissingTime()
     {
-        $user = factory(User::class)->create();
-        $this->expectException(CsvImportException::class);
-        $this->expectExceptionMessage('日時列は必須です。');
-
-        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/missing-time.sjis.csv');
-        $importer->execute();
+        return [
+            'UTF8' => [__DIR__ . '/../../fixture/Csv/missing-time.utf8.csv'],
+            'SJIS' => [__DIR__ . '/../../fixture/Csv/missing-time.sjis.csv'],
+        ];
     }
 
-    public function testDateNoSecondUTF8()
+    /**
+     * @dataProvider provideDate
+     */
+    public function testDate($expectedDate, $filename)
     {
         $user = factory(User::class)->create();
 
-        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/date-nosecond.utf8.csv');
+        $importer = new CheckinCsvImporter($user, $filename);
         $importer->execute();
         $ejaculation = $user->ejaculations()->first();
 
         $this->assertSame(1, $user->ejaculations()->count());
-        $this->assertEquals(Carbon::create(2020, 1, 23, 6, 1, 0), $ejaculation->ejaculated_date);
+        $this->assertEquals($expectedDate, $ejaculation->ejaculated_date);
     }
 
-    public function testDateNoZeroNoSecondUTF8()
+    public function provideDate()
     {
-        $user = factory(User::class)->create();
+        $date = Carbon::create(2020, 1, 23, 6, 1, 0, 'Asia/Tokyo');
 
-        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/date-nozero-nosecond.utf8.csv');
-        $importer->execute();
-        $ejaculation = $user->ejaculations()->first();
-
-        $this->assertSame(1, $user->ejaculations()->count());
-        $this->assertEquals(Carbon::create(2020, 1, 23, 6, 1, 0), $ejaculation->ejaculated_date);
-    }
-
-    public function testDateUTF8()
-    {
-        $user = factory(User::class)->create();
-
-        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/date.utf8.csv');
-        $importer->execute();
-        $ejaculation = $user->ejaculations()->first();
-
-        $this->assertSame(1, $user->ejaculations()->count());
-        $this->assertEquals(Carbon::create(2020, 1, 23, 6, 1, 0), $ejaculation->ejaculated_date);
-    }
-
-    public function testDateNoZeroUTF8()
-    {
-        $user = factory(User::class)->create();
-
-        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/date-nozero.utf8.csv');
-        $importer->execute();
-        $ejaculation = $user->ejaculations()->first();
-
-        $this->assertSame(1, $user->ejaculations()->count());
-        $this->assertEquals(Carbon::create(2020, 1, 23, 6, 1, 0), $ejaculation->ejaculated_date);
+        return [
+            'Zero, Second, UTF8' => [$date, __DIR__ . '/../../fixture/Csv/date.utf8.csv'],
+            'NoZero, Second, UTF8' => [$date, __DIR__ . '/../../fixture/Csv/date-nozero.utf8.csv'],
+            'Zero, NoSecond, UTF8' => [$date, __DIR__ . '/../../fixture/Csv/date-nosecond.utf8.csv'],
+            'NoZero, NoSecond, UTF8' => [$date, __DIR__ . '/../../fixture/Csv/date-nozero-nosecond.utf8.csv'],
+        ];
     }
 }
