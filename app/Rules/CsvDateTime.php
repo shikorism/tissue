@@ -21,7 +21,7 @@ class CsvDateTime implements Rule
     const MAXIMUM_TIMESTAMP = 4102412399; // 2099-12-31 23:59:59 JST
 
     /** @var string Validation error message */
-    private $message = ':attribute の形式は "年/月/日 時:分" にしてください。';
+    private $message = ':attributeの形式は "年/月/日 時:分" にしてください。';
 
     /**
      * Create a new rule instance.
@@ -56,7 +56,7 @@ class CsvDateTime implements Rule
 
             $timestamp = (int) $date->format('U');
             if ($timestamp < self::MINIMUM_TIMESTAMP || self::MAXIMUM_TIMESTAMP < $timestamp) {
-                $this->message = ':attribute は 2000/01/01 00:00 〜 2099/12/31 23:59 の間のみ対応しています。';
+                $this->message = ':attributeは 2000/01/01 00:00 〜 2099/12/31 23:59 の間のみ対応しています。';
 
                 return false;
             }
