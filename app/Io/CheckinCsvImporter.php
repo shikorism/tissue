@@ -150,21 +150,20 @@ class CheckinCsvImporter
             $column = 'タグ' . $i;
             if (empty($record[$column])) {
                 break;
-            } else {
-                $tag = trim($record[$column]);
-
-                if (empty($tag)) {
-                    break;
-                }
-                if (mb_strlen($tag) > 255) {
-                    throw new CsvImportException("{$line} 行 : {$column}は255文字以内にしてください。");
-                }
-                if (strpos($tag, "\n") !== false) {
-                    throw new CsvImportException("{$line} 行 : {$column}に改行を含めることはできません。");
-                }
-
-                $tags[] = Tag::firstOrCreate(['name' => $tag]);
             }
+
+            $tag = trim($record[$column]);
+            if (empty($tag)) {
+                break;
+            }
+            if (mb_strlen($tag) > 255) {
+                throw new CsvImportException("{$line} 行 : {$column}は255文字以内にしてください。");
+            }
+            if (strpos($tag, "\n") !== false) {
+                throw new CsvImportException("{$line} 行 : {$column}に改行を含めることはできません。");
+            }
+
+            $tags[] = Tag::firstOrCreate(['name' => $tag]);
         }
 
         return $tags;
