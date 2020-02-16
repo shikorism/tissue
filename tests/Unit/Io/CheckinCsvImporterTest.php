@@ -136,4 +136,36 @@ class CheckinCsvImporterTest extends TestCase
             'JP, UTF8' => [__DIR__ . '/../../fixture/Csv/note-over-length.jp.utf8.csv'],
         ];
     }
+
+    public function testLinkUTF8()
+    {
+        $user = factory(User::class)->create();
+
+        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/link.utf8.csv');
+        $importer->execute();
+        $ejaculations = $user->ejaculations()->orderBy('ejaculated_date')->get();
+
+        $this->assertCount(1, $ejaculations);
+        $this->assertEquals('http://example.com', $ejaculations[0]->link);
+    }
+
+    public function testLinkOverLengthUTF8()
+    {
+        $user = factory(User::class)->create();
+        $this->expectException(CsvImportException::class);
+        $this->expectExceptionMessage('3 行 : オカズリンクには2000文字以下の文字列を指定してください。');
+
+        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/link-over-length.utf8.csv');
+        $importer->execute();
+    }
+
+    public function testLinkIsNotUrlUTF8()
+    {
+        $user = factory(User::class)->create();
+        $this->expectException(CsvImportException::class);
+        $this->expectExceptionMessage('2 行 : オカズリンクには正しい形式のURLを指定してください。');
+
+        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/link-not-url.utf8.csv');
+        $importer->execute();
+    }
 }
