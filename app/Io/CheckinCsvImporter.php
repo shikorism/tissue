@@ -68,7 +68,7 @@ class CheckinCsvImporter
                 }
 
                 $ejaculation->ejaculated_date = Carbon::createFromFormat('!Y/m/d H:i+', $record['日時']);
-                $ejaculation->note = $record['ノート'] ?? '';
+                $ejaculation->note = str_replace(["\r\n", "\r"], "\n", $record['ノート'] ?? '');
                 $ejaculation->link = $record['オカズリンク'] ?? '';
 
                 $tagIds = [];
