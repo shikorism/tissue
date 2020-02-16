@@ -13,7 +13,7 @@ class CsvImportException extends \RuntimeException
      * CsvImportException constructor.
      * @param string[] $errors
      */
-    public function __construct(array $errors)
+    public function __construct(...$errors)
     {
         parent::__construct(array_first($errors));
         $this->errors = $errors;

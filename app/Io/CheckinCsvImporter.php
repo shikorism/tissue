@@ -43,7 +43,10 @@ class CheckinCsvImporter
 
             if (!in_array('日時', $csv->getHeader(), true)) {
                 $errors[] = '日時列は必須です。';
-                throw new CsvImportException($errors);
+            }
+
+            if (!empty($errors)) {
+                throw new CsvImportException(...$errors);
             }
 
             foreach ($csv->getRecords() as $offset => $record) {
@@ -81,7 +84,7 @@ class CheckinCsvImporter
             }
 
             if (!empty($errors)) {
-                throw new CsvImportException($errors);
+                throw new CsvImportException(...$errors);
             }
         });
     }
@@ -97,20 +100,20 @@ class CheckinCsvImporter
     {
         $fp = fopen($filename, 'rb');
         if (!$fp) {
-            throw new CsvImportException(['CSVファイルの読み込み中にエラーが発生しました。']);
+            throw new CsvImportException('CSVファイルの読み込み中にエラーが発生しました。');
         }
 
         try {
             $head = fread($fp, $samplingLength);
             if ($head === false) {
-                throw new CsvImportException(['CSVファイルの読み込み中にエラーが発生しました。']);
+                throw new CsvImportException('CSVファイルの読み込み中にエラーが発生しました。');
             }
 
             for ($addition = 0; $addition < 4; $addition++) {
                 $charset = mb_detect_encoding($head, ['ASCII', 'UTF-8', 'SJIS-win'], true);
                 if ($charset) {
                     if (array_search($charset, ['UTF-8', 'SJIS-win'], true) === false) {
-                        throw new CsvImportException(['文字コード判定に失敗しました。UTF-8 (BOM無し) または Shift_JIS をお使いください。']);
+                        throw new CsvImportException('文字コード判定に失敗しました。UTF-8 (BOM無し) または Shift_JIS をお使いください。');
                     } else {
                         return $charset;
                     }
@@ -122,12 +125,12 @@ class CheckinCsvImporter
                 }
                 $next = fread($fp, 1);
                 if ($next === false) {
-                    throw new CsvImportException(['CSVファイルの読み込み中にエラーが発生しました。']);
+                    throw new CsvImportException('CSVファイルの読み込み中にエラーが発生しました。');
                 }
                 $head .= $next;
             }
 
-            throw new CsvImportException(['文字コード判定に失敗しました。UTF-8 (BOM無し) または Shift_JIS をお使いください。']);
+            throw new CsvImportException('文字コード判定に失敗しました。UTF-8 (BOM無し) または Shift_JIS をお使いください。');
         } finally {
             fclose($fp);
         }
@@ -154,10 +157,10 @@ class CheckinCsvImporter
                     break;
                 }
                 if (mb_strlen($tag) > 255) {
-                    throw new CsvImportException(["{$line} 行 : {$column}は255文字以内にしてください。"]);
+                    throw new CsvImportException("{$line} 行 : {$column}は255文字以内にしてください。");
                 }
                 if (strpos($tag, "\n") !== false) {
-                    throw new CsvImportException(["{$line} 行 : {$column}に改行を含めることはできません。"]);
+                    throw new CsvImportException("{$line} 行 : {$column}に改行を含めることはできません。");
                 }
 
                 $tags[] = Tag::firstOrCreate(['name' => $tag]);
