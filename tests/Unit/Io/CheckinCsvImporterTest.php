@@ -101,4 +101,39 @@ class CheckinCsvImporterTest extends TestCase
 
         $this->fail('期待する例外が発生していません');
     }
+
+    public function testNoteUTF8()
+    {
+        $user = factory(User::class)->create();
+
+        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/note.utf8.csv');
+        $importer->execute();
+        $ejaculations = $user->ejaculations()->orderBy('ejaculated_date')->get();
+
+        $this->assertCount(3, $ejaculations);
+        $this->assertEquals('The quick brown fox jumps over the lazy dog. 素早い茶色の狐はのろまな犬を飛び越える', $ejaculations[0]->note);
+        $this->assertEquals("The quick brown fox jumps over the lazy dog.\n素早い茶色の狐はのろまな犬を飛び越える", $ejaculations[1]->note);
+        $this->assertEquals('The quick brown fox jumps over the "lazy" dog.', $ejaculations[2]->note);
+    }
+
+    /**
+     * @dataProvider provideNoteOverLength
+     */
+    public function testNoteOverLength($filename)
+    {
+        $user = factory(User::class)->create();
+        $this->expectException(CsvImportException::class);
+        $this->expectExceptionMessage('2 行 : ノートには500文字以下の文字列を指定してください。');
+
+        $importer = new CheckinCsvImporter($user, $filename);
+        $importer->execute();
+    }
+
+    public function provideNoteOverLength()
+    {
+        return [
+            'ASCII Only, UTF8' => [__DIR__ . '/../../fixture/Csv/note-over-length.ascii.utf8.csv'],
+            'JP, UTF8' => [__DIR__ . '/../../fixture/Csv/note-over-length.jp.utf8.csv'],
+        ];
+    }
 }
