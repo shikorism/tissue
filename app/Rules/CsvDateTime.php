@@ -17,6 +17,12 @@ class CsvDateTime implements Rule
         'Y/n/j G:i',
     ];
 
+    const MINIMUM_TIMESTAMP = 946652400; // 2000-01-01 00:00:00 JST
+    const MAXIMUM_TIMESTAMP = 4102412399; // 2099-12-31 23:59:59 JST
+
+    /** @var string Validation error message */
+    private $message = ':attribute の形式は "年/月/日 時:分" にしてください。';
+
     /**
      * Create a new rule instance.
      *
@@ -44,8 +50,19 @@ class CsvDateTime implements Rule
 
         foreach (self::VALID_FORMATS as $format) {
             $date = \DateTime::createFromFormat('!' . $format, $value);
+            if (!$date) {
+                continue;
+            }
 
-            if ($date && $date->format($format) === $value) {
+            $timestamp = (int) $date->format('U');
+            if ($timestamp < self::MINIMUM_TIMESTAMP || self::MAXIMUM_TIMESTAMP < $timestamp) {
+                $this->message = ':attribute は 2000/01/01 00:00 〜 2099/12/31 23:59 の間のみ対応しています。';
+
+                return false;
+            }
+
+            $formatted = $date->format($format);
+            if ($formatted === $value) {
                 return true;
             }
         }
@@ -60,6 +77,6 @@ class CsvDateTime implements Rule
      */
     public function message()
     {
-        return ':attribute の形式は "年/月/日 時:分" にしてください。';
+        return $this->message;
     }
 }

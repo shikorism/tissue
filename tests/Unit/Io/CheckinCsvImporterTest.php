@@ -70,4 +70,35 @@ class CheckinCsvImporterTest extends TestCase
             'NoZero, NoSecond, UTF8' => [$date, __DIR__ . '/../../fixture/Csv/date-nozero-nosecond.utf8.csv'],
         ];
     }
+
+    public function testInvalidDate()
+    {
+        $user = factory(User::class)->create();
+
+        try {
+            $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/invalid-date.utf8.csv');
+            $importer->execute();
+        } catch (CsvImportException $e) {
+            $this->assertSame('2 行 : 日時 は 2000/01/01 00:00 〜 2099/12/31 23:59 の間のみ対応しています。', $e->getErrors()[0]);
+            $this->assertSame('3 行 : 日時 は 2000/01/01 00:00 〜 2099/12/31 23:59 の間のみ対応しています。', $e->getErrors()[1]);
+            $this->assertSame('4 行 : 日時 の形式は "年/月/日 時:分" にしてください。', $e->getErrors()[2]);
+            $this->assertSame('5 行 : 日時 の形式は "年/月/日 時:分" にしてください。', $e->getErrors()[3]);
+            $this->assertSame('6 行 : 日時 の形式は "年/月/日 時:分" にしてください。', $e->getErrors()[4]);
+            $this->assertSame('7 行 : 日時 の形式は "年/月/日 時:分" にしてください。', $e->getErrors()[5]);
+            $this->assertSame('8 行 : 日時 の形式は "年/月/日 時:分" にしてください。', $e->getErrors()[6]);
+            $this->assertSame('9 行 : 日時 の形式は "年/月/日 時:分" にしてください。', $e->getErrors()[7]);
+            $this->assertSame('10 行 : 日時 の形式は "年/月/日 時:分" にしてください。', $e->getErrors()[8]);
+            $this->assertSame('11 行 : 日時 の形式は "年/月/日 時:分" にしてください。', $e->getErrors()[9]);
+            $this->assertSame('12 行 : 日時 の形式は "年/月/日 時:分" にしてください。', $e->getErrors()[10]);
+            $this->assertSame('13 行 : 日時 の形式は "年/月/日 時:分" にしてください。', $e->getErrors()[11]);
+            $this->assertSame('14 行 : 日時 の形式は "年/月/日 時:分" にしてください。', $e->getErrors()[12]);
+            $this->assertSame('15 行 : 日時 の形式は "年/月/日 時:分" にしてください。', $e->getErrors()[13]);
+            $this->assertSame('16 行 : 日時 の形式は "年/月/日 時:分" にしてください。', $e->getErrors()[14]);
+            $this->assertSame('17 行 : 日時 の形式は "年/月/日 時:分" にしてください。', $e->getErrors()[15]);
+
+            return;
+        }
+
+        $this->fail('期待する例外が発生していません');
+    }
 }

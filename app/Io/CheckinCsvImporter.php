@@ -51,6 +51,7 @@ class CheckinCsvImporter
             }
 
             foreach ($csv->getRecords() as $offset => $record) {
+                $line = $offset + 1;
                 $ejaculation = new Ejaculation(['user_id' => $this->user->id]);
 
                 $validator = Validator::make($record, [
@@ -61,7 +62,7 @@ class CheckinCsvImporter
 
                 if ($validator->fails()) {
                     foreach ($validator->errors()->all() as $message) {
-                        $errors[] = "{$offset} 行 : {$message}";
+                        $errors[] = "{$line} 行 : {$message}";
                     }
                     continue;
                 }
@@ -82,7 +83,7 @@ class CheckinCsvImporter
                             break;
                         }
                         if (mb_strlen($tag) > 255) {
-                            $errors[] = "{$offset} 行 : {$column}列は255文字以内にしてください。";
+                            $errors[] = "{$line} 行 : {$column}列は255文字以内にしてください。";
                             continue 2;
                         }
 
