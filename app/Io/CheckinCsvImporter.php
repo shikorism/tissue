@@ -67,32 +67,17 @@ class CheckinCsvImporter
                 $ejaculation->note = str_replace(["\r\n", "\r"], "\n", $record['ノート'] ?? '');
                 $ejaculation->link = $record['オカズリンク'] ?? '';
 
-                $tagIds = [];
-                for ($i = 1; $i <= 32; $i++) {
-                    $column = 'タグ' . $i;
-                    if (empty($record[$column])) {
-                        break;
-                    } else {
-                        $tag = trim($record[$column]);
-
-                        if (empty($tag)) {
-                            break;
-                        }
-                        if (mb_strlen($tag) > 255) {
-                            $errors[] = "{$line} 行 : {$column}は255文字以内にしてください。";
-                            continue 2;
-                        }
-                        if (strpos($tag, "\n") !== false) {
-                            $errors[] = "{$line} 行 : {$column}に改行を含めることはできません。";
-                            continue 2;
-                        }
-
-                        $tag = Tag::firstOrCreate(['name' => $tag]);
-                        $tagIds[] = $tag->id;
-                    }
+                try {
+                    $tags = $this->parseTags($line, $record);
+                } catch (CsvImportException $e) {
+                    $errors = array_merge($errors, $e->getErrors());
+                    continue;
                 }
+
                 $ejaculation->save();
-                $ejaculation->tags()->sync($tagIds);
+                if (!empty($tags)) {
+                    $ejaculation->tags()->sync(collect($tags)->pluck('id'));
+                }
             }
 
             if (!empty($errors)) {
@@ -146,5 +131,39 @@ class CheckinCsvImporter
         } finally {
             fclose($fp);
         }
+    }
+
+    /**
+     * タグ列をパースします。
+     * @param int $line 現在の行番号 (1 origin)
+     * @param array $record 対象行のデータ
+     * @return Tag[]
+     * @throws CsvImportException バリデーションエラーが発生した場合にスロー
+     */
+    private function parseTags(int $line, array $record): array
+    {
+        $tags = [];
+        for ($i = 1; $i <= 32; $i++) {
+            $column = 'タグ' . $i;
+            if (empty($record[$column])) {
+                break;
+            } else {
+                $tag = trim($record[$column]);
+
+                if (empty($tag)) {
+                    break;
+                }
+                if (mb_strlen($tag) > 255) {
+                    throw new CsvImportException(["{$line} 行 : {$column}は255文字以内にしてください。"]);
+                }
+                if (strpos($tag, "\n") !== false) {
+                    throw new CsvImportException(["{$line} 行 : {$column}に改行を含めることはできません。"]);
+                }
+
+                $tags[] = Tag::firstOrCreate(['name' => $tag]);
+            }
+        }
+
+        return $tags;
     }
 }
