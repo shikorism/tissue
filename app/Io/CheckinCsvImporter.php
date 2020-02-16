@@ -79,7 +79,11 @@ class CheckinCsvImporter
                             break;
                         }
                         if (mb_strlen($tag) > 255) {
-                            $errors[] = "{$line} 行 : {$column}列は255文字以内にしてください。";
+                            $errors[] = "{$line} 行 : {$column}は255文字以内にしてください。";
+                            continue 2;
+                        }
+                        if (strpos($tag, "\n") !== false) {
+                            $errors[] = "{$line} 行 : {$column}に改行を含めることはできません。";
                             continue 2;
                         }
 
@@ -87,9 +91,8 @@ class CheckinCsvImporter
                         $tagIds[] = $tag->id;
                     }
                 }
-                $ejaculation->tags()->sync($tagIds);
-
                 $ejaculation->save();
+                $ejaculation->tags()->sync($tagIds);
             }
 
             if (!empty($errors)) {

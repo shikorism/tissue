@@ -168,4 +168,67 @@ class CheckinCsvImporterTest extends TestCase
         $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/link-not-url.utf8.csv');
         $importer->execute();
     }
+
+    public function testTag1UTF8()
+    {
+        $user = factory(User::class)->create();
+
+        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/tag1.utf8.csv');
+        $importer->execute();
+        $ejaculation = $user->ejaculations()->first();
+        $tags = $ejaculation->tags()->get();
+
+        $this->assertSame(1, $user->ejaculations()->count());
+        $this->assertCount(1, $tags);
+        $this->assertEquals('貧乳', $tags[0]->name);
+    }
+
+    public function testTag2UTF8()
+    {
+        $user = factory(User::class)->create();
+
+        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/tag2.utf8.csv');
+        $importer->execute();
+        $ejaculation = $user->ejaculations()->first();
+        $tags = $ejaculation->tags()->get();
+
+        $this->assertSame(1, $user->ejaculations()->count());
+        $this->assertCount(2, $tags);
+        $this->assertEquals('貧乳', $tags[0]->name);
+        $this->assertEquals('巨乳', $tags[1]->name);
+    }
+
+    public function testTagOverLengthUTF8()
+    {
+        $user = factory(User::class)->create();
+        $this->expectException(CsvImportException::class);
+        $this->expectExceptionMessage('3 行 : タグ1は255文字以内にしてください。');
+
+        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/tag-over-length.utf8.csv');
+        $importer->execute();
+    }
+
+    public function testTagCantAcceptJumpedColumnUTF8()
+    {
+        $user = factory(User::class)->create();
+
+        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/tag-jumped-column.utf8.csv');
+        $importer->execute();
+        $ejaculation = $user->ejaculations()->first();
+        $tags = $ejaculation->tags()->get();
+
+        $this->assertSame(1, $user->ejaculations()->count());
+        $this->assertCount(1, $tags);
+        $this->assertEquals('貧乳', $tags[0]->name);
+    }
+
+    public function testTagCantAcceptMultilineUTF8()
+    {
+        $user = factory(User::class)->create();
+        $this->expectException(CsvImportException::class);
+        $this->expectExceptionMessage('2 行 : タグ1に改行を含めることはできません。');
+
+        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/tag-multiline.utf8.csv');
+        $importer->execute();
+    }
 }
