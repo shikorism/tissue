@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Io;
+namespace App\Services;
 
 use App\Ejaculation;
 use App\Exceptions\CsvImportException;

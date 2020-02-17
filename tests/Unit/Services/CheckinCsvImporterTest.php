@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Unit\Io;
+namespace Tests\Unit\Services;
 
 use App\Ejaculation;
 use App\Exceptions\CsvImportException;
-use App\Io\CheckinCsvImporter;
+use App\Services\CheckinCsvImporter;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
