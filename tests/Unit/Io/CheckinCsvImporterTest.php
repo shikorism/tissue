@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Io;
 
+use App\Ejaculation;
 use App\Exceptions\CsvImportException;
 use App\Io\CheckinCsvImporter;
 use App\User;
@@ -12,6 +13,12 @@ use Tests\TestCase;
 class CheckinCsvImporterTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->seed();
+    }
 
     public function testIncompatibleCharsetEUCJP()
     {
@@ -230,5 +237,17 @@ class CheckinCsvImporterTest extends TestCase
 
         $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/tag-multiline.utf8.csv');
         $importer->execute();
+    }
+
+    public function testSourceIsCsv()
+    {
+        $user = factory(User::class)->create();
+
+        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/date.utf8.csv');
+        $importer->execute();
+        $ejaculation = $user->ejaculations()->first();
+
+        $this->assertSame(1, $user->ejaculations()->count());
+        $this->assertEquals(Ejaculation::SOURCE_CSV, $ejaculation->source);
     }
 }
