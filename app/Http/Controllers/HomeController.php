@@ -70,7 +70,7 @@ SQL
                 ->select('ejaculations.*')
                 ->with('user', 'tags')
                 ->withLikes()
-                ->take(10)
+                ->take(21)
                 ->get();
 
             return view('home')->with(compact('informations', 'categories', 'globalEjaculationCounts', 'publicLinkedEjaculations'));
