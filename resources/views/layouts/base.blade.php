@@ -40,7 +40,7 @@
             <div class="d-lg-none navbar-nav">
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle p-2" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="{{ Auth::user()->getProfileImageUrl(30) }}" width="30" height="30" class="rounded d-inline-block align-top">
+                        <img src="{{ Auth::user()->getProfileImageUrl(30) }}" srcset="{{ Formatter::profileImageSrcSet(Auth::user(), 30) }}" width="30" height="30" class="rounded d-inline-block align-top">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right position-absolute" aria-labelledby="navbarDropdownMenuLink" id="navbarAccountDropdownSp">
                         <a href="{{ route('user.profile', ['name' => Auth::user()->name]) }}" class="dropdown-item text-truncate">
@@ -103,7 +103,7 @@
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="{{ Auth::user()->getProfileImageUrl(30) }}" width="30" height="30" class="rounded d-inline-block align-top">
+                                <img src="{{ Auth::user()->getProfileImageUrl(30) }}" srcset="{{ Formatter::profileImageSrcSet(Auth::user(), 30) }}" width="30" height="30" class="rounded d-inline-block align-top">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                 <a href="{{ route('user.profile', ['name' => Auth::user()->name]) }}" class="dropdown-item">

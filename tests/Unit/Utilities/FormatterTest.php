@@ -54,4 +54,20 @@ class FormatterTest extends TestCase
         $url = 'http://example.com/path/to?foo=bar&hoge=fuga#';
         $this->assertEquals('http://example.com/path/to?foo=bar&hoge=fuga', $formatter->normalizeUrl($url));
     }
+
+    public function testProfileImageSrcSet()
+    {
+        $formatter = new Formatter();
+        $profileImageProvider = new class() {
+            public function getProfileImageUrl(int $size)
+            {
+                return "https://example.com/$size.png";
+            }
+        };
+
+        $this->assertSame(
+            'https://example.com/128.png 1x,https://example.com/256.png 2x',
+            $formatter->profileImageSrcSet($profileImageProvider, 128, 2)
+        );
+    }
 }
