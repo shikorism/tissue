@@ -44,7 +44,7 @@ class CardController
             ]);
 
             $tagIds = [];
-            foreach ($resolved->tags as $tagName) {
+            foreach ($resolved->normalizedTags() as $tagName) {
                 $tag = Tag::firstOrCreate(['name' => $tagName]);
                 $tagIds[] = $tag->id;
             }
