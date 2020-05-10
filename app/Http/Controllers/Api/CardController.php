@@ -2,55 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Metadata;
-use App\MetadataResolver\MetadataResolver;
-use App\Tag;
-use App\Utilities\Formatter;
+use App\Services\MetadataResolveService;
 use Illuminate\Http\Request;
 
 class CardController
 {
-    /**
-     * @var MetadataResolver
-     */
-    private $resolver;
-    /**
-     * @var Formatter
-     */
-    private $formatter;
-
-    public function __construct(MetadataResolver $resolver, Formatter $formatter)
-    {
-        $this->resolver = $resolver;
-        $this->formatter = $formatter;
-    }
-
-    public function show(Request $request)
+    public function show(Request $request, MetadataResolveService $service)
     {
         $request->validate([
             'url:required|url'
         ]);
 
-        $url = $this->formatter->normalizeUrl($request->input('url'));
-
-        $metadata = Metadata::find($url);
-        if ($metadata === null || ($metadata->expires_at !== null && $metadata->expires_at < now())) {
-            $resolved = $this->resolver->resolve($url);
-            $metadata = Metadata::updateOrCreate(['url' => $url], [
-                'title' => $resolved->title,
-                'description' => $resolved->description,
-                'image' => $resolved->image,
-                'expires_at' => $resolved->expires_at
-            ]);
-
-            $tagIds = [];
-            foreach ($resolved->normalizedTags() as $tagName) {
-                $tag = Tag::firstOrCreate(['name' => $tagName]);
-                $tagIds[] = $tag->id;
-            }
-            $metadata->tags()->sync($tagIds);
-        }
-
+        $metadata = $service->execute($request->input('url'));
         $metadata->load('tags');
 
         $response = response($metadata);
