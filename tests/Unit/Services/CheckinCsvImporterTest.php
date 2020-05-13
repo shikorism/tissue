@@ -215,7 +215,7 @@ class CheckinCsvImporterTest extends TestCase
         $importer->execute();
     }
 
-    public function testTagCantAcceptJumpedColumnUTF8()
+    public function testTagCanAcceptJumpedColumnUTF8()
     {
         $user = factory(User::class)->create();
 
@@ -225,8 +225,9 @@ class CheckinCsvImporterTest extends TestCase
         $tags = $ejaculation->tags()->get();
 
         $this->assertSame(1, $user->ejaculations()->count());
-        $this->assertCount(1, $tags);
+        $this->assertCount(2, $tags);
         $this->assertEquals('貧乳', $tags[0]->name);
+        $this->assertEquals('巨乳', $tags[1]->name);
     }
 
     public function testTagCantAcceptMultilineUTF8()
@@ -237,6 +238,20 @@ class CheckinCsvImporterTest extends TestCase
 
         $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/tag-multiline.utf8.csv');
         $importer->execute();
+    }
+
+    public function testTagCanAccept32ColumnsUTF8()
+    {
+        $user = factory(User::class)->create();
+
+        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/tag-33-column.utf8.csv');
+        $importer->execute();
+        $ejaculation = $user->ejaculations()->first();
+        $tags = $ejaculation->tags()->get();
+
+        $this->assertSame(1, $user->ejaculations()->count());
+        $this->assertCount(32, $tags);
+        $this->assertEquals('み', $tags[31]->name);
     }
 
     public function testSourceIsCsv()

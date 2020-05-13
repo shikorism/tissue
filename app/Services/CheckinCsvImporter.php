@@ -147,15 +147,14 @@ class CheckinCsvImporter
     private function parseTags(int $line, array $record): array
     {
         $tags = [];
-        for ($i = 1; $i <= 32; $i++) {
-            $column = 'タグ' . $i;
-            if (empty($record[$column])) {
-                break;
+        foreach (array_keys($record) as $column) {
+            if (preg_match('/\Aタグ\d{1,2}\z/u', $column) !== 1) {
+                continue;
             }
 
             $tag = trim($record[$column]);
             if (empty($tag)) {
-                break;
+                continue;
             }
             if (mb_strlen($tag) > 255) {
                 throw new CsvImportException("{$line} 行 : {$column}は255文字以内にしてください。");
@@ -165,6 +164,9 @@ class CheckinCsvImporter
             }
 
             $tags[] = Tag::firstOrCreate(['name' => $tag]);
+            if (count($tags) >= 32) {
+                break;
+            }
         }
 
         return $tags;
