@@ -172,32 +172,34 @@
                     </div>
                 </div>
             @endauth
-            @guest
-                <!-- PC navbar -->
-                <div class="d-none d-lg-flex navbar-collapse">
-                    <ul class="navbar-nav ml-auto mr-2">
-                        <li class="nav-item">
-                            <a href="{{ route('register') }}" class="nav-link">会員登録</a>
-                        </li>
-                    </ul>
-                    <form class="form-inline">
-                        <a href="{{ route('login') }}" class="btn btn-outline-secondary">ログイン</a>
-                    </form>
-                </div>
-                <!-- SP navbar -->
-                <div class="d-lg-none">
-                    <div class="row mt-2">
-                        <div class="col">
-                            <a class="btn btn-outline-secondary" href="{{ route('register') }}" role="button">会員登録</a>
-                        </div>
-                        <div class="col">
-                            <form class="form-inline">
-                                <a class="btn btn-outline-secondary" href="{{ route('login') }}">ログイン</a>
-                            </form>
+            @if (!App::isDownForMaintenance())
+                @guest
+                    <!-- PC navbar -->
+                    <div class="d-none d-lg-flex navbar-collapse">
+                        <ul class="navbar-nav ml-auto mr-2">
+                            <li class="nav-item">
+                                <a href="{{ route('register') }}" class="nav-link">会員登録</a>
+                            </li>
+                        </ul>
+                        <form class="form-inline">
+                            <a href="{{ route('login') }}" class="btn btn-outline-secondary">ログイン</a>
+                        </form>
+                    </div>
+                    <!-- SP navbar -->
+                    <div class="d-lg-none">
+                        <div class="row mt-2">
+                            <div class="col">
+                                <a class="btn btn-outline-secondary" href="{{ route('register') }}" role="button">会員登録</a>
+                            </div>
+                            <div class="col">
+                                <form class="form-inline">
+                                    <a class="btn btn-outline-secondary" href="{{ route('login') }}">ログイン</a>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endguest
+                @endguest
+            @endif
         </div>
     </div>
 </nav>
