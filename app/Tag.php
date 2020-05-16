@@ -19,4 +19,9 @@ class Tag extends Model
     {
         return $this->belongsToMany('App\Ejaculation')->withTimestamps();
     }
+
+    public function metadata()
+    {
+        return $this->belongsToMany('App\Metadata')->withTimestamps();
+    }
 }
