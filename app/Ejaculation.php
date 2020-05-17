@@ -12,6 +12,9 @@ class Ejaculation extends Model
 {
     use HasEagerLimit;
 
+    const SOURCE_WEB = 'web';
+    const SOURCE_CSV = 'csv';
+
     protected $fillable = [
         'user_id', 'ejaculated_date',
         'note', 'geo_latitude', 'geo_longitude', 'link',

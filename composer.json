@@ -4,6 +4,12 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/xcezx/Stream_Filter_Mbstring"
+        }
+    ],
     "require": {
         "php": ">=7.1.0",
         "anhskohbo/no-captcha": "^3.0",
@@ -13,7 +19,9 @@
         "jakeasmith/http_build_url": "^1.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
+        "league/csv": "^9.5",
         "misd/linkify": "^1.1",
+        "openpear/stream_filter_mbstring": "dev-master",
         "staudenmeir/eloquent-eager-limit": "^1.0",
         "symfony/css-selector": "^4.3",
         "symfony/dom-crawler": "^4.3"

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b6dfb80c350a7276bb2513a1aeb3d602",
+    "content-hash": "a391908b8086044d943007dce1ff4f12",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -1191,6 +1191,75 @@
             "time": "2019-08-07T15:10:45+00:00"
         },
         {
+            "name": "league/csv",
+            "version": "9.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/csv.git",
+                "reference": "b348d09d0d258a4f068efb50a2510dc63101c213"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/csv/zipball/b348d09d0d258a4f068efb50a2510dc63101c213",
+                "reference": "b348d09d0d258a4f068efb50a2510dc63101c213",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=7.0.10"
+            },
+            "require-dev": {
+                "ext-curl": "*",
+                "friendsofphp/php-cs-fixer": "^2.12",
+                "phpstan/phpstan": "^0.9.2",
+                "phpstan/phpstan-phpunit": "^0.9.4",
+                "phpstan/phpstan-strict-rules": "^0.9.0",
+                "phpunit/phpunit": "^6.0"
+            },
+            "suggest": {
+                "ext-iconv": "Needed to ease transcoding CSV using iconv stream filters"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "9.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Csv\\": "src"
+                },
+                "files": [
+                    "src/functions_include.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ignace Nyamagana Butera",
+                    "email": "nyamsprod@gmail.com",
+                    "homepage": "https://github.com/nyamsprod/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Csv data manipulation made easy in PHP",
+            "homepage": "http://csv.thephpleague.com",
+            "keywords": [
+                "csv",
+                "export",
+                "filter",
+                "import",
+                "read",
+                "write"
+            ],
+            "time": "2019-12-15T19:51:41+00:00"
+        },
+        {
             "name": "league/flysystem",
             "version": "1.0.63",
             "source": {
@@ -1554,6 +1623,47 @@
                 "php"
             ],
             "time": "2019-11-08T13:50:10+00:00"
+        },
+        {
+            "name": "openpear/stream_filter_mbstring",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xcezx/Stream_Filter_Mbstring.git",
+                "reference": "1c5ab27fd874e74d3d2bfdb9b74d3ebe017e6e14"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xcezx/Stream_Filter_Mbstring/zipball/1c5ab27fd874e74d3d2bfdb9b74d3ebe017e6e14",
+                "reference": "1c5ab27fd874e74d3d2bfdb9b74d3ebe017e6e14",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Stream_Filter_Mbstring": "src/"
+                }
+            },
+            "license": [
+                "PHP-3.01"
+            ],
+            "authors": [
+                {
+                    "name": "hnw",
+                    "role": "developer"
+                },
+                {
+                    "name": "MAEKAWA Tsuyoshi",
+                    "email": "main.xcezx@gmail.com",
+                    "role": "maintainer"
+                }
+            ],
+            "description": "mbstring を使って文字列変換を行う stream filter",
+            "support": {
+                "source": "https://github.com/xcezx/Stream_Filter_Mbstring/tree/master",
+                "issues": "https://github.com/xcezx/Stream_Filter_Mbstring/issues"
+            },
+            "time": "2012-11-21T12:10:21+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -6410,7 +6520,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "openpear/stream_filter_mbstring": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
