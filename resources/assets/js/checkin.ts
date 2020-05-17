@@ -2,6 +2,9 @@ import Vue from 'vue';
 import TagInput from './components/TagInput.vue';
 import MetadataPreview from './components/MetadataPreview.vue';
 import { fetchGet, ResponseError } from './fetch';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import TagInput2 from './components/TagInput2';
 
 export const bus = new Vue({ name: 'EventBus' });
 
@@ -66,3 +69,8 @@ new Vue({
         },
     },
 });
+
+ReactDOM.render(
+    React.createElement(TagInput2, { id: 'tagInput2', name: 'tags2', value: '', isInvalid: false }),
+    document.querySelector('#tagInput2')
+);

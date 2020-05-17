@@ -5,7 +5,8 @@
     "module": "es2015",
     "moduleResolution": "node",
     "strict": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "jsx": "react"
   },
   "include": [
     "resources/assets/js/**/*"
