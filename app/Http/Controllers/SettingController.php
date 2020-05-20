@@ -90,6 +90,9 @@ class SettingController extends Controller
 
         $filename = tempnam(sys_get_temp_dir(), 'tissue_export_tmp_');
         try {
+            // 気休め
+            set_time_limit(0);
+
             $exporter = new CheckinCsvExporter(Auth::user(), $filename, $charsets[$validated['charset']]);
             $exporter->execute();
         } catch (\Throwable $e) {
