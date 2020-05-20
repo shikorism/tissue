@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DeactivatedUser;
+use App\Services\CheckinCsvExporter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -69,6 +70,36 @@ class SettingController extends Controller
         $user->save();
 
         return redirect()->route('setting.privacy')->with('status', 'プライバシー設定を更新しました。');
+    }
+
+    public function export()
+    {
+        return view('setting.export');
+    }
+
+    public function exportToCsv(Request $request)
+    {
+        $validated = $request->validate([
+            'charset' => ['required', Rule::in(['utf8', 'sjis'])]
+        ]);
+
+        $charsets = [
+            'utf8' => 'UTF-8',
+            'sjis' => 'SJIS-win'
+        ];
+
+        $filename = tempnam(sys_get_temp_dir(), 'tissue_export_tmp_');
+        try {
+            $exporter = new CheckinCsvExporter(Auth::user(), $filename, $charsets[$validated['charset']]);
+            $exporter->execute();
+        } catch (\Throwable $e) {
+            unlink($filename);
+            throw $e;
+        }
+
+        return response()
+            ->download($filename, 'TissueCheckin_' . date('Y-m-d_H-i-s') . '.csv')
+            ->deleteFileAfterSend(true);
     }
 
     public function deactivate()
