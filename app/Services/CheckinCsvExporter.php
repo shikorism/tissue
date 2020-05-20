@@ -46,7 +46,7 @@ class CheckinCsvExporter
                             $ejaculation->note,
                             $ejaculation->link,
                         ];
-                        foreach ($ejaculation->tags as $tag) {
+                        foreach ($ejaculation->tags->take(32) as $tag) {
                             $record[] = $tag->name;
                         }
                         $csv->insertOne($record);
