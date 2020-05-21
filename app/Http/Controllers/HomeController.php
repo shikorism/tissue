@@ -70,6 +70,7 @@ SQL
                 ->select('ejaculations.*')
                 ->with('user', 'tags')
                 ->withLikes()
+                ->onlyWebCheckin()
                 ->take(21)
                 ->get();
 
