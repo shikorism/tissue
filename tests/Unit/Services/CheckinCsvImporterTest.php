@@ -240,6 +240,16 @@ class CheckinCsvImporterTest extends TestCase
         $importer->execute();
     }
 
+    public function testTagCantAcceptWhitespaceUTF8()
+    {
+        $user = factory(User::class)->create();
+        $this->expectException(CsvImportException::class);
+        $this->expectExceptionMessage('2 行 : タグ1にスペースを含めることはできません。');
+
+        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/tag-whitespace.utf8.csv');
+        $importer->execute();
+    }
+
     public function testTagCanAccept32ColumnsUTF8()
     {
         $user = factory(User::class)->create();

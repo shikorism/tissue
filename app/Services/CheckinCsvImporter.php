@@ -178,6 +178,9 @@ class CheckinCsvImporter
             if (strpos($tag, "\n") !== false) {
                 throw new CsvImportException("{$line} 行 : {$column}に改行を含めることはできません。");
             }
+            if (strpos($tag, ' ') !== false) {
+                throw new CsvImportException("{$line} 行 : {$column}にスペースを含めることはできません。");
+            }
 
             $tags[] = Tag::firstOrCreate(['name' => $tag]);
             if (count($tags) >= 32) {
