@@ -42,7 +42,7 @@ class CheckinCsvExporter
                 ->chunk(1000, function ($ejaculations) use ($csv) {
                     foreach ($ejaculations as $ejaculation) {
                         $record = [
-                            $ejaculation->ejaculated_date->format('Y-m-d H:i'),
+                            $ejaculation->ejaculated_date->format('Y/m/d H:i'),
                             $ejaculation->note,
                             $ejaculation->link,
                         ];
