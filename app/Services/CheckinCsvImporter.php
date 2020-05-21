@@ -8,9 +8,11 @@ use App\Rules\CsvDateTime;
 use App\Tag;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use League\Csv\Reader;
+use Throwable;
 
 class CheckinCsvImporter
 {
@@ -78,9 +80,23 @@ class CheckinCsvImporter
                     continue;
                 }
 
-                $ejaculation->save();
-                if (!empty($tags)) {
-                    $ejaculation->tags()->sync(collect($tags)->pluck('id'));
+                DB::beginTransaction();
+                try {
+                    $ejaculation->save();
+                    if (!empty($tags)) {
+                        $ejaculation->tags()->sync(collect($tags)->pluck('id'));
+                    }
+                    DB::commit();
+                } catch (QueryException $e) {
+                    DB::rollBack();
+                    if ($e->errorInfo[0] === '23505') {
+                        $errors[] = "{$line} 行 : すでにこの日時のチェックインデータが存在します。";
+                        continue;
+                    }
+                    throw $e;
+                } catch (Throwable $e) {
+                    DB::rollBack();
+                    throw $e;
                 }
             }
 
