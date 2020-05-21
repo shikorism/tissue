@@ -92,4 +92,43 @@ class Formatter
 
         return implode(',', $srcset);
     }
+
+    /**
+     * php.ini書式のデータサイズを正規化します。
+     * @param mixed $val データサイズ
+     * @return string
+     */
+    public function normalizeIniBytes($val)
+    {
+        $val = trim($val);
+        $last = strtolower(substr($val, -1, 1));
+        if (ord($last) < 0x30 || ord($last) > 0x39) {
+            $bytes = substr($val, 0, -1);
+            switch ($last) {
+                case 'g':
+                    $bytes *= 1024;
+                    // fall through
+                    // no break
+                case 'm':
+                    $bytes *= 1024;
+                    // fall through
+                    // no break
+                case 'k':
+                    $bytes *= 1024;
+                    break;
+            }
+        } else {
+            $bytes = $val;
+        }
+
+        if ($bytes >= (1 << 30)) {
+            return ($bytes >> 30) . 'GB';
+        } elseif ($bytes >= (1 << 20)) {
+            return ($bytes >> 20) . 'MB';
+        } elseif ($bytes >= (1 << 10)) {
+            return ($bytes >> 10) . 'KB';
+        }
+
+        return $bytes . 'B';
+    }
 }

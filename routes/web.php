@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/setting/profile', 'SettingController@updateProfile')->name('setting.profile.update');
     Route::get('/setting/privacy', 'SettingController@privacy')->name('setting.privacy');
     Route::post('/setting/privacy', 'SettingController@updatePrivacy')->name('setting.privacy.update');
+    Route::get('/setting/import', 'SettingController@import')->name('setting.import');
+    Route::post('/setting/import', 'SettingController@storeImport')->name('setting.import');
     Route::get('/setting/export', 'SettingController@export')->name('setting.export');
     Route::get('/setting/export/csv', 'SettingController@exportToCsv')->name('setting.export.csv');
     Route::get('/setting/deactivate', 'SettingController@deactivate')->name('setting.deactivate');
