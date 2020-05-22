@@ -96,9 +96,9 @@ class SettingController extends Controller
             set_time_limit(0);
 
             $importer = new CheckinCsvImporter(Auth::user(), $file->path());
-            $importer->execute();
+            $imported = $importer->execute();
 
-            return redirect()->route('setting.import')->with('status', 'インポートに性交しました。');
+            return redirect()->route('setting.import')->with('status', "{$imported}件のインポートに性交しました。");
         } catch (CsvImportException $e) {
             return redirect()->route('setting.import')->with('import_errors', $e->getErrors());
         }

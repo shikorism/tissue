@@ -27,7 +27,7 @@ class CheckinCsvImporter
         $this->filename = $filename;
     }
 
-    public function execute()
+    public function execute(): int
     {
         // Guess charset
         $charset = $this->guessCharset($this->filename);
@@ -40,7 +40,7 @@ class CheckinCsvImporter
         }
 
         // Import
-        DB::transaction(function () use ($csv) {
+        return DB::transaction(function () use ($csv) {
             $errors = [];
 
             if (!in_array('日時', $csv->getHeader(), true)) {
@@ -51,6 +51,7 @@ class CheckinCsvImporter
                 throw new CsvImportException(...$errors);
             }
 
+            $imported = 0;
             foreach ($csv->getRecords() as $offset => $record) {
                 $line = $offset + 1;
                 $ejaculation = new Ejaculation(['user_id' => $this->user->id]);
@@ -87,6 +88,7 @@ class CheckinCsvImporter
                         $ejaculation->tags()->sync(collect($tags)->pluck('id'));
                     }
                     DB::commit();
+                    $imported++;
                 } catch (QueryException $e) {
                     DB::rollBack();
                     if ($e->errorInfo[0] === '23505') {
@@ -103,6 +105,8 @@ class CheckinCsvImporter
             if (!empty($errors)) {
                 throw new CsvImportException(...$errors);
             }
+
+            return $imported;
         });
     }
 
