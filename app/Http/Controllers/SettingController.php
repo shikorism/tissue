@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DeactivatedUser;
+use App\Ejaculation;
 use App\Exceptions\CsvImportException;
 use App\Services\CheckinCsvExporter;
 use App\Services\CheckinCsvImporter;
@@ -102,6 +103,16 @@ class SettingController extends Controller
         } catch (CsvImportException $e) {
             return redirect()->route('setting.import')->with('import_errors', $e->getErrors());
         }
+    }
+
+    public function destroyImport()
+    {
+        Auth::user()
+            ->ejaculations()
+            ->where('ejaculations.source', Ejaculation::SOURCE_CSV)
+            ->delete();
+
+        return redirect()->route('setting.import')->with('status', '削除が完了しました。');
     }
 
     public function export()
