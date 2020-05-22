@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Ejaculation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class TimelineController extends Controller
 {
@@ -13,6 +14,7 @@ class TimelineController extends Controller
             ->where('users.is_protected', false)
             ->where('ejaculations.is_private', false)
             ->where('ejaculations.link', '<>', '')
+            ->where('ejaculations.ejaculated_date', '<=', Carbon::now())
             ->orderBy('ejaculations.ejaculated_date', 'desc')
             ->select('ejaculations.*')
             ->with('user', 'tags')

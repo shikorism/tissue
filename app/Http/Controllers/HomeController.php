@@ -66,6 +66,7 @@ SQL
                 ->where('users.is_protected', false)
                 ->where('ejaculations.is_private', false)
                 ->where('ejaculations.link', '<>', '')
+                ->where('ejaculations.ejaculated_date', '<=', Carbon::now())
                 ->orderBy('ejaculations.ejaculated_date', 'desc')
                 ->select('ejaculations.*')
                 ->with('user', 'tags')
