@@ -51,7 +51,7 @@ class RegisterController extends Controller
         $rules = [
             'name' => 'required|string|regex:/^[a-zA-Z0-9_-]+$/u|max:15|unique:users|unique:deactivated_users',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed'
+            'password' => 'required|string|min:8|confirmed'
         ];
 
         // reCAPTCHAのキーが設定されている場合、判定を有効化

@@ -10,7 +10,7 @@ class NicoSeigaResolverTest extends TestCase
 {
     use CreateMockedResolver, MyAsserts;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
