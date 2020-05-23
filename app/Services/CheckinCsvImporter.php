@@ -31,6 +31,10 @@ class CheckinCsvImporter
         $this->filename = $filename;
     }
 
+    /**
+     * インポート処理を実行します。
+     * @return int 取り込んだ件数
+     */
     public function execute(): int
     {
         // Guess charset
