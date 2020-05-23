@@ -45,7 +45,7 @@ class CheckinCsvImporter
 
         // Import
         return DB::transaction(function () use ($csv) {
-            $alreadyImportedCount = $this->user->ejaculations()->where('ejaculation.source', Ejaculation::SOURCE_CSV)->count();
+            $alreadyImportedCount = $this->user->ejaculations()->where('ejaculations.source', Ejaculation::SOURCE_CSV)->count();
             $errors = [];
 
             if (!in_array('日時', $csv->getHeader(), true)) {
