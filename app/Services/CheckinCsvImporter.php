@@ -17,6 +17,9 @@ use Throwable;
 
 class CheckinCsvImporter
 {
+    /** @var int 取り込み件数の上限 */
+    private const IMPORT_LIMIT = 5000;
+
     /** @var User Target user */
     private $user;
     /** @var string CSV filename */
@@ -42,6 +45,7 @@ class CheckinCsvImporter
 
         // Import
         return DB::transaction(function () use ($csv) {
+            $alreadyImportedCount = $this->user->ejaculations()->where('ejaculation.source', Ejaculation::SOURCE_CSV)->count();
             $errors = [];
 
             if (!in_array('日時', $csv->getHeader(), true)) {
@@ -55,6 +59,12 @@ class CheckinCsvImporter
             $imported = 0;
             foreach ($csv->getRecords() as $offset => $record) {
                 $line = $offset + 1;
+                if (self::IMPORT_LIMIT < $alreadyImportedCount + $imported) {
+                    $limit = self::IMPORT_LIMIT;
+                    $errors[] = "{$line} 行 : インポート機能で取り込めるデータは{$limit}件までに制限されています。これ以上取り込みできません。";
+                    throw new CsvImportException(...$errors);
+                }
+
                 $ejaculation = new Ejaculation(['user_id' => $this->user->id]);
 
                 $validator = Validator::make($record, [
