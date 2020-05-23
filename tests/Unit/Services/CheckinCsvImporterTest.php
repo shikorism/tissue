@@ -291,4 +291,19 @@ class CheckinCsvImporterTest extends TestCase
         $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/date.utf8.csv');
         $importer->execute();
     }
+
+    public function testRecordLimit()
+    {
+        $user = factory(User::class)->create();
+        factory(Ejaculation::class, 5000)->create([
+            'user_id' => $user->id,
+            'source' => Ejaculation::SOURCE_CSV
+        ]);
+
+        $this->expectException(CsvImportException::class);
+        $this->expectExceptionMessage('2 行 : インポート機能で取り込めるデータは5000件までに制限されています。これ以上取り込みできません。');
+
+        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/link.utf8.csv');
+        $importer->execute();
+    }
 }

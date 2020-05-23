@@ -59,7 +59,7 @@ class CheckinCsvImporter
             $imported = 0;
             foreach ($csv->getRecords() as $offset => $record) {
                 $line = $offset + 1;
-                if (self::IMPORT_LIMIT < $alreadyImportedCount + $imported) {
+                if (self::IMPORT_LIMIT <= $alreadyImportedCount + $imported) {
                     $limit = self::IMPORT_LIMIT;
                     $errors[] = "{$line} 行 : インポート機能で取り込めるデータは{$limit}件までに制限されています。これ以上取り込みできません。";
                     throw new CsvImportException(...$errors);
