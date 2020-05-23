@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Services;
 
@@ -8,12 +9,17 @@ use App\Rules\CsvDateTime;
 use App\Tag;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use League\Csv\Reader;
+use Throwable;
 
 class CheckinCsvImporter
 {
+    /** @var int 取り込み件数の上限 */
+    private const IMPORT_LIMIT = 5000;
+
     /** @var User Target user */
     private $user;
     /** @var string CSV filename */
@@ -25,7 +31,11 @@ class CheckinCsvImporter
         $this->filename = $filename;
     }
 
-    public function execute()
+    /**
+     * インポート処理を実行します。
+     * @return int 取り込んだ件数
+     */
+    public function execute(): int
     {
         // Guess charset
         $charset = $this->guessCharset($this->filename);
@@ -38,7 +48,8 @@ class CheckinCsvImporter
         }
 
         // Import
-        DB::transaction(function () use ($csv) {
+        return DB::transaction(function () use ($csv) {
+            $alreadyImportedCount = $this->user->ejaculations()->where('ejaculations.source', Ejaculation::SOURCE_CSV)->count();
             $errors = [];
 
             if (!in_array('日時', $csv->getHeader(), true)) {
@@ -49,8 +60,15 @@ class CheckinCsvImporter
                 throw new CsvImportException(...$errors);
             }
 
+            $imported = 0;
             foreach ($csv->getRecords() as $offset => $record) {
                 $line = $offset + 1;
+                if (self::IMPORT_LIMIT <= $alreadyImportedCount + $imported) {
+                    $limit = self::IMPORT_LIMIT;
+                    $errors[] = "{$line} 行 : インポート機能で取り込めるデータは{$limit}件までに制限されています。これ以上取り込みできません。";
+                    throw new CsvImportException(...$errors);
+                }
+
                 $ejaculation = new Ejaculation(['user_id' => $this->user->id]);
 
                 $validator = Validator::make($record, [
@@ -78,15 +96,32 @@ class CheckinCsvImporter
                     continue;
                 }
 
-                $ejaculation->save();
-                if (!empty($tags)) {
-                    $ejaculation->tags()->sync(collect($tags)->pluck('id'));
+                DB::beginTransaction();
+                try {
+                    $ejaculation->save();
+                    if (!empty($tags)) {
+                        $ejaculation->tags()->sync(collect($tags)->pluck('id'));
+                    }
+                    DB::commit();
+                    $imported++;
+                } catch (QueryException $e) {
+                    DB::rollBack();
+                    if ($e->errorInfo[0] === '23505') {
+                        $errors[] = "{$line} 行 : すでにこの日時のチェックインデータが存在します。";
+                        continue;
+                    }
+                    throw $e;
+                } catch (Throwable $e) {
+                    DB::rollBack();
+                    throw $e;
                 }
             }
 
             if (!empty($errors)) {
                 throw new CsvImportException(...$errors);
             }
+
+            return $imported;
         });
     }
 
@@ -161,6 +196,9 @@ class CheckinCsvImporter
             }
             if (strpos($tag, "\n") !== false) {
                 throw new CsvImportException("{$line} 行 : {$column}に改行を含めることはできません。");
+            }
+            if (strpos($tag, ' ') !== false) {
+                throw new CsvImportException("{$line} 行 : {$column}にスペースを含めることはできません。");
             }
 
             $tags[] = Tag::firstOrCreate(['name' => $tag]);

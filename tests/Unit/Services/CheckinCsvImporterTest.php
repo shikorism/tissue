@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Tests\Unit\Services;
 
@@ -240,6 +241,16 @@ class CheckinCsvImporterTest extends TestCase
         $importer->execute();
     }
 
+    public function testTagCantAcceptWhitespaceUTF8()
+    {
+        $user = factory(User::class)->create();
+        $this->expectException(CsvImportException::class);
+        $this->expectExceptionMessage('2 行 : タグ1にスペースを含めることはできません。');
+
+        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/tag-whitespace.utf8.csv');
+        $importer->execute();
+    }
+
     public function testTagCanAccept32ColumnsUTF8()
     {
         $user = factory(User::class)->create();
@@ -264,5 +275,35 @@ class CheckinCsvImporterTest extends TestCase
 
         $this->assertSame(1, $user->ejaculations()->count());
         $this->assertEquals(Ejaculation::SOURCE_CSV, $ejaculation->source);
+    }
+
+    public function testDontThrowUniqueKeyViolation()
+    {
+        $user = factory(User::class)->create();
+        factory(Ejaculation::class)->create([
+            'user_id' => $user->id,
+            'ejaculated_date' => Carbon::create(2020, 1, 23, 6, 1, 0, 'Asia/Tokyo')
+        ]);
+
+        $this->expectException(CsvImportException::class);
+        $this->expectExceptionMessage('2 行 : すでにこの日時のチェックインデータが存在します。');
+
+        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/date.utf8.csv');
+        $importer->execute();
+    }
+
+    public function testRecordLimit()
+    {
+        $user = factory(User::class)->create();
+        factory(Ejaculation::class, 5000)->create([
+            'user_id' => $user->id,
+            'source' => Ejaculation::SOURCE_CSV
+        ]);
+
+        $this->expectException(CsvImportException::class);
+        $this->expectExceptionMessage('2 行 : インポート機能で取り込めるデータは5000件までに制限されています。これ以上取り込みできません。');
+
+        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/link.utf8.csv');
+        $importer->execute();
     }
 }

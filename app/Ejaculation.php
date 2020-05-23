@@ -47,6 +47,12 @@ class Ejaculation extends Model
         return $this->hasMany(Like::class);
     }
 
+    public function scopeOnlyWebCheckin(Builder $query)
+    {
+        return $query->where('ejaculations.source', null)
+            ->orWhere('ejaculations.source', '<>', Ejaculation::SOURCE_CSV);
+    }
+
     public function scopeWithLikes(Builder $query)
     {
         if (Auth::check()) {
