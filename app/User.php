@@ -33,6 +33,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+         // 'email_verified_at' => 'datetime',
+    ];
+
+    /**
      * このユーザのメールアドレスから、Gravatarの画像URLを生成します。
      * @param int $size 画像サイズ
      * @return string Gravatar 画像URL

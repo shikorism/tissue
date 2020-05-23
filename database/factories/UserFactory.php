@@ -1,6 +1,8 @@
 <?php
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use Illuminate\Support\Str;
+
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
 
@@ -8,7 +10,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'name' => substr($faker->userName, 0, 15),
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
+        'remember_token' => Str::random(10),
         'display_name' => substr($faker->name, 0, 20),
         'is_protected' => false,
         'accept_analytics' => false,
