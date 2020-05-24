@@ -18,10 +18,13 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/user', 'UserController@redirectMypage')->middleware('auth');
 Route::get('/user/{name?}', 'UserController@profile')->name('user.profile');
 Route::get('/user/{name}/stats', 'UserController@stats')->name('user.stats');
+Route::get('/user/{name}/stats/{year}', 'UserController@statsYearly')->name('user.stats.yearly');
+Route::get('/user/{name}/stats/{year}/{month}', 'UserController@statsMonthly')->name('user.stats.monthly');
 Route::get('/user/{name}/okazu', 'UserController@okazu')->name('user.okazu');
 Route::get('/user/{name}/likes', 'UserController@likes')->name('user.likes');
 
 Route::get('/checkin/{id}', 'EjaculationController@show')->name('checkin.show');
+Route::get('/checkin-tools', 'EjaculationController@tools')->name('checkin.tools');
 Route::middleware('auth')->group(function () {
     Route::get('/checkin', 'EjaculationController@create')->name('checkin');
     Route::post('/checkin', 'EjaculationController@store')->name('checkin');
@@ -36,6 +39,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/setting/profile', 'SettingController@updateProfile')->name('setting.profile.update');
     Route::get('/setting/privacy', 'SettingController@privacy')->name('setting.privacy');
     Route::post('/setting/privacy', 'SettingController@updatePrivacy')->name('setting.privacy.update');
+    Route::get('/setting/import', 'SettingController@import')->name('setting.import');
+    Route::post('/setting/import', 'SettingController@storeImport')->name('setting.import');
+    Route::delete('/setting/import', 'SettingController@destroyImport')->name('setting.import.destroy');
+    Route::get('/setting/export', 'SettingController@export')->name('setting.export');
+    Route::get('/setting/export/csv', 'SettingController@exportToCsv')->name('setting.export.csv');
     Route::get('/setting/deactivate', 'SettingController@deactivate')->name('setting.deactivate');
     Route::post('/setting/deactivate', 'SettingController@destroyUser')->name('setting.deactivate.destroy');
 //    Route::get('/setting/password', 'SettingController@password')->name('setting.password');

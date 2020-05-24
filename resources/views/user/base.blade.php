@@ -4,8 +4,17 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4">
-                @component('components.profile', ['user' => $user])
-                @endcomponent
+                @if (Route::currentRouteName() === 'user.profile')
+                    @component('components.profile', ['user' => $user])
+                    @endcomponent
+                @else
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            @component('components.profile-mini', ['user' => $user])
+                            @endcomponent
+                        </div>
+                    </div>
+                @endif
                 @section('sidebar')
                 @show
             </div>
@@ -15,7 +24,7 @@
                         <a class="nav-link {{ Route::currentRouteName() === 'user.profile' ? 'active' : '' }}" href="{{ route('user.profile', ['name' => $user->name]) }}">タイムライン</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::currentRouteName() === 'user.stats' ? 'active' : '' }}" href="{{ route('user.stats', ['name' => $user->name]) }}">グラフ</a>
+                        <a class="nav-link {{ stripos(Route::currentRouteName(), 'user.stats') === 0 ? 'active' : '' }}" href="{{ route('user.stats', ['name' => $user->name]) }}">グラフ</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ Route::currentRouteName() === 'user.okazu' ? 'active' : '' }}" href="{{ route('user.okazu', ['name' => $user->name]) }}">オカズ</a>

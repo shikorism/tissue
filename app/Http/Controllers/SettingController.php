@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\DeactivatedUser;
+use App\Ejaculation;
+use App\Exceptions\CsvImportException;
+use App\Services\CheckinCsvExporter;
+use App\Services\CheckinCsvImporter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -69,6 +73,79 @@ class SettingController extends Controller
         $user->save();
 
         return redirect()->route('setting.privacy')->with('status', 'プライバシー設定を更新しました。');
+    }
+
+    public function import()
+    {
+        return view('setting.import');
+    }
+
+    public function storeImport(Request $request)
+    {
+        $validated = $request->validate([
+            'file' => 'required|file'
+        ], [], [
+            'file' => 'ファイル'
+        ]);
+
+        $file = $request->file('file');
+        if (!$file->isValid()) {
+            return redirect()->route('setting.import')->withErrors(['file' => 'ファイルのアップロードに失敗しました。']);
+        }
+
+        try {
+            set_time_limit(0);
+
+            $importer = new CheckinCsvImporter(Auth::user(), $file->path());
+            $imported = $importer->execute();
+
+            return redirect()->route('setting.import')->with('status', "{$imported}件のインポートに性交しました。");
+        } catch (CsvImportException $e) {
+            return redirect()->route('setting.import')->with('import_errors', $e->getErrors());
+        }
+    }
+
+    public function destroyImport()
+    {
+        Auth::user()
+            ->ejaculations()
+            ->where('ejaculations.source', Ejaculation::SOURCE_CSV)
+            ->delete();
+
+        return redirect()->route('setting.import')->with('status', '削除が完了しました。');
+    }
+
+    public function export()
+    {
+        return view('setting.export');
+    }
+
+    public function exportToCsv(Request $request)
+    {
+        $validated = $request->validate([
+            'charset' => ['required', Rule::in(['utf8', 'sjis'])]
+        ]);
+
+        $charsets = [
+            'utf8' => 'UTF-8',
+            'sjis' => 'SJIS-win'
+        ];
+
+        $filename = tempnam(sys_get_temp_dir(), 'tissue_export_tmp_');
+        try {
+            // 気休め
+            set_time_limit(0);
+
+            $exporter = new CheckinCsvExporter(Auth::user(), $filename, $charsets[$validated['charset']]);
+            $exporter->execute();
+        } catch (\Throwable $e) {
+            unlink($filename);
+            throw $e;
+        }
+
+        return response()
+            ->download($filename, 'TissueCheckin_' . date('Y-m-d_H-i-s') . '.csv')
+            ->deleteFileAfterSend(true);
     }
 
     public function deactivate()

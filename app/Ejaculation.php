@@ -12,9 +12,12 @@ class Ejaculation extends Model
 {
     use HasEagerLimit;
 
+    const SOURCE_WEB = 'web';
+    const SOURCE_CSV = 'csv';
+
     protected $fillable = [
         'user_id', 'ejaculated_date',
-        'note', 'geo_latitude', 'geo_longitude', 'link',
+        'note', 'geo_latitude', 'geo_longitude', 'link', 'source',
         'is_private', 'is_too_sensitive'
     ];
 
@@ -42,6 +45,11 @@ class Ejaculation extends Model
     public function likes()
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function scopeOnlyWebCheckin(Builder $query)
+    {
+        return $query->where('ejaculations.source', Ejaculation::SOURCE_WEB);
     }
 
     public function scopeWithLikes(Builder $query)

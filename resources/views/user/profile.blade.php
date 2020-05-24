@@ -2,6 +2,12 @@
 
 @section('title', $user->display_name . ' (@' . $user->name . ')')
 
+@push('head')
+    @if (Route::currentRouteName() === 'user.profile')
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
+    @endif
+@endpush
+
 @section('sidebar')
     {{-- TODO: タイムラインとオカズのテンプレを分けたら条件外す --}}
     @if (Route::currentRouteName() === 'user.profile')
@@ -32,6 +38,11 @@
         <span class="oi oi-lock-locked"></span> このユーザはチェックイン履歴を公開していません。
     </p>
 @else
+    @if ($ejaculations->count() !== 0 && $ejaculations->currentPage() === 1)
+        <h5 class="mx-4 my-3">Shikontributions</h5>
+        <div id="cal-heatmap" class="tis-contribution-graph mx-4 mt-3"></div>
+        <hr class="mt-4 mb-2">
+    @endif
     <ul class="list-group">
         @forelse ($ejaculations as $ejaculation)
             <li class="list-group-item border-bottom-only pt-3 pb-3 text-break">
@@ -40,10 +51,13 @@
                     <h5>{{ $ejaculation->ejaculated_span ?? '精通' }} <a href="{{ route('checkin.show', ['id' => $ejaculation->id]) }}" class="text-muted"><small>{{ $ejaculation->before_date }}{{ !empty($ejaculation->before_date) ? ' ～ ' : '' }}{{ $ejaculation->ejaculated_date->format('Y/m/d H:i') }}</small></a></h5>
                 </div>
                 <!-- tags -->
-                @if ($ejaculation->is_private || $ejaculation->tags->isNotEmpty())
+                @if ($ejaculation->is_private || $ejaculation->source === 'csv' || $ejaculation->tags->isNotEmpty())
                     <p class="mb-2">
                         @if ($ejaculation->is_private)
                             <span class="badge badge-warning"><span class="oi oi-lock-locked"></span> 非公開</span>
+                        @endif
+                        @if ($ejaculation->source === 'csv')
+                            <span class="badge badge-info"><span class="oi oi-cloud-upload"></span> インポート</span>
                         @endif
                         @foreach ($ejaculation->tags as $tag)
                             <a class="badge badge-secondary" href="{{ route('search', ['q' => $tag->name]) }}"><span class="oi oi-tag"></span> {{ $tag->name }}</a>
@@ -113,3 +127,10 @@
     @endslot
 @endcomponent
 @endsection
+
+@push('script')
+    <script id="count-by-day" type="application/json">@json($countByDay)</script>
+    <script src="{{ mix('js/vendor/chart.js') }}"></script>
+    <script src="{{ mix('js/user/profile.js') }}"></script>
+@endpush
+

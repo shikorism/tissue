@@ -19,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('parsedown', function ($expression) {
             return "<?php echo app('parsedown')->text($expression); ?>";
         });
+
+        stream_filter_register('convert.mbstring.*', 'Stream_Filter_Mbstring');
     }
 
     /**

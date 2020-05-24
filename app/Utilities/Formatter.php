@@ -2,6 +2,7 @@
 
 namespace App\Utilities;
 
+use Illuminate\Support\Str;
 use Misd\Linkify\Linkify;
 
 class Formatter
@@ -55,10 +56,10 @@ class Formatter
         $parts = parse_url($url);
         if (!empty($parts['query'])) {
             // Remove query parameters
-            $url = str_replace_last('?' . $parts['query'], '', $url);
+            $url = Str::replaceFirst('?' . $parts['query'], '', $url);
             if (!empty($parts['fragment'])) {
                 // Remove fragment identifier
-                $url = str_replace_last('#' . $parts['fragment'], '', $url);
+                $url = Str::replaceFirst('#' . $parts['fragment'], '', $url);
             } else {
                 // "http://example.com/?query#" の場合 $parts['fragment'] は unset になるので、個別に判定して除去する必要がある
                 $url = preg_replace('/#\z/u', '', $url);
@@ -91,5 +92,44 @@ class Formatter
         }
 
         return implode(',', $srcset);
+    }
+
+    /**
+     * php.ini書式のデータサイズを正規化します。
+     * @param mixed $val データサイズ
+     * @return string
+     */
+    public function normalizeIniBytes($val)
+    {
+        $val = trim($val);
+        $last = strtolower(substr($val, -1, 1));
+        if (ord($last) < 0x30 || ord($last) > 0x39) {
+            $bytes = substr($val, 0, -1);
+            switch ($last) {
+                case 'g':
+                    $bytes *= 1024;
+                    // fall through
+                    // no break
+                case 'm':
+                    $bytes *= 1024;
+                    // fall through
+                    // no break
+                case 'k':
+                    $bytes *= 1024;
+                    break;
+            }
+        } else {
+            $bytes = $val;
+        }
+
+        if ($bytes >= (1 << 30)) {
+            return ($bytes >> 30) . 'GB';
+        } elseif ($bytes >= (1 << 20)) {
+            return ($bytes >> 20) . 'MB';
+        } elseif ($bytes >= (1 << 10)) {
+            return ($bytes >> 10) . 'KB';
+        }
+
+        return $bytes . 'B';
     }
 }

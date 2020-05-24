@@ -13,6 +13,14 @@ use Tests\TestCase;
 
 class SettingTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed();
+    }
+
     public function testDestroyUser()
     {
         $user = factory(User::class)->create();

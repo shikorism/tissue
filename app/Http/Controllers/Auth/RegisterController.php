@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -50,7 +51,7 @@ class RegisterController extends Controller
         $rules = [
             'name' => 'required|string|regex:/^[a-zA-Z0-9_-]+$/u|max:15|unique:users|unique:deactivated_users',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed'
+            'password' => 'required|string|min:8|confirmed'
         ];
 
         // reCAPTCHAのキーが設定されている場合、判定を有効化
@@ -78,7 +79,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'display_name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' => Hash::make($data['password']),
             'is_protected' => $data['is_protected'] ?? false,
             'accept_analytics' => $data['accept_analytics'] ?? false
         ]);
