@@ -9,20 +9,8 @@
         <div class="col-lg-4">
             <div class="card mb-4">
                 <div class="card-body">
-                    <div class="d-flex flex-row align-items-end mb-4">
-                        <img src="{{ Auth::user()->getProfileImageUrl(48) }}" srcset="{{ Formatter::profileImageSrcSet(Auth::user(), 48) }}" class="rounded mr-2">
-                        <div class="d-flex flex-column overflow-hidden">
-                            <h5 class="card-title text-truncate">
-                                <a class="text-dark" href="{{ route('user.profile', ['name' => Auth::user()->name]) }}">{{ Auth::user()->display_name }}</a>
-                            </h5>
-                            <h6 class="card-subtitle">
-                                <a class="text-muted" href="{{ route('user.profile', ['name' => Auth::user()->name]) }}">&commat;{{ Auth::user()->name }}</a>
-                                @if (Auth::user()->is_protected)
-                                    <span class="oi oi-lock-locked text-muted"></span>
-                                @endif
-                            </h6>
-                        </div>
-                    </div>
+                    @component('components.profile-mini', ['user' => Auth::user(), 'class' => 'mb-4'])
+                    @endcomponent
                     @component('components.profile-stats', ['user' => Auth::user()])
                     @endcomponent
                 </div>
