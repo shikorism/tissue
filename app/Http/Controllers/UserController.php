@@ -9,6 +9,7 @@ use Carbon\CarbonInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Validator;
 
 class UserController extends Controller
 {
@@ -84,7 +85,18 @@ SQL
             abort(404);
         }
 
+        $validator = Validator::make(compact('year'), [
+            'year' => 'required|date_format:Y'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('user.stats', compact('name'));
+        }
+
         $availableMonths = $this->makeStatsAvailableMonths($user);
+        if (!isset($availableMonths[$year])) {
+            return redirect()->route('user.stats', compact('name'));
+        }
+
         $graphData = $this->makeGraphData(
             $user,
             Carbon::createFromDate($year, 1, 1, config('app.timezone'))->startOfDay(),
@@ -103,7 +115,19 @@ SQL
             abort(404);
         }
 
+        $validator = Validator::make(compact('year', 'month'), [
+            'year' => 'required|date_format:Y',
+            'month' => 'required|date_format:m'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('user.stats.yearly', compact('name', 'year'));
+        }
+
         $availableMonths = $this->makeStatsAvailableMonths($user);
+        if (!isset($availableMonths[$year]) || !in_array($month, $availableMonths[$year], false)) {
+            return redirect()->route('user.stats.yearly', compact('name', 'year'));
+        }
+
         $graphData = $this->makeGraphData(
             $user,
             Carbon::createFromDate($year, $month, 1, config('app.timezone'))->startOfDay(),
