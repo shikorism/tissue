@@ -1,4 +1,4 @@
-<div class="d-flex flex-row align-items-end">
+<div class="d-flex flex-row align-items-end {{ $class ?? '' }}">
     <img src="{{ $user->getProfileImageUrl(48) }}" srcset="{{ Formatter::profileImageSrcSet($user, 48) }}" class="rounded mr-2">
     <div class="d-flex flex-column overflow-hidden">
         <h5 class="card-title text-truncate">

@@ -9,7 +9,7 @@
         <div class="col-lg-4">
             <div class="card mb-4">
                 <div class="card-body">
-                    @component('components.profile-mini', ['user' => Auth::user()])
+                    @component('components.profile-mini', ['user' => Auth::user(), 'class' => 'mb-4'])
                     @endcomponent
                     @component('components.profile-stats', ['user' => Auth::user()])
                     @endcomponent
