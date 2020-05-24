@@ -62,7 +62,18 @@ SQL
             ->limit(10)
             ->get();
 
-        return view('user.profile')->with(compact('user', 'ejaculations', 'tags'));
+        // シコ草
+        $countByDayQuery = $this->countEjaculationByDay($user)
+            ->where('ejaculated_date', '>=', now()->startOfMonth()->subMonths(9))
+            ->where('ejaculated_date', '<', now()->addMonth()->startOfMonth())
+            ->get();
+        $countByDay = [];
+        foreach ($countByDayQuery as $data) {
+            $date = Carbon::createFromFormat('Y/m/d', $data->date);
+            $countByDay[$date->timestamp] = $data->count;
+        }
+
+        return view('user.profile')->with(compact('user', 'ejaculations', 'tags', 'countByDay'));
     }
 
     public function stats($name)
@@ -223,16 +234,8 @@ SQL
             $dateCondition[] = ['ejaculated_date', '>=', $dateSince];
         }
 
-        $groupByDay = Ejaculation::select(DB::raw(
-            <<<'SQL'
-to_char(ejaculated_date, 'YYYY/MM/DD') AS "date",
-count(*) AS "count"
-SQL
-        ))
-            ->where('user_id', $user->id)
+        $groupByDay = $this->countEjaculationByDay($user)
             ->where($dateCondition)
-            ->groupBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"))
-            ->orderBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"))
             ->get();
 
         $groupByHour = Ejaculation::select(DB::raw(
@@ -286,5 +289,18 @@ SQL
             'hourlyKey' => array_keys($hourlySum),
             'hourlySum' => array_values($hourlySum),
         ];
+    }
+
+    private function countEjaculationByDay(User $user)
+    {
+        return Ejaculation::select(DB::raw(
+            <<<'SQL'
+to_char(ejaculated_date, 'YYYY/MM/DD') AS "date",
+count(*) AS "count"
+SQL
+        ))
+            ->where('user_id', $user->id)
+            ->groupBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"))
+            ->orderBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"));
     }
 }

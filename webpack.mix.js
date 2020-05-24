@@ -14,6 +14,7 @@ require('laravel-mix-bundle-analyzer')
 
 mix.js('resources/assets/js/app.js', 'public/js')
     .js('resources/assets/js/home.js', 'public/js')
+    .js('resources/assets/js/user/profile.js', 'public/js/user')
     .js('resources/assets/js/user/stats.js', 'public/js/user')
     .js('resources/assets/js/setting/privacy.js', 'public/js/setting')
     .js('resources/assets/js/setting/import.js', 'public/js/setting')
