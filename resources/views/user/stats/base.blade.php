@@ -3,8 +3,8 @@
 @section('sidebar')
     @if (!$user->is_protected || $user->isMe())
         <div class="nav d-none d-lg-flex flex-column nav-pills" aria-orientation="vertical">
-            <a class="nav-link {{ Route::currentRouteName() === 'user.stats.all' ? 'active' : '' }}"
-               href="{{ route('user.stats.all', ['name' => $user->name]) }}">全期間</a>
+            <a class="nav-link {{ Route::currentRouteName() === 'user.stats' ? 'active' : '' }}"
+               href="{{ route('user.stats', ['name' => $user->name]) }}">全期間</a>
             @foreach ($availableMonths as $year => $months)
                 <div class="border-top mt-1">
                     <a class="nav-link mt-1 {{ Route::currentRouteName() === 'user.stats.yearly' && $currentYear === $year ? 'active' : '' }}"
@@ -33,16 +33,16 @@
                 <ul class="nav nav-pills nav-fill">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            {{ Route::currentRouteName() === 'user.stats.all' ? '全期間' : "{$currentYear}年" }}
+                            {{ Route::currentRouteName() === 'user.stats' ? '全期間' : "{$currentYear}年" }}
                         </a>
                         <div class="dropdown-menu">
-                            <a href="{{ route('user.stats.all', ['name' => $user->name]) }}" class="dropdown-item">全期間</a>
+                            <a href="{{ route('user.stats', ['name' => $user->name]) }}" class="dropdown-item">全期間</a>
                             @foreach ($availableMonths as $year => $months)
                                 <a href="{{ route('user.stats.yearly', ['name' => $user->name, 'year' => $year]) }}" class="dropdown-item">{{ $year }}年</a>
                             @endforeach
                         </div>
                     </li>
-                    @if (Route::currentRouteName() === 'user.stats.all')
+                    @if (Route::currentRouteName() === 'user.stats')
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle disabled"
                                href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">全期間</a>

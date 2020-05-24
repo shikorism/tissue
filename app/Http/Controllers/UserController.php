@@ -64,7 +64,7 @@ SQL
         return view('user.profile')->with(compact('user', 'ejaculations', 'tags'));
     }
 
-    public function statsAll($name)
+    public function stats($name)
     {
         $user = User::where('name', $name)->first();
         if (empty($user)) {
@@ -74,7 +74,7 @@ SQL
         $availableMonths = $this->makeStatsAvailableMonths($user);
         $graphData = $this->makeGraphData($user);
 
-        return view('user.stats.all')->with(compact('user', 'graphData', 'availableMonths'));
+        return view('user.stats.index')->with(compact('user', 'graphData', 'availableMonths'));
     }
 
     public function statsYearly($name, $year)
