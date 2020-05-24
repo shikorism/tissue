@@ -27,7 +27,7 @@
                         <span class="badge {{ $categories[$info->category]['class'] }}">{{ $categories[$info->category]['label'] }}</span>
                     </td>
                     <td>
-                        <a href="{{ route('admin.info.edit', ['id' => $info->id]) }}">{{ $info->title }}</a>
+                        <a href="{{ route('admin.info.edit', ['info' => $info->id]) }}">{{ $info->title }}</a>
                     </td>
                     <td>
                         {{ $info->created_at->format('Y年n月j日') }}

@@ -44,12 +44,10 @@ class InfoController extends Controller
         return redirect()->route('admin.info.edit', ['info' => $info])->with('status', 'お知らせを更新しました。');
     }
 
-    public function edit($id)
+    public function edit(Information $info)
     {
-        $information = Information::findOrFail($id);
-
         return view('admin.info.edit')->with([
-            'info' => $information,
+            'info' => $info,
             'categories' => Information::CATEGORIES
         ]);
     }
