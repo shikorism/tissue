@@ -54,9 +54,9 @@
                                 {{ Route::currentRouteName() === 'user.stats.yearly' ? '全期間' : "{$currentMonth}月" }}
                             </a>
                             <div class="dropdown-menu">
-                                <a href="{{ route('user.stats.yearly', ['name' => $user->name, 'year' => $year]) }}" class="dropdown-item">全期間</a>
+                                <a href="{{ route('user.stats.yearly', ['name' => $user->name, 'year' => $currentYear]) }}" class="dropdown-item">全期間</a>
                                 @foreach ($availableMonths[$currentYear] as $month)
-                                    <a href="{{ route('user.stats.monthly', ['name' => $user->name, 'year' => $year, 'month' => $month]) }}" class="dropdown-item">{{ $month }}月</a>
+                                    <a href="{{ route('user.stats.monthly', ['name' => $user->name, 'year' => $currentYear, 'month' => $month]) }}" class="dropdown-item">{{ $month }}月</a>
                                 @endforeach
                             </div>
                         </li>
