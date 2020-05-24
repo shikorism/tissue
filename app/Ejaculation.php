@@ -49,8 +49,7 @@ class Ejaculation extends Model
 
     public function scopeOnlyWebCheckin(Builder $query)
     {
-        return $query->where('ejaculations.source', null)
-            ->orWhere('ejaculations.source', '<>', Ejaculation::SOURCE_CSV);
+        return $query->where('ejaculations.source', Ejaculation::SOURCE_WEB);
     }
 
     public function scopeWithLikes(Builder $query)
