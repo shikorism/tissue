@@ -8,5 +8,6 @@ $factory->define(Ejaculation::class, function (Faker $faker) {
     return [
         'ejaculated_date' => $faker->date('Y-m-d H:i:s'),
         'note' => $faker->text,
+        'source' => Ejaculation::SOURCE_WEB,
     ];
 });

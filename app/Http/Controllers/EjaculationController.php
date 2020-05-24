@@ -57,6 +57,7 @@ class EjaculationController extends Controller
             'ejaculated_date' => Carbon::createFromFormat('Y/m/d H:i', $inputs['date'] . ' ' . $inputs['time']),
             'note' => $inputs['note'] ?? '',
             'link' => $inputs['link'] ?? '',
+            'source' => Ejaculation::SOURCE_WEB,
             'is_private' => $request->has('is_private') ?? false,
             'is_too_sensitive' => $request->has('is_too_sensitive') ?? false
         ]);
