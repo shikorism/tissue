@@ -1,6 +1,6 @@
 import CalHeatMap from 'cal-heatmap';
 import Chart from 'chart.js';
-import {addMonths, format, startOfMonth, subMonths} from 'date-fns';
+import {addMonths, format} from 'date-fns';
 
 const graphData = JSON.parse(document.getElementById('graph-data').textContent);
 
@@ -90,53 +90,35 @@ function createMonthlyGraphData(from) {
     return {keys, values};
 }
 
-new CalHeatMap().init({
-    itemSelector: '#cal-heatmap',
-    domain: 'month',
-    subDomain: 'day',
-    domainLabelFormat: '%Y/%m',
-    weekStartOnMonday: false,
-    start: new Date().setMonth(new Date().getMonth() - 9),
-    range: 10,
-    data: graphData.dailySum,
-    legend: [1, 2, 3, 4]
-});
-
-// 直近1年の月間グラフのデータを準備
-const monthlyTermFrom = subMonths(startOfMonth(new Date()), 11);
-const {keys: monthlyKey, values: monthlySum} = createMonthlyGraphData(monthlyTermFrom);
-
-const monthlyGraph = createLineGraph('monthly-graph', monthlyKey, monthlySum);
-createLineGraph('yearly-graph', graphData.yearlyKey, graphData.yearlySum);
-createBarGraph('hourly-graph', graphData.hourlyKey, graphData.hourlySum);
-createBarGraph('dow-graph', ['日', '月', '火', '水', '木', '金', '土'], graphData.dowSum);
-
-// 月間グラフの期間セレクターを準備
-const monthlyTermSelector = document.getElementById('monthly-term');
-const earliestYear = [...new Set(Object.keys(graphData.monthlySum).map(v => v.substr(0, 4)))].shift();
-for (let year = earliestYear; year <= new Date().getFullYear(); year++) {
-    const opt = document.createElement('option');
-    opt.setAttribute('value', year);
-    opt.textContent = `${year}年`;
-    monthlyTermSelector.insertBefore(opt, monthlyTermSelector.firstChild);
-}
-if (monthlyTermSelector.children.length) {
-    monthlyTermSelector.selectedIndex = 0;
+function getCurrentYear() {
+    const year = location.pathname.split('/').pop();
+    return /^(20[0-9]{2})$/.test(year) ? year : null;
 }
 
-monthlyTermSelector.addEventListener('change', function (e) {
-    let monthlyTermFrom;
-    if (e.target.selectedIndex === 0) {
-        // 今年のデータを表示する時は、直近12ヶ月を表示
-        monthlyTermFrom = subMonths(startOfMonth(new Date()), 11);
-    } else {
-        // 過去のデータを表示する時は、選択年の1〜12月を表示
-        monthlyTermFrom = new Date(e.target.value, 0, 1);
-    }
+if (document.getElementById('cal-heatmap')) {
+    new CalHeatMap().init({
+        itemSelector: '#cal-heatmap',
+        domain: 'month',
+        subDomain: 'day',
+        domainLabelFormat: '%Y/%m',
+        weekStartOnMonday: false,
+        start: new Date(getCurrentYear(), 0, 1, 0, 0, 0, 0),
+        range: 12,
+        data: graphData.dailySum,
+        legend: [1, 2, 3, 4]
+    });
+}
 
-    const {keys, values} = createMonthlyGraphData(monthlyTermFrom);
-
-    monthlyGraph.data.labels = keys;
-    monthlyGraph.data.datasets[0].data = values;
-    monthlyGraph.update();
-});
+if (document.getElementById('monthly-graph')) {
+    const {keys: monthlyKey, values: monthlySum} = createMonthlyGraphData(new Date(getCurrentYear(), 0, 1, 0, 0, 0, 0));
+    createLineGraph('monthly-graph', monthlyKey, monthlySum);
+}
+if (document.getElementById('yearly-graph')) {
+    createLineGraph('yearly-graph', graphData.yearlyKey, graphData.yearlySum);
+}
+if (document.getElementById('hourly-graph')) {
+    createBarGraph('hourly-graph', graphData.hourlyKey, graphData.hourlySum);
+}
+if (document.getElementById('dow-graph')) {
+    createBarGraph('dow-graph', ['日', '月', '火', '水', '木', '金', '土'], graphData.dowSum);
+}

@@ -17,7 +17,10 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/user', 'UserController@redirectMypage')->middleware('auth');
 Route::get('/user/{name?}', 'UserController@profile')->name('user.profile');
-Route::get('/user/{name}/stats', 'UserController@stats')->name('user.stats');
+Route::redirect('/user/{name}/stats', '/user/{name}/stats/all')->name('user.stats');
+Route::get('/user/{name}/stats/all', 'UserController@statsAll')->name('user.stats.all');
+Route::get('/user/{name}/stats/{year}', 'UserController@statsYearly')->name('user.stats.yearly');
+Route::get('/user/{name}/stats/{year}/{month}', 'UserController@statsMonthly')->name('user.stats.monthly');
 Route::get('/user/{name}/okazu', 'UserController@okazu')->name('user.okazu');
 Route::get('/user/{name}/likes', 'UserController@likes')->name('user.likes');
 
