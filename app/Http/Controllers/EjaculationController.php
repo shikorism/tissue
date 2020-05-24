@@ -185,4 +185,9 @@ class EjaculationController extends Controller
 
         return redirect()->route('user.profile', ['name' => $user->name])->with('status', '削除しました。');
     }
+
+    public function tools()
+    {
+        return view('ejaculation.tools');
+    }
 }

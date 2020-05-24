@@ -22,6 +22,7 @@ Route::get('/user/{name}/okazu', 'UserController@okazu')->name('user.okazu');
 Route::get('/user/{name}/likes', 'UserController@likes')->name('user.likes');
 
 Route::get('/checkin/{id}', 'EjaculationController@show')->name('checkin.show');
+Route::get('/checkin-tools', 'EjaculationController@tools')->name('checkin.tools');
 Route::middleware('auth')->group(function () {
     Route::get('/checkin', 'EjaculationController@create')->name('checkin');
     Route::post('/checkin', 'EjaculationController@store')->name('checkin');

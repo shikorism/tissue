@@ -98,6 +98,7 @@
                     <button class="btn btn-primary" type="submit">チェックイン</button>
                 </div>
             </form>
+            <p class="text-center small mt-4"><strong>Tips</strong>: ブックマークレットや共有機能で、簡単にチェックインできます！ <a href="{{ route('checkin.tools') }}" target="_blank" rel="noopener">使い方はこちら</a></p>
         </div>
     </div>
 </div>
