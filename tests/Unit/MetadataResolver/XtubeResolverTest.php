@@ -9,7 +9,7 @@ class XtubeResolverTest extends TestCase
 {
     use CreateMockedResolver;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

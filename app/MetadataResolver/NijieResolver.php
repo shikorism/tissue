@@ -3,6 +3,7 @@
 namespace App\MetadataResolver;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Str;
 use Symfony\Component\DomCrawler\Crawler;
 
 class NijieResolver implements Resolver
@@ -50,8 +51,8 @@ class NijieResolver implements Resolver
         $metadata->description = '投稿者: ' . $data['author']['name'] . PHP_EOL . $data['description'];
         if (
             isset($data['thumbnailUrl']) &&
-            !ends_with($data['thumbnailUrl'], '.gif') &&
-            !ends_with($data['thumbnailUrl'], '.mp4')
+            !Str::endsWith($data['thumbnailUrl'], '.gif') &&
+            !Str::endsWith($data['thumbnailUrl'], '.mp4')
         ) {
             // サムネイルからメイン画像に
             $metadata->image = str_replace('__rs_l160x160/', '', $data['thumbnailUrl']);

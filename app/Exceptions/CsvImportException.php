@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Support\Arr;
 use Throwable;
 
 class CsvImportException extends \RuntimeException
@@ -15,7 +16,7 @@ class CsvImportException extends \RuntimeException
      */
     public function __construct(...$errors)
     {
-        parent::__construct(array_first($errors));
+        parent::__construct(Arr::first($errors));
         $this->errors = $errors;
     }
 

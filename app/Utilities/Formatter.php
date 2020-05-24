@@ -2,6 +2,7 @@
 
 namespace App\Utilities;
 
+use Illuminate\Support\Str;
 use Misd\Linkify\Linkify;
 
 class Formatter
@@ -55,10 +56,10 @@ class Formatter
         $parts = parse_url($url);
         if (!empty($parts['query'])) {
             // Remove query parameters
-            $url = str_replace_last('?' . $parts['query'], '', $url);
+            $url = Str::replaceFirst('?' . $parts['query'], '', $url);
             if (!empty($parts['fragment'])) {
                 // Remove fragment identifier
-                $url = str_replace_last('#' . $parts['fragment'], '', $url);
+                $url = Str::replaceFirst('#' . $parts['fragment'], '', $url);
             } else {
                 // "http://example.com/?query#" の場合 $parts['fragment'] は unset になるので、個別に判定して除去する必要がある
                 $url = preg_replace('/#\z/u', '', $url);
