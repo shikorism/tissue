@@ -38,7 +38,7 @@
         <span class="oi oi-lock-locked"></span> このユーザはチェックイン履歴を公開していません。
     </p>
 @else
-    @if ($ejaculations->count() !== 0 && $ejaculations->currentPage() === 1)
+    @if (Route::currentRouteName() === 'user.profile' && $ejaculations->count() !== 0 && $ejaculations->currentPage() === 1)
         <h5 class="mx-4 my-3">Shikontributions</h5>
         <div id="cal-heatmap" class="tis-contribution-graph mx-4 mt-3"></div>
         <hr class="mt-4 mb-2">
@@ -129,8 +129,10 @@
 @endsection
 
 @push('script')
-    <script id="count-by-day" type="application/json">@json($countByDay)</script>
-    <script src="{{ mix('js/vendor/chart.js') }}"></script>
-    <script src="{{ mix('js/user/profile.js') }}"></script>
+    @if (Route::currentRouteName() === 'user.profile')
+        <script id="count-by-day" type="application/json">@json($countByDay)</script>
+        <script src="{{ mix('js/vendor/chart.js') }}"></script>
+        <script src="{{ mix('js/user/profile.js') }}"></script>
+    @endif
 @endpush
 
