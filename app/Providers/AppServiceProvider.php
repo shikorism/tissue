@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\MetadataResolver\MetadataResolver;
+use GuzzleHttp\Client;
+use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Parsedown;
@@ -35,6 +37,13 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->singleton('parsedown', function () {
             return Parsedown::instance();
+        });
+        $this->app->bind(Client::class, function () {
+            return new Client([
+                RequestOptions::HEADERS => [
+                    'User-Agent' => 'TissueBot/1.0'
+                ]
+            ]);
         });
     }
 }
