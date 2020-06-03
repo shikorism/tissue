@@ -26,7 +26,7 @@
         "openpear/stream_filter_mbstring": "dev-master",
         "staudenmeir/eloquent-eager-limit": "^1.0",
         "symfony/css-selector": "^4.3",
-        "symfony/dom-crawler": "^4.3"
+        "symfony/dom-crawler": "^5.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",
