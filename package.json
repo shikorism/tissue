@@ -11,7 +11,7 @@
     "stylelint": "stylelint resources/assets/sass/**/*"
   },
   "devDependencies": {
-    "@types/jquery": "^3.3.29",
+    "@types/jquery": "^3.3.38",
     "bootstrap": "^4.3.1",
     "cal-heatmap": "^3.3.10",
     "chart.js": "^2.7.1",
