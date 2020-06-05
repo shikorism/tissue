@@ -26,7 +26,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
         'jquery': ['$', 'jQuery', 'window.jQuery']
     })
     .extract(['jquery', 'bootstrap'])
-    .extract(['chart.js', 'chartjs-color', 'color-name', 'moment', 'd3'], 'public/js/vendor/chart')
+    .extract(['chart.js', 'chartjs-color', 'color-name', 'moment', 'cal-heatmap', 'd3'], 'public/js/vendor/chart')
     .version()
     .webpackConfig(webpack => ({
         plugins: [
