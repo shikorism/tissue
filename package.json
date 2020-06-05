@@ -23,6 +23,7 @@
     "laravel-mix": "^4.0.0",
     "laravel-mix-bundle-analyzer": "^1.0.2",
     "lint-staged": "^8.1.5",
+    "moment-locales-webpack-plugin": "^1.2.0",
     "open-iconic": "^1.1.1",
     "popper.js": "^1.14.7",
     "resolve-url-loader": "^2.3.1",

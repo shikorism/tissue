@@ -1,5 +1,6 @@
 const mix = require('laravel-mix');
 require('laravel-mix-bundle-analyzer')
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 /*
  |--------------------------------------------------------------------------
@@ -27,7 +28,14 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .extract(['jquery', 'bootstrap'])
     .extract(['chart.js', 'chartjs-color', 'color-name', 'moment', 'd3'], 'public/js/vendor/chart')
     .version()
+    .webpackConfig(webpack => ({
+        plugins: [
+            new MomentLocalesPlugin({
+                localesToKeep: ['ja']
+            })
+        ]
+    }));
 
 if (process.argv.includes('-a')) {
-    mix.bundleAnalyzer({analyzerMode: 'static'});
+    mix.bundleAnalyzer({ analyzerMode: 'static' });
 }
