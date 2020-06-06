@@ -59,6 +59,7 @@
         return this.each(function () {
             $(this)
                 .on('show.bs.modal', function (event) {
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     const target = $(event.relatedTarget!);
                     const modal = $(this);
                     modal.find('.modal-body .date-label').text(target.data('date'));

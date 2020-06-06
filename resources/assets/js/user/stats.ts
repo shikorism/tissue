@@ -2,10 +2,12 @@ import * as CalHeatMap from 'cal-heatmap';
 import * as Chart from 'chart.js';
 import { addMonths, format } from 'date-fns';
 
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const graphData = JSON.parse(document.getElementById('graph-data')!.textContent as string);
 
 function createLineGraph(id: string, labels: string[], data: any) {
     const context = (document.getElementById(id) as HTMLCanvasElement).getContext('2d');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new Chart(context!, {
         type: 'line',
         data: {
@@ -47,6 +49,7 @@ function createLineGraph(id: string, labels: string[], data: any) {
 
 function createBarGraph(id: string, labels: string[], data: any) {
     const context = (document.getElementById(id) as HTMLCanvasElement).getContext('2d');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     new Chart(context!, {
         type: 'bar',
         data: {
