@@ -1,5 +1,5 @@
 import * as CalHeatMap from 'cal-heatmap';
-import {subMonths} from 'date-fns';
+import { subMonths } from 'date-fns';
 
 if (document.getElementById('cal-heatmap')) {
     new CalHeatMap().init({
@@ -10,7 +10,8 @@ if (document.getElementById('cal-heatmap')) {
         weekStartOnMonday: false,
         start: subMonths(new Date(), 9),
         range: 10,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         data: JSON.parse(document.getElementById('count-by-day')!.textContent as string),
-        legend: [1, 2, 3, 4]
+        legend: [1, 2, 3, 4],
     });
 }
