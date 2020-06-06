@@ -1,12 +1,12 @@
-import CalHeatMap from 'cal-heatmap';
-import Chart from 'chart.js';
+import * as CalHeatMap from 'cal-heatmap';
+import * as Chart from 'chart.js';
 import {addMonths, format} from 'date-fns';
 
-const graphData = JSON.parse(document.getElementById('graph-data').textContent);
+const graphData = JSON.parse(document.getElementById('graph-data')!.textContent as string);
 
-function createLineGraph(id, labels, data) {
-    const context = document.getElementById(id).getContext('2d');
-    return new Chart(context, {
+function createLineGraph(id: string, labels: string[], data: any) {
+    const context = (document.getElementById(id) as HTMLCanvasElement).getContext('2d');
+    return new Chart(context!, {
         type: 'line',
         data: {
             labels: labels,
@@ -41,9 +41,9 @@ function createLineGraph(id, labels, data) {
     });
 }
 
-function createBarGraph(id, labels, data) {
-    const context = document.getElementById(id).getContext('2d');
-    new Chart(context, {
+function createBarGraph(id: string, labels: string[], data: any) {
+    const context = (document.getElementById(id) as HTMLCanvasElement).getContext('2d');
+    new Chart(context!, {
         type: 'bar',
         data: {
             labels: labels,
@@ -73,10 +73,7 @@ function createBarGraph(id, labels, data) {
     });
 }
 
-/**
- * @param {Date} from
- */
-function createMonthlyGraphData(from) {
+function createMonthlyGraphData(from: Date) {
     const keys = [];
     const values = [];
 
@@ -90,9 +87,13 @@ function createMonthlyGraphData(from) {
     return {keys, values};
 }
 
-function getCurrentYear() {
-    const year = location.pathname.split('/').pop();
-    return /^(20[0-9]{2})$/.test(year) ? year : null;
+function getCurrentYear(): number {
+    const year = location.pathname.split('/').pop() || '';
+    if (/^(20[0-9]{2})$/.test(year)) {
+        return parseInt(year, 10);
+    } else {
+        throw 'Invalid year';
+    }
 }
 
 if (document.getElementById('cal-heatmap')) {

@@ -1,4 +1,5 @@
-import Cookies from 'js-cookie';
+import * as Cookies from 'js-cookie';
+import jqXHR = JQuery.jqXHR;
 
 require('./bootstrap');
 
@@ -40,7 +41,7 @@ $(() => {
         const isLiked = $this.data('liked');
 
         if (isLiked) {
-            const callback = (data) => {
+            const callback = (data: any) => {
                 $this.data('liked', false);
                 $this.find('.oi-heart').removeClass('text-danger');
 
@@ -54,7 +55,7 @@ $(() => {
                 type: 'json'
             })
                 .then(callback)
-                .catch(function (xhr) {
+                .catch(function (xhr: jqXHR) {
                     if (xhr.status === 404) {
                         callback(JSON.parse(xhr.responseText));
                         return;
@@ -64,7 +65,7 @@ $(() => {
                     alert('いいねを解除できませんでした。');
                 });
         } else {
-            const callback = (data) => {
+            const callback = (data: any) => {
                 $this.data('liked', true);
                 $this.find('.oi-heart').addClass('text-danger');
 
@@ -81,7 +82,7 @@ $(() => {
                 }
             })
                 .then(callback)
-                .catch(function (xhr) {
+                .catch(function (xhr: jqXHR) {
                     if (xhr.status === 409) {
                         callback(JSON.parse(xhr.responseText));
                         return;

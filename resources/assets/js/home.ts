@@ -1,10 +1,10 @@
-import Chart from 'chart.js';
+import * as Chart from 'chart.js';
 
-const graph = document.getElementById('global-count-graph');
-const labels = JSON.parse(document.getElementById('global-count-labels').textContent);
-const data = JSON.parse(document.getElementById('global-count-data').textContent);
+const graph = document.getElementById('global-count-graph') as HTMLCanvasElement;
+const labels = JSON.parse(document.getElementById('global-count-labels')!.textContent as string);
+const data = JSON.parse(document.getElementById('global-count-data')!.textContent as string);
 
-new Chart(graph.getContext('2d'), {
+new Chart(graph.getContext('2d')!, {
     type: 'bar',
     data: {
         labels,
