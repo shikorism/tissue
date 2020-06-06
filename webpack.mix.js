@@ -25,9 +25,14 @@ mix.js('resources/assets/js/app.js', 'public/js')
         'jquery': ['$', 'jQuery', 'window.jQuery']
     })
     .extract(['jquery', 'bootstrap'])
-    .extract(['chart.js', 'chartjs-color', 'color-name', 'moment'], 'public/js/vendor/chart')
-    .version();
+    .extract(['chart.js', 'chartjs-color', 'color-name', 'moment', 'cal-heatmap', 'd3'], 'public/js/vendor/chart')
+    .version()
+    .webpackConfig(webpack => ({
+        externals: {
+            moment: 'moment'
+        }
+    }));
 
 if (process.argv.includes('-a')) {
-    mix.bundleAnalyzer({analyzerMode: 'static'});
+    mix.bundleAnalyzer({ analyzerMode: 'static' });
 }
