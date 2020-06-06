@@ -82,12 +82,12 @@ export default class MetadataPreview extends Vue {
 
     tags: string[] = [];
 
-    created() {
+    created(): void {
         bus.$on('change-tag', (tags: string[]) => (this.tags = tags));
         bus.$emit('resend-tag');
     }
 
-    addTag(tag: string) {
+    addTag(tag: string): void {
         bus.$emit('add-tag', tag);
     }
 

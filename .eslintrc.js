@@ -20,5 +20,7 @@ module.exports = {
         sourceType: 'module',
     },
     plugins: ['prettier', 'vue', '@typescript-eslint'],
-    rules: {},
+    rules: {
+        '@typescript-eslint/explicit-module-boundary-types': 0,
+    },
 };
