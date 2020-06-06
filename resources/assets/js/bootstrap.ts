@@ -8,8 +8,8 @@ if (!token) {
 } else {
     $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN': token.content
-        }
+            'X-CSRF-TOKEN': token.content,
+        },
     });
 }
 

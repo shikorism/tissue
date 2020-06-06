@@ -8,31 +8,37 @@ new Chart(graph.getContext('2d')!, {
     type: 'bar',
     data: {
         labels,
-        datasets: [{
-            data,
-            backgroundColor: 'rgba(0, 0, 0, .1)',
-            borderColor: 'rgba(0, 0, 0, .25)',
-            borderWidth: 1
-        }]
+        datasets: [
+            {
+                data,
+                backgroundColor: 'rgba(0, 0, 0, .1)',
+                borderColor: 'rgba(0, 0, 0, .25)',
+                borderWidth: 1,
+            },
+        ],
     },
     options: {
         maintainAspectRatio: false,
         legend: {
-            display: false
+            display: false,
         },
         elements: {
-            line: {}
+            line: {},
         },
         scales: {
-            xAxes: [{
-                display: false
-            }],
-            yAxes: [{
-                display: false,
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
+            xAxes: [
+                {
+                    display: false,
+                },
+            ],
+            yAxes: [
+                {
+                    display: false,
+                    ticks: {
+                        beginAtZero: true,
+                    },
+                },
+            ],
+        },
+    },
 });

@@ -1,8 +1,8 @@
 import Vue from 'vue';
-import TagInput from "./components/TagInput.vue";
+import TagInput from './components/TagInput.vue';
 import MetadataPreview from './components/MetadataPreview.vue';
 
-export const bus = new Vue({name: "EventBus"});
+export const bus = new Vue({ name: 'EventBus' });
 
 export enum MetadataLoadState {
     Inactive,
@@ -19,11 +19,11 @@ new Vue({
     },
     components: {
         TagInput,
-        MetadataPreview
+        MetadataPreview,
     },
     mounted() {
         // オカズリンクにURLがセットされている場合は、すぐにメタデータを取得する
-        const linkInput = this.$el.querySelector<HTMLInputElement>("#link");
+        const linkInput = this.$el.querySelector<HTMLInputElement>('#link');
         if (linkInput && /^https?:\/\//.test(linkInput.value)) {
             this.fetchMetadata(linkInput.value);
         }
@@ -52,15 +52,17 @@ new Vue({
                 method: 'get',
                 type: 'json',
                 data: {
-                    url
-                }
-            }).then(data => {
-                this.metadata = data;
-                this.metadataLoadState = MetadataLoadState.Success;
-            }).catch(e => {
-                this.metadata = null;
-                this.metadataLoadState = MetadataLoadState.Failed;
-            });
-        }
-    }
+                    url,
+                },
+            })
+                .then((data) => {
+                    this.metadata = data;
+                    this.metadataLoadState = MetadataLoadState.Success;
+                })
+                .catch((e) => {
+                    this.metadata = null;
+                    this.metadataLoadState = MetadataLoadState.Failed;
+                });
+        },
+    },
 });

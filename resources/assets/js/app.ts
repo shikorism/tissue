@@ -8,10 +8,10 @@ $(() => {
         $('body').removeClass('tis-need-agecheck');
     } else {
         $('#ageCheckModal')
-            .modal({backdrop: 'static'})
+            .modal({ backdrop: 'static' })
             .on('hide.bs.modal', function () {
                 $('body').removeClass('tis-need-agecheck');
-                Cookies.set('agechecked', '1', {expires: 365});
+                Cookies.set('agechecked', '1', { expires: 365 });
             });
     }
 
@@ -52,7 +52,7 @@ $(() => {
             $.ajax({
                 url: '/api/likes/' + encodeURIComponent(targetId),
                 method: 'delete',
-                type: 'json'
+                type: 'json',
             })
                 .then(callback)
                 .catch(function (xhr: jqXHR) {
@@ -78,8 +78,8 @@ $(() => {
                 method: 'post',
                 type: 'json',
                 data: {
-                    id: targetId
-                }
+                    id: targetId,
+                },
             })
                 .then(callback)
                 .catch(function (xhr: jqXHR) {
@@ -99,7 +99,7 @@ $(() => {
 
     $(document).on('click', '.card-spoiler-overlay', function (event) {
         const $this = $(this);
-        $this.siblings(".card-link").removeClass("card-spoiler");
+        $this.siblings('.card-link').removeClass('card-spoiler');
         $this.remove();
     });
 });

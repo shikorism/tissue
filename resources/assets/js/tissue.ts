@@ -1,9 +1,11 @@
 (function ($) {
-
     $.fn.linkCard = function (options) {
-        const settings = $.extend({
-            endpoint: '/api/checkin/card'
-        }, options);
+        const settings = $.extend(
+            {
+                endpoint: '/api/checkin/card',
+            },
+            options
+        );
 
         return this.each(function () {
             const $this = $(this);
@@ -12,8 +14,8 @@
                 method: 'get',
                 type: 'json',
                 data: {
-                    url: $this.find('a').attr('href')
-                }
+                    url: $this.find('a').attr('href'),
+                },
             }).then(function (data) {
                 const $metaColumn = $this.find('.col-12:last-of-type');
                 const $imageColumn = $this.find('.col-12:first-of-type');
@@ -55,18 +57,20 @@
 
     $.fn.deleteCheckinModal = function () {
         return this.each(function () {
-            $(this).on('show.bs.modal', function (event) {
-                const target = $(event.relatedTarget!);
-                const modal = $(this);
-                modal.find('.modal-body .date-label').text(target.data('date'));
-                modal.data('id', target.data('id'));
-            }).find('.btn-danger').on('click', function (event) {
-                const modal = $('#deleteCheckinModal');
-                const form = modal.find('form');
-                form.attr('action', form.attr('action')?.replace('@', modal.data('id')) || null);
-                form.submit();
-            })
+            $(this)
+                .on('show.bs.modal', function (event) {
+                    const target = $(event.relatedTarget!);
+                    const modal = $(this);
+                    modal.find('.modal-body .date-label').text(target.data('date'));
+                    modal.data('id', target.data('id'));
+                })
+                .find('.btn-danger')
+                .on('click', function (event) {
+                    const modal = $('#deleteCheckinModal');
+                    const form = modal.find('form');
+                    form.attr('action', form.attr('action')?.replace('@', modal.data('id')) || null);
+                    form.submit();
+                });
         });
     };
-
 })(jQuery);
