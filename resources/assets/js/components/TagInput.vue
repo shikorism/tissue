@@ -2,7 +2,12 @@
     <div :class="containerClass" @click="$refs.input.focus()">
         <input :name="name" type="hidden" :value="tagValue" />
         <ul class="list-inline d-inline">
-            <li v-for="(tag, i) in tags" class="list-inline-item badge badge-primary tag-item" @click="removeTag(i)">
+            <li
+                v-for="(tag, i) in tags"
+                class="list-inline-item badge badge-primary tag-item"
+                @click="removeTag(i)"
+                :key="tag"
+            >
                 <span class="oi oi-tag"></span> {{ tag }} | x
             </li>
         </ul>
@@ -65,7 +70,7 @@ export default class TagInput extends Vue {
         bus.$emit('change-tag', this.tags);
     }
 
-    get containerClass(): object {
+    get containerClass() {
         return {
             'form-control': true,
             'h-auto': true,

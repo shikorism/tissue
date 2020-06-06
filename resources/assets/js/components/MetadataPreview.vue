@@ -25,7 +25,12 @@
                                     >
                                 </p>
                                 <ul class="list-inline d-inline">
-                                    <li v-for="tag in suggestions" :class="tagClasses(tag)" @click="addTag(tag.name)">
+                                    <li
+                                        v-for="tag in suggestions"
+                                        :class="tagClasses(tag)"
+                                        @click="addTag(tag.name)"
+                                        :key="tag.name"
+                                    >
                                         <span class="oi oi-tag"></span> {{ tag.name }}
                                     </li>
                                 </ul>
