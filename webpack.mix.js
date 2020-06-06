@@ -12,13 +12,13 @@ require('laravel-mix-bundle-analyzer')
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-    .js('resources/assets/js/home.js', 'public/js')
-    .js('resources/assets/js/user/profile.js', 'public/js/user')
-    .js('resources/assets/js/user/stats.js', 'public/js/user')
-    .js('resources/assets/js/setting/privacy.js', 'public/js/setting')
-    .js('resources/assets/js/setting/import.js', 'public/js/setting')
-    .js('resources/assets/js/setting/deactivate.js', 'public/js/setting')
+mix.ts('resources/assets/js/app.ts', 'public/js')
+    .ts('resources/assets/js/home.ts', 'public/js')
+    .ts('resources/assets/js/user/profile.ts', 'public/js/user')
+    .ts('resources/assets/js/user/stats.ts', 'public/js/user')
+    .ts('resources/assets/js/setting/privacy.ts', 'public/js/setting')
+    .ts('resources/assets/js/setting/import.ts', 'public/js/setting')
+    .ts('resources/assets/js/setting/deactivate.ts', 'public/js/setting')
     .ts('resources/assets/js/checkin.ts', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
     .autoload({

@@ -1,12 +1,12 @@
 (function ($) {
 
     $.fn.linkCard = function (options) {
-        var settings = $.extend({
+        const settings = $.extend({
             endpoint: '/api/checkin/card'
         }, options);
 
         return this.each(function () {
-            var $this = $(this);
+            const $this = $(this);
             $.ajax({
                 url: settings.endpoint,
                 method: 'get',
@@ -15,11 +15,11 @@
                     url: $this.find('a').attr('href')
                 }
             }).then(function (data) {
-                var $metaColumn = $this.find('.col-12:last-of-type');
-                var $imageColumn = $this.find('.col-12:first-of-type');
-                var $title = $this.find('.card-title');
-                var $desc = $this.find('.card-text');
-                var $image = $imageColumn.find('img');
+                const $metaColumn = $this.find('.col-12:last-of-type');
+                const $imageColumn = $this.find('.col-12:first-of-type');
+                const $title = $this.find('.card-title');
+                const $desc = $this.find('.card-text');
+                const $image = $imageColumn.find('img');
 
                 if (data.title === '') {
                     $title.hide();
@@ -56,14 +56,14 @@
     $.fn.deleteCheckinModal = function () {
         return this.each(function () {
             $(this).on('show.bs.modal', function (event) {
-                var target = $(event.relatedTarget);
-                var modal = $(this);
+                const target = $(event.relatedTarget!);
+                const modal = $(this);
                 modal.find('.modal-body .date-label').text(target.data('date'));
                 modal.data('id', target.data('id'));
             }).find('.btn-danger').on('click', function (event) {
-                var modal = $('#deleteCheckinModal');
-                var form = modal.find('form');
-                form.attr('action', form.attr('action').replace('@', modal.data('id')));
+                const modal = $('#deleteCheckinModal');
+                const form = modal.find('form');
+                form.attr('action', form.attr('action')?.replace('@', modal.data('id')) || null);
                 form.submit();
             })
         });
