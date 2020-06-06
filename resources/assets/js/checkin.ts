@@ -59,7 +59,7 @@ new Vue({
                     this.metadata = data;
                     this.metadataLoadState = MetadataLoadState.Success;
                 })
-                .catch((e) => {
+                .catch((_e) => {
                     this.metadata = null;
                     this.metadataLoadState = MetadataLoadState.Failed;
                 });

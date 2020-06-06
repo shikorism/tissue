@@ -65,7 +65,7 @@
                     modal.data('id', target.data('id'));
                 })
                 .find('.btn-danger')
-                .on('click', function (event) {
+                .on('click', function (_event) {
                     const modal = $('#deleteCheckinModal');
                     const form = modal.find('form');
                     form.attr('action', form.attr('action')?.replace('@', modal.data('id')) || null);

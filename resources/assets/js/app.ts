@@ -29,7 +29,7 @@ $(() => {
         $deleteCheckinModal.modal('show', this);
     });
 
-    $(document).on('click', '[data-href]', function (event) {
+    $(document).on('click', '[data-href]', function (_event) {
         location.href = $(this).data('href');
     });
 
@@ -97,7 +97,7 @@ $(() => {
         }
     });
 
-    $(document).on('click', '.card-spoiler-overlay', function (event) {
+    $(document).on('click', '.card-spoiler-overlay', function (_event) {
         const $this = $(this);
         $this.siblings('.card-link').removeClass('card-spoiler');
         $this.remove();
