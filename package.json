@@ -62,7 +62,7 @@
       "stylelint --fix",
       "git add"
     ],
-    ".{ts,js,vue}" : [
+    "*.{ts,js,vue}" : [
       "eslint --fix",
       "git add"
     ],
