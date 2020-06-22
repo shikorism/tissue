@@ -14,7 +14,7 @@
   "devDependencies": {
     "@types/bootstrap": "^4.5.0",
     "@types/cal-heatmap": "^3.3.10",
-    "@types/chart.js": "^2.7.1",
+    "@types/chart.js": "^2.9.22",
     "@types/jquery": "^3.3.38",
     "@types/js-cookie": "^2.2.0",
     "@typescript-eslint/eslint-plugin": "^3.1.0",
