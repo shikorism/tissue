@@ -3,6 +3,7 @@
 namespace App\MetadataResolver;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Cookie\CookieJar;
 use Symfony\Component\DomCrawler\Crawler;
 
 class FanzaResolver implements Resolver
@@ -43,7 +44,9 @@ class FanzaResolver implements Resolver
 
     public function resolve(string $url): Metadata
     {
-        $res = $this->client->get($url);
+        $cookieJar = CookieJar::fromArray(['age_check_done' => '1'], 'dmm.co.jp');
+
+        $res = $this->client->get($url, ['cookies' => $cookieJar]);
         $html = (string) $res->getBody();
         $crawler = new Crawler($html);
 
