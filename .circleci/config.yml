@@ -105,6 +105,12 @@ jobs:
           command: yarn run stylelint
           when: always
 
+      # Run eslint
+      - run:
+          name: eslint
+          command: yarn run eslint
+          when: always
+
       # Run unit test
       - run:
           command: |

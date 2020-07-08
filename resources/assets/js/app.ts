@@ -1,4 +1,5 @@
-import Cookies from 'js-cookie';
+import * as Cookies from 'js-cookie';
+import jqXHR = JQuery.jqXHR;
 
 require('./bootstrap');
 
@@ -7,10 +8,10 @@ $(() => {
         $('body').removeClass('tis-need-agecheck');
     } else {
         $('#ageCheckModal')
-            .modal({backdrop: 'static'})
+            .modal({ backdrop: 'static' })
             .on('hide.bs.modal', function () {
                 $('body').removeClass('tis-need-agecheck');
-                Cookies.set('agechecked', '1', {expires: 365});
+                Cookies.set('agechecked', '1', { expires: 365 });
             });
     }
 
@@ -28,7 +29,7 @@ $(() => {
         $deleteCheckinModal.modal('show', this);
     });
 
-    $(document).on('click', '[data-href]', function (event) {
+    $(document).on('click', '[data-href]', function (_event) {
         location.href = $(this).data('href');
     });
 
@@ -40,7 +41,7 @@ $(() => {
         const isLiked = $this.data('liked');
 
         if (isLiked) {
-            const callback = (data) => {
+            const callback = (data: any) => {
                 $this.data('liked', false);
                 $this.find('.oi-heart').removeClass('text-danger');
 
@@ -51,10 +52,10 @@ $(() => {
             $.ajax({
                 url: '/api/likes/' + encodeURIComponent(targetId),
                 method: 'delete',
-                type: 'json'
+                type: 'json',
             })
                 .then(callback)
-                .catch(function (xhr) {
+                .catch(function (xhr: jqXHR) {
                     if (xhr.status === 404) {
                         callback(JSON.parse(xhr.responseText));
                         return;
@@ -64,7 +65,7 @@ $(() => {
                     alert('いいねを解除できませんでした。');
                 });
         } else {
-            const callback = (data) => {
+            const callback = (data: any) => {
                 $this.data('liked', true);
                 $this.find('.oi-heart').addClass('text-danger');
 
@@ -77,11 +78,11 @@ $(() => {
                 method: 'post',
                 type: 'json',
                 data: {
-                    id: targetId
-                }
+                    id: targetId,
+                },
             })
                 .then(callback)
-                .catch(function (xhr) {
+                .catch(function (xhr: jqXHR) {
                     if (xhr.status === 409) {
                         callback(JSON.parse(xhr.responseText));
                         return;
@@ -96,9 +97,9 @@ $(() => {
         }
     });
 
-    $(document).on('click', '.card-spoiler-overlay', function (event) {
+    $(document).on('click', '.card-spoiler-overlay', function (_event) {
         const $this = $(this);
-        $this.siblings(".card-link").removeClass("card-spoiler");
+        $this.siblings('.card-link').removeClass('card-spoiler');
         $this.remove();
     });
 });
