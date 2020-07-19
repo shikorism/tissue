@@ -14,6 +14,7 @@ class Ejaculation extends Model
 
     const SOURCE_WEB = 'web';
     const SOURCE_CSV = 'csv';
+    const SOURCE_WEBHOOK = 'webhook';
 
     protected $fillable = [
         'user_id', 'ejaculated_date',

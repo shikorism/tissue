@@ -17,9 +17,10 @@
 
 Route::get('/checkin/card', 'Api\\CardController@show');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['stateful', 'auth'])->group(function () {
     Route::post('/likes', 'Api\\LikeController@store');
     Route::delete('/likes/{id}', 'Api\\LikeController@destroy');
 });
 
-Route::post('/webhooks/checkin/{webhook}', 'Api\\WebhookController@checkin');
+Route::post('/webhooks/checkin/{webhook}', 'Api\\WebhookController@checkin')
+    ->middleware('throttle:15,15,checkin_webhook');

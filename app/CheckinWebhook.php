@@ -25,4 +25,9 @@ class CheckinWebhook extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function isAvailable()
+    {
+        return $this->user() !== null;
+    }
 }

@@ -38,15 +38,17 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\NormalizeLineEnding::class,
         ],
 
-        // 現時点では内部APIしかないので、認証の手間を省くためにステートフルにしている。
         'api' => [
+            'throttle:60,1',
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ],
+
+        'stateful' => [
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
-            'throttle:60,1',
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        ],
+        ]
     ];
 
     /**
