@@ -6,6 +6,7 @@ use App\CheckinWebhook;
 use App\Ejaculation;
 use App\Events\LinkDiscovered;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EjaculationResource;
 use App\Tag;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -27,8 +28,7 @@ class WebhookController extends Controller
         $inputs = $request->all();
 
         $validator = Validator::make($inputs, [
-            'date' => 'nullable|date_format:Y/m/d',
-            'time' => 'nullable|date_format:H:i',
+            'checked_in_at' => 'nullable|date|after_or_equal:2000-01-01 00:00:00|before_or_equal:2099-12-31 23:59:59',
             'note' => 'nullable|string|max:500',
             'link' => 'nullable|url|max:2000',
             'tags' => 'nullable|array',
@@ -49,13 +49,8 @@ class WebhookController extends Controller
             ]);
         }
 
-        $ejaculatedDate = now()->startOfMinute();
-        if (!empty($inputs['date'])) {
-            $ejaculatedDate = $ejaculatedDate->setDateFrom(Carbon::createFromFormat('Y/m/d', $inputs['date']));
-        }
-        if (!empty($inputs['time'])) {
-            $ejaculatedDate = $ejaculatedDate->setTimeFrom(Carbon::createFromFormat('H:i', $inputs['time']));
-        }
+        $ejaculatedDate = empty($inputs['checked_in_at']) ? now() : new Carbon($inputs['checked_in_at']);
+        $ejaculatedDate = $ejaculatedDate->setTimezone(date_default_timezone_get())->startOfMinute();
         if (Ejaculation::where(['user_id' => $webhook->user_id, 'ejaculated_date' => $ejaculatedDate])->count()) {
             return response()->json([
                 'status' => 422,
@@ -95,7 +90,7 @@ class WebhookController extends Controller
 
         return response()->json([
             'status' => 200,
-            'checkin' => $ejaculation
+            'checkin' => new EjaculationResource($ejaculation)
         ]);
     }
 }
