@@ -32,11 +32,11 @@ class WebhookController extends Controller
             'note' => 'nullable|string|max:500',
             'link' => 'nullable|url|max:2000',
             'tags' => 'nullable|array',
-            'tags.*' => ['string', 'not_regex:/\s/u'],
+            'tags.*' => ['string', 'not_regex:/[\s\r\n]/u', 'max:255'],
             'is_private' => 'nullable|boolean',
             'is_too_sensitive' => 'nullable|boolean',
         ], [
-            'tags.*.not_regex' => 'The :attribute cannot contain spaces.'
+            'tags.*.not_regex' => 'The :attribute cannot contain spaces, tabs and newlines.'
         ]);
 
         if ($validator->fails()) {
