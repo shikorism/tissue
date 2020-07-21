@@ -27,6 +27,11 @@ class MetadataResolveService
         // URLの正規化
         $url = $this->formatter->normalizeUrl($url);
 
+        // 自分自身は解決しない
+        if (parse_url($url, PHP_URL_HOST) === parse_url(config('app.url'), PHP_URL_HOST)) {
+            abort(403);
+        }
+
         // 無かったら取得
         // TODO: ある程度古かったら再取得とかありだと思う
         $metadata = Metadata::find($url);
