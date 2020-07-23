@@ -7,6 +7,9 @@ use Illuminate\Support\Str;
 
 class CheckinWebhook extends Model
 {
+    /** @var int ユーザーごとの作成数制限 */
+    const PER_USER_LIMIT = 10;
+
     public $incrementing = false;
     protected $keyType = 'string';
 

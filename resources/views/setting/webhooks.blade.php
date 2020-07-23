@@ -13,15 +13,19 @@
             <p>Webhook APIは予告なく仕様変更を行う場合がございます。また、サーバに対する過剰なリクエストや、不審な公開チェックインを繰り返している場合には管理者の裁量によって予告なく無効化(削除)する場合があります。</p>
             <p>通常利用と同様、1分以内のチェックインは禁止されていることを考慮してください。また、テスト目的であれば非公開チェックインをご活用ください。</p>
             <hr>
-            <form action="{{ route('setting.webhooks.store') }}" method="post">
-                {{ csrf_field() }}
-                <div class="form-group">
-                    <label for="name">名前 (メモ)</label>
-                    <input id="name" class="form-control" name="name" type="text" required>
-                    <small class="form-text text-muted">後で分かるように名前を付けておいてください。</small>
-                </div>
-                <button class="btn btn-primary" type="submit">新規作成</button>
-            </form>
+            @if (count($webhooks) >= $webhooksLimit)
+                <p class="my-0 text-danger">1ユーザーが作成可能なWebhookは、{{ $webhooksLimit }}件までに制限されています。</p>
+            @else
+                <form action="{{ route('setting.webhooks.store') }}" method="post">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <label for="name">名前 (メモ)</label>
+                        <input id="name" class="form-control" name="name" type="text" required>
+                        <small class="form-text text-muted">後で分かるように名前を付けておいてください。</small>
+                    </div>
+                    <button class="btn btn-primary" type="submit">新規作成</button>
+                </form>
+            @endif
         </div>
     </div>
     @if (!empty($webhooks))

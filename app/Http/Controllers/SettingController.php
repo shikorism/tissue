@@ -79,8 +79,9 @@ class SettingController extends Controller
     public function webhooks()
     {
         $webhooks = Auth::user()->checkinWebhooks;
+        $webhooksLimit = CheckinWebhook::PER_USER_LIMIT;
 
-        return view('setting.webhooks')->with(compact('webhooks'));
+        return view('setting.webhooks')->with(compact('webhooks', 'webhooksLimit'));
     }
 
     public function storeWebhooks(Request $request)
@@ -88,6 +89,11 @@ class SettingController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255'
         ]);
+
+        if (Auth::user()->checkinWebhooks()->count() >= CheckinWebhook::PER_USER_LIMIT) {
+            return redirect()->route('setting.webhooks')
+                ->with('status', CheckinWebhook::PER_USER_LIMIT . '件以上のWebhookを作成することはできません。');
+        }
 
         Auth::user()->checkinWebhooks()->create($validated);
 
