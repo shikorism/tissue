@@ -20,8 +20,11 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="name">名前 (メモ)</label>
-                        <input id="name" class="form-control" name="name" type="text" required>
+                        <input id="name" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" type="text" required>
                         <small class="form-text text-muted">後で分かるように名前を付けておいてください。</small>
+                        @if ($errors->has('name'))
+                            <div class="invalid-feedback">{{ $errors->first('name') }}</div>
+                        @endif
                     </div>
                     <button class="btn btn-primary" type="submit">新規作成</button>
                 </form>

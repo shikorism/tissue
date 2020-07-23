@@ -87,7 +87,16 @@ class SettingController extends Controller
     public function storeWebhooks(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('checkin_webhooks', 'name')->where(function ($query) {
+                    return $query->where('user_id', Auth::id());
+                })
+            ]
+        ], [], [
+            'name' => '名前'
         ]);
 
         if (Auth::user()->checkinWebhooks()->count() >= CheckinWebhook::PER_USER_LIMIT) {
