@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Metadata;
+use App\MetadataResolver\DeniedHostException;
 use App\MetadataResolver\MetadataResolver;
 use App\Tag;
 use App\Utilities\Formatter;
@@ -29,7 +30,7 @@ class MetadataResolveService
 
         // 自分自身は解決しない
         if (parse_url($url, PHP_URL_HOST) === parse_url(config('app.url'), PHP_URL_HOST)) {
-            abort(403);
+            throw new DeniedHostException($url);
         }
 
         // 無かったら取得
