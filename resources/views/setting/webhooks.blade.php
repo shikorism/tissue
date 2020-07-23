@@ -38,7 +38,7 @@
             <div class="list-group-item d-flex justify-content-between align-items-center">
                 <div class="flex-grow-1 mr-2">
                     <div>{{ $webhook->name }}</div>
-                    <input class="webhook-url form-control form-control-sm mt-1" type="text" value="{{ url('/api/webhooks/' . $webhook->id) }}" readonly>
+                    <input class="webhook-url form-control form-control-sm mt-1" type="text" value="{{ url('/api/webhooks/checkin/' . $webhook->id) }}" readonly>
                 </div>
                 <div class="ml-2">
                     <button class="btn btn-outline-secondary copy-to-clipboard" type="button" data-toggle="popover" data-trigger="manual" data-placement="top" data-content="コピーしました！">コピー</button>
