@@ -39,6 +39,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/setting/profile', 'SettingController@updateProfile')->name('setting.profile.update');
     Route::get('/setting/privacy', 'SettingController@privacy')->name('setting.privacy');
     Route::post('/setting/privacy', 'SettingController@updatePrivacy')->name('setting.privacy.update');
+    Route::get('/setting/webhooks', 'SettingController@webhooks')->name('setting.webhooks');
+    Route::post('/setting/webhooks', 'SettingController@storeWebhooks')->name('setting.webhooks.store');
+    Route::delete('/setting/webhooks/{webhook}', 'SettingController@destroyWebhooks')->name('setting.webhooks.destroy');
     Route::get('/setting/import', 'SettingController@import')->name('setting.import');
     Route::post('/setting/import', 'SettingController@storeImport')->name('setting.import');
     Route::delete('/setting/import', 'SettingController@destroyImport')->name('setting.import.destroy');

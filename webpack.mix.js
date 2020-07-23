@@ -1,5 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const mix = require('laravel-mix');
-require('laravel-mix-bundle-analyzer')
+require('laravel-mix-bundle-analyzer');
 
 /*
  |--------------------------------------------------------------------------
@@ -19,18 +20,19 @@ mix.ts('resources/assets/js/app.ts', 'public/js')
     .ts('resources/assets/js/setting/privacy.ts', 'public/js/setting')
     .ts('resources/assets/js/setting/import.ts', 'public/js/setting')
     .ts('resources/assets/js/setting/deactivate.ts', 'public/js/setting')
+    .ts('resources/assets/js/setting/webhooks.ts', 'public/js/setting')
     .ts('resources/assets/js/checkin.ts', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
     .autoload({
-        'jquery': ['$', 'jQuery', 'window.jQuery']
+        jquery: ['$', 'jQuery', 'window.jQuery'],
     })
     .extract(['jquery', 'bootstrap'])
     .extract(['chart.js', 'chartjs-color', 'color-name', 'moment', 'cal-heatmap', 'd3'], 'public/js/vendor/chart')
     .version()
-    .webpackConfig(webpack => ({
+    .webpackConfig((_webpack) => ({
         externals: {
-            moment: 'moment'
-        }
+            moment: 'moment',
+        },
     }));
 
 if (process.argv.includes('-a')) {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CheckinWebhook;
 use App\DeactivatedUser;
 use App\Ejaculation;
 use App\Exceptions\CsvImportException;
@@ -73,6 +74,31 @@ class SettingController extends Controller
         $user->save();
 
         return redirect()->route('setting.privacy')->with('status', 'プライバシー設定を更新しました。');
+    }
+
+    public function webhooks()
+    {
+        $webhooks = Auth::user()->checkinWebhooks;
+
+        return view('setting.webhooks')->with(compact('webhooks'));
+    }
+
+    public function storeWebhooks(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
+
+        Auth::user()->checkinWebhooks()->create($validated);
+
+        return redirect()->route('setting.webhooks')->with('status', '作成しました。');
+    }
+
+    public function destroyWebhooks(CheckinWebhook $webhook)
+    {
+        $webhook->delete();
+
+        return redirect()->route('setting.webhooks')->with('status', '削除しました。');
     }
 
     public function import()
