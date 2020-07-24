@@ -21,6 +21,7 @@ class CreateCheckinWebhooksTable extends Migration
             $table->softDeletes();
 
             $table->primary('id');
+            $table->index('user_id');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });

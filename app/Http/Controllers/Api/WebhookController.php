@@ -67,7 +67,8 @@ class WebhookController extends Controller
             'link' => $inputs['link'] ?? '',
             'source' => Ejaculation::SOURCE_WEBHOOK,
             'is_private' => $request->has('is_private') ?? false,
-            'is_too_sensitive' => $request->has('is_too_sensitive') ?? false
+            'is_too_sensitive' => $request->has('is_too_sensitive') ?? false,
+            'checkin_webhook_id' => $webhook->id
         ]);
 
         $tagIds = [];
