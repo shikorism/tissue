@@ -51,14 +51,19 @@
                     <h5>{{ $ejaculation->ejaculated_span ?? '精通' }} <a href="{{ route('checkin.show', ['id' => $ejaculation->id]) }}" class="text-muted"><small>{{ $ejaculation->before_date }}{{ !empty($ejaculation->before_date) ? ' ～ ' : '' }}{{ $ejaculation->ejaculated_date->format('Y/m/d H:i') }}</small></a></h5>
                 </div>
                 <!-- tags -->
-                @if ($ejaculation->is_private || $ejaculation->source === 'csv' || $ejaculation->tags->isNotEmpty())
+                @if ($ejaculation->is_private || $ejaculation->source !== 'web' || $ejaculation->tags->isNotEmpty())
                     <p class="mb-2">
                         @if ($ejaculation->is_private)
                             <span class="badge badge-warning"><span class="oi oi-lock-locked"></span> 非公開</span>
                         @endif
-                        @if ($ejaculation->source === 'csv')
-                            <span class="badge badge-info"><span class="oi oi-cloud-upload"></span> インポート</span>
-                        @endif
+                        @switch ($ejaculation->source)
+                            @case ('csv')
+                                <span class="badge badge-info"><span class="oi oi-cloud-upload"></span> インポート</span>
+                                @break
+                            @case ('webhook')
+                                <span class="badge badge-info" data-toggle="tooltip" title="Webhookからチェックイン"><span class="oi oi-flash"></span></span>
+                                @break
+                        @endswitch
                         @foreach ($ejaculation->tags as $tag)
                             <a class="badge badge-secondary" href="{{ route('search', ['q' => $tag->name]) }}"><span class="oi oi-tag"></span> {{ $tag->name }}</a>
                         @endforeach
