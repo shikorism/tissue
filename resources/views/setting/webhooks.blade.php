@@ -31,7 +31,7 @@
             @endif
         </div>
     </div>
-    @if (!empty($webhooks))
+    @if (!$webhooks->isEmpty())
         <h4 class="mt-4">作成済みのWebhook</h4>
         <div class="list-group mt-3">
         @foreach ($webhooks as $webhook)
