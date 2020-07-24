@@ -48,22 +48,22 @@
         @endforeach
         </div>
     @endif
-@endsection
 
-@component('components.modal', ['id' => 'deleteIncomingWebhookModal'])
-    @slot('title')
-        削除確認
-    @endslot
-    Webhookを削除してもよろしいですか？
-    <form action="{{ route('setting.webhooks.destroy', ['webhook' => '@']) }}" method="post">
-        {{ csrf_field() }}
-        {{ method_field('DELETE') }}
-    </form>
-    @slot('footer')
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
-        <button type="button" class="btn btn-danger">削除</button>
-    @endslot
-@endcomponent
+    @component('components.modal', ['id' => 'deleteIncomingWebhookModal'])
+        @slot('title')
+            削除確認
+        @endslot
+        Webhookを削除してもよろしいですか？
+        <form action="{{ route('setting.webhooks.destroy', ['webhook' => '@']) }}" method="post">
+            {{ csrf_field() }}
+            {{ method_field('DELETE') }}
+        </form>
+        @slot('footer')
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+            <button type="button" class="btn btn-danger">削除</button>
+        @endslot
+    @endcomponent
+@endsection
 
 @push('script')
     <script src="{{ mix('js/setting/webhooks.js') }}"></script>
