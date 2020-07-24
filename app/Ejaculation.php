@@ -49,9 +49,9 @@ class Ejaculation extends Model
         return $this->hasMany(Like::class);
     }
 
-    public function scopeOnlyWebCheckin(Builder $query)
+    public function scopePublic(Builder $query)
     {
-        return $query->where('ejaculations.source', Ejaculation::SOURCE_WEB);
+        return $query->whereIn('ejaculations.source', [Ejaculation::SOURCE_WEB, Ejaculation::SOURCE_WEBHOOK]);
     }
 
     public function scopeWithLikes(Builder $query)
