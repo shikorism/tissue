@@ -46,7 +46,7 @@ class WebhookController extends Controller
                     'message' => 'Validation failed',
                     'violations' => $validator->errors()->all(),
                 ]
-            ]);
+            ], 422);
         }
 
         $ejaculatedDate = empty($inputs['checked_in_at']) ? now() : new Carbon($inputs['checked_in_at']);
@@ -57,7 +57,7 @@ class WebhookController extends Controller
                 'error' => [
                     'message' => 'Checkin already exists in this time',
                 ]
-            ]);
+            ], 422);
         }
 
         $ejaculation = Ejaculation::create([

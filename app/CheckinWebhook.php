@@ -34,6 +34,6 @@ class CheckinWebhook extends Model
 
     public function isAvailable()
     {
-        return $this->user() !== null;
+        return $this->user !== null;
     }
 }
