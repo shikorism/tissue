@@ -19,7 +19,7 @@
     "@types/js-cookie": "^2.2.0",
     "@typescript-eslint/eslint-plugin": "^3.1.0",
     "@typescript-eslint/parser": "^3.1.0",
-    "bootstrap": "^4.5.0",
+    "bootstrap": "5.0.0-alpha1",
     "cal-heatmap": "^3.3.10",
     "chart.js": "^2.7.1",
     "cross-env": "^5.2.0",
@@ -62,7 +62,7 @@
       "stylelint --fix",
       "git add"
     ],
-    "*.{ts,js,vue}" : [
+    "*.{ts,js,vue}": [
       "eslint --fix",
       "git add"
     ],
