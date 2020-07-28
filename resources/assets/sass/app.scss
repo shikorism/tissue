@@ -1,6 +1,16 @@
 // Bootstrap Variable Overlide
 $primary: #e53fb1;
 
+// Bootstrap v4 compat variables
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px,
+    xxl: 1140px
+);
+$grid-gutter-width: 30px;
+
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
@@ -17,6 +27,7 @@ $primary: #e53fb1;
 // Tag
 @import "tag/index";
 
+// Bootstrap v4 compat
 .tis-jumbotron {
     padding: 2rem 0;
     margin-bottom: 2rem;
@@ -25,4 +36,8 @@ $primary: #e53fb1;
     @include media-breakpoint-up(sm) {
         padding: 4rem 0;
     }
+}
+
+a {
+    text-decoration: none;
 }
