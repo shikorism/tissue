@@ -4,7 +4,7 @@
         <ul class="list-inline d-inline">
             <li
                 v-for="(tag, i) in tags"
-                class="list-inline-item badge badge-primary tag-item"
+                class="list-inline-item badge bg-primary tag-item"
                 @click="removeTag(i)"
                 :key="tag"
             >

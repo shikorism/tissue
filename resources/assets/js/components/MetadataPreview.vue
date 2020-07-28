@@ -95,8 +95,8 @@ export default class MetadataPreview extends Vue {
         return {
             'list-inline-item': true,
             badge: true,
-            'badge-primary': !s.used,
-            'badge-secondary': s.used,
+            'bg-primary': !s.used,
+            'bg-secondary': s.used,
             'metadata-tag-item': true,
         };
     }

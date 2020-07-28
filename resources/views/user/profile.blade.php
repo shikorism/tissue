@@ -23,7 +23,7 @@
                             <span class="oi oi-tag text-secondary"></span>
                             {{ $tag->name }}
                         </div>
-                        <span class="badge badge-secondary badge-pill">{{ $tag->count }}</span>
+                        <span class="badge bg-secondary rounded-pill">{{ $tag->count }}</span>
                     </a>
                 @endforeach
             </div>
@@ -54,13 +54,13 @@
                 @if ($ejaculation->is_private || $ejaculation->source === 'csv' || $ejaculation->tags->isNotEmpty())
                     <p class="mb-2">
                         @if ($ejaculation->is_private)
-                            <span class="badge badge-warning"><span class="oi oi-lock-locked"></span> 非公開</span>
+                            <span class="badge bg-warning"><span class="oi oi-lock-locked"></span> 非公開</span>
                         @endif
                         @if ($ejaculation->source === 'csv')
-                            <span class="badge badge-info"><span class="oi oi-cloud-upload"></span> インポート</span>
+                            <span class="badge bg-info"><span class="oi oi-cloud-upload"></span> インポート</span>
                         @endif
                         @foreach ($ejaculation->tags as $tag)
-                            <a class="badge badge-secondary" href="{{ route('search', ['q' => $tag->name]) }}"><span class="oi oi-tag"></span> {{ $tag->name }}</a>
+                            <a class="badge bg-secondary" href="{{ route('search', ['q' => $tag->name]) }}"><span class="oi oi-tag"></span> {{ $tag->name }}</a>
                         @endforeach
                     </p>
                 @endif
