@@ -16,3 +16,13 @@ $primary: #e53fb1;
 
 // Tag
 @import "tag/index";
+
+.tis-jumbotron {
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+    background-color: #e9ecef;
+
+    @include media-breakpoint-up(sm) {
+        padding: 4rem 0;
+    }
+}

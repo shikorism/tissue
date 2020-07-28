@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('content')
-<div class="jumbotron jumbotron-fluid">
+<div class="container-fluid tis-jumbotron">
     <div class="container text-center">
         <h1 class="display-3">{{ config('app.name', 'Tissue') }}</h1>
         <p class="lead mb-2">気持ちよくティッシュを使った、そのあとの感想戦。</p>
