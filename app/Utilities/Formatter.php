@@ -132,4 +132,15 @@ class Formatter
 
         return $bytes . 'B';
     }
+
+    public function normalizeToSearchIndex(string $text): string
+    {
+        $text = \Normalizer::normalize($text, \Normalizer::FORM_KC);
+//        $text = \Transliterator::create('Katakana-Hiragana')->transliterate($text);
+        $text = mb_convert_kana($text, 'c');
+        $text = preg_replace('/[^\p{L}\p{N}]/u', '', $text);
+        $text = mb_strtolower($text);
+
+        return $text;
+    }
 }
