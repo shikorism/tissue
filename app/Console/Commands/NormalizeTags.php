@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Tag;
 use App\Utilities\Formatter;
+use DB;
 use Illuminate\Console\Command;
 
 class NormalizeTags extends Command
@@ -42,9 +43,19 @@ class NormalizeTags extends Command
      */
     public function handle()
     {
-        foreach (Tag::query()->orderBy('name')->cursor() as $tag) {
-            $normalizedName = $this->formatter->normalizeToSearchIndex($tag->name);
-            $this->line("{$tag->name} : {$normalizedName}");
-        }
+        $start = hrtime(true);
+
+        DB::transaction(function () {
+            /** @var Tag $tag */
+            foreach (Tag::query()->cursor() as $tag) {
+                $normalizedName = $this->formatter->normalizeTagName($tag->name);
+                $this->line("{$tag->name} : {$normalizedName}");
+                $tag->normalized_name = $normalizedName;
+                $tag->save();
+            }
+        });
+
+        $elapsed = (hrtime(true) - $start) / 1e+9;
+        $this->info("Done! ({$elapsed} sec)");
     }
 }
