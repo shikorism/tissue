@@ -4,20 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Ejaculation;
 use App\Tag;
+use App\Utilities\Formatter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class SearchController extends Controller
 {
+    /** @var Formatter */
+    private $formatter;
+
+    public function __construct(Formatter $formatter)
+    {
+        $this->formatter = $formatter;
+    }
+
     public function index(Request $request)
     {
         $inputs = $request->validate([
             'q' => 'required'
         ]);
 
+        $q = $this->normalizeQuery($inputs['q']);
         $results = Ejaculation::query()
-            ->whereHas('tags', function ($query) use ($inputs) {
-                $query->where('name', 'like', "%{$inputs['q']}%");
+            ->whereHas('tags', function ($query) use ($q) {
+                $query->where('normalized_name', 'like', "%{$q}%");
             })
             ->whereHas('user', function ($query) {
                 $query->where('is_protected', false);
@@ -41,11 +51,17 @@ class SearchController extends Controller
             'q' => 'required'
         ]);
 
+        $q = $this->normalizeQuery($inputs['q']);
         $results = Tag::query()
-            ->where('name', 'like', "%{$inputs['q']}%")
+            ->where('normalized_name', 'like', "%{$q}%")
             ->paginate(50)
             ->appends($inputs);
 
         return view('search.relatedTag')->with(compact('inputs', 'results'));
+    }
+
+    private function normalizeQuery(string $query): string
+    {
+        return $this->formatter->normalizeTagName($query);
     }
 }

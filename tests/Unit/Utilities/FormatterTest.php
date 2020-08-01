@@ -70,4 +70,30 @@ class FormatterTest extends TestCase
             $formatter->profileImageSrcSet($profileImageProvider, 128, 2)
         );
     }
+
+    /**
+     * @dataProvider provideNormalizeTagName
+     */
+    public function testNormalizeTagName($input, $expected)
+    {
+        $formatter = new Formatter();
+
+        $normalized = $formatter->normalizeTagName($input);
+        $this->assertSame($expected, $normalized);
+        $this->assertSame($expected, $formatter->normalizeTagName($normalized));
+    }
+
+    public function provideNormalizeTagName()
+    {
+        return [
+            'LowerCase' => ['example', 'example'],
+            'UpperCase' => ['EXAMPLE', 'example'],
+            'HalfWidthKana' => ['ﾃｨｯｼｭ', 'ティッシュ'],
+            'FullWidthAlphabet' => ['Ｔｉｓｓｕｅ', 'tissue'],
+            '組み文字1' => ['13㎝', '13cm'],
+            '組み文字2' => ['13㌢㍍', '13センチメートル'],
+            'Script' => ['ℬ𝒶𝒷𝓊𝓂𝒾', 'babumi'],
+            'NFD' => ['オカズ', 'オカズ'],
+        ];
+    }
 }
