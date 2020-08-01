@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\MetadataResolver\DeniedHostException;
 use App\Services\MetadataResolveService;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,11 @@ class CardController
             'url:required|url'
         ]);
 
-        $metadata = $service->execute($request->input('url'));
+        try {
+            $metadata = $service->execute($request->input('url'));
+        } catch (DeniedHostException $e) {
+            abort(403, $e->getMessage());
+        }
         $metadata->load('tags');
 
         $response = response($metadata);
