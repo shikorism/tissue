@@ -8,6 +8,7 @@ use App\MetadataResolver\MetadataResolver;
 use App\Tag;
 use App\Utilities\Formatter;
 use GuzzleHttp\Exception\TransferException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class MetadataResolveService
@@ -33,32 +34,34 @@ class MetadataResolveService
             throw new DeniedHostException($url);
         }
 
-        // 無かったら取得
-        // TODO: ある程度古かったら再取得とかありだと思う
-        $metadata = Metadata::find($url);
-        if ($metadata == null || ($metadata->expires_at !== null && $metadata->expires_at < now())) {
-            try {
-                $resolved = $this->resolver->resolve($url);
-                $metadata = Metadata::updateOrCreate(['url' => $url], [
-                    'title' => $resolved->title,
-                    'description' => $resolved->description,
-                    'image' => $resolved->image,
-                    'expires_at' => $resolved->expires_at
-                ]);
+        return DB::transaction(function () use ($url) {
+            // 無かったら取得
+            // TODO: ある程度古かったら再取得とかありだと思う
+            $metadata = Metadata::find($url);
+            if ($metadata == null || ($metadata->expires_at !== null && $metadata->expires_at < now())) {
+                try {
+                    $resolved = $this->resolver->resolve($url);
+                    $metadata = Metadata::updateOrCreate(['url' => $url], [
+                        'title' => $resolved->title,
+                        'description' => $resolved->description,
+                        'image' => $resolved->image,
+                        'expires_at' => $resolved->expires_at
+                    ]);
 
-                $tagIds = [];
-                foreach ($resolved->normalizedTags() as $tagName) {
-                    $tag = Tag::firstOrCreate(['name' => $tagName]);
-                    $tagIds[] = $tag->id;
+                    $tagIds = [];
+                    foreach ($resolved->normalizedTags() as $tagName) {
+                        $tag = Tag::firstOrCreate(['name' => $tagName]);
+                        $tagIds[] = $tag->id;
+                    }
+                    $metadata->tags()->sync($tagIds);
+                } catch (TransferException $e) {
+                    // 何らかの通信エラーによってメタデータの取得に失敗した時、とりあえずエラーログにURLを残す
+                    Log::error(self::class . ': メタデータの取得に失敗 URL=' . $url);
+                    throw $e;
                 }
-                $metadata->tags()->sync($tagIds);
-            } catch (TransferException $e) {
-                // 何らかの通信エラーによってメタデータの取得に失敗した時、とりあえずエラーログにURLを残す
-                Log::error(self::class . ': メタデータの取得に失敗 URL=' . $url);
-                throw $e;
             }
-        }
 
-        return $metadata;
+            return $metadata;
+        });
     }
 }
