@@ -9,6 +9,7 @@ module.exports = {
         'plugin:vue/essential',
         'plugin:prettier/recommended',
         'plugin:@typescript-eslint/recommended',
+        'plugin:jquery/deprecated',
         'prettier',
         'prettier/@typescript-eslint',
         'prettier/vue',
@@ -19,7 +20,7 @@ module.exports = {
         parser: '@typescript-eslint/parser',
         sourceType: 'module',
     },
-    plugins: ['prettier', 'vue', '@typescript-eslint'],
+    plugins: ['prettier', 'vue', '@typescript-eslint', 'jquery'],
     rules: {
         '@typescript-eslint/explicit-module-boundary-types': 0,
         '@typescript-eslint/no-explicit-any': 0,
