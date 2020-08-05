@@ -28,6 +28,7 @@ mix.ts('resources/assets/js/app.ts', 'public/js')
     .extract(['jquery', 'bootstrap'])
     .extract(['chart.js', 'chartjs-color', 'color-name', 'moment', 'cal-heatmap', 'd3'], 'public/js/vendor/chart')
     .version()
+    .sourceMaps(false)
     .webpackConfig((_webpack) => ({
         externals: {
             moment: 'moment',
@@ -36,8 +37,4 @@ mix.ts('resources/assets/js/app.ts', 'public/js')
 
 if (process.argv.includes('-a')) {
     mix.bundleAnalyzer({ analyzerMode: 'static' });
-}
-
-if (!mix.inProduction()) {
-    mix.sourceMaps();
 }
