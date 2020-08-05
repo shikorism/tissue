@@ -39,7 +39,5 @@ if (process.argv.includes('-a')) {
 }
 
 if (!mix.inProduction()) {
-    mix.webpackConfig({
-        devtool: 'source-map',
-    });
+    mix.sourceMaps();
 }
