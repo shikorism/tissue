@@ -1,5 +1,12 @@
 import { fetchGet } from './fetch';
 
+export function pageSelector(el: Element) {
+    if (!(el instanceof HTMLSelectElement)) return;
+    el.addEventListener('change', function () {
+        location.href = this.options[this.selectedIndex].dataset.href as string;
+    });
+}
+
 (function ($) {
     $.fn.linkCard = function (options) {
         const settings = $.extend(
@@ -49,12 +56,6 @@ import { fetchGet } from './fetch';
                         $this.removeClass('d-none');
                     }
                 });
-        });
-    };
-
-    $.fn.pageSelector = function () {
-        return this.on('change', function () {
-            location.href = $(this).find(':selected').data('href');
         });
     };
 

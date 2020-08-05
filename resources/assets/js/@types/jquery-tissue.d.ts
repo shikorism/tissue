@@ -7,6 +7,5 @@ declare namespace JQueryTissue {
 
 interface JQuery<TElement = HTMLElement> {
     linkCard: (options?: JQueryTissue.LinkCardOptions) => this;
-    pageSelector: () => this;
     deleteCheckinModal: () => this;
 }
