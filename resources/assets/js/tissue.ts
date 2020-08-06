@@ -1,6 +1,6 @@
 import { fetchGet } from './fetch';
 
-function suicide<T>(e: T) {
+export function suicide<T>(e: T) {
     return function (): never {
         throw e;
     };
@@ -45,33 +45,34 @@ export function linkCard(el: Element) {
                 el.classList.remove('d-none');
             }
         });
+
+    return el;
 }
 
 export function pageSelector(el: Element) {
-    if (!(el instanceof HTMLSelectElement)) return;
-    el.addEventListener('change', function () {
-        location.href = this.options[this.selectedIndex].dataset.href as string;
-    });
+    if (el instanceof HTMLSelectElement) {
+        el.addEventListener('change', function () {
+            location.href = this.options[this.selectedIndex].dataset.href as string;
+        });
+    }
+    return el;
 }
 
-(function ($) {
-    $.fn.deleteCheckinModal = function () {
-        return this.each(function () {
-            $(this)
-                .on('show.bs.modal', function (event) {
-                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                    const target = $(event.relatedTarget!);
-                    const modal = $(this);
-                    modal.find('.modal-body .date-label').text(target.data('date'));
-                    modal.data('id', target.data('id'));
-                })
-                .find('.btn-danger')
-                .on('click', function (_event) {
-                    const modal = $('#deleteCheckinModal');
-                    const form = modal.find('form');
-                    form.attr('action', form.attr('action')?.replace('@', modal.data('id')) || null);
-                    form.submit();
-                });
-        });
-    };
-})(jQuery);
+export function deleteCheckinModal(el: Element) {
+    return $(el)
+        .on('show.bs.modal', function (event) {
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            const target = $(event.relatedTarget!);
+            const modal = $(this);
+            modal.find('.modal-body .date-label').text(target.data('date'));
+            modal.data('id', target.data('id'));
+        })
+        .find('.btn-danger')
+        .on('click', function (_event) {
+            const modal = $('#deleteCheckinModal');
+            const form = modal.find('form');
+            form.attr('action', form.attr('action')?.replace('@', modal.data('id')) || null);
+            form.submit();
+        })
+        .end();
+}
