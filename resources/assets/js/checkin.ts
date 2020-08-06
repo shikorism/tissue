@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import TagInput from './components/TagInput.vue';
 import MetadataPreview from './components/MetadataPreview.vue';
+import { fetchGet, ResponseError } from './fetch';
 
 export const bus = new Vue({ name: 'EventBus' });
 
@@ -47,19 +48,18 @@ new Vue({
         fetchMetadata(url: string) {
             this.metadataLoadState = MetadataLoadState.Loading;
 
-            $.ajax({
-                url: '/api/checkin/card',
-                method: 'get',
-                type: 'json',
-                data: {
-                    url,
-                },
-            })
+            fetchGet('/api/checkin/card', { url })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new ResponseError(response);
+                    }
+                    return response.json();
+                })
                 .then((data) => {
                     this.metadata = data;
                     this.metadataLoadState = MetadataLoadState.Success;
                 })
-                .catch((_e) => {
+                .catch(() => {
                     this.metadata = null;
                     this.metadataLoadState = MetadataLoadState.Failed;
                 });
