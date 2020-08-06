@@ -1,6 +1,6 @@
 import * as Cookies from 'js-cookie';
 import { fetchPostJson, fetchDeleteJson, ResponseError } from './fetch';
-import { pageSelector } from './tissue';
+import { linkCard, pageSelector } from './tissue';
 
 require('./bootstrap');
 
@@ -23,7 +23,7 @@ $(() => {
     $('.alert').alert();
     document.querySelectorAll('.tis-page-selector').forEach(pageSelector);
 
-    $('.link-card').linkCard();
+    document.querySelectorAll('.link-card').forEach(linkCard);
     const $deleteCheckinModal = $('#deleteCheckinModal').deleteCheckinModal();
     $(document).on('click', '[data-target="#deleteCheckinModal"]', function (event) {
         event.preventDefault();

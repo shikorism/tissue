@@ -1,5 +1,52 @@
 import { fetchGet } from './fetch';
 
+function suicide<T>(e: T) {
+    return function (): never {
+        throw e;
+    };
+}
+
+export function linkCard(el: Element) {
+    const url = el.querySelector('a')?.href;
+    if (!url) {
+        return;
+    }
+
+    fetchGet('/api/checkin/card', { url })
+        .then((response) => response.json())
+        .then((data) => {
+            const die = suicide('Element not found!');
+            const metaColumn = el.querySelector('.col-12:last-of-type') || die();
+            const imageColumn = el.querySelector<HTMLElement>('.col-12:first-of-type') || die();
+            const title = el.querySelector<HTMLElement>('.card-title') || die();
+            const desc = el.querySelector<HTMLElement>('.card-text') || die();
+            const image = imageColumn.querySelector('img') || die();
+
+            if (data.title === '') {
+                title.style.display = 'none';
+            } else {
+                title.textContent = data.title;
+            }
+
+            if (data.description === '') {
+                desc.style.display = 'none';
+            } else {
+                desc.textContent = data.description;
+            }
+
+            if (data.image === '') {
+                imageColumn.style.display = 'none';
+                metaColumn.classList.remove('col-md-6');
+            } else {
+                image.src = data.image;
+            }
+
+            if (data.title !== '' || data.description !== '' || data.image !== '') {
+                el.classList.remove('d-none');
+            }
+        });
+}
+
 export function pageSelector(el: Element) {
     if (!(el instanceof HTMLSelectElement)) return;
     el.addEventListener('change', function () {
@@ -8,57 +55,6 @@ export function pageSelector(el: Element) {
 }
 
 (function ($) {
-    $.fn.linkCard = function (options) {
-        const settings = $.extend(
-            {
-                endpoint: '/api/checkin/card',
-            },
-            options
-        );
-
-        return this.each(function () {
-            const $this = $(this);
-
-            const url = $this.find('a').attr('href');
-            if (!url) {
-                return;
-            }
-
-            fetchGet(settings.endpoint, { url })
-                .then((response) => response.json())
-                .then((data) => {
-                    const $metaColumn = $this.find('.col-12:last-of-type');
-                    const $imageColumn = $this.find('.col-12:first-of-type');
-                    const $title = $this.find('.card-title');
-                    const $desc = $this.find('.card-text');
-                    const $image = $imageColumn.find('img');
-
-                    if (data.title === '') {
-                        $title.hide();
-                    } else {
-                        $title.text(data.title);
-                    }
-
-                    if (data.description === '') {
-                        $desc.hide();
-                    } else {
-                        $desc.text(data.description);
-                    }
-
-                    if (data.image === '') {
-                        $imageColumn.hide();
-                        $metaColumn.removeClass('col-md-6');
-                    } else {
-                        $image.attr('src', data.image);
-                    }
-
-                    if (data.title !== '' || data.description !== '' || data.image !== '') {
-                        $this.removeClass('d-none');
-                    }
-                });
-        });
-    };
-
     $.fn.deleteCheckinModal = function () {
         return this.each(function () {
             $(this)
