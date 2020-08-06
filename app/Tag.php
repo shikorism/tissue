@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Utilities\Formatter;
 use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
@@ -14,6 +15,15 @@ class Tag extends Model
     protected $visible = [
         'name'
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::creating(function (Tag $tag) {
+            $tag->normalized_name = app(Formatter::class)->normalizeTagName($tag->name);
+        });
+    }
 
     public function ejaculations()
     {

@@ -132,4 +132,12 @@ class Formatter
 
         return $bytes . 'B';
     }
+
+    public function normalizeTagName(string $name)
+    {
+        $name = \Normalizer::normalize($name, \Normalizer::FORM_KC);
+        $name = mb_strtolower($name);
+
+        return $name;
+    }
 }
