@@ -19,10 +19,12 @@ module.exports = {
         parser: '@typescript-eslint/parser',
         sourceType: 'module',
     },
-    plugins: ['prettier', 'vue', '@typescript-eslint'],
+    plugins: ['prettier', 'vue', '@typescript-eslint', 'jquery'],
     rules: {
         '@typescript-eslint/explicit-module-boundary-types': 0,
         '@typescript-eslint/no-explicit-any': 0,
         '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+        'jquery/no-ajax': 2,
+        'jquery/no-ajax-events': 2,
     },
 };
