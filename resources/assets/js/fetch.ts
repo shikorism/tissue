@@ -17,41 +17,55 @@ const joinParamsToPath = (path: string, params: QueryParams) =>
 const fetchWrapper = (path: string, options: RequestInit = {}) =>
     fetch(path, {
         credentials: 'same-origin',
-        headers,
+        headers: { ...headers, ...options.headers },
         ...options,
     });
 
-const fetchWithJson = (path: string, body: any, options: RequestInit = {}) =>
+const fetchWithJson = (path: string, body?: any, options: RequestInit = {}) =>
     fetchWrapper(path, {
-        body: JSON.stringify(body),
-        headers: { 'Content-Type': 'application/json' },
+        body: body && JSON.stringify(body),
+        headers: { 'Content-Type': 'application/json', ...options.headers },
         ...options,
     });
 
-const fetchWithForm = (path: string, body: any, options: RequestInit = {}) =>
+const fetchWithForm = (path: string, body?: any, options: RequestInit = {}) =>
     fetchWrapper(path, {
-        body: stringify(body),
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body && stringify(body),
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded', ...options.headers },
         ...options,
     });
 
 export const fetchGet = (path: string, params: QueryParams = {}, options: RequestInit = {}) =>
     fetchWrapper(joinParamsToPath(path, params), { method: 'GET', ...options });
 
-export const fetchPostJson = (path: string, body: any, options: RequestInit = {}) =>
+export const fetchPostJson = (path: string, body?: any, options: RequestInit = {}) =>
     fetchWithJson(path, body, { method: 'POST', ...options });
 
-export const fetchPostForm = (path: string, body: any, options: RequestInit = {}) =>
+export const fetchPostForm = (path: string, body?: any, options: RequestInit = {}) =>
     fetchWithForm(path, body, { method: 'POST', ...options });
 
-export const fetchPutJson = (path: string, body: any, options: RequestInit = {}) =>
+export const fetchPutJson = (path: string, body?: any, options: RequestInit = {}) =>
     fetchWithJson(path, body, { method: 'PUT', ...options });
 
-export const fetchPutForm = (path: string, body: any, options: RequestInit = {}) =>
+export const fetchPutForm = (path: string, body?: any, options: RequestInit = {}) =>
     fetchWithForm(path, body, { method: 'PUT', ...options });
 
-export const fetchDeleteJson = (path: string, body: any, options: RequestInit = {}) =>
+export const fetchDeleteJson = (path: string, body?: any, options: RequestInit = {}) =>
     fetchWithJson(path, body, { method: 'DELETE', ...options });
 
-export const fetchDeleteForm = (path: string, body: any, options: RequestInit = {}) =>
+export const fetchDeleteForm = (path: string, body?: any, options: RequestInit = {}) =>
     fetchWithForm(path, body, { method: 'DELETE', ...options });
+
+export class ResponseError extends Error {
+    response: Response;
+
+    constructor(response: Response, ...rest: any) {
+        super(...rest);
+        if (Error.captureStackTrace) {
+            Error.captureStackTrace(this, ResponseError);
+        }
+
+        this.name = 'ResponseError';
+        this.response = response;
+    }
+}
