@@ -17,22 +17,22 @@ const joinParamsToPath = (path: string, params: QueryParams) =>
 const fetchWrapper = (path: string, options: RequestInit = {}) =>
     fetch(path, {
         credentials: 'same-origin',
-        headers: { ...headers, ...options.headers },
         ...options,
+        headers: { ...headers, ...options.headers },
     });
 
 const fetchWithJson = (path: string, body?: any, options: RequestInit = {}) =>
     fetchWrapper(path, {
+        ...options,
         body: body && JSON.stringify(body),
         headers: { 'Content-Type': 'application/json', ...options.headers },
-        ...options,
     });
 
 const fetchWithForm = (path: string, body?: any, options: RequestInit = {}) =>
     fetchWrapper(path, {
+        ...options,
         body: body && stringify(body),
         headers: { 'Content-Type': 'application/x-www-form-urlencoded', ...options.headers },
-        ...options,
     });
 
 export const fetchGet = (path: string, params: QueryParams = {}, options: RequestInit = {}) =>
