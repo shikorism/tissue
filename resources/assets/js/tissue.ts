@@ -6,6 +6,8 @@ export function suicide<T>(e: T) {
     };
 }
 
+const die = suicide('Element not found!');
+
 export function linkCard(el: Element) {
     const url = el.querySelector('a')?.href;
     if (!url) {
@@ -15,7 +17,6 @@ export function linkCard(el: Element) {
     fetchGet('/api/checkin/card', { url })
         .then((response) => response.json())
         .then((data) => {
-            const die = suicide('Element not found!');
             const metaColumn = el.querySelector('.col-12:last-of-type') || die();
             const imageColumn = el.querySelector<HTMLElement>('.col-12:first-of-type') || die();
             const title = el.querySelector<HTMLElement>('.card-title') || die();
@@ -58,21 +59,15 @@ export function pageSelector(el: Element) {
     return el;
 }
 
-export function deleteCheckinModal(el: Element) {
-    return $(el)
-        .on('show.bs.modal', function (event) {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            const target = $(event.relatedTarget!);
-            const modal = $(this);
-            modal.find('.modal-body .date-label').text(target.data('date'));
-            modal.data('id', target.data('id'));
-        })
-        .find('.btn-danger')
-        .on('click', function (_event) {
-            const modal = $('#deleteCheckinModal');
-            const form = modal.find('form');
-            form.attr('action', form.attr('action')?.replace('@', modal.data('id')) || null);
-            form.submit();
-        })
-        .end();
+export function deleteCheckinModal(modal: Element) {
+    let id: any = null;
+    modal.querySelector('form')?.addEventListener('submit', function () {
+        this.action = this.action.replace('@', id);
+    });
+    return $(modal).on('show.bs.modal', function (event) {
+        const target = event.relatedTarget || die();
+        const dateLabel = this.querySelector('.modal-body .date-label') || die();
+        dateLabel.textContent = target.dataset.date || null;
+        id = target.dataset.id;
+    });
 }
