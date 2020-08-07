@@ -16,14 +16,17 @@ $('.copy-to-clipboard').on('shown.bs.popover', function () {
     setTimeout(() => $(this).popover('hide'), 3000);
 });
 
-const $deleteModal = $('#deleteIncomingWebhookModal');
-$deleteModal.find('.btn-danger').on('click', function () {
-    const $form = $deleteModal.find('form');
-    $form.attr('action', $form.attr('action')?.replace('@', $deleteModal.data('id')) || null);
-    $form.submit();
-});
-$('[data-target="#deleteIncomingWebhookModal"]').on('click', function (event) {
-    event.preventDefault();
-    $deleteModal.data('id', $(this).data('id'));
-    $deleteModal.modal('show', this);
-});
+const deleteModal = document.getElementById('deleteIncomingWebhookModal');
+if (deleteModal) {
+    let id: any = null;
+    deleteModal.querySelector('form')?.addEventListener('submit', function () {
+        this.action = this.action.replace('@', id);
+    });
+    document.querySelectorAll<HTMLElement>('[data-target="#deleteIncomingWebhookModal"]').forEach((el) => {
+        el.addEventListener('click', function (e) {
+            e.preventDefault();
+            id = this.dataset.id;
+            $(deleteModal).modal('show', this);
+        });
+    });
+}
