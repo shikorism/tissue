@@ -10,6 +10,7 @@ use App\Http\Resources\EjaculationResource;
 use App\Tag;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class WebhookController extends Controller
@@ -60,30 +61,34 @@ class WebhookController extends Controller
             ], 422);
         }
 
-        $ejaculation = Ejaculation::create([
-            'user_id' => $webhook->user_id,
-            'ejaculated_date' => $ejaculatedDate,
-            'note' => $inputs['note'] ?? '',
-            'link' => $inputs['link'] ?? '',
-            'source' => Ejaculation::SOURCE_WEBHOOK,
-            'is_private' => $request->has('is_private') ?? false,
-            'is_too_sensitive' => $request->has('is_too_sensitive') ?? false,
-            'checkin_webhook_id' => $webhook->id
-        ]);
+        $ejaculation = DB::transaction(function () use ($request, $inputs, $webhook, $ejaculatedDate) {
+            $ejaculation = Ejaculation::create([
+                'user_id' => $webhook->user_id,
+                'ejaculated_date' => $ejaculatedDate,
+                'note' => $inputs['note'] ?? '',
+                'link' => $inputs['link'] ?? '',
+                'source' => Ejaculation::SOURCE_WEBHOOK,
+                'is_private' => $request->has('is_private') ?? false,
+                'is_too_sensitive' => $request->has('is_too_sensitive') ?? false,
+                'checkin_webhook_id' => $webhook->id
+            ]);
 
-        $tagIds = [];
-        if (!empty($inputs['tags'])) {
-            foreach ($inputs['tags'] as $tag) {
-                $tag = trim($tag);
-                if ($tag === '') {
-                    continue;
+            $tagIds = [];
+            if (!empty($inputs['tags'])) {
+                foreach ($inputs['tags'] as $tag) {
+                    $tag = trim($tag);
+                    if ($tag === '') {
+                        continue;
+                    }
+
+                    $tag = Tag::firstOrCreate(['name' => $tag]);
+                    $tagIds[] = $tag->id;
                 }
-
-                $tag = Tag::firstOrCreate(['name' => $tag]);
-                $tagIds[] = $tag->id;
             }
-        }
-        $ejaculation->tags()->sync($tagIds);
+            $ejaculation->tags()->sync($tagIds);
+
+            return $ejaculation;
+        });
 
         if (!empty($ejaculation->link)) {
             event(new LinkDiscovered($ejaculation->link));
