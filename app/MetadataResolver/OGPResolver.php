@@ -3,6 +3,8 @@
 namespace App\MetadataResolver;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Cookie\CookieJar;
+use GuzzleHttp\RequestOptions;
 
 class OGPResolver implements Resolver, Parser
 {
@@ -18,7 +20,7 @@ class OGPResolver implements Resolver, Parser
 
     public function resolve(string $url): Metadata
     {
-        return $this->parse($this->client->get($url)->getBody());
+        return $this->parse($this->client->get($url, [RequestOptions::COOKIES => new CookieJar()])->getBody());
     }
 
     public function parse(string $html): Metadata
