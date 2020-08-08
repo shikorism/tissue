@@ -49,7 +49,7 @@ class Ejaculation extends Model
         return $this->hasMany(Like::class);
     }
 
-    public function scopePublic(Builder $query)
+    public function scopeVisibleToTimeline(Builder $query)
     {
         return $query->whereIn('ejaculations.source', [Ejaculation::SOURCE_WEB, Ejaculation::SOURCE_WEBHOOK]);
     }
