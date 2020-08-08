@@ -4,7 +4,10 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -67,5 +70,29 @@ class Handler extends ExceptionHandler
         }
 
         return redirect()->guest(route('login'));
+    }
+
+    protected function prepareException(Exception $e)
+    {
+        if (!config('app.debug') && $e instanceof ModelNotFoundException) {
+            return new NotFoundHttpException('Resource not found.', $e);
+        }
+
+        return parent::prepareException($e);
+    }
+
+    protected function prepareJsonResponse($request, Exception $e)
+    {
+        $status = $this->isHttpException($e) ? $e->getStatusCode() : 500;
+
+        return new JsonResponse(
+            [
+                'status' => $status,
+                'error' => $this->convertExceptionToArray($e),
+            ],
+            $status,
+            $this->isHttpException($e) ? $e->getHeaders() : [],
+            JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
+        );
     }
 }
