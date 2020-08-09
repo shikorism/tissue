@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class WebhookController extends Controller
 {
@@ -26,9 +27,7 @@ class WebhookController extends Controller
             ], 404);
         }
 
-        $inputs = $request->all();
-
-        $validator = Validator::make($inputs, [
+        $validator = Validator::make($request->all(), [
             'checked_in_at' => 'nullable|date|after_or_equal:2000-01-01 00:00:00|before_or_equal:2099-12-31 23:59:59',
             'note' => 'nullable|string|max:500',
             'link' => 'nullable|url|max:2000',
@@ -40,7 +39,9 @@ class WebhookController extends Controller
             'tags.*.not_regex' => 'The :attribute cannot contain spaces, tabs and newlines.'
         ]);
 
-        if ($validator->fails()) {
+        try {
+            $inputs = $validator->validate();
+        } catch (ValidationException $e) {
             return response()->json([
                 'status' => 422,
                 'error' => [
