@@ -62,15 +62,15 @@ class WebhookController extends Controller
             ], 422);
         }
 
-        $ejaculation = DB::transaction(function () use ($request, $inputs, $webhook, $ejaculatedDate) {
+        $ejaculation = DB::transaction(function () use ($inputs, $webhook, $ejaculatedDate) {
             $ejaculation = Ejaculation::create([
                 'user_id' => $webhook->user_id,
                 'ejaculated_date' => $ejaculatedDate,
                 'note' => $inputs['note'] ?? '',
                 'link' => $inputs['link'] ?? '',
                 'source' => Ejaculation::SOURCE_WEBHOOK,
-                'is_private' => $request->has('is_private') ?? false,
-                'is_too_sensitive' => $request->has('is_too_sensitive') ?? false,
+                'is_private' => (bool)($inputs['is_private'] ?? false),
+                'is_too_sensitive' => (bool)($inputs['is_too_sensitive'] ?? false),
                 'checkin_webhook_id' => $webhook->id
             ]);
 
