@@ -10,7 +10,6 @@ use App\MetadataResolver\UncaughtResolverException;
 use App\Tag;
 use App\Utilities\Formatter;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class MetadataResolveService
 {
@@ -63,9 +62,6 @@ class MetadataResolveService
                 try {
                     $resolved = $this->resolver->resolve($url);
                 } catch (\Exception $e) {
-                    Log::error(self::class . ': メタデータの取得に失敗 URL=' . $url);
-
-                    // TODO: 何か制御用の例外を下位で使ってないか確認したほうが良い？その場合、雑catchできない
                     $metadata->storeException(now(), $e);
                     $metadata->save();
                     throw new UncaughtResolverException(implode(': ', [
