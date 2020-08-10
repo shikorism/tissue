@@ -13,7 +13,7 @@ class Metadata extends Model
     protected $fillable = ['url', 'title', 'description', 'image', 'expires_at'];
     protected $visible = ['url', 'title', 'description', 'image', 'expires_at', 'tags'];
 
-    protected $dates = ['created_at', 'updated_at', 'expires_at'];
+    protected $dates = ['created_at', 'updated_at', 'expires_at', 'error_at'];
 
     public function tags()
     {
