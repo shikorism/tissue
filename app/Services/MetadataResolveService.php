@@ -5,14 +5,18 @@ namespace App\Services;
 use App\Metadata;
 use App\MetadataResolver\DeniedHostException;
 use App\MetadataResolver\MetadataResolver;
+use App\MetadataResolver\ResolverCircuitBreakException;
+use App\MetadataResolver\UncaughtResolverException;
 use App\Tag;
 use App\Utilities\Formatter;
-use GuzzleHttp\Exception\TransferException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class MetadataResolveService
 {
+    /** @var int メタデータの解決を中断するエラー回数。この回数以上エラーしていたら処理は行わない。 */
+    const CIRCUIT_BREAK_COUNT = 5;
+
     /** @var MetadataResolver */
     private $resolver;
     /** @var Formatter */
@@ -24,6 +28,13 @@ class MetadataResolveService
         $this->formatter = $formatter;
     }
 
+    /**
+     * メタデータをキャッシュまたはリモートに問い合わせて取得します。
+     * @param string $url メタデータを取得したいURL
+     * @return Metadata 取得できたメタデータ
+     * @throws DeniedHostException アクセス先がブラックリスト入りしているため取得できなかった場合にスロー
+     * @throws UncaughtResolverException Resolver内で例外が発生して取得できなかった場合にスロー
+     */
     public function execute(string $url): Metadata
     {
         // URLの正規化
@@ -34,34 +45,61 @@ class MetadataResolveService
             throw new DeniedHostException($url);
         }
 
-        return DB::transaction(function () use ($url) {
+        DB::beginTransaction();
+        try {
+            $metadata = Metadata::find($url);
+
             // 無かったら取得
             // TODO: ある程度古かったら再取得とかありだと思う
-            $metadata = Metadata::find($url);
-            if ($metadata == null || ($metadata->expires_at !== null && $metadata->expires_at < now())) {
+            if ($metadata == null || $metadata->needRefresh()) {
+                if ($metadata === null) {
+                    $metadata = new Metadata(['url' => $url]);
+                }
+
+                if ($metadata->error_count >= self::CIRCUIT_BREAK_COUNT) {
+                    throw new ResolverCircuitBreakException($metadata->error_count, $url);
+                }
+
                 try {
                     $resolved = $this->resolver->resolve($url);
-                    $metadata = Metadata::updateOrCreate(['url' => $url], [
-                        'title' => $resolved->title,
-                        'description' => $resolved->description,
-                        'image' => $resolved->image,
-                        'expires_at' => $resolved->expires_at
-                    ]);
-
-                    $tagIds = [];
-                    foreach ($resolved->normalizedTags() as $tagName) {
-                        $tag = Tag::firstOrCreate(['name' => $tagName]);
-                        $tagIds[] = $tag->id;
-                    }
-                    $metadata->tags()->sync($tagIds);
-                } catch (TransferException $e) {
-                    // 何らかの通信エラーによってメタデータの取得に失敗した時、とりあえずエラーログにURLを残す
+                } catch (\Exception $e) {
                     Log::error(self::class . ': メタデータの取得に失敗 URL=' . $url);
-                    throw $e;
+
+                    // TODO: 何か制御用の例外を下位で使ってないか確認したほうが良い？その場合、雑catchできない
+                    $metadata->storeException(now(), $e);
+                    $metadata->save();
+                    throw new UncaughtResolverException(implode(': ', [
+                        $metadata->error_count . '回目のメタデータ取得失敗', get_class($e), $e->getMessage()
+                    ]), 0, $e);
                 }
+
+                $metadata->fill([
+                    'title' => $resolved->title,
+                    'description' => $resolved->description,
+                    'image' => $resolved->image,
+                    'expires_at' => $resolved->expires_at
+                ]);
+                $metadata->clearError();
+                $metadata->save();
+
+                $tagIds = [];
+                foreach ($resolved->normalizedTags() as $tagName) {
+                    $tag = Tag::firstOrCreate(['name' => $tagName]);
+                    $tagIds[] = $tag->id;
+                }
+                $metadata->tags()->sync($tagIds);
             }
 
+            DB::commit();
+
             return $metadata;
-        });
+        } catch (UncaughtResolverException $e) {
+            // Metadataにエラー情報を記録するため
+            DB::commit();
+            throw $e;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
     }
 }
