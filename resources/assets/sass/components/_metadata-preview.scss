@@ -1,0 +1,28 @@
+.tis-metadata-preview {
+    &-link-card {
+        $height: 150px;
+        overflow: hidden;
+        font-size: small;
+
+        .row > div:first-child {
+            display: flex;
+
+            &:not([display='none']) {
+                min-height: $height;
+
+                img {
+                    position: absolute;
+                }
+            }
+        }
+
+        .card-text {
+            white-space: pre-line;
+        }
+    }
+
+    &-tag-item {
+        cursor: pointer;
+        user-select: none;
+    }
+}

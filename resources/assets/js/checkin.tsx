@@ -15,6 +15,17 @@ export enum MetadataLoadState {
     Failed,
 }
 
+export type Metadata = {
+    url: string;
+    title: string;
+    description: string;
+    image: string;
+    expires_at: string | null;
+    tags: {
+        name: string;
+    }[];
+};
+
 new Vue({
     el: '#app',
     data: {
@@ -71,6 +82,6 @@ new Vue({
 });
 
 ReactDOM.render(
-    React.createElement(TagInput2, { id: 'tagInput2', name: 'tags2', value: '', isInvalid: false }),
+    <TagInput2 id={'tagInput2'} name={'tags2'} value={''} isInvalid={false} />,
     document.querySelector('#tagInput2')
 );
