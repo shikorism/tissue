@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useState, useRef } from 'react';
 import * as classNames from 'classnames';
-const styles = require('./TagInput.scss'); // TODO: 読めてない
 
 type TagInputProps = {
     id: string;
@@ -53,7 +52,7 @@ const TagInput: React.FC<TagInputProps> = ({ id, name, value, isInvalid }) => {
                 {tags.map((tag, i) => (
                     <li
                         key={i}
-                        className={classNames('list-inline-item', 'badge', 'badge-primary', styles.tagItem)}
+                        className={classNames('list-inline-item', 'badge', 'badge-primary', 'tis-tag-input-item')}
                         onClick={() => removeTag(i)}
                     >
                         <span className="oi oi-tag" /> {tag} | x
@@ -64,7 +63,7 @@ const TagInput: React.FC<TagInputProps> = ({ id, name, value, isInvalid }) => {
                 id={id}
                 ref={inputRef}
                 type="text"
-                className={styles.tagInput}
+                className="tis-tag-input-field"
                 value={buffer}
                 onChange={(e) => setBuffer(e.target.value)}
                 onKeyDown={onKeyDown}
