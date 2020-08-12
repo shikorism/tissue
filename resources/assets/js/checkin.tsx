@@ -4,7 +4,7 @@ import MetadataPreview from './components/MetadataPreview.vue';
 import { fetchGet, ResponseError } from './fetch';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import TagInput2 from './components/TagInput2';
+import { TagInput as TagInput2 } from './components/TagInput2';
 
 export const bus = new Vue({ name: 'EventBus' });
 

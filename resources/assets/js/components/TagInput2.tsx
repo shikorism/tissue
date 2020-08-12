@@ -9,7 +9,7 @@ type TagInputProps = {
     isInvalid: boolean;
 };
 
-const TagInput: React.FC<TagInputProps> = ({ id, name, value, isInvalid }) => {
+export const TagInput: React.FC<TagInputProps> = ({ id, name, value, isInvalid }) => {
     const [tags, setTags] = useState(value.trim() !== '' ? value.trim().split(' ') : []);
     const [buffer, setBuffer] = useState('');
     const containerClass = classNames('form-control', 'h-auto', { 'is-invalid': isInvalid });
@@ -72,5 +72,3 @@ const TagInput: React.FC<TagInputProps> = ({ id, name, value, isInvalid }) => {
         </div>
     );
 };
-
-export default TagInput;
