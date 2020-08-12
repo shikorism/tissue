@@ -24,20 +24,21 @@ const TagInput: React.FC<TagInputProps> = ({ id, name, value, isInvalid }) => {
                 case 'Enter':
                 case ' ':
                     if ((event as any).isComposing !== true) {
-                        setTags(tags.concat(buffer.trim()));
+                        setTags(tags.concat(buffer.trim().replace(/\s+/g, '_')));
                         setBuffer('');
                     }
                     event.preventDefault();
                     break;
-                case 'Unidentified':
+                case 'Unidentified': {
                     // 実際にテキストボックスに入力されている文字を見に行く (フォールバック処理)
                     const nativeEvent = event.nativeEvent;
                     if (nativeEvent.srcElement && (nativeEvent.srcElement as HTMLInputElement).value.slice(-1) == ' ') {
-                        setTags(tags.concat(buffer.trim()));
+                        setTags(tags.concat(buffer.trim().replace(/\s+/g, '_')));
                         setBuffer('');
                         event.preventDefault();
                     }
                     break;
+                }
             }
         } else if (event.key === 'Enter') {
             // 誤爆防止
