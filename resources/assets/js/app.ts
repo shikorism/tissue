@@ -1,5 +1,6 @@
 import * as Cookies from 'js-cookie';
-import jqXHR = JQuery.jqXHR;
+import { fetchPostJson, fetchDeleteJson, ResponseError } from './fetch';
+import { linkCard, pageSelector, deleteCheckinModal } from './tissue';
 
 require('./bootstrap');
 
@@ -20,14 +21,18 @@ $(() => {
     }
     $('[data-toggle="tooltip"]').tooltip();
     $('.alert').alert();
-    $('.tis-page-selector').pageSelector();
+    document.querySelectorAll('.tis-page-selector').forEach(pageSelector);
 
-    $('.link-card').linkCard();
-    const $deleteCheckinModal = $('#deleteCheckinModal').deleteCheckinModal();
-    $(document).on('click', '[data-target="#deleteCheckinModal"]', function (event) {
-        event.preventDefault();
-        $deleteCheckinModal.modal('show', this);
-    });
+    document.querySelectorAll('.link-card').forEach(linkCard);
+
+    const elDeleteCheckinModal = document.getElementById('deleteCheckinModal');
+    if (elDeleteCheckinModal) {
+        const $deleteCheckinModal = deleteCheckinModal(elDeleteCheckinModal);
+        $(document).on('click', '[data-target="#deleteCheckinModal"]', function (event) {
+            event.preventDefault();
+            $deleteCheckinModal.modal('show', this);
+        });
+    }
 
     $(document).on('click', '[data-href]', function (_event) {
         location.href = $(this).data('href');
@@ -41,57 +46,46 @@ $(() => {
         const isLiked = $this.data('liked');
 
         if (isLiked) {
-            const callback = (data: any) => {
-                $this.data('liked', false);
-                $this.find('.oi-heart').removeClass('text-danger');
-
-                const count = data.ejaculation ? data.ejaculation.likes_count : 0;
-                $this.find('.like-count').text(count ? count : '');
-            };
-
-            $.ajax({
-                url: '/api/likes/' + encodeURIComponent(targetId),
-                method: 'delete',
-                type: 'json',
-            })
-                .then(callback)
-                .catch(function (xhr: jqXHR) {
-                    if (xhr.status === 404) {
-                        callback(JSON.parse(xhr.responseText));
-                        return;
+            fetchDeleteJson(`/api/likes/${encodeURIComponent(targetId)}`)
+                .then((response) => {
+                    if (response.status === 200 || response.status === 404) {
+                        return response.json();
                     }
+                    throw new ResponseError(response);
+                })
+                .then((data) => {
+                    $this.data('liked', false);
+                    $this.find('.oi-heart').removeClass('text-danger');
 
-                    console.error(xhr);
+                    const count = data.ejaculation ? data.ejaculation.likes_count : 0;
+                    $this.find('.like-count').text(count ? count : '');
+                })
+                .catch((e) => {
+                    console.error(e);
                     alert('いいねを解除できませんでした。');
                 });
         } else {
-            const callback = (data: any) => {
-                $this.data('liked', true);
-                $this.find('.oi-heart').addClass('text-danger');
+            fetchPostJson('/api/likes', { id: targetId })
+                .then((response) => {
+                    if (response.status === 200 || response.status === 409) {
+                        return response.json();
+                    }
+                    throw new ResponseError(response);
+                })
+                .then((data) => {
+                    $this.data('liked', true);
+                    $this.find('.oi-heart').addClass('text-danger');
 
-                const count = data.ejaculation ? data.ejaculation.likes_count : 0;
-                $this.find('.like-count').text(count ? count : '');
-            };
-
-            $.ajax({
-                url: '/api/likes',
-                method: 'post',
-                type: 'json',
-                data: {
-                    id: targetId,
-                },
-            })
-                .then(callback)
-                .catch(function (xhr: jqXHR) {
-                    if (xhr.status === 409) {
-                        callback(JSON.parse(xhr.responseText));
-                        return;
-                    } else if (xhr.status === 401) {
+                    const count = data.ejaculation ? data.ejaculation.likes_count : 0;
+                    $this.find('.like-count').text(count ? count : '');
+                })
+                .catch((e) => {
+                    if (e instanceof ResponseError && e.response.status === 401) {
                         alert('いいねするためにはログインしてください。');
                         return;
                     }
 
-                    console.error(xhr);
+                    console.error(e);
                     alert('いいねできませんでした。');
                 });
         }
