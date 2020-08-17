@@ -52,11 +52,7 @@
     "stylelint": "^9.10.1",
     "stylelint-config-recess-order": "^2.0.4",
     "ts-loader": "^6.0.1",
-    "typescript": "^3.4.5",
-    "vue": "^2.6.10",
-    "vue-class-component": "^7.1.0",
-    "vue-property-decorator": "^9.0.0",
-    "vue-template-compiler": "^2.6.10"
+    "typescript": "^3.4.5"
   },
   "stylelint": {
     "extends": "stylelint-config-recess-order"
