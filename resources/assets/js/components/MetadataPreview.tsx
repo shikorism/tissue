@@ -1,6 +1,25 @@
 import * as React from 'react';
-import { Metadata, MetadataLoadState } from '../checkin';
+import { useEffect, useState } from 'react';
 import * as classNames from 'classnames';
+import { fetchGet, ResponseError } from '../fetch';
+
+enum MetadataLoadState {
+    Inactive,
+    Loading,
+    Success,
+    Failed,
+}
+
+type Metadata = {
+    url: string;
+    title: string;
+    description: string;
+    image: string;
+    expires_at: string | null;
+    tags: {
+        name: string;
+    }[];
+};
 
 type Suggestion = {
     name: string;
@@ -8,10 +27,9 @@ type Suggestion = {
 };
 
 type MetadataPreviewProps = {
-    state: MetadataLoadState;
-    metadata: Metadata | null;
+    link: string;
     tags: string[];
-    handleAddTag: (tag: string) => void;
+    onClickTag: (tag: string) => void;
 };
 
 const MetadataLoading = () => (
@@ -38,7 +56,35 @@ const MetadataLoadFailed = () => (
     </div>
 );
 
-export const MetadataPreview: React.FC<MetadataPreviewProps> = ({ state, metadata, tags, handleAddTag }) => {
+export const MetadataPreview: React.FC<MetadataPreviewProps> = ({ link, tags, onClickTag }) => {
+    const [state, setState] = useState(MetadataLoadState.Inactive);
+    const [metadata, setMetadata] = useState<Metadata | null>(null);
+
+    useEffect(() => {
+        if (link.trim() === '' || !/^https?:\/\//.test(link)) {
+            setState(MetadataLoadState.Inactive);
+            setMetadata(null);
+            return;
+        }
+
+        setState(MetadataLoadState.Loading);
+        fetchGet('/api/checkin/card', { url: link })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new ResponseError(response);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setState(MetadataLoadState.Success);
+                setMetadata(data);
+            })
+            .catch(() => {
+                setState(MetadataLoadState.Failed);
+                setMetadata(null);
+            });
+    }, [link]);
+
     if (state === MetadataLoadState.Inactive) {
         return null;
     }
@@ -69,9 +115,11 @@ export const MetadataPreview: React.FC<MetadataPreviewProps> = ({ state, metadat
                         <MetadataLoading />
                     ) : state === MetadataLoadState.Success ? (
                         <div className="row no-gutters">
-                            <div v-if="hasImage" className="col-4 justify-content-center align-items-center">
-                                <img src={metadata?.image} alt="Thumbnail" className="w-100 bg-secondary" />
-                            </div>
+                            {hasImage && (
+                                <div className="col-4 justify-content-center align-items-center">
+                                    <img src={metadata?.image} alt="Thumbnail" className="w-100 bg-secondary" />
+                                </div>
+                            )}
                             <div className={descClasses}>
                                 <div className="card-body">
                                     <h6 className="card-title font-weight-bold">{metadata?.title}</h6>
@@ -89,7 +137,7 @@ export const MetadataPreview: React.FC<MetadataPreviewProps> = ({ state, metadat
                                                     <li
                                                         key={tag.name}
                                                         className={tagClasses(tag)}
-                                                        onClick={() => handleAddTag(tag.name)}
+                                                        onClick={() => onClickTag(tag.name)}
                                                     >
                                                         <span className="oi oi-tag" /> {tag.name}
                                                     </li>

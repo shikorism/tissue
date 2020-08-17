@@ -2,7 +2,6 @@
     &-link-card {
         $height: 150px;
         overflow: hidden;
-        font-size: small;
 
         .row > div:first-child {
             display: flex;
@@ -16,7 +15,12 @@
             }
         }
 
+        .card-title {
+            font-size: small;
+        }
+
         .card-text {
+            font-size: small;
             white-space: pre-line;
         }
     }

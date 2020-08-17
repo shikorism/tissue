@@ -1,8 +1,11 @@
-.tis-tag-input-item {
-    cursor: pointer;
+.tis-tag-input {
+    &-item {
+        cursor: pointer;
+    }
+
+    &-field {
+        border: 0;
+        outline: 0;
+    }
 }
 
-.tis-tag-input-field {
-    border: 0;
-    outline: 0;
-}
