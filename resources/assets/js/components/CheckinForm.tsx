@@ -1,49 +1,12 @@
 import * as React from 'react';
 import { useState } from 'react';
 import * as classNames from 'classnames';
+import { CheckBox } from './CheckBox';
+import { FieldError, StandaloneFieldError } from './FieldError';
 import { TagInput } from './TagInput';
 import { MetadataPreview } from './MetadataPreview';
 
-type CheckboxProps = {
-    id: string;
-    name: string;
-    className?: string;
-    checked?: boolean;
-    onChange?: (newValue: boolean) => void;
-};
-
-const Checkbox: React.FC<CheckboxProps> = ({ id, name, className, checked, onChange, children }) => (
-    <div className={`custom-control custom-checkbox ${className}`}>
-        <input
-            id={id}
-            name={name}
-            type="checkbox"
-            className="custom-control-input"
-            checked={checked}
-            onChange={(e) => onChange && onChange(e.target.checked)}
-        />
-        <label className="custom-control-label" htmlFor={id}>
-            {children}
-        </label>
-    </div>
-);
-
-type FieldErrorProps = {
-    errors?: string[];
-};
-
-const FieldError: React.FC<FieldErrorProps> = ({ errors }) =>
-    (errors && errors.length > 0 && <div className="invalid-feedback">{errors[0]}</div>) || null;
-
-const StandaloneFieldError: React.FC<FieldErrorProps> = ({ errors }) =>
-    (errors && errors.length > 0 && (
-        <div className="form-group col-sm-12" style={{ marginTop: '-1rem' }}>
-            <small className="text-danger">{errors[0]}</small>
-        </div>
-    )) ||
-    null;
-
-export type CheckinFormProps = {
+type CheckinFormProps = {
     initialState: any;
 };
 
@@ -157,7 +120,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
             <div className="form-row mt-4">
                 <p>オプション</p>
                 <div className="form-group col-sm-12">
-                    <Checkbox
+                    <CheckBox
                         id="isPrivate"
                         name="is_private"
                         className="mb-3"
@@ -165,8 +128,8 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
                         onChange={(v) => setPrivate(v)}
                     >
                         <span className="oi oi-lock-locked" /> このチェックインを非公開にする
-                    </Checkbox>
-                    <Checkbox
+                    </CheckBox>
+                    <CheckBox
                         id="isTooSensitive"
                         name="is_too_sensitive"
                         className="mb-3"
@@ -174,7 +137,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
                         onChange={(v) => setTooSensitive(v)}
                     >
                         <span className="oi oi-warning" /> チェックイン対象のオカズをより過激なオカズとして設定する
-                    </Checkbox>
+                    </CheckBox>
                 </div>
             </div>
             <div className="text-center">
