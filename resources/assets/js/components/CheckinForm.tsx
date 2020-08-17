@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { useState } from 'react';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 import { CheckBox } from './CheckBox';
 import { FieldError, StandaloneFieldError } from './FieldError';
 import { TagInput } from './TagInput';

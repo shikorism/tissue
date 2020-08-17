@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { useEffect, useState } from 'react';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 import { fetchGet, ResponseError } from '../fetch';
 
 enum MetadataLoadState {

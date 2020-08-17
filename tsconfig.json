@@ -6,7 +6,8 @@
     "moduleResolution": "node",
     "strict": true,
     "experimentalDecorators": true,
-    "jsx": "react"
+    "jsx": "react",
+    "esModuleInterop": true
   },
   "include": [
     "resources/assets/js/**/*"

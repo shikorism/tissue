@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { useState, useRef } from 'react';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 
 type TagInputProps = {
     id: string;
