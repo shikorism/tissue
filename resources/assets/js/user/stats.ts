@@ -1,5 +1,5 @@
-import * as CalHeatMap from 'cal-heatmap';
-import * as Chart from 'chart.js';
+import CalHeatMap from 'cal-heatmap';
+import Chart from 'chart.js';
 import { addMonths, format } from 'date-fns';
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
