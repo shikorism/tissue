@@ -90,7 +90,7 @@ function createMonthlyGraphData(from: Date) {
 
     for (let i = 0; i < 12; i++) {
         const current = addMonths(from, i);
-        const yearAndMonth = format(current, 'YYYY/MM');
+        const yearAndMonth = format(current, 'yyyy/MM');
         keys.push(yearAndMonth);
         values.push(graphData.monthlySum[yearAndMonth] || 0);
     }
