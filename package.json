@@ -9,13 +9,15 @@
     "prod": "npm run production",
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "eslint": "eslint --ext .js,.ts,.tsx resources/",
-    "stylelint": "stylelint resources/assets/sass/**/*"
+    "stylelint": "stylelint resources/assets/sass/**/*",
+    "doc": "redoc-cli bundle -o public/apidoc.html openapi.yaml"
   },
   "devDependencies": {
     "@types/bootstrap": "^4.5.0",
     "@types/cal-heatmap": "^3.3.10",
     "@types/chart.js": "^2.9.23",
     "@types/classnames": "^2.2.10",
+    "@types/clipboard": "^2.0.1",
     "@types/jquery": "^3.3.38",
     "@types/js-cookie": "^2.2.0",
     "@types/qs": "^6.9.4",
@@ -27,6 +29,7 @@
     "cal-heatmap": "^3.3.10",
     "chart.js": "^2.7.1",
     "classnames": "^2.2.6",
+    "clipboard": "^2.0.6",
     "cross-env": "^5.2.0",
     "date-fns": "^2.15.0",
     "eslint": "^7.6.0",
@@ -43,6 +46,7 @@
     "open-iconic": "^1.1.1",
     "popper.js": "^1.14.7",
     "prettier": "^2.0.5",
+    "redoc-cli": "^0.9.8",
     "qs": "^6.9.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

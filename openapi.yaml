@@ -1,0 +1,114 @@
+openapi: 3.0.0
+info:
+  title: Tissue API
+  description: |
+    夜のライフログサービス Tissue の公開API仕様です。
+    全てのAPIのURLは `https://shikorism.net/api` から始まります。
+  version: 0.1.0
+servers:
+  - url: 'https://shikorism.net/api'
+paths:
+  /webhooks/checkin/{id}:
+    post:
+      summary: /webhooks/checkin/{id}
+      description: Webhook IDを発行したユーザで新規チェックインを行います。
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Webhook管理ページで発行したID
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                checked_in_at:
+                  type: string
+                  format: date-time
+                  description: チェックイン日時 (ISO 8601形式、タイムゾーンを省略した場合も受理するが動作は未定義、省略した場合はサーバのシステム日時を使用)
+                tags:
+                  type: array
+                  items:
+                    type: string
+                    maxLength: 255
+                  description: タグ (スペースを含めるのは禁止、先頭および末尾に空白が含まれている場合はtrimされる)
+                link:
+                  type: string
+                  maxLength: 2000
+                  description: オカズリンク (http, https)
+                note:
+                  type: string
+                  maxLength: 500
+                  description: ノート
+                is_private:
+                  type: boolean
+                  default: false
+                  description: 非公開チェックインとして設定
+                is_too_sensitive:
+                  type: boolean
+                  default: false
+                  description: チェックイン対象のオカズをより過激なオカズとして設定
+            examples:
+              simple:
+                description: 何も指定しなければ、現在時刻で公開チェックインをおこないます。
+                value: {}
+              complete:
+                value:
+                  checked_in_at: 2020-07-21T19:19:19+0900
+                  note: すごく出た
+                  link: http://example.com
+                  tags:
+                    - Example
+                    - Example_2
+                  is_private: false
+                  is_too_sensitive: false
+      responses:
+        200:
+          description: チェックイン成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - checkin
+                properties:
+                  status:
+                    type: number
+                    description: HTTPステータスコードと同じ値
+                    example: 200
+                  checkin:
+                    type: object
+                    description: チェックインデータ
+        422:
+          description: バリデーションエラー
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - error
+                properties:
+                  status:
+                    type: number
+                    description: HTTPステータスコードと同じ値
+                    example: 422
+                  error:
+                    type: object
+                    description: エラーデータ
+                    required:
+                      - message
+                    properties:
+                      message:
+                        type: object
+                        description: エラーの概要
+                        example: Validation failed
+                      violations:
+                        type: string[]
+                        description: エラーが発生した各フィールドについてのメッセージ
+                        example:
+                          - Checkin already exists in this time

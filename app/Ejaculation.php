@@ -14,11 +14,13 @@ class Ejaculation extends Model
 
     const SOURCE_WEB = 'web';
     const SOURCE_CSV = 'csv';
+    const SOURCE_WEBHOOK = 'webhook';
 
     protected $fillable = [
         'user_id', 'ejaculated_date',
         'note', 'geo_latitude', 'geo_longitude', 'link', 'source',
-        'is_private', 'is_too_sensitive'
+        'is_private', 'is_too_sensitive',
+        'checkin_webhook_id'
     ];
 
     protected $dates = [
@@ -47,9 +49,9 @@ class Ejaculation extends Model
         return $this->hasMany(Like::class);
     }
 
-    public function scopeOnlyWebCheckin(Builder $query)
+    public function scopeVisibleToTimeline(Builder $query)
     {
-        return $query->where('ejaculations.source', Ejaculation::SOURCE_WEB);
+        return $query->whereIn('ejaculations.source', [Ejaculation::SOURCE_WEB, Ejaculation::SOURCE_WEBHOOK]);
     }
 
     public function scopeWithLikes(Builder $query)
