@@ -21,7 +21,7 @@ mix.ts('resources/assets/js/app.ts', 'public/js')
     .ts('resources/assets/js/setting/import.ts', 'public/js/setting')
     .ts('resources/assets/js/setting/deactivate.ts', 'public/js/setting')
     .ts('resources/assets/js/setting/webhooks.ts', 'public/js/setting')
-    .ts('resources/assets/js/checkin.ts', 'public/js')
+    .ts('resources/assets/js/checkin.tsx', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
     .autoload({
         jquery: ['$', 'jQuery', 'window.jQuery'],

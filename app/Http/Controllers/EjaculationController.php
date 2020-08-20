@@ -9,23 +9,33 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Validator;
 
 class EjaculationController extends Controller
 {
     public function create(Request $request)
     {
-        $defaults = [
-            'date' => $request->input('date', date('Y/m/d')),
-            'time' => $request->input('time', date('H:i')),
-            'link' => $request->input('link', ''),
-            'tags' => $request->input('tags', ''),
-            'note' => $request->input('note', ''),
-            'is_private' => $request->input('is_private', 0) == 1,
-            'is_too_sensitive' => $request->input('is_too_sensitive', 0) == 1
+        $tags = old('tags') ?? $request->input('tags', '');
+        if (!empty($tags)) {
+            $tags = explode(' ', $tags);
+        }
+
+        $errors = $request->session()->get('errors');
+        $initialState = [
+            'fields' => [
+                'date' => old('date') ?? $request->input('date', date('Y/m/d')),
+                'time' => old('time') ?? $request->input('time', date('H:i')),
+                'link' => old('link') ?? $request->input('link', ''),
+                'tags' => $tags,
+                'note' => old('note') ?? $request->input('note', ''),
+                'is_private' => old('is_private') ?? $request->input('is_private', 0) == 1,
+                'is_too_sensitive' => old('is_too_sensitive') ?? $request->input('is_too_sensitive', 0) == 1
+            ],
+            'errors' => isset($errors) ? $errors->getMessages() : null
         ];
 
-        return view('ejaculation.checkin')->with('defaults', $defaults);
+        return view('ejaculation.checkin')->with('initialState', $initialState);
     }
 
     public function store(Request $request)
@@ -52,29 +62,33 @@ class EjaculationController extends Controller
             return redirect()->route('checkin')->withErrors($validator)->withInput();
         }
 
-        $ejaculation = Ejaculation::create([
-            'user_id' => Auth::id(),
-            'ejaculated_date' => Carbon::createFromFormat('Y/m/d H:i', $inputs['date'] . ' ' . $inputs['time']),
-            'note' => $inputs['note'] ?? '',
-            'link' => $inputs['link'] ?? '',
-            'source' => Ejaculation::SOURCE_WEB,
-            'is_private' => $request->has('is_private') ?? false,
-            'is_too_sensitive' => $request->has('is_too_sensitive') ?? false
-        ]);
+        $ejaculation = DB::transaction(function () use ($request, $inputs) {
+            $ejaculation = Ejaculation::create([
+                'user_id' => Auth::id(),
+                'ejaculated_date' => Carbon::createFromFormat('Y/m/d H:i', $inputs['date'] . ' ' . $inputs['time']),
+                'note' => $inputs['note'] ?? '',
+                'link' => $inputs['link'] ?? '',
+                'source' => Ejaculation::SOURCE_WEB,
+                'is_private' => $request->has('is_private') ?? false,
+                'is_too_sensitive' => $request->has('is_too_sensitive') ?? false
+            ]);
 
-        $tagIds = [];
-        if (!empty($inputs['tags'])) {
-            $tags = explode(' ', $inputs['tags']);
-            foreach ($tags as $tag) {
-                if ($tag === '') {
-                    continue;
+            $tagIds = [];
+            if (!empty($inputs['tags'])) {
+                $tags = explode(' ', $inputs['tags']);
+                foreach ($tags as $tag) {
+                    if ($tag === '') {
+                        continue;
+                    }
+
+                    $tag = Tag::firstOrCreate(['name' => $tag]);
+                    $tagIds[] = $tag->id;
                 }
-
-                $tag = Tag::firstOrCreate(['name' => $tag]);
-                $tagIds[] = $tag->id;
             }
-        }
-        $ejaculation->tags()->sync($tagIds);
+            $ejaculation->tags()->sync($tagIds);
+
+            return $ejaculation;
+        });
 
         if (!empty($ejaculation->link)) {
             event(new LinkDiscovered($ejaculation->link));
@@ -107,13 +121,36 @@ class EjaculationController extends Controller
         return view('ejaculation.show')->with(compact('user', 'ejaculation', 'ejaculatedSpan'));
     }
 
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $ejaculation = Ejaculation::findOrFail($id);
 
         $this->authorize('edit', $ejaculation);
 
-        return view('ejaculation.edit')->with(compact('ejaculation'));
+        if (old('tags') === null) {
+            $tags = $ejaculation->tags->pluck('name');
+        } else {
+            $tags = old('tags');
+            if (!empty($tags)) {
+                $tags = explode(' ', $tags);
+            }
+        }
+
+        $errors = $request->session()->get('errors');
+        $initialState = [
+            'fields' => [
+                'date' => old('date') ?? $ejaculation->ejaculated_date->format('Y/m/d'),
+                'time' => old('time') ?? $ejaculation->ejaculated_date->format('H:i'),
+                'link' => old('link') ?? $ejaculation->link,
+                'tags' => $tags,
+                'note' => old('note') ?? $ejaculation->note,
+                'is_private' => is_bool(old('is_private')) ? old('is_private') : $ejaculation->note,
+                'is_too_sensitive' => is_bool(old('is_too_sensitive')) ? old('is_too_sensitive') : $ejaculation->is_too_sensitive
+            ],
+            'errors' => isset($errors) ? $errors->getMessages() : null
+        ];
+
+        return view('ejaculation.edit')->with(compact('ejaculation', 'initialState'));
     }
 
     public function update(Request $request, $id)
@@ -144,27 +181,29 @@ class EjaculationController extends Controller
             return redirect()->route('checkin.edit', ['id' => $id])->withErrors($validator)->withInput();
         }
 
-        $ejaculation->fill([
-            'ejaculated_date' => Carbon::createFromFormat('Y/m/d H:i', $inputs['date'] . ' ' . $inputs['time']),
-            'note' => $inputs['note'] ?? '',
-            'link' => $inputs['link'] ?? '',
-            'is_private' => $request->has('is_private') ?? false,
-            'is_too_sensitive' => $request->has('is_too_sensitive') ?? false
-        ])->save();
+        DB::transaction(function () use ($ejaculation, $request, $inputs) {
+            $ejaculation->fill([
+                'ejaculated_date' => Carbon::createFromFormat('Y/m/d H:i', $inputs['date'] . ' ' . $inputs['time']),
+                'note' => $inputs['note'] ?? '',
+                'link' => $inputs['link'] ?? '',
+                'is_private' => $request->has('is_private') ?? false,
+                'is_too_sensitive' => $request->has('is_too_sensitive') ?? false
+            ])->save();
 
-        $tagIds = [];
-        if (!empty($inputs['tags'])) {
-            $tags = explode(' ', $inputs['tags']);
-            foreach ($tags as $tag) {
-                if ($tag === '') {
-                    continue;
+            $tagIds = [];
+            if (!empty($inputs['tags'])) {
+                $tags = explode(' ', $inputs['tags']);
+                foreach ($tags as $tag) {
+                    if ($tag === '') {
+                        continue;
+                    }
+
+                    $tag = Tag::firstOrCreate(['name' => $tag]);
+                    $tagIds[] = $tag->id;
                 }
-
-                $tag = Tag::firstOrCreate(['name' => $tag]);
-                $tagIds[] = $tag->id;
             }
-        }
-        $ejaculation->tags()->sync($tagIds);
+            $ejaculation->tags()->sync($tagIds);
+        });
 
         if (!empty($ejaculation->link)) {
             event(new LinkDiscovered($ejaculation->link));
@@ -180,8 +219,11 @@ class EjaculationController extends Controller
         $this->authorize('edit', $ejaculation);
 
         $user = User::findOrFail($ejaculation->user_id);
-        $ejaculation->tags()->detach();
-        $ejaculation->delete();
+
+        DB::transaction(function () use ($ejaculation) {
+            $ejaculation->tags()->detach();
+            $ejaculation->delete();
+        });
 
         return redirect()->route('user.profile', ['name' => $user->name])->with('status', '削除しました。');
     }
