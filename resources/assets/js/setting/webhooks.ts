@@ -1,4 +1,4 @@
-import * as ClipboardJS from 'clipboard';
+import ClipboardJS from 'clipboard';
 
 $('.webhook-url').on('focus', function () {
     $(this).trigger('select');
