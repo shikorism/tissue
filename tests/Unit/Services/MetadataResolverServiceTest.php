@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Services;
 
+use App\ContentProvider;
 use App\MetadataResolver\MetadataResolver;
 use App\MetadataResolver\ResolverCircuitBreakException;
 use App\MetadataResolver\UncaughtResolverException;
@@ -26,6 +27,8 @@ class MetadataResolverServiceTest extends TestCase
         parent::setUp();
         $this->seed();
         Carbon::setTestNow('2020-07-21 19:19:19');
+        // FIXME: 今書かれてるテストはresolveのHTTPリクエストのみを考慮しているので、ContentProviderにデータがないとリクエスト回数がずれる
+        factory(ContentProvider::class)->create();
     }
 
     protected function tearDown(): void
