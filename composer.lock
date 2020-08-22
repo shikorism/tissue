@@ -8941,16 +8941,16 @@
         },
         {
             "name": "symfony/thanks",
-            "version": "v1.2.8",
+            "version": "v1.2.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/thanks.git",
-                "reference": "61ef076d0b6b44962d6847c3ba04ee5ba5f785be"
+                "reference": "733cc7b8c09a06c9251bd35d772b453b47d98442"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/thanks/zipball/61ef076d0b6b44962d6847c3ba04ee5ba5f785be",
-                "reference": "61ef076d0b6b44962d6847c3ba04ee5ba5f785be",
+                "url": "https://api.github.com/repos/symfony/thanks/zipball/733cc7b8c09a06c9251bd35d772b453b47d98442",
+                "reference": "733cc7b8c09a06c9251bd35d772b453b47d98442",
                 "shasum": ""
             },
             "require": {
@@ -8994,7 +8994,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-06-13T21:20:35+00:00"
+            "time": "2020-06-23T10:36:34+00:00"
         },
         {
             "name": "theseer/tokenizer",
