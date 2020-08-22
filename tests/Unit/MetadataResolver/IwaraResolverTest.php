@@ -20,7 +20,7 @@ class IwaraResolverTest extends TestCase
 
     public function testVideo()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Iwara/video.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Iwara/video.html');
 
         $this->createResolver(IwaraResolver::class, $responseText);
 
@@ -37,7 +37,7 @@ class IwaraResolverTest extends TestCase
 
     public function testYouTube()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Iwara/youtube.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Iwara/youtube.html');
 
         $this->createResolver(IwaraResolver::class, $responseText);
 
@@ -54,7 +54,7 @@ class IwaraResolverTest extends TestCase
 
     public function testImages()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Iwara/images.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Iwara/images.html');
 
         $this->createResolver(IwaraResolver::class, $responseText);
 

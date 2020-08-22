@@ -21,7 +21,7 @@ class NicoSeigaResolverTest extends TestCase
 
     public function testSeiga()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/NicoSeiga/seiga.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/NicoSeiga/seiga.html');
 
         $this->createResolver(NicoSeigaResolver::class, $responseText);
 
@@ -37,7 +37,7 @@ class NicoSeigaResolverTest extends TestCase
 
     public function testShunga()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/NicoSeiga/shunga.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/NicoSeiga/shunga.html');
 
         $this->createResolver(NicoSeigaResolver::class, $responseText);
 

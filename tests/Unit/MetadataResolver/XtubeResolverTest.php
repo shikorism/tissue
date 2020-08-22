@@ -20,7 +20,7 @@ class XtubeResolverTest extends TestCase
 
     public function test()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Xtube/video.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Xtube/video.html');
 
         $this->createResolver(XtubeResolver::class, $responseText);
 

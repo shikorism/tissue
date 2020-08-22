@@ -20,7 +20,7 @@ class FantiaResolverTest extends TestCase
 
     public function test()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Fantia/test.json');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Fantia/test.json');
 
         $this->createResolver(FantiaResolver::class, $responseText);
 

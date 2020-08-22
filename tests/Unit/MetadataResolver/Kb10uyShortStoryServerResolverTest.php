@@ -20,7 +20,7 @@ class Kb10uyShortStoryServerResolverTest extends TestCase
 
     public function testNormalPost()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Kb10uyShortStoryServer/tomone.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Kb10uyShortStoryServer/tomone.html');
 
         $this->createResolver(Kb10uyShortStoryServerResolver::class, $responseText);
 

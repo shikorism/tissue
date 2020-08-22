@@ -20,7 +20,7 @@ class SteamResolverTest extends TestCase
 
     public function test()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Steam/test.json');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Steam/test.json');
 
         $this->createResolver(SteamResolver::class, $responseText);
 
@@ -32,7 +32,7 @@ class SteamResolverTest extends TestCase
 
     public function testR18()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Steam/testR18.json');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Steam/testR18.json');
 
         $this->createResolver(SteamResolver::class, $responseText);
 
@@ -46,7 +46,7 @@ class SteamResolverTest extends TestCase
     {
         $this->expectException(\RuntimeException::class);
 
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Steam/testNotFound.json');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Steam/testNotFound.json');
 
         $this->createResolver(SteamResolver::class, $responseText);
 

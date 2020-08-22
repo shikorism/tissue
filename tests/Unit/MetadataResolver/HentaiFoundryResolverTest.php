@@ -20,7 +20,7 @@ class HentaiFoundryResolverTest extends TestCase
 
     public function test()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/HentaiFoundry/illust.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/HentaiFoundry/illust.html');
 
         $this->createResolver(HentaiFoundryResolver::class, $responseText);
 
