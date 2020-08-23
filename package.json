@@ -15,7 +15,7 @@
   "devDependencies": {
     "@types/bootstrap": "^4.5.0",
     "@types/cal-heatmap": "^3.3.10",
-    "@types/chart.js": "^2.9.23",
+    "@types/chart.js": "^2.9.24",
     "@types/classnames": "^2.2.10",
     "@types/clipboard": "^2.0.1",
     "@types/jquery": "^3.3.38",
