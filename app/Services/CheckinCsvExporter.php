@@ -30,7 +30,7 @@ class CheckinCsvExporter
             $csv->addStreamFilter('convert.mbstring.encoding.UTF-8:SJIS-win');
         }
 
-        $header = ['日時', 'ノート', 'オカズリンク', '非公開', 'センシティブ'];
+        $header = ['日時', 'ノート', 'オカズリンク'];
         for ($i = 1; $i <= 32; $i++) {
             $header[] = "タグ{$i}";
         }
@@ -45,8 +45,6 @@ class CheckinCsvExporter
                             $ejaculation->ejaculated_date->format('Y/m/d H:i'),
                             $ejaculation->note,
                             $ejaculation->link,
-                            self::formatBoolean($ejaculation->is_private),
-                            self::formatBoolean($ejaculation->is_too_sensitive),
                         ];
                         foreach ($ejaculation->tags->take(32) as $tag) {
                             $record[] = $tag->name;
@@ -55,10 +53,5 @@ class CheckinCsvExporter
                     }
                 });
         });
-    }
-
-    private static function formatBoolean($value): string
-    {
-        return $value ? 'true' : 'false';
     }
 }

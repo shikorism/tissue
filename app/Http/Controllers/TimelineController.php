@@ -19,7 +19,7 @@ class TimelineController extends Controller
             ->select('ejaculations.*')
             ->with('user', 'tags')
             ->withLikes()
-            ->visibleToTimeline()
+            ->onlyWebCheckin()
             ->paginate(21);
 
         return view('timeline.public')->with(compact('ejaculations'));

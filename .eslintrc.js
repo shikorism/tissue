@@ -6,33 +6,25 @@ module.exports = {
     },
     extends: [
         'eslint:recommended',
-        'plugin:react/recommended',
+        'plugin:vue/essential',
         'plugin:prettier/recommended',
         'plugin:@typescript-eslint/recommended',
         'prettier',
         'prettier/@typescript-eslint',
-        'prettier/react',
+        'prettier/vue',
     ],
-    parser: '@typescript-eslint/parser',
+    parser: 'vue-eslint-parser',
     parserOptions: {
         ecmaVersion: 11,
-        ecmaFeatures: {
-            jsx: true,
-        },
+        parser: '@typescript-eslint/parser',
         sourceType: 'module',
     },
-    plugins: ['prettier', 'react', '@typescript-eslint', 'jquery'],
+    plugins: ['prettier', 'vue', '@typescript-eslint', 'jquery'],
     rules: {
         '@typescript-eslint/explicit-module-boundary-types': 0,
         '@typescript-eslint/no-explicit-any': 0,
         '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
         'jquery/no-ajax': 2,
         'jquery/no-ajax-events': 2,
-        'react/prop-types': 0,
-    },
-    settings: {
-        react: {
-            version: 'detect',
-        },
     },
 };

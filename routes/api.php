@@ -15,13 +15,9 @@
 //    return $request->user();
 //});
 
-Route::get('/checkin/card', 'Api\\CardController@show')
-    ->middleware('throttle:180,1,card');
+Route::get('/checkin/card', 'Api\\CardController@show');
 
-Route::middleware(['throttle:60,1', 'stateful', 'auth'])->group(function () {
+Route::middleware('auth')->group(function () {
     Route::post('/likes', 'Api\\LikeController@store');
     Route::delete('/likes/{id}', 'Api\\LikeController@destroy');
 });
-
-Route::post('/webhooks/checkin/{webhook}', 'Api\\WebhookController@checkin')
-    ->middleware('throttle:15,15,checkin_webhook');

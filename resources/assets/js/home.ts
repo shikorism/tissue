@@ -1,4 +1,4 @@
-import Chart from 'chart.js';
+import * as Chart from 'chart.js';
 
 const graph = document.getElementById('global-count-graph') as HTMLCanvasElement;
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

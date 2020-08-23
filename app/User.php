@@ -71,9 +71,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Like::class);
     }
-
-    public function checkinWebhooks()
-    {
-        return $this->hasMany(CheckinWebhook::class);
-    }
 }
