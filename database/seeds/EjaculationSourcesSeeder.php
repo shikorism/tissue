@@ -11,9 +11,9 @@ class EjaculationSourcesSeeder extends Seeder
      */
     public function run()
     {
-        $sources = ['web', 'csv', 'webhook'];
+        $sources = ['web', 'csv'];
         foreach ($sources as $source) {
-            DB::table('ejaculation_sources')->insertOrIgnore(['name' => $source]);
+            DB::table('ejaculation_sources')->insert(['name' => $source]);
         }
     }
 }

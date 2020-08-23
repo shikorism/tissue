@@ -277,48 +277,6 @@ class CheckinCsvImporterTest extends TestCase
         $this->assertEquals(Ejaculation::SOURCE_CSV, $ejaculation->source);
     }
 
-    public function testIsPrivateUTF8()
-    {
-        $user = factory(User::class)->create();
-
-        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/private.utf8.csv');
-        $importer->execute();
-
-        $ejaculations = $user->ejaculations()->orderBy('ejaculated_date')->get();
-
-        $this->assertSame(9, $ejaculations->count());
-        $this->assertTrue($ejaculations[0]->is_private);
-        $this->assertTrue($ejaculations[1]->is_private);
-        $this->assertTrue($ejaculations[2]->is_private);
-        $this->assertTrue($ejaculations[3]->is_private);
-        $this->assertFalse($ejaculations[4]->is_private);
-        $this->assertFalse($ejaculations[5]->is_private);
-        $this->assertFalse($ejaculations[6]->is_private);
-        $this->assertFalse($ejaculations[7]->is_private);
-        $this->assertFalse($ejaculations[8]->is_private);
-    }
-
-    public function testIsTooSensitiveUTF8()
-    {
-        $user = factory(User::class)->create();
-
-        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/too-sensitive.utf8.csv');
-        $importer->execute();
-
-        $ejaculations = $user->ejaculations()->orderBy('ejaculated_date')->get();
-
-        $this->assertSame(9, $ejaculations->count());
-        $this->assertTrue($ejaculations[0]->is_too_sensitive);
-        $this->assertTrue($ejaculations[1]->is_too_sensitive);
-        $this->assertTrue($ejaculations[2]->is_too_sensitive);
-        $this->assertTrue($ejaculations[3]->is_too_sensitive);
-        $this->assertFalse($ejaculations[4]->is_too_sensitive);
-        $this->assertFalse($ejaculations[5]->is_too_sensitive);
-        $this->assertFalse($ejaculations[6]->is_too_sensitive);
-        $this->assertFalse($ejaculations[7]->is_too_sensitive);
-        $this->assertFalse($ejaculations[8]->is_too_sensitive);
-    }
-
     public function testDontThrowUniqueKeyViolation()
     {
         $user = factory(User::class)->create();

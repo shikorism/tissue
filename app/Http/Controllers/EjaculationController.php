@@ -16,26 +16,17 @@ class EjaculationController extends Controller
 {
     public function create(Request $request)
     {
-        $tags = old('tags') ?? $request->input('tags', '');
-        if (!empty($tags)) {
-            $tags = explode(' ', $tags);
-        }
-
-        $errors = $request->session()->get('errors');
-        $initialState = [
-            'fields' => [
-                'date' => old('date') ?? $request->input('date', date('Y/m/d')),
-                'time' => old('time') ?? $request->input('time', date('H:i')),
-                'link' => old('link') ?? $request->input('link', ''),
-                'tags' => $tags,
-                'note' => old('note') ?? $request->input('note', ''),
-                'is_private' => old('is_private') ?? $request->input('is_private', 0) == 1,
-                'is_too_sensitive' => old('is_too_sensitive') ?? $request->input('is_too_sensitive', 0) == 1
-            ],
-            'errors' => isset($errors) ? $errors->getMessages() : null
+        $defaults = [
+            'date' => $request->input('date', date('Y/m/d')),
+            'time' => $request->input('time', date('H:i')),
+            'link' => $request->input('link', ''),
+            'tags' => $request->input('tags', ''),
+            'note' => $request->input('note', ''),
+            'is_private' => $request->input('is_private', 0) == 1,
+            'is_too_sensitive' => $request->input('is_too_sensitive', 0) == 1
         ];
 
-        return view('ejaculation.checkin')->with('initialState', $initialState);
+        return view('ejaculation.checkin')->with('defaults', $defaults);
     }
 
     public function store(Request $request)
@@ -121,36 +112,13 @@ class EjaculationController extends Controller
         return view('ejaculation.show')->with(compact('user', 'ejaculation', 'ejaculatedSpan'));
     }
 
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
         $ejaculation = Ejaculation::findOrFail($id);
 
         $this->authorize('edit', $ejaculation);
 
-        if (old('tags') === null) {
-            $tags = $ejaculation->tags->pluck('name');
-        } else {
-            $tags = old('tags');
-            if (!empty($tags)) {
-                $tags = explode(' ', $tags);
-            }
-        }
-
-        $errors = $request->session()->get('errors');
-        $initialState = [
-            'fields' => [
-                'date' => old('date') ?? $ejaculation->ejaculated_date->format('Y/m/d'),
-                'time' => old('time') ?? $ejaculation->ejaculated_date->format('H:i'),
-                'link' => old('link') ?? $ejaculation->link,
-                'tags' => $tags,
-                'note' => old('note') ?? $ejaculation->note,
-                'is_private' => is_bool(old('is_private')) ? old('is_private') : $ejaculation->note,
-                'is_too_sensitive' => is_bool(old('is_too_sensitive')) ? old('is_too_sensitive') : $ejaculation->is_too_sensitive
-            ],
-            'errors' => isset($errors) ? $errors->getMessages() : null
-        ];
-
-        return view('ejaculation.edit')->with(compact('ejaculation', 'initialState'));
+        return view('ejaculation.edit')->with(compact('ejaculation'));
     }
 
     public function update(Request $request, $id)
