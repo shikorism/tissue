@@ -1,4 +1,4 @@
-import * as CalHeatMap from 'cal-heatmap';
+import CalHeatMap from 'cal-heatmap';
 import { subMonths } from 'date-fns';
 
 if (document.getElementById('cal-heatmap')) {

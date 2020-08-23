@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CheckinWebhook;
 use App\DeactivatedUser;
 use App\Ejaculation;
 use App\Exceptions\CsvImportException;
@@ -73,6 +74,46 @@ class SettingController extends Controller
         $user->save();
 
         return redirect()->route('setting.privacy')->with('status', 'プライバシー設定を更新しました。');
+    }
+
+    public function webhooks()
+    {
+        $webhooks = Auth::user()->checkinWebhooks;
+        $webhooksLimit = CheckinWebhook::PER_USER_LIMIT;
+
+        return view('setting.webhooks')->with(compact('webhooks', 'webhooksLimit'));
+    }
+
+    public function storeWebhooks(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('checkin_webhooks', 'name')->where(function ($query) {
+                    return $query->where('user_id', Auth::id());
+                })
+            ]
+        ], [], [
+            'name' => '名前'
+        ]);
+
+        if (Auth::user()->checkinWebhooks()->count() >= CheckinWebhook::PER_USER_LIMIT) {
+            return redirect()->route('setting.webhooks')
+                ->with('status', CheckinWebhook::PER_USER_LIMIT . '件以上のWebhookを作成することはできません。');
+        }
+
+        Auth::user()->checkinWebhooks()->create($validated);
+
+        return redirect()->route('setting.webhooks')->with('status', '作成しました。');
+    }
+
+    public function destroyWebhooks(CheckinWebhook $webhook)
+    {
+        $webhook->delete();
+
+        return redirect()->route('setting.webhooks')->with('status', '削除しました。');
     }
 
     public function import()
