@@ -8,20 +8,20 @@
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
-            "version": "3.2.0",
+            "version": "3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anhskohbo/no-captcha.git",
-                "reference": "c14dd67024f30fd28f38ac9faa44cc47e1d4bddf"
+                "reference": "6386365b76cfa6a6043dc2783a2a615c8574faf9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anhskohbo/no-captcha/zipball/c14dd67024f30fd28f38ac9faa44cc47e1d4bddf",
-                "reference": "c14dd67024f30fd28f38ac9faa44cc47e1d4bddf",
+                "url": "https://api.github.com/repos/anhskohbo/no-captcha/zipball/6386365b76cfa6a6043dc2783a2a615c8574faf9",
+                "reference": "6386365b76cfa6a6043dc2783a2a615c8574faf9",
                 "shasum": ""
             },
             "require": {
-                "guzzlehttp/guzzle": "^6.2",
+                "guzzlehttp/guzzle": "^6.2|^7.0",
                 "illuminate/support": "^5.0|^6.0|^7.0",
                 "php": ">=5.5.5"
             },
@@ -64,7 +64,7 @@
                 "no-captcha",
                 "recaptcha"
             ],
-            "time": "2020-03-04T03:27:38+00:00"
+            "time": "2020-08-06T05:45:09+00:00"
         },
         {
             "name": "clue/stream-filter",
