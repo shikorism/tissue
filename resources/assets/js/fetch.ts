@@ -67,5 +67,6 @@ export class ResponseError extends Error {
 
         this.name = 'ResponseError';
         this.response = response;
+        Object.setPrototypeOf(this, new.target.prototype);
     }
 }
