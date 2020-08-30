@@ -144,7 +144,7 @@ class EjaculationController extends Controller
                 'link' => old('link') ?? $ejaculation->link,
                 'tags' => $tags,
                 'note' => old('note') ?? $ejaculation->note,
-                'is_private' => is_bool(old('is_private')) ? old('is_private') : $ejaculation->note,
+                'is_private' => is_bool(old('is_private')) ? old('is_private') : $ejaculation->is_private,
                 'is_too_sensitive' => is_bool(old('is_too_sensitive')) ? old('is_too_sensitive') : $ejaculation->is_too_sensitive
             ],
             'errors' => isset($errors) ? $errors->getMessages() : null

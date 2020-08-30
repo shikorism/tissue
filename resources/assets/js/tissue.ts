@@ -1,4 +1,4 @@
-import { fetchGet } from './fetch';
+import { fetchGet, ResponseError } from './fetch';
 
 export function suicide<T>(e: T) {
     return function (): never {
@@ -15,7 +15,12 @@ export function linkCard(el: Element) {
     }
 
     fetchGet('/api/checkin/card', { url })
-        .then((response) => response.json())
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new ResponseError(response);
+        })
         .then((data) => {
             const metaColumn = el.querySelector('.col-12:last-of-type') || die();
             const imageColumn = el.querySelector<HTMLElement>('.col-12:first-of-type') || die();
