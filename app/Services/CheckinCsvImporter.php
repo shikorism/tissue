@@ -6,6 +6,7 @@ namespace App\Services;
 use App\Ejaculation;
 use App\Exceptions\CsvImportException;
 use App\Rules\CsvDateTime;
+use App\Rules\FuzzyBoolean;
 use App\Tag;
 use App\User;
 use Carbon\Carbon;
@@ -75,6 +76,8 @@ class CheckinCsvImporter
                     '日時' => ['required', new CsvDateTime()],
                     'ノート' => 'nullable|string|max:500',
                     'オカズリンク' => 'nullable|url|max:2000',
+                    '非公開' => ['nullable', new FuzzyBoolean()],
+                    'センシティブ' => ['nullable', new FuzzyBoolean()],
                 ]);
 
                 if ($validator->fails()) {
@@ -88,6 +91,12 @@ class CheckinCsvImporter
                 $ejaculation->note = str_replace(["\r\n", "\r"], "\n", $record['ノート'] ?? '');
                 $ejaculation->link = $record['オカズリンク'] ?? '';
                 $ejaculation->source = Ejaculation::SOURCE_CSV;
+                if (isset($record['非公開'])) {
+                    $ejaculation->is_private = FuzzyBoolean::isTruthy($record['非公開']);
+                }
+                if (isset($record['センシティブ'])) {
+                    $ejaculation->is_too_sensitive = FuzzyBoolean::isTruthy($record['センシティブ']);
+                }
 
                 try {
                     $tags = $this->parseTags($line, $record);
