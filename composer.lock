@@ -3785,16 +3785,16 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v4.4.11",
+            "version": "v4.4.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "72b3a65ddd5052cf6d65eac6669748ed311f39bf"
+                "reference": "bdcb7633a501770a0daefbf81d2e6b28c3864f2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/72b3a65ddd5052cf6d65eac6669748ed311f39bf",
-                "reference": "72b3a65ddd5052cf6d65eac6669748ed311f39bf",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/bdcb7633a501770a0daefbf81d2e6b28c3864f2b",
+                "reference": "bdcb7633a501770a0daefbf81d2e6b28c3864f2b",
                 "shasum": ""
             },
             "require": {
@@ -3856,7 +3856,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-07-23T08:31:43+00:00"
+            "time": "2020-10-02T07:34:48+00:00"
         },
         {
             "name": "symfony/error-handler",
