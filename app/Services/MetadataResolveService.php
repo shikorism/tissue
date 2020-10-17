@@ -162,6 +162,11 @@ class MetadataResolveService
         $client = app(Client::class);
         try {
             $res = $client->get($robotsUrl);
+            if (stripos($res->getHeaderLine('Content-Type'), 'text/plain') !== 0) {
+                Log::error('robots.txtの取得に失敗: 不適切なContent-Type (' . $res->getHeaderLine('Content-Type') . ')');
+
+                return null;
+            }
 
             return (string) $res->getBody();
         } catch (\Exception $e) {
