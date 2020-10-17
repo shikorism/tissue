@@ -27,12 +27,18 @@ class CienResolver extends MetadataResolver
         $res = $this->client->get($url);
         $metadata = $this->ogpResolver->parse((string) $res->getBody());
 
-        // 画像URLから有効期限の起点を拾う
+        // 画像URLのJWTから有効期限を拾う
         parse_str(parse_url($metadata->image, PHP_URL_QUERY), $params);
-        if (empty($params['px-time'])) {
-            throw new \RuntimeException('Parameter "px-time" not found. Image=' . $metadata->image . ' Source=' . $url);
+        if (empty($params['jwt'])) {
+            throw new \RuntimeException('Parameter "jwt" not found. Image=' . $metadata->image . ' Source=' . $url);
         }
-        $metadata->expires_at = Carbon::createFromTimestamp($params['px-time'])->addHour(1);
+        $parts = explode('.', $params['jwt']);
+        if (count($parts) !== 3) {
+            throw new \RuntimeException('Invalid jwt. Image=' . $metadata->image . ' Source=' . $url);
+        }
+        $payload = json_decode(base64_decode(str_replace(['-', '_'], ['+', '/'], $parts[1])), true);
+
+        $metadata->expires_at = Carbon::createFromTimestamp($payload['exp']);
 
         return $metadata;
     }
