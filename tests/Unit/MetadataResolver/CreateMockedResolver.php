@@ -3,7 +3,6 @@
 namespace Tests\Unit\MetadataResolver;
 
 use App\MetadataResolver\Resolver;
-use function Clue\StreamFilter\fun;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
