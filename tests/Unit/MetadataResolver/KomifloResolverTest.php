@@ -20,7 +20,7 @@ class KomifloResolverTest extends TestCase
 
     public function testComic()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Komiflo/comic.json');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Komiflo/comic.json');
 
         $this->createResolver(KomifloResolver::class, $responseText);
 
@@ -36,7 +36,7 @@ class KomifloResolverTest extends TestCase
 
     public function testComicWithNoParents()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Komiflo/comicWithNoParents.json');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Komiflo/comicWithNoParents.json');
 
         $this->createResolver(KomifloResolver::class, $responseText);
 

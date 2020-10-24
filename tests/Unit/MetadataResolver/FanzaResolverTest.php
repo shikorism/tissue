@@ -23,7 +23,7 @@ class FanzaResolverTest extends TestCase
      */
     public function test($filename, $url, $title, $description, $image, $tags)
     {
-        $responseText = file_get_contents(__DIR__ . "/../../fixture/Fanza/{$filename}");
+        $responseText = $this->fetchSnapshot(__DIR__ . "/../../fixture/Fanza/{$filename}");
 
         $this->createResolver(FanzaResolver::class, $responseText);
 

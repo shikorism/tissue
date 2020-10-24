@@ -20,7 +20,7 @@ class CienResolverTest extends TestCase
 
     public function test()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Cien/test.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Cien/test.html');
 
         $this->createResolver(CienResolver::class, $responseText);
 
@@ -37,7 +37,7 @@ class CienResolverTest extends TestCase
 
     public function testWithNoTimestamp()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Cien/testWithNoTimestamp.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Cien/testWithNoTimestamp.html');
         $this->createResolver(CienResolver::class, $responseText);
 
         $this->expectException(\RuntimeException::class);
