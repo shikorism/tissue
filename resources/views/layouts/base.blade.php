@@ -59,14 +59,8 @@
                         <li class="nav-item {{ stripos(Route::currentRouteName(), 'home') === 0 ? 'active' : ''}}">
                             <a class="nav-link" href="{{ route('home') }}">ホーム</a>
                         </li>
-                        <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.profile') === 0 ? 'active' : ''}}">
-                            <a class="nav-link" href="{{ route('user.profile', ['name' => Auth::user()->name]) }}">タイムライン</a>
-                        </li>
-                        <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.stats') === 0 ? 'active' : ''}}">
-                            <a class="nav-link" href="{{ route('user.stats', ['name' => Auth::user()->name]) }}">グラフ</a>
-                        </li>
-                        <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.okazu') === 0 ? 'active' : ''}}">
-                            <a class="nav-link" href="{{ route('user.okazu', ['name' => Auth::user()->name]) }}">オカズ</a>
+                        <li class="nav-item {{ stripos(Route::currentRouteName(), 'timeline.public') === 0 ? 'active' : ''}}">
+                            <a class="nav-link" href="{{ route('timeline.public') }}">お惣菜</a>
                         </li>
                         <li class="nav-item {{ stripos(Route::currentRouteName(), 'tag') === 0 ? 'active' : ''}}">
                             <a class="nav-link" href="{{ route('tag') }}">タグ一覧</a>
@@ -104,15 +98,7 @@
                             <a class="btn btn-{{ stripos(Route::currentRouteName(), 'home') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('home') }}" role="button">ホーム</a>
                         </div>
                         <div class="col">
-                            <a class="btn btn-{{ stripos(Route::currentRouteName(), 'user.profile') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('user.profile', ['name' => Auth::user()->name]) }}" role="button">タイムライン</a>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col">
-                            <a class="btn btn-{{ stripos(Route::currentRouteName(), 'user.stats') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('user.stats', ['name' => Auth::user()->name]) }}" role="button">グラフ</a>
-                        </div>
-                        <div class="col">
-                            <a class="btn btn-{{ stripos(Route::currentRouteName(), 'user.okazu') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('user.okazu', ['name' => Auth::user()->name]) }}" role="button">オカズ</a>
+                            <a class="btn btn-{{ stripos(Route::currentRouteName(), 'timeline.public') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('timeline.public') }}" role="button">お惣菜</a>
                         </div>
                     </div>
                     <div class="row mt-2">
