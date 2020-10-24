@@ -1,0 +1,16 @@
+.tis-nav-underline-tabs {
+    margin-bottom: -1px;
+
+    .nav-link {
+        padding: 0.5rem 1.25rem;
+        border-bottom: 4px solid transparent;
+
+        @include media-breakpoint-up(lg) {
+            padding: 1rem 1.25rem;
+        }
+
+        &.active {
+            border-bottom-color: $primary;
+        }
+    }
+}
