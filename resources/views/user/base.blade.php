@@ -22,7 +22,7 @@
                         <li class="nav-item flex-shrink-0">
                             <a class="nav-link {{ Route::currentRouteName() === 'user.likes' ? 'active' : '' }}" href="{{ route('user.likes', ['name' => $user->name]) }}">いいね
                                 @if ($user->isMe() || !($user->is_protected || $user->private_likes))
-                                    <span class="badge badge-primary">{{ $user->likes()->count() }}</span>
+                                    <span class="badge {{ Route::currentRouteName() === 'user.likes' ? 'badge-primary' : 'badge-secondary' }}">{{ $user->likes()->count() }}</span>
                                 @endif
                             </a>
                         </li>
