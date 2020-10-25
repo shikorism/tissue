@@ -13,6 +13,14 @@
     @if (Route::currentRouteName() === 'user.profile')
     @component('components.profile-bio', ['user' => $user])
     @endcomponent
+    @if (!$user->is_protected || $user->isMe())
+        <div class="card mb-4">
+            <div class="card-body">
+                @component('components.profile-stats', ['user' => $user])
+                @endcomponent
+            </div>
+        </div>
+    @endif
     @if (!empty($tags) && (!$user->is_protected || $user->isMe()))
         <div class="card mb-4">
             <div class="card-header">
