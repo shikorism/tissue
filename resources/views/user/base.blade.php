@@ -34,10 +34,6 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4">
-                @if (Route::currentRouteName() === 'user.profile')
-                    @component('components.profile', ['user' => $user])
-                    @endcomponent
-                @endif
                 @section('sidebar')
                 @show
             </div>
