@@ -15,6 +15,10 @@ $primary: #e53fb1;
 @import "components/link-card";
 @import "components/tag-input";
 @import "components/metadata-preview";
+@import "components/profile-mini";
 
 // Tag
 @import "tag/index";
+
+// Underline tabs
+@import "underline-tabs";

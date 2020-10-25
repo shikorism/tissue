@@ -20,7 +20,7 @@ class PixivResolverTest extends TestCase
 
     public function testIllust()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Pixiv/illust.json');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Pixiv/illust.json');
 
         $this->createResolver(PixivResolver::class, $responseText);
 
@@ -36,7 +36,7 @@ class PixivResolverTest extends TestCase
 
     public function testIllustMultiPages()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Pixiv/illustMultiPages.json');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Pixiv/illustMultiPages.json');
 
         $this->createResolver(PixivResolver::class, $responseText);
 
@@ -52,7 +52,7 @@ class PixivResolverTest extends TestCase
 
     public function testManga()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Pixiv/manga.json');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Pixiv/manga.json');
 
         $this->createResolver(PixivResolver::class, $responseText);
 
@@ -68,7 +68,7 @@ class PixivResolverTest extends TestCase
 
     public function testArtworkUrl()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Pixiv/illust.json');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Pixiv/illust.json');
 
         $this->createResolver(PixivResolver::class, $responseText);
 
@@ -84,7 +84,7 @@ class PixivResolverTest extends TestCase
 
     public function testArtworkUrlEn()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Pixiv/illust.json');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Pixiv/illust.json');
 
         $this->createResolver(PixivResolver::class, $responseText);
 

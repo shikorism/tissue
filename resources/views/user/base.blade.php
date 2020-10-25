@@ -1,45 +1,48 @@
 @extends('layouts.base')
 
 @section('content')
+    <div class="container-fluid border-bottom mb-4 mt-n1 mt-lg-n4 px-0">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-4">
+                    @component('components.profile-mini', ['user' => $user])
+                    @endcomponent
+                </div>
+                <div class="col-lg-8 mt-3 mt-lg-2 px-0 px-md-2">
+                    <ul class="nav tis-nav-underline-tabs flex-nowrap overflow-auto">
+                        <li class="nav-item flex-shrink-0">
+                            <a class="nav-link {{ Route::currentRouteName() === 'user.profile' ? 'active' : '' }}" href="{{ route('user.profile', ['name' => $user->name]) }}">タイムライン</a>
+                        </li>
+                        <li class="nav-item flex-shrink-0">
+                            <a class="nav-link {{ stripos(Route::currentRouteName(), 'user.stats') === 0 ? 'active' : '' }}" href="{{ route('user.stats', ['name' => $user->name]) }}">グラフ</a>
+                        </li>
+                        <li class="nav-item flex-shrink-0">
+                            <a class="nav-link {{ Route::currentRouteName() === 'user.okazu' ? 'active' : '' }}" href="{{ route('user.okazu', ['name' => $user->name]) }}">オカズ</a>
+                        </li>
+                        <li class="nav-item flex-shrink-0">
+                            <a class="nav-link {{ Route::currentRouteName() === 'user.likes' ? 'active' : '' }}" href="{{ route('user.likes', ['name' => $user->name]) }}">いいね
+                                @if ($user->isMe() || !($user->is_protected || $user->private_likes))
+                                    <span class="badge {{ Route::currentRouteName() === 'user.likes' ? 'badge-primary' : 'badge-secondary' }}">{{ $user->likes()->count() }}</span>
+                                @endif
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-4">
                 @if (Route::currentRouteName() === 'user.profile')
                     @component('components.profile', ['user' => $user])
                     @endcomponent
-                @else
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            @component('components.profile-mini', ['user' => $user])
-                            @endcomponent
-                        </div>
-                    </div>
                 @endif
                 @section('sidebar')
                 @show
             </div>
             <div class="col-lg-8">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::currentRouteName() === 'user.profile' ? 'active' : '' }}" href="{{ route('user.profile', ['name' => $user->name]) }}">タイムライン</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ stripos(Route::currentRouteName(), 'user.stats') === 0 ? 'active' : '' }}" href="{{ route('user.stats', ['name' => $user->name]) }}">グラフ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::currentRouteName() === 'user.okazu' ? 'active' : '' }}" href="{{ route('user.okazu', ['name' => $user->name]) }}">オカズ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::currentRouteName() === 'user.likes' ? 'active' : '' }}" href="{{ route('user.likes', ['name' => $user->name]) }}">いいね
-                            @if ($user->isMe() || !($user->is_protected || $user->private_likes))
-                                <span class="badge badge-primary">{{ $user->likes()->count() }}</span>
-                            @endif
-                        </a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    @yield('tab-content')
-                </div>
+                @yield('tab-content')
             </div>
         </div>
     </div>

@@ -43,21 +43,7 @@
                         <img src="{{ Auth::user()->getProfileImageUrl(30) }}" srcset="{{ Formatter::profileImageSrcSet(Auth::user(), 30) }}" width="30" height="30" class="rounded d-inline-block align-top">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right position-absolute" aria-labelledby="navbarDropdownMenuLink" id="navbarAccountDropdownSp">
-                        <a href="{{ route('user.profile', ['name' => Auth::user()->name]) }}" class="dropdown-item text-truncate">
-                            <strong>{{ Auth::user()->display_name }}</strong>
-                            <p class="mb-0 text-muted">
-                                <span>&commat;{{ Auth::user()->name }}</span>
-                            </p>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="{{ route('user.profile', ['name' => Auth::user()->name]) }}" class="dropdown-item">プロフィール</a>
-                        <a href="{{ route('user.likes', ['name' => Auth::user()->name]) }}" class="dropdown-item">いいね</a>
-                        <div class="dropdown-divider"></div>
-                        <a href="{{ route('setting') }}" class="dropdown-item">設定</a>
-                        @can ('admin')
-                            <a href="{{ route('admin.dashboard') }}" class="dropdown-item">管理</a>
-                        @endcan
-                        <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
+                        @include('components.header-dropdown-menu')
                     </div>
                 </div>
             </div>
@@ -73,14 +59,8 @@
                         <li class="nav-item {{ stripos(Route::currentRouteName(), 'home') === 0 ? 'active' : ''}}">
                             <a class="nav-link" href="{{ route('home') }}">ホーム</a>
                         </li>
-                        <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.profile') === 0 ? 'active' : ''}}">
-                            <a class="nav-link" href="{{ route('user.profile', ['name' => Auth::user()->name]) }}">タイムライン</a>
-                        </li>
-                        <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.stats') === 0 ? 'active' : ''}}">
-                            <a class="nav-link" href="{{ route('user.stats', ['name' => Auth::user()->name]) }}">グラフ</a>
-                        </li>
-                        <li class="nav-item {{ stripos(Route::currentRouteName(), 'user.okazu') === 0 ? 'active' : ''}}">
-                            <a class="nav-link" href="{{ route('user.okazu', ['name' => Auth::user()->name]) }}">オカズ</a>
+                        <li class="nav-item {{ stripos(Route::currentRouteName(), 'timeline.public') === 0 ? 'active' : ''}}">
+                            <a class="nav-link" href="{{ route('timeline.public') }}">お惣菜</a>
                         </li>
                         <li class="nav-item {{ stripos(Route::currentRouteName(), 'tag') === 0 ? 'active' : ''}}">
                             <a class="nav-link" href="{{ route('tag') }}">タグ一覧</a>
@@ -106,21 +86,7 @@
                                 <img src="{{ Auth::user()->getProfileImageUrl(30) }}" srcset="{{ Formatter::profileImageSrcSet(Auth::user(), 30) }}" width="30" height="30" class="rounded d-inline-block align-top">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                <a href="{{ route('user.profile', ['name' => Auth::user()->name]) }}" class="dropdown-item">
-                                    <strong>{{ Auth::user()->display_name }}</strong>
-                                    <p class="mb-0 text-muted">
-                                        <span>&commat;{{ Auth::user()->name }}</span>
-                                    </p>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a href="{{ route('user.profile', ['name' => Auth::user()->name]) }}" class="dropdown-item">プロフィール</a>
-                                <a href="{{ route('user.likes', ['name' => Auth::user()->name]) }}" class="dropdown-item">いいね</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="{{ route('setting') }}" class="dropdown-item">設定</a>
-                                @can ('admin')
-                                    <a href="{{ route('admin.dashboard') }}" class="dropdown-item">管理</a>
-                                @endcan
-                                <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
+                                @include('components.header-dropdown-menu')
                             </div>
                         </li>
                     </ul>
@@ -132,15 +98,7 @@
                             <a class="btn btn-{{ stripos(Route::currentRouteName(), 'home') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('home') }}" role="button">ホーム</a>
                         </div>
                         <div class="col">
-                            <a class="btn btn-{{ stripos(Route::currentRouteName(), 'user.profile') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('user.profile', ['name' => Auth::user()->name]) }}" role="button">タイムライン</a>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col">
-                            <a class="btn btn-{{ stripos(Route::currentRouteName(), 'user.stats') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('user.stats', ['name' => Auth::user()->name]) }}" role="button">グラフ</a>
-                        </div>
-                        <div class="col">
-                            <a class="btn btn-{{ stripos(Route::currentRouteName(), 'user.okazu') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('user.okazu', ['name' => Auth::user()->name]) }}" role="button">オカズ</a>
+                            <a class="btn btn-{{ stripos(Route::currentRouteName(), 'timeline.public') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('timeline.public') }}" role="button">お惣菜</a>
                         </div>
                     </div>
                     <div class="row mt-2">

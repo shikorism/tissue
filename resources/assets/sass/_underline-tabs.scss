@@ -1,0 +1,24 @@
+.tis-nav-underline-tabs {
+    margin-bottom: -1px;
+
+    .nav-link {
+        padding: 0.5rem 1.25rem;
+        color: $secondary;
+        border-bottom: 2px solid transparent;
+        transition: border-bottom-color .12s ease-in;
+
+        @include media-breakpoint-up(lg) {
+            padding: 1rem 1.25rem;
+        }
+
+        &.active {
+            color: $primary;
+            border-bottom-color: $primary;
+        }
+
+        &:not(.active):hover {
+            border-bottom-color: transparentize($secondary, 0.3);
+            transition: border-bottom-color .4s ease-out;
+        }
+    }
+}

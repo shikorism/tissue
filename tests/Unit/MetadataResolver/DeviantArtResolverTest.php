@@ -20,7 +20,7 @@ class DeviantArtResolverTest extends TestCase
 
     public function testMature()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/DeviantArt/mature.json');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DeviantArt/mature.json');
 
         $this->createResolver(DeviantArtResolver::class, $responseText);
 

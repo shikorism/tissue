@@ -20,7 +20,7 @@ class DLsiteResolverTest extends TestCase
 
     public function testHome()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testHome.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testHome.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
@@ -36,7 +36,7 @@ class DLsiteResolverTest extends TestCase
 
     public function testSoft()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testSoft.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testSoft.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
@@ -52,7 +52,7 @@ class DLsiteResolverTest extends TestCase
 
     public function testComic()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testComic.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testComic.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
@@ -68,7 +68,7 @@ class DLsiteResolverTest extends TestCase
 
     public function testManiax()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testManiax.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testManiax.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
@@ -84,7 +84,7 @@ class DLsiteResolverTest extends TestCase
 
     public function testPro()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testPro.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testPro.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
@@ -100,7 +100,7 @@ class DLsiteResolverTest extends TestCase
 
     public function testBooks()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testBooks.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testBooks.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
@@ -116,7 +116,7 @@ class DLsiteResolverTest extends TestCase
 
     public function testGirls()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testGirls.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testGirls.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
@@ -132,7 +132,7 @@ class DLsiteResolverTest extends TestCase
 
     public function testGirlsPro()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testGirlsPro.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testGirlsPro.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
@@ -148,7 +148,7 @@ class DLsiteResolverTest extends TestCase
 
     public function testBL()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testBL.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testBL.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
@@ -164,7 +164,7 @@ class DLsiteResolverTest extends TestCase
 
     public function testEng()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testEng.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testEng.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
@@ -180,7 +180,7 @@ class DLsiteResolverTest extends TestCase
 
     public function testEcchiEng()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testEcchiEng.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testEcchiEng.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
@@ -196,7 +196,7 @@ class DLsiteResolverTest extends TestCase
 
     public function testSPLink()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testHome.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testHome.html');
         // SP版（touch）のURLのテストだがリゾルバ側でURLから-touchを削除してPC版を取得するので、PC版の内容を使用する
 
         $this->createResolver(DLsiteResolver::class, $responseText);
@@ -213,7 +213,7 @@ class DLsiteResolverTest extends TestCase
 
     public function testShortLink()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testHome.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testHome.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
@@ -229,7 +229,7 @@ class DLsiteResolverTest extends TestCase
 
     public function testOldAffiliateLink()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testHome.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testHome.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
@@ -245,7 +245,7 @@ class DLsiteResolverTest extends TestCase
 
     public function testSnsAffiliateLink()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testHome.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testHome.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
@@ -261,7 +261,7 @@ class DLsiteResolverTest extends TestCase
 
     public function testAffiliateLink()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testHome.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testHome.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
@@ -277,7 +277,7 @@ class DLsiteResolverTest extends TestCase
 
     public function testAffiliateUrl()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testHome.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testHome.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
@@ -303,7 +303,7 @@ class DLsiteResolverTest extends TestCase
 
     public function testHTMLdescription()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/DLsite/testHTMLdescription.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testHTMLdescription.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 

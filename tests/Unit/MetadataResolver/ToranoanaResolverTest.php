@@ -20,7 +20,7 @@ class ToranoanaResolverTest extends TestCase
 
     public function testTora()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Toranoana/testTora.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Toranoana/testTora.html');
 
         $this->createResolver(ToranoanaResolver::class, $responseText);
 
@@ -35,7 +35,7 @@ class ToranoanaResolverTest extends TestCase
 
     public function testToraR()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Toranoana/testToraR.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Toranoana/testToraR.html');
 
         $this->createResolver(ToranoanaResolver::class, $responseText);
 
@@ -50,7 +50,7 @@ class ToranoanaResolverTest extends TestCase
 
     public function testToraD()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Toranoana/testToraD.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Toranoana/testToraD.html');
 
         $this->createResolver(ToranoanaResolver::class, $responseText);
 
@@ -65,7 +65,7 @@ class ToranoanaResolverTest extends TestCase
 
     public function testToraRD()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Toranoana/testToraRD.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Toranoana/testToraRD.html');
 
         $this->createResolver(ToranoanaResolver::class, $responseText);
 
@@ -80,7 +80,7 @@ class ToranoanaResolverTest extends TestCase
 
     public function testJoshi()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Toranoana/testJoshi.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Toranoana/testJoshi.html');
 
         $this->createResolver(ToranoanaResolver::class, $responseText);
 
@@ -95,7 +95,7 @@ class ToranoanaResolverTest extends TestCase
 
     public function testJoshiR()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Toranoana/testJoshiR.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Toranoana/testJoshiR.html');
 
         $this->createResolver(ToranoanaResolver::class, $responseText);
 
@@ -110,7 +110,7 @@ class ToranoanaResolverTest extends TestCase
 
     public function testJoshiD()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Toranoana/testJoshiD.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Toranoana/testJoshiD.html');
 
         $this->createResolver(ToranoanaResolver::class, $responseText);
 
@@ -125,7 +125,7 @@ class ToranoanaResolverTest extends TestCase
 
     public function testJoshiRD()
     {
-        $responseText = file_get_contents(__DIR__ . '/../../fixture/Toranoana/testJoshiRD.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Toranoana/testJoshiRD.html');
 
         $this->createResolver(ToranoanaResolver::class, $responseText);
 
