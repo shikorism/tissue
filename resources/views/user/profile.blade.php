@@ -11,6 +11,8 @@
 @section('sidebar')
     {{-- TODO: タイムラインとオカズのテンプレを分けたら条件外す --}}
     @if (Route::currentRouteName() === 'user.profile')
+    @component('components.profile-bio', ['user' => $user])
+    @endcomponent
     @if (!empty($tags) && (!$user->is_protected || $user->isMe()))
         <div class="card mb-4">
             <div class="card-header">
