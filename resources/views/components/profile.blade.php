@@ -1,32 +1,23 @@
-<div class="card mb-4">
-    <div class="card-body">
-        <img src="{{ $user->getProfileImageUrl(128) }}" srcset="{{ Formatter::profileImageSrcSet($user, 128) }}" class="rounded mb-1">
-        <h4 class="card-title">
-            <a class="text-dark" href="{{ route('user.profile', ['name' => $user->name]) }}">{{ $user->display_name }}</a>
-        </h4>
-        <h6 class="card-subtitle">
-            <a class="text-muted" href="{{ route('user.profile', ['name' => $user->name]) }}">&commat;{{ $user->name }}</a>
-            @if ($user->is_protected)
-                <span class="oi oi-lock-locked text-muted"></span>
+@if (!empty($user->bio) || !empty($user->url))
+    <div class="card mb-4">
+        <div class="card-body">
+            {{-- Bio --}}
+            @if (!empty($user->bio))
+                <p class="card-text mb-0">
+                    {!! Formatter::linkify(nl2br(e($user->bio))) !!}
+                </p>
             @endif
-        </h6>
 
-        {{-- Bio --}}
-        @if (!empty($user->bio))
-            <p class="card-text mt-3 mb-0">
-                {!! Formatter::linkify(nl2br(e($user->bio))) !!}
-            </p>
-        @endif
-
-        {{-- URL --}}
-        @if (!empty($user->url))
-            <p class="card-text d-flex mt-3">
-                <span class="oi oi-link-intact mr-1 mt-1"></span>
-                <a href="{{ $user->url }}" rel="me nofollow noopener" target="_blank" class="text-truncate">{{ preg_replace('~\Ahttps?://~', '', $user->url) }}</a>
-            </p>
-        @endif
+            {{-- URL --}}
+            @if (!empty($user->url))
+                <p class="card-text d-flex mt-3">
+                    <span class="oi oi-link-intact mr-1 mt-1"></span>
+                    <a href="{{ $user->url }}" rel="me nofollow noopener" target="_blank" class="text-truncate">{{ preg_replace('~\Ahttps?://~', '', $user->url) }}</a>
+                </p>
+            @endif
+        </div>
     </div>
-</div>
+@endif
 
 @if (!$user->is_protected || $user->isMe())
     <div class="card mb-4">
