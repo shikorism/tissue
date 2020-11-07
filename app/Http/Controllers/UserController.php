@@ -28,17 +28,18 @@ class UserController extends Controller
         // チェックインの取得
         $query = Ejaculation::select(DB::raw(
             <<<'SQL'
-id,
+ejaculations.id,
 ejaculated_date,
 note,
 is_private,
 is_too_sensitive,
 link,
 source,
-to_char(lead(ejaculated_date, 1, NULL) OVER (ORDER BY ejaculated_date DESC), 'YYYY/MM/DD HH24:MI') AS before_date,
-to_char(ejaculated_date - (lead(ejaculated_date, 1, NULL) OVER (ORDER BY ejaculated_date DESC)), 'FMDDD日 FMHH24時間 FMMI分') AS ejaculated_span
+to_char(before_dates.before_date, 'YYYY/MM/DD HH24:MI') AS before_date,
+to_char(ejaculated_date - before_dates.before_date, 'FMDDD日 FMHH24時間 FMMI分') AS ejaculated_span
 SQL
         ))
+            ->joinSub($this->queryBeforeEjaculatedDates(), 'before_dates', 'before_dates.id', '=', 'ejaculations.id')
             ->where('user_id', $user->id);
         if (!Auth::check() || $user->id !== Auth::id()) {
             $query = $query->where('is_private', false);
@@ -161,17 +162,18 @@ SQL
         // チェックインの取得
         $query = Ejaculation::select(DB::raw(
             <<<'SQL'
-id,
+ejaculations.id,
 ejaculated_date,
 note,
 is_private,
 is_too_sensitive,
 link,
 source,
-to_char(lead(ejaculated_date, 1, NULL) OVER (ORDER BY ejaculated_date DESC), 'YYYY/MM/DD HH24:MI') AS before_date,
-to_char(ejaculated_date - (lead(ejaculated_date, 1, NULL) OVER (ORDER BY ejaculated_date DESC)), 'FMDDD日 FMHH24時間 FMMI分') AS ejaculated_span
+to_char(before_dates.before_date, 'YYYY/MM/DD HH24:MI') AS before_date,
+to_char(ejaculated_date - before_dates.before_date, 'FMDDD日 FMHH24時間 FMMI分') AS ejaculated_span
 SQL
         ))
+            ->joinSub($this->queryBeforeEjaculatedDates(), 'before_dates', 'before_dates.id', '=', 'ejaculations.id')
             ->where('user_id', $user->id)
             ->where('link', '<>', '');
         if (!Auth::check() || $user->id !== Auth::id()) {
@@ -302,5 +304,15 @@ SQL
             ->where('user_id', $user->id)
             ->groupBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"))
             ->orderBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"));
+    }
+
+    private function queryBeforeEjaculatedDates()
+    {
+        return DB::table('ejaculations')->selectRaw(
+            <<<'SQL'
+id,
+(select ejaculated_date from ejaculations e2 where e2.ejaculated_date < ejaculations.ejaculated_date and e2.user_id = ejaculations.user_id order by e2.ejaculated_date desc limit 1) AS before_date
+SQL
+        );
     }
 }
