@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
+import { format } from 'date-fns';
 import { CheckBox } from './CheckBox';
 import { FieldError, StandaloneFieldError } from './FieldError';
 import { TagInput } from './TagInput';
@@ -10,18 +11,42 @@ type CheckinFormProps = {
 };
 
 export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
+    const mode = initialState.mode;
     const [date, setDate] = useState<string>(initialState.fields.date || '');
     const [time, setTime] = useState<string>(initialState.fields.time || '');
     const [tags, setTags] = useState<string[]>(initialState.fields.tags || []);
     const [link, setLink] = useState<string>(initialState.fields.link || '');
     const [linkForPreview, setLinkForPreview] = useState(link);
     const [note, setNote] = useState<string>(initialState.fields.note || '');
+    const [isRealtime, setRealtime] = useState<boolean>(mode === 'create' && initialState.fields.is_realtime);
     const [isPrivate, setPrivate] = useState<boolean>(!!initialState.fields.is_private);
     const [isTooSensitive, setTooSensitive] = useState<boolean>(!!initialState.fields.is_too_sensitive);
+    useEffect(() => {
+        if (mode === 'create' && isRealtime) {
+            const id = setInterval(() => {
+                const now = new Date();
+                setDate(format(now, 'yyyy/MM/dd'));
+                setTime(format(now, 'HH:mm'));
+            }, 500);
+            return () => clearInterval(id);
+        }
+    }, [mode, isRealtime]);
 
     return (
         <>
             <div className="form-row">
+                {mode === 'create' && (
+                    <div className="col-sm-12 mb-2">
+                        <CheckBox
+                            id="isRealtime"
+                            name="is_realtime"
+                            checked={isRealtime}
+                            onChange={(v) => setRealtime(v)}
+                        >
+                            現在時刻でチェックイン
+                        </CheckBox>
+                    </div>
+                )}
                 <div className="form-group col-sm-6">
                     <label htmlFor="date">
                         <span className="oi oi-calendar" /> 日付
@@ -38,6 +63,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
                         required
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
+                        disabled={isRealtime}
                     />
                     <FieldError errors={initialState.errors?.date} />
                 </div>
@@ -57,6 +83,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
                         required
                         value={time}
                         onChange={(e) => setTime(e.target.value)}
+                        disabled={isRealtime}
                     />
                     <FieldError errors={initialState.errors?.time} />
                 </div>

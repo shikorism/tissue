@@ -23,6 +23,7 @@ class EjaculationController extends Controller
 
         $errors = $request->session()->get('errors');
         $initialState = [
+            'mode' => 'create',
             'fields' => [
                 'date' => old('date') ?? $request->input('date', date('Y/m/d')),
                 'time' => old('time') ?? $request->input('time', date('H:i')),
@@ -30,7 +31,8 @@ class EjaculationController extends Controller
                 'tags' => $tags,
                 'note' => old('note') ?? $request->input('note', ''),
                 'is_private' => old('is_private') ?? $request->input('is_private', 0) == 1,
-                'is_too_sensitive' => old('is_too_sensitive') ?? $request->input('is_too_sensitive', 0) == 1
+                'is_too_sensitive' => old('is_too_sensitive') ?? $request->input('is_too_sensitive', 0) == 1,
+                'is_realtime' => old('is_realtime', true)
             ],
             'errors' => isset($errors) ? $errors->getMessages() : null
         ];
@@ -43,15 +45,20 @@ class EjaculationController extends Controller
         $inputs = $request->all();
 
         $validator = Validator::make($inputs, [
-            'date' => 'required|date_format:Y/m/d',
-            'time' => 'required|date_format:H:i',
+            'date' => 'required_without:is_realtime|date_format:Y/m/d',
+            'time' => 'required_without:is_realtime|date_format:H:i',
             'note' => 'nullable|string|max:500',
             'link' => 'nullable|url|max:2000',
             'tags' => 'nullable|string',
         ])->after(function ($validator) use ($request, $inputs) {
             // 日時の重複チェック
             if (!$validator->errors()->hasAny(['date', 'time'])) {
-                $dt = $inputs['date'] . ' ' . $inputs['time'];
+                if (isset($inputs['date']) && isset($inputs['time'])) {
+                    $dt = Carbon::createFromFormat('Y/m/d H:i', $inputs['date'] . ' ' . $inputs['time']);
+                } else {
+                    $dt = now();
+                }
+                $dt = $dt->startOfMinute();
                 if (Ejaculation::where(['user_id' => Auth::id(), 'ejaculated_date' => $dt])->count()) {
                     $validator->errors()->add('datetime', '既にこの日時にチェックインしているため、登録できません。');
                 }
@@ -59,13 +66,21 @@ class EjaculationController extends Controller
         });
 
         if ($validator->fails()) {
-            return redirect()->route('checkin')->withErrors($validator)->withInput();
+            return redirect()->route('checkin')
+                ->withErrors($validator)
+                ->withInput(array_merge(['is_realtime' => false], $request->input()));
         }
 
         $ejaculation = DB::transaction(function () use ($request, $inputs) {
+            if (isset($inputs['date']) && isset($inputs['time'])) {
+                $ejaculatedDate = Carbon::createFromFormat('Y/m/d H:i', $inputs['date'] . ' ' . $inputs['time']);
+            } else {
+                $ejaculatedDate = now();
+            }
+            $ejaculatedDate = $ejaculatedDate->startOfMinute();
             $ejaculation = Ejaculation::create([
                 'user_id' => Auth::id(),
-                'ejaculated_date' => Carbon::createFromFormat('Y/m/d H:i', $inputs['date'] . ' ' . $inputs['time']),
+                'ejaculated_date' => $ejaculatedDate,
                 'note' => $inputs['note'] ?? '',
                 'link' => $inputs['link'] ?? '',
                 'source' => Ejaculation::SOURCE_WEB,
@@ -138,6 +153,7 @@ class EjaculationController extends Controller
 
         $errors = $request->session()->get('errors');
         $initialState = [
+            'mode' => 'update',
             'fields' => [
                 'date' => old('date') ?? $ejaculation->ejaculated_date->format('Y/m/d'),
                 'time' => old('time') ?? $ejaculation->ejaculated_date->format('H:i'),
