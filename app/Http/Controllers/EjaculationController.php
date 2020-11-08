@@ -121,21 +121,7 @@ class EjaculationController extends Controller
             ->firstOrFail();
         $user = User::findOrFail($ejaculation->user_id);
 
-        // 1つ前のチェックインからの経過時間を求める
-        $previousEjaculation = Ejaculation::select('ejaculated_date')
-            ->where('user_id', $ejaculation->user_id)
-            ->where('ejaculated_date', '<', $ejaculation->ejaculated_date)
-            ->orderByDesc('ejaculated_date')
-            ->first();
-        if (!empty($previousEjaculation)) {
-            $ejaculatedSpan = $ejaculation->ejaculated_date
-                ->diff($previousEjaculation->ejaculated_date)
-                ->format('%a日 %h時間 %i分');
-        } else {
-            $ejaculatedSpan = null;
-        }
-
-        return view('ejaculation.show')->with(compact('user', 'ejaculation', 'ejaculatedSpan'));
+        return view('ejaculation.show')->with(compact('user', 'ejaculation'));
     }
 
     public function edit(Request $request, $id)
