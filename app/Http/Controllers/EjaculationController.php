@@ -32,7 +32,8 @@ class EjaculationController extends Controller
                 'note' => old('note') ?? $request->input('note', ''),
                 'is_private' => old('is_private') ?? $request->input('is_private', 0) == 1,
                 'is_too_sensitive' => old('is_too_sensitive') ?? $request->input('is_too_sensitive', 0) == 1,
-                'is_realtime' => old('is_realtime', true)
+                'is_realtime' => old('is_realtime', true),
+                'discard_elapsed_time' => old('discard_elapsed_time') ?? $request->input('discard_elapsed_time') == 1,
             ],
             'errors' => isset($errors) ? $errors->getMessages() : null
         ];
@@ -85,7 +86,8 @@ class EjaculationController extends Controller
                 'link' => $inputs['link'] ?? '',
                 'source' => Ejaculation::SOURCE_WEB,
                 'is_private' => $request->has('is_private') ?? false,
-                'is_too_sensitive' => $request->has('is_too_sensitive') ?? false
+                'is_too_sensitive' => $request->has('is_too_sensitive') ?? false,
+                'discard_elapsed_time' => $request->has('discard_elapsed_time') ?? false,
             ]);
 
             $tagIds = [];
@@ -161,7 +163,8 @@ class EjaculationController extends Controller
                 'tags' => $tags,
                 'note' => old('note') ?? $ejaculation->note,
                 'is_private' => is_bool(old('is_private')) ? old('is_private') : $ejaculation->is_private,
-                'is_too_sensitive' => is_bool(old('is_too_sensitive')) ? old('is_too_sensitive') : $ejaculation->is_too_sensitive
+                'is_too_sensitive' => is_bool(old('is_too_sensitive')) ? old('is_too_sensitive') : $ejaculation->is_too_sensitive,
+                'discard_elapsed_time' => is_bool(old('discard_elapsed_time')) ? old('discard_elapsed_time') : $ejaculation->discard_elapsed_time,
             ],
             'errors' => isset($errors) ? $errors->getMessages() : null
         ];
@@ -203,7 +206,8 @@ class EjaculationController extends Controller
                 'note' => $inputs['note'] ?? '',
                 'link' => $inputs['link'] ?? '',
                 'is_private' => $request->has('is_private') ?? false,
-                'is_too_sensitive' => $request->has('is_too_sensitive') ?? false
+                'is_too_sensitive' => $request->has('is_too_sensitive') ?? false,
+                'discard_elapsed_time' => $request->has('discard_elapsed_time') ?? false,
             ])->save();
 
             $tagIds = [];

@@ -19,7 +19,7 @@ class Ejaculation extends Model
     protected $fillable = [
         'user_id', 'ejaculated_date',
         'note', 'geo_latitude', 'geo_longitude', 'link', 'source',
-        'is_private', 'is_too_sensitive',
+        'is_private', 'is_too_sensitive', 'discard_elapsed_time',
         'checkin_webhook_id'
     ];
 
