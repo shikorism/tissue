@@ -19,7 +19,7 @@ class Ejaculation extends Model
     protected $fillable = [
         'user_id', 'ejaculated_date',
         'note', 'geo_latitude', 'geo_longitude', 'link', 'source',
-        'is_private', 'is_too_sensitive',
+        'is_private', 'is_too_sensitive', 'discard_elapsed_time',
         'checkin_webhook_id'
     ];
 
@@ -104,5 +104,34 @@ class Ejaculation extends Model
             'is_private' => $this->is_private,
             'is_too_sensitive' => $this->is_too_sensitive,
         ]);
+    }
+
+    public function ejaculatedSpan(): string
+    {
+        if (array_key_exists('ejaculated_span', $this->attributes)) {
+            if ($this->ejaculated_span === null) {
+                return '精通';
+            }
+            if ($this->discard_elapsed_time) {
+                return '0日 0時間 0分'; // TODO: 気の効いたフレーズにする
+            }
+
+            return $this->ejaculated_span;
+        } else {
+            $previous = Ejaculation::select('ejaculated_date')
+                ->where('user_id', $this->user_id)
+                ->where('ejaculated_date', '<', $this->ejaculated_date)
+                ->orderByDesc('ejaculated_date')
+                ->first();
+
+            if ($previous === null) {
+                return '精通';
+            }
+            if ($this->discard_elapsed_time) {
+                return '0日 0時間 0分';
+            }
+
+            return $this->ejaculated_date->diff($previous->ejaculated_date)->format('%a日 %h時間 %i分');
+        }
     }
 }

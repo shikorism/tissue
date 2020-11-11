@@ -35,6 +35,7 @@ is_private,
 is_too_sensitive,
 link,
 source,
+discard_elapsed_time,
 to_char(before_dates.before_date, 'YYYY/MM/DD HH24:MI') AS before_date,
 to_char(ejaculated_date - before_dates.before_date, 'FMDDD日 FMHH24時間 FMMI分') AS ejaculated_span
 SQL
@@ -169,6 +170,7 @@ is_private,
 is_too_sensitive,
 link,
 source,
+discard_elapsed_time,
 to_char(before_dates.before_date, 'YYYY/MM/DD HH24:MI') AS before_date,
 to_char(ejaculated_date - before_dates.before_date, 'FMDDD日 FMHH24時間 FMMI分') AS ejaculated_span
 SQL

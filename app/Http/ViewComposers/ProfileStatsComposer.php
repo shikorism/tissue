@@ -19,6 +19,7 @@ class ProfileStatsComposer
         if (!$view->offsetExists('user')) {
             throw new \LogicException('View data "user" was not exist.');
         }
+        /** @var \App\User $user */
         $user = $view->offsetGet('user');
 
         // 現在のオナ禁セッションの経過時間
@@ -35,35 +36,44 @@ class ProfileStatsComposer
         }
 
         // 概況欄のデータ取得
-        $average = DB::select(<<<'SQL'
+        $average = 0;
+        $divisor = 0;
+        $averageSources = DB::select(<<<'SQL'
 SELECT
-  avg(span) AS average
+  extract(epoch from ejaculated_date - lead(ejaculated_date, 1, NULL) OVER (ORDER BY ejaculated_date DESC)) AS span,
+  discard_elapsed_time
 FROM
-  (
-    SELECT
-      extract(epoch from ejaculated_date - lead(ejaculated_date, 1, NULL) OVER (ORDER BY ejaculated_date DESC)) AS span
-    FROM
-      ejaculations
-    WHERE
-      user_id = :user_id
-    ORDER BY
-      ejaculated_date DESC
-    LIMIT
-      30
-  ) AS temp
+  ejaculations
+WHERE
+  user_id = :user_id
+ORDER BY
+  ejaculated_date DESC
+LIMIT
+  30
 SQL
             , ['user_id' => $user->id]);
+        foreach ($averageSources as $item) {
+            // 経過時間記録対象外のレコードがあったら、それより古いデータは平均の計算に加えない
+            if ($item->discard_elapsed_time) {
+                break;
+            }
+            $average += $item->span;
+            $divisor++;
+        }
+        if ($divisor > 0) {
+            $average /= $divisor;
+        }
 
         $summary = DB::select(<<<'SQL'
 SELECT
   max(span) AS longest,
   min(span) AS shortest,
-  sum(span) AS total_times,
-  count(*) AS total_checkins
+  sum(span) AS total_times
 FROM
   (
     SELECT
-      extract(epoch from ejaculated_date - lead(ejaculated_date, 1, NULL) OVER (ORDER BY ejaculated_date DESC)) AS span
+      extract(epoch from ejaculated_date - lead(ejaculated_date, 1, NULL) OVER (ORDER BY ejaculated_date DESC)) AS span,
+      discard_elapsed_time
     FROM
       ejaculations
     WHERE
@@ -71,9 +81,13 @@ FROM
     ORDER BY
       ejaculated_date DESC
   ) AS temp
+WHERE
+  discard_elapsed_time = FALSE
 SQL
             , ['user_id' => $user->id]);
 
-        $view->with(compact('latestEjaculation', 'currentSession', 'average', 'summary'));
+        $total = $user->ejaculations()->count();
+
+        $view->with(compact('latestEjaculation', 'currentSession', 'average', 'summary', 'total'));
     }
 }

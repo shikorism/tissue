@@ -21,6 +21,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
     const [isRealtime, setRealtime] = useState<boolean>(mode === 'create' && initialState.fields.is_realtime);
     const [isPrivate, setPrivate] = useState<boolean>(!!initialState.fields.is_private);
     const [isTooSensitive, setTooSensitive] = useState<boolean>(!!initialState.fields.is_too_sensitive);
+    const [discardElapsedTime, setDiscardElapsedTime] = useState<boolean>(!!initialState.fields.discard_elapsed_time);
     useEffect(() => {
         if (mode === 'create' && isRealtime) {
             const id = setInterval(() => {
@@ -163,6 +164,23 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
                         onChange={(v) => setTooSensitive(v)}
                     >
                         <span className="oi oi-warning" /> チェックイン対象のオカズをより過激なオカズとして設定する
+                    </CheckBox>
+                    <CheckBox
+                        id="discardElapsedTime"
+                        name="discard_elapsed_time"
+                        className="mb-3"
+                        checked={discardElapsedTime}
+                        onChange={(v) => setDiscardElapsedTime(v)}
+                    >
+                        <span className="oi oi-timer" /> 前回チェックインからの経過時間を記録しない
+                        <br />
+                        <small className="form-text text-muted">
+                            長期間お使いにならなかった場合など、経過時間に意味が無い時のリセット用オプションです。
+                            <ul className="pl-3">
+                                <li>最長・最短記録の計算から除外されます。</li>
+                                <li>平均記録の起点がこのチェックインになります。</li>
+                            </ul>
+                        </small>
                     </CheckBox>
                 </div>
             </div>

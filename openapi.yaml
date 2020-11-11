@@ -4,7 +4,7 @@ info:
   description: |
     夜のライフログサービス Tissue の公開API仕様です。
     全てのAPIのURLは `https://shikorism.net/api` から始まります。
-  version: 0.1.0
+  version: 0.1.1
 servers:
   - url: 'https://shikorism.net/api'
 paths:
@@ -51,6 +51,10 @@ paths:
                   type: boolean
                   default: false
                   description: チェックイン対象のオカズをより過激なオカズとして設定
+                discard_elapsed_time:
+                  type: boolean
+                  default: false
+                  description: 前回チェックインからの経過時間を記録しない
             examples:
               simple:
                 description: 何も指定しなければ、現在時刻で公開チェックインをおこないます。

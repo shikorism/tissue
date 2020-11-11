@@ -58,7 +58,7 @@
             <li class="list-group-item border-bottom-only pt-3 pb-3 text-break">
                 <!-- span -->
                 <div>
-                    <h5>{{ $ejaculation->ejaculated_span ?? '精通' }} <a href="{{ route('checkin.show', ['id' => $ejaculation->id]) }}" class="text-muted"><small>{{ $ejaculation->before_date }}{{ !empty($ejaculation->before_date) ? ' ～ ' : '' }}{{ $ejaculation->ejaculated_date->format('Y/m/d H:i') }}</small></a></h5>
+                    <h5>{{ $ejaculation->ejaculatedSpan() }} <a href="{{ route('checkin.show', ['id' => $ejaculation->id]) }}" class="text-muted"><small>{{ !empty($ejaculation->before_date) && !$ejaculation->discard_elapsed_time ? $ejaculation->before_date . ' ～ ' : '' }}{{ $ejaculation->ejaculated_date->format('Y/m/d H:i') }}</small></a></h5>
                 </div>
                 <!-- tags -->
                 @if ($ejaculation->is_private || $ejaculation->source !== 'web' || $ejaculation->tags->isNotEmpty())
