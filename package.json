@@ -10,7 +10,8 @@
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "eslint": "eslint --ext .js,.ts,.tsx resources/",
     "stylelint": "stylelint resources/assets/sass/**/*",
-    "doc": "redoc-cli bundle -o public/apidoc.html openapi.yaml"
+    "doc": "redoc-cli bundle -o public/apidoc.html openapi.yaml",
+    "heroku-postbuild": "npm run production && npm run doc"
   },
   "devDependencies": {
     "@types/bootstrap": "^4.5.0",
