@@ -162,7 +162,7 @@
     </div>
 </nav>
 @if (session('status'))
-<div class="container">
+<div class="container tis-status-container">
     <div id="status" class="alert alert-success alert-dismissible fade show" role="alert">
         {{ session('status') }}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
