@@ -4,6 +4,7 @@ namespace App\MetadataResolver;
 
 use Carbon\Carbon;
 use GuzzleHttp\Client;
+use Symfony\Component\DomCrawler\Crawler;
 
 class CienResolver extends MetadataResolver
 {
@@ -25,7 +26,15 @@ class CienResolver extends MetadataResolver
     public function resolve(string $url): Metadata
     {
         $res = $this->client->get($url);
-        $metadata = $this->ogpResolver->parse((string) $res->getBody());
+        $html = (string) $res->getBody();
+        $metadata = $this->ogpResolver->parse($html);
+        $crawler = new Crawler($html);
+
+        // OGPのデフォルトはバナーなので、投稿に使える画像があればそれを使う
+        $selector = 'img[data-actual*="image-web"]';
+        if ($crawler->filter($selector)->count() !== 0) {
+            $metadata->image = $crawler->filter($selector)->attr('data-actual');
+        }
 
         // JWTがついていれば画像URLのJWTから有効期限を拾う
         parse_str(parse_url($metadata->image, PHP_URL_QUERY), $params);
