@@ -4,6 +4,7 @@ namespace App\MetadataResolver;
 
 use Carbon\Carbon;
 use GuzzleHttp\Client;
+use Symfony\Component\DomCrawler\Crawler;
 
 class CienResolver extends MetadataResolver
 {
@@ -25,20 +26,27 @@ class CienResolver extends MetadataResolver
     public function resolve(string $url): Metadata
     {
         $res = $this->client->get($url);
-        $metadata = $this->ogpResolver->parse((string) $res->getBody());
+        $html = (string) $res->getBody();
+        $metadata = $this->ogpResolver->parse($html);
+        $crawler = new Crawler($html);
 
-        // 画像URLのJWTから有効期限を拾う
+        // OGPのデフォルトはバナーなので、投稿に使える画像があればそれを使う
+        $selector = 'img[data-actual*="image-web"]';
+        if ($crawler->filter($selector)->count() !== 0) {
+            $metadata->image = $crawler->filter($selector)->attr('data-actual');
+        }
+
+        // JWTがついていれば画像URLのJWTから有効期限を拾う
         parse_str(parse_url($metadata->image, PHP_URL_QUERY), $params);
-        if (empty($params['jwt'])) {
-            throw new \RuntimeException('Parameter "jwt" not found. Image=' . $metadata->image . ' Source=' . $url);
-        }
-        $parts = explode('.', $params['jwt']);
-        if (count($parts) !== 3) {
-            throw new \RuntimeException('Invalid jwt. Image=' . $metadata->image . ' Source=' . $url);
-        }
-        $payload = json_decode(base64_decode(str_replace(['-', '_'], ['+', '/'], $parts[1])), true);
+        if (isset($params['jwt'])) {
+            $parts = explode('.', $params['jwt']);
+            if (count($parts) !== 3) {
+                throw new \RuntimeException('Invalid jwt. Image=' . $metadata->image . ' Source=' . $url);
+            }
+            $payload = json_decode(base64_decode(str_replace(['-', '_'], ['+', '/'], $parts[1])), true);
 
-        $metadata->expires_at = Carbon::createFromTimestamp($payload['exp']);
+            $metadata->expires_at = Carbon::createFromTimestamp($payload['exp']);
+        }
 
         return $metadata;
     }
