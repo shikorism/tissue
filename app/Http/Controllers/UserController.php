@@ -51,18 +51,7 @@ SQL
             ->paginate(20);
 
         // よく使っているタグ
-        $tagsQuery = DB::table('ejaculations')
-            ->join('ejaculation_tag', 'ejaculations.id', '=', 'ejaculation_tag.ejaculation_id')
-            ->join('tags', 'ejaculation_tag.tag_id', '=', 'tags.id')
-            ->selectRaw('tags.name, count(*) as count')
-            ->where('ejaculations.user_id', $user->id);
-        if (!Auth::check() || $user->id !== Auth::id()) {
-            $tagsQuery = $tagsQuery->where('ejaculations.is_private', false);
-        }
-        $tags = $tagsQuery->groupBy('tags.name')
-            ->orderBy('count', 'desc')
-            ->limit(10)
-            ->get();
+        $tags = $this->countUsedTags($user);
 
         // シコ草
         $countByDayQuery = $this->countEjaculationByDay($user)
@@ -87,8 +76,9 @@ SQL
 
         $availableMonths = $this->makeStatsAvailableMonths($user);
         $graphData = $this->makeGraphData($user);
+        $tags = $this->countUsedTags($user);
 
-        return view('user.stats.index')->with(compact('user', 'graphData', 'availableMonths'));
+        return view('user.stats.index')->with(compact('user', 'graphData', 'availableMonths', 'tags'));
     }
 
     public function statsYearly($name, $year)
@@ -110,14 +100,13 @@ SQL
             return redirect()->route('user.stats', compact('name'));
         }
 
-        $graphData = $this->makeGraphData(
-            $user,
-            Carbon::createFromDate($year, 1, 1, config('app.timezone'))->startOfDay(),
-            Carbon::createFromDate($year, 1, 1, config('app.timezone'))->addYear()->startOfDay()
-        );
+        $dateSince = Carbon::createFromDate($year, 1, 1, config('app.timezone'))->startOfDay();
+        $dateUntil = Carbon::createFromDate($year, 1, 1, config('app.timezone'))->addYear()->startOfDay();
+        $graphData = $this->makeGraphData($user, $dateSince, $dateUntil);
+        $tags = $this->countUsedTags($user, $dateSince, $dateUntil);
 
         return view('user.stats.yearly')
-            ->with(compact('user', 'graphData', 'availableMonths'))
+            ->with(compact('user', 'graphData', 'availableMonths', 'tags'))
             ->with('currentYear', (int) $year);
     }
 
@@ -141,14 +130,13 @@ SQL
             return redirect()->route('user.stats.yearly', compact('name', 'year'));
         }
 
-        $graphData = $this->makeGraphData(
-            $user,
-            Carbon::createFromDate($year, $month, 1, config('app.timezone'))->startOfDay(),
-            Carbon::createFromDate($year, $month, 1, config('app.timezone'))->addMonth()->startOfDay()
-        );
+        $dateSince = Carbon::createFromDate($year, $month, 1, config('app.timezone'))->startOfDay();
+        $dateUntil = Carbon::createFromDate($year, $month, 1, config('app.timezone'))->addMonth()->startOfDay();
+        $graphData = $this->makeGraphData($user, $dateSince, $dateUntil);
+        $tags = $this->countUsedTags($user, $dateSince, $dateUntil);
 
         return view('user.stats.monthly')
-            ->with(compact('user', 'graphData', 'availableMonths'))
+            ->with(compact('user', 'graphData', 'availableMonths', 'tags'))
             ->with('currentYear', (int) $year)
             ->with('currentMonth', (int) $month);
     }
@@ -306,6 +294,34 @@ SQL
             ->where('user_id', $user->id)
             ->groupBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"))
             ->orderBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"));
+    }
+
+    private function countUsedTags(User $user, CarbonInterface $dateSince = null, CarbonInterface $dateUntil = null)
+    {
+        if ($dateUntil === null) {
+            $dateUntil = now()->addMonth()->startOfMonth();
+        }
+        $dateCondition = [
+            ['ejaculated_date', '<', $dateUntil],
+        ];
+        if ($dateSince !== null) {
+            $dateCondition[] = ['ejaculated_date', '>=', $dateSince];
+        }
+
+        $query = DB::table('ejaculations')
+            ->join('ejaculation_tag', 'ejaculations.id', '=', 'ejaculation_tag.ejaculation_id')
+            ->join('tags', 'ejaculation_tag.tag_id', '=', 'tags.id')
+            ->selectRaw('tags.name, count(*) as count')
+            ->where('ejaculations.user_id', $user->id)
+            ->where($dateCondition);
+        if (!Auth::check() || $user->id !== Auth::id()) {
+            $query = $query->where('ejaculations.is_private', false);
+        }
+
+        return $query->groupBy('tags.name')
+            ->orderBy('count', 'desc')
+            ->limit(10)
+            ->get();
     }
 
     private function queryBeforeEjaculatedDates()
