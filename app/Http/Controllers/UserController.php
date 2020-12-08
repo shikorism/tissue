@@ -77,8 +77,10 @@ SQL
         $availableMonths = $this->makeStatsAvailableMonths($user);
         $graphData = $this->makeGraphData($user);
         $tags = $this->countUsedTags($user);
+        $tagsIncludesMetadata = collect($this->countUsedTagsIncludesMetadata($user));
 
-        return view('user.stats.index')->with(compact('user', 'graphData', 'availableMonths', 'tags'));
+        return view('user.stats.index')
+            ->with(compact('user', 'graphData', 'availableMonths', 'tags', 'tagsIncludesMetadata'));
     }
 
     public function statsYearly($name, $year)
@@ -104,9 +106,10 @@ SQL
         $dateUntil = Carbon::createFromDate($year, 1, 1, config('app.timezone'))->addYear()->startOfDay();
         $graphData = $this->makeGraphData($user, $dateSince, $dateUntil);
         $tags = $this->countUsedTags($user, $dateSince, $dateUntil);
+        $tagsIncludesMetadata = collect($this->countUsedTagsIncludesMetadata($user, $dateSince, $dateUntil));
 
         return view('user.stats.yearly')
-            ->with(compact('user', 'graphData', 'availableMonths', 'tags'))
+            ->with(compact('user', 'graphData', 'availableMonths', 'tags', 'tagsIncludesMetadata'))
             ->with('currentYear', (int) $year);
     }
 
@@ -134,9 +137,10 @@ SQL
         $dateUntil = Carbon::createFromDate($year, $month, 1, config('app.timezone'))->addMonth()->startOfDay();
         $graphData = $this->makeGraphData($user, $dateSince, $dateUntil);
         $tags = $this->countUsedTags($user, $dateSince, $dateUntil);
+        $tagsIncludesMetadata = collect($this->countUsedTagsIncludesMetadata($user, $dateSince, $dateUntil));
 
         return view('user.stats.monthly')
-            ->with(compact('user', 'graphData', 'availableMonths', 'tags'))
+            ->with(compact('user', 'graphData', 'availableMonths', 'tags', 'tagsIncludesMetadata'))
             ->with('currentYear', (int) $year)
             ->with('currentMonth', (int) $month);
     }
@@ -322,6 +326,42 @@ SQL
             ->orderBy('count', 'desc')
             ->limit(10)
             ->get();
+    }
+
+    private function countUsedTagsIncludesMetadata(User $user, CarbonInterface $dateSince = null, CarbonInterface $dateUntil = null)
+    {
+        $sql = <<<SQL
+SELECT tg.name, count(*) count
+FROM (
+    SELECT DISTINCT ej.id ej_id, tg.id tg_id
+    FROM ejaculations ej
+    INNER JOIN (SELECT id FROM ejaculations WHERE user_id = ? AND is_private IN (?, ?) AND ejaculated_date >= ? AND ejaculated_date < ?) ej2 ON ej.id = ej2.id
+    INNER JOIN ejaculation_tag et ON ej.id = et.ejaculation_id
+    INNER JOIN tags tg ON et.tag_id = tg.id
+    UNION
+    SELECT DISTINCT ej.id ej_id, tg.id tg_id
+    FROM ejaculations ej
+    INNER JOIN (SELECT id FROM ejaculations WHERE user_id = ? AND is_private IN (?, ?) AND ejaculated_date >= ? AND ejaculated_date < ?) ej2 ON ej.id = ej2.id
+    INNER JOIN metadata_tag mt ON ej.link = mt.metadata_url
+    INNER JOIN tags tg ON mt.tag_id = tg.id
+) ej_with_tag_id
+INNER JOIN tags tg ON ej_with_tag_id.tg_id = tg.id
+GROUP BY tg.name
+ORDER BY count DESC
+LIMIT 10
+SQL;
+
+        if ($dateSince === null) {
+            $dateSince = Carbon::minValue();
+        }
+        if ($dateUntil === null) {
+            $dateUntil = now()->addMonth()->startOfMonth();
+        }
+
+        return DB::select(DB::raw($sql), [
+            $user->id, false, Auth::check() && $user->id === Auth::id(), $dateSince, $dateUntil,
+            $user->id, false, Auth::check() && $user->id === Auth::id(), $dateSince, $dateUntil
+        ]);
     }
 
     private function queryBeforeEjaculatedDates()
