@@ -34,7 +34,7 @@ class XtubeResolver implements Resolver
         $crawler = new Crawler($html);
 
         $metadata->title = trim($crawler->filter('.underPlayerRateForm h1')->text(''));
-        $metadata->description =  trim($crawler->filter('.fullDescription ')->text(''));
+        // $metadata->description =  trim($crawler->filter('.fullDescription ')->text(''));
         $metadata->image = str_replace('m=eSuQ8f', 'm=eaAaaEFb', $metadata->image);
         $metadata->image = str_replace('240X180', 'original', $metadata->image);
         $metadata->tags = array_map('trim', $crawler->filter('.tagsCategories a')->extract('_text'));
