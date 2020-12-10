@@ -23,23 +23,23 @@ class OGPResolverTest extends TestCase
         $response = <<< 'HTML'
 <!DOCTYPE html>
 <html>
-  <head prefix="og: http://ogp.me/ns#">
+  <head prefix="og: https://ogp.me/ns#">
     <meta charset="utf-8">
     <title>The Open Graph protocol</title>
     <meta name="description" content="The Open Graph protocol enables any web page to become a rich object in a social graph.">
     <link rel="stylesheet" href="base.css" type="text/css">
     <meta property="og:title" content="Open Graph protocol">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="http://ogp.me/">
-    <meta property="og:image" content="http://ogp.me/logo.png">
+    <meta property="og:url" content="https://ogp.me/">
+    <meta property="og:image" content="https://ogp.me/logo.png">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="300">
     <meta property="og:image:height" content="300">
     <meta property="og:image:alt" content="The Open Graph logo">
     <meta property="og:description" content="The Open Graph protocol enables any web page to become a rich object in a social graph.">
-    <meta prefix="fb: http://ogp.me/ns/fb#" property="fb:app_id" content="115190258555800">
-    <link rel="alternate" type="application/rdf+xml" href="http://ogp.me/ns/ogp.me.rdf">
-    <link rel="alternate" type="text/turtle" href="http://ogp.me/ns/ogp.me.ttl">
+    <meta prefix="fb: https://ogp.me/ns/fb#" property="fb:app_id" content="115190258555800">
+    <link rel="alternate" type="application/rdf+xml" href="https://ogp.me/ns/ogp.me.rdf">
+    <link rel="alternate" type="text/turtle" href="https://ogp.me/ns/ogp.me.ttl">
   </head>
   <body></body>
 </html>
@@ -47,10 +47,10 @@ HTML;
         $this->createResolver(OGPResolver::class, $response);
 
         $resolver = $this->createResolver(OGPResolver::class, $response);
-        $metadata = $resolver->resolve('http://ogp.me');
+        $metadata = $resolver->resolve('https://ogp.me');
         $this->assertEquals('Open Graph protocol', $metadata->title);
         $this->assertEquals('The Open Graph protocol enables any web page to become a rich object in a social graph.', $metadata->description);
-        $this->assertEquals('http://ogp.me/logo.png', $metadata->image);
+        $this->assertEquals('https://ogp.me/logo.png', $metadata->image);
     }
 
     public function testResolveTitleOnly()
