@@ -46,7 +46,7 @@ class KomifloResolver implements Resolver
                 $tags[] = preg_replace('/\s/', '_', $tag['data']['name']);
             }
             sort($tags);
-            $metadata->tags = array_merge($metadata->tags,$tags);
+            $metadata->tags = array_merge($metadata->tags, $tags);
         }
 
         return $metadata;
