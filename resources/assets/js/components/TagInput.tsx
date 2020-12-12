@@ -23,8 +23,7 @@ export const TagInput: React.FC<TagInputProps> = ({ id, name, values, isInvalid,
                 case 'Enter':
                 case ' ':
                     if ((event as any).isComposing !== true) {
-                        onChange && onChange(values.concat(buffer.trim().replace(/\s+/g, '_')));
-                        setBuffer('');
+                        commitBuffer();
                     }
                     event.preventDefault();
                     break;
@@ -32,8 +31,7 @@ export const TagInput: React.FC<TagInputProps> = ({ id, name, values, isInvalid,
                     // 実際にテキストボックスに入力されている文字を見に行く (フォールバック処理)
                     const nativeEvent = event.nativeEvent;
                     if (nativeEvent.srcElement && (nativeEvent.srcElement as HTMLInputElement).value.slice(-1) == ' ') {
-                        onChange && onChange(values.concat(buffer.trim().replace(/\s+/g, '_')));
-                        setBuffer('');
+                        commitBuffer();
                         event.preventDefault();
                     }
                     break;
@@ -43,6 +41,13 @@ export const TagInput: React.FC<TagInputProps> = ({ id, name, values, isInvalid,
             // 誤爆防止
             event.preventDefault();
         }
+    };
+
+    const commitBuffer = () => {
+        const newTag = buffer.trim().replace(/\s+/g, '_');
+        if (newTag.length === 0) return;
+        onChange && onChange(values.concat(newTag));
+        setBuffer('');
     };
 
     return (
@@ -66,6 +71,7 @@ export const TagInput: React.FC<TagInputProps> = ({ id, name, values, isInvalid,
                         className="tis-tag-input-field"
                         value={buffer}
                         onChange={(e) => setBuffer(e.target.value)}
+                        onBlur={commitBuffer}
                         onKeyDown={onKeyDown}
                     />
                 </li>
