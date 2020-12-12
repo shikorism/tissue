@@ -1,6 +1,8 @@
+<h5 class="mb-4">最も使用したタグ</h5>
 <div class="row">
     <div class="col-md-6">
-        <h5 class="mb-4">最も使用したタグ</h5>
+        <h6 class="mb-2 text-center"><span class="tis-stat-table-category-checkin">チェックインタグ</span></h6>
+        <p class="mb-3 text-center"><small class="text-muted">直接入力されたタグのみ集計しています。</small></p>
         @if ($tags->isEmpty())
             <div class="alert alert-secondary">
                 データがありません
@@ -19,7 +21,8 @@
         @endif
     </div>
     <div class="col-md-6">
-        <h5 class="mb-4">オカズを含む最も使用したタグ</h5>
+        <h6 class="mt-3 mt-md-0 mb-2 text-center"><span class="tis-stat-table-category-checkin">チェックインタグ</span> + <span class="tis-stat-table-category-metadata">オカズタグ</span></h6>
+        <p class="mb-3 text-center"><small class="text-muted">オカズ自体のタグも含めた集計です。</small></p>
         @if ($tagsIncludesMetadata->isEmpty())
             <div class="alert alert-secondary">
                 データがありません

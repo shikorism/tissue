@@ -27,3 +27,23 @@ $primary: #e53fb1;
 .tis-status-container + .mt-n1 {
     margin-top: 0 !important;
 }
+
+.tis-stat-table-category {
+    padding: 0.25em 0.8em;
+    font-size: 85%;
+    color: #ffffff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 10rem;
+
+    &-checkin {
+        @extend .tis-stat-table-category;
+        background-color: $primary;
+    }
+
+    &-metadata {
+        @extend .tis-stat-table-category;
+        background-color: $secondary;
+    }
+}
