@@ -40,11 +40,12 @@ docker-compose exec web composer install
 docker-compose exec web yarn install
 ```
 
-5. 暗号化キーの作成と、データベースのマイグレーションを行います。
+5. 暗号化キーの作成と、データベースのマイグレーションおよびシーディングを行います。
 
 ```
 docker-compose exec web php artisan key:generate
 docker-compose exec web php artisan migrate
+docker-compose exec web php artisan db:seed
 ```
 
 6. ファイルに書き込めるように権限を設定します。
