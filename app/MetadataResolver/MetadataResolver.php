@@ -29,7 +29,6 @@ class MetadataResolver implements Resolver
         '~\.syosetu\.com/n\d+[a-z]+~' => NarouResolver::class,
         '~ci-en\.(jp|net|dlsite\.com)/creator/\d+/article/\d+~' => CienResolver::class,
         '~www\.plurk\.com\/p\/.*~' => PlurkResolver::class,
-        '~(adult\.)?contents\.fc2\.com\/article_search\.php\?id=\d+~' => FC2ContentsResolver::class,
         '~store\.steampowered\.com/app/\d+~' => SteamResolver::class,
         '~www\.xtube\.com/video-watch/.*-\d+$~'=> XtubeResolver::class,
         '~ss\.kb10uy\.org/posts/\d+$~' => Kb10uyShortStoryServerResolver::class,

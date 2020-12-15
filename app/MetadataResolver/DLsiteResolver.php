@@ -46,6 +46,7 @@ class DLsiteResolver implements Resolver
 
         // 重複削除
         $tags = array_values(array_unique($tags));
+        sort($tags);
 
         return $tags;
     }

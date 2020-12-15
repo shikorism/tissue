@@ -26,7 +26,7 @@ class PlurkResolverTest extends TestCase
 
         $metadata = $this->resolver->resolve('https://www.plurk.com/p/n0awli/');
         $this->assertEquals('[R18]FC2實況中', $metadata->title);
-        $this->assertEquals('Plurk by 小虫/ムシ@台中種 - 71 response(s)', $metadata->description);
+        $this->assertEquals('Plurk by 小虫同學@一直忘了改ID - 71 response(s)', $metadata->description);
         $this->assertEquals('https://images.plurk.com/5cT15Sf9OOFYk9fEQ759bZ.jpg', $metadata->image);
         if ($this->shouldUseMock()) {
             $this->assertSame('https://www.plurk.com/p/n0awli/', (string) $this->handler->getLastRequest()->getUri());

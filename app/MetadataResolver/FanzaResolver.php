@@ -54,9 +54,9 @@ class FanzaResolver implements Resolver
         if (preg_match('~www\.dmm\.co\.jp/digital/(videoa|videoc|anime)/-/detail~', $url)) {
             $metadata = new Metadata();
             $metadata->title = trim($crawler->filter('#title')->text(''));
-            $metadata->description = trim($crawler->filter('.box-rank+table+div+div')->text(''));
+            $metadata->description = trim(strip_tags(str_replace('【FANZA(ファンザ)】', '', $crawler->filter('meta[name="description"]')->attr('content'))));
             $metadata->image = preg_replace("~(pr|ps)\.jpg$~", 'pl.jpg', $crawler->filter('meta[property="og:image"]')->attr('content'));
-            $metadata->tags = $this->array_finish($crawler->filter('.box-rank+table a:not([href="#review"])')->extract(['_text']));
+            $metadata->tags = $this->array_finish($crawler->filter('.box-rank+table a[href*="list/=/article="]')->extract(['_text']));
 
             return $metadata;
         }
@@ -94,7 +94,7 @@ class FanzaResolver implements Resolver
             $metadata->title = trim($crawler->filter('#title')->text(''));
             $metadata->description = trim($crawler->filter('.area-detail-read .text-overflow')->text(''));
             $metadata->image = preg_replace("~(pr|ps)\.jpg$~", 'pl.jpg', $crawler->filter('meta[property="og:image"]')->attr('content'));
-            $metadata->tags = $this->array_finish($crawler->filter('.area-bskt table a:not([href="#review"])')->extract(['_text']));
+            $metadata->tags = $this->array_finish($crawler->filter('.container02 table a[href*="list/article="]')->extract(['_text']));
 
             return $metadata;
         }

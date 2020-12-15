@@ -28,7 +28,7 @@ class NijieResolverTest extends TestCase
         $this->assertSame('チンポップくんの日常ep.1「チンポップくんと釣り」', $metadata->title);
         $this->assertSame('投稿者: ニジエ運営' . PHP_EOL . 'メールマガジン漫画のバックナンバー第一話です！' . PHP_EOL . '最新話はメールマガジンより配信中です。', $metadata->description);
         $this->assertSame('https://pic.nijie.net/04/nijie_picture/38_20131130155623.png', $metadata->image);
-        $this->assertSame(['ニジエたん', '釣り', 'チンポップ君の日常', '公式漫画'], $metadata->tags);
+        $this->assertSame(['チンポップ君の日常', '公式漫画'], $metadata->tags);
         if ($this->shouldUseMock()) {
             $this->assertSame('https://nijie.info/view.php?id=66384', (string) $this->handler->getLastRequest()->getUri());
         }
@@ -60,7 +60,7 @@ class NijieResolverTest extends TestCase
         $this->assertSame('ニジエがgifに対応したんだってね　奥さん', $metadata->title);
         $this->assertSame('投稿者: 黒末アプコ' . PHP_EOL . 'アニメgifとか専門外なのでよくわかりませんでした', $metadata->description);
         $this->assertStringStartsWith('https://nijie.info/pic/logo/nijie_logo_og.png', $metadata->image);
-        $this->assertSame(['おっぱい', '陥没乳首', '眼鏡', 'GIFアニメ', 'ぶるんぶるん', 'アニメgif'], $metadata->tags);
+        $this->assertSame(['アニメgif'], $metadata->tags);
         if ($this->shouldUseMock()) {
             $this->assertSame('https://nijie.info/view.php?id=9537', (string) $this->handler->getLastRequest()->getUri());
         }
@@ -92,7 +92,7 @@ class NijieResolverTest extends TestCase
         $this->assertSame('チンポップくんの日常ep.1「チンポップくんと釣り」', $metadata->title);
         $this->assertSame('投稿者: ニジエ運営' . PHP_EOL . 'メールマガジン漫画のバックナンバー第一話です！' . PHP_EOL . '最新話はメールマガジンより配信中です。', $metadata->description);
         $this->assertSame('https://pic.nijie.net/04/nijie_picture/38_20131130155623.png', $metadata->image);
-        $this->assertSame(['ニジエたん', '釣り', 'チンポップ君の日常', '公式漫画'], $metadata->tags);
+        $this->assertSame(['チンポップ君の日常', '公式漫画'], $metadata->tags);
         if ($this->shouldUseMock()) {
             $this->assertSame('https://nijie.info/view.php?id=66384', (string) $this->handler->getLastRequest()->getUri());
         }
@@ -108,7 +108,7 @@ class NijieResolverTest extends TestCase
         $this->assertSame('チンポップくんの日常ep.1「チンポップくんと釣り」', $metadata->title);
         $this->assertSame('投稿者: ニジエ運営' . PHP_EOL . 'メールマガジン漫画のバックナンバー第一話です！' . PHP_EOL . '最新話はメールマガジンより配信中です。', $metadata->description);
         $this->assertSame('https://pic.nijie.net/04/nijie_picture/38_20131130155623.png', $metadata->image);
-        $this->assertSame(['ニジエたん', '釣り', 'チンポップ君の日常', '公式漫画'], $metadata->tags);
+        $this->assertSame(['チンポップ君の日常', '公式漫画'], $metadata->tags);
         if ($this->shouldUseMock()) {
             $this->assertSame('https://nijie.info/view.php?id=66384', (string) $this->handler->getLastRequest()->getUri());
         }
@@ -124,7 +124,7 @@ class NijieResolverTest extends TestCase
         $this->assertSame('チンポップくんの日常ep.1「チンポップくんと釣り」', $metadata->title);
         $this->assertSame('投稿者: ニジエ運営' . PHP_EOL . 'メールマガジン漫画のバックナンバー第一話です！' . PHP_EOL . '最新話はメールマガジンより配信中です。', $metadata->description);
         $this->assertSame('https://pic.nijie.net/04/nijie_picture/38_20131130155623.png', $metadata->image);
-        $this->assertSame(['ニジエたん', '釣り', 'チンポップ君の日常', '公式漫画'], $metadata->tags);
+        $this->assertSame(['チンポップ君の日常', '公式漫画'], $metadata->tags);
         if ($this->shouldUseMock()) {
             $this->assertSame('https://nijie.info/view.php?id=66384', (string) $this->handler->getLastRequest()->getUri());
         }
