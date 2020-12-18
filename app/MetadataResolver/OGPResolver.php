@@ -35,7 +35,7 @@ class OGPResolver implements Resolver, Parser
 
         $metadata = new Metadata();
 
-        $metadata->title = $this->findContent($xpath, $priority->sortForTitle('//meta[@*="og:title"]', '//meta[@*="twitter:title"]'));
+        $metadata->title = $this->findContent($xpath, ...$priority->sortForTitle('//meta[@*="og:title"]', '//meta[@*="twitter:title"]'));
         if (empty($metadata->title)) {
             $nodes = $xpath->query('//title');
             if ($nodes->length !== 0) {
@@ -44,9 +44,9 @@ class OGPResolver implements Resolver, Parser
         }
         $metadata->description = $this->findContent(
             $xpath,
-            $priority->sortForDescription('//meta[@*="og:description"]', '//meta[@*="twitter:description"]', '//meta[@name="description"]')
+            ...$priority->sortForDescription('//meta[@*="og:description"]', '//meta[@*="twitter:description"]', '//meta[@name="description"]')
         );
-        $metadata->image = $this->findContent($xpath, $priority->sortForImage('//meta[@*="og:image"]', '//meta[@*="twitter:image"]'));
+        $metadata->image = $this->findContent($xpath, ...$priority->sortForImage('//meta[@*="og:image"]', '//meta[@*="twitter:image"]'));
 
         return $metadata;
     }
