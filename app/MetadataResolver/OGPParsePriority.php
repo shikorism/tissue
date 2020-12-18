@@ -45,19 +45,25 @@ class OGPParsePriority
     {
         switch ($priority) {
             case self::OGP:
-                $preferred = array_filter($expressions, function ($expr) {
-                    return stripos($expr, 'og:') !== false;
-                });
+                $needle = 'og:';
                 break;
             case self::TWITTER_CARDS:
-                $preferred = array_filter($expressions, function ($expr) {
-                    return stripos($expr, 'twitter:') !== false;
-                });
+                $needle = 'twitter:';
                 break;
             default:
                 throw new \InvalidArgumentException('$priority has an invalid value.');
         }
 
-        return array_values(array_unique(array_merge($preferred, $expressions)));
+        $preferred = [];
+        $rest = [];
+        foreach ($expressions as $expr) {
+            if (stripos($expr, $needle) !== false) {
+                $preferred[] = $expr;
+            } else {
+                $rest[] = $expr;
+            }
+        }
+
+        return array_merge($preferred, $rest);
     }
 }
