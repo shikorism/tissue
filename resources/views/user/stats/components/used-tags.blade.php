@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-md-6">
         <h6 class="mb-2 text-center"><span class="tis-stat-table-category-checkin">チェックインタグ</span></h6>
-        <p class="mb-3 text-center"><small class="text-muted">直接入力されたタグのみ集計しています。</small></p>
+        <p class="mb-3 text-center"><small class="text-muted">チェックインに直接入力したタグの集計です。</small></p>
         @if ($tags->isEmpty())
             <div class="alert alert-secondary">
                 データがありません
