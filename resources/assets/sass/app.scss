@@ -16,6 +16,7 @@ $primary: #e53fb1;
 @import "components/tag-input";
 @import "components/metadata-preview";
 @import "components/profile-mini";
+@import "components/stat-table";
 
 // Tag
 @import "tag/index";
@@ -26,24 +27,4 @@ $primary: #e53fb1;
 // Status containerの後続要素との余白調整
 .tis-status-container + .mt-n1 {
     margin-top: 0 !important;
-}
-
-.tis-stat-table-category {
-    padding: 0.25em 0.8em;
-    font-size: 85%;
-    color: #ffffff;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: 10rem;
-
-    &-checkin {
-        @extend .tis-stat-table-category;
-        background-color: $primary;
-    }
-
-    &-metadata {
-        @extend .tis-stat-table-category;
-        background-color: $secondary;
-    }
 }

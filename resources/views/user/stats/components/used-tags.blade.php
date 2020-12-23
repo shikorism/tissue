@@ -8,12 +8,16 @@
                 データがありません
             </div>
         @else
-            <table class="table table-striped border">
+            <table class="table table-striped border tis-stat-table">
                 <tbody>
                 @foreach ($tags as $tag)
                     <tr>
-                        <td><a class="text-reset" href="{{ route('search', ['q' => $tag->name]) }}"><span class="oi oi-tag text-secondary mr-2"></span>{{ $tag->name }}</a></td>
-                        <td class="text-right">{{ number_format($tag->count) }}</td>
+                        <td>
+                            <a class="text-reset" href="{{ route('search', ['q' => $tag->name]) }}"><span class="oi oi-tag text-secondary mr-2"></span>{{ $tag->name }}</a>
+                        </td>
+                        <td class="text-right">
+                            <a class="text-reset text-decoration-none" href="{{ route('search', ['q' => $tag->name]) }}">{{ number_format($tag->count) }}</a>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -28,12 +32,16 @@
                 データがありません
             </div>
         @else
-            <table class="table table-striped border">
+            <table class="table table-striped border tis-stat-table">
                 <tbody>
                 @foreach ($tagsIncludesMetadata as $tag)
                     <tr>
-                        <td><a class="text-reset" href="{{ route('search', ['q' => $tag->name]) }}"><span class="oi oi-tag text-secondary mr-2"></span>{{ $tag->name }}</a></td>
-                        <td class="text-right">{{ number_format($tag->count) }}</td>
+                        <td>
+                            <a class="text-reset" href="{{ route('search', ['q' => $tag->name]) }}"><span class="oi oi-tag text-secondary mr-2"></span>{{ $tag->name }}</a>
+                        </td>
+                        <td class="text-right">
+                            <a class="text-reset text-decoration-none" href="{{ route('search', ['q' => $tag->name]) }}">{{ number_format($tag->count) }}</a>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
