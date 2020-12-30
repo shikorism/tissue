@@ -16,9 +16,15 @@ $primary: #e53fb1;
 @import "components/tag-input";
 @import "components/metadata-preview";
 @import "components/profile-mini";
+@import "components/stat-table";
 
 // Tag
 @import "tag/index";
 
 // Underline tabs
 @import "underline-tabs";
+
+// Status containerの後続要素との余白調整
+.tis-status-container + .mt-n1 {
+    margin-top: 0 !important;
+}

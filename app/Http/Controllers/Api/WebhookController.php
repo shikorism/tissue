@@ -35,6 +35,7 @@ class WebhookController extends Controller
             'tags.*' => ['string', 'not_regex:/[\s\r\n]/u', 'max:255'],
             'is_private' => 'nullable|boolean',
             'is_too_sensitive' => 'nullable|boolean',
+            'discard_elapsed_time' => 'nullable|boolean',
         ], [
             'tags.*.not_regex' => 'The :attribute cannot contain spaces, tabs and newlines.'
         ]);
@@ -71,6 +72,7 @@ class WebhookController extends Controller
                 'source' => Ejaculation::SOURCE_WEBHOOK,
                 'is_private' => (bool)($inputs['is_private'] ?? false),
                 'is_too_sensitive' => (bool)($inputs['is_too_sensitive'] ?? false),
+                'discard_elapsed_time' => (bool)($inputs['discard_elapsed_time'] ?? false),
                 'checkin_webhook_id' => $webhook->id
             ]);
 

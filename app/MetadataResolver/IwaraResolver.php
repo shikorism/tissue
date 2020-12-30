@@ -34,7 +34,7 @@ class IwaraResolver implements Resolver
         array_push($tags, $author);
 
         $metadata->title = $title;
-        $metadata->description = '投稿者: ' . $author . PHP_EOL . $description;
+        $metadata->description = '投稿者: ' . $author . PHP_EOL . trim($description);
         $metadata->tags = $tags;
 
         // iwara video

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
+import { format } from 'date-fns';
 import { CheckBox } from './CheckBox';
 import { FieldError, StandaloneFieldError } from './FieldError';
 import { TagInput } from './TagInput';
@@ -10,18 +11,43 @@ type CheckinFormProps = {
 };
 
 export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
+    const mode = initialState.mode;
     const [date, setDate] = useState<string>(initialState.fields.date || '');
     const [time, setTime] = useState<string>(initialState.fields.time || '');
     const [tags, setTags] = useState<string[]>(initialState.fields.tags || []);
     const [link, setLink] = useState<string>(initialState.fields.link || '');
     const [linkForPreview, setLinkForPreview] = useState(link);
     const [note, setNote] = useState<string>(initialState.fields.note || '');
+    const [isRealtime, setRealtime] = useState<boolean>(mode === 'create' && initialState.fields.is_realtime);
     const [isPrivate, setPrivate] = useState<boolean>(!!initialState.fields.is_private);
     const [isTooSensitive, setTooSensitive] = useState<boolean>(!!initialState.fields.is_too_sensitive);
+    const [discardElapsedTime, setDiscardElapsedTime] = useState<boolean>(!!initialState.fields.discard_elapsed_time);
+    useEffect(() => {
+        if (mode === 'create' && isRealtime) {
+            const id = setInterval(() => {
+                const now = new Date();
+                setDate(format(now, 'yyyy/MM/dd'));
+                setTime(format(now, 'HH:mm'));
+            }, 500);
+            return () => clearInterval(id);
+        }
+    }, [mode, isRealtime]);
 
     return (
         <>
             <div className="form-row">
+                {mode === 'create' && (
+                    <div className="col-sm-12 mb-2">
+                        <CheckBox
+                            id="isRealtime"
+                            name="is_realtime"
+                            checked={isRealtime}
+                            onChange={(v) => setRealtime(v)}
+                        >
+                            現在時刻でチェックイン
+                        </CheckBox>
+                    </div>
+                )}
                 <div className="form-group col-sm-6">
                     <label htmlFor="date">
                         <span className="oi oi-calendar" /> 日付
@@ -38,6 +64,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
                         required
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
+                        disabled={isRealtime}
                     />
                     <FieldError errors={initialState.errors?.date} />
                 </div>
@@ -57,6 +84,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
                         required
                         value={time}
                         onChange={(e) => setTime(e.target.value)}
+                        disabled={isRealtime}
                     />
                     <FieldError errors={initialState.errors?.time} />
                 </div>
@@ -136,6 +164,23 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
                         onChange={(v) => setTooSensitive(v)}
                     >
                         <span className="oi oi-warning" /> チェックイン対象のオカズをより過激なオカズとして設定する
+                    </CheckBox>
+                    <CheckBox
+                        id="discardElapsedTime"
+                        name="discard_elapsed_time"
+                        className="mb-3"
+                        checked={discardElapsedTime}
+                        onChange={(v) => setDiscardElapsedTime(v)}
+                    >
+                        <span className="oi oi-timer" /> 前回チェックインからの経過時間を記録しない
+                        <br />
+                        <small className="form-text text-muted">
+                            長期間お使いにならなかった場合など、経過時間に意味が無い時のリセット用オプションです。
+                            <ul className="pl-3">
+                                <li>最長・最短記録の計算から除外されます。</li>
+                                <li>平均記録の起点がこのチェックインになります。</li>
+                            </ul>
+                        </small>
                     </CheckBox>
                 </div>
             </div>

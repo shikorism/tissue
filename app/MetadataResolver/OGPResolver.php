@@ -23,23 +23,30 @@ class OGPResolver implements Resolver, Parser
         return $this->parse($this->client->get($url, [RequestOptions::COOKIES => new CookieJar()])->getBody());
     }
 
-    public function parse(string $html): Metadata
+    public function parse(string $html, ?OGPParsePriority $priority = null): Metadata
     {
+        if ($priority === null) {
+            $priority = OGPParsePriority::preferTo(OGPParsePriority::OGP);
+        }
+
         $dom = new \DOMDocument();
         @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'ASCII,JIS,UTF-8,eucJP-win,SJIS-win'));
         $xpath = new \DOMXPath($dom);
 
         $metadata = new Metadata();
 
-        $metadata->title = $this->findContent($xpath, '//meta[@*="og:title"]', '//meta[@*="twitter:title"]');
+        $metadata->title = $this->findContent($xpath, ...$priority->sortForTitle('//meta[@*="og:title"]', '//meta[@*="twitter:title"]'));
         if (empty($metadata->title)) {
             $nodes = $xpath->query('//title');
             if ($nodes->length !== 0) {
                 $metadata->title = $nodes->item(0)->textContent;
             }
         }
-        $metadata->description = $this->findContent($xpath, '//meta[@*="og:description"]', '//meta[@*="twitter:description"]', '//meta[@name="description"]');
-        $metadata->image = $this->findContent($xpath, '//meta[@*="og:image"]', '//meta[@*="twitter:image"]');
+        $metadata->description = $this->findContent(
+            $xpath,
+            ...$priority->sortForDescription('//meta[@*="og:description"]', '//meta[@*="twitter:description"]', '//meta[@name="description"]')
+        );
+        $metadata->image = $this->findContent($xpath, ...$priority->sortForImage('//meta[@*="og:image"]', '//meta[@*="twitter:image"]'));
 
         return $metadata;
     }

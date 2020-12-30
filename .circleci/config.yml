@@ -24,6 +24,7 @@ commands:
       - checkout
       - run: sudo apt update
       - run: sudo apt install -y libpq-dev
+      - run: sudo pecl install -f xdebug-2.9.8 && sudo docker-php-ext-enable xdebug
       - run: sudo docker-php-ext-install zip
       - run: sudo docker-php-ext-install pdo_pgsql
       - run:

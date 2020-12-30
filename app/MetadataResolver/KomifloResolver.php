@@ -41,9 +41,12 @@ class KomifloResolver implements Resolver
 
         // タグ
         if (!empty($json['content']['attributes']['tags']['children'])) {
+            $tags = [];
             foreach ($json['content']['attributes']['tags']['children'] as $tag) {
-                $metadata->tags[] = preg_replace('/\s/', '_', $tag['data']['name']);
+                $tags[] = preg_replace('/\s/', '_', $tag['data']['name']);
             }
+            sort($tags);
+            $metadata->tags = array_merge($metadata->tags, $tags);
         }
 
         return $metadata;
