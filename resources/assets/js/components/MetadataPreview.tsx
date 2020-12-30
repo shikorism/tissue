@@ -136,7 +136,7 @@ export const MetadataPreview: React.FC<MetadataPreviewProps> = ({ link, tags, on
                                                     <li
                                                         key={tag.name}
                                                         className={tagClasses(tag)}
-                                                        onClick={() => onClickTag(tag.name)}
+                                                        onClick={() => !tag.used && onClickTag(tag.name)}
                                                     >
                                                         <span className="oi oi-tag" /> {tag.name}
                                                     </li>
