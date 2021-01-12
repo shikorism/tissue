@@ -69,16 +69,13 @@
   },
   "lint-staged": {
     "*.{css,scss}": [
-      "stylelint --fix",
-      "git add"
+      "stylelint --fix"
     ],
     "*.{ts,tsx,js}": [
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ],
     "*.php": [
-      "composer fix",
-      "git add"
+      "composer fix"
     ]
   }
 }
