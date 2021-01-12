@@ -43,7 +43,7 @@
     "js-cookie": "^2.2.0",
     "laravel-mix": "^4.0.0",
     "laravel-mix-bundle-analyzer": "^1.0.2",
-    "lint-staged": "^8.1.5",
+    "lint-staged": "^10.5.3",
     "open-iconic": "^1.1.1",
     "popper.js": "^1.14.7",
     "prettier": "^2.0.5",
@@ -69,16 +69,13 @@
   },
   "lint-staged": {
     "*.{css,scss}": [
-      "stylelint --fix",
-      "git add"
+      "stylelint --fix"
     ],
     "*.{ts,tsx,js}": [
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ],
     "*.php": [
-      "composer fix",
-      "git add"
+      "composer fix"
     ]
   }
 }
