@@ -19,7 +19,7 @@
     "@types/chart.js": "^2.9.24",
     "@types/classnames": "^2.2.10",
     "@types/clipboard": "^2.0.1",
-    "@types/jquery": "^3.3.38",
+    "@types/jquery": "^3.5.5",
     "@types/js-cookie": "^2.2.0",
     "@types/qs": "^6.9.4",
     "@types/react": "^16.9.35",
