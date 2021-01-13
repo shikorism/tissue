@@ -8975,10 +8975,10 @@ stylehacks@^4.0.0:
     postcss "^7.0.0"
     postcss-selector-parser "^3.0.0"
 
-stylelint-config-recess-order@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/stylelint-config-recess-order/-/stylelint-config-recess-order-2.1.0.tgz#84bfe5df9c73b2a7744d2d55e70dcec786e1d89c"
-  integrity sha512-h269OpnCTcOHR6xBRb+dQPrZnQA62zG3Q5yzP+RH71kn/LjWCoPFRmzg4UoajA42+y5WX8L1TFwqlDPIuojP3w==
+stylelint-config-recess-order@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/stylelint-config-recess-order/-/stylelint-config-recess-order-2.3.0.tgz#ee33adc4faf3a09ed8e3a53f682e1682e1884ff8"
+  integrity sha512-z1d1m///to9ikecxP0uM2ljAmogHL1A+A4MUXtYrJvZRFPfPeODebimmJacx4cRL/oltEo3I6HqtreyRrn4lBg==
   dependencies:
     stylelint-order "4.1.x"
 
