@@ -5712,16 +5712,16 @@
         },
         {
             "name": "t1gor/robots-txt-parser",
-            "version": "v0.2.4",
+            "version": "v0.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/t1gor/Robots.txt-Parser-Class.git",
-                "reference": "7ff08da5625fb4f72d17b1528c60aadb184e9e68"
+                "reference": "ac4159089c1a01b64db070f1240427bba2333040"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/t1gor/Robots.txt-Parser-Class/zipball/7ff08da5625fb4f72d17b1528c60aadb184e9e68",
-                "reference": "7ff08da5625fb4f72d17b1528c60aadb184e9e68",
+                "url": "https://api.github.com/repos/t1gor/Robots.txt-Parser-Class/zipball/ac4159089c1a01b64db070f1240427bba2333040",
+                "reference": "ac4159089c1a01b64db070f1240427bba2333040",
                 "shasum": ""
             },
             "require": {
@@ -5765,7 +5765,7 @@
                 "robots.txt",
                 "yandex"
             ],
-            "time": "2018-07-21T20:01:19+00:00"
+            "time": "2020-09-12T12:21:10+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
