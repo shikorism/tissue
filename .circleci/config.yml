@@ -27,10 +27,6 @@ commands:
       - run: sudo pecl install -f xdebug && sudo docker-php-ext-enable xdebug
       - run: sudo docker-php-ext-install zip
       - run: sudo docker-php-ext-install pdo_pgsql
-      - run:
-          command: |
-            curl -sSL "https://nodejs.org/dist/v12.16.3/node-v12.16.3-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v12.16.3-linux-x64/bin/node
-            curl https://www.npmjs.com/install.sh | sudo bash
   restore_composer:
     steps:
       - restore_cache:
