@@ -91,9 +91,10 @@ $(() => {
         }
     });
 
-    $(document).on('click', '.card-spoiler-overlay', function (_event) {
+    $(document).on('click', '.card-spoiler-img-overlay', function (event) {
+        event.preventDefault();
         const $this = $(this);
-        $this.siblings('.card-link').removeClass('card-spoiler');
+        $this.closest('.card-link').removeClass('card-spoiler');
         $this.remove();
     });
 });

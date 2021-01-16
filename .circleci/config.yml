@@ -24,13 +24,9 @@ commands:
       - checkout
       - run: sudo apt update
       - run: sudo apt install -y libpq-dev
-      - run: sudo pecl install -f xdebug-2.9.8 && sudo docker-php-ext-enable xdebug
+      - run: sudo pecl install -f xdebug && sudo docker-php-ext-enable xdebug
       - run: sudo docker-php-ext-install zip
       - run: sudo docker-php-ext-install pdo_pgsql
-      - run:
-          command: |
-            curl -sSL "https://nodejs.org/dist/v12.16.3/node-v12.16.3-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v12.16.3-linux-x64/bin/node
-            curl https://www.npmjs.com/install.sh | sudo bash
   restore_composer:
     steps:
       - restore_cache:
@@ -118,6 +114,8 @@ jobs:
             mkdir -p /tmp/phpunit
             ./vendor/bin/phpunit --log-junit /tmp/phpunit/phpunit.xml --coverage-clover=/tmp/phpunit/coverage.xml
           when: always
+          environment:
+            XDEBUG_MODE: coverage
       - store_test_results:
           path: /tmp/phpunit
       - store_artifacts:
@@ -148,6 +146,8 @@ jobs:
             mkdir -p /tmp/phpunit
             ./vendor/bin/phpunit --testsuite MetadataResolver --log-junit /tmp/phpunit/phpunit.xml --coverage-clover=/tmp/phpunit/coverage.xml
           when: always
+          environment:
+            XDEBUG_MODE: coverage
       - store_test_results:
           path: /tmp/phpunit
       - store_artifacts:

@@ -22,7 +22,7 @@ export const TagInput: React.FC<TagInputProps> = ({ id, name, values, isInvalid,
                 case 'Tab':
                 case 'Enter':
                 case ' ':
-                    if ((event as any).isComposing !== true) {
+                    if (!event.nativeEvent.isComposing) {
                         commitBuffer();
                     }
                     event.preventDefault();
