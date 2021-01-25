@@ -4,7 +4,6 @@ namespace App\MetadataResolver;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
-use Symfony\Component\DomCrawler\Crawler;
 
 class NarouResolver implements Resolver
 {
