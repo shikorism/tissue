@@ -24,13 +24,13 @@ trait CreateMockedResolver
     protected $handler;
 
     /**
-     * @var string
+     * @var string[]
      */
-    protected $snapshotFilename;
+    protected $snapshotFilenames = [];
 
-    protected function fetchSnapshot(string $filename): string
+    protected function fetchSnapshot(string $filename, int $sequence = 0): string
     {
-        $this->snapshotFilename = $filename;
+        $this->snapshotFilenames[$sequence] = $filename;
 
         return file_get_contents($filename);
     }
@@ -44,6 +44,19 @@ trait CreateMockedResolver
      */
     protected function createResolver(string $resolverClass, string $responseText, array $headers = [], int $status = 200)
     {
+        return $this->createResolverEx($resolverClass, [compact('responseText', 'headers', 'status')]);
+    }
+
+    /**
+     * @param string $resolverClass
+     * @param array $responses
+     * @return Resolver
+     */
+    protected function createResolverEx(string $resolverClass, array $responses): Resolver
+    {
+        if (empty($responses)) {
+            throw new \LogicException('$responses には1つ以上の要素が必要です。');
+        }
         if (!$this->shouldUseMock() && !$this->shouldUpdateSnapshot()) {
             $this->resolver = app()->make($resolverClass);
 
@@ -51,12 +64,22 @@ trait CreateMockedResolver
         }
 
         if ($this->shouldUseMock()) {
-            $headers += [
-                'content-type' => 'text/html',
+            $default = [
+                'headers' => [],
+                'status' => 200,
             ];
+            $queue = [];
+            foreach ($responses as $index => $response) {
+                $response = array_merge($default, $response);
+                $response['headers'] += ['content-type' => 'text/html'];
 
-            $mockResponse = new Response($status, $headers, $responseText);
-            $this->handler = new MockHandler([$mockResponse]);
+                if (!isset($response['responseText'])) {
+                    throw new \LogicException("\$responses[$index]['responseText'] が設定されていません。");
+                }
+
+                $queue[] = new Response($response['status'], $response['headers'], $response['responseText']);
+            }
+            $this->handler = new MockHandler($queue);
         }
 
         $stack = HandlerStack::create($this->handler);
@@ -82,15 +105,19 @@ trait CreateMockedResolver
 
     protected function makeUpdateSnapshotMiddleware(): callable
     {
-        return function (callable $next) {
-            return function (RequestInterface $request, array $options) use ($next) {
-                return $next($request, $options)->then(function (ResponseInterface $response) {
-                    if (empty($this->snapshotFilename)) {
+        $sequence = 0;
+
+        return function (callable $next) use (&$sequence) {
+            return function (RequestInterface $request, array $options) use ($next, &$sequence) {
+                return $next($request, $options)->then(function (ResponseInterface $response) use (&$sequence) {
+                    if (empty($this->snapshotFilenames[$sequence])) {
                         throw new \RuntimeException('スナップショットのファイル名が分かりません。file_get_contents()を使っている場合、fetchSnapshot()に置き換えてください。');
                     }
 
-                    file_put_contents($this->snapshotFilename, (string) $response->getBody());
-                    fwrite(STDERR, "Snapshot Updated: {$this->snapshotFilename}\n");
+                    file_put_contents($this->snapshotFilenames[$sequence], (string) $response->getBody());
+                    fwrite(STDERR, "Snapshot Updated: {$this->snapshotFilenames[$sequence]}\n");
+
+                    $sequence++;
 
                     return $response;
                 });
