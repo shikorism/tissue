@@ -27,7 +27,7 @@ class NarouResolver implements Resolver
         $cookieJar = CookieJar::fromArray(['over18' => 'yes'], '.syosetu.com');
 
 
-        preg_match('~\.syosetu\.com/(?P<ncode>n\d+[a-z]+)~', $url, $matches);
+        preg_match('~\.syosetu\.com/(novelview/infotop/ncode/)?(?P<ncode>n\d+[a-z]+)~', $url, $matches);
         $ncode = $matches['ncode'];
 
         $res = $this->client->get("https://novel18.syosetu.com/novelview/infotop/ncode/$ncode/", ['cookies' => $cookieJar]);
