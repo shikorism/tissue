@@ -56,13 +56,13 @@ class NijieResolverTest extends TestCase
 
         $this->createResolver(NijieResolver::class, $responseText);
 
-        $metadata = $this->resolver->resolve('https://nijie.info/view.php?id=9537');
-        $this->assertSame('ニジエがgifに対応したんだってね　奥さん', $metadata->title);
-        $this->assertSame('投稿者: 黒末アプコ' . PHP_EOL . 'アニメgifとか専門外なのでよくわかりませんでした', $metadata->description);
+        $metadata = $this->resolver->resolve('https://nijie.info/view.php?id=393134');
+        $this->assertSame('MANKALOさん', $metadata->title);
+        $this->assertStringStartsWith('投稿者: sb' . PHP_EOL . 'すけぶの。服の着脱機能を勝手に付けさせて頂きました。', $metadata->description);
         $this->assertStringStartsWith('https://nijie.info/pic/logo/nijie_logo_og.png', $metadata->image);
-        $this->assertSame(['アニメgif'], $metadata->tags);
+        $this->assertSame(['ロリ', '中出し', '騎乗位', '獣耳', 'GIFアニメ', 'ドット絵'], $metadata->tags);
         if ($this->shouldUseMock()) {
-            $this->assertSame('https://nijie.info/view.php?id=9537', (string) $this->handler->getLastRequest()->getUri());
+            $this->assertSame('https://nijie.info/view.php?id=393134', (string) $this->handler->getLastRequest()->getUri());
         }
     }
 
