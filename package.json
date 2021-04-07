@@ -46,7 +46,7 @@
     "lint-staged": "^10.5.3",
     "open-iconic": "^1.1.1",
     "popper.js": "^1.14.7",
-    "prettier": "^2.0.5",
+    "prettier": "^2.2.1",
     "redoc-cli": "^0.9.8",
     "qs": "^6.9.4",
     "react": "^16.13.1",
