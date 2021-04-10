@@ -26,30 +26,54 @@ class NarouResolver implements Resolver
     {
         $cookieJar = CookieJar::fromArray(['over18' => 'yes'], '.syosetu.com');
 
-        $res = $this->client->get($url, ['cookies' => $cookieJar]);
-        $metadata = $this->ogpResolver->parse($res->getBody());
-        $metadata->description = '';
 
+        preg_match('~\.syosetu\.com/(novelview/infotop/ncode/)?(?P<ncode>n\d+[a-z]+)~', $url, $matches);
+        $ncode = $matches['ncode'];
+
+        $res = $this->client->get("https://novel18.syosetu.com/novelview/infotop/ncode/$ncode/", ['cookies' => $cookieJar]);
+        $html = $res->getBody()->getContents();
+
+        // 一見旧式のDOMDocumentを使っているように見えるがこれは罠で、なろうのHTMLはDOMCrawlerだとパースに失敗する
         $dom = new \DOMDocument();
-        @$dom->loadHTML(mb_convert_encoding($res->getBody(), 'HTML-ENTITIES', 'ASCII,JIS,UTF-8,eucJP-win,SJIS-win'));
+        @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'ASCII,JIS,UTF-8,eucJP-win,SJIS-win'));
         $xpath = new \DOMXPath($dom);
 
+        $metadata = $this->ogpResolver->parse($html);
         $description = [];
 
+        // タイトル
+        $titleNodeList = $xpath->query('//h1/a');
+        if ($titleNodeList->length !== 0) {
+            $metadata->title = $titleNodeList->item(0)->textContent;
+        }
+
+        // タグ
+        $keywordNodeList = $xpath->query('//th[contains(text(), "キーワード")]/following-sibling::td[1]');
+        if ($keywordNodeList->length !== 0) {
+            $keyword =  trim($keywordNodeList->item(0)->textContent);
+            $metadata->tags = explode(' ', $keyword);
+        }
+
         // 作者名
-        $writerNodes = $xpath->query('//*[contains(@class, "novel_writername")]');
-        if ($writerNodes->length !== 0 && !empty($writerNodes->item(0)->textContent)) {
-            $description[] = trim($writerNodes->item(0)->textContent);
+        $authorNodeList = $xpath->query('//a[contains(@href,"mypage.syosetu.com")]');
+        if ($authorNodeList->length !== 0) {
+            $description[] = '作者: ' . trim($authorNodeList->item(0)->textContent);
         }
 
-        // あらすじ
-        $exNodes = $xpath->query('//*[@id="novel_ex"]');
-        if ($exNodes->length !== 0 && !empty($exNodes->item(0)->textContent)) {
-            $summary = trim($exNodes->item(0)->textContent);
-            $description[] = mb_strimwidth($summary, 0, 101, '…'); // 100 + '…'(1)
+        // あらすじがあれば先頭150文字を取得する
+        $exNodeList = $xpath->query('//td[@class="ex"]');
+        if ($exNodeList->length !== 0) {
+            $summary = trim($exNodeList->item(0)->textContent);
+            // 長過ぎたら150文字に切って「……」をつける
+            if (mb_strlen($summary) >= 148) {
+                $description[] = mb_substr($summary, 0, 150) . '……';
+            } else {
+                $description[] = $summary;
+            }
         }
 
-        $metadata->description = implode(' / ', $description);
+        // 作者名とあらすじをくっつける
+        $metadata->description = implode("\n", $description);
 
         return $metadata;
     }
