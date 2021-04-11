@@ -76,6 +76,11 @@
         ],
         "test": [
             "phpunit"
+        ],
+        "annotate": [
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:model -N",
+            "@php artisan ide-helper:meta"
         ]
     },
     "config": {
