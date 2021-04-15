@@ -6,12 +6,14 @@ use App\CheckinWebhook;
 use App\DeactivatedUser;
 use App\Ejaculation;
 use App\Exceptions\CsvImportException;
+use App\Mail\PasswordChanged;
 use App\Services\CheckinCsvExporter;
 use App\Services\CheckinCsvImporter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
@@ -234,9 +236,30 @@ class SettingController extends Controller
         return view('setting.deactivated');
     }
 
-    // ( ◠‿◠ )☛ここに気づいたか・・・消えてもらう ▂▅▇█▓▒░(’ω’)░▒▓█▇▅▂うわあああああああ
-//    public function password()
-//    {
-//        abort(501);
-//    }
+    public function password()
+    {
+        return view('setting.password');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $user = Auth::user();
+        $validated = $request->validate([
+            'current_password' => 'required|string',
+            'password' => 'required|string|min:8|confirmed|different:current_password',
+        ]);
+
+        if (!Hash::check($validated['current_password'], $user->getAuthPassword())) {
+            throw ValidationException::withMessages([
+                'current_password' => 'パスワードが正しくありません。'
+            ]);
+        }
+
+        $user->password = Hash::make($validated['password']);
+        $user->saveOrFail();
+
+        Mail::to($user->email)->send(new PasswordChanged($user));
+
+        return redirect()->route('setting.password')->with('status', 'パスワードを変更しました。');
+    }
 }
