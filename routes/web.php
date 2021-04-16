@@ -49,7 +49,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/setting/export/csv', 'SettingController@exportToCsv')->name('setting.export.csv');
     Route::get('/setting/deactivate', 'SettingController@deactivate')->name('setting.deactivate');
     Route::post('/setting/deactivate', 'SettingController@destroyUser')->name('setting.deactivate.destroy');
-//    Route::get('/setting/password', 'SettingController@password')->name('setting.password');
+    Route::get('/setting/password', 'SettingController@password')->name('setting.password');
+    Route::post('/setting/password', 'SettingController@updatePassword')->name('setting.password.update');
 });
 
 Route::get('/info', 'InfoController@index')->name('info');
