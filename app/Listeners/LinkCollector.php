@@ -31,6 +31,10 @@ class LinkCollector
      */
     public function handle(LinkDiscovered $event)
     {
+        if (env('METADATA_NO_CACHE', false)) {
+            return;
+        }
+
         try {
             $this->metadataResolveService->execute($event->url);
         } catch (DeniedHostException $e) {
