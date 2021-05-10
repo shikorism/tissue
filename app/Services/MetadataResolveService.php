@@ -31,11 +31,18 @@ class MetadataResolveService
      */
     private $circuitBreakCount;
 
-    public function __construct(MetadataResolver $resolver, Formatter $formatter, int $circuitBreakCount)
+    /**
+     * ContentProviderポリシー情報に基づく連続アクセス制限を無視する。
+     * @var bool
+     */
+    private $ignoreAccessInterval;
+
+    public function __construct(MetadataResolver $resolver, Formatter $formatter, int $circuitBreakCount, bool $ignoreAccessInterval = false)
     {
         $this->resolver = $resolver;
         $this->formatter = $formatter;
         $this->circuitBreakCount = $circuitBreakCount;
+        $this->ignoreAccessInterval = $ignoreAccessInterval;
     }
 
     /**
@@ -68,7 +75,7 @@ class MetadataResolveService
                     return $metadata;
                 }
 
-                $this->checkProviderPolicy($url, $lastAccess);
+                $this->checkProviderPolicy($url, $this->ignoreAccessInterval ? null : $lastAccess);
 
                 return $this->resolve($url, $metadata);
             });
