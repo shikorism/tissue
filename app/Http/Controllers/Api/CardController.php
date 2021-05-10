@@ -27,7 +27,7 @@ class CardController
             $response = $response->setCache(['public' => true, 'max_age' => 86400]);
         }
 
-        if (env('METADATA_NO_CACHE', false)) {
+        if (config('metadata.no_cache', false)) {
             // MetadataResolverServiceで保存させずに上手くやるのが難しかったので適当にやってる、ゆるして
             DB::transaction(function () use ($metadata) {
                 $metadata->tags()->detach();

@@ -31,7 +31,7 @@ class LinkCollector
      */
     public function handle(LinkDiscovered $event)
     {
-        if (env('METADATA_NO_CACHE', false)) {
+        if (config('metadata.no_cache', false)) {
             return;
         }
 

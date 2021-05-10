@@ -48,9 +48,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->when(MetadataResolveService::class)
             ->needs('$circuitBreakCount')
-            ->give((int) env('METADATA_RESOLVER_CIRCUIT_BREAK_COUNT', 5));
+            ->give((int) config('metadata.circuit_break_count', 5));
         $this->app->when(MetadataResolveService::class)
             ->needs('$ignoreAccessInterval')
-            ->give((bool) env('METADATA_RESOLVER_IGNORE_ACCESS_INTERVAL', false));
+            ->give((bool) config('metadata.ignore_access_interval', false));
     }
 }
