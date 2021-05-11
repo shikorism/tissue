@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\MetadataResolver\MetadataResolver;
+use App\Services\MetadataResolveService;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Facades\Blade;
@@ -45,5 +46,11 @@ class AppServiceProvider extends ServiceProvider
                 ]
             ]);
         });
+        $this->app->when(MetadataResolveService::class)
+            ->needs('$circuitBreakCount')
+            ->give((int) config('metadata.circuit_break_count', 5));
+        $this->app->when(MetadataResolveService::class)
+            ->needs('$ignoreAccessInterval')
+            ->give((bool) config('metadata.ignore_access_interval', false));
     }
 }
