@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/setting/deactivate', 'SettingController@destroyUser')->name('setting.deactivate.destroy');
     Route::get('/setting/password', 'SettingController@password')->name('setting.password');
     Route::post('/setting/password', 'SettingController@updatePassword')->name('setting.password.update');
+    Route::get('/setting/filter/tags', 'Setting\FilterController@tags')->name('setting.filter.tags');
 });
 
 Route::get('/info', 'InfoController@index')->name('info');
