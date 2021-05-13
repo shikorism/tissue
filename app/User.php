@@ -76,4 +76,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(CheckinWebhook::class);
     }
+
+    public function tagFilters()
+    {
+        return $this->hasMany(TagFilter::class);
+    }
 }
