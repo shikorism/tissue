@@ -41,11 +41,18 @@ class TagFilterController extends Controller
 
         if (Auth::user()->tagFilters()->count() >= TagFilter::PER_USER_LIMIT) {
             return redirect()->route('setting.filter.tags')
-                ->with('status', TagFilter::PER_USER_LIMIT . '件以上のWebhookを作成することはできません。');
+                ->with('status', TagFilter::PER_USER_LIMIT . '件以上、タグミュートを設定することはできません。');
         }
 
         Auth::user()->tagFilters()->create($validated);
 
         return redirect()->route('setting.filter.tags')->with('status', '作成しました。');
+    }
+
+    public function destroy(TagFilter $tagFilter)
+    {
+        $tagFilter->delete();
+
+        return redirect()->route('setting.filter.tags')->with('status', '削除しました。');
     }
 }

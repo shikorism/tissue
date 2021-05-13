@@ -53,11 +53,46 @@
     </div>
     @if (!$tagFilters->isEmpty())
         <h4 class="mt-5">現在の設定</h4>
-        @foreach ($tagFilters as $tagFilter)
-            <p>{{ $tagFilter->tag_name }}, {{ $tagFilter->normalized_tag_name }}</p>
-        @endforeach
+        <div class="list-group mt-3">
+            @foreach ($tagFilters as $tagFilter)
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="flex-grow-1 mr-2">
+                        <div><span class="oi oi-tag text-secondary"></span> {{ $tagFilter->tag_name }}</div>
+                        <small class="text-muted">
+                            @switch ($tagFilter->mode)
+                                @case (\App\TagFilter::MODE_MASK)
+                                    内容を非表示
+                                    @break
+                                @case (\App\TagFilter::MODE_REMOVE)
+                                    タイムライン・検索結果から除外
+                                    @break
+                            @endswitch
+                        </small>
+                    </div>
+                    <div class="ml-2">
+                        <button class="btn btn-outline-danger" type="button" data-target="#deleteTagFilterModal" data-id="{{ $tagFilter->id }}">削除</button>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     @endif
+
+    @component('components.modal', ['id' => 'deleteTagFilterModal'])
+        @slot('title')
+            削除確認
+        @endslot
+        ミュート設定を削除してもよろしいですか？
+        @slot('footer')
+            <form action="{{ route('setting.filter.tags.destroy', ['tag_filter' => '@']) }}" method="post">
+                {{ csrf_field() }}
+                {{ method_field('DELETE') }}
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+                <button type="submit" class="btn btn-danger">削除</button>
+            </form>
+        @endslot
+    @endcomponent
 @endsection
 
 @push('script')
+    <script src="{{ mix('js/setting/filter/tags.js') }}"></script>
 @endpush
