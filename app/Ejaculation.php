@@ -95,6 +95,22 @@ class Ejaculation extends Model
         }
     }
 
+    public function scopeWithMutedStatus(Builder $query)
+    {
+        if (Auth::check()) {
+            return $query->withCount([
+                'tags as is_muted' => function ($query) {
+                    $query->join('tag_filters', function ($join) {
+                        $join->on('tags.normalized_name', '=', 'tag_filters.normalized_tag_name')
+                            ->where('tag_filters.user_id', Auth::id());
+                    });
+                },
+            ]);
+        } else {
+            return $query->addSelect(DB::raw('0 AS is_muted'));
+        }
+    }
+
     /**
      * このチェックインと同じ情報を流用してチェックインするためのURLを生成
      * @return string
@@ -145,13 +161,17 @@ class Ejaculation extends Model
         }
 
         if ($this->memoizedIsMuted === null) {
-            $count = $this->tags()
-                ->join('tag_filters', function ($join) {
-                    $join->on('tags.normalized_name', '=', 'tag_filters.normalized_tag_name')
-                        ->where('tag_filters.user_id', Auth::id());
-                })
-                ->count();
-            $this->memoizedIsMuted = $count !== 0;
+            if (array_key_exists('is_muted', $this->attributes)) {
+                $this->memoizedIsMuted = $this->is_muted !== 0;
+            } else {
+                $count = $this->tags()
+                    ->join('tag_filters', function ($join) {
+                        $join->on('tags.normalized_name', '=', 'tag_filters.normalized_tag_name')
+                            ->where('tag_filters.user_id', Auth::id());
+                    })
+                    ->count();
+                $this->memoizedIsMuted = $count !== 0;
+            }
         }
 
         return $this->memoizedIsMuted;

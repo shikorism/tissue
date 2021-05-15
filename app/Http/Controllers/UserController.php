@@ -48,6 +48,7 @@ SQL
         $ejaculations = $query->orderBy('ejaculated_date', 'desc')
             ->with('tags')
             ->withLikes()
+            ->withMutedStatus()
             ->paginate(20);
 
         // よく使っているタグ
@@ -176,6 +177,7 @@ SQL
         $ejaculations = $query->orderBy('ejaculated_date', 'desc')
             ->with('tags')
             ->withLikes()
+            ->withMutedStatus()
             ->paginate(20);
 
         return view('user.profile')->with(compact('user', 'ejaculations'));
