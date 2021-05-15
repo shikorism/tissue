@@ -27,6 +27,9 @@ class Ejaculation extends Model
         'ejaculated_date'
     ];
 
+    /** @var bool|null */
+    private $memoizedIsMuted;
+
     public function user()
     {
         return $this->belongsTo('App\User');
@@ -133,5 +136,24 @@ class Ejaculation extends Model
 
             return $this->ejaculated_date->diff($previous->ejaculated_date)->format('%a日 %h時間 %i分');
         }
+    }
+
+    public function isMuted(): bool
+    {
+        if (!Auth::check()) {
+            return false;
+        }
+
+        if ($this->memoizedIsMuted === null) {
+            $count = $this->tags()
+                ->join('tag_filters', function ($join) {
+                    $join->on('tags.normalized_name', '=', 'tag_filters.normalized_tag_name')
+                        ->where('tag_filters.user_id', Auth::id());
+                })
+                ->count();
+            $this->memoizedIsMuted = $count !== 0;
+        }
+
+        return $this->memoizedIsMuted;
     }
 }

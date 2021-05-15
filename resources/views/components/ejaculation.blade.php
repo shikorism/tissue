@@ -24,21 +24,28 @@
         @endforeach
     </p>
 @endif
-<!-- okazu link -->
-@if (!empty($ejaculation->link))
-    <div class="row mx-0">
-        @component('components.link-card', ['link' => $ejaculation->link, 'is_too_sensitive' => $ejaculation->is_too_sensitive])
-        @endcomponent
-        <p class="d-flex align-items-baseline mb-2 col-12 px-0">
-            <span class="oi oi-link-intact mr-1"></span><a class="overflow-hidden" href="{{ $ejaculation->link }}" target="_blank" rel="noopener">{{ $ejaculation->link }}</a>
+<div class="{{ $ejaculation->isMuted() ? 'tis-checkin-muted' : '' }}">
+    <!-- okazu link -->
+    @if (!empty($ejaculation->link))
+        <div class="row mx-0">
+            @component('components.link-card', ['link' => $ejaculation->link, 'is_too_sensitive' => $ejaculation->is_too_sensitive])
+            @endcomponent
+            <p class="d-flex align-items-baseline mb-2 col-12 px-0">
+                <span class="oi oi-link-intact mr-1"></span><a class="overflow-hidden" href="{{ $ejaculation->link }}" target="_blank" rel="noopener">{{ $ejaculation->link }}</a>
+            </p>
+        </div>
+    @endif
+    <!-- note -->
+    @if (!empty($ejaculation->note))
+        <p class="mb-2 text-break">
+            {!! Formatter::linkify(nl2br(e($ejaculation->note))) !!}
         </p>
+    @endif
+</div>
+@if ($ejaculation->isMuted())
+    <div class="tis-checkin-muted-warning">
+        このチェックインはミュートされています<br>クリックまたはタップで表示
     </div>
-@endif
-<!-- note -->
-@if (!empty($ejaculation->note))
-    <p class="mb-2 text-break">
-        {!! Formatter::linkify(nl2br(e($ejaculation->note))) !!}
-    </p>
 @endif
 <!-- likes -->
 @if ($ejaculation->likes_count > 0)
