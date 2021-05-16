@@ -179,7 +179,7 @@ class Ejaculation extends Model
             if (array_key_exists('is_muted', $this->attributes)) {
                 $this->memoizedIsMuted = $this->is_muted !== 0;
             } else {
-                $count = $this->tags()
+                $count = $this->relatedTags()
                     ->join('tag_filters', function ($join) {
                         $join->on('tags.normalized_name', '=', 'tag_filters.normalized_tag_name')
                             ->where('tag_filters.user_id', Auth::id());
