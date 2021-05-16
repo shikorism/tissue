@@ -113,14 +113,33 @@ class Ejaculation extends Model
     public function scopeWithMutedStatus(Builder $query)
     {
         if (Auth::check()) {
-            return $query->withCount([
-                'relatedTags as is_muted' => function ($query) {
-                    $query->join('tag_filters', function ($join) {
-                        $join->on('tags.normalized_name', '=', 'tag_filters.normalized_tag_name')
-                            ->where('tag_filters.user_id', Auth::id());
-                    });
-                },
-            ]);
+            $tagFilterMatches = DB::table('ejaculations')
+                ->select('ejaculations.id as ejaculation_id', DB::raw('count(*) as is_removed_by_tag_filter'))
+                ->join('related_ejaculation_tags', 'ejaculations.id', '=', 'related_ejaculation_tags.ejaculation_id')
+                ->join('tags', 'related_ejaculation_tags.tag_id', '=', 'tags.id')
+                ->join('tag_filters', function ($join) {
+                    $join->on('tags.normalized_name', '=', 'tag_filters.normalized_tag_name')
+                        ->where([
+                            'tag_filters.user_id' => Auth::id(),
+                            'tag_filters.mode' => TagFilter::MODE_REMOVE
+                        ]);
+                })
+                ->groupBy('ejaculations.id');
+
+            return $query
+                ->withCount([
+                    'relatedTags as is_muted' => function ($query) {
+                        $query->join('tag_filters', function ($join) {
+                            $join->on('tags.normalized_name', '=', 'tag_filters.normalized_tag_name')
+                                ->where('tag_filters.user_id', Auth::id());
+                        });
+                    },
+                ])
+                ->leftJoinSub($tagFilterMatches, 'tag_filter_matches', 'ejaculations.id', '=', 'tag_filter_matches.ejaculation_id')
+                ->where(function ($query) {
+                    $query->where('ejaculations.user_id', Auth::id())
+                        ->orWhereRaw('COALESCE(tag_filter_matches.is_removed_by_tag_filter, 0) < 1');
+                });
         } else {
             return $query->addSelect(DB::raw('0 AS is_muted'));
         }
