@@ -57,6 +57,11 @@ class Ejaculation extends Model
         })->all());
     }
 
+    public function relatedTags()
+    {
+        return $this->belongsToMany(Tag::class, 'related_ejaculation_tags');
+    }
+
     public function likes()
     {
         return $this->hasMany(Like::class);
