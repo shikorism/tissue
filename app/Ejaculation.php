@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Utilities\Formatter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +30,15 @@ class Ejaculation extends Model
 
     /** @var bool|null */
     private $memoizedIsMuted;
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::creating(function (Ejaculation $ejaculation) {
+            $ejaculation->normalized_link = app(Formatter::class)->normalizeUrl($ejaculation->link);
+        });
+    }
 
     public function user()
     {
