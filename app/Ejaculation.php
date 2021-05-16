@@ -114,7 +114,7 @@ class Ejaculation extends Model
     {
         if (Auth::check()) {
             return $query->withCount([
-                'tags as is_muted' => function ($query) {
+                'relatedTags as is_muted' => function ($query) {
                     $query->join('tag_filters', function ($join) {
                         $join->on('tags.normalized_name', '=', 'tag_filters.normalized_tag_name')
                             ->where('tag_filters.user_id', Auth::id());
