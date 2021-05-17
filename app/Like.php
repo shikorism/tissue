@@ -18,6 +18,6 @@ class Like extends Model
 
     public function ejaculation()
     {
-        return $this->belongsTo(Ejaculation::class)->withLikes()->withMutedStatus();
+        return $this->belongsTo(Ejaculation::class)->withLikes();
     }
 }
