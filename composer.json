@@ -82,6 +82,9 @@
             "@php artisan ide-helper:generate",
             "@php artisan ide-helper:model -N",
             "@php artisan ide-helper:meta"
+        ],
+        "generate-parser": [
+            "docker-compose run --rm antlr antlr4 -Dlanguage=PHP -package App\\\\Parser -o app/Parser -Xexact-output-dir resources/grammar/SearchQuery.g4"
         ]
     },
     "config": {

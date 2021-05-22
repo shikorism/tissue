@@ -1,4 +1,4 @@
-grammar Search;
+grammar SearchQuery;
 
 query
     : expression (WS expression)* EOF
