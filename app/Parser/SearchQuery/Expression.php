@@ -16,10 +16,17 @@ class Expression
         'tag',
         'user',
         'is', // -> boolean target
+        'has', // -> existence target
     ];
 
     public const BOOLEAN_TARGETS = [
         'sensitive',
+    ];
+
+    public const EXISTENCE_TARGETS = [
+        'link',
+        'url',
+        'note',
     ];
 
     public const DATE_TARGETS = [
@@ -33,6 +40,7 @@ class Expression
         'since' => 'validateDateTarget',
         'until' => 'validateDateTarget',
         'is' => 'validateBooleanTarget',
+        'has' => 'validateExistenceTarget',
     ];
 
     /** @var bool */
@@ -84,6 +92,13 @@ class Expression
     {
         if (array_search($this->keyword, self::BOOLEAN_TARGETS, true) === false) {
             throw new InvalidExpressionException("Boolean target `{$this->keyword}` is invalid.");
+        }
+    }
+
+    private function validateExistenceTarget()
+    {
+        if (array_search($this->keyword, self::EXISTENCE_TARGETS, true) === false) {
+            throw new InvalidExpressionException("Existence target `{$this->keyword}` is invalid.");
         }
     }
 }

@@ -50,12 +50,16 @@ class SearchController extends Controller
                         $results = $results->whereDate('ejaculated_date', $op, $expression->keyword);
                         break;
                     }
-                    case 'since':
-                        $results = $results->whereDate('ejaculated_date', '>=', $expression->keyword);
+                    case 'since': {
+                        $op = $expression->negative ? '<' : '>=';
+                        $results = $results->whereDate('ejaculated_date', $op, $expression->keyword);
                         break;
-                    case 'until':
-                        $results = $results->whereDate('ejaculated_date', '<=', $expression->keyword);
+                    }
+                    case 'until': {
+                        $op = $expression->negative ? '>' : '<=';
+                        $results = $results->whereDate('ejaculated_date', $op, $expression->keyword);
                         break;
+                    }
                     case 'link':
                     case 'url': {
                         $op = $expression->negative ? 'not like' : 'like';
@@ -84,6 +88,21 @@ class SearchController extends Controller
                             case 'sensitive':
                                 $results = $results->where('is_too_sensitive', !$expression->negative);
                                 break;
+                        }
+                        break;
+                    case 'has':
+                        switch ($expression->keyword) {
+                            case 'link':
+                            case 'url': {
+                                $op = $expression->negative ? '=' : '<>';
+                                $results = $results->where('link', $op, '');
+                                break;
+                            }
+                            case 'note': {
+                                $op = $expression->negative ? '=' : '<>';
+                                $results = $results->where('note', $op, '');
+                                break;
+                            }
                         }
                         break;
                 }
