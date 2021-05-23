@@ -71,18 +71,20 @@ class SearchController extends Controller
                         $results = $results->where('note', $op, "%{$expression->keyword}%");
                         break;
                     }
-                    case 'tag':
+                    case 'tag': {
+                        $op = $expression->negative ? '<' : '>=';
                         $results = $results->whereHas('tags', function ($query) use ($expression) {
-                            $op = $expression->negative ? 'not like' : 'like';
-                            $query->where('normalized_name', $op, "%{$expression->keyword}%");
-                        });
+                            $query->where('normalized_name', 'like', "%{$expression->keyword}%");
+                        }, $op);
                         break;
-                    case 'user':
+                    }
+                    case 'user': {
+                        $op = $expression->negative ? '<' : '>=';
                         $results = $results->whereHas('user', function ($query) use ($expression) {
-                            $op = $expression->negative ? '<>' : '=';
-                            $query->where('name', $op, $expression->keyword);
-                        });
+                            $query->where('name', '=', $expression->keyword);
+                        }, $op);
                         break;
+                    }
                     case 'is':
                         switch ($expression->keyword) {
                             case 'sensitive':
