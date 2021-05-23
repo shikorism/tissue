@@ -4,7 +4,7 @@
  * Generated from resources/grammar/SearchQuery.g4 by ANTLR 4.9.2
  */
 
-namespace App\Parser {
+namespace App\Parser\SearchQuery {
     use Antlr\Antlr4\Runtime\Atn\ATN;
     use Antlr\Antlr4\Runtime\Atn\ATNDeserializer;
     use Antlr\Antlr4\Runtime\Atn\LexerATNSimulator;

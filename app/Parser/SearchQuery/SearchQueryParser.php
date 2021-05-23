@@ -4,7 +4,7 @@
  * Generated from resources/grammar/SearchQuery.g4 by ANTLR 4.9.2
  */
 
-namespace App\Parser {
+namespace App\Parser\SearchQuery {
     use Antlr\Antlr4\Runtime\Atn\ATN;
     use Antlr\Antlr4\Runtime\Atn\ATNDeserializer;
     use Antlr\Antlr4\Runtime\Atn\ParserATNSimulator;
@@ -381,14 +381,14 @@ namespace App\Parser {
     }
 }
 
-namespace App\Parser\Context {
+namespace App\Parser\SearchQuery\Context {
     use Antlr\Antlr4\Runtime\ParserRuleContext;
     use Antlr\Antlr4\Runtime\Token;
     use Antlr\Antlr4\Runtime\Tree\ParseTreeListener;
     use Antlr\Antlr4\Runtime\Tree\ParseTreeVisitor;
     use Antlr\Antlr4\Runtime\Tree\TerminalNode;
-    use App\Parser\SearchQueryListener;
-    use App\Parser\SearchQueryParser;
+    use App\Parser\SearchQuery\SearchQueryListener;
+    use App\Parser\SearchQuery\SearchQueryParser;
 
     class QueryContext extends ParserRuleContext
     {

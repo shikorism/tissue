@@ -4,13 +4,13 @@ use Antlr\Antlr4\Runtime\CommonTokenStream;
 use Antlr\Antlr4\Runtime\Error\Listeners\DiagnosticErrorListener;
 use Antlr\Antlr4\Runtime\InputStream;
 use Antlr\Antlr4\Runtime\Tree\ParseTreeWalker;
-use App\Parser\Context;
-use App\Parser\SearchQueryLexer;
-use App\Parser\SearchQueryParser;
+use App\Parser\SearchQuery\Context;
+use App\Parser\SearchQuery\SearchQueryLexer;
+use App\Parser\SearchQuery\SearchQueryParser;
 
 require 'vendor/autoload.php';
 
-class Listener extends \App\Parser\SearchQueryBaseListener
+class Listener extends \App\Parser\SearchQuery\SearchQueryBaseListener
 {
     const DEFAULT_TARGET = 'tag';
 
