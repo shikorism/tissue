@@ -319,6 +319,27 @@ class CheckinCsvImporterTest extends TestCase
         $this->assertFalse($ejaculations[8]->is_too_sensitive);
     }
 
+    public function testDiscardElapsedTimeUTF8()
+    {
+        $user = factory(User::class)->create();
+
+        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/discard-elapsed-time.utf8.csv');
+        $importer->execute();
+
+        $ejaculations = $user->ejaculations()->orderBy('ejaculated_date')->get();
+
+        $this->assertSame(9, $ejaculations->count());
+        $this->assertTrue($ejaculations[0]->discard_elapsed_time);
+        $this->assertTrue($ejaculations[1]->discard_elapsed_time);
+        $this->assertTrue($ejaculations[2]->discard_elapsed_time);
+        $this->assertTrue($ejaculations[3]->discard_elapsed_time);
+        $this->assertFalse($ejaculations[4]->discard_elapsed_time);
+        $this->assertFalse($ejaculations[5]->discard_elapsed_time);
+        $this->assertFalse($ejaculations[6]->discard_elapsed_time);
+        $this->assertFalse($ejaculations[7]->discard_elapsed_time);
+        $this->assertFalse($ejaculations[8]->discard_elapsed_time);
+    }
+
     public function testDontThrowUniqueKeyViolation()
     {
         $user = factory(User::class)->create();

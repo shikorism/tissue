@@ -78,6 +78,7 @@ class CheckinCsvImporter
                     'オカズリンク' => 'nullable|url|max:2000',
                     '非公開' => ['nullable', new FuzzyBoolean()],
                     'センシティブ' => ['nullable', new FuzzyBoolean()],
+                    '経過時間リセット' => ['nullable', new FuzzyBoolean()],
                 ]);
 
                 if ($validator->fails()) {
@@ -96,6 +97,9 @@ class CheckinCsvImporter
                 }
                 if (isset($record['センシティブ'])) {
                     $ejaculation->is_too_sensitive = FuzzyBoolean::isTruthy($record['センシティブ']);
+                }
+                if (isset($record['経過時間リセット'])) {
+                    $ejaculation->discard_elapsed_time = FuzzyBoolean::isTruthy($record['経過時間リセット']);
                 }
 
                 try {

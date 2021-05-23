@@ -19,18 +19,30 @@ use Illuminate\Support\Facades\Log;
 
 class MetadataResolveService
 {
-    /** @var int メタデータの解決を中断するエラー回数。この回数以上エラーしていたら処理は行わない。 */
-    const CIRCUIT_BREAK_COUNT = 5;
-
     /** @var MetadataResolver */
     private $resolver;
     /** @var Formatter */
     private $formatter;
 
-    public function __construct(MetadataResolver $resolver, Formatter $formatter)
+    /**
+     * メタデータの解決を中断するエラー回数。この回数以上エラーしていたら処理は行わない。
+     * 0以下の場合は一切中断しない。(テスト用)
+     * @var int
+     */
+    private $circuitBreakCount;
+
+    /**
+     * ContentProviderポリシー情報に基づく連続アクセス制限を無視する。
+     * @var bool
+     */
+    private $ignoreAccessInterval;
+
+    public function __construct(MetadataResolver $resolver, Formatter $formatter, int $circuitBreakCount, bool $ignoreAccessInterval = false)
     {
         $this->resolver = $resolver;
         $this->formatter = $formatter;
+        $this->circuitBreakCount = $circuitBreakCount;
+        $this->ignoreAccessInterval = $ignoreAccessInterval;
     }
 
     /**
@@ -63,7 +75,7 @@ class MetadataResolveService
                     return $metadata;
                 }
 
-                $this->checkProviderPolicy($url, $lastAccess);
+                $this->checkProviderPolicy($url, $this->ignoreAccessInterval ? null : $lastAccess);
 
                 return $this->resolve($url, $metadata);
             });
@@ -261,7 +273,7 @@ class MetadataResolveService
                 $metadata = new Metadata(['url' => $url]);
             }
 
-            if ($metadata->error_count >= self::CIRCUIT_BREAK_COUNT) {
+            if ($this->circuitBreakCount > 0 && $metadata->error_count >= $this->circuitBreakCount) {
                 throw new ResolverCircuitBreakException($metadata->error_count, $url);
             }
 

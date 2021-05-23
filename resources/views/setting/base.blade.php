@@ -16,10 +16,10 @@
                        href="{{ route('setting.import') }}"><span class="oi oi-data-transfer-upload mr-1"></span> データのインポート</a>
                     <a class="list-group-item list-group-item-action {{ Route::currentRouteName() === 'setting.export' ? 'active' : '' }}"
                        href="{{ route('setting.export') }}"><span class="oi oi-data-transfer-download mr-1"></span> データのエクスポート</a>
+                    <a class="list-group-item list-group-item-action {{ Route::currentRouteName() === 'setting.password' ? 'active' : '' }}"
+                       href="{{ route('setting.password') }}"><span class="oi oi-key mr-1"></span> パスワードの変更</a>
                     <a class="list-group-item list-group-item-action {{ Route::currentRouteName() === 'setting.deactivate' ? 'active' : '' }}"
                        href="{{ route('setting.deactivate') }}"><span class="oi oi-trash mr-1"></span> アカウントの削除</a>
-                    {{--<a class="list-group-item list-group-item-action {{ Route::currentRouteName() === 'setting.password' ? 'active' : '' }}"
-                       href="{{ route('setting.password') }}"><span class="oi oi-key mr-1"></span> パスワード</a>--}}
                 </div>
             </div>
             <div class="tab-content col-lg-8">
