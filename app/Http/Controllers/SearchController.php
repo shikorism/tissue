@@ -10,6 +10,7 @@ use App\Utilities\Formatter;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
@@ -110,7 +111,7 @@ class SearchController extends Controller
                 }
             }
         } catch (InvalidExpressionException $e) {
-            $results = collect();
+            $results = DB::query()->selectRaw('1')->whereRaw('false');
         }
 
         $results = $results->paginate(20)->appends($inputs);

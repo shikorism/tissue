@@ -50,6 +50,10 @@ class SearchQueryParser extends SearchQueryBaseListener
 
         ParseTreeWalker::default()->walk($this, $tree);
 
+        if (!empty($this->errors)) {
+            throw new InvalidExpressionException('Parse error');
+        }
+
         foreach ($this->expressions as $expr) {
             $expr->validate();
         }
