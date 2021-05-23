@@ -9,21 +9,13 @@ use Antlr\Antlr4\Runtime\Tree\ErrorNode;
 use Antlr\Antlr4\Runtime\Tree\ParseTreeWalker;
 use App\Parser\SearchQuery\Context;
 use App\Parser\SearchQuery\Expression;
+use App\Parser\SearchQuery\InvalidExpressionException;
 use App\Parser\SearchQuery\SearchQueryBaseListener;
 use App\Parser\SearchQuery\SearchQueryLexer;
 
 class SearchQueryParser extends SearchQueryBaseListener
 {
-    const DEFAULT_TARGET = 'tag';
-
-    const VALID_TARGETS = [
-        'date',
-        'link',
-        'url',
-        'note',
-        'tag',
-        'is', // -> boolean target
-    ];
+    private const DEFAULT_TARGET = 'tag';
 
     /** @var Expression[] */
     private $expressions = [];
@@ -44,6 +36,9 @@ class SearchQueryParser extends SearchQueryBaseListener
         return $this->errors;
     }
 
+    /**
+     * @throws InvalidExpressionException
+     */
     public function parse(string $query): self
     {
         $lexer = new SearchQueryLexer(InputStream::fromString($query));
@@ -54,6 +49,10 @@ class SearchQueryParser extends SearchQueryBaseListener
         $tree = $parser->query();
 
         ParseTreeWalker::default()->walk($this, $tree);
+
+        foreach ($this->expressions as $expr) {
+            $expr->validate();
+        }
 
         return $this;
     }
@@ -67,7 +66,7 @@ class SearchQueryParser extends SearchQueryBaseListener
     {
         if ($this->workingExpression->target === null) {
             $this->workingExpression->target = self::DEFAULT_TARGET;
-        } elseif (!array_search($this->workingExpression->target, self::VALID_TARGETS, true)) {
+        } elseif (array_search($this->workingExpression->target, Expression::VALID_TARGETS, true) === false) {
             // invalid target
             $prefix = $this->workingExpression->target . ':';
             $this->workingExpression->target = self::DEFAULT_TARGET;
