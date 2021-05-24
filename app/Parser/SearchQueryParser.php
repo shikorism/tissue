@@ -15,8 +15,6 @@ use App\Parser\SearchQuery\SearchQueryLexer;
 
 class SearchQueryParser extends SearchQueryBaseListener
 {
-    private const DEFAULT_TARGET = 'tag';
-
     /** @var Expression[] */
     private $expressions = [];
 
@@ -68,12 +66,11 @@ class SearchQueryParser extends SearchQueryBaseListener
 
     public function exitExpression(Context\ExpressionContext $context): void
     {
-        if ($this->workingExpression->target === null) {
-            $this->workingExpression->target = self::DEFAULT_TARGET;
-        } elseif (array_search($this->workingExpression->target, Expression::VALID_TARGETS, true) === false) {
-            // invalid target
+        if ($this->workingExpression->target !== null &&
+            array_search($this->workingExpression->target, Expression::VALID_TARGETS, true) === false) {
+            // treat invalid target
             $prefix = $this->workingExpression->target . ':';
-            $this->workingExpression->target = self::DEFAULT_TARGET;
+            $this->workingExpression->target = null;
             $this->workingExpression->keyword = $prefix . $this->workingExpression->keyword;
         }
 

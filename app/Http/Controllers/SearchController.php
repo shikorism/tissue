@@ -45,69 +45,80 @@ class SearchController extends Controller
         try {
             $parser = (new SearchQueryParser())->parse($q);
             foreach ($parser->getExpressions() as $expression) {
-                switch ($expression->target) {
-                    case 'date': {
-                        $op = $expression->negative ? '<>' : '=';
-                        $results = $results->whereDate('ejaculated_date', $op, $expression->keyword);
-                        break;
-                    }
-                    case 'since': {
-                        $op = $expression->negative ? '<' : '>=';
-                        $results = $results->whereDate('ejaculated_date', $op, $expression->keyword);
-                        break;
-                    }
-                    case 'until': {
-                        $op = $expression->negative ? '>' : '<=';
-                        $results = $results->whereDate('ejaculated_date', $op, $expression->keyword);
-                        break;
-                    }
-                    case 'link':
-                    case 'url': {
-                        $op = $expression->negative ? 'not like' : 'like';
-                        $results = $results->where('link', $op, "%{$expression->keyword}%");
-                        break;
-                    }
-                    case 'note': {
-                        $op = $expression->negative ? 'not like' : 'like';
-                        $results = $results->where('note', $op, "%{$expression->keyword}%");
-                        break;
-                    }
-                    case 'tag': {
+                // fuzzy?
+                if ($expression->target === null) {
+                    if (preg_match('/^https?:/', $expression->keyword)) {
+                        $results = $results->where(function ($query) use ($expression) {
+                            if ($expression->negative) {
+                                $query->where('link', 'not like', "%{$expression->keyword}%")
+                                    ->where('note', 'not like', "%{$expression->keyword}%");
+                            } else {
+                                $query->where('link', 'like', "%{$expression->keyword}%")
+                                    ->orWhere('note', 'like', "%{$expression->keyword}%");
+                            }
+                        });
+                    } else {
                         $op = $expression->negative ? '<' : '>=';
                         $results = $results->whereHas('tags', function ($query) use ($expression) {
                             $query->where('normalized_name', 'like', "%{$expression->keyword}%");
                         }, $op);
-                        break;
                     }
-                    case 'user': {
-                        $op = $expression->negative ? '<' : '>=';
-                        $results = $results->whereHas('user', function ($query) use ($expression) {
-                            $query->where('name', '=', $expression->keyword);
-                        }, $op);
-                        break;
+                } else {
+                    switch ($expression->target) {
+                        case 'date':
+                            $op = $expression->negative ? '<>' : '=';
+                            $results = $results->whereDate('ejaculated_date', $op, $expression->keyword);
+                            break;
+                        case 'since':
+                            $op = $expression->negative ? '<' : '>=';
+                            $results = $results->whereDate('ejaculated_date', $op, $expression->keyword);
+                            break;
+                        case 'until':
+                            $op = $expression->negative ? '>' : '<=';
+                            $results = $results->whereDate('ejaculated_date', $op, $expression->keyword);
+                            break;
+                        case 'link':
+                        case 'url':
+                            $op = $expression->negative ? 'not like' : 'like';
+                            $results = $results->where('link', $op, "%{$expression->keyword}%");
+                            break;
+                        case 'note':
+                            $op = $expression->negative ? 'not like' : 'like';
+                            $results = $results->where('note', $op, "%{$expression->keyword}%");
+                            break;
+                        case 'tag':
+                            $op = $expression->negative ? '<' : '>=';
+                            $results = $results->whereHas('tags', function ($query) use ($expression) {
+                                $query->where('normalized_name', 'like', "%{$expression->keyword}%");
+                            }, $op);
+                            break;
+                        case 'user':
+                            $op = $expression->negative ? '<' : '>=';
+                            $results = $results->whereHas('user', function ($query) use ($expression) {
+                                $query->where('name', '=', $expression->keyword);
+                            }, $op);
+                            break;
+                        case 'is':
+                            switch ($expression->keyword) {
+                                case 'sensitive':
+                                    $results = $results->where('is_too_sensitive', !$expression->negative);
+                                    break;
+                            }
+                            break;
+                        case 'has':
+                            switch ($expression->keyword) {
+                                case 'link':
+                                case 'url':
+                                    $op = $expression->negative ? '=' : '<>';
+                                    $results = $results->where('link', $op, '');
+                                    break;
+                                case 'note':
+                                    $op = $expression->negative ? '=' : '<>';
+                                    $results = $results->where('note', $op, '');
+                                    break;
+                            }
+                            break;
                     }
-                    case 'is':
-                        switch ($expression->keyword) {
-                            case 'sensitive':
-                                $results = $results->where('is_too_sensitive', !$expression->negative);
-                                break;
-                        }
-                        break;
-                    case 'has':
-                        switch ($expression->keyword) {
-                            case 'link':
-                            case 'url': {
-                                $op = $expression->negative ? '=' : '<>';
-                                $results = $results->where('link', $op, '');
-                                break;
-                            }
-                            case 'note': {
-                                $op = $expression->negative ? '=' : '<>';
-                                $results = $results->where('note', $op, '');
-                                break;
-                            }
-                        }
-                        break;
                 }
             }
         } catch (InvalidExpressionException $e) {

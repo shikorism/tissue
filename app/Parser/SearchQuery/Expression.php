@@ -57,7 +57,7 @@ class Expression
      */
     public function validate()
     {
-        if (array_search($this->target, self::VALID_TARGETS, true) === false) {
+        if ($this->target !== null && array_search($this->target, self::VALID_TARGETS, true) === false) {
             throw new InvalidExpressionException("Target `{$this->target}` is invalid.");
         }
 
