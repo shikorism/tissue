@@ -50,17 +50,17 @@ class SearchController extends Controller
                     if (preg_match('/^https?:/', $expression->keyword)) {
                         $results = $results->where(function ($query) use ($expression) {
                             if ($expression->negative) {
-                                $query->where('link', 'not like', "%{$expression->keyword}%")
-                                    ->where('note', 'not like', "%{$expression->keyword}%");
+                                $query->where('link', 'not like', $this->makePartialMatch($expression->keyword))
+                                    ->where('note', 'not like', $this->makePartialMatch($expression->keyword));
                             } else {
-                                $query->where('link', 'like', "%{$expression->keyword}%")
-                                    ->orWhere('note', 'like', "%{$expression->keyword}%");
+                                $query->where('link', 'like', $this->makePartialMatch($expression->keyword))
+                                    ->orWhere('note', 'like', $this->makePartialMatch($expression->keyword));
                             }
                         });
                     } else {
                         $op = $expression->negative ? '<' : '>=';
                         $results = $results->whereHas('tags', function ($query) use ($expression) {
-                            $query->where('normalized_name', 'like', "%{$expression->keyword}%");
+                            $query->where('normalized_name', 'like', $this->makePartialMatch($expression->keyword));
                         }, $op);
                     }
                 } else {
@@ -80,16 +80,16 @@ class SearchController extends Controller
                         case 'link':
                         case 'url':
                             $op = $expression->negative ? 'not like' : 'like';
-                            $results = $results->where('link', $op, "%{$expression->keyword}%");
+                            $results = $results->where('link', $op, $this->makePartialMatch($expression->keyword));
                             break;
                         case 'note':
                             $op = $expression->negative ? 'not like' : 'like';
-                            $results = $results->where('note', $op, "%{$expression->keyword}%");
+                            $results = $results->where('note', $op, $this->makePartialMatch($expression->keyword));
                             break;
                         case 'tag':
                             $op = $expression->negative ? '<' : '>=';
                             $results = $results->whereHas('tags', function ($query) use ($expression) {
-                                $query->where('normalized_name', 'like', "%{$expression->keyword}%");
+                                $query->where('normalized_name', 'like', $this->makePartialMatch($expression->keyword));
                             }, $op);
                             break;
                         case 'user':
@@ -148,5 +148,15 @@ class SearchController extends Controller
     private function normalizeQuery(string $query): string
     {
         return $this->formatter->normalizeTagName($query);
+    }
+
+    private function makePartialMatch(string $value): string
+    {
+        return '%' . $this->sanitizeLike($value) . '%';
+    }
+
+    private function sanitizeLike(string $value): string
+    {
+        return preg_replace('/[%_]/', '\\\\$0', $value);
     }
 }
