@@ -89,7 +89,7 @@ class SearchController extends Controller
                         case 'tag':
                             $op = $expression->negative ? '<' : '>=';
                             $results = $results->whereHas('tags', function ($query) use ($expression) {
-                                $query->where('normalized_name', 'like', $this->formatter->makePartialMatch($expression->keyword));
+                                $query->where('normalized_name', '=', $expression->keyword);
                             }, $op);
                             break;
                         case 'user':
