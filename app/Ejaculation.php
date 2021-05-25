@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Utilities\Formatter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,18 @@ class Ejaculation extends Model
         'ejaculated_date'
     ];
 
+    /** @var bool|null */
+    private $memoizedIsMuted;
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::creating(function (Ejaculation $ejaculation) {
+            $ejaculation->normalized_link = app(Formatter::class)->normalizeUrl($ejaculation->link);
+        });
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User');
@@ -42,6 +55,11 @@ class Ejaculation extends Model
         return implode(' ', $this->tags->map(function ($v) {
             return $v->name;
         })->all());
+    }
+
+    public function relatedTags()
+    {
+        return $this->belongsToMany(Tag::class, 'related_ejaculation_tags');
     }
 
     public function likes()
@@ -92,6 +110,51 @@ class Ejaculation extends Model
         }
     }
 
+    public function scopeWithMutedStatus(Builder $query)
+    {
+        if (Auth::check()) {
+            return $query
+                ->withCount([
+                    'relatedTags as is_muted' => function ($query) {
+                        $query->join('tag_filters', function ($join) {
+                            $join->on('tags.normalized_name', '=', 'tag_filters.normalized_tag_name')
+                                ->where('tag_filters.user_id', Auth::id());
+                        });
+                    },
+                ])
+                ->removeMuted();
+        } else {
+            return $query->addSelect(DB::raw('0 AS is_muted'));
+        }
+    }
+
+    public function scopeRemoveMuted(Builder $query)
+    {
+        if (Auth::check()) {
+            $tagFilterMatches = DB::table('ejaculations')
+                ->select('ejaculations.id as ejaculation_id', DB::raw('count(*) as is_removed_by_tag_filter'))
+                ->join('related_ejaculation_tags', 'ejaculations.id', '=', 'related_ejaculation_tags.ejaculation_id')
+                ->join('tags', 'related_ejaculation_tags.tag_id', '=', 'tags.id')
+                ->join('tag_filters', function ($join) {
+                    $join->on('tags.normalized_name', '=', 'tag_filters.normalized_tag_name')
+                        ->where([
+                            'tag_filters.user_id' => Auth::id(),
+                            'tag_filters.mode' => TagFilter::MODE_REMOVE
+                        ]);
+                })
+                ->groupBy('ejaculations.id');
+
+            return $query
+                ->leftJoinSub($tagFilterMatches, 'tag_filter_matches', 'ejaculations.id', '=', 'tag_filter_matches.ejaculation_id')
+                ->where(function ($query) {
+                    $query->where('ejaculations.user_id', Auth::id())
+                        ->orWhereRaw('COALESCE(tag_filter_matches.is_removed_by_tag_filter, 0) < 1');
+                });
+        } else {
+            return $query;
+        }
+    }
+
     /**
      * このチェックインと同じ情報を流用してチェックインするためのURLを生成
      * @return string
@@ -133,5 +196,28 @@ class Ejaculation extends Model
 
             return $this->ejaculated_date->diff($previous->ejaculated_date)->format('%a日 %h時間 %i分');
         }
+    }
+
+    public function isMuted(): bool
+    {
+        if (!Auth::check()) {
+            return false;
+        }
+
+        if ($this->memoizedIsMuted === null) {
+            if (array_key_exists('is_muted', $this->attributes)) {
+                $this->memoizedIsMuted = $this->is_muted !== 0;
+            } else {
+                $count = $this->relatedTags()
+                    ->join('tag_filters', function ($join) {
+                        $join->on('tags.normalized_name', '=', 'tag_filters.normalized_tag_name')
+                            ->where('tag_filters.user_id', Auth::id());
+                    })
+                    ->count();
+                $this->memoizedIsMuted = $count !== 0;
+            }
+        }
+
+        return $this->memoizedIsMuted;
     }
 }

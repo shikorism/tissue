@@ -19,6 +19,7 @@ class TimelineController extends Controller
             ->select('ejaculations.*')
             ->with('user', 'tags')
             ->withLikes()
+            ->withMutedStatus()
             ->visibleToTimeline()
             ->paginate(21);
 

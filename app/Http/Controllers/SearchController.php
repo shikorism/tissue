@@ -39,6 +39,7 @@ class SearchController extends Controller
             ->orderBy('ejaculated_date', 'desc')
             ->with(['user', 'tags'])
             ->withLikes()
+            ->withMutedStatus()
             ->paginate(20)
             ->appends($inputs);
 

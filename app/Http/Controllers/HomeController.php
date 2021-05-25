@@ -71,6 +71,7 @@ SQL
                 ->select('ejaculations.*')
                 ->with('user', 'tags')
                 ->withLikes()
+                ->withMutedStatus()
                 ->visibleToTimeline()
                 ->take(21)
                 ->get();
