@@ -92,7 +92,9 @@ class SearchQueryParser extends SearchQueryBaseListener
     {
         if ($context->QUOTED_TEXT() !== null) {
             $quotedText = $context->QUOTED_TEXT()->getText();
-            $this->workingExpression->keyword = substr($quotedText, 1, strlen($quotedText) - 2);
+            $text = substr($quotedText, 1, strlen($quotedText) - 2);
+            $text = str_replace('""', '"', $text);
+            $this->workingExpression->keyword = $text;
         } else {
             $this->workingExpression->keyword = $context->getText();
         }
