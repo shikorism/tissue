@@ -64,6 +64,10 @@ class Expression
         if (isset(self::TARGET_VALIDATORS[$this->target])) {
             $this->{self::TARGET_VALIDATORS[$this->target]}();
         }
+
+        if (empty($this->keyword)) {
+            throw new InvalidExpressionException("Keyword can't be empty.");
+        }
     }
 
     private function validateDateTarget()
