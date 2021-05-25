@@ -28,7 +28,7 @@
     "@typescript-eslint/parser": "^3.9.1",
     "bootstrap": "^4.5.0",
     "cal-heatmap": "^3.3.10",
-    "chart.js": "^2.7.1",
+    "chart.js": "^3.3.0",
     "classnames": "^2.2.6",
     "clipboard": "^2.0.6",
     "cross-env": "^5.2.0",
