@@ -19,3 +19,18 @@
 .like-users-tall {
   height: 36px;
 }
+
+.tis-checkin-muted {
+    display: none;
+}
+
+.tis-checkin-muted-warning {
+    padding: 10px;
+    margin: 0.75rem 0;
+    font-size: small;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    background-color: rgba(240, 240, 240, 0.8);
+    border-radius: 5px;
+}

@@ -55,6 +55,14 @@ export function linkCard(el: Element) {
     return el;
 }
 
+export function checkinMutedWarning(el: Element) {
+    el.addEventListener('click', () => {
+        el.parentNode?.querySelector('.tis-checkin-muted')?.classList?.remove('tis-checkin-muted');
+        el.remove();
+    });
+    return el;
+}
+
 export function pageSelector(el: Element) {
     if (el instanceof HTMLSelectElement) {
         el.addEventListener('change', function () {

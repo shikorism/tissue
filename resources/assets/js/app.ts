@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 import { fetchPostJson, fetchDeleteJson, ResponseError } from './fetch';
-import { linkCard, pageSelector, deleteCheckinModal } from './tissue';
+import { linkCard, pageSelector, deleteCheckinModal, checkinMutedWarning } from './tissue';
 
 require('./bootstrap');
 
@@ -24,6 +24,7 @@ $(() => {
     document.querySelectorAll('.tis-page-selector').forEach(pageSelector);
 
     document.querySelectorAll('.link-card').forEach(linkCard);
+    document.querySelectorAll('.tis-checkin-muted-warning').forEach(checkinMutedWarning);
 
     const elDeleteCheckinModal = document.getElementById('deleteCheckinModal');
     if (elDeleteCheckinModal) {

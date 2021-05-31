@@ -51,6 +51,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/setting/deactivate', 'SettingController@destroyUser')->name('setting.deactivate.destroy');
     Route::get('/setting/password', 'SettingController@password')->name('setting.password');
     Route::post('/setting/password', 'SettingController@updatePassword')->name('setting.password.update');
+    Route::get('/setting/filter/tags', 'Setting\TagFilterController@index')->name('setting.filter.tags');
+    Route::post('/setting/filter/tags', 'Setting\TagFilterController@store')->name('setting.filter.tags.store');
+    Route::delete('/setting/filter/tags/{tag_filter}', 'Setting\TagFilterController@destroy')->name('setting.filter.tags.destroy');
 });
 
 Route::get('/info', 'InfoController@index')->name('info');

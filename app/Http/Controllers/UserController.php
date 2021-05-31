@@ -48,6 +48,7 @@ SQL
         $ejaculations = $query->orderBy('ejaculated_date', 'desc')
             ->with('tags')
             ->withLikes()
+            ->withMutedStatus()
             ->paginate(20);
 
         // よく使っているタグ
@@ -176,6 +177,7 @@ SQL
         $ejaculations = $query->orderBy('ejaculated_date', 'desc')
             ->with('tags')
             ->withLikes()
+            ->withMutedStatus()
             ->paginate(20);
 
         return view('user.profile')->with(compact('user', 'ejaculations'));
@@ -190,10 +192,17 @@ SQL
 
         $likes = $user->likes()
             ->orderBy('created_at', 'desc')
-            ->with('ejaculation.user', 'ejaculation.tags')
+            ->with([
+                'ejaculation' => function ($query) {
+                    $query->with('user', 'tags')->withMutedStatus();
+                }
+            ])
             ->whereHas('ejaculation', function ($query) {
-                $query->where('user_id', Auth::id())
-                    ->orWhere('is_private', false);
+                $query->where(function ($query) {
+                    $query->where('user_id', Auth::id())
+                        ->orWhere('is_private', false);
+                })
+                    ->removeMuted();
             })
             ->paginate(20);
 
