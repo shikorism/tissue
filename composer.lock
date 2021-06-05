@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "35285da01cffe9146cd57817794b8cc1",
+    "content-hash": "4edc326028b58da6aabc2a155c9d02a7",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -65,6 +65,57 @@
                 "recaptcha"
             ],
             "time": "2020-09-10T02:31:52+00:00"
+        },
+        {
+            "name": "antlr/antlr4-php-runtime",
+            "version": "0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/antlr/antlr-php-runtime.git",
+                "reference": "0cb16628b575b50bd087a81d11bd961ac3b8e9e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/antlr/antlr-php-runtime/zipball/0cb16628b575b50bd087a81d11bd961ac3b8e9e9",
+                "reference": "0cb16628b575b50bd087a81d11bd961ac3b8e9e9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "phpstan/extension-installer": "^1.0",
+                "phpstan/phpstan": "^0.11.4",
+                "slevomat/coding-standard": "^5.0.4",
+                "squizlabs/php_codesniffer": "^3.4.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Antlr\\Antlr4\\Runtime\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "PHP 7 runtime for ANTLR 4",
+            "keywords": [
+                "antlr4",
+                "php",
+                "runtime"
+            ],
+            "support": {
+                "issues": "https://github.com/antlr/antlr-php-runtime/issues",
+                "source": "https://github.com/antlr/antlr-php-runtime/tree/0.5.0"
+            },
+            "time": "2021-03-11T21:58:33+00:00"
         },
         {
             "name": "clue/stream-filter",
