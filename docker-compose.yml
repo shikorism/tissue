@@ -25,6 +25,15 @@ services:
     networks:
       - backend
     restart: always
+  antlr:
+    build:
+      context: .
+      dockerfile: antlr.Dockerfile
+    volumes:
+      - .:/app
+    working_dir: /app
+    profiles:
+      - utility
 
 networks:
   backend:

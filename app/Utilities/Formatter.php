@@ -140,4 +140,14 @@ class Formatter
 
         return $name;
     }
+
+    public function makePartialMatch(string $value): string
+    {
+        return '%' . $this->sanitizeLike($value) . '%';
+    }
+
+    public function sanitizeLike(string $value): string
+    {
+        return preg_replace('/[%_]/', '\\\\$0', $value);
+    }
 }
