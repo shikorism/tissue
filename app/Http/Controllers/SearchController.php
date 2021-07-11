@@ -28,7 +28,6 @@ class SearchController extends Controller
             'q' => 'required'
         ]);
 
-        $q = $this->normalizeQuery($inputs['q']);
         $results = Ejaculation::query()
             ->whereHas('user', function ($query) {
                 $query->where('is_protected', false);
@@ -43,7 +42,7 @@ class SearchController extends Controller
             ->withMutedStatus();
 
         try {
-            $parser = (new SearchQueryParser())->parse($q);
+            $parser = (new SearchQueryParser())->parse($inputs['q']);
             foreach ($parser->getExpressions() as $expression) {
                 // fuzzy?
                 if ($expression->target === null) {
@@ -60,7 +59,7 @@ class SearchController extends Controller
                     } else {
                         $op = $expression->negative ? '<' : '>=';
                         $results = $results->whereHas('tags', function ($query) use ($expression) {
-                            $query->where('normalized_name', 'like', $this->formatter->makePartialMatch($expression->keyword));
+                            $query->where('normalized_name', 'like', $this->formatter->makePartialMatch($this->normalizeQuery($expression->keyword)));
                         }, $op);
                     }
                 } else {
@@ -89,7 +88,7 @@ class SearchController extends Controller
                         case 'tag':
                             $op = $expression->negative ? '<' : '>=';
                             $results = $results->whereHas('tags', function ($query) use ($expression) {
-                                $query->where('normalized_name', '=', $expression->keyword);
+                                $query->where('normalized_name', '=', $this->normalizeQuery($expression->keyword));
                             }, $op);
                             break;
                         case 'user':
