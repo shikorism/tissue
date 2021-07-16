@@ -1,4 +1,4 @@
-FROM node:10-buster as node
+FROM node:16-buster as node
 
 FROM php:7.3-apache
 
