@@ -29,6 +29,7 @@ mix.ts('resources/assets/js/app.ts', 'public/js')
     })
     .extract(['jquery', 'bootstrap'])
     .extract(['chart.js', 'chartjs-color', 'color-name', 'moment', 'cal-heatmap', 'd3'], 'public/js/vendor/chart')
+    .react()
     .version()
     .sourceMaps(false)
     .webpackConfig((_webpack) => ({
