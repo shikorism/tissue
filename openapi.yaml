@@ -69,6 +69,7 @@ paths:
                     - Example_2
                   is_private: false
                   is_too_sensitive: false
+                  discard_elapsed_time: false
       responses:
         200:
           description: チェックイン成功
@@ -85,8 +86,7 @@ paths:
                     description: HTTPステータスコードと同じ値
                     example: 200
                   checkin:
-                    type: object
-                    description: チェックインデータ
+                    $ref: '#/components/schemas/Checkin'
         422:
           description: バリデーションエラー
           content:
@@ -112,7 +112,54 @@ paths:
                         description: エラーの概要
                         example: Validation failed
                       violations:
-                        type: string[]
+                        type: array
+                        items:
+                          type: string
                         description: エラーが発生した各フィールドについてのメッセージ
                         example:
                           - Checkin already exists in this time
+components:
+  schemas:
+    Checkin:
+      type: object
+      description: チェックインデータ
+      properties:
+        id:
+          type: integer
+          format: int64
+        checked_in_at:
+          type: string
+          format: date-time
+          description: チェックイン日時
+          example: 2020-07-21T19:19:19+0900
+        tags:
+          type: array
+          items:
+            type: string
+            maxLength: 255
+          description: タグ
+          example:
+            - Example
+            - Example_2
+        link:
+          type: string
+          maxLength: 2000
+          description: オカズリンク (http, https)
+          example: http://example.com
+        note:
+          type: string
+          maxLength: 500
+          description: ノート
+          example: すごく出た
+        is_private:
+          type: boolean
+          default: false
+          description: 非公開チェックインとして設定
+        is_too_sensitive:
+          type: boolean
+          default: false
+          description: チェックイン対象のオカズをより過激なオカズとして設定
+        discard_elapsed_time:
+          type: boolean
+          default: false
+          description: 前回チェックインからの経過時間を記録しない
