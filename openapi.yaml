@@ -4,7 +4,7 @@ info:
   description: |
     夜のライフログサービス Tissue の公開API仕様です。
     全てのAPIのURLは `https://shikorism.net/api` から始まります。
-  version: 0.1.1
+  version: 0.1.2
 servers:
   - url: 'https://shikorism.net/api'
 paths:
