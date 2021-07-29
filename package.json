@@ -10,7 +10,7 @@
     "production": "mix --production",
     "eslint": "eslint --ext .js,.ts,.tsx resources/",
     "stylelint": "stylelint resources/assets/sass/**/*",
-    "doc": "redoc-cli bundle -o public/apidoc.html openapi.yaml",
+    "doc": "redoc-cli bundle --options.pathInMiddlePanel -o public/apidoc.html openapi.yaml",
     "heroku-postbuild": "npm run production && npm run doc"
   },
   "devDependencies": {
