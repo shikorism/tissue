@@ -87,6 +87,30 @@ paths:
                     example: 200
                   checkin:
                     $ref: '#/components/schemas/Checkin'
+        404:
+          description: 無効なWebhook ID
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - error
+                properties:
+                  status:
+                    type: number
+                    description: HTTPステータスコードと同じ値
+                    example: 404
+                  error:
+                    type: object
+                    description: エラーデータ
+                    required:
+                      - message
+                    properties:
+                      message:
+                        type: string
+                        description: エラーの概要
+                        example: The webhook is unavailable
         422:
           description: バリデーションエラー
           content:
