@@ -34,4 +34,5 @@ Route::middleware(['throttle:60,1', 'auth:api'])
     ->group(function () {
         Route::get('me', 'MeController@show')->name('me.show');
         Route::apiResource('users', 'UserController')->only(['show']);
+        Route::apiResource('checkins', 'CheckinController');
     });
