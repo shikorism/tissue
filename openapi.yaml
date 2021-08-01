@@ -283,8 +283,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Checkin'
+        403:
+          description: アクセス権の無いチェックイン (ユーザーがチェックイン履歴を公開していない、またはチェックインが非公開設定)
         404:
-          description: 存在しない、またはアクセス権の無いチェックイン
+          description: 存在しない場合
     patch:
       summary: チェックインの編集
       description: |
@@ -314,6 +316,8 @@ paths:
                 $ref: '#/components/schemas/Checkin'
         403:
           description: 自分以外のチェックインに対して操作を試みた場合
+        404:
+          description: 存在しない場合
         422:
           description: バリデーションエラー
           content:
