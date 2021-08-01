@@ -359,7 +359,7 @@ paths:
             type: integer
             format: int64
       responses:
-        200:
+        204:
           description: 成功、または既に存在しない場合
         403:
           description: 自分以外のチェックインに対して操作を試みた場合

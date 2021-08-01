@@ -6,6 +6,7 @@ use App\Ejaculation;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EjaculationResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class CheckinController extends Controller
@@ -40,8 +41,19 @@ class CheckinController extends Controller
         throw new \LogicException('not implemented yet');
     }
 
-    public function destroy(Ejaculation $checkin)
+    public function destroy($checkin)
     {
-        throw new \LogicException('not implemented yet');
+        $ejaculation = Ejaculation::find($checkin);
+
+        if ($ejaculation !== null) {
+            $this->authorize('edit', $ejaculation);
+
+            DB::transaction(function () use ($ejaculation) {
+                $ejaculation->tags()->detach();
+                $ejaculation->delete();
+            });
+        }
+
+        return response()->noContent();
     }
 }
