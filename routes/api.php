@@ -11,10 +11,7 @@
 |
 */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
+// Private API
 Route::middleware('stateful')->group(function () {
     Route::get('/checkin/card', 'Api\\CardController@show')
         ->middleware('throttle:30|180,1,card');
@@ -25,5 +22,16 @@ Route::middleware('stateful')->group(function () {
     });
 });
 
+// Public Webhooks
 Route::post('/webhooks/checkin/{webhook}', 'Api\\WebhookController@checkin')
     ->middleware('throttle:15,15,checkin_webhook');
+
+// Public API
+Route::middleware(['throttle:60,1', 'auth:api'])
+    ->namespace('Api\\V1')
+    ->prefix('v1')
+    ->name('api.v1.')
+    ->group(function () {
+        Route::get('me', 'MeController@show')->name('me.show');
+        Route::apiResource('users', 'UserController')->only(['show']);
+    });

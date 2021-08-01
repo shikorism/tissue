@@ -6,6 +6,7 @@ use App\MetadataResolver\MetadataResolver;
 use App\Services\MetadataResolveService;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
+use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Parsedown;
@@ -24,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
         });
 
         stream_filter_register('convert.mbstring.*', 'Stream_Filter_Mbstring');
+
+        Resource::withoutWrapping();
     }
 
     /**
