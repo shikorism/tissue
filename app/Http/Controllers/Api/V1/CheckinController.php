@@ -17,11 +17,6 @@ use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 class CheckinController extends Controller
 {
-    public function index()
-    {
-        throw new \LogicException('not implemented yet');
-    }
-
     public function store(CheckinStoreRequest $request)
     {
         $inputs = $request->validated();
