@@ -13,6 +13,8 @@ class User extends Authenticatable
 {
     use Notifiable, HasApiTokens;
 
+    const PERSONAL_TOKEN_PER_USER_LIMIT = 20;
+
     /**
      * The attributes that are mass assignable.
      *

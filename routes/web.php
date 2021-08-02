@@ -42,6 +42,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/setting/webhooks', 'SettingController@webhooks')->name('setting.webhooks');
     Route::post('/setting/webhooks', 'SettingController@storeWebhooks')->name('setting.webhooks.store');
     Route::delete('/setting/webhooks/{webhook}', 'SettingController@destroyWebhooks')->name('setting.webhooks.destroy');
+    Route::get('/setting/tokens', 'SettingController@tokens')->name('setting.tokens');
+    Route::post('/setting/tokens', 'SettingController@storeTokens')->name('setting.tokens.store');
+    Route::delete('/setting/tokens/{id}', 'SettingController@revokeTokens')->name('setting.tokens.revoke');
     Route::get('/setting/import', 'SettingController@import')->name('setting.import');
     Route::post('/setting/import', 'SettingController@storeImport')->name('setting.import');
     Route::delete('/setting/import', 'SettingController@destroyImport')->name('setting.import.destroy');

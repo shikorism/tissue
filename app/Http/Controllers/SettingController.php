@@ -9,6 +9,7 @@ use App\Exceptions\CsvImportException;
 use App\Mail\PasswordChanged;
 use App\Services\CheckinCsvExporter;
 use App\Services\CheckinCsvImporter;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
+use Laravel\Passport\TokenRepository;
 
 class SettingController extends Controller
 {
@@ -116,6 +118,73 @@ class SettingController extends Controller
         $webhook->delete();
 
         return redirect()->route('setting.webhooks')->with('status', '削除しました。');
+    }
+
+    public function tokens()
+    {
+        $tokens = Auth::user()->tokens()
+            ->select('oauth_access_tokens.*')
+            ->join('oauth_clients', 'oauth_access_tokens.client_id', '=', 'oauth_clients.id')
+            ->where('oauth_access_tokens.revoked', false)
+            ->where('oauth_clients.personal_access_client', true)
+            ->get();
+        $tokensLimit = User::PERSONAL_TOKEN_PER_USER_LIMIT;
+
+        // FIXME: どうしてこんなことをする羽目に...
+        $dateHacker = function () {
+            $this->dates[] = 'created_at';
+        };
+        foreach ($tokens as $token) {
+            $dateHacker->call($token);
+        }
+
+        return view('setting.tokens')->with(compact('tokens', 'tokensLimit'));
+    }
+
+    public function storeTokens(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('oauth_access_tokens', 'name')->where(function ($query) {
+                    return $query->where('user_id', Auth::id())->where('revoked', false);
+                })
+            ]
+        ], [], [
+            'name' => '名前'
+        ]);
+
+        $existsCount = Auth::user()->tokens()
+            ->select('oauth_access_tokens.*')
+            ->join('oauth_clients', 'oauth_access_tokens.client_id', '=', 'oauth_clients.id')
+            ->where('oauth_access_tokens.revoked', false)
+            ->where('oauth_clients.personal_access_client', true)
+            ->count();
+
+        if ($existsCount >= User::PERSONAL_TOKEN_PER_USER_LIMIT) {
+            return redirect()->route('setting.tokens')
+                ->with('status', User::PERSONAL_TOKEN_PER_USER_LIMIT . '件以上のトークンを作成することはできません。');
+        }
+
+        $token = Auth::user()->createToken($validated['name']);
+
+        return redirect()->route('setting.tokens')->with([
+            'status' => '作成しました。トークンを忘れずに控えてください。この画面を離れたら二度と確認できません！',
+            'tokenId' => $token->token->id,
+            'accessToken' => $token->accessToken
+        ]);
+    }
+
+    public function revokeTokens(TokenRepository $tokenRepository, $id)
+    {
+        $token = $tokenRepository->findForUser($id, Auth::id());
+        if ($token !== null) {
+            $token->revoke();
+        }
+
+        return redirect()->route('setting.tokens')->with('status', '削除しました。');
     }
 
     public function import()
