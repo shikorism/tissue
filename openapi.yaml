@@ -196,6 +196,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Checkin'
+        403:
+          description: ユーザーがチェックイン履歴を公開していない場合
         404:
           description: 存在しないユーザー
   /v1/checkins:
