@@ -46,6 +46,9 @@
                                 @case ('webhook')
                                     <span class="badge badge-info" data-toggle="tooltip" title="Webhookからチェックイン"><span class="oi oi-flash"></span></span>
                                     @break
+                                @case ('api')
+                                    <span class="badge badge-info" data-toggle="tooltip" title="APIからチェックイン"><span class="oi oi-flash"></span></span>
+                                    @break
                             @endswitch
                             @foreach ($ejaculation->tags as $tag)
                                 <a class="badge badge-secondary" href="{{ route('search', ['q' => $tag->name]) }}"><span class="oi oi-tag"></span> {{ $tag->name }}</a>
