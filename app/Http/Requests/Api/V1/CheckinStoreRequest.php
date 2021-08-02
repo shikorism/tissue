@@ -8,7 +8,12 @@ class CheckinStoreRequest extends FormRequest
 {
     public function authorize()
     {
-        return true;
+        $ejaculation = $this->route('checkin');
+        if ($ejaculation === null) {
+            return true;
+        } else {
+            return $this->user()->can('edit', $ejaculation);
+        }
     }
 
     public function rules()

@@ -84,9 +84,60 @@ class CheckinController extends Controller
         return new EjaculationResource($checkin);
     }
 
-    public function update(Request $request, Ejaculation $checkin)
+    public function update(CheckinStoreRequest $request, Ejaculation $checkin)
     {
-        throw new \LogicException('not implemented yet');
+        $inputs = $request->validated();
+
+        if (isset($inputs['checked_in_at'])) {
+            $ejaculatedDate = new Carbon($inputs['checked_in_at']);
+            $ejaculatedDate = $ejaculatedDate->setTimezone(date_default_timezone_get())->startOfMinute();
+            if (Ejaculation::where(['user_id' => Auth::id(), 'ejaculated_date' => $ejaculatedDate])->where('id', '<>', $checkin->id)->count()) {
+                throw new UnprocessableEntityHttpException('Checkin already exists in this time');
+            }
+
+            $checkin->ejaculated_date = $ejaculatedDate;
+        }
+        if (isset($inputs['note'])) {
+            $checkin->note = $inputs['note'];
+        }
+        if (isset($inputs['link'])) {
+            $checkin->link = $inputs['link'];
+        }
+        if (isset($inputs['is_private'])) {
+            $checkin->is_private = (bool)($inputs['is_private'] ?? false);
+        }
+        if (isset($inputs['is_too_sensitive'])) {
+            $checkin->is_too_sensitive = (bool)($inputs['is_too_sensitive'] ?? false);
+        }
+        if (isset($inputs['discard_elapsed_time'])) {
+            $checkin->discard_elapsed_time = (bool)($inputs['discard_elapsed_time'] ?? false);
+        }
+
+        DB::transaction(function () use ($inputs, $checkin) {
+            $checkin->save();
+
+            if (isset($inputs['tags'])) {
+                $tagIds = [];
+                if (!empty($inputs['tags'])) {
+                    foreach ($inputs['tags'] as $tag) {
+                        $tag = trim($tag);
+                        if ($tag === '') {
+                            continue;
+                        }
+
+                        $tag = Tag::firstOrCreate(['name' => $tag]);
+                        $tagIds[] = $tag->id;
+                    }
+                }
+                $checkin->tags()->sync($tagIds);
+            }
+        });
+
+        if (!empty($checkin->link)) {
+            event(new LinkDiscovered($checkin->link));
+        }
+
+        return new EjaculationResource($checkin);
     }
 
     public function destroy($checkin)
