@@ -39,7 +39,7 @@
                 <div class="list-group-item d-flex justify-content-between align-items-center list-group-item-success">
                     <div class="flex-grow-1 mr-2">
                         <div>{{ $token->name }}</div>
-                        <input class="access-token form-control form-control-sm mt-1" type="text" value="{{ session('accessToken') }}" readonly>
+                        <input class="access-token form-control form-control-sm bg-white mt-1" type="text" value="{{ session('accessToken') }}" readonly>
                         <small>{{ $token->created_at->format('Y/m/d H:i:s') }} 作成、{{ $token->expires_at->format('Y/m/d H:i:s') }} まで有効</small>
                     </div>
                     <div class="ml-2">
