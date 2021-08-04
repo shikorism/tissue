@@ -35,6 +35,7 @@ class AuthServiceProvider extends ServiceProvider
         Passport::hashClientSecrets();
         Passport::personalAccessClientId(config('passport.personal_access_client.id'));
         Passport::personalAccessClientSecret(config('passport.personal_access_client.secret'));
+        Passport::personalAccessTokensExpireIn(now()->addYears(10));
 
         Gate::define('admin', function ($user) {
             return $user->is_admin;
