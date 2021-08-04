@@ -14,7 +14,7 @@
             <p>通常利用と同様、1分以内のチェックインは禁止されていることを考慮してください。また、テスト目的であれば非公開チェックインをご活用ください。</p>
             <hr>
             @if (count($tokens) >= $tokensLimit)
-                <p class="my-0 text-danger">1ユーザーが作成可能なトークンは、{{ $tokensLimit }}件までに制限されています。</p>
+                <p class="my-0 text-danger">1ユーザーが作成可能なトークンは、{{ $tokensLimit }}件までに制限されています。これ以上のトークンが必要な場合はお問い合わせください。</p>
             @else
                 <form action="{{ route('setting.tokens.store') }}" method="post">
                     {{ csrf_field() }}
