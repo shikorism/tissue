@@ -31,7 +31,7 @@ class CheckinCsvExporter
         }
 
         $header = ['日時', 'ノート', 'オカズリンク', '非公開', 'センシティブ', '経過時間リセット'];
-        for ($i = 1; $i <= 32; $i++) {
+        for ($i = 1; $i <= 40; $i++) {
             $header[] = "タグ{$i}";
         }
         $csv->insertOne($header);

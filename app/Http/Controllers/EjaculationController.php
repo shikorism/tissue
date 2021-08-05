@@ -69,7 +69,7 @@ class EjaculationController extends Controller
                 $tags = array_filter(explode(' ', $inputs['tags']), function ($v) {
                     return $v !== '';
                 });
-                if (count($tags) > 32) {
+                if (count($tags) > 40) {
                     $validator->errors()->add('tags', 'タグは最大32個までです。');
                 }
             }
@@ -194,7 +194,7 @@ class EjaculationController extends Controller
                 $tags = array_filter(explode(' ', $inputs['tags']), function ($v) {
                     return $v !== '';
                 });
-                if (count($tags) > 32) {
+                if (count($tags) > 40) {
                     $validator->errors()->add('tags', 'タグは最大32個までです。');
                 }
             }
