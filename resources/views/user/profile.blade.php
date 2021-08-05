@@ -62,7 +62,7 @@
                 </div>
                 <!-- tags -->
                 @if ($ejaculation->is_private || $ejaculation->source !== 'web' || $ejaculation->tags->isNotEmpty())
-                    <p class="mb-2">
+                    <p class="tis-checkin-tags mb-2">
                         @if ($ejaculation->is_private)
                             <span class="badge badge-warning"><span class="oi oi-lock-locked"></span> 非公開</span>
                         @endif
