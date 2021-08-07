@@ -5,13 +5,13 @@ namespace Tests\Feature\Api\Webhook;
 use App\CheckinWebhook;
 use App\Ejaculation;
 use App\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Carbon;
 use Tests\TestCase;
 
 class CheckinWebhookTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     protected function setUp(): void
     {

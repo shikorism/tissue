@@ -6,14 +6,14 @@ use App\Ejaculation;
 use App\Like;
 use App\User;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
 use Symfony\Component\DomCrawler\Crawler;
 use Tests\TestCase;
 
 class SettingTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     protected function setUp(): void
     {

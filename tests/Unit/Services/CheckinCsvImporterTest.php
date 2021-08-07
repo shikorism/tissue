@@ -7,13 +7,13 @@ use App\Ejaculation;
 use App\Exceptions\CsvImportException;
 use App\Services\CheckinCsvImporter;
 use App\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Carbon;
 use Tests\TestCase;
 
 class CheckinCsvImporterTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     protected function setUp(): void
     {
