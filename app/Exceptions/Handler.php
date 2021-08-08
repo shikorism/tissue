@@ -104,7 +104,11 @@ class Handler extends ExceptionHandler
             'status' => $exception->status,
             'error' => [
                 'message' => $exception->getMessage(),
-                'violations' => $exception->validator->errors()->all(),
+                'violations' => collect($exception->validator->errors())->flatMap(function ($values, $field) {
+                    return collect($values)->map(function ($message) use ($field) {
+                        return compact('message', 'field');
+                    });
+                }),
             ],
         ], $exception->status);
     }
