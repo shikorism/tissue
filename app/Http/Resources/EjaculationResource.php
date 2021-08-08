@@ -23,6 +23,7 @@ class EjaculationResource extends JsonResource
             'source' => $this->source,
             'is_private' => $this->is_private,
             'is_too_sensitive' => $this->is_too_sensitive,
+            'discard_elapsed_time' => $this->discard_elapsed_time,
         ];
     }
 }
