@@ -77,7 +77,7 @@ PASSPORT_PERSONAL_ACCESS_CLIENT_ID=1
 PASSPORT_PERSONAL_ACCESS_CLIENT_SECRET=xxxxxxxx
 ```
 
-9. ファイルに書き込めるように権限を設定します。
+8. ファイルに書き込めるように権限を設定します。
 
 ```
 docker-compose exec web chown -R www-data /var/www/html/storage
