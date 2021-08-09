@@ -22,7 +22,7 @@ class CheckinStoreRequest extends FormRequest
             'checked_in_at' => 'nullable|date|after_or_equal:2000-01-01 00:00:00|before_or_equal:2099-12-31 23:59:59',
             'note' => 'nullable|string|max:500',
             'link' => 'nullable|url|max:2000',
-            'tags' => 'nullable|array',
+            'tags' => 'nullable|array|max:40',
             'tags.*' => ['string', 'not_regex:/[\s\r\n]/u', 'max:255'],
             'is_private' => 'nullable|boolean',
             'is_too_sensitive' => 'nullable|boolean',
