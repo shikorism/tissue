@@ -70,7 +70,7 @@ class Ejaculation extends Model
 
     public function scopeVisibleToTimeline(Builder $query)
     {
-        return $query->whereIn('ejaculations.source', [Ejaculation::SOURCE_WEB, Ejaculation::SOURCE_WEBHOOK]);
+        return $query->whereIn('ejaculations.source', [Ejaculation::SOURCE_WEB, Ejaculation::SOURCE_WEBHOOK, Ejaculation::SOURCE_API]);
     }
 
     public function scopeWithLikes(Builder $query)
