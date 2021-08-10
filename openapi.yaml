@@ -453,6 +453,15 @@ components:
           type: boolean
           default: false
           description: 前回チェックインからの経過時間を記録しない
+        source:
+          type: string
+          description: チェックインの登録元
+          enum:
+            - web
+            - csv
+            - webhook
+            - api
+          example: api
     UpdateCheckin:
       type: object
       properties:
