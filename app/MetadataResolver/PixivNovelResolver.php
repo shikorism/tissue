@@ -39,7 +39,10 @@ class PixivNovelResolver implements Resolver
 
         if (!empty($json['body']['tags']['tags'])) {
             foreach ($json['body']['tags']['tags'] as $tag) {
-                $metadata->tags[] = preg_replace('/\s/', '_', $tag['tag']);
+                // サイトの性質上不要なキーワードは無視
+                if ($tag['tag'] !== 'R-18') {
+                    $metadata->tags[] = preg_replace('/\s/', '_', $tag['tag']);
+                }
             }
         }
 
