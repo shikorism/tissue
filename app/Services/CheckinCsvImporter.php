@@ -215,7 +215,7 @@ class CheckinCsvImporter
             }
 
             $tags[] = Tag::firstOrCreate(['name' => $tag]);
-            if (count($tags) >= 32) {
+            if (count($tags) >= 40) {
                 break;
             }
         }
