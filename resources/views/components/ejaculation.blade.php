@@ -1,6 +1,5 @@
 <!-- span -->
 <div>
-    {{-- TODO: spanとspanWithLinkが分かれている理由が特に無いので統合して良さそう --}}
     @switch ($header ?? 'user')
         @case ('user')
             <h5>
@@ -10,10 +9,6 @@
             @break
 
         @case ('span')
-            <h5>{{ $ejaculation->ejaculatedSpan() }} <small class="text-muted">{{ !empty($ejaculation->before_date) && !$ejaculation->discard_elapsed_time ? $ejaculation->before_date . ' ～ ' : '' }}{{ $ejaculation->ejaculated_date->format('Y/m/d H:i') }}</small></h5>
-            @break
-
-        @case ('spanWithLink')
             <h5>{{ $ejaculation->ejaculatedSpan() }} <a href="{{ route('checkin.show', ['id' => $ejaculation->id]) }}" class="text-muted"><small>{{ !empty($ejaculation->before_date) && !$ejaculation->discard_elapsed_time ? $ejaculation->before_date . ' ～ ' : '' }}{{ $ejaculation->ejaculated_date->format('Y/m/d H:i') }}</small></a></h5>
             @break
     @endswitch
