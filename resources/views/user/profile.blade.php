@@ -56,7 +56,7 @@
     <ul class="list-group">
         @forelse ($ejaculations as $ejaculation)
             <li class="list-group-item border-bottom-only pt-3 pb-3 text-break">
-                @component('components.ejaculation', ['ejaculation' => $ejaculation, 'span' => 'withLink'])
+                @component('components.ejaculation', ['ejaculation' => $ejaculation, 'header' => 'spanWithLink'])
                 @endcomponent
             </li>
         @empty
