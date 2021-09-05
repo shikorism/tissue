@@ -18,36 +18,6 @@ class MGStageResolver implements Resolver
         $this->client = $client;
     }
 
-    /**
-     * HTMLからタグとして利用可能な情報を抽出する
-     * @param string $html ページ HTML
-     * @return string[] タグ
-     */
-    public function extractTags(string $html): array
-    {
-        $dom = new \DOMDocument();
-        @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
-        $xpath = new \DOMXPath($dom);
-
-        $genreNode = $xpath->query('//div[@class="detail_data"]//th[text()="ジャンル："]/../td');
-        if ($genreNode->length === 0) {
-            return [];
-        }
-
-        $tagsNode = $genreNode->item(0)->getElementsByTagName('a');
-        $tags = [];
-
-        for ($i = 0; $i <= $tagsNode->length - 1; $i++) {
-            $tags[] = trim($tagsNode->item($i)->textContent);
-        }
-
-        // 重複削除
-        $tags = array_values(array_unique($tags));
-        sort($tags);
-
-        return $tags;
-    }
-
     public function resolve(string $url): Metadata
     {
         $cookieJar = CookieJar::fromArray(['adc' => '1'], 'www.mgstage.com');
@@ -60,7 +30,14 @@ class MGStageResolver implements Resolver
         $metadata->title = trim($crawler->filter('.tag')->text(''));
         $metadata->description = trim(strip_tags($crawler->filter('.txt.introduction')->text('')));
         $metadata->image = $crawler->filter('meta[property="og:image"]')->attr('content');
-        $metadata->tags = $this->extractTags($html);
+
+        // 作品に設定されているジャンルをトリム後に重複排除し、昇順ソートしてタグへ設定する
+        $genreTexts = $crawler->filterXPath('//div[@class="detail_data"]//th[text()="ジャンル："]/../td/a')->each(function ($node) {
+            return trim($node->text());
+        });
+        $genreTexts = array_values(array_unique($genreTexts));
+        sort($genreTexts);
+        $metadata->tags = $genreTexts;
 
         return $metadata;
     }
