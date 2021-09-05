@@ -35,6 +35,7 @@ class MetadataResolver implements Resolver
         '~ss\.kb10uy\.org/posts/\d+$~' => Kb10uyShortStoryServerResolver::class,
         '~www\.hentai-foundry\.com/pictures/user/.+/\d+/.+~'=> HentaiFoundryResolver::class,
         '~(www\.)?((mobile|m)\.)?twitter\.com/(#!/)?[0-9a-zA-Z_]{1,15}/status(es)?/([0-9]+)/?(\\?.+)?$~' => TwitterResolver::class,
+        '~www\.mgstage\.com/~' => MGStageResolver::class,
     ];
 
     public $mimeTypes = [
