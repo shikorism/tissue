@@ -265,6 +265,19 @@ class CheckinCsvImporterTest extends TestCase
         $this->assertEquals('り', $tags[39]->name);
     }
 
+    public function testSkipAllNullTagColumns()
+    {
+        $user = factory(User::class)->create();
+
+        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/tag-null.utf8.csv');
+        $importer->execute();
+        $ejaculation = $user->ejaculations()->first();
+        $tags = $ejaculation->tags()->get();
+
+        $this->assertSame(1, $user->ejaculations()->count());
+        $this->assertCount(0, $tags);
+    }
+
     public function testSourceIsCsv()
     {
         $user = factory(User::class)->create();
