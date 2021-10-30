@@ -191,7 +191,7 @@ SQL
         }
 
         $likes = $user->likes()
-            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
             ->with([
                 'ejaculation' => function ($query) {
                     $query->with('user', 'tags')->withMutedStatus();
