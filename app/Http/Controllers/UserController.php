@@ -191,18 +191,24 @@ SQL
         }
 
         $likes = $user->likes()
-            ->orderBy('id', 'desc')
+            ->select('likes.*')
+            ->orderBy('likes.id', 'desc')
             ->with([
                 'ejaculation' => function ($query) {
                     $query->with('user', 'tags')->withMutedStatus();
                 }
             ])
-            ->whereHas('ejaculation', function ($query) {
-                $query->where(function ($query) {
-                    $query->where('user_id', Auth::id())
-                        ->orWhere('is_private', false);
-                })
-                    ->removeMuted();
+            ->join('ejaculations', 'likes.ejaculation_id', '=', 'ejaculations.id')
+            ->leftJoinSub(Ejaculation::queryTagFilterMatches(), 'tag_filter_matches', 'ejaculations.id', '=', 'tag_filter_matches.ejaculation_id')
+            ->where(function ($query) {
+                $query
+                    ->where(function ($query) {
+                        $query->where('ejaculations.user_id', Auth::id())
+                            ->orWhere('ejaculations.is_private', false);
+                    })->where(function ($query) {
+                        $query->where('ejaculations.user_id', Auth::id())
+                            ->orWhereRaw('COALESCE(tag_filter_matches.is_removed_by_tag_filter, 0) < 1');
+                    });
             })
             ->paginate(20);
 
