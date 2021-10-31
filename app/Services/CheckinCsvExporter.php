@@ -49,7 +49,7 @@ class CheckinCsvExporter
                             self::formatBoolean($ejaculation->is_too_sensitive),
                             self::formatBoolean($ejaculation->discard_elapsed_time),
                         ];
-                        foreach ($ejaculation->tags->take(32) as $tag) {
+                        foreach ($ejaculation->tags->take(40) as $tag) {
                             $record[] = $tag->name;
                         }
                         $csv->insertOne($record);
