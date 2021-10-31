@@ -22,6 +22,7 @@ class MetadataResolver implements Resolver
         '~www\.pixiv\.net/member_illust\.php\?illust_id=\d+~' => PixivResolver::class,
         '~www\.pixiv\.net/(en/)?artworks/\d+~' => PixivResolver::class,
         '~www\.pixiv\.net/user/\d+/series/\d+~' => PixivResolver::class,
+        '~www\.pixiv\.net/novel/show\.php\?id=\d+~' => PixivNovelResolver::class,
         '~fantia\.jp/posts/\d+~' => FantiaResolver::class,
         '~dmm\.co\.jp/~' => FanzaResolver::class,
         '~www\.patreon\.com/~' => PatreonResolver::class,
@@ -34,6 +35,7 @@ class MetadataResolver implements Resolver
         '~ss\.kb10uy\.org/posts/\d+$~' => Kb10uyShortStoryServerResolver::class,
         '~www\.hentai-foundry\.com/pictures/user/.+/\d+/.+~'=> HentaiFoundryResolver::class,
         '~(www\.)?((mobile|m)\.)?twitter\.com/(#!/)?[0-9a-zA-Z_]{1,15}/status(es)?/([0-9]+)/?(\\?.+)?$~' => TwitterResolver::class,
+        '~www\.mgstage\.com/~' => MGStageResolver::class,
     ];
 
     public $mimeTypes = [

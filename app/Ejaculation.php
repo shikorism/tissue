@@ -31,6 +31,26 @@ class Ejaculation extends Model
     /** @var bool|null */
     private $memoizedIsMuted;
 
+    /**
+     * 除外タグミュートのヒット情報を得るためのサブクエリを生成する。ejaculationsテーブルにleft joinして使うことを想定。
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public static function queryTagFilterMatches()
+    {
+        return DB::table('ejaculations')
+            ->select('ejaculations.id as ejaculation_id', DB::raw('count(*) as is_removed_by_tag_filter'))
+            ->join('related_ejaculation_tags', 'ejaculations.id', '=', 'related_ejaculation_tags.ejaculation_id')
+            ->join('tags', 'related_ejaculation_tags.tag_id', '=', 'tags.id')
+            ->join('tag_filters', function ($join) {
+                $join->on('tags.normalized_name', '=', 'tag_filters.normalized_tag_name')
+                    ->where([
+                        'tag_filters.user_id' => Auth::id(),
+                        'tag_filters.mode' => TagFilter::MODE_REMOVE
+                    ]);
+            })
+            ->groupBy('ejaculations.id');
+    }
+
     protected static function boot()
     {
         parent::boot();
@@ -131,21 +151,8 @@ class Ejaculation extends Model
     public function scopeRemoveMuted(Builder $query)
     {
         if (Auth::check()) {
-            $tagFilterMatches = DB::table('ejaculations')
-                ->select('ejaculations.id as ejaculation_id', DB::raw('count(*) as is_removed_by_tag_filter'))
-                ->join('related_ejaculation_tags', 'ejaculations.id', '=', 'related_ejaculation_tags.ejaculation_id')
-                ->join('tags', 'related_ejaculation_tags.tag_id', '=', 'tags.id')
-                ->join('tag_filters', function ($join) {
-                    $join->on('tags.normalized_name', '=', 'tag_filters.normalized_tag_name')
-                        ->where([
-                            'tag_filters.user_id' => Auth::id(),
-                            'tag_filters.mode' => TagFilter::MODE_REMOVE
-                        ]);
-                })
-                ->groupBy('ejaculations.id');
-
             return $query
-                ->leftJoinSub($tagFilterMatches, 'tag_filter_matches', 'ejaculations.id', '=', 'tag_filter_matches.ejaculation_id')
+                ->leftJoinSub(self::queryTagFilterMatches(), 'tag_filter_matches', 'ejaculations.id', '=', 'tag_filter_matches.ejaculation_id')
                 ->where(function ($query) {
                     $query->where('ejaculations.user_id', Auth::id())
                         ->orWhereRaw('COALESCE(tag_filter_matches.is_removed_by_tag_filter, 0) < 1');
