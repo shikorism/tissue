@@ -102,7 +102,7 @@ export function deleteCheckinModal(modal: Element) {
                 console.error(e);
                 alert('削除中にエラーが発生しました。');
             })
-            .then(() => {
+            .finally(() => {
                 buttons.forEach((button) => (button.disabled = false));
             });
     });
