@@ -14,4 +14,7 @@
         </ul>
         {{ $results->links(null, ['className' => 'mt-4 justify-content-center']) }}
     @endif
+
+    @component('components.delete-checkin-modal')
+    @endcomponent
 @endsection

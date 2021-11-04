@@ -236,22 +236,6 @@ class EjaculationController extends Controller
         return redirect()->route('checkin.show', ['id' => $ejaculation->id])->with('status', 'チェックインを修正しました！');
     }
 
-    public function destroy($id)
-    {
-        $ejaculation = Ejaculation::findOrFail($id);
-
-        $this->authorize('edit', $ejaculation);
-
-        $user = User::findOrFail($ejaculation->user_id);
-
-        DB::transaction(function () use ($ejaculation) {
-            $ejaculation->tags()->detach();
-            $ejaculation->delete();
-        });
-
-        return redirect()->route('user.profile', ['name' => $user->name])->with('status', '削除しました。');
-    }
-
     public function tools()
     {
         return view('ejaculation.tools');
