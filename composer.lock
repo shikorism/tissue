@@ -6464,16 +6464,16 @@
     "packages-dev": [
         {
             "name": "barryvdh/laravel-debugbar",
-            "version": "v3.5.5",
+            "version": "v3.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "6420113d90bb746423fa70b9940e9e7c26ebc121"
+                "reference": "fc69fd6293e4e9d0f0181bb56219e9b3b3c4dd1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/6420113d90bb746423fa70b9940e9e7c26ebc121",
-                "reference": "6420113d90bb746423fa70b9940e9e7c26ebc121",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/fc69fd6293e4e9d0f0181bb56219e9b3b3c4dd1f",
+                "reference": "fc69fd6293e4e9d0f0181bb56219e9b3b3c4dd1f",
                 "shasum": ""
             },
             "require": {
@@ -6531,13 +6531,21 @@
                 "profiler",
                 "webprofiler"
             ],
+            "support": {
+                "issues": "https://github.com/barryvdh/laravel-debugbar/issues",
+                "source": "https://github.com/barryvdh/laravel-debugbar/tree/v3.6.3"
+            },
             "funding": [
+                {
+                    "url": "https://fruitcake.nl",
+                    "type": "custom"
+                },
                 {
                     "url": "https://github.com/barryvdh",
                     "type": "github"
                 }
             ],
-            "time": "2021-04-07T11:19:20+00:00"
+            "time": "2021-09-22T12:28:00+00:00"
         },
         {
             "name": "barryvdh/laravel-ide-helper",
