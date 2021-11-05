@@ -3674,24 +3674,24 @@
         },
         {
             "name": "staudenmeir/eloquent-eager-limit",
-            "version": "v1.4",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/staudenmeir/eloquent-eager-limit.git",
-                "reference": "c899c81213e86edc9654b90d3e243be8976cc352"
+                "reference": "75be3046581abc3d623080e31abb69c1dfcb6d46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/staudenmeir/eloquent-eager-limit/zipball/c899c81213e86edc9654b90d3e243be8976cc352",
-                "reference": "c899c81213e86edc9654b90d3e243be8976cc352",
+                "url": "https://api.github.com/repos/staudenmeir/eloquent-eager-limit/zipball/75be3046581abc3d623080e31abb69c1dfcb6d46",
+                "reference": "75be3046581abc3d623080e31abb69c1dfcb6d46",
                 "shasum": ""
             },
             "require": {
                 "illuminate/database": "^6.0",
-                "php": "^7.2"
+                "php": "^7.2.5|^8.0"
             },
             "require-dev": {
-                "laravel/homestead": "^9.0",
+                "laravel/homestead": "^11.0",
                 "phpunit/phpunit": "^8.0"
             },
             "type": "library",
@@ -3711,7 +3711,17 @@
                 }
             ],
             "description": "Laravel Eloquent eager loading with limit",
-            "time": "2019-08-25T19:26:25+00:00"
+            "support": {
+                "issues": "https://github.com/staudenmeir/eloquent-eager-limit/issues",
+                "source": "https://github.com/staudenmeir/eloquent-eager-limit/tree/v1.4.1"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/JonasStaudenmeir",
+                    "type": "custom"
+                }
+            ],
+            "time": "2021-04-02T17:38:44+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
