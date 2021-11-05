@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e064479cc0f5a96db3650db93db8fbc2",
+    "content-hash": "5131a28053a6a3b330bc2173b8e1c5b3",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -6649,6 +6649,10 @@
                 "phpstorm",
                 "sublime"
             ],
+            "support": {
+                "issues": "https://github.com/barryvdh/laravel-ide-helper/issues",
+                "source": "https://github.com/barryvdh/laravel-ide-helper/tree/v2.8.2"
+            },
             "funding": [
                 {
                     "url": "https://github.com/barryvdh",
