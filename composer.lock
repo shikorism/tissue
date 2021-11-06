@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d0b097c1142e49b670c15ab87ff37983",
+    "content-hash": "0954fc5358b82f432258a371475964dc",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -7605,6 +7605,10 @@
                 }
             ],
             "description": "A tool to automatically fix PHP code style",
+            "support": {
+                "issues": "https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues",
+                "source": "https://github.com/FriendsOfPHP/PHP-CS-Fixer/tree/v2.16.4"
+            },
             "funding": [
                 {
                     "url": "https://github.com/keradus",
