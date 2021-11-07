@@ -29,6 +29,7 @@ class UserController extends Controller
         $query = Ejaculation::select(DB::raw(
             <<<'SQL'
 ejaculations.id,
+user_id,
 ejaculated_date,
 note,
 is_private,
@@ -46,7 +47,7 @@ SQL
             $query = $query->where('is_private', false);
         }
         $ejaculations = $query->orderBy('ejaculated_date', 'desc')
-            ->with('tags')
+            ->with('user', 'tags')
             ->withLikes()
             ->withMutedStatus()
             ->paginate(20);
@@ -157,6 +158,7 @@ SQL
         $query = Ejaculation::select(DB::raw(
             <<<'SQL'
 ejaculations.id,
+user_id,
 ejaculated_date,
 note,
 is_private,
@@ -175,7 +177,7 @@ SQL
             $query = $query->where('is_private', false);
         }
         $ejaculations = $query->orderBy('ejaculated_date', 'desc')
-            ->with('tags')
+            ->with('user', 'tags')
             ->withLikes()
             ->withMutedStatus()
             ->paginate(20);
