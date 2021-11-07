@@ -200,7 +200,7 @@ class CheckinCsvImporter
                 continue;
             }
 
-            $tag = trim($record[$column]);
+            $tag = trim($record[$column] ?? '');
             if (empty($tag)) {
                 continue;
             }

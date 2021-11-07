@@ -31,7 +31,6 @@ class MetadataResolver implements Resolver
         '~ci-en\.(jp|net|dlsite\.com)/creator/\d+/article/\d+~' => CienResolver::class,
         '~www\.plurk\.com\/p\/.*~' => PlurkResolver::class,
         '~store\.steampowered\.com/app/\d+~' => SteamResolver::class,
-        '~www\.xtube\.com/video-watch/.*-\d+$~'=> XtubeResolver::class,
         '~ss\.kb10uy\.org/posts/\d+$~' => Kb10uyShortStoryServerResolver::class,
         '~www\.hentai-foundry\.com/pictures/user/.+/\d+/.+~'=> HentaiFoundryResolver::class,
         '~(www\.)?((mobile|m)\.)?twitter\.com/(#!/)?[0-9a-zA-Z_]{1,15}/status(es)?/([0-9]+)/?(\\?.+)?$~' => TwitterResolver::class,

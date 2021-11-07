@@ -3,6 +3,7 @@
 namespace App\MetadataResolver;
 
 use GuzzleHttp\Client;
+use Symfony\Component\DomCrawler\Crawler;
 
 class PlurkResolver implements Resolver
 {
@@ -24,15 +25,13 @@ class PlurkResolver implements Resolver
     public function resolve(string $url): Metadata
     {
         $res = $this->client->get($url);
-        $metadata = $this->ogpResolver->parse($res->getBody());
+        $html = (string) $res->getBody();
+        $metadata = $this->ogpResolver->parse($html);
+        $crawler = new Crawler($html);
 
-        $dom = new \DOMDocument();
-        @$dom->loadHTML(mb_convert_encoding($res->getBody(), 'HTML-ENTITIES', 'UTF-8'));
-        $xpath = new \DOMXPath($dom);
-        $imageNode = $xpath->query('//div[@class="text_holder"]/a[1]')->item(0);
-
-        if ($imageNode) {
-            $metadata->image = $imageNode->getAttribute('href');
+        $image = $crawler->filter('.text_holder a.pictureservices');
+        if ($image) {
+            $metadata->image = $image->attr('href');
         }
 
         return $metadata;
