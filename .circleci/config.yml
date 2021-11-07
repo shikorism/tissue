@@ -12,7 +12,7 @@ executors:
           DB_DATABASE: tissue
           DB_USERNAME: tissue
           DB_PASSWORD: tissue
-      - image: circleci/postgres:10-alpine
+      - image: circleci/postgres:13
         environment:
           POSTGRES_DB: tissue
           POSTGRES_USER: tissue
