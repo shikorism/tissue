@@ -29,6 +29,7 @@ class UserController extends Controller
         $query = Ejaculation::select(DB::raw(
             <<<'SQL'
 ejaculations.id,
+user_id,
 ejaculated_date,
 note,
 is_private,
@@ -46,7 +47,7 @@ SQL
             $query = $query->where('is_private', false);
         }
         $ejaculations = $query->orderBy('ejaculated_date', 'desc')
-            ->with('tags')
+            ->with('user', 'tags')
             ->withLikes()
             ->withMutedStatus()
             ->paginate(20);
@@ -157,6 +158,7 @@ SQL
         $query = Ejaculation::select(DB::raw(
             <<<'SQL'
 ejaculations.id,
+user_id,
 ejaculated_date,
 note,
 is_private,
@@ -175,7 +177,7 @@ SQL
             $query = $query->where('is_private', false);
         }
         $ejaculations = $query->orderBy('ejaculated_date', 'desc')
-            ->with('tags')
+            ->with('user', 'tags')
             ->withLikes()
             ->withMutedStatus()
             ->paginate(20);
@@ -191,18 +193,24 @@ SQL
         }
 
         $likes = $user->likes()
-            ->orderBy('created_at', 'desc')
+            ->select('likes.*')
+            ->orderBy('likes.id', 'desc')
             ->with([
                 'ejaculation' => function ($query) {
                     $query->with('user', 'tags')->withMutedStatus();
                 }
             ])
-            ->whereHas('ejaculation', function ($query) {
-                $query->where(function ($query) {
-                    $query->where('user_id', Auth::id())
-                        ->orWhere('is_private', false);
-                })
-                    ->removeMuted();
+            ->join('ejaculations', 'likes.ejaculation_id', '=', 'ejaculations.id')
+            ->leftJoinSub(Ejaculation::queryTagFilterMatches(), 'tag_filter_matches', 'ejaculations.id', '=', 'tag_filter_matches.ejaculation_id')
+            ->where(function ($query) {
+                $query
+                    ->where(function ($query) {
+                        $query->where('ejaculations.user_id', Auth::id())
+                            ->orWhere('ejaculations.is_private', false);
+                    })->where(function ($query) {
+                        $query->where('ejaculations.user_id', Auth::id())
+                            ->orWhereRaw('COALESCE(tag_filter_matches.is_removed_by_tag_filter, 0) < 1');
+                    });
             })
             ->paginate(20);
 

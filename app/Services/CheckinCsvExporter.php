@@ -31,7 +31,7 @@ class CheckinCsvExporter
         }
 
         $header = ['日時', 'ノート', 'オカズリンク', '非公開', 'センシティブ', '経過時間リセット'];
-        for ($i = 1; $i <= 32; $i++) {
+        for ($i = 1; $i <= 40; $i++) {
             $header[] = "タグ{$i}";
         }
         $csv->insertOne($header);
@@ -49,7 +49,7 @@ class CheckinCsvExporter
                             self::formatBoolean($ejaculation->is_too_sensitive),
                             self::formatBoolean($ejaculation->discard_elapsed_time),
                         ];
-                        foreach ($ejaculation->tags->take(32) as $tag) {
+                        foreach ($ejaculation->tags->take(40) as $tag) {
                             $record[] = $tag->name;
                         }
                         $csv->insertOne($record);

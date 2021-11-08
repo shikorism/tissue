@@ -55,6 +55,9 @@
         </div>
     </div>
 </div>
+
+@component('components.delete-checkin-modal')
+@endcomponent
 @endsection
 
 @push('script')

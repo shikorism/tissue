@@ -200,7 +200,7 @@ class CheckinCsvImporter
                 continue;
             }
 
-            $tag = trim($record[$column]);
+            $tag = trim($record[$column] ?? '');
             if (empty($tag)) {
                 continue;
             }
@@ -215,7 +215,7 @@ class CheckinCsvImporter
             }
 
             $tags[] = Tag::firstOrCreate(['name' => $tag]);
-            if (count($tags) >= 32) {
+            if (count($tags) >= 40) {
                 break;
             }
         }

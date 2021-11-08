@@ -251,18 +251,31 @@ class CheckinCsvImporterTest extends TestCase
         $importer->execute();
     }
 
-    public function testTagCanAccept32ColumnsUTF8()
+    public function testTagCanAccept40ColumnsUTF8()
     {
         $user = factory(User::class)->create();
 
-        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/tag-33-column.utf8.csv');
+        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/tag-41-column.utf8.csv');
         $importer->execute();
         $ejaculation = $user->ejaculations()->first();
         $tags = $ejaculation->tags()->get();
 
         $this->assertSame(1, $user->ejaculations()->count());
-        $this->assertCount(32, $tags);
-        $this->assertEquals('み', $tags[31]->name);
+        $this->assertCount(40, $tags);
+        $this->assertEquals('り', $tags[39]->name);
+    }
+
+    public function testSkipAllNullTagColumns()
+    {
+        $user = factory(User::class)->create();
+
+        $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/tag-null.utf8.csv');
+        $importer->execute();
+        $ejaculation = $user->ejaculations()->first();
+        $tags = $ejaculation->tags()->get();
+
+        $this->assertSame(1, $user->ejaculations()->count());
+        $this->assertCount(0, $tags);
     }
 
     public function testSourceIsCsv()

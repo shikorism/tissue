@@ -68,7 +68,7 @@ class FanzaResolverTest extends TestCase
                 'doujin.html',
                 'https://www.dmm.co.jp/dc/doujin/-/detail/=/cid=d_115139/',
                 '美少女拉致って性教育',
-                'ハ○エースでおさげ髪美少女を拉致って、凌●する内容です。' . PHP_EOL . '汚っさん×美少女モノ。' . PHP_EOL . '表紙込み総ページ数28p（内本文27p）' . PHP_EOL . '表紙大きさ1200×1719' . PHP_EOL . '本文大きさ1200×1694',
+                'ハ○エースでおさげ髪美少女を拉致って、凌●する内容です。' . PHP_EOL . '汚っさん×美少女モノ。' . PHP_EOL . PHP_EOL . '表紙込み総ページ数28p（内本文27p）' . PHP_EOL . '表紙大きさ1200×1719' . PHP_EOL . '本文大きさ1200×1694',
                 'https://doujin-assets.dmm.co.jp/digital/comic/d_115139/d_115139pr.jpg',
                 ['美少女拉致って性教育', 'オリジナル', '制服', '男性向け', 'ミニ系', '少女', '屋外', '中出し', '成人向け', 'みくろぺえじ'],
             ],

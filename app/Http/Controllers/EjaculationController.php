@@ -64,6 +64,15 @@ class EjaculationController extends Controller
                     $validator->errors()->add('datetime', '既にこの日時にチェックインしているため、登録できません。');
                 }
             }
+            // タグの個数チェック
+            if (!$validator->errors()->has('tags') && !empty($inputs['tags'])) {
+                $tags = array_filter(explode(' ', $inputs['tags']), function ($v) {
+                    return $v !== '';
+                });
+                if (count($tags) > 40) {
+                    $validator->errors()->add('tags', 'タグは最大32個までです。');
+                }
+            }
         });
 
         if ($validator->fails()) {
@@ -180,6 +189,15 @@ class EjaculationController extends Controller
                     $validator->errors()->add('datetime', '既にこの日時にチェックインしているため、登録できません。');
                 }
             }
+            // タグの個数チェック
+            if (!$validator->errors()->has('tags') && !empty($inputs['tags'])) {
+                $tags = array_filter(explode(' ', $inputs['tags']), function ($v) {
+                    return $v !== '';
+                });
+                if (count($tags) > 40) {
+                    $validator->errors()->add('tags', 'タグは最大32個までです。');
+                }
+            }
         });
 
         if ($validator->fails()) {
@@ -216,22 +234,6 @@ class EjaculationController extends Controller
         }
 
         return redirect()->route('checkin.show', ['id' => $ejaculation->id])->with('status', 'チェックインを修正しました！');
-    }
-
-    public function destroy($id)
-    {
-        $ejaculation = Ejaculation::findOrFail($id);
-
-        $this->authorize('edit', $ejaculation);
-
-        $user = User::findOrFail($ejaculation->user_id);
-
-        DB::transaction(function () use ($ejaculation) {
-            $ejaculation->tags()->detach();
-            $ejaculation->delete();
-        });
-
-        return redirect()->route('user.profile', ['name' => $user->name])->with('status', '削除しました。');
     }
 
     public function tools()
