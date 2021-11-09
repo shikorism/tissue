@@ -113,11 +113,7 @@ class DLsiteResolver implements Resolver
         $metadata->title = trim(preg_replace('~ \[[^\[\]]*\] (予告作品 )?\| DLsite(がるまに)?$~', '', $metadata->title));
 
         // OGP説明文から定型文を消す
-        if (strpos($url, 'dlsite.com/eng/') || strpos($url, 'dlsite.com/ecchi-eng/')) {
-            $metadata->description = preg_replace('~DLsite.+ is a download shop for .+With a huge selection of products, we\'re sure you\'ll find whatever tickles your fancy\. DLsite is one of the greatest indie contents download shops in Japan\.$~', '', $metadata->description);
-        } else {
-            $metadata->description = preg_replace('~「DLsite( (同人|comipo|PCソフト|美少女ゲーム|成年コミック|がるまに))?( - R18)?」は.+のダウンロードショップ。お気に入りの作品をすぐダウンロードできてすぐ楽しめる！毎日更新しているのであなたが探している作品にきっと出会えます。国内最大級の二次元総合ダウンロードショップ「DLsite( comipo)?」！$~', '', $metadata->description);
-        }
+        $metadata->description = preg_replace('~「DLsite( (同人|comipo|PCソフト|美少女ゲーム|成年コミック|がるまに))?( - R18)?」は.+のダウンロードショップ。お気に入りの作品をすぐダウンロードできてすぐ楽しめる！毎日更新しているのであなたが探している作品にきっと出会えます。国内最大級の二次元総合ダウンロードショップ「DLsite( comipo)?」！$~', '', $metadata->description);
         $metadata->description = trim(strip_tags($metadata->description));
 
         // 整形
