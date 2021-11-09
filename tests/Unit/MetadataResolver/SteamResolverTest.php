@@ -36,10 +36,10 @@ class SteamResolverTest extends TestCase
 
         $this->createResolver(SteamResolver::class, $responseText);
 
-        $metadata = $this->resolver->resolve('https://store.steampowered.com/app/1077580');
-        $this->assertEquals('Broke Girl  | 負債千金', $metadata->title);
-        $this->assertEquals('苦労知らずに育ったお嬢様は一夜にして1000万の借金を背負うことになった。借金を返済するために働かなければならない。しかし世間には悪意が満ちており、男達はお金で彼女を誘うか凌辱することしか考えていない。', $metadata->description);
-        $this->assertStringStartsWith('https://cdn.akamai.steamstatic.com/steam/apps/1077580/header.jpg?t=', $metadata->image);
+        $metadata = $this->resolver->resolve('https://store.steampowered.com/app/1590600');
+        $this->assertEquals('もっと！孕ませ！炎のおっぱい異世界エロ魔法学園！', $metadata->title);
+        $this->assertEquals('“魔法”で異世界の女の子たちを攻略する魔法学園アドベンチャー！「もっと！孕ませ！炎のおっぱい異世界エロ魔法学園！」は、主人公「匠　炎厨矢」が異世界でさまざまなクエストをクリアし、魅力的なヒロインたちを攻略するファンタジービジュアルノベルです。', $metadata->description);
+        $this->assertStringStartsWith('https://cdn.akamai.steamstatic.com/steam/apps/1590600/header_japanese.jpg?t=', $metadata->image);
     }
 
     public function testNotFound()
