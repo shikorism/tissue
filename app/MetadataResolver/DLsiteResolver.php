@@ -85,7 +85,7 @@ class DLsiteResolver implements Resolver
         // OGPタイトルから[]に囲まれているmakerを取得する
         // 複数の作者がいる場合スペース区切りになるためexplodeしている
         // スペースを含むmakerの場合名前の一部しか取れないが動作には問題ない
-        preg_match('~ \[([^\[\]]*)\] (予告作品 )?\| DLsite(がるまに)?$~', $metadata->title, $match);
+        preg_match('~ \[([^\[\]]*)\] (予告作品 )?\| DLsite~', $metadata->title, $match);
         $makers = explode(' ', $match[1]);
 
         //フォローボタン(.add_follow)はテキストを含んでしまうことがあるので要素を削除しておく
