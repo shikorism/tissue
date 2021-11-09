@@ -98,8 +98,11 @@ class DLsiteResolver implements Resolver
         // #work_makerから「makerを含むテキスト」を持つ要素を持つtdを探す
         // 作者名単体の場合もあるし、"作者A / 作者B"のようになることもある
         $makersNode = $xpath->query('//*[@id="work_maker"]//*[contains(text(), "' . $makers[0] . '")]/ancestor::td')->item(0);
-        // nbspをspaceに置換
-        $makers = trim(str_replace("\xc2\xa0", ' ', $makersNode->textContent));
+        $makersArray = [];
+        foreach ($makersNode->getElementsByTagName('a') as $makerNode) {
+            $makersArray[] = trim($makerNode->textContent);
+        }
+        $makers = implode(' / ', $makersArray);
 
         // makersHaed
         // $makerNode(td)に対するthを探す
