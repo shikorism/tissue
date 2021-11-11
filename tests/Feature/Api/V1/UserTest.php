@@ -2,14 +2,13 @@
 
 namespace Tests\Feature\Api\V1;
 
-use App\Ejaculation;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Laravel\Passport\Passport;
 use Tests\TestCase;
 
-class MeTest extends TestCase
+class UserTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -26,12 +25,12 @@ class MeTest extends TestCase
         Carbon::setTestNow();
     }
 
-    public function testBasicProfile()
+    public function testMyself()
     {
-        $user = factory(User::class)->create()->fresh(); // 不思議なことにリロードしないとnot null列の結果がおかしい
+        $user = factory(User::class)->create();
         Passport::actingAs($user);
 
-        $response = $this->getJson('/api/v1/me');
+        $response = $this->getJson('/api/v1/users/' . $user->name);
 
         $response->assertStatus(200);
         $response->assertJson([
@@ -44,7 +43,7 @@ class MeTest extends TestCase
         ], true);
     }
 
-    public function testBioAndUrl()
+    public function testMyselfBioAndUrl()
     {
         $user = factory(User::class)->create([
             'bio' => 'happy f*cking',
@@ -52,7 +51,7 @@ class MeTest extends TestCase
         ]);
         Passport::actingAs($user);
 
-        $response = $this->getJson('/api/v1/me');
+        $response = $this->getJson('/api/v1/users/' . $user->name);
 
         $response->assertStatus(200);
         $response->assertJson([
@@ -65,36 +64,42 @@ class MeTest extends TestCase
         ], true);
     }
 
-    public function testCheckinSummary()
+    public function testProtected()
     {
         $user = factory(User::class)->create();
         Passport::actingAs($user);
 
-        factory(Ejaculation::class)->create([
-            'user_id' => $user->id,
-            'ejaculated_date' => Carbon::create(2020, 7, 1, 0, 0, 0, 'Asia/Tokyo')
-        ]);
-        factory(Ejaculation::class)->create([
-            'user_id' => $user->id,
-            'ejaculated_date' => Carbon::create(2020, 7, 3, 0, 0, 0, 'Asia/Tokyo')
-        ]);
-        factory(Ejaculation::class)->create([
-            'user_id' => $user->id,
-            'ejaculated_date' => Carbon::create(2020, 7, 7, 0, 0, 0, 'Asia/Tokyo')
+        $target = factory(User::class)->state('protected')->create([
+            'bio' => 'test test...',
+            'url' => 'http://example.com',
         ]);
 
-        $response = $this->getJson('/api/v1/me');
+        $response = $this->getJson('/api/v1/users/' . $target->name);
 
         $response->assertStatus(200);
         $response->assertJson([
-            'checkin_summary' => [
-                'current_session_elapsed' => 1278000,
-                'total_checkins' => 3,
-                'total_times' => 518400,
-                'average_interval' => 172800,
-                'longest_interval' => 345600,
-                'shortest_interval' => 172800
-            ]
+            'name' => $target->name,
+            'display_name' => $target->display_name,
+            'is_protected' => true,
+            'private_likes' => true,
         ], true);
+        $response->assertJsonMissing([
+            'bio' => 'test test...',
+            'url' => 'http://example.com',
+            'checkin_summary' => []
+        ], true);
+    }
+
+    public function testMissing()
+    {
+        $user = factory(User::class)->create();
+        Passport::actingAs($user);
+
+        $target = factory(User::class)->create();
+        $target->delete();
+
+        $response = $this->getJson('/api/v1/users/' . $target->name);
+
+        $response->assertStatus(404);
     }
 }
