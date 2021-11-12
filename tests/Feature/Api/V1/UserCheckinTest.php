@@ -96,4 +96,52 @@ class UserCheckinTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    public function testExposeMyPrivateCheckins()
+    {
+        $user = factory(User::class)->create();
+        Passport::actingAs($user);
+
+        factory(Ejaculation::class)->create([
+            'user_id' => $user->id,
+            'is_private' => false,
+        ]);
+        factory(Ejaculation::class)->create([
+            'user_id' => $user->id,
+            'is_private' => true,
+        ]);
+
+        $response = $this->getJson('/api/v1/users/' . $user->name . '/checkins');
+
+        $response->assertStatus(200);
+        $response->assertHeader('X-Total-Count', 2);
+        $response->assertJsonCount(2);
+    }
+
+    public function testHidePrivateCheckins()
+    {
+        $user = factory(User::class)->create();
+        Passport::actingAs($user);
+
+        $target = factory(User::class)->create();
+        $public = factory(Ejaculation::class)->create([
+            'user_id' => $target->id,
+            'is_private' => false,
+        ]);
+        factory(Ejaculation::class)->create([
+            'user_id' => $target->id,
+            'is_private' => true,
+        ]);
+
+        $response = $this->getJson('/api/v1/users/' . $target->name . '/checkins');
+
+        $response->assertStatus(200);
+        $response->assertHeader('X-Total-Count', 1);
+        $response->assertJsonCount(1);
+        $response->assertJson([
+            [
+                'id' => $public->id,
+            ]
+        ], true);
+    }
 }
