@@ -4,7 +4,6 @@ namespace Tests\Feature\Api\V1;
 
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Carbon;
 use Laravel\Passport\Passport;
 use Tests\TestCase;
 
@@ -16,13 +15,6 @@ class UserTest extends TestCase
     {
         parent::setUp();
         $this->seed();
-        Carbon::setTestNow('2020-07-21 19:00:00');
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        Carbon::setTestNow();
     }
 
     public function testMyself()
