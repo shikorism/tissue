@@ -90,7 +90,9 @@ class DLsiteResolver implements Resolver
 
         //フォローボタン(.add_follow)はテキストを含んでしまうことがあるので要素を削除しておく
         $followButtonNode = $xpath->query('//*[@class="add_follow"]')->item(0);
-        $followButtonNode->parentNode->removeChild($followButtonNode);
+        if ($followButtonNode !== null) {
+            $followButtonNode->parentNode->removeChild($followButtonNode);
+        }
 
         // maker, makerHeadを探す
 
