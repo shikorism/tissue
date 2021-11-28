@@ -50,20 +50,49 @@ docker-compose exec web php artisan migrate
 docker-compose exec web php artisan db:seed
 ```
 
-6. ファイルに書き込めるように権限を設定します。
+6. OAuth2サーバ設定の初期化を行います。
+
+```
+docker-compose exec web php artisan passport:install
+```
+
+コマンドを実行すると、次のようなメッセージが出力されます。**この内容は控えておいてください。**
+
+```
+Personal access client created successfully.
+Here is your new client secret. This is the only time it will be shown so don't lose it!
+
+Client ID: 1
+Client secret: xxxxxxxx
+Password grant client created successfully.
+Here is your new client secret. This is the only time it will be shown so don't lose it!
+
+Client ID: 2
+Client secret: yyyyyyyy
+```
+
+7. `.env` ファイルにPersonal access token発行用の設定を追加します。  
+   直前の手順のメッセージから `Personal access client created successfully` の直後に出力されている ID と secret を `PASSPORT_PERSONAL_ACCESS_CLIENT_ID` と `PASSPORT_PERSONAL_ACCESS_CLIENT_SECRET` に設定します。
+
+```
+PASSPORT_PERSONAL_ACCESS_CLIENT_ID=1
+PASSPORT_PERSONAL_ACCESS_CLIENT_SECRET=xxxxxxxx
+```
+
+8. ファイルに書き込めるように権限を設定します。
 
 ```
 docker-compose exec web chown -R www-data /var/www/html/storage
 ```
 
-7. アセットをビルドします。
+9. アセットをビルドします。
 
 ```
 docker-compose exec web yarn dev
 ```
 
 
-8. 最後に `.env` を読み込み直すために起動し直します。
+10. 最後に `.env` を読み込み直すために起動し直します。
 
 ```
 docker-compose up -d

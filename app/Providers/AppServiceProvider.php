@@ -6,7 +6,10 @@ use App\MetadataResolver\MetadataResolver;
 use App\Services\MetadataResolveService;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
+use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\ServiceProvider;
 use Parsedown;
 
@@ -24,6 +27,42 @@ class AppServiceProvider extends ServiceProvider
         });
 
         stream_filter_register('convert.mbstring.*', 'Stream_Filter_Mbstring');
+
+        Resource::withoutWrapping();
+
+        Response::macro('fromPaginator', function ($paginator, $resourceClass) {
+            if (!($paginator instanceof LengthAwarePaginator)) {
+                throw new \LogicException('invalid type');
+            }
+
+            $headers = [];
+
+            $links = [
+                'first' => $paginator->url(1),
+                'last' => $paginator->url($paginator->lastPage()),
+                'prev' => $paginator->previousPageUrl(),
+                'next' => $paginator->nextPageUrl(),
+            ];
+            foreach ($links as $rel => $link) {
+                unset($links[$rel]);
+                if (!empty($link)) {
+                    $links[] = sprintf('<%s>; rel="%s"', $link, $rel);
+                }
+            }
+            if (!empty($links)) {
+                $headers['Link'] = implode(',', $links);
+            }
+
+            $headers['X-Total-Count'] = $paginator->total();
+
+            return Response::json(
+                $paginator->getCollection()->map(function ($item) use ($resourceClass) {
+                    return new $resourceClass($item);
+                }),
+                200,
+                $headers
+            );
+        });
     }
 
     /**
