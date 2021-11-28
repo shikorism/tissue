@@ -101,9 +101,10 @@ class DLsiteResolver implements Resolver
         // 作者名単体の場合もあるし、"作者A / 作者B"のようになることもある
         $makersNode = $xpath->query('//*[@id="work_maker"]//*[contains(text(), "' . $makers[0] . '")]/ancestor::td')->item(0);
         $makersArray = [];
-        foreach ($makersNode->getElementsByTagName('a') as $makerNode) {
+        foreach ($makersNode->childNodes as $makerNode) {
             $makersArray[] = trim($makerNode->textContent);
         }
+        $makersArray = array_filter($makersArray);
         $makers = implode(' / ', $makersArray);
 
         // makersHaed
