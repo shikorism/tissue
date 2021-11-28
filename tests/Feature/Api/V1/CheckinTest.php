@@ -113,6 +113,42 @@ class CheckinTest extends TestCase
         $response->assertStatus(404);
     }
 
+    public function testPatchMissing()
+    {
+        $user = factory(User::class)->create();
+        Passport::actingAs($user);
+
+        $ejaculation = factory(Ejaculation::class)->create([
+            'user_id' => $user->id,
+            'ejaculated_date' => Carbon::create(2020, 7, 1, 0, 0, 0, 'Asia/Tokyo'),
+        ]);
+        $ejaculation->delete();
+
+        $response = $this->patchJson('/api/v1/checkins/' . $ejaculation->id, [
+            'note' => 'edited',
+        ]);
+
+        $response->assertStatus(404);
+    }
+
+    public function testPatchOthers()
+    {
+        $user = factory(User::class)->create();
+        Passport::actingAs($user);
+
+        $targetUser = factory(User::class)->create();
+        $ejaculation = factory(Ejaculation::class)->create([
+            'user_id' => $targetUser->id,
+            'ejaculated_date' => Carbon::create(2020, 7, 1, 0, 0, 0, 'Asia/Tokyo'),
+        ]);
+
+        $response = $this->patchJson('/api/v1/checkins/' . $ejaculation->id, [
+            'note' => 'edited',
+        ]);
+
+        $response->assertStatus(403);
+    }
+
     public function testDelete()
     {
         $user = factory(User::class)->create();
