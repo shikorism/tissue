@@ -42,7 +42,7 @@
         "barryvdh/laravel-debugbar": "^3.1",
         "barryvdh/laravel-ide-helper": "~2.8.2",
         "facade/ignition": "^1.4",
-        "friendsofphp/php-cs-fixer": "2.16.4",
+        "friendsofphp/php-cs-fixer": "2.19.3",
         "fzaninotto/faker": "^1.9.1",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^3.0",
