@@ -102,7 +102,10 @@ class DLsiteResolver implements Resolver
         $makersNode = $xpath->query('//*[@id="work_maker"]//*[contains(text(), "' . $makers[0] . '")]/ancestor::td')->item(0);
         $makersArray = [];
         foreach ($makersNode->childNodes as $makerNode) {
-            $makersArray[] = trim($makerNode->textContent);
+            // 何らかのタグ(a, span)の場合のみ処理
+            if ($makerNode->nodeType === 1) {
+                $makersArray[] = trim($makerNode->textContent);
+            }
         }
         $makersArray = array_filter($makersArray);
         $makers = implode(' / ', $makersArray);
