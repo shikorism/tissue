@@ -103,7 +103,7 @@ class DLsiteResolver implements Resolver
         $makersArray = [];
         foreach ($makersNode->childNodes as $makerNode) {
             // 何らかのタグ(a, span)の場合のみ処理
-            if ($makerNode->nodeType === 1) {
+            if ($makerNode->nodeType === XML_ELEMENT_NODE) {
                 $makersArray[] = trim($makerNode->textContent);
             }
         }
