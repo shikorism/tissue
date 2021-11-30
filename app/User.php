@@ -92,6 +92,11 @@ class User extends Authenticatable
         return $this->hasMany(TagFilter::class);
     }
 
+    public function collections()
+    {
+        return $this->hasMany(Collection::class);
+    }
+
     public function checkinSummary(): ?array
     {
         $total = $this->ejaculations()->count();
