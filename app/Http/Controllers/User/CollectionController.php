@@ -35,6 +35,10 @@ class CollectionController extends Controller
 
         $collections = $user->collections;
         $collection = $user->collections()->findOrFail($id);
+        if ($collection->is_private && !$user->isMe()) {
+            abort(404);
+        }
+
         $items = $collection->items()->paginate(20);
 
         return view('user.collections.show')->with(compact('user', 'collections', 'collection', 'items'));
