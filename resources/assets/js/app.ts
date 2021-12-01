@@ -92,24 +92,30 @@ $(() => {
         }
     });
 
-    $(document).on('click', '.use-later-button', function (event) {
+    $(document).on('click', '.use-later-button', async function (event) {
         event.preventDefault();
 
         const $this = $(this);
         const link = $this.data('link');
 
-        fetchPostJson('/api/collections/inbox', { link })
-            .then((response) => {
-                if (response.status === 200) {
-                    showToast('あとで抜く に追加しました！', { color: 'success', delay: 5000 });
+        try {
+            const response = await fetchPostJson('/api/collections/inbox', { link });
+            if (response.ok) {
+                showToast('あとで抜く に追加しました', { color: 'success', delay: 5000 });
+            } else {
+                throw new ResponseError(response);
+            }
+        } catch (e) {
+            console.error(e);
+            if (e instanceof ResponseError && e.response.status == 422) {
+                const data = await e.response.json();
+                if (data.error?.violations && data.error.violations.some((v: any) => v.field === 'link')) {
+                    showToast('すでに登録されています', { color: 'danger', delay: 5000 });
                     return;
                 }
-                throw new ResponseError(response);
-            })
-            .catch((e) => {
-                console.error(e);
-                showToast('あとで抜く に追加できませんでした', { color: 'danger', delay: 5000 });
-            });
+            }
+            showToast('あとで抜く に追加できませんでした', { color: 'danger', delay: 5000 });
+        }
     });
 
     $(document).on('click', '.card-spoiler-img-overlay', function (event) {
