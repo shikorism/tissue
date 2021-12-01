@@ -26,6 +26,9 @@
                                 @endif
                             </a>
                         </li>
+                        <li class="nav-item flex-shrink-0">
+                            <a class="nav-link {{ stripos(Route::currentRouteName(), 'user.collections') === 0 ? 'active' : '' }}" href="{{ route('user.collections', ['name' => $user->name]) }}">コレクション</a>
+                        </li>
                     </ul>
                 </div>
             </div>

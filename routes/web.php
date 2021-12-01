@@ -22,6 +22,8 @@ Route::get('/user/{name}/stats/{year}', 'UserController@statsYearly')->name('use
 Route::get('/user/{name}/stats/{year}/{month}', 'UserController@statsMonthly')->name('user.stats.monthly');
 Route::get('/user/{name}/okazu', 'UserController@okazu')->name('user.okazu');
 Route::get('/user/{name}/likes', 'UserController@likes')->name('user.likes');
+Route::get('/user/{name}/collections', 'User\CollectionController@index')->name('user.collections');
+Route::get('/user/{name}/collections/{id}', 'User\CollectionController@show')->name('user.collections.show');
 
 Route::get('/checkin/{id}', 'EjaculationController@show')->name('checkin.show');
 Route::get('/checkin-tools', 'EjaculationController@tools')->name('checkin.tools');
