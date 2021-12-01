@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 import { fetchPostJson, fetchDeleteJson, ResponseError } from './fetch';
-import { linkCard, pageSelector, deleteCheckinModal, checkinMutedWarning } from './tissue';
+import { linkCard, pageSelector, deleteCheckinModal, checkinMutedWarning, showToast } from './tissue';
 
 require('./bootstrap');
 
@@ -19,7 +19,7 @@ $(() => {
     if (navigator.serviceWorker) {
         navigator.serviceWorker.register('/sw.js');
     }
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"], [data-tooltip="tooltip"]').tooltip();
     $('.alert').alert();
     document.querySelectorAll('.tis-page-selector').forEach(pageSelector);
 
@@ -90,6 +90,26 @@ $(() => {
                     alert('いいねできませんでした。');
                 });
         }
+    });
+
+    $(document).on('click', '.use-later-button', function (event) {
+        event.preventDefault();
+
+        const $this = $(this);
+        const link = $this.data('link');
+
+        fetchPostJson('/api/collections/inbox', { link })
+            .then((response) => {
+                if (response.status === 200) {
+                    showToast('あとで抜く に追加しました！', { color: 'success', delay: 5000 });
+                    return;
+                }
+                throw new ResponseError(response);
+            })
+            .catch((e) => {
+                console.error(e);
+                showToast('あとで抜く に追加できませんでした', { color: 'danger', delay: 5000 });
+            });
     });
 
     $(document).on('click', '.card-spoiler-img-overlay', function (event) {

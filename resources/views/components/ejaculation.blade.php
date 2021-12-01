@@ -89,6 +89,18 @@
     <button type="button" class="btn btn-link text-secondary like-button"
             data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
             title="いいね" data-id="{{ $ejaculation->id }}" data-liked="{{ (bool)$ejaculation->is_liked }}"><span class="oi oi-heart {{ $ejaculation->is_liked ? 'text-danger' : '' }}"></span><span class="like-count">{{ $ejaculation->likes_count ? $ejaculation->likes_count : '' }}</span></button>
+    @if (!empty($ejaculation->link))
+        <span class="dropdown">
+            <button type="button" class="btn btn-link text-secondary"
+                    data-toggle="dropdown" data-tooltip="tooltip" data-placement="bottom" data-trigger="hover"
+                    title="コレクションに追加"><span class="oi oi-plus"></span></button>
+            <div class="dropdown-menu">
+                {{-- TODO: そのうち複数のコレクションを扱えるようにする --}}
+                <h6 class="dropdown-header">コレクションに追加</h6>
+                <button type="button" class="dropdown-item use-later-button" data-link="{{ $ejaculation->link }}">あとで抜く</button>
+            </div>
+        </span>
+    @endif
     @if ($ejaculation->user->isMe())
         <button type="button" class="btn btn-link text-secondary"
                 data-toggle="tooltip" data-placement="bottom"
