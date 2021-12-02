@@ -38,7 +38,7 @@ const CollectForm = () => {
                     <label htmlFor="collection">
                         <span className="oi oi-folder" /> 追加先
                     </label>
-                    <select name="collection" id="collection" className="custom-select">
+                    <select name="collection" id="collection" className="custom-select" disabled>
                         <option value="">あとで抜く</option>
                     </select>
                     <FieldError errors={errors?.collection} />
