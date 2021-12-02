@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.0-rc.0",
     "@types/bootstrap": "^4.5.0",
     "@types/cal-heatmap": "^3.3.10",
     "@types/chart.js": "^2.9.24",
@@ -53,6 +54,7 @@
     "qs": "^6.10.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-refresh": "^0.11.0",
     "redoc-cli": "^0.13.1",
     "resolve-url-loader": "^3.1.1",
     "sass": "^1.26.8",
