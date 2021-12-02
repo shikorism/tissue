@@ -33,6 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkin/{id}/edit', 'EjaculationController@edit')->name('checkin.edit');
     Route::put('/checkin/{id}', 'EjaculationController@update')->name('checkin.update');
 
+    Route::get('/collect', 'CollectController@create')->name('collect');
+
     Route::get('/timeline/public', 'TimelineController@showPublic')->name('timeline.public');
 
     Route::redirect('/setting', '/setting/profile', 301);

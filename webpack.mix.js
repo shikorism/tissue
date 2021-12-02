@@ -24,6 +24,7 @@ mix.ts('resources/assets/js/app.ts', 'public/js')
     .ts('resources/assets/js/setting/webhooks.ts', 'public/js/setting')
     .ts('resources/assets/js/setting/filter/tags.ts', 'public/js/setting/filter')
     .ts('resources/assets/js/checkin.tsx', 'public/js')
+    .ts('resources/assets/js/collect.tsx', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
     .autoload({
         jquery: ['$', 'jQuery', 'window.jQuery'],

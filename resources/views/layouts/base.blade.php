@@ -77,8 +77,11 @@
                             </div>
                         </div>
                     </form>
-                    <form class="form-inline mr-2">
-                        <a href="{{ route('checkin') }}" class="btn btn-outline-primary">チェックイン</a>
+                    <form class="form-inline">
+                        <a href="{{ route('checkin') }}" class="btn btn-outline-primary mr-2">チェックイン</a>
+                        <button type="button" class="btn btn-link text-secondary"
+                                data-toggle="tooltip" data-placement="bottom"
+                                title="コレクションに追加" data-href="{{ route('collect') }}"><span class="oi oi-plus"></span></button>
                     </form>
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
