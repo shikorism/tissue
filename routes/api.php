@@ -21,6 +21,7 @@ Route::middleware('stateful')->group(function () {
         Route::delete('/likes/{id}', 'Api\\LikeController@destroy');
         Route::apiResource('checkin', 'Api\\CheckinController')->only(['destroy']);
         Route::post('/collections/inbox', 'Api\\CollectionController@inbox');
+        Route::apiResource('collections.items', 'Api\\CollectionItemController')->only(['destroy']);
     });
 });
 

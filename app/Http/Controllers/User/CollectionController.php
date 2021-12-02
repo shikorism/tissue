@@ -39,7 +39,7 @@ class CollectionController extends Controller
             abort(404);
         }
 
-        $items = $collection->items()->paginate(20);
+        $items = $collection->items()->orderByDesc('id')->paginate(20);
 
         return view('user.collections.show')->with(compact('user', 'collections', 'collection', 'items'));
     }

@@ -17,7 +17,6 @@
                         <div style="word-break: break-all;">
                             <span class="oi oi-folder mr-1"></span>{{ $col->title }}
                         </div>
-                        <span class="badge badge-light badge-pill">{{ $col->items()->count() }}</span>
                     </li>
                 @else
                     <a class="list-group-item d-flex justify-content-between align-items-center text-dark"
@@ -25,7 +24,6 @@
                         <div style="word-break: break-all;">
                             <span class="oi oi-folder text-secondary mr-1"></span>{{ $col->title }}
                         </div>
-                        <span class="badge badge-secondary badge-pill">{{ $col->items()->count() }}</span>
                     </a>
                 @endif
             @endforeach
@@ -61,12 +59,12 @@
                         </div>
                     </span>
                     @if ($collection->user->isMe())
+                        {{--<button type="button" class="btn btn-link text-secondary"
+                                data-toggle="tooltip" data-placement="bottom"
+                                title="修正" data-href=""><span class="oi oi-pencil"></span></button>--}}
                         <button type="button" class="btn btn-link text-secondary"
                                 data-toggle="tooltip" data-placement="bottom"
-                                title="修正" data-href=""><span class="oi oi-pencil"></span></button>
-                        <button type="button" class="btn btn-link text-secondary"
-                                data-toggle="tooltip" data-placement="bottom"
-                                title="削除" data-target="#deleteCollectionItemModal" data-id="{{ $item->id }}" data-link="{{ $item->link }}"><span class="oi oi-trash"></span></button>
+                                title="削除" data-target="#deleteCollectionItemModal" data-collection-id="{{ $collection->id }}" data-item-id="{{ $item->id }}" data-link="{{ $item->link }}"><span class="oi oi-trash"></span></button>
                     @endif
                 </div>
             </li>
@@ -82,7 +80,7 @@
         @slot('title')
             削除確認
         @endslot
-        <span class="link-label"></span> をコレクションから削除してもよろしいですか？
+        <a class="link-label" target="_blank" rel="noopener"></a> をコレクションから削除してもよろしいですか？
         @slot('footer')
             <form>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
