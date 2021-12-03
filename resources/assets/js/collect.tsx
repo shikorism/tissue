@@ -4,6 +4,8 @@ import classNames from 'classnames';
 import { FieldError } from './components/FieldError';
 import { TagInput } from './components/TagInput';
 import { MetadataPreview } from './components/MetadataPreview';
+import { fetchPostJson, ResponseError } from './fetch';
+import { showToast } from './tissue';
 
 type FormValues = {
     collection: string;
@@ -25,10 +27,38 @@ const CollectForm = () => {
     });
     const [errors, setErrors] = useState<FormErrors>({});
     const [linkForPreview, setLinkForPreview] = useState(values.link);
+    const [submitting, setSubmitting] = useState<boolean>(false);
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        // TODO
+        setSubmitting(true);
+        try {
+            const response = await fetchPostJson('/api/collections/inbox', { link: values.link, flash: true });
+            if (response.status === 201) {
+                const data = await response.json();
+                if (data.collection_id && data.user_name) {
+                    location.href = `/user/${data.user_name}/collections/${data.collection_id}`;
+                    return;
+                }
+            }
+            throw new ResponseError(response);
+        } catch (e) {
+            console.error(e);
+            if (e instanceof ResponseError && e.response.status == 422) {
+                const data = await e.response.json();
+                if (data.error?.violations) {
+                    const errors: FormErrors = {};
+                    for (const violation of data.error.violations) {
+                        const field = violation.field as keyof FormValues;
+                        (errors[field] || (errors[field] = [])).push(violation.message);
+                    }
+                    setErrors(errors);
+                    return;
+                }
+            }
+            showToast('エラーが発生しました', { color: 'danger', delay: 5000 });
+            setSubmitting(false);
+        }
     };
 
     return (
@@ -62,7 +92,7 @@ const CollectForm = () => {
                         onBlur={() => setLinkForPreview(values.link)}
                     />
                     <small className="form-text text-muted">オカズのURLを貼り付けてください。</small>
-                    <FieldError errors={errors?.link} />
+                    <FieldError name="link" label="リンク" errors={errors?.link} />
                 </div>
             </div>
             <MetadataPreview
@@ -83,7 +113,7 @@ const CollectForm = () => {
                         onChange={(v) => setValues((values) => ({ ...values, tags: v }))}
                     />
                     <small className="form-text text-muted">Tab, Enter, 半角スペースのいずれかで入力確定します。</small>
-                    <FieldError errors={errors?.tags} />
+                    <FieldError name="tags" label="タグ" errors={errors?.tags} />
                 </div>
             </div>
             <div className="form-row">
@@ -100,11 +130,11 @@ const CollectForm = () => {
                         onChange={(e) => setValues((values) => ({ ...values, note: e.target.value }))}
                     />
                     <small className="form-text text-muted">最大 500 文字</small>
-                    <FieldError errors={errors?.note} />
+                    <FieldError name="note" label="ノート" errors={errors?.note} />
                 </div>
             </div>
             <div className="text-center">
-                <button className="btn btn-primary" type="submit">
+                <button className="btn btn-primary" type="submit" disabled={submitting}>
                     登録
                 </button>
             </div>

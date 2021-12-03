@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Collection;
 use App\CollectionItem;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CollectionItemResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -30,6 +31,10 @@ class CollectionController extends Controller
         $item = new CollectionItem($validated);
         $collection->items()->save($item);
 
-        return response()->noContent();
+        if ($request->input('flash') === true) {
+            session()->flash('status', '登録しました。');
+        }
+
+        return new CollectionItemResource($item);
     }
 }
