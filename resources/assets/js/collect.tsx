@@ -33,7 +33,7 @@ const CollectForm = () => {
         event.preventDefault();
         setSubmitting(true);
         try {
-            const response = await fetchPostJson('/api/collections/inbox', { link: values.link, flash: true });
+            const response = await fetchPostJson('/api/collections/inbox', { ...values, flash: true });
             if (response.status === 201) {
                 const data = await response.json();
                 if (data.collection_id && data.user_name) {

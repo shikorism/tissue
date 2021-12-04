@@ -17,6 +17,7 @@ class CollectionItem extends Model
         parent::boot();
 
         self::creating(function (CollectionItem $item) {
+            $item->note ??= '';
             $item->normalized_link = app(Formatter::class)->normalizeUrl($item->link);
         });
     }
