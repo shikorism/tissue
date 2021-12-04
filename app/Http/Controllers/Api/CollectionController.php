@@ -6,15 +6,32 @@ use App\Collection;
 use App\CollectionItem;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CollectionItemResource;
+use App\Http\Resources\CollectionResource;
 use App\Tag;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Validator;
 
 class CollectionController extends Controller
 {
+    public function index(User $user)
+    {
+        if (!$user->isMe() && $user->is_protected) {
+            throw new AccessDeniedHttpException('このユーザはチェックイン履歴を公開していません');
+        }
+
+        $collections = $user->collections();
+        if (!$user->isMe()) {
+            $collections = $collections->where('is_private', false);
+        }
+
+        return response()->json($collections->get()->map(fn ($collection) => new CollectionResource($collection)));
+    }
+
     public function inbox(Request $request)
     {
         /** @var Collection $collection */

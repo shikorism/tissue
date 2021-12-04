@@ -29,18 +29,7 @@ class CollectionController extends Controller
         if (empty($user)) {
             abort(404);
         }
-        if ($user->is_protected && !$user->isMe()) {
-            return redirect()->route('user.collections', ['name' => $name]);
-        }
 
-        $collections = $user->collections;
-        $collection = $user->collections()->findOrFail($id);
-        if ($collection->is_private && !$user->isMe()) {
-            abort(404);
-        }
-
-        $items = $collection->items()->orderByDesc('id')->paginate(20);
-
-        return view('user.collections.show')->with(compact('user', 'collections', 'collection', 'items'));
+        return view('user.collections.show')->with(compact('user'));
     }
 }
