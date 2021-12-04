@@ -81,5 +81,8 @@
     "*.php": [
       "composer fix"
     ]
+  },
+  "dependencies": {
+    "react-router-dom": "6"
   }
 }
