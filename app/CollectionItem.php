@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class CollectionItem extends Model
 {
     protected $fillable = [
-        'link'
+        'link',
+        'note',
     ];
 
     protected static function boot()

@@ -18,6 +18,7 @@ class CreateCollectionItemsTable extends Migration
             $table->bigInteger('collection_id');
             $table->text('link');
             $table->text('normalized_link');
+            $table->string('note', 500)->default('');
             $table->timestamps();
 
             $table->foreign('collection_id')->references('id')->on('collections')->onDelete('cascade');
