@@ -43,6 +43,20 @@
                         <span class="oi oi-link-intact mr-1"></span><a class="overflow-hidden" href="{{ $item->link }}" target="_blank" rel="noopener">{{ $item->link }}</a>
                     </p>
                 </div>
+                {{-- tags --}}
+                @if ($item->tags->isNotEmpty())
+                    <p class="tis-checkin-tags mb-2">
+                        @foreach ($item->tags as $tag)
+                            <a class="badge badge-secondary" href="{{ route('search', ['q' => $tag->name]) }}"><span class="oi oi-tag"></span> {{ $tag->name }}</a>
+                        @endforeach
+                    </p>
+                @endif
+                {{-- note --}}
+                @if (!empty($item->note))
+                    <p class="mb-2 text-break">
+                        {!! Formatter::linkify(nl2br(e($item->note))) !!}
+                    </p>
+                @endif
                 {{-- actions --}}
                 <div class="ejaculation-actions">
                     <button type="button" class="btn btn-link text-secondary"
