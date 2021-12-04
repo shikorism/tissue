@@ -1,60 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Link, Route, Routes, useParams } from 'react-router-dom';
-import { fetchGet, ResponseError } from '../fetch';
 import { LinkCard } from '../components/LinkCard';
-
-function makeFetchHook<Params, Data>(fetch: (params: Params) => Promise<Response>) {
-    return (params: Params) => {
-        const [loading, setLoading] = useState(false);
-        const [data, setData] = useState<Data | undefined>(undefined);
-        const [error, setError] = useState<any>(null);
-
-        useEffect(() => {
-            setLoading(true);
-            fetch(params)
-                .then((response) => {
-                    if (response.ok) {
-                        return response.json();
-                    }
-                    throw new ResponseError(response);
-                })
-                .then((data) => {
-                    setData(data);
-                })
-                .catch((e) => {
-                    console.error(e);
-                    setError(e);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
-        }, []);
-
-        return { loading, data, error };
-    };
-}
-
-type Profile = any;
-type Collection = any;
-type CollectionItem = any;
-
-const useFetchMyProfile = makeFetchHook<void, Profile>(() => fetchGet(`/api/me`));
-
-const useFetchCollections = makeFetchHook<{ username: string }, Collection[]>(({ username }) =>
-    fetchGet(`/api/users/${username}/collections`)
-);
-
-const useFetchCollectionItems = makeFetchHook<{ id: string }, CollectionItem[]>(({ id }) =>
-    fetchGet(`/api/collections/${id}/items`)
-);
-
-const MyProfileContext = React.createContext<Profile | undefined>(undefined);
-
-const useMyProfile = () => useContext(MyProfileContext);
+import { MyProfileContext, useMyProfile } from '../context';
+import { useFetchMyProfile, useFetchCollections, useFetchCollectionItems } from '../api';
 
 type SidebarItemProps = {
-    collection: Collection;
+    collection: Tissue.Collection;
 };
 
 const SidebarItem: React.FC<SidebarItemProps> = ({ collection }) => {
@@ -84,7 +36,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ collection }) => {
 };
 
 type SidebarProps = {
-    collections?: Collection[];
+    collections?: Tissue.Collection[];
 };
 
 const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
@@ -106,7 +58,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
 
 type CollectionItemProps = {
     collectionId: string;
-    item: CollectionItem;
+    item: Tissue.CollectionItem;
 };
 
 const CollectionItem: React.FC<CollectionItemProps> = ({ collectionId, item }) => {
