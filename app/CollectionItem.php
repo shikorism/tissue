@@ -26,6 +26,18 @@ class CollectionItem extends Model
         return $this->belongsTo(Collection::class);
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class)->withTimestamps();
+    }
+
+    public function textTags()
+    {
+        return implode(' ', $this->tags->map(function ($v) {
+            return $v->name;
+        })->all());
+    }
+
     /**
      * このアイテムでチェックインするためのURLを生成
      * @return string
@@ -34,7 +46,7 @@ class CollectionItem extends Model
     {
         return route('checkin', [
             'link' => $this->link,
-//            'tags' => $this->textTags(),
+            'tags' => $this->textTags(),
 //            'is_private' => $this->is_private,
 //            'is_too_sensitive' => $this->is_too_sensitive,
         ]);
