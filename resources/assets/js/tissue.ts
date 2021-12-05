@@ -115,44 +115,6 @@ export function deleteCheckinModal(modal: Element) {
     });
 }
 
-export function deleteCollectionItemModal(modal: Element) {
-    let element: Element;
-    let collectionId: any = null;
-    let itemId: any = null;
-    modal.querySelector('form')?.addEventListener('submit', function (event) {
-        event.preventDefault();
-        const buttons = modal.querySelectorAll('button');
-        buttons.forEach((button) => (button.disabled = true));
-
-        fetchDeleteJson(`/api/collections/${collectionId}/items/${itemId}`)
-            .then((response) => {
-                if (response.ok) {
-                    $(modal).modal('hide');
-                    element.remove();
-                    showToast('削除しました', { color: 'success', delay: 5000 });
-                    return;
-                }
-                throw new ResponseError(response);
-            })
-            .catch((e) => {
-                console.error(e);
-                showToast('削除中にエラーが発生しました', { color: 'danger', delay: 5000 });
-            })
-            .finally(() => {
-                buttons.forEach((button) => (button.disabled = false));
-            });
-    });
-    return $(modal).on('show.bs.modal', function (event) {
-        const target = event.relatedTarget || die();
-        element = target.parentElement?.parentElement || die();
-        const linkLabel = this.querySelector<HTMLAnchorElement>('.modal-body .link-label') || die();
-        linkLabel.href = target.dataset.link || '#';
-        linkLabel.textContent = target.dataset.link || null;
-        collectionId = target.dataset.collectionId;
-        itemId = target.dataset.itemId;
-    });
-}
-
 const THEME_COLORS = ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'light', 'dark'] as const;
 type ThemeColor = typeof THEME_COLORS[number];
 export function showToast(message: string, options: Partial<{ color: ThemeColor; delay: number }> = {}) {

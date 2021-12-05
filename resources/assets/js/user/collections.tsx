@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Link, Route, Routes, useParams, useSearchParams } from 'react-router-dom';
+import { Button, Modal } from 'react-bootstrap';
 import { LinkCard } from '../components/LinkCard';
 import { MyProfileContext, useMyProfile } from '../context';
 import { useFetchMyProfile, useFetchCollections, useFetchCollectionItems } from '../api';
 import { Pagination } from '../components/Pagination';
+import { showToast } from '../tissue';
+import { fetchDeleteJson, ResponseError } from '../fetch';
 
 type SidebarItemProps = {
     collection: Tissue.Collection;
@@ -65,6 +68,28 @@ type CollectionItemProps = {
 const CollectionItem: React.FC<CollectionItemProps> = ({ collectionId, item }) => {
     const me = useMyProfile();
     const { username } = useParams();
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [deleting, setDeleting] = useState(false);
+    const [deleted, setDeleted] = useState(false);
+
+    const handleClickDelete = async () => {
+        setDeleting(true);
+        try {
+            const response = await fetchDeleteJson(`/api/collections/${collectionId}/items/${item.id}`);
+            if (response.ok) {
+                setShowDeleteModal(false);
+                setDeleted(true);
+                showToast('削除しました', { color: 'success', delay: 5000 });
+                return;
+            }
+            throw new ResponseError(response);
+        } catch (e) {
+            console.error(e);
+            showToast('削除中にエラーが発生しました', { color: 'danger', delay: 5000 });
+        } finally {
+            setDeleting(false);
+        }
+    };
 
     // TODO: react-bootstrapで制御すべき
     const actionsRef = (el: HTMLDivElement | null) => {
@@ -73,8 +98,12 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ collectionId, item }) =
         }
     };
 
+    if (deleted) {
+        return null;
+    }
+
     return (
-        <>
+        <li className="list-group-item border-bottom-only pt-3 pb-3 text-break">
             <div className="row mx-0">
                 <LinkCard link={item.link} />
                 <p className="d-flex align-items-baseline mb-2 col-12 px-0">
@@ -146,17 +175,33 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ collectionId, item }) =
                             data-toggle="tooltip"
                             data-placement="bottom"
                             title="削除"
-                            data-target="#deleteCollectionItemModal"
-                            data-collection-id={collectionId}
-                            data-item-id={item.id}
-                            data-link={item.link}
+                            onClick={() => setShowDeleteModal(true)}
                         >
                             <span className="oi oi-trash" />
                         </button>
                     </>
                 )}
             </div>
-        </>
+            <Modal show={showDeleteModal} onHide={() => !deleting && setShowDeleteModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title as="h5">削除確認</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <a className="link-label" href={item.link} target="_blank" rel="noopener noreferrer">
+                        {item.link}
+                    </a>
+                    をコレクションから削除してもよろしいですか？
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" disabled={deleting} onClick={() => setShowDeleteModal(false)}>
+                        キャンセル
+                    </Button>
+                    <Button variant="danger" disabled={deleting} onClick={handleClickDelete}>
+                        削除
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </li>
     );
 };
 
@@ -177,11 +222,7 @@ const Collection: React.FC = () => {
                         <p>このコレクションにはまだオカズが登録されていません。</p>
                     </li>
                 ) : (
-                    data.map((item) => (
-                        <li key={item.id} className="list-group-item border-bottom-only pt-3 pb-3 text-break">
-                            <CollectionItem collectionId={id as string} item={item} />
-                        </li>
-                    ))
+                    data.map((item) => <CollectionItem key={item.id} collectionId={id as string} item={item} />)
                 )}
             </ul>
             {totalCount && <Pagination className="mt-4 justify-content-center" perPage={20} totalCount={totalCount} />}

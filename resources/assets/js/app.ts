@@ -1,13 +1,6 @@
 import Cookies from 'js-cookie';
 import { fetchPostJson, fetchDeleteJson, ResponseError } from './fetch';
-import {
-    linkCard,
-    pageSelector,
-    deleteCheckinModal,
-    deleteCollectionItemModal,
-    checkinMutedWarning,
-    showToast,
-} from './tissue';
+import { linkCard, pageSelector, deleteCheckinModal, checkinMutedWarning, showToast } from './tissue';
 
 require('./bootstrap');
 
@@ -39,15 +32,6 @@ $(() => {
         $(document).on('click', '[data-target="#deleteCheckinModal"]', function (event) {
             event.preventDefault();
             $deleteCheckinModal.modal('show', this);
-        });
-    }
-
-    const elDeleteCollectionItemModal = document.getElementById('deleteCollectionItemModal');
-    if (elDeleteCollectionItemModal) {
-        const $deleteCollectionItemModal = deleteCollectionItemModal(elDeleteCollectionItemModal);
-        $(document).on('click', '[data-target="#deleteCollectionItemModal"]', function (event) {
-            event.preventDefault();
-            $deleteCollectionItemModal.modal('show', this);
         });
     }
 
