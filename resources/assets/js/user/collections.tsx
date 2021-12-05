@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Link, Route, Routes, useParams } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Routes, useParams, useSearchParams } from 'react-router-dom';
 import { LinkCard } from '../components/LinkCard';
 import { MyProfileContext, useMyProfile } from '../context';
 import { useFetchMyProfile, useFetchCollections, useFetchCollectionItems } from '../api';
+import { Pagination } from '../components/Pagination';
 
 type SidebarItemProps = {
     collection: Tissue.Collection;
@@ -161,7 +162,8 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ collectionId, item }) =
 
 const Collection: React.FC = () => {
     const { id } = useParams();
-    const { data } = useFetchCollectionItems({ id: id as string });
+    const [searchParams] = useSearchParams();
+    const { data, totalCount } = useFetchCollectionItems({ id: id as string, page: searchParams.get('page') });
 
     if (!data) {
         return null;
@@ -169,19 +171,22 @@ const Collection: React.FC = () => {
 
     // TODO: pagination
     return (
-        <ul className="list-group">
-            {data.length === 0 ? (
-                <li className="list-group-item border-bottom-only">
-                    <p>このコレクションにはまだオカズが登録されていません。</p>
-                </li>
-            ) : (
-                data.map((item) => (
-                    <li key={item.id} className="list-group-item border-bottom-only pt-3 pb-3 text-break">
-                        <CollectionItem collectionId={id as string} item={item} />
+        <>
+            <ul className="list-group">
+                {data.length === 0 ? (
+                    <li className="list-group-item border-bottom-only">
+                        <p>このコレクションにはまだオカズが登録されていません。</p>
                     </li>
-                ))
-            )}
-        </ul>
+                ) : (
+                    data.map((item) => (
+                        <li key={item.id} className="list-group-item border-bottom-only pt-3 pb-3 text-break">
+                            <CollectionItem collectionId={id as string} item={item} />
+                        </li>
+                    ))
+                )}
+            </ul>
+            {totalCount && <Pagination className="mt-4 justify-content-center" perPage={20} totalCount={totalCount} />}
+        </>
     );
 };
 
