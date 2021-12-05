@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { fetchGet, ResponseError } from './fetch';
 
 /**
@@ -26,6 +26,9 @@ function makeFetchHook<Params, Data>(fetch: (params: Params) => Promise<Response
         const [data, setData] = useState<Data | undefined>(undefined);
         const [totalCount, setTotalCount] = useState<number | undefined>(undefined);
         const [error, setError] = useState<any>(null);
+        const [reloadCounter, setReloadCounter] = useState(0);
+
+        const reload = useCallback(() => setReloadCounter((v) => v + 1), []);
 
         useEffect(() => {
             setLoading(true);
@@ -64,9 +67,9 @@ function makeFetchHook<Params, Data>(fetch: (params: Params) => Promise<Response
             return () => {
                 cancelled = true;
             };
-        }, manaita(params));
+        }, [...manaita(params), reloadCounter]);
 
-        return { loading, data, totalCount, error };
+        return { loading, data, totalCount, error, reload };
     };
 }
 
