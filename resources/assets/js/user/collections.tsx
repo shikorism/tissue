@@ -163,7 +163,7 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ collectionId, item }) =
 const Collection: React.FC = () => {
     const { id } = useParams();
     const [searchParams] = useSearchParams();
-    const { data, totalCount } = useFetchCollectionItems({ id: id as string, page: searchParams.get('page') });
+    const { loading, data, totalCount } = useFetchCollectionItems({ id: id as string, page: searchParams.get('page') });
 
     if (!data) {
         return null;
@@ -173,7 +173,7 @@ const Collection: React.FC = () => {
     return (
         <>
             <ul className="list-group">
-                {data.length === 0 ? (
+                {loading ? null : data.length === 0 ? (
                     <li className="list-group-item border-bottom-only">
                         <p>このコレクションにはまだオカズが登録されていません。</p>
                     </li>

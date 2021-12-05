@@ -1,6 +1,25 @@
 import { useEffect, useState } from 'react';
 import { fetchGet, ResponseError } from './fetch';
 
+/**
+ * @example
+ *   manaita([1, 2, [30, [40, 50]]]) // => [1, 2, 30, 40, 50]
+ *   manaita({ foo: 'hoge', bar: 'fuga', baz: [10, 20, 30] }) // => ['hoge', 'fuga', 10, 20, 30]
+ */
+function manaita(input: unknown): unknown[] {
+    if (Array.isArray(input)) {
+        let flattened: any[] = [];
+        for (const v of input) {
+            flattened = [...flattened, ...manaita(v)];
+        }
+        return flattened;
+    } else if (input !== null && typeof input === 'object') {
+        return manaita(Object.values(input));
+    } else {
+        return [input];
+    }
+}
+
 function makeFetchHook<Params, Data>(fetch: (params: Params) => Promise<Response>) {
     return (params: Params) => {
         const [loading, setLoading] = useState(false);
@@ -10,8 +29,14 @@ function makeFetchHook<Params, Data>(fetch: (params: Params) => Promise<Response
 
         useEffect(() => {
             setLoading(true);
-            fetch(params)
-                .then((response) => {
+
+            let cancelled = false;
+            (async () => {
+                try {
+                    const response = await fetch(params);
+                    if (cancelled) {
+                        return;
+                    }
                     if (response.ok) {
                         const total = response.headers.get('X-Total-Count');
                         if (total) {
@@ -20,21 +45,26 @@ function makeFetchHook<Params, Data>(fetch: (params: Params) => Promise<Response
                             setTotalCount(undefined);
                         }
 
-                        return response.json();
+                        const data = await response.json();
+                        if (cancelled) {
+                            return;
+                        }
+
+                        setData(data);
+                        setLoading(false);
                     }
                     throw new ResponseError(response);
-                })
-                .then((data) => {
-                    setData(data);
-                })
-                .catch((e) => {
+                } catch (e) {
                     console.error(e);
                     setError(e);
-                })
-                .finally(() => {
                     setLoading(false);
-                });
-        }, []);
+                }
+            })();
+
+            return () => {
+                cancelled = true;
+            };
+        }, manaita(params));
 
         return { loading, data, totalCount, error };
     };
