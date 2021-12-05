@@ -175,7 +175,7 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ collectionId, item }) =
                 <Modal.Body>
                     <a className="link-label" href={item.link} target="_blank" rel="noopener noreferrer">
                         {item.link}
-                    </a>
+                    </a>{' '}
                     をコレクションから削除してもよろしいですか？
                 </Modal.Body>
                 <Modal.Footer>
