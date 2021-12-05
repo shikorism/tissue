@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Link, Route, Routes, useParams, useSearchParams } from 'react-router-dom';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { LinkCard } from '../components/LinkCard';
 import { MyProfileContext, useMyProfile } from '../context';
 import { useFetchMyProfile, useFetchCollections, useFetchCollectionItems } from '../api';
@@ -91,13 +91,6 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ collectionId, item }) =
         }
     };
 
-    // TODO: react-bootstrapで制御すべき
-    const actionsRef = (el: HTMLDivElement | null) => {
-        if (el) {
-            $(el).find('[data-toggle="tooltip"], [data-tooltip="tooltip"]').tooltip();
-        }
-    };
-
     if (deleted) {
         return null;
     }
@@ -127,29 +120,28 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ collectionId, item }) =
                 </p>
             )}
             {item.note != '' && <p className="mb-2 text-break" dangerouslySetInnerHTML={{ __html: item.note }} />}
-            <div ref={actionsRef} className="ejaculation-actions">
-                <button
-                    type="button"
-                    className="btn btn-link text-secondary"
-                    data-toggle="tooltip"
-                    data-placement="bottom"
-                    title="このオカズでチェックイン"
-                    data-href={item.checkin_url}
+            <div className="ejaculation-actions">
+                <OverlayTrigger
+                    placement="bottom"
+                    overlay={<Tooltip id={`checkin_${item.id}`}>このオカズでチェックイン</Tooltip>}
                 >
-                    <span className="oi oi-check" />
-                </button>
-                <span className="dropdown">
                     <button
                         type="button"
                         className="btn btn-link text-secondary"
-                        data-toggle="dropdown"
-                        data-tooltip="tooltip"
-                        data-placement="bottom"
-                        data-trigger="hover"
-                        title="コレクションに追加"
+                        onClick={() => (location.href = item.checkin_url)}
                     >
-                        <span className="oi oi-plus" />
+                        <span className="oi oi-check" />
                     </button>
+                </OverlayTrigger>
+                <span className="dropdown">
+                    <OverlayTrigger
+                        placement="bottom"
+                        overlay={<Tooltip id={`add_collection_${item.id}`}>コレクションに追加</Tooltip>}
+                    >
+                        <button type="button" className="btn btn-link text-secondary" data-toggle="dropdown">
+                            <span className="oi oi-plus" />
+                        </button>
+                    </OverlayTrigger>
                     <div className="dropdown-menu">
                         <h6 className="dropdown-header">コレクションに追加</h6>
                         <button type="button" className="dropdown-item use-later-button" data-link={item.link}>
@@ -159,26 +151,20 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ collectionId, item }) =
                 </span>
                 {username === me?.name && (
                     <>
-                        <button
-                            type="button"
-                            className="btn btn-link text-secondary"
-                            data-toggle="tooltip"
-                            data-placement="bottom"
-                            title="修正"
-                            data-href=""
-                        >
-                            <span className="oi oi-pencil" />
-                        </button>
-                        <button
-                            type="button"
-                            className="btn btn-link text-secondary"
-                            data-toggle="tooltip"
-                            data-placement="bottom"
-                            title="削除"
-                            onClick={() => setShowDeleteModal(true)}
-                        >
-                            <span className="oi oi-trash" />
-                        </button>
+                        <OverlayTrigger placement="bottom" overlay={<Tooltip id={`edit_${item.id}`}>修正</Tooltip>}>
+                            <button type="button" className="btn btn-link text-secondary">
+                                <span className="oi oi-pencil" />
+                            </button>
+                        </OverlayTrigger>
+                        <OverlayTrigger placement="bottom" overlay={<Tooltip id={`delete_${item.id}`}>削除</Tooltip>}>
+                            <button
+                                type="button"
+                                className="btn btn-link text-secondary"
+                                onClick={() => setShowDeleteModal(true)}
+                            >
+                                <span className="oi oi-trash" />
+                            </button>
+                        </OverlayTrigger>
                     </>
                 )}
             </div>
