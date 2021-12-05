@@ -169,7 +169,6 @@ const Collection: React.FC = () => {
         return null;
     }
 
-    // TODO: pagination
     return (
         <>
             <ul className="list-group">

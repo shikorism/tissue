@@ -7,10 +7,22 @@ type PaginationProps = {
     totalCount: number;
 };
 
-function* pageNumbers(totalPages: number): Generator<number> {
-    for (let i = 0; i < totalPages; i++) {
-        yield i + 1;
+const range = (begin: number, end: number) => [...new Array(end - begin + 1)].map((_, i) => i + begin);
+
+function slidedPageNumbers(page: number, totalPages: number, slide = 3) {
+    const window = slide * 2;
+    if (totalPages < window + 6) {
+        return [range(1, totalPages)];
     }
+
+    if (page <= window) {
+        return [range(1, window + 2), [totalPages - 1, totalPages]];
+    }
+    if (page > totalPages - window) {
+        return [[1, 2], range(totalPages - window - 1, totalPages)];
+    }
+
+    return [[1, 2], range(page - slide, page + slide), [totalPages - 1, totalPages]];
 }
 
 function pageQuery(searchParams: URLSearchParams, page: number): string {
@@ -46,19 +58,28 @@ export const Pagination: React.FC<PaginationProps> = ({ className, perPage, tota
                         </Link>
                     </li>
                 )}
-                {Array.from(pageNumbers(totalPages)).map((i) =>
-                    i === page ? (
-                        <li key={i} className="page-item active">
-                            <span className="page-link">{i}</span>
-                        </li>
-                    ) : (
-                        <li key={i} className="page-item">
-                            <Link className="page-link" to={{ search: pageQuery(searchParams, i) }}>
-                                {i}
-                            </Link>
-                        </li>
-                    )
-                )}
+                {slidedPageNumbers(page, totalPages).map((chunk, i) => (
+                    <React.Fragment key={i}>
+                        {i !== 0 && (
+                            <li className="page-item disabled">
+                                <span className="page-link">...</span>
+                            </li>
+                        )}
+                        {chunk.map((p) =>
+                            p === page ? (
+                                <li key={p} className="page-item active">
+                                    <span className="page-link">{p}</span>
+                                </li>
+                            ) : (
+                                <li key={p} className="page-item">
+                                    <Link className="page-link" to={{ search: pageQuery(searchParams, p) }}>
+                                        {p}
+                                    </Link>
+                                </li>
+                            )
+                        )}
+                    </React.Fragment>
+                ))}
                 {page === totalPages ? (
                     <li className="page-item disabled">
                         <span className="page-link">&raquo;</span>
@@ -84,8 +105,13 @@ export const Pagination: React.FC<PaginationProps> = ({ className, perPage, tota
                     </li>
                 )}
                 <li className="page-item w-25 text-center">
-                    <select className="custom-select tis-page-selector" aria-label="Page" onChange={handleChangePage}>
-                        {Array.from(pageNumbers(totalPages)).map((i) => (
+                    <select
+                        className="custom-select tis-page-selector"
+                        aria-label="Page"
+                        value={page}
+                        onChange={handleChangePage}
+                    >
+                        {range(1, totalPages).map((i) => (
                             <option key={i} value={i} selected={i === page}>
                                 {i}
                             </option>
