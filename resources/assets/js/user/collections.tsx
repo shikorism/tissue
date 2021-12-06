@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Link, Route, Routes, useParams, useSearchParams } from 'react-router-dom';
-import { Button, Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Button, Modal, ModalProps, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { LinkCard } from '../components/LinkCard';
 import { MyProfileContext, useMyProfile } from '../context';
 import { useFetchMyProfile, useFetchCollections, useFetchCollectionItems } from '../api';
 import { Pagination } from '../components/Pagination';
 import { showToast } from '../tissue';
 import { fetchDeleteJson, ResponseError } from '../fetch';
+import classNames from 'classnames';
+import { MetadataPreview } from '../components/MetadataPreview';
+import { TagInput } from '../components/TagInput';
+import { FieldError } from '../components/FieldError';
 
 type SidebarItemProps = {
     collection: Tissue.Collection;
@@ -60,6 +64,117 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
     );
 };
 
+interface EditModalProps extends ModalProps {
+    item: Tissue.CollectionItem;
+}
+
+type EditFormValues = {
+    tags: string[];
+    note: string;
+};
+
+type EditFormErrors = {
+    [Property in keyof EditFormValues]+?: string[];
+};
+
+const EditModal: React.FC<EditModalProps> = ({ item, onHide, ...rest }) => {
+    const [values, setValues] = useState<EditFormValues>({
+        note: item.note,
+        tags: item.tags,
+    });
+    const [errors, setErrors] = useState<EditFormErrors>({});
+    const [submitting, setSubmitting] = useState<boolean>(false);
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        // TODO
+    };
+
+    const handleHide = () => {
+        if (!submitting && onHide) {
+            setValues({ note: item.note, tags: item.tags });
+            setErrors({});
+            onHide();
+        }
+    };
+
+    return (
+        <Modal onHide={handleHide} {...rest}>
+            <form onSubmit={handleSubmit}>
+                <Modal.Header closeButton>
+                    <Modal.Title as="h5">編集</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="form-row">
+                        <div className="form-group col-sm-12">
+                            <label htmlFor="link">
+                                <span className="oi oi-link-intact" /> オカズリンク
+                            </label>
+                            <input
+                                type="text"
+                                id="link"
+                                name="link"
+                                className="form-control"
+                                disabled
+                                placeholder="http://..."
+                                value={item.link}
+                            />
+                        </div>
+                    </div>
+                    <MetadataPreview
+                        link={item.link}
+                        tags={values.tags}
+                        onClickTag={(v) => setValues(({ tags, ...rest }) => ({ ...rest, tags: tags.concat(v) }))}
+                    />
+                    <div className="form-row">
+                        <div className="form-group col-sm-12">
+                            <label htmlFor="tagInput">
+                                <span className="oi oi-tags" /> タグ
+                            </label>
+                            <TagInput
+                                id="tagInput"
+                                name="tags"
+                                values={values.tags}
+                                isInvalid={!!errors?.tags}
+                                onChange={(v) => setValues((values) => ({ ...values, tags: v }))}
+                            />
+                            <small className="form-text text-muted">
+                                Tab, Enter, 半角スペースのいずれかで入力確定します。
+                            </small>
+                            <FieldError name="tags" label="タグ" errors={errors?.tags} />
+                        </div>
+                    </div>
+                    <div className="form-row">
+                        <div className="form-group col-sm-12">
+                            <label htmlFor="note">
+                                <span className="oi oi-comment-square" /> ノート
+                            </label>
+                            <textarea
+                                id="note"
+                                name="note"
+                                className={classNames({ 'form-control': true, 'is-invalid': errors?.note })}
+                                rows={4}
+                                value={values.note}
+                                onChange={(e) => setValues((values) => ({ ...values, note: e.target.value }))}
+                            />
+                            <small className="form-text text-muted">最大 500 文字</small>
+                            <FieldError name="note" label="ノート" errors={errors?.note} />
+                        </div>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleHide}>
+                        キャンセル
+                    </Button>
+                    <Button type="submit" variant="primary">
+                        更新
+                    </Button>
+                </Modal.Footer>
+            </form>
+        </Modal>
+    );
+};
+
 type CollectionItemProps = {
     collectionId: string;
     item: Tissue.CollectionItem;
@@ -68,6 +183,7 @@ type CollectionItemProps = {
 const CollectionItem: React.FC<CollectionItemProps> = ({ collectionId, item }) => {
     const me = useMyProfile();
     const { username } = useParams();
+    const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [deleting, setDeleting] = useState(false);
     const [deleted, setDeleted] = useState(false);
@@ -151,8 +267,12 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ collectionId, item }) =
                 </span>
                 {username === me?.name && (
                     <>
-                        <OverlayTrigger placement="bottom" overlay={<Tooltip id={`edit_${item.id}`}>修正</Tooltip>}>
-                            <button type="button" className="btn btn-link text-secondary">
+                        <OverlayTrigger placement="bottom" overlay={<Tooltip id={`edit_${item.id}`}>編集</Tooltip>}>
+                            <button
+                                type="button"
+                                className="btn btn-link text-secondary"
+                                onClick={() => setShowEditModal(true)}
+                            >
                                 <span className="oi oi-pencil" />
                             </button>
                         </OverlayTrigger>
@@ -168,6 +288,7 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ collectionId, item }) =
                     </>
                 )}
             </div>
+            <EditModal item={item} show={showEditModal} onHide={() => setShowEditModal(false)} />
             <Modal show={showDeleteModal} onHide={() => !deleting && setShowDeleteModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title as="h5">削除確認</Modal.Title>
