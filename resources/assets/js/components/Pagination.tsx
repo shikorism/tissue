@@ -112,7 +112,7 @@ export const Pagination: React.FC<PaginationProps> = ({ className, perPage, tota
                         onChange={handleChangePage}
                     >
                         {range(1, totalPages).map((i) => (
-                            <option key={i} value={i} selected={i === page}>
+                            <option key={i} value={i}>
                                 {i}
                             </option>
                         ))}
