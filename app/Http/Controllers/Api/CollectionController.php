@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Validator;
 
 class CollectionController extends Controller
@@ -30,6 +31,21 @@ class CollectionController extends Controller
         }
 
         return response()->json($collections->get()->map(fn ($collection) => new CollectionResource($collection)));
+    }
+
+    public function show(Collection $collection)
+    {
+        // FIXME: たぶんPolicyで定義したほうがいい
+        if (!$collection->user->isMe()) {
+            if ($collection->is_private) {
+                throw new NotFoundHttpException();
+            }
+            if ($collection->user->is_protected) {
+                throw new AccessDeniedHttpException('このユーザはチェックイン履歴を公開していません');
+            }
+        }
+
+        return new CollectionResource($collection);
     }
 
     public function inbox(Request $request)

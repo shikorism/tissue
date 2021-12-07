@@ -4,7 +4,7 @@ import { BrowserRouter, Link, Route, Routes, useParams, useSearchParams } from '
 import { Button, Modal, ModalProps, OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
 import { LinkCard } from '../components/LinkCard';
 import { MyProfileContext, useMyProfile } from '../context';
-import { useFetchMyProfile, useFetchCollections, useFetchCollectionItems } from '../api';
+import { useFetchMyProfile, useFetchCollections, useFetchCollectionItems, useFetchCollection } from '../api';
 import { Pagination } from '../components/Pagination';
 import { showToast } from '../tissue';
 import { fetchDeleteJson, fetchPutJson, ResponseError } from '../fetch';
@@ -371,31 +371,56 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
 const Collection: React.FC = () => {
     const { id } = useParams();
     const [searchParams] = useSearchParams();
-    const { loading, data, setData, totalCount } = useFetchCollectionItems({
+    const fetchCollection = useFetchCollection({ id: id as string });
+    const fetchCollectionItems = useFetchCollectionItems({
         id: id as string,
         page: searchParams.get('page'),
     });
 
     const handleUpdate = (item: Tissue.CollectionItem) => {
-        setData((items) => items?.map((i) => (i.id === item.id ? item : i)));
+        fetchCollectionItems.setData((items) => items?.map((i) => (i.id === item.id ? item : i)));
     };
-
-    if (!data) {
-        return null;
-    }
 
     return (
         <>
-            <ul className="list-group">
-                {loading ? null : data.length === 0 ? (
-                    <li className="list-group-item border-bottom-only">
-                        <p>このコレクションにはまだオカズが登録されていません。</p>
-                    </li>
-                ) : (
-                    data.map((item) => <CollectionItem key={item.id} item={item} onUpdate={handleUpdate} />)
-                )}
-            </ul>
-            {totalCount && <Pagination className="mt-4 justify-content-center" perPage={20} totalCount={totalCount} />}
+            {fetchCollection.data && (
+                <div className="border-bottom">
+                    <h4 className="mb-1">{fetchCollection.data.title}</h4>
+                    <p className="mb-3">
+                        {fetchCollection.data.is_private ? (
+                            <small className="text-secondary">
+                                <span className="oi oi-lock-locked mr-1" />
+                                非公開コレクション
+                            </small>
+                        ) : (
+                            <small className="text-secondary">
+                                <span className="oi oi-lock-unlocked mr-1" />
+                                公開コレクション
+                            </small>
+                        )}
+                    </p>
+                </div>
+            )}
+            {fetchCollectionItems.data && (
+                <ul className="list-group">
+                    {fetchCollectionItems.loading ? null : fetchCollectionItems.data.length === 0 ? (
+                        <li className="list-group-item border-bottom-only">
+                            <p>このコレクションにはまだオカズが登録されていません。</p>
+                        </li>
+                    ) : (
+                        fetchCollectionItems.data.map((item) => (
+                            <CollectionItem key={item.id} item={item} onUpdate={handleUpdate} />
+                        ))
+                    )}
+                </ul>
+            )}
+            {fetchCollectionItems.totalCount && (
+                <Pagination
+                    className="mt-4 justify-content-center"
+                    perPage={20}
+                    totalCount={fetchCollectionItems.totalCount}
+                />
+            )}
         </>
     );
 };

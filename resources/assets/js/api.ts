@@ -79,6 +79,10 @@ export const useFetchCollections = makeFetchHook<{ username: string }, Tissue.Co
     fetchGet(`/api/users/${username}/collections`)
 );
 
+export const useFetchCollection = makeFetchHook<{ id: string }, Tissue.Collection>(({ id }) =>
+    fetchGet(`/api/collections/${id}`)
+);
+
 export const useFetchCollectionItems = makeFetchHook<{ id: string; page?: string | null }, Tissue.CollectionItem[]>(
     ({ id, page }) => fetchGet(`/api/collections/${id}/items`, page ? { page } : undefined)
 );
