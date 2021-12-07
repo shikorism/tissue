@@ -69,7 +69,7 @@ function makeFetchHook<Params, Data>(fetch: (params: Params) => Promise<Response
             };
         }, [...manaita(params), reloadCounter]);
 
-        return { loading, data, totalCount, error, reload };
+        return { loading, data, setData, totalCount, error, reload };
     };
 }
 
