@@ -205,10 +205,10 @@ const EditModal: React.FC<EditModalProps> = ({ item, onUpdate, show, onHide, ...
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleHide}>
+                    <Button variant="secondary" disabled={submitting} onClick={handleHide}>
                         キャンセル
                     </Button>
-                    <Button type="submit" variant="primary">
+                    <Button type="submit" variant="primary" disabled={submitting}>
                         更新
                     </Button>
                 </Modal.Footer>
