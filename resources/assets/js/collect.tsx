@@ -53,6 +53,7 @@ const CollectForm = () => {
                         (errors[field] || (errors[field] = [])).push(violation.message);
                     }
                     setErrors(errors);
+                    setSubmitting(false);
                     return;
                 }
             }
