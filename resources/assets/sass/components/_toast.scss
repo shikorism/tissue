@@ -1,7 +1,10 @@
+@use '../z-index';
+
 .tis-toast {
     position: fixed;
     top: 8px;
     left: 50%;
+    z-index: z-index.$toast;
     width: 320px;
     text-align: center;
     transition: transform 200ms linear, opacity 200ms linear;
