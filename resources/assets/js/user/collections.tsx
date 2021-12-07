@@ -7,7 +7,7 @@ import { MyProfileContext, useMyProfile } from '../context';
 import { useFetchMyProfile, useFetchCollections, useFetchCollectionItems } from '../api';
 import { Pagination } from '../components/Pagination';
 import { showToast } from '../tissue';
-import { fetchDeleteJson, fetchPostJson, fetchPutJson, ResponseError } from '../fetch';
+import { fetchDeleteJson, fetchPutJson, ResponseError } from '../fetch';
 import classNames from 'classnames';
 import { MetadataPreview } from '../components/MetadataPreview';
 import { TagInput } from '../components/TagInput';
@@ -66,6 +66,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
 
 interface EditModalProps extends ModalProps {
     item: Tissue.CollectionItem;
+    reload: () => void;
 }
 
 type EditFormValues = {
@@ -77,7 +78,7 @@ type EditFormErrors = {
     [Property in keyof EditFormValues]+?: string[];
 };
 
-const EditModal: React.FC<EditModalProps> = ({ item, onHide, ...rest }) => {
+const EditModal: React.FC<EditModalProps> = ({ item, reload, onHide, ...rest }) => {
     const [values, setValues] = useState<EditFormValues>({
         note: item.note,
         tags: item.tags,
@@ -98,7 +99,7 @@ const EditModal: React.FC<EditModalProps> = ({ item, onHide, ...rest }) => {
                 setValues({ note: item.note, tags: item.tags });
                 setErrors({});
                 onHide?.();
-                // TODO: リロードしたい
+                reload();
                 return;
             }
             throw new ResponseError(response);
@@ -208,11 +209,11 @@ const EditModal: React.FC<EditModalProps> = ({ item, onHide, ...rest }) => {
 };
 
 type CollectionItemProps = {
-    collectionId: string;
     item: Tissue.CollectionItem;
+    reload: () => void;
 };
 
-const CollectionItem: React.FC<CollectionItemProps> = ({ collectionId, item }) => {
+const CollectionItem: React.FC<CollectionItemProps> = ({ item, reload }) => {
     const me = useMyProfile();
     const { username } = useParams();
     const [showEditModal, setShowEditModal] = useState(false);
@@ -223,7 +224,7 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ collectionId, item }) =
     const handleClickDelete = async () => {
         setDeleting(true);
         try {
-            const response = await fetchDeleteJson(`/api/collections/${collectionId}/items/${item.id}`);
+            const response = await fetchDeleteJson(`/api/collections/${item.collection_id}/items/${item.id}`);
             if (response.ok) {
                 setShowDeleteModal(false);
                 setDeleted(true);
@@ -320,7 +321,7 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ collectionId, item }) =
                     </>
                 )}
             </div>
-            <EditModal item={item} show={showEditModal} onHide={() => setShowEditModal(false)} />
+            <EditModal item={item} show={showEditModal} onHide={() => setShowEditModal(false)} reload={reload} />
             <Modal show={showDeleteModal} onHide={() => !deleting && setShowDeleteModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title as="h5">削除確認</Modal.Title>
@@ -347,7 +348,10 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ collectionId, item }) =
 const Collection: React.FC = () => {
     const { id } = useParams();
     const [searchParams] = useSearchParams();
-    const { loading, data, totalCount } = useFetchCollectionItems({ id: id as string, page: searchParams.get('page') });
+    const { loading, data, totalCount, reload } = useFetchCollectionItems({
+        id: id as string,
+        page: searchParams.get('page'),
+    });
 
     if (!data) {
         return null;
@@ -361,7 +365,7 @@ const Collection: React.FC = () => {
                         <p>このコレクションにはまだオカズが登録されていません。</p>
                     </li>
                 ) : (
-                    data.map((item) => <CollectionItem key={item.id} collectionId={id as string} item={item} />)
+                    data.map((item) => <CollectionItem key={item.id} item={item} reload={reload} />)
                 )}
             </ul>
             {totalCount && <Pagination className="mt-4 justify-content-center" perPage={20} totalCount={totalCount} />}
