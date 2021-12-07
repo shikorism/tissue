@@ -26,7 +26,7 @@ Route::middleware('stateful')->group(function () {
         });
 
         Route::apiResource('users.collections', 'Api\\CollectionController')->only(['index']);
-        Route::apiResource('collections.items', 'Api\\CollectionItemController')->only(['index', 'destroy']);
+        Route::apiResource('collections.items', 'Api\\CollectionItemController')->only(['index', 'update', 'destroy']);
     });
 });
 

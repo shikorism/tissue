@@ -20,6 +20,11 @@ class CollectionItemPolicy
         //
     }
 
+    public function update(User $user, CollectionItem $item)
+    {
+        return $user->id === $item->collection->user_id;
+    }
+
     public function destroy(User $user, CollectionItem $item)
     {
         return $user->id === $item->collection->user_id;

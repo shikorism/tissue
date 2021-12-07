@@ -7,7 +7,7 @@ import { MyProfileContext, useMyProfile } from '../context';
 import { useFetchMyProfile, useFetchCollections, useFetchCollectionItems } from '../api';
 import { Pagination } from '../components/Pagination';
 import { showToast } from '../tissue';
-import { fetchDeleteJson, ResponseError } from '../fetch';
+import { fetchDeleteJson, fetchPostJson, fetchPutJson, ResponseError } from '../fetch';
 import classNames from 'classnames';
 import { MetadataPreview } from '../components/MetadataPreview';
 import { TagInput } from '../components/TagInput';
@@ -87,7 +87,39 @@ const EditModal: React.FC<EditModalProps> = ({ item, onHide, ...rest }) => {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        // TODO
+        setSubmitting(true);
+        try {
+            const response = await fetchPutJson(`/api/collections/${item.collection_id}/items/${item.id}`, {
+                ...values,
+                flash: true,
+            });
+            if (response.status === 200) {
+                showToast('更新しました', { color: 'success', delay: 5000 });
+                setValues({ note: item.note, tags: item.tags });
+                setErrors({});
+                onHide?.();
+                // TODO: リロードしたい
+                return;
+            }
+            throw new ResponseError(response);
+        } catch (e) {
+            console.error(e);
+            if (e instanceof ResponseError && e.response.status == 422) {
+                const data = await e.response.json();
+                if (data.error?.violations) {
+                    const errors: EditFormErrors = {};
+                    for (const violation of data.error.violations) {
+                        const field = violation.field as keyof EditFormErrors;
+                        (errors[field] || (errors[field] = [])).push(violation.message);
+                    }
+                    setErrors(errors);
+                    return;
+                }
+            }
+            showToast('エラーが発生しました', { color: 'danger', delay: 5000 });
+        } finally {
+            setSubmitting(false);
+        }
     };
 
     const handleHide = () => {
