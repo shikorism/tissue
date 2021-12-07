@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Link, Route, Routes, useParams, useSearchParams } from 'react-router-dom';
-import { Button, Modal, ModalProps, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Button, Modal, ModalProps, OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
 import { LinkCard } from '../components/LinkCard';
 import { MyProfileContext, useMyProfile } from '../context';
 import { useFetchMyProfile, useFetchCollections, useFetchCollectionItems } from '../api';
@@ -208,9 +208,23 @@ const EditModal: React.FC<EditModalProps> = ({ item, onUpdate, show, onHide, ...
                     <Button variant="secondary" disabled={submitting} onClick={handleHide}>
                         キャンセル
                     </Button>
-                    <Button type="submit" variant="primary" disabled={submitting}>
-                        更新
-                    </Button>
+                    {submitting ? (
+                        <Button type="submit" variant="primary" disabled={submitting}>
+                            <Spinner
+                                className="mr-1"
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            />
+                            更新中…
+                        </Button>
+                    ) : (
+                        <Button type="submit" variant="primary">
+                            更新
+                        </Button>
+                    )}
                 </Modal.Footer>
             </form>
         </Modal>
