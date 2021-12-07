@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Link, Route, Routes, useParams, useSearchParams } from 'react-router-dom';
 import { Button, Modal, ModalProps, OverlayTrigger, Tooltip } from 'react-bootstrap';
@@ -66,7 +66,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
 
 interface EditModalProps extends ModalProps {
     item: Tissue.CollectionItem;
-    reload: () => void;
+    onUpdate: (item: Tissue.CollectionItem) => void;
 }
 
 type EditFormValues = {
@@ -78,13 +78,23 @@ type EditFormErrors = {
     [Property in keyof EditFormValues]+?: string[];
 };
 
-const EditModal: React.FC<EditModalProps> = ({ item, reload, onHide, ...rest }) => {
+const EditModal: React.FC<EditModalProps> = ({ item, onUpdate, show, onHide, ...rest }) => {
     const [values, setValues] = useState<EditFormValues>({
         note: item.note,
         tags: item.tags,
     });
     const [errors, setErrors] = useState<EditFormErrors>({});
     const [submitting, setSubmitting] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (show) {
+            setValues({
+                note: item.note,
+                tags: item.tags,
+            });
+            setErrors({});
+        }
+    }, [show]);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -95,11 +105,10 @@ const EditModal: React.FC<EditModalProps> = ({ item, reload, onHide, ...rest }) 
                 flash: true,
             });
             if (response.status === 200) {
+                const updatedItem = await response.json();
                 showToast('更新しました', { color: 'success', delay: 5000 });
-                setValues({ note: item.note, tags: item.tags });
-                setErrors({});
+                onUpdate(updatedItem);
                 onHide?.();
-                reload();
                 return;
             }
             throw new ResponseError(response);
@@ -132,7 +141,7 @@ const EditModal: React.FC<EditModalProps> = ({ item, reload, onHide, ...rest }) 
     };
 
     return (
-        <Modal onHide={handleHide} {...rest}>
+        <Modal show={show} onHide={handleHide} {...rest}>
             <form onSubmit={handleSubmit}>
                 <Modal.Header closeButton>
                     <Modal.Title as="h5">編集</Modal.Title>
@@ -210,10 +219,10 @@ const EditModal: React.FC<EditModalProps> = ({ item, reload, onHide, ...rest }) 
 
 type CollectionItemProps = {
     item: Tissue.CollectionItem;
-    reload: () => void;
+    onUpdate: (item: Tissue.CollectionItem) => void;
 };
 
-const CollectionItem: React.FC<CollectionItemProps> = ({ item, reload }) => {
+const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
     const me = useMyProfile();
     const { username } = useParams();
     const [showEditModal, setShowEditModal] = useState(false);
@@ -321,7 +330,7 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, reload }) => {
                     </>
                 )}
             </div>
-            <EditModal item={item} show={showEditModal} onHide={() => setShowEditModal(false)} reload={reload} />
+            <EditModal item={item} show={showEditModal} onHide={() => setShowEditModal(false)} onUpdate={onUpdate} />
             <Modal show={showDeleteModal} onHide={() => !deleting && setShowDeleteModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title as="h5">削除確認</Modal.Title>
@@ -348,10 +357,14 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, reload }) => {
 const Collection: React.FC = () => {
     const { id } = useParams();
     const [searchParams] = useSearchParams();
-    const { loading, data, totalCount, reload } = useFetchCollectionItems({
+    const { loading, data, setData, totalCount } = useFetchCollectionItems({
         id: id as string,
         page: searchParams.get('page'),
     });
+
+    const handleUpdate = (item: Tissue.CollectionItem) => {
+        setData((items) => items?.map((i) => (i.id === item.id ? item : i)));
+    };
 
     if (!data) {
         return null;
@@ -365,7 +378,7 @@ const Collection: React.FC = () => {
                         <p>このコレクションにはまだオカズが登録されていません。</p>
                     </li>
                 ) : (
-                    data.map((item) => <CollectionItem key={item.id} item={item} reload={reload} />)
+                    data.map((item) => <CollectionItem key={item.id} item={item} onUpdate={handleUpdate} />)
                 )}
             </ul>
             {totalCount && <Pagination className="mt-4 justify-content-center" perPage={20} totalCount={totalCount} />}
