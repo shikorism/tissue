@@ -33,6 +33,26 @@ class CollectionController extends Controller
         });
     }
 
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('collections', 'title')->where(function ($query) {
+                    return $query->where('user_id', Auth::user());
+                }),
+            ],
+            'is_private' => 'required|boolean',
+        ]);
+
+        $collection = new Collection($validated);
+        Auth::user()->collections()->save($collection);
+
+        return new CollectionResource($collection);
+    }
+
     public function show(Collection $collection)
     {
         return new CollectionResource($collection);
@@ -41,7 +61,14 @@ class CollectionController extends Controller
     public function update(Request $request, Collection $collection)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('collections', 'title')->where(function ($query) use ($collection) {
+                    return $query->where('user_id', $collection->user_id)->where('id', '<>', $collection->id);
+                }),
+            ],
             'is_private' => 'required|boolean',
         ]);
 
