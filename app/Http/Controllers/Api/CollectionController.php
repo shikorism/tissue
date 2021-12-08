@@ -60,6 +60,8 @@ class CollectionController extends Controller
 
     public function update(Request $request, Collection $collection)
     {
+        $this->authorize('edit', $collection);
+
         $validated = $request->validate([
             'title' => [
                 'required',
@@ -76,6 +78,14 @@ class CollectionController extends Controller
         $collection->save();
 
         return new CollectionResource($collection);
+    }
+
+    public function destroy(Collection $collection)
+    {
+        $this->authorize('edit', $collection);
+        $collection->delete();
+
+        return response()->noContent();
     }
 
     public function inbox(Request $request)
