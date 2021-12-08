@@ -25,7 +25,7 @@ Route::middleware('stateful')->group(function () {
             Route::post('/collections/inbox', 'Api\\CollectionController@inbox');
         });
 
-        Route::apiResource('users.collections', 'Api\\CollectionController')->only(['index']);
+        Route::apiResource('users.collections', 'Api\\UserCollectionController')->only(['index']);
         Route::apiResource('collections', 'Api\\CollectionController')->only(['show', 'update']);
         Route::apiResource('collections.items', 'Api\\CollectionItemController')->only(['index', 'update', 'destroy']);
     });

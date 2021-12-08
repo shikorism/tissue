@@ -33,20 +33,6 @@ class CollectionController extends Controller
         });
     }
 
-    public function index(User $user)
-    {
-        if (!$user->isMe() && $user->is_protected) {
-            throw new AccessDeniedHttpException('このユーザはチェックイン履歴を公開していません');
-        }
-
-        $collections = $user->collections();
-        if (!$user->isMe()) {
-            $collections = $collections->where('is_private', false);
-        }
-
-        return response()->json($collections->get()->map(fn ($collection) => new CollectionResource($collection)));
-    }
-
     public function show(Collection $collection)
     {
         return new CollectionResource($collection);
