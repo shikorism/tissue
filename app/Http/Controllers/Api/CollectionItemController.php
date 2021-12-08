@@ -43,7 +43,7 @@ class CollectionItemController extends Controller
 
     public function update(Request $request, Collection $collection, CollectionItem $item)
     {
-        $this->authorize('update', $item);
+        $this->authorize('edit', $item);
 
         $validated = Validator::make($request->input(), [
             'note' => 'nullable|string|max:500',
@@ -83,7 +83,7 @@ class CollectionItemController extends Controller
 
     public function destroy(Collection $collection, CollectionItem $item)
     {
-        $this->authorize('destroy', $item);
+        $this->authorize('edit', $item);
         $item->delete();
 
         return response()->noContent();
