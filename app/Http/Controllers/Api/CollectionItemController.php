@@ -9,16 +9,27 @@ use App\Http\Resources\CollectionItemResource;
 use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Validator;
 
 class CollectionItemController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function (Request $request, $next) {
+            $collection = $request->route('collection');
+            if ($collection instanceof Collection && !$collection->user->isMe()) {
+                if ($collection->is_private || $collection->user->is_protected) {
+                    throw new NotFoundHttpException();
+                }
+            }
+
+            return $next($request);
+        });
+    }
+
     public function index(Request $request, Collection $collection)
     {
-        $this->authorizeCollection($collection);
-
         $inputs = $request->validate([
             'per_page' => 'nullable|integer|between:10,100',
         ]);
@@ -32,7 +43,6 @@ class CollectionItemController extends Controller
 
     public function update(Request $request, Collection $collection, CollectionItem $item)
     {
-        $this->authorizeCollection($collection);
         $this->authorize('update', $item);
 
         $validated = Validator::make($request->input(), [
@@ -73,23 +83,9 @@ class CollectionItemController extends Controller
 
     public function destroy(Collection $collection, CollectionItem $item)
     {
-        $this->authorizeCollection($collection);
         $this->authorize('destroy', $item);
         $item->delete();
 
         return response()->noContent();
-    }
-
-    // FIXME: たぶんPolicyで定義したほうがいい
-    private function authorizeCollection(Collection $collection)
-    {
-        if (!$collection->user->isMe()) {
-            if ($collection->is_private) {
-                throw new NotFoundHttpException();
-            }
-            if ($collection->user->is_protected) {
-                throw new AccessDeniedHttpException('このユーザはチェックイン履歴を公開していません');
-            }
-        }
     }
 }

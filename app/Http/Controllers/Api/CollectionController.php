@@ -19,6 +19,20 @@ use Validator;
 
 class CollectionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function (Request $request, $next) {
+            $collection = $request->route('collection');
+            if ($collection instanceof Collection && !$collection->user->isMe()) {
+                if ($collection->is_private || $collection->user->is_protected) {
+                    throw new NotFoundHttpException();
+                }
+            }
+
+            return $next($request);
+        });
+    }
+
     public function index(User $user)
     {
         if (!$user->isMe() && $user->is_protected) {
@@ -35,15 +49,11 @@ class CollectionController extends Controller
 
     public function show(Collection $collection)
     {
-        $this->authorizeCollection($collection);
-
         return new CollectionResource($collection);
     }
 
     public function update(Request $request, Collection $collection)
     {
-        $this->authorizeCollection($collection);
-
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'is_private' => 'required|boolean',
@@ -103,18 +113,5 @@ class CollectionController extends Controller
         }
 
         return new CollectionItemResource($item);
-    }
-
-    // FIXME: たぶんPolicyで定義したほうがいい
-    private function authorizeCollection(Collection $collection)
-    {
-        if (!$collection->user->isMe()) {
-            if ($collection->is_private) {
-                throw new NotFoundHttpException();
-            }
-            if ($collection->user->is_protected) {
-                throw new AccessDeniedHttpException('このユーザはチェックイン履歴を公開していません');
-            }
-        }
     }
 }
