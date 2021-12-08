@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Link, Route, Routes, useParams, useSearchParams } from 'react-router-dom';
-import { Button, Modal, ModalProps, OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
+import { Button, Form, Modal, ModalProps, OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
 import { LinkCard } from '../components/LinkCard';
 import { MyProfileContext, useMyProfile } from '../context';
 import { useFetchMyProfile, useFetchCollections, useFetchCollectionItems, useFetchCollection } from '../api';
@@ -64,26 +64,26 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
     );
 };
 
-interface EditModalProps extends ModalProps {
+interface ItemEditModalProps extends ModalProps {
     item: Tissue.CollectionItem;
     onUpdate: (item: Tissue.CollectionItem) => void;
 }
 
-type EditFormValues = {
+type ItemEditFormValues = {
     tags: string[];
     note: string;
 };
 
-type EditFormErrors = {
-    [Property in keyof EditFormValues]+?: string[];
+type ItemEditFormErrors = {
+    [Property in keyof ItemEditFormValues]+?: string[];
 };
 
-const EditModal: React.FC<EditModalProps> = ({ item, onUpdate, show, onHide, ...rest }) => {
-    const [values, setValues] = useState<EditFormValues>({
+const ItemEditModal: React.FC<ItemEditModalProps> = ({ item, onUpdate, show, onHide, ...rest }) => {
+    const [values, setValues] = useState<ItemEditFormValues>({
         note: item.note,
         tags: item.tags,
     });
-    const [errors, setErrors] = useState<EditFormErrors>({});
+    const [errors, setErrors] = useState<ItemEditFormErrors>({});
     const [submitting, setSubmitting] = useState<boolean>(false);
 
     useEffect(() => {
@@ -117,9 +117,9 @@ const EditModal: React.FC<EditModalProps> = ({ item, onUpdate, show, onHide, ...
             if (e instanceof ResponseError && e.response.status == 422) {
                 const data = await e.response.json();
                 if (data.error?.violations) {
-                    const errors: EditFormErrors = {};
+                    const errors: ItemEditFormErrors = {};
                     for (const violation of data.error.violations) {
-                        const field = violation.field as keyof EditFormErrors;
+                        const field = violation.field as keyof ItemEditFormErrors;
                         (errors[field] || (errors[field] = [])).push(violation.message);
                     }
                     setErrors(errors);
@@ -344,7 +344,12 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
                     </>
                 )}
             </div>
-            <EditModal item={item} show={showEditModal} onHide={() => setShowEditModal(false)} onUpdate={onUpdate} />
+            <ItemEditModal
+                item={item}
+                show={showEditModal}
+                onHide={() => setShowEditModal(false)}
+                onUpdate={onUpdate}
+            />
             <Modal show={showDeleteModal} onHide={() => !deleting && setShowDeleteModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title as="h5">削除確認</Modal.Title>
@@ -368,7 +373,180 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
     );
 };
 
-const Collection: React.FC = () => {
+type CollectionHeaderProps = {
+    collection: Tissue.Collection;
+    onUpdate: (collection: Tissue.Collection) => void;
+};
+
+type CollectionEditFormValues = {
+    title: string;
+    is_private: boolean;
+};
+
+type CollectionEditFormErrors = {
+    [Property in keyof CollectionEditFormValues]+?: string[];
+};
+
+const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdate }) => {
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [values, setValues] = useState<CollectionEditFormValues>({
+        title: collection.title,
+        is_private: collection.is_private,
+    });
+    const [errors, setErrors] = useState<CollectionEditFormErrors>({});
+    const [submitting, setSubmitting] = useState(false);
+
+    useEffect(() => {
+        if (showEditModal) {
+            setValues({
+                title: collection.title,
+                is_private: collection.is_private,
+            });
+            setErrors({});
+        }
+    }, [showEditModal]);
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setSubmitting(true);
+        try {
+            const response = await fetchPutJson(`/api/collections/${collection.id}`, values);
+            if (response.status === 200) {
+                const updatedItem = await response.json();
+                showToast('更新しました', { color: 'success', delay: 5000 });
+                onUpdate(updatedItem);
+                setShowEditModal(false);
+                return;
+            }
+            throw new ResponseError(response);
+        } catch (e) {
+            console.error(e);
+            if (e instanceof ResponseError && e.response.status == 422) {
+                const data = await e.response.json();
+                if (data.error?.violations) {
+                    const errors: CollectionEditFormErrors = {};
+                    for (const violation of data.error.violations) {
+                        const field = violation.field as keyof CollectionEditFormErrors;
+                        (errors[field] || (errors[field] = [])).push(violation.message);
+                    }
+                    setErrors(errors);
+                    return;
+                }
+            }
+            showToast('エラーが発生しました', { color: 'danger', delay: 5000 });
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    return (
+        <div className="border-bottom">
+            <div className="d-flex justify-content-between align-items-center">
+                <h4 className="mb-1">{collection.title}</h4>
+                <Button variant="secondary" size="sm" onClick={() => setShowEditModal(true)}>
+                    設定
+                </Button>
+            </div>
+            <p className="mb-3">
+                {collection.is_private ? (
+                    <small className="text-secondary">
+                        <span className="oi oi-lock-locked mr-1" />
+                        非公開コレクション
+                    </small>
+                ) : (
+                    <small className="text-secondary">
+                        <span className="oi oi-lock-unlocked mr-1" />
+                        公開コレクション
+                    </small>
+                )}
+            </p>
+            <Modal show={showEditModal} onHide={() => !submitting && setShowEditModal(false)}>
+                <form onSubmit={handleSubmit}>
+                    <Modal.Header closeButton>
+                        <Modal.Title as="h5">コレクションの設定</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div className="form-row">
+                            <div className="form-group col-sm-12">
+                                <label htmlFor="title">
+                                    <span className="oi oi-folder" /> タイトル
+                                </label>
+                                <input
+                                    type="text"
+                                    id="title"
+                                    name="title"
+                                    className="form-control"
+                                    required
+                                    value={values.title}
+                                    onChange={(e) => setValues((values) => ({ ...values, title: e.target.value }))}
+                                />
+                                <FieldError name="title" label="タイトル" errors={errors?.title} />
+                            </div>
+                        </div>
+                        <div className="form-row">
+                            <div className="form-group col-sm-12">
+                                <p className="mb-1">
+                                    <span className="oi oi-eye" /> 公開設定
+                                </p>
+                                <Form.Check
+                                    custom
+                                    inline
+                                    type="radio"
+                                    id="collectionItemVisibilityPublic"
+                                    label="公開"
+                                    checked={!values.is_private}
+                                    onChange={() => setValues((values) => ({ ...values, is_private: false }))}
+                                />
+                                <Form.Check
+                                    custom
+                                    inline
+                                    type="radio"
+                                    id="collectionItemVisibilityPrivate"
+                                    label="非公開"
+                                    className="mt-2"
+                                    checked={values.is_private}
+                                    onChange={() => setValues((values) => ({ ...values, is_private: true }))}
+                                />
+                            </div>
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button
+                            variant="secondary"
+                            disabled={submitting}
+                            onClick={() => !submitting && setShowEditModal(false)}
+                        >
+                            キャンセル
+                        </Button>
+                        {submitting ? (
+                            <Button type="submit" variant="primary" disabled={submitting}>
+                                <Spinner
+                                    className="mr-1"
+                                    as="span"
+                                    animation="border"
+                                    size="sm"
+                                    role="status"
+                                    aria-hidden="true"
+                                />
+                                更新中…
+                            </Button>
+                        ) : (
+                            <Button type="submit" variant="primary">
+                                更新
+                            </Button>
+                        )}
+                    </Modal.Footer>
+                </form>
+            </Modal>
+        </div>
+    );
+};
+
+type CollectionProps = {
+    onUpdate: (collection: Tissue.Collection) => void;
+};
+
+const Collection: React.FC<CollectionProps> = ({ onUpdate }) => {
     const { id } = useParams();
     const [searchParams] = useSearchParams();
     const fetchCollection = useFetchCollection({ id: id as string });
@@ -377,29 +555,19 @@ const Collection: React.FC = () => {
         page: searchParams.get('page'),
     });
 
-    const handleUpdate = (item: Tissue.CollectionItem) => {
+    const handleCollectionUpdate = (collection: Tissue.Collection) => {
+        fetchCollection.setData(collection);
+        onUpdate(collection);
+    };
+
+    const handleItemUpdate = (item: Tissue.CollectionItem) => {
         fetchCollectionItems.setData((items) => items?.map((i) => (i.id === item.id ? item : i)));
     };
 
     return (
         <>
             {fetchCollection.data && (
-                <div className="border-bottom">
-                    <h4 className="mb-1">{fetchCollection.data.title}</h4>
-                    <p className="mb-3">
-                        {fetchCollection.data.is_private ? (
-                            <small className="text-secondary">
-                                <span className="oi oi-lock-locked mr-1" />
-                                非公開コレクション
-                            </small>
-                        ) : (
-                            <small className="text-secondary">
-                                <span className="oi oi-lock-unlocked mr-1" />
-                                公開コレクション
-                            </small>
-                        )}
-                    </p>
-                </div>
+                <CollectionHeader collection={fetchCollection.data} onUpdate={handleCollectionUpdate} />
             )}
             {fetchCollectionItems.data && (
                 <ul className="list-group">
@@ -409,7 +577,7 @@ const Collection: React.FC = () => {
                         </li>
                     ) : (
                         fetchCollectionItems.data.map((item) => (
-                            <CollectionItem key={item.id} item={item} onUpdate={handleUpdate} />
+                            <CollectionItem key={item.id} item={item} onUpdate={handleItemUpdate} />
                         ))
                     )}
                 </ul>
@@ -430,6 +598,10 @@ const Page: React.FC = () => {
     const fetchMyProfile = useFetchMyProfile();
     const fetchCollections = useFetchCollections({ username: username as string });
 
+    const handleUpdate = (collection: Tissue.Collection) => {
+        fetchCollections.setData((col) => col?.map((c) => (c.id === collection.id ? collection : c)));
+    };
+
     return (
         <MyProfileContext.Provider value={fetchMyProfile.data}>
             <div className="container">
@@ -444,7 +616,7 @@ const Page: React.FC = () => {
                             </p>
                         )}
                         {fetchCollections.data?.length === 0 && <p className="mt-4">コレクションがありません。</p>}
-                        <Collection />
+                        <Collection onUpdate={handleUpdate} />
                     </div>
                 </div>
             </div>

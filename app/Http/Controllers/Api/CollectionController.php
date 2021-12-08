@@ -35,15 +35,22 @@ class CollectionController extends Controller
 
     public function show(Collection $collection)
     {
-        // FIXME: たぶんPolicyで定義したほうがいい
-        if (!$collection->user->isMe()) {
-            if ($collection->is_private) {
-                throw new NotFoundHttpException();
-            }
-            if ($collection->user->is_protected) {
-                throw new AccessDeniedHttpException('このユーザはチェックイン履歴を公開していません');
-            }
-        }
+        $this->authorizeCollection($collection);
+
+        return new CollectionResource($collection);
+    }
+
+    public function update(Request $request, Collection $collection)
+    {
+        $this->authorizeCollection($collection);
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'is_private' => 'required|boolean',
+        ]);
+
+        $collection->fill($validated);
+        $collection->save();
 
         return new CollectionResource($collection);
     }
@@ -96,5 +103,18 @@ class CollectionController extends Controller
         }
 
         return new CollectionItemResource($item);
+    }
+
+    // FIXME: たぶんPolicyで定義したほうがいい
+    private function authorizeCollection(Collection $collection)
+    {
+        if (!$collection->user->isMe()) {
+            if ($collection->is_private) {
+                throw new NotFoundHttpException();
+            }
+            if ($collection->user->is_protected) {
+                throw new AccessDeniedHttpException('このユーザはチェックイン履歴を公開していません');
+            }
+        }
     }
 }
