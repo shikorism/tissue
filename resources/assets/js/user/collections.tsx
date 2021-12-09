@@ -48,13 +48,23 @@ type SidebarProps = {
 };
 
 const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
+    const me = useMyProfile();
+    const { username } = useParams();
+
     if (!collections) {
         return null;
     }
 
     return (
         <div className="card mb-4">
-            <div className="card-header">コレクション</div>
+            <div className="card-header d-flex justify-content-between align-items-center">
+                <span>コレクション</span>
+                {username === me?.name && (
+                    <Button variant="link" className="text-secondary" size="sm" title="追加">
+                        <span className="oi oi-plus" />
+                    </Button>
+                )}
+            </div>
             <div className="list-group list-group-flush">
                 {collections.map((collection) => (
                     <SidebarItem key={collection.id} collection={collection} />
@@ -388,6 +398,7 @@ type CollectionEditFormErrors = {
 };
 
 const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdate }) => {
+    const me = useMyProfile();
     const [showEditModal, setShowEditModal] = useState(false);
     const [values, setValues] = useState<CollectionEditFormValues>({
         title: collection.title,
@@ -443,9 +454,11 @@ const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdat
         <div className="border-bottom">
             <div className="d-flex justify-content-between align-items-center">
                 <h4 className="mb-1">{collection.title}</h4>
-                <Button variant="secondary" size="sm" onClick={() => setShowEditModal(true)}>
-                    設定
-                </Button>
+                {me?.id === collection.user_id && (
+                    <Button variant="secondary" size="sm" onClick={() => setShowEditModal(true)}>
+                        設定
+                    </Button>
+                )}
             </div>
             <p className="mb-3">
                 {collection.is_private ? (
