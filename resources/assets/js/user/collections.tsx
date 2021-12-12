@@ -792,7 +792,7 @@ const Collection: React.FC<CollectionProps> = ({ onUpdate }) => {
                     )}
                 </ul>
             )}
-            {fetchCollectionItems.totalCount && (
+            {!!fetchCollectionItems.totalCount && (
                 <Pagination
                     className="mt-4 justify-content-center"
                     perPage={20}
