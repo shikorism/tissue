@@ -1,17 +1,168 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Link, Route, Routes, useParams, useSearchParams } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Routes, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Button, Form, Modal, ModalProps, OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
 import { LinkCard } from '../components/LinkCard';
 import { MyProfileContext, useMyProfile } from '../context';
 import { useFetchMyProfile, useFetchCollections, useFetchCollectionItems, useFetchCollection } from '../api';
 import { Pagination } from '../components/Pagination';
 import { showToast } from '../tissue';
-import { fetchDeleteJson, fetchPutJson, ResponseError } from '../fetch';
+import { fetchDeleteJson, fetchPostJson, fetchPutJson, ResponseError } from '../fetch';
 import classNames from 'classnames';
 import { MetadataPreview } from '../components/MetadataPreview';
 import { TagInput } from '../components/TagInput';
 import { FieldError } from '../components/FieldError';
+
+type CollectionFormValues = {
+    title: string;
+    is_private: boolean;
+};
+
+type CollectionFormErrors = {
+    [Property in keyof CollectionEditFormValues]+?: string[];
+};
+
+class CollectionFormValidationError extends Error {
+    errors: CollectionFormErrors;
+
+    constructor(errors: CollectionFormErrors, ...rest: any) {
+        super(...rest);
+        if (Error.captureStackTrace) {
+            Error.captureStackTrace(this, CollectionFormValidationError);
+        }
+
+        this.name = 'CollectionFormValidationError';
+        this.errors = errors;
+        Object.setPrototypeOf(this, new.target.prototype);
+    }
+}
+
+interface CollectionEditModalProps extends ModalProps {
+    mode: 'create' | 'edit';
+    initialValues: CollectionFormValues;
+    onSubmit: (values: CollectionFormValues) => Promise<void>;
+}
+
+const CollectionEditModal: React.FC<CollectionEditModalProps> = ({
+    mode,
+    initialValues,
+    onSubmit,
+    show,
+    onHide,
+    ...rest
+}) => {
+    const [values, setValues] = useState(initialValues);
+    const [errors, setErrors] = useState<CollectionFormErrors>({});
+    const [submitting, setSubmitting] = useState(false);
+
+    useEffect(() => {
+        if (show) {
+            setValues(initialValues);
+            setErrors({});
+        }
+    }, [show]);
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setSubmitting(true);
+        try {
+            await onSubmit(values);
+        } catch (e) {
+            if (e instanceof CollectionFormValidationError) {
+                setErrors(e.errors);
+                return;
+            }
+            throw e;
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    const handleHide = () => {
+        if (!submitting && onHide) {
+            setValues(initialValues);
+            setErrors({});
+            onHide();
+        }
+    };
+
+    return (
+        <Modal show={show} onHide={handleHide} {...rest}>
+            <form onSubmit={handleSubmit}>
+                <Modal.Header closeButton>
+                    <Modal.Title as="h5">コレクションの{mode === 'create' ? '作成' : '設定'}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="form-row">
+                        <div className="form-group col-sm-12">
+                            <label htmlFor="title">
+                                <span className="oi oi-folder" /> タイトル
+                            </label>
+                            <input
+                                type="text"
+                                id="title"
+                                name="title"
+                                className={classNames({ 'form-control': true, 'is-invalid': errors?.title })}
+                                required
+                                value={values.title}
+                                onChange={(e) => setValues((values) => ({ ...values, title: e.target.value }))}
+                            />
+                            <FieldError name="title" label="タイトル" errors={errors?.title} />
+                        </div>
+                    </div>
+                    <div className="form-row">
+                        <div className="form-group col-sm-12">
+                            <p className="mb-1">
+                                <span className="oi oi-eye" /> 公開設定
+                            </p>
+                            <Form.Check
+                                custom
+                                inline
+                                type="radio"
+                                id="collectionItemVisibilityPublic"
+                                label="公開"
+                                checked={!values.is_private}
+                                onChange={() => setValues((values) => ({ ...values, is_private: false }))}
+                            />
+                            <Form.Check
+                                custom
+                                inline
+                                type="radio"
+                                id="collectionItemVisibilityPrivate"
+                                label="非公開"
+                                className="mt-2"
+                                checked={values.is_private}
+                                onChange={() => setValues((values) => ({ ...values, is_private: true }))}
+                            />
+                        </div>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" disabled={submitting} onClick={handleHide}>
+                        キャンセル
+                    </Button>
+                    {submitting ? (
+                        <Button type="submit" variant="primary" disabled={submitting}>
+                            <Spinner
+                                className="mr-1"
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            />
+                            {mode === 'create' ? '作成' : '更新'}中…
+                        </Button>
+                    ) : (
+                        <Button type="submit" variant="primary">
+                            {mode === 'create' ? '作成' : '更新'}
+                        </Button>
+                    )}
+                </Modal.Footer>
+            </form>
+        </Modal>
+    );
+};
 
 type SidebarItemProps = {
     collection: Tissue.Collection;
@@ -32,7 +183,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ collection }) => {
     } else {
         return (
             <a className="list-group-item d-flex justify-content-between align-items-center text-dark">
-                <Link to={collection.id}>
+                <Link to={`/user/${collection.user_name}/collections/${collection.id}`}>
                     <div style={{ wordBreak: 'break-all' }}>
                         <span className="oi oi-folder text-secondary mr-1" />
                         {collection.title}
@@ -45,11 +196,43 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ collection }) => {
 
 type SidebarProps = {
     collections?: Tissue.Collection[];
+    reloadCollections: () => void;
 };
 
-const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
+const Sidebar: React.FC<SidebarProps> = ({ collections, reloadCollections }) => {
     const me = useMyProfile();
     const { username } = useParams();
+    const navigate = useNavigate();
+    const [showCreateModal, setShowCreateModal] = useState(false);
+
+    const handleSubmit = async (values: CollectionFormValues) => {
+        try {
+            const response = await fetchPostJson('/api/collections', values);
+            if (response.status === 201) {
+                const createdItem = await response.json();
+                showToast('作成しました', { color: 'success', delay: 5000 });
+                reloadCollections();
+                setShowCreateModal(false);
+                navigate(`/user/${createdItem.user_name}/collections/${createdItem.id}`);
+                return;
+            }
+            throw new ResponseError(response);
+        } catch (e) {
+            console.error(e);
+            if (e instanceof ResponseError && e.response.status == 422) {
+                const data = await e.response.json();
+                if (data.error?.violations) {
+                    const errors: CollectionFormErrors = {};
+                    for (const violation of data.error.violations) {
+                        const field = violation.field as keyof CollectionFormErrors;
+                        (errors[field] || (errors[field] = [])).push(violation.message);
+                    }
+                    throw new CollectionFormValidationError(errors);
+                }
+            }
+            showToast('エラーが発生しました', { color: 'danger', delay: 5000 });
+        }
+    };
 
     if (!collections) {
         return null;
@@ -60,7 +243,13 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
             <div className="card-header d-flex justify-content-between align-items-center">
                 <span>コレクション</span>
                 {username === me?.name && (
-                    <Button variant="link" className="text-secondary" size="sm" title="追加">
+                    <Button
+                        variant="link"
+                        className="text-secondary"
+                        size="sm"
+                        title="追加"
+                        onClick={() => setShowCreateModal(true)}
+                    >
                         <span className="oi oi-plus" />
                     </Button>
                 )}
@@ -70,6 +259,13 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
                     <SidebarItem key={collection.id} collection={collection} />
                 ))}
             </div>
+            <CollectionEditModal
+                mode="create"
+                initialValues={{ title: '', is_private: true }}
+                onSubmit={handleSubmit}
+                show={showCreateModal}
+                onHide={() => setShowCreateModal(false)}
+            />
         </div>
     );
 };
@@ -488,7 +684,7 @@ const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdat
                                     type="text"
                                     id="title"
                                     name="title"
-                                    className="form-control"
+                                    className={classNames({ 'form-control': true, 'is-invalid': errors?.title })}
                                     required
                                     value={values.title}
                                     onChange={(e) => setValues((values) => ({ ...values, title: e.target.value }))}
@@ -620,7 +816,7 @@ const Page: React.FC = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-lg-4">
-                        <Sidebar collections={fetchCollections.data} />
+                        <Sidebar collections={fetchCollections.data} reloadCollections={fetchCollections.reload} />
                     </div>
                     <div className="col-lg-8">
                         {fetchCollections.error?.response?.status === 403 && (

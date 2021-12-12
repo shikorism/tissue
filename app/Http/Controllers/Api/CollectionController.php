@@ -41,7 +41,7 @@ class CollectionController extends Controller
                 'string',
                 'max:255',
                 Rule::unique('collections', 'title')->where(function ($query) {
-                    return $query->where('user_id', Auth::user());
+                    return $query->where('user_id', Auth::user()->id);
                 }),
             ],
             'is_private' => 'required|boolean',
