@@ -30,6 +30,13 @@ function makeFetchHook<Params, Data>(fetch: (params: Params) => Promise<Response
 
         const reload = useCallback(() => setReloadCounter((v) => v + 1), []);
 
+        const clear = useCallback(() => {
+            setData(undefined);
+            setTotalCount(undefined);
+            setError(undefined);
+            setReloadCounter(0);
+        }, []);
+
         useEffect(() => {
             setLoading(true);
 
@@ -69,7 +76,7 @@ function makeFetchHook<Params, Data>(fetch: (params: Params) => Promise<Response
             };
         }, [...manaita(params), reloadCounter]);
 
-        return { loading, data, setData, totalCount, error, reload };
+        return { loading, data, setData, totalCount, error, reload, clear };
     };
 }
 

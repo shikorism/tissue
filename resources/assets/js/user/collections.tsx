@@ -765,6 +765,11 @@ const Collection: React.FC<CollectionProps> = ({ onUpdate }) => {
         page: searchParams.get('page'),
     });
 
+    useEffect(() => {
+        fetchCollection.clear();
+        fetchCollectionItems.clear();
+    }, [id]);
+
     const handleCollectionUpdate = (collection: Tissue.Collection) => {
         fetchCollection.setData(collection);
         onUpdate(collection);
