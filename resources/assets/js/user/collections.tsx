@@ -182,14 +182,15 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ collection }) => {
         );
     } else {
         return (
-            <a className="list-group-item d-flex justify-content-between align-items-center text-dark">
-                <Link to={`/user/${collection.user_name}/collections/${collection.id}`}>
-                    <div style={{ wordBreak: 'break-all' }}>
-                        <span className="oi oi-folder text-secondary mr-1" />
-                        {collection.title}
-                    </div>
-                </Link>
-            </a>
+            <Link
+                to={`/user/${collection.user_name}/collections/${collection.id}`}
+                className="list-group-item d-flex justify-content-between align-items-center text-dark"
+            >
+                <div style={{ wordBreak: 'break-all' }}>
+                    <span className="oi oi-folder text-secondary mr-1" />
+                    {collection.title}
+                </div>
+            </Link>
         );
     }
 };
