@@ -783,7 +783,7 @@ const Collection: React.FC<CollectionProps> = ({ onUpdate }) => {
                 <ul className="list-group">
                     {fetchCollectionItems.loading ? null : fetchCollectionItems.data.length === 0 ? (
                         <li className="list-group-item border-bottom-only">
-                            <p>このコレクションにはまだオカズが登録されていません。</p>
+                            <p className="my-3">このコレクションにはまだオカズが登録されていません。</p>
                         </li>
                     ) : (
                         fetchCollectionItems.data.map((item) => (
