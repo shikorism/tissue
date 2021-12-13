@@ -3,18 +3,18 @@ import { fetchGet, ResponseError } from './fetch';
 
 /**
  * @example
- *   manaita([1, 2, [30, [40, 50]]]) // => [1, 2, 30, 40, 50]
- *   manaita({ foo: 'hoge', bar: 'fuga', baz: [10, 20, 30] }) // => ['hoge', 'fuga', 10, 20, 30]
+ *   flat([1, 2, [30, [40, 50]]]) // => [1, 2, 30, 40, 50]
+ *   flat({ foo: 'hoge', bar: 'fuga', baz: [10, 20, 30] }) // => ['hoge', 'fuga', 10, 20, 30]
  */
-function manaita(input: unknown): unknown[] {
+function flat(input: unknown): unknown[] {
     if (Array.isArray(input)) {
         let flattened: any[] = [];
         for (const v of input) {
-            flattened = [...flattened, ...manaita(v)];
+            flattened = [...flattened, ...flat(v)];
         }
         return flattened;
     } else if (input !== null && typeof input === 'object') {
-        return manaita(Object.values(input));
+        return flat(Object.values(input));
     } else {
         return [input];
     }
@@ -74,7 +74,7 @@ function makeFetchHook<Params, Data>(fetch: (params: Params) => Promise<Response
             return () => {
                 cancelled = true;
             };
-        }, [...manaita(params), reloadCounter]);
+        }, [...flat(params), reloadCounter]);
 
         return { loading, data, setData, totalCount, error, reload, clear };
     };
