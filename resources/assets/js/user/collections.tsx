@@ -583,6 +583,7 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
 type CollectionHeaderProps = {
     collection: Tissue.Collection;
     onUpdate: (collection: Tissue.Collection) => void;
+    onDelete: () => void;
 };
 
 type CollectionEditFormValues = {
@@ -594,7 +595,7 @@ type CollectionEditFormErrors = {
     [Property in keyof CollectionEditFormValues]+?: string[];
 };
 
-const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdate }) => {
+const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdate, onDelete }) => {
     const me = useMyProfile();
     const [showEditModal, setShowEditModal] = useState(false);
     const [values, setValues] = useState<CollectionEditFormValues>({
@@ -603,6 +604,8 @@ const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdat
     });
     const [errors, setErrors] = useState<CollectionEditFormErrors>({});
     const [submitting, setSubmitting] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [deleting, setDeleting] = useState(false);
 
     useEffect(() => {
         if (showEditModal) {
@@ -647,14 +650,38 @@ const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdat
         }
     };
 
+    const handleClickDelete = async () => {
+        setDeleting(true);
+        try {
+            const response = await fetchDeleteJson(`/api/collections/${collection.id}`);
+            if (response.ok) {
+                setShowDeleteModal(false);
+                showToast('削除しました', { color: 'success', delay: 5000 });
+                onDelete();
+                return;
+            }
+            throw new ResponseError(response);
+        } catch (e) {
+            console.error(e);
+            showToast('削除中にエラーが発生しました', { color: 'danger', delay: 5000 });
+        } finally {
+            setDeleting(false);
+        }
+    };
+
     return (
         <div className="border-bottom">
             <div className="d-flex justify-content-between align-items-center">
                 <h4 className="mb-1">{collection.title}</h4>
                 {me?.id === collection.user_id && (
-                    <Button variant="secondary" size="sm" onClick={() => setShowEditModal(true)}>
-                        設定
-                    </Button>
+                    <div>
+                        <Button className="mr-2" variant="secondary" size="sm" onClick={() => setShowEditModal(true)}>
+                            設定
+                        </Button>
+                        <Button variant="danger" size="sm" onClick={() => setShowDeleteModal(true)}>
+                            削除
+                        </Button>
+                    </div>
                 )}
             </div>
             <p className="mb-3">
@@ -748,15 +775,44 @@ const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdat
                     </Modal.Footer>
                 </form>
             </Modal>
+            <Modal show={showDeleteModal} onHide={() => !deleting && setShowDeleteModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title as="h5">削除確認</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>コレクションを削除してもよろしいですか？</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" disabled={deleting} onClick={() => setShowDeleteModal(false)}>
+                        キャンセル
+                    </Button>
+                    {deleting ? (
+                        <Button type="submit" variant="danger" disabled={deleting}>
+                            <Spinner
+                                className="mr-1"
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            />
+                            削除中…
+                        </Button>
+                    ) : (
+                        <Button type="submit" variant="danger" onClick={handleClickDelete}>
+                            削除
+                        </Button>
+                    )}
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 };
 
 type CollectionProps = {
     onUpdate: (collection: Tissue.Collection) => void;
+    onDelete: () => void;
 };
 
-const Collection: React.FC<CollectionProps> = ({ onUpdate }) => {
+const Collection: React.FC<CollectionProps> = ({ onUpdate, onDelete }) => {
     const { id } = useParams();
     const [searchParams] = useSearchParams();
     const fetchCollection = useFetchCollection({ id: id as string });
@@ -782,7 +838,11 @@ const Collection: React.FC<CollectionProps> = ({ onUpdate }) => {
     return (
         <>
             {fetchCollection.data && (
-                <CollectionHeader collection={fetchCollection.data} onUpdate={handleCollectionUpdate} />
+                <CollectionHeader
+                    collection={fetchCollection.data}
+                    onUpdate={handleCollectionUpdate}
+                    onDelete={onDelete}
+                />
             )}
             {fetchCollectionItems.data && (
                 <ul className="list-group">
@@ -817,6 +877,11 @@ const Page: React.FC = () => {
         fetchCollections.setData((col) => col?.map((c) => (c.id === collection.id ? collection : c)));
     };
 
+    const handleDelete = () => {
+        // TODO: リロード後に最初のコレクションに遷移させたい (/user/:username/collections/ に移動でもいいかも)
+        fetchCollections.reload();
+    };
+
     return (
         <MyProfileContext.Provider value={fetchMyProfile.data}>
             <div className="container">
@@ -831,7 +896,7 @@ const Page: React.FC = () => {
                             </p>
                         )}
                         {fetchCollections.data?.length === 0 && <p className="mt-4">コレクションがありません。</p>}
-                        <Collection onUpdate={handleUpdate} />
+                        <Collection onUpdate={handleUpdate} onDelete={handleDelete} />
                     </div>
                 </div>
             </div>
