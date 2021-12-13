@@ -598,28 +598,10 @@ type CollectionEditFormErrors = {
 const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdate, onDelete }) => {
     const me = useMyProfile();
     const [showEditModal, setShowEditModal] = useState(false);
-    const [values, setValues] = useState<CollectionEditFormValues>({
-        title: collection.title,
-        is_private: collection.is_private,
-    });
-    const [errors, setErrors] = useState<CollectionEditFormErrors>({});
-    const [submitting, setSubmitting] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [deleting, setDeleting] = useState(false);
 
-    useEffect(() => {
-        if (showEditModal) {
-            setValues({
-                title: collection.title,
-                is_private: collection.is_private,
-            });
-            setErrors({});
-        }
-    }, [showEditModal]);
-
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        setSubmitting(true);
+    const handleSubmit = async (values: CollectionFormValues) => {
         try {
             const response = await fetchPutJson(`/api/collections/${collection.id}`, values);
             if (response.status === 200) {
@@ -640,13 +622,9 @@ const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdat
                         const field = violation.field as keyof CollectionEditFormErrors;
                         (errors[field] || (errors[field] = [])).push(violation.message);
                     }
-                    setErrors(errors);
-                    return;
+                    throw new CollectionFormValidationError(errors);
                 }
             }
-            showToast('エラーが発生しました', { color: 'danger', delay: 5000 });
-        } finally {
-            setSubmitting(false);
         }
     };
 
@@ -697,84 +675,13 @@ const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdat
                     </small>
                 )}
             </p>
-            <Modal show={showEditModal} onHide={() => !submitting && setShowEditModal(false)}>
-                <form onSubmit={handleSubmit}>
-                    <Modal.Header closeButton>
-                        <Modal.Title as="h5">コレクションの設定</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <div className="form-row">
-                            <div className="form-group col-sm-12">
-                                <label htmlFor="title">
-                                    <span className="oi oi-folder" /> タイトル
-                                </label>
-                                <input
-                                    type="text"
-                                    id="title"
-                                    name="title"
-                                    className={classNames({ 'form-control': true, 'is-invalid': errors?.title })}
-                                    required
-                                    value={values.title}
-                                    onChange={(e) => setValues((values) => ({ ...values, title: e.target.value }))}
-                                />
-                                <FieldError name="title" label="タイトル" errors={errors?.title} />
-                            </div>
-                        </div>
-                        <div className="form-row">
-                            <div className="form-group col-sm-12">
-                                <p className="mb-1">
-                                    <span className="oi oi-eye" /> 公開設定
-                                </p>
-                                <Form.Check
-                                    custom
-                                    inline
-                                    type="radio"
-                                    id="collectionItemVisibilityPublic"
-                                    label="公開"
-                                    checked={!values.is_private}
-                                    onChange={() => setValues((values) => ({ ...values, is_private: false }))}
-                                />
-                                <Form.Check
-                                    custom
-                                    inline
-                                    type="radio"
-                                    id="collectionItemVisibilityPrivate"
-                                    label="非公開"
-                                    className="mt-2"
-                                    checked={values.is_private}
-                                    onChange={() => setValues((values) => ({ ...values, is_private: true }))}
-                                />
-                            </div>
-                        </div>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button
-                            variant="secondary"
-                            disabled={submitting}
-                            onClick={() => !submitting && setShowEditModal(false)}
-                        >
-                            キャンセル
-                        </Button>
-                        {submitting ? (
-                            <Button type="submit" variant="primary" disabled={submitting}>
-                                <Spinner
-                                    className="mr-1"
-                                    as="span"
-                                    animation="border"
-                                    size="sm"
-                                    role="status"
-                                    aria-hidden="true"
-                                />
-                                更新中…
-                            </Button>
-                        ) : (
-                            <Button type="submit" variant="primary">
-                                更新
-                            </Button>
-                        )}
-                    </Modal.Footer>
-                </form>
-            </Modal>
+            <CollectionEditModal
+                mode="edit"
+                initialValues={{ title: collection.title, is_private: collection.is_private }}
+                onSubmit={handleSubmit}
+                show={showEditModal}
+                onHide={() => setShowEditModal(false)}
+            />
             <Modal show={showDeleteModal} onHide={() => !deleting && setShowDeleteModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title as="h5">削除確認</Modal.Title>
