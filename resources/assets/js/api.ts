@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { fetchGet, ResponseError } from './fetch';
 
 /**
@@ -28,7 +28,15 @@ function makeFetchHook<Params, Data>(fetch: (params: Params) => Promise<Response
         const [error, setError] = useState<any>(null);
         const [reloadCounter, setReloadCounter] = useState(0);
 
-        const reload = useCallback(() => setReloadCounter((v) => v + 1), []);
+        const resolvedCallbacksRef = useRef<((data: Data) => void)[]>([]);
+        const rejectedCallbacksRef = useRef<((reason?: any) => void)[]>([]);
+        const reload = useCallback(() => {
+            setReloadCounter((v) => v + 1);
+            return new Promise<Data>((resolved, rejected) => {
+                resolvedCallbacksRef.current.push(resolved);
+                rejectedCallbacksRef.current.push(rejected);
+            });
+        }, []);
 
         const clear = useCallback(() => {
             setData(undefined);
@@ -62,12 +70,20 @@ function makeFetchHook<Params, Data>(fetch: (params: Params) => Promise<Response
 
                         setData(data);
                         setLoading(false);
+
+                        resolvedCallbacksRef.current.forEach((resolved) => resolved(data));
+                        resolvedCallbacksRef.current.splice(0);
+                        rejectedCallbacksRef.current.splice(0);
                     }
                     throw new ResponseError(response);
                 } catch (e) {
                     console.error(e);
                     setError(e);
                     setLoading(false);
+
+                    rejectedCallbacksRef.current.forEach((rejected) => rejected(e));
+                    resolvedCallbacksRef.current.splice(0);
+                    rejectedCallbacksRef.current.splice(0);
                 }
             })();
 
