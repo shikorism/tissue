@@ -870,6 +870,7 @@ const Collection: React.FC<CollectionProps> = ({ onUpdate, onDelete }) => {
 
 const Page: React.FC = () => {
     const { username } = useParams();
+    const navigate = useNavigate();
     const fetchMyProfile = useFetchMyProfile();
     const fetchCollections = useFetchCollections({ username: username as string });
 
@@ -877,9 +878,13 @@ const Page: React.FC = () => {
         fetchCollections.setData((col) => col?.map((c) => (c.id === collection.id ? collection : c)));
     };
 
-    const handleDelete = () => {
-        // TODO: リロード後に最初のコレクションに遷移させたい (/user/:username/collections/ に移動でもいいかも)
-        fetchCollections.reload();
+    const handleDelete = async () => {
+        const data = await fetchCollections.reload();
+        if (data.length === 0) {
+            // TODO: どうすんのこれ
+        } else {
+            navigate(`/user/${data[0].user_name}/collections/${data[0].id}`);
+        }
     };
 
     return (
