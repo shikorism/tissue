@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Link, Outlet, Route, Routes, useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { Button, ButtonProps, Form, Modal, ModalProps, OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
+import { Button, Form, Modal, ModalProps, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { LinkCard } from '../components/LinkCard';
 import { MyProfileContext, useMyProfile } from '../context';
 import { useFetchMyProfile, useFetchCollections, useFetchCollectionItems, useFetchCollection } from '../api';
@@ -12,27 +12,7 @@ import classNames from 'classnames';
 import { MetadataPreview } from '../components/MetadataPreview';
 import { TagInput } from '../components/TagInput';
 import { FieldError } from '../components/FieldError';
-
-interface ProgressButtonProps extends ButtonProps {
-    label: string;
-    inProgressLabel?: string;
-    inProgress?: boolean;
-}
-
-const ProgressButton: React.FC<ProgressButtonProps> = ({
-    label,
-    inProgressLabel = `${label}中…`,
-    inProgress,
-    ...rest
-}) =>
-    inProgress ? (
-        <Button {...rest} disabled>
-            <Spinner className="mr-1" as="span" animation="border" size="sm" role="status" aria-hidden="true" />
-            {inProgressLabel}
-        </Button>
-    ) : (
-        <Button {...rest}>{label}</Button>
-    );
+import { ProgressButton } from '../components/ProgressButton';
 
 type CollectionFormValues = {
     title: string;
