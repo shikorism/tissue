@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Link, Route, Routes, useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { Button, Form, Modal, ModalProps, OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
+import { Button, ButtonProps, Form, Modal, ModalProps, OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
 import { LinkCard } from '../components/LinkCard';
 import { MyProfileContext, useMyProfile } from '../context';
 import { useFetchMyProfile, useFetchCollections, useFetchCollectionItems, useFetchCollection } from '../api';
@@ -12,6 +12,27 @@ import classNames from 'classnames';
 import { MetadataPreview } from '../components/MetadataPreview';
 import { TagInput } from '../components/TagInput';
 import { FieldError } from '../components/FieldError';
+
+interface ProgressButtonProps extends ButtonProps {
+    label: string;
+    inProgressLabel?: string;
+    inProgress?: boolean;
+}
+
+const ProgressButton: React.FC<ProgressButtonProps> = ({
+    label,
+    inProgressLabel = `${label}中…`,
+    inProgress,
+    ...rest
+}) =>
+    inProgress ? (
+        <Button {...rest} disabled>
+            <Spinner className="mr-1" as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+            {inProgressLabel}
+        </Button>
+    ) : (
+        <Button {...rest}>{label}</Button>
+    );
 
 type CollectionFormValues = {
     title: string;
@@ -141,23 +162,13 @@ const CollectionEditModal: React.FC<CollectionEditModalProps> = ({
                     <Button variant="secondary" disabled={submitting} onClick={handleHide}>
                         キャンセル
                     </Button>
-                    {submitting ? (
-                        <Button type="submit" variant="primary" disabled={submitting}>
-                            <Spinner
-                                className="mr-1"
-                                as="span"
-                                animation="border"
-                                size="sm"
-                                role="status"
-                                aria-hidden="true"
-                            />
-                            {mode === 'create' ? '作成' : '更新'}中…
-                        </Button>
-                    ) : (
-                        <Button type="submit" variant="primary">
-                            {mode === 'create' ? '作成' : '更新'}
-                        </Button>
-                    )}
+                    <ProgressButton
+                        label={mode === 'create' ? '作成' : '更新'}
+                        inProgress={submitting}
+                        type="submit"
+                        variant="primary"
+                        disabled={submitting}
+                    />
                 </Modal.Footer>
             </form>
         </Modal>
@@ -415,23 +426,13 @@ const ItemEditModal: React.FC<ItemEditModalProps> = ({ item, onUpdate, show, onH
                     <Button variant="secondary" disabled={submitting} onClick={handleHide}>
                         キャンセル
                     </Button>
-                    {submitting ? (
-                        <Button type="submit" variant="primary" disabled={submitting}>
-                            <Spinner
-                                className="mr-1"
-                                as="span"
-                                animation="border"
-                                size="sm"
-                                role="status"
-                                aria-hidden="true"
-                            />
-                            更新中…
-                        </Button>
-                    ) : (
-                        <Button type="submit" variant="primary">
-                            更新
-                        </Button>
-                    )}
+                    <ProgressButton
+                        label="更新"
+                        inProgress={submitting}
+                        type="submit"
+                        variant="primary"
+                        disabled={submitting}
+                    />
                 </Modal.Footer>
             </form>
         </Modal>
@@ -691,23 +692,14 @@ const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdat
                     <Button variant="secondary" disabled={deleting} onClick={() => setShowDeleteModal(false)}>
                         キャンセル
                     </Button>
-                    {deleting ? (
-                        <Button type="submit" variant="danger" disabled={deleting}>
-                            <Spinner
-                                className="mr-1"
-                                as="span"
-                                animation="border"
-                                size="sm"
-                                role="status"
-                                aria-hidden="true"
-                            />
-                            削除中…
-                        </Button>
-                    ) : (
-                        <Button type="submit" variant="danger" onClick={handleClickDelete}>
-                            削除
-                        </Button>
-                    )}
+                    <ProgressButton
+                        label="削除"
+                        inProgress={deleting}
+                        type="submit"
+                        variant="danger"
+                        disabled={deleting}
+                        onClick={handleClickDelete}
+                    />
                 </Modal.Footer>
             </Modal>
         </div>
