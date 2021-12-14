@@ -20,7 +20,7 @@ type CollectionFormValues = {
 };
 
 type CollectionFormErrors = {
-    [Property in keyof CollectionEditFormValues]+?: string[];
+    [Property in keyof CollectionFormValues]+?: string[];
 };
 
 class CollectionFormValidationError extends Error {
@@ -570,15 +570,6 @@ type CollectionHeaderProps = {
     onDelete: () => void;
 };
 
-type CollectionEditFormValues = {
-    title: string;
-    is_private: boolean;
-};
-
-type CollectionEditFormErrors = {
-    [Property in keyof CollectionEditFormValues]+?: string[];
-};
-
 const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdate, onDelete }) => {
     const me = useMyProfile();
     const [showEditModal, setShowEditModal] = useState(false);
@@ -601,9 +592,9 @@ const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdat
             if (e instanceof ResponseError && e.response.status == 422) {
                 const data = await e.response.json();
                 if (data.error?.violations) {
-                    const errors: CollectionEditFormErrors = {};
+                    const errors: CollectionFormErrors = {};
                     for (const violation of data.error.violations) {
-                        const field = violation.field as keyof CollectionEditFormErrors;
+                        const field = violation.field as keyof CollectionFormErrors;
                         (errors[field] || (errors[field] = [])).push(violation.message);
                     }
                     throw new CollectionFormValidationError(errors);
