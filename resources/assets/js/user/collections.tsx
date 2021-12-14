@@ -791,6 +791,7 @@ const Index: React.FC = () => {
     const collections = useContext(CollectionsContext);
 
     useEffect(() => {
+        // リスト先頭のコレクションに自動遷移
         if (collections && !collections.loading && collections.data && collections.data.length > 0) {
             const first = collections.data[0];
             navigate(`/user/${first.user_name}/collections/${first.id}`);
