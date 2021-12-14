@@ -15,12 +15,7 @@ class CollectionController extends Controller
             abort(404);
         }
 
-        $collection = $user->collections()->first();
-        if ($collection) {
-            return redirect()->route('user.collections.show', ['name' => $name, 'id' => $collection->id]);
-        }
-
-        return view('user.collections.index')->with(compact('user'));
+        return view('user.collections')->with(compact('user'));
     }
 
     public function show($name, $id)
@@ -30,6 +25,6 @@ class CollectionController extends Controller
             abort(404);
         }
 
-        return view('user.collections.show')->with(compact('user'));
+        return view('user.collections')->with(compact('user'));
     }
 }

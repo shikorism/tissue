@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Link, Route, Routes, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { BrowserRouter, Link, Outlet, Route, Routes, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Button, ButtonProps, Form, Modal, ModalProps, OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
 import { LinkCard } from '../components/LinkCard';
 import { MyProfileContext, useMyProfile } from '../context';
@@ -270,6 +270,9 @@ const Sidebar: React.FC<SidebarProps> = ({ collections, reloadCollections }) => 
                 {collections.map((collection) => (
                     <SidebarItem key={collection.id} collection={collection} />
                 ))}
+                {collections.length === 0 && (
+                    <li className="list-group-item d-flex justify-content-between align-items-center" />
+                )}
             </div>
             <CollectionEditModal
                 mode="create"
@@ -706,14 +709,12 @@ const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdat
     );
 };
 
-type CollectionProps = {
-    onUpdate: (collection: Tissue.Collection) => void;
-    onDelete: () => void;
-};
-
-const Collection: React.FC<CollectionProps> = ({ onUpdate, onDelete }) => {
+const Collection: React.FC = () => {
     const { id } = useParams();
     const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+
+    const collections = useContext(CollectionsContext);
     const fetchCollection = useFetchCollection({ id: id as string });
     const fetchCollectionItems = useFetchCollectionItems({
         id: id as string,
@@ -727,7 +728,11 @@ const Collection: React.FC<CollectionProps> = ({ onUpdate, onDelete }) => {
 
     const handleCollectionUpdate = (collection: Tissue.Collection) => {
         fetchCollection.setData(collection);
-        onUpdate(collection);
+        collections?.setData((col) => col?.map((c) => (c.id === collection.id ? collection : c)));
+    };
+
+    const handleCollectionDelete = () => {
+        navigate('../');
     };
 
     const handleItemUpdate = (item: Tissue.CollectionItem) => {
@@ -740,7 +745,7 @@ const Collection: React.FC<CollectionProps> = ({ onUpdate, onDelete }) => {
                 <CollectionHeader
                     collection={fetchCollection.data}
                     onUpdate={handleCollectionUpdate}
-                    onDelete={onDelete}
+                    onDelete={handleCollectionDelete}
                 />
             )}
             {fetchCollectionItems.data && (
@@ -767,24 +772,12 @@ const Collection: React.FC<CollectionProps> = ({ onUpdate, onDelete }) => {
     );
 };
 
-const Page: React.FC = () => {
+const CollectionsContext = React.createContext<ReturnType<typeof useFetchCollections> | undefined>(undefined);
+
+const Collections: React.FC = () => {
     const { username } = useParams();
-    const navigate = useNavigate();
     const fetchMyProfile = useFetchMyProfile();
     const fetchCollections = useFetchCollections({ username: username as string });
-
-    const handleUpdate = (collection: Tissue.Collection) => {
-        fetchCollections.setData((col) => col?.map((c) => (c.id === collection.id ? collection : c)));
-    };
-
-    const handleDelete = async () => {
-        const data = await fetchCollections.reload();
-        if (data.length === 0) {
-            // TODO: どうすんのこれ
-        } else {
-            navigate(`/user/${data[0].user_name}/collections/${data[0].id}`);
-        }
-    };
 
     return (
         <MyProfileContext.Provider value={fetchMyProfile.data}>
@@ -794,13 +787,15 @@ const Page: React.FC = () => {
                         <Sidebar collections={fetchCollections.data} reloadCollections={fetchCollections.reload} />
                     </div>
                     <div className="col-lg-8">
-                        {fetchCollections.error?.response?.status === 403 && (
+                        {fetchCollections.error?.response?.status === 403 ? (
                             <p className="mt-4">
                                 <span className="oi oi-lock-locked" /> このユーザはチェックイン履歴を公開していません。
                             </p>
+                        ) : (
+                            <CollectionsContext.Provider value={fetchCollections}>
+                                <Outlet />
+                            </CollectionsContext.Provider>
                         )}
-                        {fetchCollections.data?.length === 0 && <p className="mt-4">コレクションがありません。</p>}
-                        <Collection onUpdate={handleUpdate} onDelete={handleDelete} />
                     </div>
                 </div>
             </div>
@@ -808,10 +803,31 @@ const Page: React.FC = () => {
     );
 };
 
+const Index: React.FC = () => {
+    const navigate = useNavigate();
+    const collections = useContext(CollectionsContext);
+
+    useEffect(() => {
+        if (collections && !collections.loading && collections.data && collections.data.length > 0) {
+            const first = collections.data[0];
+            navigate(`/user/${first.user_name}/collections/${first.id}`);
+        }
+    }, [collections?.loading]);
+
+    if (collections && !collections.loading && collections.data?.length === 0) {
+        return <p className="mt-4">コレクションがありません。</p>;
+    }
+
+    return null;
+};
+
 ReactDOM.render(
     <BrowserRouter>
         <Routes>
-            <Route path="/user/:username/collections/:id" element={<Page />} />
+            <Route path="/user/:username/collections" element={<Collections />}>
+                <Route index element={<Index />} />
+                <Route path=":id" element={<Collection />} />
+            </Route>
         </Routes>
     </BrowserRouter>,
     document.getElementById('app')
