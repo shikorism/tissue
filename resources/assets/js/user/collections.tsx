@@ -710,7 +710,7 @@ const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdat
 };
 
 const Collection: React.FC = () => {
-    const { id } = useParams();
+    const { username, id } = useParams();
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
 
@@ -726,12 +726,21 @@ const Collection: React.FC = () => {
         fetchCollectionItems.clear();
     }, [id]);
 
+    useEffect(() => {
+        if (!fetchCollection.loading && fetchCollection.data && fetchCollection.data.user_name !== username) {
+            // リロードをかけるため、location.hrefを変更
+            location.href = `/user/${fetchCollection.data.user_name}/collections/${fetchCollection.data.id}`;
+        }
+    }, [username, fetchCollection.loading]);
+
     const handleCollectionUpdate = (collection: Tissue.Collection) => {
         fetchCollection.setData(collection);
         collections?.setData((col) => col?.map((c) => (c.id === collection.id ? collection : c)));
     };
 
     const handleCollectionDelete = () => {
+        collections?.setData((col) => col?.filter((c) => c.id !== fetchCollection.data.id));
+        collections?.reload();
         navigate('../');
     };
 
@@ -741,6 +750,9 @@ const Collection: React.FC = () => {
 
     return (
         <>
+            {fetchCollection.error?.response?.status === 404 && (
+                <p className="mt-4">お探しのコレクションは見つかりませんでした。</p>
+            )}
             {fetchCollection.data && (
                 <CollectionHeader
                     collection={fetchCollection.data}
