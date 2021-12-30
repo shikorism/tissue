@@ -25,7 +25,7 @@
     <p class="text-secondary">2回以上使用したオカズのみ集計しています。</p>
     <ul class="list-group">
         @forelse ($mostFrequentlyUsedRanking as $index => $item)
-            <li class="list-group-item border-bottom-only pt-3 pb-3 text-break">
+            <li class="list-group-item border-bottom-only pt-3 pb-3 px-0 text-break">
                 <p class="mb-1"><span class="mr-3 tis-rank-badge">{{ $index + 1 }}</span><span class="mr-2" style="font-size: 1.75rem">{{ $item->count }}</span>回</p>
                 <div class="row mx-0">
                     @component('components.link-card', ['link' => $item->normalized_link, 'is_too_sensitive' => false])
