@@ -34,6 +34,11 @@
                         <span class="oi oi-link-intact mr-1"></span><a class="overflow-hidden" href="{{ $item->normalized_link }}" target="_blank" rel="noopener">{{ $item->normalized_link }}</a>
                     </p>
                 </div>
+                <div class="ejaculation-actions">
+                    <button type="button" class="btn btn-link text-secondary"
+                            data-toggle="tooltip" data-placement="bottom"
+                            title="同じオカズでチェックイン" data-href="{{ route('checkin', ['link' => $item->normalized_link]) }}"><span class="oi oi-reload"></span></button>
+                </div>
             </li>
         @empty
             <li class="list-group-item border-bottom-only">
