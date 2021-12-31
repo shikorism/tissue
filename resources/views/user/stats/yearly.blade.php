@@ -21,8 +21,8 @@
     <hr class="my-4">
     @include('user.stats.components.used-tags')
     <hr class="my-4">
-    <h5 class="my-4">最も使ったオカズ</h5>
-    <p class="text-secondary">2回以上使用したオカズのみ集計しています。</p>
+    <h5 class="mt-4 mb-2">最も使ったオカズ</h5>
+    <p class="mb-4 text-secondary">2回以上使用したオカズのみ集計しています。</p>
     <ul class="list-group">
         @forelse ($mostFrequentlyUsedRanking as $index => $item)
             <li class="list-group-item border-bottom-only pt-3 pb-3 px-0 text-break">
