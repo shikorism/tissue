@@ -109,9 +109,10 @@ SQL
         $graphData = $this->makeGraphData($user, $dateSince, $dateUntil);
         $tags = $this->countUsedTags($user, $dateSince, $dateUntil);
         $tagsIncludesMetadata = collect($this->countUsedTagsIncludesMetadata($user, $dateSince, $dateUntil));
+        $mostFrequentlyUsedRanking = collect($this->countMostFrequentlyUsedOkazu($user, $dateSince, $dateUntil));
 
         return view('user.stats.yearly')
-            ->with(compact('user', 'graphData', 'availableMonths', 'tags', 'tagsIncludesMetadata'))
+            ->with(compact('user', 'graphData', 'availableMonths', 'tags', 'tagsIncludesMetadata', 'mostFrequentlyUsedRanking'))
             ->with('currentYear', (int) $year);
     }
 
@@ -389,5 +390,28 @@ id,
 (select ejaculated_date from ejaculations e2 where e2.ejaculated_date < ejaculations.ejaculated_date and e2.user_id = ejaculations.user_id order by e2.ejaculated_date desc limit 1) AS before_date
 SQL
         );
+    }
+
+    private function countMostFrequentlyUsedOkazu(User $user, CarbonInterface $dateSince = null, CarbonInterface $dateUntil = null)
+    {
+        $sql = <<<SQL
+SELECT normalized_link, count(*) as count
+FROM ejaculations e
+WHERE user_id = ? AND is_private IN (?, ?) AND ejaculated_date >= ? AND ejaculated_date < ? AND normalized_link <> ''
+GROUP BY normalized_link HAVING count(*) >= 2
+ORDER BY count DESC, normalized_link
+LIMIT 10
+SQL;
+
+        if ($dateSince === null) {
+            $dateSince = Carbon::minValue();
+        }
+        if ($dateUntil === null) {
+            $dateUntil = now()->addMonth()->startOfMonth();
+        }
+
+        return DB::select(DB::raw($sql), [
+            $user->id, false, Auth::check() && $user->id === Auth::id(), $dateSince, $dateUntil
+        ]);
     }
 }

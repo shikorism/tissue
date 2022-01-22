@@ -20,6 +20,32 @@
     <canvas id="dow-graph" class="w-100"></canvas>
     <hr class="my-4">
     @include('user.stats.components.used-tags')
+    <hr class="my-4">
+    <h5 class="mt-4 mb-2">最も使ったオカズ</h5>
+    <p class="mb-4 text-secondary">2回以上使用したオカズのみ集計しています。</p>
+    <ul class="list-group">
+        @forelse ($mostFrequentlyUsedRanking as $index => $item)
+            <li class="list-group-item border-bottom-only pt-3 pb-3 px-0 text-break">
+                <p class="mb-1"><span class="mr-3 tis-rank-badge">{{ $index + 1 }}</span><span class="mr-2" style="font-size: 1.75rem">{{ $item->count }}</span>回</p>
+                <div class="row mx-0">
+                    @component('components.link-card', ['link' => $item->normalized_link, 'is_too_sensitive' => false])
+                    @endcomponent
+                    <p class="d-flex align-items-baseline mb-2 col-12 px-0">
+                        <span class="oi oi-link-intact mr-1"></span><a class="overflow-hidden" href="{{ $item->normalized_link }}" target="_blank" rel="noopener">{{ $item->normalized_link }}</a>
+                    </p>
+                </div>
+                <div class="ejaculation-actions">
+                    <button type="button" class="btn btn-link text-secondary"
+                            data-toggle="tooltip" data-placement="bottom"
+                            title="同じオカズでチェックイン" data-href="{{ route('checkin', ['link' => $item->normalized_link]) }}"><span class="oi oi-reload"></span></button>
+                </div>
+            </li>
+        @empty
+            <li class="list-group-item border-bottom-only">
+                <p>この期間のチェックインが無いか、2回以上使用したオカズがありません。</p>
+            </li>
+        @endforelse
+    </ul>
 @endsection
 
 @push('script')

@@ -28,3 +28,12 @@ $primary: #e53fb1;
 .tis-status-container + .mt-n1 {
     margin-top: 0 !important;
 }
+
+.tis-rank-badge {
+    padding: 0.25rem 0.75rem;
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #e53fb1;
+    border-radius: 0.5rem;
+}
