@@ -60,7 +60,7 @@ class DLsiteResolverTest extends TestCase
         $this->assertEquals('快楽ヒストリエ', $metadata->title);
         $this->assertEquals('著者: 火鳥' . PHP_EOL . '天地創造と原初の人類を描いた「創世編」をはじめ、英雄たちの偉業を大真面目に考証した正真正銘の学術コミック全15編。', $metadata->description);
         $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/books/BJ139000/BJ138581_img_main.jpg', $metadata->image);
-        $this->assertEquals(['おっぱい', 'おやじ', 'ギャグ', 'コメディ', 'ショタ', 'セーラー服', 'ロリ', '女王様/お姫様', '妹', '戦士', '歴史/時代物', '爺', '王子様/王子系', '着物/和服', '褐色/日焼け', '青年コミック'], $metadata->tags);
+        $this->assertEquals(['おっぱい', 'おやじ', 'ギャグ', 'コメディ', 'ショタ', 'セーラー服', 'ロリ', '女王様/お姫様', '妹', '戦士', '歴史/時代物', '王子様/王子系', '着物/和服', '褐色/日焼け', '青年コミック'], $metadata->tags);
         if ($this->shouldUseMock()) {
             $this->assertSame('https://www.dlsite.com/comic/work/=/product_id/BJ138581.html', (string) $this->handler->getLastRequest()->getUri());
         }
@@ -146,6 +146,22 @@ class DLsiteResolverTest extends TestCase
         }
     }
 
+    public function testGirlsDrama()
+    {
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testGirlsDrama.html');
+
+        $this->createResolver(DLsiteResolver::class, $responseText);
+
+        $metadata = $this->resolver->resolve('https://www.dlsite.com/girls-drama/work/=/product_id/BJ144170.html');
+        $this->assertEquals('黒い夢 第一夜 ♯34 Train', $metadata->title);
+        $this->assertEquals('ブランド名: Bitter Princess Labal' . PHP_EOL . '全編密着アダルトシーン いまだかつてない特濃ハードコアエロス 誰にも言えない淫らな妄想を叶えてくれる夢のシチュエーションCD', $metadata->description);
+        $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/books/BJ145000/BJ144170_img_main.jpg', $metadata->image);
+        $this->assertEquals(['痴漢'], $metadata->tags);
+        if ($this->shouldUseMock()) {
+            $this->assertSame('https://www.dlsite.com/girls-drama/work/=/product_id/BJ144170.html', (string) $this->handler->getLastRequest()->getUri());
+        }
+    }
+
     public function testBL()
     {
         $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testBL.html');
@@ -162,35 +178,35 @@ class DLsiteResolverTest extends TestCase
         }
     }
 
-    public function testEng()
+    public function testBLPro()
     {
-        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testEng.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testBLPro.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
-        $metadata = $this->resolver->resolve('https://www.dlsite.com/eng/work/=/product_id/RE228866.html');
-        $this->assertEquals('With Your First Girlfriend, at a Ghostly Night [Ear Cleaning] [Sleep Sharing]', $metadata->title);
-        $this->assertEquals('Circle: Triangle!' . PHP_EOL . 'You go with a girl of your first love and enjoy going to haunted places and her massage, ear cleaning, sleep sharing etc. (CV: Yui Asami)', $metadata->description);
-        $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/doujin/RJ229000/RJ228866_img_main.jpg', $metadata->image);
-        $this->assertEquals(['ASMR', 'Binaural', 'Childhood Friend', 'Ear Cleaning', 'Healing', 'Lovey Dovey/Sweet Love'], $metadata->tags);
+        $metadata = $this->resolver->resolve('https://www.dlsite.com/bl-pro/work/=/product_id/BJ222351.html');
+        $this->assertEquals('コミックマズル　クズの教育', $metadata->title);
+        $this->assertEquals('著者: 藤村まりな' . PHP_EOL . '先生+ヤンキー×優等生', $metadata->description);
+        $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/books/BJ223000/BJ222351_img_main.jpg', $metadata->image);
+        $this->assertEquals(['ボーイズラブ'], $metadata->tags);
         if ($this->shouldUseMock()) {
-            $this->assertSame('https://www.dlsite.com/eng/work/=/product_id/RE228866.html', (string) $this->handler->getLastRequest()->getUri());
+            $this->assertSame('https://www.dlsite.com/bl-pro/work/=/product_id/BJ222351.html', (string) $this->handler->getLastRequest()->getUri());
         }
     }
 
-    public function testEcchiEng()
+    public function testBLDrama()
     {
-        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testEcchiEng.html');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testBLDrama.html');
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
-        $metadata = $this->resolver->resolve('https://www.dlsite.com/ecchi-eng/work/=/product_id/RE144678.html');
-        $this->assertEquals('NEKOPARA vol.1', $metadata->title);
-        $this->assertEquals('Circle: NEKO WORKs' . PHP_EOL . 'Chocolat and Vanilla star in a rich adult eroge series with E-mote system and animated H scenes', $metadata->description);
-        $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/doujin/RJ145000/RJ144678_img_main.jpg', $metadata->image);
-        $this->assertEquals(['Love Comedy/Romcom', 'Master and Servant', 'Moe', 'Nekomimi (Cat Ears)'], $metadata->tags);
+        $metadata = $this->resolver->resolve('https://www.dlsite.com/bl-drama/work/=/product_id/BJ164908.html');
+        $this->assertEquals('おうちデート', $metadata->title);
+        $this->assertEquals('レーベル: KarinChatnoirOmega' . PHP_EOL . '保育士の“戸塚慧”はアナタ（攻め／聴き手）の可愛い可愛い最愛の恋人。週末は決まってアナタの部屋でお泊りする半同棲生活を送っている。', $metadata->description);
+        $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/books/BJ165000/BJ164908_img_main.jpg', $metadata->image);
+        $this->assertEquals(['ボーイズラブ', '同棲', '日常/生活'], $metadata->tags);
         if ($this->shouldUseMock()) {
-            $this->assertSame('https://www.dlsite.com/ecchi-eng/work/=/product_id/RE144678.html', (string) $this->handler->getLastRequest()->getUri());
+            $this->assertSame('https://www.dlsite.com/bl-drama/work/=/product_id/BJ164908.html', (string) $this->handler->getLastRequest()->getUri());
         }
     }
 

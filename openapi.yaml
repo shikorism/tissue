@@ -4,14 +4,23 @@ info:
   description: |
     夜のライフログサービス Tissue の公開API仕様です。
     全てのAPIのURLは `https://shikorism.net/api` から始まります。
-  version: 0.1.2
+  version: 0.2.0
 servers:
   - url: 'https://shikorism.net/api'
+tags:
+  - name: webhook
+    description: Incoming Webhookに関する仕様
+  - name: users
+    description: ユーザー情報に関する操作
+  - name: checkin
+    description: チェックインに関する操作
 paths:
   /webhooks/checkin/{id}:
     post:
-      summary: /webhooks/checkin/{id}
+      summary: チェックイン
       description: Webhook IDを発行したユーザで新規チェックインを行います。
+      tags:
+        - webhook
       parameters:
         - name: id
           in: path
@@ -23,38 +32,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                checked_in_at:
-                  type: string
-                  format: date-time
-                  description: チェックイン日時 (ISO 8601形式、タイムゾーンを省略した場合も受理するが動作は未定義、省略した場合はサーバのシステム日時を使用)
-                tags:
-                  type: array
-                  items:
-                    type: string
-                    maxLength: 255
-                  description: タグ (スペースを含めるのは禁止、先頭および末尾に空白が含まれている場合はtrimされる)
-                link:
-                  type: string
-                  maxLength: 2000
-                  description: オカズリンク (http, https)
-                note:
-                  type: string
-                  maxLength: 500
-                  description: ノート
-                is_private:
-                  type: boolean
-                  default: false
-                  description: 非公開チェックインとして設定
-                is_too_sensitive:
-                  type: boolean
-                  default: false
-                  description: チェックイン対象のオカズをより過激なオカズとして設定
-                discard_elapsed_time:
-                  type: boolean
-                  default: false
-                  description: 前回チェックインからの経過時間を記録しない
+              $ref: '#/components/schemas/CreateCheckin'
             examples:
               simple:
                 description: 何も指定しなければ、現在時刻で公開チェックインをおこないます。
@@ -87,6 +65,30 @@ paths:
                     example: 200
                   checkin:
                     $ref: '#/components/schemas/Checkin'
+        404:
+          description: 無効なWebhook ID
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - error
+                properties:
+                  status:
+                    type: number
+                    description: HTTPステータスコードと同じ値
+                    example: 404
+                  error:
+                    type: object
+                    description: エラーデータ
+                    required:
+                      - message
+                    properties:
+                      message:
+                        type: string
+                        description: エラーの概要
+                        example: The webhook is unavailable
         422:
           description: バリデーションエラー
           content:
@@ -108,7 +110,7 @@ paths:
                       - message
                     properties:
                       message:
-                        type: object
+                        type: string
                         description: エラーの概要
                         example: Validation failed
                       violations:
@@ -118,8 +120,295 @@ paths:
                         description: エラーが発生した各フィールドについてのメッセージ
                         example:
                           - Checkin already exists in this time
+  /v1/me:
+    get:
+      summary: 自分のユーザー情報の取得
+      description: 自分自身のユーザー情報を取得します。
+      tags:
+        - users
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /v1/users/{name}:
+    get:
+      summary: ユーザー情報の取得
+      description: 指定したユーザーの情報を取得します。
+      tags:
+        - users
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: ユーザー名
+          schema:
+            type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        404:
+          description: 存在しないユーザー
+  /v1/users/{name}/checkins:
+    get:
+      summary: チェックイン一覧の取得
+      description: 指定したユーザーのチェックイン一覧を取得します。
+      tags:
+        - users
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: ユーザー名
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: ページ番号
+          schema:
+            type: integer
+            default: 1
+        - name: per_page
+          in: query
+          description: 1ページあたりのアイテム数
+          schema:
+            type: integer
+            default: 20
+            minimum: 10
+            maximum: 100
+      responses:
+        200:
+          description: 成功
+          headers:
+            X-Total-Count:
+              description: 全体のアイテム数
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Checkin'
+        403:
+          description: ユーザーがチェックイン履歴を公開していない場合
+        404:
+          description: 存在しないユーザー
+  /v1/checkins:
+    post:
+      summary: チェックインの作成
+      description: 新規チェックインを行います。
+      tags:
+        - checkin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCheckin'
+            examples:
+              simple:
+                description: 全てのプロパティは省略可能です。何も指定しなければ、現在時刻で公開チェックインをおこないます。
+                value: {}
+              complete:
+                value:
+                  checked_in_at: 2020-07-21T19:19:19+0900
+                  note: すごく出た
+                  link: http://example.com
+                  tags:
+                    - Example
+                    - Example_2
+                  is_private: false
+                  is_too_sensitive: false
+                  discard_elapsed_time: false
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Checkin'
+        422:
+          description: バリデーションエラー
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - error
+                properties:
+                  status:
+                    type: number
+                    description: HTTPステータスコードと同じ値
+                    example: 422
+                  error:
+                    $ref: '#/components/schemas/ValidationError'
+  /v1/checkins/{id}:
+    get:
+      summary: チェックインの取得
+      description: 指定したIDのチェックインの情報を取得します。
+      tags:
+        - checkin
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: チェックインID
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Checkin'
+        403:
+          description: アクセス権の無いチェックイン (ユーザーがチェックイン履歴を公開していない、またはチェックインが非公開設定)
+        404:
+          description: 存在しない場合
+    patch:
+      summary: チェックインの編集
+      description: |
+        指定したIDのチェックインの情報を編集します。
+        リクエスト内の項目は全て省略可能であり、更新したい項目のみを送信することができます。
+      tags:
+        - checkin
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: チェックインID
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCheckin'
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Checkin'
+        403:
+          description: 自分以外のチェックインに対して操作を試みた場合
+        404:
+          description: 存在しない場合
+        422:
+          description: バリデーションエラー
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - error
+                properties:
+                  status:
+                    type: number
+                    description: HTTPステータスコードと同じ値
+                    example: 422
+                  error:
+                    $ref: '#/components/schemas/ValidationError'
+    delete:
+      summary: チェックインの削除
+      description: 指定したIDのチェックインを削除します。
+      tags:
+        - checkin
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: チェックインID
+          schema:
+            type: integer
+            format: int64
+      responses:
+        204:
+          description: 成功、または既に存在しない場合
+        403:
+          description: 自分以外のチェックインに対して操作を試みた場合
 components:
   schemas:
+    User:
+      type: object
+      description: ユーザーデータ
+      required:
+        - name
+        - display_name
+        - is_protected
+        - private_likes
+      properties:
+        name:
+          type: string
+          maxLength: 15
+          description: ユーザー名 (多くの画面では先頭に @ を付けて表示されますが、ここでは含まれません)
+        display_name:
+          type: string
+          maxLength: 20
+          description: 名前
+        is_protected:
+          type: boolean
+          description: チェックイン履歴の非公開フラグ
+        private_likes:
+          type: boolean
+          description: いいね一覧の非公開フラグ
+        bio:
+          type: string
+          maxLength: 160
+          description: 自己紹介文
+        url:
+          type: string
+          format: uri
+          description: プロフィール上に掲載するURL
+        checkin_summary:
+          $ref: '#/components/schemas/CheckinSummary'
+    CheckinSummary:
+      type: object
+      description: チェックインの概況
+      required:
+        - current_session_elapsed
+        - total_checkins
+        - total_times
+        - average_interval
+        - longest_interval
+        - shortest_interval
+      properties:
+        current_session_elapsed:
+          type: integer
+          format: int64
+          description: 最後のチェックインからの経過秒数 (現在のセッション)
+        total_checkins:
+          type: integer
+          format: int64
+          description: 合計チェックイン回数
+        total_times:
+          type: integer
+          format: int64
+          description: 合計時間 (秒)
+        average_interval:
+          type: integer
+          format: int64
+          description: 平均チェックイン間隔 (秒)
+        longest_interval:
+          type: integer
+          format: int64
+          description: 最長チェックイン間隔 (秒)
+        shortest_interval:
+          type: integer
+          format: int64
+          description: 最短チェックイン間隔 (秒)
     Checkin:
       type: object
       description: チェックインデータ
@@ -127,6 +416,7 @@ components:
         id:
           type: integer
           format: int64
+          description: チェックインID
         checked_in_at:
           type: string
           format: date-time
@@ -163,3 +453,83 @@ components:
           type: boolean
           default: false
           description: 前回チェックインからの経過時間を記録しない
+        source:
+          type: string
+          description: チェックインの登録元
+          enum:
+            - web
+            - csv
+            - webhook
+            - api
+          example: api
+    UpdateCheckin:
+      type: object
+      properties:
+        checked_in_at:
+          type: string
+          format: date-time
+          description: チェックイン日時
+          example: 2020-07-21T19:19:19+0900
+        tags:
+          type: array
+          items:
+            type: string
+            maxLength: 255
+          description: タグ
+          example:
+            - Example
+            - Example_2
+        link:
+          type: string
+          maxLength: 2000
+          description: オカズリンク (http, https)
+          example: http://example.com
+        note:
+          type: string
+          maxLength: 500
+          description: ノート
+          example: すごく出た
+        is_private:
+          type: boolean
+          description: 非公開チェックインとして設定
+        is_too_sensitive:
+          type: boolean
+          description: チェックイン対象のオカズをより過激なオカズとして設定
+        discard_elapsed_time:
+          type: boolean
+          description: 前回チェックインからの経過時間を記録しない
+    CreateCheckin:
+      allOf:
+        - $ref: '#/components/schemas/UpdateCheckin'
+        - properties:
+            is_private:
+              default: false
+            is_too_sensitive:
+              default: false
+            discard_elapsed_time:
+              default: false
+    ValidationError:
+      type: object
+      description: バリデーションエラー
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: エラーの概要
+          example: The given data was invalid.
+        violations:
+          type: array
+          description: エラーが発生した各フィールドについての情報
+          items:
+            type: object
+            required:
+              - message
+              - field
+            properties:
+              message:
+                type: string
+                description: エラーの概要
+              field:
+                type: string
+                description: エラーが発生したフィールド

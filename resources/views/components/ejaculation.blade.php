@@ -15,7 +15,7 @@
 </div>
 <!-- tags -->
 @if ($ejaculation->is_private || $ejaculation->source !== 'web' || $ejaculation->tags->isNotEmpty())
-    <p class="mb-2">
+    <p class="tis-checkin-tags mb-2">
         @if ($ejaculation->is_private)
             <span class="badge badge-warning"><span class="oi oi-lock-locked"></span> 非公開</span>
         @endif
@@ -25,6 +25,9 @@
                 @break
             @case ('webhook')
                 <span class="badge badge-info" data-toggle="tooltip" title="Webhookからチェックイン"><span class="oi oi-flash"></span></span>
+                @break
+            @case ('api')
+                <span class="badge badge-info" data-toggle="tooltip" title="APIからチェックイン"><span class="oi oi-flash"></span></span>
                 @break
         @endswitch
         @foreach ($ejaculation->tags as $tag)

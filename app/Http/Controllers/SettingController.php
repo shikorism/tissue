@@ -9,6 +9,7 @@ use App\Exceptions\CsvImportException;
 use App\Mail\PasswordChanged;
 use App\Services\CheckinCsvExporter;
 use App\Services\CheckinCsvImporter;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
+use Laravel\Passport\TokenRepository;
 
 class SettingController extends Controller
 {

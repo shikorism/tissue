@@ -12,7 +12,7 @@
                 <tbody>
                 @foreach ($tags as $tag)
                     <tr>
-                        <td>
+                        <td style="word-break: break-all;">
                             <a class="text-reset" href="{{ route('search', ['q' => $tag->name]) }}"><span class="oi oi-tag text-secondary mr-2"></span>{{ $tag->name }}</a>
                         </td>
                         <td class="text-right">
@@ -36,7 +36,7 @@
                 <tbody>
                 @foreach ($tagsIncludesMetadata as $tag)
                     <tr>
-                        <td>
+                        <td style="word-break: break-all;">
                             <a class="text-reset" href="{{ route('search', ['q' => $tag->name]) }}"><span class="oi oi-tag text-secondary mr-2"></span>{{ $tag->name }}</a>
                         </td>
                         <td class="text-right">

@@ -3,7 +3,7 @@ version: 2.1
 executors:
   build:
     docker:
-      - image: circleci/php:7.3-node-browsers
+      - image: circleci/php:7.4-node-browsers
         environment:
           APP_DEBUG: true
           APP_ENV: testing
@@ -12,7 +12,7 @@ executors:
           DB_DATABASE: tissue
           DB_USERNAME: tissue
           DB_PASSWORD: tissue
-      - image: circleci/postgres:10-alpine
+      - image: circleci/postgres:13
         environment:
           POSTGRES_DB: tissue
           POSTGRES_USER: tissue

@@ -7,6 +7,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
@@ -95,5 +96,20 @@ class Handler extends ExceptionHandler
             $this->isHttpException($e) ? $e->getHeaders() : [],
             JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
         );
+    }
+
+    protected function invalidJson($request, ValidationException $exception)
+    {
+        return response()->json([
+            'status' => $exception->status,
+            'error' => [
+                'message' => $exception->getMessage(),
+                'violations' => collect($exception->validator->errors())->flatMap(function ($values, $field) {
+                    return collect($values)->map(function ($message) use ($field) {
+                        return compact('message', 'field');
+                    });
+                }),
+            ],
+        ], $exception->status);
     }
 }

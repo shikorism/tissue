@@ -34,3 +34,22 @@
     background-color: rgba(240, 240, 240, 0.8);
     border-radius: 5px;
 }
+
+.tis-checkin-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6ch;
+
+    & > .badge {
+        max-width: 100%;
+        padding: .2em .6em;
+        line-height: 1.5;
+        text-align: left;
+        word-break: break-all;
+        white-space: normal;
+
+        & > .oi-flash {
+            top: 2px;
+        }
+    }
+}
