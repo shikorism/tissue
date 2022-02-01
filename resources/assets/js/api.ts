@@ -98,6 +98,8 @@ function makeFetchHook<Params, Data>(fetch: (params: Params) => Promise<Response
 
 export const useFetchMyProfile = makeFetchHook<void, Tissue.Profile>(() => fetchGet(`/api/me`));
 
+export const useFetchMyCollections = makeFetchHook<void, Tissue.Collection[]>(() => fetchGet(`/api/collections`));
+
 export const useFetchCollections = makeFetchHook<{ username: string }, Tissue.Collection[]>(({ username }) =>
     fetchGet(`/api/users/${username}/collections`)
 );

@@ -21,6 +21,7 @@ class CollectionController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth')->only('index');
         $this->middleware(function (Request $request, $next) {
             $collection = $request->route('collection');
             if ($collection instanceof Collection && !$collection->user->isMe()) {
@@ -31,6 +32,13 @@ class CollectionController extends Controller
 
             return $next($request);
         });
+    }
+
+    public function index()
+    {
+        $collections = Auth::user()->collections();
+
+        return response()->json($collections->get()->map(fn ($collection) => new CollectionResource($collection)));
     }
 
     public function store(Request $request)

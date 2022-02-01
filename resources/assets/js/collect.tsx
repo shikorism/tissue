@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import { FieldError } from './components/FieldError';
@@ -6,9 +6,9 @@ import { TagInput } from './components/TagInput';
 import { MetadataPreview } from './components/MetadataPreview';
 import { fetchPostJson, ResponseError } from './fetch';
 import { showToast } from './tissue';
+import { useFetchMyCollections } from './api';
 
 type FormValues = {
-    collection: string;
     link: string;
     tags: string[];
     note: string;
@@ -19,8 +19,8 @@ type FormErrors = {
 };
 
 const CollectForm = () => {
+    const [collectionId, setCollectionId] = useState('');
     const [values, setValues] = useState<FormValues>({
-        collection: '',
         link: '',
         note: '',
         tags: [],
@@ -28,12 +28,23 @@ const CollectForm = () => {
     const [errors, setErrors] = useState<FormErrors>({});
     const [linkForPreview, setLinkForPreview] = useState(values.link);
     const [submitting, setSubmitting] = useState<boolean>(false);
+    const fetchMyCollections = useFetchMyCollections();
+
+    useEffect(() => {
+        if (!fetchMyCollections.loading && fetchMyCollections.data && fetchMyCollections.data.length !== 0) {
+            setCollectionId(fetchMyCollections.data[0].id);
+        }
+    }, [fetchMyCollections.loading]);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        if (collectionId === '') {
+            showToast('コレクションが選択されていません', { color: 'danger', delay: 5000 });
+            return;
+        }
         setSubmitting(true);
         try {
-            const response = await fetchPostJson('/api/collections/inbox', { ...values, flash: true });
+            const response = await fetchPostJson(`/api/collections/${collectionId}/items`, { ...values, flash: true });
             if (response.status === 201) {
                 const data = await response.json();
                 if (data.collection_id && data.user_name) {
@@ -69,10 +80,20 @@ const CollectForm = () => {
                     <label htmlFor="collection">
                         <span className="oi oi-folder" /> 追加先
                     </label>
-                    <select name="collection" id="collection" className="custom-select" disabled>
-                        <option value="">あとで抜く</option>
+                    <select
+                        name="collection"
+                        id="collection"
+                        className="custom-select"
+                        disabled={fetchMyCollections.loading}
+                        value={collectionId}
+                        onChange={(e) => setCollectionId(e.target.value)}
+                    >
+                        {fetchMyCollections.data?.map((collection) => (
+                            <option key={collection.id} value={collection.id}>
+                                {collection.title}
+                            </option>
+                        ))}
                     </select>
-                    <FieldError errors={errors?.collection} />
                 </div>
             </div>
             <div className="form-row">
@@ -135,7 +156,7 @@ const CollectForm = () => {
                 </div>
             </div>
             <div className="text-center">
-                <button className="btn btn-primary" type="submit" disabled={submitting}>
+                <button className="btn btn-primary" type="submit" disabled={submitting || collectionId === ''}>
                     登録
                 </button>
             </div>
