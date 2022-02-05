@@ -7,6 +7,12 @@ import { MetadataPreview } from './components/MetadataPreview';
 import { fetchPostJson, ResponseError } from './fetch';
 import { showToast } from './tissue';
 import { useFetchMyCollections } from './api';
+import {
+    CollectionEditModal,
+    CollectionFormErrors,
+    CollectionFormValidationError,
+    CollectionFormValues,
+} from './components/collections/CollectionEditModal';
 
 type FormValues = {
     link: string;
@@ -29,9 +35,13 @@ const CollectForm = () => {
     const [linkForPreview, setLinkForPreview] = useState(values.link);
     const [submitting, setSubmitting] = useState<boolean>(false);
     const fetchMyCollections = useFetchMyCollections();
+    const [showCreateModal, setShowCreateModal] = useState(false);
 
     useEffect(() => {
         if (!fetchMyCollections.loading && fetchMyCollections.data && fetchMyCollections.data.length !== 0) {
+            if (fetchMyCollections.data.find((col) => col.id == collectionId)) {
+                return;
+            }
             setCollectionId(fetchMyCollections.data[0].id);
         }
     }, [fetchMyCollections.loading]);
@@ -73,18 +83,57 @@ const CollectForm = () => {
         }
     };
 
+    const handleSubmitCreate = async (values: CollectionFormValues) => {
+        try {
+            const response = await fetchPostJson('/api/collections', values);
+            if (response.status === 201) {
+                const createdItem = await response.json();
+                showToast('コレクションを作成しました', { color: 'success', delay: 5000 });
+                setShowCreateModal(false);
+                fetchMyCollections.setData((col) => [...(col || []), createdItem]);
+                fetchMyCollections.reload();
+                setCollectionId(createdItem.id);
+                return;
+            }
+            throw new ResponseError(response);
+        } catch (e) {
+            console.error(e);
+            if (e instanceof ResponseError && e.response.status == 422) {
+                const data = await e.response.json();
+                if (data.error?.violations) {
+                    const errors: CollectionFormErrors = {};
+                    for (const violation of data.error.violations) {
+                        const field = violation.field as keyof CollectionFormErrors;
+                        (errors[field] || (errors[field] = [])).push(violation.message);
+                    }
+                    throw new CollectionFormValidationError(errors);
+                }
+            }
+            showToast('エラーが発生しました', { color: 'danger', delay: 5000 });
+        }
+    };
+
     return (
         <form onSubmit={handleSubmit}>
             <div className="form-row">
                 <div className="form-group col-sm-12">
-                    <label htmlFor="collection">
-                        <span className="oi oi-folder" /> 追加先
-                    </label>
+                    <div className="d-flex justify-content-between">
+                        <label htmlFor="collection">
+                            <span className="oi oi-folder" /> 追加先
+                        </label>
+                        <button
+                            className="btn btn-link p-0 mb-2"
+                            type="button"
+                            onClick={() => setShowCreateModal(true)}
+                        >
+                            新規作成
+                        </button>
+                    </div>
                     <select
                         name="collection"
                         id="collection"
                         className="custom-select"
-                        disabled={fetchMyCollections.loading}
+                        disabled={!fetchMyCollections.data}
                         value={collectionId}
                         onChange={(e) => setCollectionId(e.target.value)}
                     >
@@ -160,6 +209,13 @@ const CollectForm = () => {
                     登録
                 </button>
             </div>
+            <CollectionEditModal
+                mode="create"
+                initialValues={{ title: '', is_private: true }}
+                onSubmit={handleSubmitCreate}
+                show={showCreateModal}
+                onHide={() => setShowCreateModal(false)}
+            />
         </form>
     );
 };

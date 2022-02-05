@@ -55,6 +55,7 @@ export const CollectionEditModal: React.FC<CollectionEditModalProps> = ({
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        event.stopPropagation();
         setSubmitting(true);
         try {
             await onSubmit(values);
