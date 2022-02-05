@@ -185,6 +185,7 @@ type CollectionItemProps = {
 
 const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
     const me = useMyProfile();
+    const collections = useContext(CollectionsContext);
     const { username } = useParams();
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -252,7 +253,7 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
                         <span className="oi oi-check" />
                     </button>
                 </OverlayTrigger>
-                <AddToCollectionButton link={item.link} />
+                <AddToCollectionButton link={item.link} collections={collections?.data} />
                 {username === me?.name && (
                     <>
                         <OverlayTrigger placement="bottom" overlay={<Tooltip id={`edit_${item.id}`}>編集</Tooltip>}>

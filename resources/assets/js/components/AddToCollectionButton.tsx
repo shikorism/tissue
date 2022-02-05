@@ -12,16 +12,19 @@ ToggleButton.displayName = 'ToggleButton';
 
 type AddToCollectionButtonProps = {
     link: string;
+    collections: Tissue.Collection[] | undefined;
 };
 
-export const AddToCollectionButton: React.FC<AddToCollectionButtonProps> = ({ link }) => {
-    const handleSelect = async (eventKey: any) => {
-        console.log(`handleSelect: ${eventKey}`);
+export const AddToCollectionButton: React.FC<AddToCollectionButtonProps> = ({ link, collections }) => {
+    const handleSelect = async (eventKey: string | null) => {
+        const collection = collections?.find((collection) => collection.id == eventKey);
+        if (!collection) {
+            return;
+        }
         try {
-            // TODO: 選択したコレクションに登録する
-            const response = await fetchPostJson('/api/collections/inbox', { link });
+            const response = await fetchPostJson(`/api/collections/${collection.id}/items`, { link });
             if (response.ok) {
-                showToast('あとで抜く に追加しました', { color: 'success', delay: 5000 });
+                showToast(`${collection.title} に追加しました`, { color: 'success', delay: 5000 });
             } else {
                 throw new ResponseError(response);
             }
@@ -34,7 +37,7 @@ export const AddToCollectionButton: React.FC<AddToCollectionButtonProps> = ({ li
                     return;
                 }
             }
-            showToast('あとで抜く に追加できませんでした', { color: 'danger', delay: 5000 });
+            showToast(`${collection.title} に追加できませんでした`, { color: 'danger', delay: 5000 });
         }
     };
 
@@ -45,7 +48,11 @@ export const AddToCollectionButton: React.FC<AddToCollectionButtonProps> = ({ li
             </OverlayTrigger>
             <Dropdown.Menu>
                 <Dropdown.Header>コレクションに追加</Dropdown.Header>
-                <Dropdown.Item eventKey="1">あとで抜く</Dropdown.Item>
+                {collections?.map((collection) => (
+                    <Dropdown.Item key={collection.id} eventKey={collection.id}>
+                        {collection.title}
+                    </Dropdown.Item>
+                ))}
             </Dropdown.Menu>
         </Dropdown>
     );
