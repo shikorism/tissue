@@ -64,7 +64,7 @@ export const AddToCollectionButton: React.FC<AddToCollectionButtonProps> = ({
             const response = await fetchPostJson('/api/collections', { ...values, links: [link] });
             if (response.status === 201) {
                 await response.json();
-                showToast('作成しました', { color: 'success', delay: 5000 });
+                showToast('作成して追加しました', { color: 'success', delay: 5000 });
                 setShowCreateModal(false);
                 onCreateCollection && onCreateCollection();
                 return;
