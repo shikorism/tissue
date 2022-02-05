@@ -262,7 +262,7 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
                     </OverlayTrigger>
                     <div className="dropdown-menu">
                         <h6 className="dropdown-header">コレクションに追加</h6>
-                        <button type="button" className="dropdown-item use-later-button" data-link={item.link}>
+                        <button type="button" className="dropdown-item add-to-collection-button" data-link={item.link}>
                             あとで抜く
                         </button>
                     </div>

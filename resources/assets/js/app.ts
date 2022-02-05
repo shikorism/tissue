@@ -92,7 +92,7 @@ $(() => {
         }
     });
 
-    $(document).on('click', '.use-later-button', async function (event) {
+    $(document).on('click', '.add-to-collection-button', async function (event) {
         event.preventDefault();
 
         const $this = $(this);

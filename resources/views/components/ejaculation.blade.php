@@ -97,7 +97,7 @@
             <div class="dropdown-menu">
                 {{-- TODO: そのうち複数のコレクションを扱えるようにする --}}
                 <h6 class="dropdown-header">コレクションに追加</h6>
-                <button type="button" class="dropdown-item use-later-button" data-link="{{ $ejaculation->link }}">あとで抜く</button>
+                <button type="button" class="dropdown-item add-to-collection-button" data-link="{{ $ejaculation->link }}">あとで抜く</button>
             </div>
         </span>
     @endif
