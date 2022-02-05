@@ -4,7 +4,7 @@ import { BrowserRouter, Link, Outlet, Route, Routes, useNavigate, useParams } fr
 import { Button, Form, Modal, ModalProps } from 'react-bootstrap';
 import classNames from 'classnames';
 import { MyProfileContext, useMyProfile } from '../context';
-import { useFetchMyProfile, useFetchCollections } from '../api';
+import { useFetchMyProfile, useFetchCollections, useFetchMyCollections } from '../api';
 import { showToast } from '../tissue';
 import { fetchPostJson, ResponseError } from '../fetch';
 import { FieldError } from '../components/FieldError';
@@ -12,6 +12,9 @@ import { ProgressButton } from '../components/ProgressButton';
 import { Collection } from './collection';
 
 export const CollectionsContext = React.createContext<ReturnType<typeof useFetchCollections> | undefined>(undefined);
+export const MyCollectionsContext = React.createContext<ReturnType<typeof useFetchMyCollections> | undefined>(
+    undefined
+);
 
 export type CollectionFormValues = {
     title: string;
@@ -267,6 +270,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collections, reloadCollections }) => 
 const Collections: React.FC = () => {
     const { username } = useParams();
     const fetchMyProfile = useFetchMyProfile();
+    const fetchMyCollections = useFetchMyCollections();
     const fetchCollections = useFetchCollections({ username: username as string });
 
     return (
@@ -282,9 +286,11 @@ const Collections: React.FC = () => {
                                 <span className="oi oi-lock-locked" /> このユーザはチェックイン履歴を公開していません。
                             </p>
                         ) : (
-                            <CollectionsContext.Provider value={fetchCollections}>
-                                <Outlet />
-                            </CollectionsContext.Provider>
+                            <MyCollectionsContext.Provider value={fetchMyCollections}>
+                                <CollectionsContext.Provider value={fetchCollections}>
+                                    <Outlet />
+                                </CollectionsContext.Provider>
+                            </MyCollectionsContext.Provider>
                         )}
                     </div>
                 </div>
