@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { fetchGet, ResponseError } from './fetch';
-import { AddToCollectionButton } from './components/AddToCollectionButton';
+import { AddToCollectionButton } from './components/collections/AddToCollectionButton';
 
 export async function initAddToCollectionButtons() {
     const addToCollectionButtons = document.querySelectorAll<HTMLElement>('.add-to-collection-button');
@@ -19,7 +19,14 @@ export async function initAddToCollectionButtons() {
             addToCollectionButtons.forEach((el) => {
                 const link = el.dataset.link;
                 if (link) {
-                    ReactDOM.render(<AddToCollectionButton link={link} collections={data} />, el);
+                    ReactDOM.render(
+                        <AddToCollectionButton
+                            link={link}
+                            collections={data}
+                            onCreateCollection={initAddToCollectionButtons}
+                        />,
+                        el
+                    );
                 }
             });
         } else {

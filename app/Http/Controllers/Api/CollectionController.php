@@ -10,6 +10,7 @@ use App\Http\Resources\CollectionResource;
 use App\Tag;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -53,10 +54,25 @@ class CollectionController extends Controller
                 }),
             ],
             'is_private' => 'required|boolean',
+            'links' => 'nullable|array|max:100',
+            'links.*' => 'required|url|max:2000',
         ]);
 
-        $collection = new Collection($validated);
-        Auth::user()->collections()->save($collection);
+        $collection = DB::transaction(function () use ($validated) {
+            $collection = new Collection(Arr::except($validated, 'links'));
+            Auth::user()->collections()->save($collection);
+
+            if (!empty($validated['links'])) {
+                $links = array_unique($validated['links']);
+                foreach ($links as $link) {
+                    $item = new CollectionItem(['link' => $link]);
+                    $collection->items()->save($item);
+                }
+            }
+
+            return $collection;
+        });
+
 
         return new CollectionResource($collection);
     }

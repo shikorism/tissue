@@ -17,10 +17,9 @@ import {
     CollectionFormErrors,
     CollectionFormValidationError,
     CollectionFormValues,
-    CollectionsContext,
-    MyCollectionsContext,
-} from './collections';
-import { AddToCollectionButton } from '../components/AddToCollectionButton';
+} from '../components/collections/CollectionEditModal';
+import { CollectionsContext, MyCollectionsContext } from './collections';
+import { AddToCollectionButton } from '../components/collections/AddToCollectionButton';
 
 interface ItemEditModalProps extends ModalProps {
     item: Tissue.CollectionItem;
@@ -186,6 +185,7 @@ type CollectionItemProps = {
 
 const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
     const me = useMyProfile();
+    const collections = useContext(CollectionsContext);
     const myCollections = useContext(MyCollectionsContext);
     const { username } = useParams();
     const [showEditModal, setShowEditModal] = useState(false);
@@ -254,7 +254,17 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
                         <span className="oi oi-check" />
                     </button>
                 </OverlayTrigger>
-                <AddToCollectionButton link={item.link} collections={myCollections?.data} />
+                <AddToCollectionButton
+                    link={item.link}
+                    collections={myCollections?.data}
+                    onCreateCollection={() => {
+                        myCollections?.reload();
+                        // 現在表示しているページが自分のコレクションであれば、そちらもリロードが必要
+                        if (username === me?.name) {
+                            collections?.reload();
+                        }
+                    }}
+                />
                 {username === me?.name && (
                     <>
                         <OverlayTrigger placement="bottom" overlay={<Tooltip id={`edit_${item.id}`}>編集</Tooltip>}>
@@ -429,6 +439,7 @@ export const Collection: React.FC = () => {
     const navigate = useNavigate();
 
     const collections = useContext(CollectionsContext);
+    const myCollections = useContext(MyCollectionsContext);
     const fetchCollection = useFetchCollection({ id: id as string });
     const fetchCollectionItems = useFetchCollectionItems({
         id: id as string,
@@ -450,11 +461,14 @@ export const Collection: React.FC = () => {
     const handleCollectionUpdate = (collection: Tissue.Collection) => {
         fetchCollection.setData(collection);
         collections?.setData((col) => col?.map((c) => (c.id === collection.id ? collection : c)));
+        myCollections?.setData((col) => col?.map((c) => (c.id === collection.id ? collection : c)));
     };
 
     const handleCollectionDelete = () => {
         collections?.setData((col) => col?.filter((c) => c.id !== fetchCollection.data.id));
         collections?.reload();
+        myCollections?.setData((col) => col?.filter((c) => c.id !== fetchCollection.data.id));
+        myCollections?.reload();
         navigate('../');
     };
 
