@@ -30,7 +30,7 @@ mix.ts('resources/assets/js/app.ts', 'public/js')
     .autoload({
         jquery: ['$', 'jQuery', 'window.jQuery'],
     })
-    .extract(['jquery', 'bootstrap'])
+    .extract(['jquery', 'bootstrap', 'react', 'react-dom', 'react-bootstrap'])
     .extract(['chart.js', 'chartjs-color', 'color-name', 'moment', 'cal-heatmap', 'd3'], 'public/js/vendor/chart')
     .react()
     .version()
