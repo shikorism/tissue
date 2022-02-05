@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Collection;
 use App\CollectionItem;
+use App\Events\LinkDiscovered;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CollectionItemResource;
 use App\Tag;
@@ -83,6 +84,8 @@ class CollectionItemController extends Controller
 
             return $item;
         });
+
+        event(new LinkDiscovered($item->link));
 
         // 登録フォーム用の処理
         if ($request->input('flash') === true) {

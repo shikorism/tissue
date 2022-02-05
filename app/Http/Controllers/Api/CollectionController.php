@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Collection;
 use App\CollectionItem;
+use App\Events\LinkDiscovered;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CollectionItemResource;
 use App\Http\Resources\CollectionResource;
@@ -58,10 +59,11 @@ class CollectionController extends Controller
             'items.*.tags.*' => ['string', 'not_regex:/[\s\r\n]/u', 'max:255'],
         ]);
 
-        $collection = DB::transaction(function () use ($validated) {
+        [$collection, $collectionItems] = DB::transaction(function () use ($validated) {
             $collection = new Collection(Arr::except($validated, 'items'));
             Auth::user()->collections()->save($collection);
 
+            $collectionItems = [];
             if (!empty($validated['items'])) {
                 $items = array_unique($validated['items']);
                 foreach ($items as $attributes) {
@@ -81,12 +83,16 @@ class CollectionController extends Controller
                         }
                     }
                     $item->tags()->sync($tagIds);
+                    $collectionItems[] = $item;
                 }
             }
 
-            return $collection;
+            return [$collection, $collectionItems];
         });
 
+        foreach ($collectionItems as $item) {
+            event(new LinkDiscovered($item->link));
+        }
 
         return new CollectionResource($collection);
     }
