@@ -19,6 +19,7 @@ import {
     CollectionFormValues,
     CollectionsContext,
 } from './collections';
+import { AddToCollectionButton } from '../components/AddToCollectionButton';
 
 interface ItemEditModalProps extends ModalProps {
     item: Tissue.CollectionItem;
@@ -251,22 +252,7 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
                         <span className="oi oi-check" />
                     </button>
                 </OverlayTrigger>
-                <span className="dropdown">
-                    <OverlayTrigger
-                        placement="bottom"
-                        overlay={<Tooltip id={`add_collection_${item.id}`}>コレクションに追加</Tooltip>}
-                    >
-                        <button type="button" className="btn btn-link text-secondary" data-toggle="dropdown">
-                            <span className="oi oi-plus" />
-                        </button>
-                    </OverlayTrigger>
-                    <div className="dropdown-menu">
-                        <h6 className="dropdown-header">コレクションに追加</h6>
-                        <button type="button" className="dropdown-item add-to-collection-button" data-link={item.link}>
-                            あとで抜く
-                        </button>
-                    </div>
-                </span>
+                <AddToCollectionButton link={item.link} />
                 {username === me?.name && (
                     <>
                         <OverlayTrigger placement="bottom" overlay={<Tooltip id={`edit_${item.id}`}>編集</Tooltip>}>
