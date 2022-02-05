@@ -8,13 +8,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CollectionItemResource;
 use App\Http\Resources\CollectionResource;
 use App\Tag;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Validator;
 
@@ -54,19 +52,35 @@ class CollectionController extends Controller
                 }),
             ],
             'is_private' => 'required|boolean',
-            'links' => 'nullable|array|max:100',
-            'links.*' => 'required|url|max:2000',
+            'items' => 'nullable|array|max:100',
+            'items.*.link' => 'required|url|max:2000',
+            'items.*.tags' => 'nullable|array|max:40',
+            'items.*.tags.*' => ['string', 'not_regex:/[\s\r\n]/u', 'max:255'],
         ]);
 
         $collection = DB::transaction(function () use ($validated) {
-            $collection = new Collection(Arr::except($validated, 'links'));
+            $collection = new Collection(Arr::except($validated, 'items'));
             Auth::user()->collections()->save($collection);
 
-            if (!empty($validated['links'])) {
-                $links = array_unique($validated['links']);
-                foreach ($links as $link) {
-                    $item = new CollectionItem(['link' => $link]);
+            if (!empty($validated['items'])) {
+                $items = array_unique($validated['items']);
+                foreach ($items as $attributes) {
+                    $item = new CollectionItem($attributes);
                     $collection->items()->save($item);
+
+                    $tagIds = [];
+                    if (!empty($attributes['tags'])) {
+                        foreach ($attributes['tags'] as $tag) {
+                            $tag = trim($tag);
+                            if ($tag === '') {
+                                continue;
+                            }
+
+                            $tag = Tag::firstOrCreate(['name' => $tag]);
+                            $tagIds[] = $tag->id;
+                        }
+                    }
+                    $item->tags()->sync($tagIds);
                 }
             }
 

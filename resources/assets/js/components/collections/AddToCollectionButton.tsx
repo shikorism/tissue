@@ -18,12 +18,14 @@ ToggleButton.displayName = 'ToggleButton';
 
 type AddToCollectionButtonProps = {
     link: string;
+    tags: string[];
     collections?: Tissue.Collection[];
     onCreateCollection?: () => void;
 };
 
 export const AddToCollectionButton: React.FC<AddToCollectionButtonProps> = ({
     link,
+    tags,
     collections,
     onCreateCollection,
 }) => {
@@ -40,7 +42,7 @@ export const AddToCollectionButton: React.FC<AddToCollectionButtonProps> = ({
             return;
         }
         try {
-            const response = await fetchPostJson(`/api/collections/${collection.id}/items`, { link });
+            const response = await fetchPostJson(`/api/collections/${collection.id}/items`, { link, tags });
             if (response.ok) {
                 showToast(`${collection.title} に追加しました`, { color: 'success', delay: 5000 });
             } else {
@@ -61,7 +63,7 @@ export const AddToCollectionButton: React.FC<AddToCollectionButtonProps> = ({
 
     const handleSubmit = async (values: CollectionFormValues) => {
         try {
-            const response = await fetchPostJson('/api/collections', { ...values, links: [link] });
+            const response = await fetchPostJson('/api/collections', { ...values, items: [{ link, tags }] });
             if (response.status === 201) {
                 await response.json();
                 showToast('作成して追加しました', { color: 'success', delay: 5000 });

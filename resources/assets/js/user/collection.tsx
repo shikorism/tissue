@@ -256,6 +256,7 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
                 </OverlayTrigger>
                 <AddToCollectionButton
                     link={item.link}
+                    tags={item.tags}
                     collections={myCollections?.data}
                     onCreateCollection={() => {
                         myCollections?.reload();

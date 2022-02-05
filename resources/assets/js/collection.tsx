@@ -8,8 +8,9 @@ export async function initAddToCollectionButtons() {
     if (addToCollectionButtons.length > 0) {
         addToCollectionButtons.forEach((el) => {
             const link = el.dataset.link;
+            const tags = (el.dataset.tags || '').split(' ');
             if (link) {
-                ReactDOM.render(<AddToCollectionButton link={link} />, el);
+                ReactDOM.render(<AddToCollectionButton link={link} tags={tags} />, el);
             }
         });
 
@@ -18,10 +19,12 @@ export async function initAddToCollectionButtons() {
             const data = (await response.json()) as Tissue.Collection[];
             addToCollectionButtons.forEach((el) => {
                 const link = el.dataset.link;
+                const tags = (el.dataset.tags || '').split(' ');
                 if (link) {
                     ReactDOM.render(
                         <AddToCollectionButton
                             link={link}
+                            tags={tags}
                             collections={data}
                             onCreateCollection={initAddToCollectionButtons}
                         />,
