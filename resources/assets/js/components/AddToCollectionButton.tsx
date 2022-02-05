@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Dropdown, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Button, Dropdown, OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
 import { fetchPostJson, ResponseError } from '../fetch';
 import { showToast } from '../tissue';
 
@@ -12,7 +12,7 @@ ToggleButton.displayName = 'ToggleButton';
 
 type AddToCollectionButtonProps = {
     link: string;
-    collections: Tissue.Collection[] | undefined;
+    collections?: Tissue.Collection[];
 };
 
 export const AddToCollectionButton: React.FC<AddToCollectionButtonProps> = ({ link, collections }) => {
@@ -52,7 +52,19 @@ export const AddToCollectionButton: React.FC<AddToCollectionButtonProps> = ({ li
                     <Dropdown.Item key={collection.id} eventKey={collection.id}>
                         {collection.title}
                     </Dropdown.Item>
-                ))}
+                )) || (
+                    <Dropdown.ItemText className="text-secondary">
+                        <Spinner
+                            className="mr-1"
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                        />
+                        読み込み中…
+                    </Dropdown.ItemText>
+                )}
             </Dropdown.Menu>
         </Dropdown>
     );

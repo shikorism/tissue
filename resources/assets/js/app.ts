@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie';
 import { fetchPostJson, fetchDeleteJson, ResponseError } from './fetch';
-import { linkCard, pageSelector, deleteCheckinModal, checkinMutedWarning, showToast } from './tissue';
+import { linkCard, pageSelector, deleteCheckinModal, checkinMutedWarning } from './tissue';
+import { initAddToCollectionButtons } from './collection';
 
 require('./bootstrap');
 
@@ -92,36 +93,12 @@ $(() => {
         }
     });
 
-    $(document).on('click', '.add-to-collection-button', async function (event) {
-        event.preventDefault();
-
-        const $this = $(this);
-        const link = $this.data('link');
-
-        try {
-            const response = await fetchPostJson('/api/collections/inbox', { link });
-            if (response.ok) {
-                showToast('あとで抜く に追加しました', { color: 'success', delay: 5000 });
-            } else {
-                throw new ResponseError(response);
-            }
-        } catch (e) {
-            console.error(e);
-            if (e instanceof ResponseError && e.response.status == 422) {
-                const data = await e.response.json();
-                if (data.error?.violations && data.error.violations.some((v: any) => v.field === 'link')) {
-                    showToast('すでに登録されています', { color: 'danger', delay: 5000 });
-                    return;
-                }
-            }
-            showToast('あとで抜く に追加できませんでした', { color: 'danger', delay: 5000 });
-        }
-    });
-
     $(document).on('click', '.card-spoiler-img-overlay', function (event) {
         event.preventDefault();
         const $this = $(this);
         $this.closest('.card-link').removeClass('card-spoiler');
         $this.remove();
     });
+
+    initAddToCollectionButtons();
 });
