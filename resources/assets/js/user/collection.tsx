@@ -254,18 +254,20 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
                         <span className="oi oi-check" />
                     </button>
                 </OverlayTrigger>
-                <AddToCollectionButton
-                    link={item.link}
-                    tags={item.tags}
-                    collections={myCollections?.data}
-                    onCreateCollection={() => {
-                        myCollections?.reload();
-                        // 現在表示しているページが自分のコレクションであれば、そちらもリロードが必要
-                        if (username === me?.name) {
-                            collections?.reload();
-                        }
-                    }}
-                />
+                {me && (
+                    <AddToCollectionButton
+                        link={item.link}
+                        tags={item.tags}
+                        collections={myCollections?.data}
+                        onCreateCollection={() => {
+                            myCollections?.reload();
+                            // 現在表示しているページが自分のコレクションであれば、そちらもリロードが必要
+                            if (username === me?.name) {
+                                collections?.reload();
+                            }
+                        }}
+                    />
+                )}
                 {username === me?.name && (
                     <>
                         <OverlayTrigger placement="bottom" overlay={<Tooltip id={`edit_${item.id}`}>編集</Tooltip>}>

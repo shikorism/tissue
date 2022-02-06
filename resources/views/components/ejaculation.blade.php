@@ -89,13 +89,15 @@
     <button type="button" class="btn btn-link text-secondary like-button"
             data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
             title="いいね" data-id="{{ $ejaculation->id }}" data-liked="{{ (bool)$ejaculation->is_liked }}"><span class="oi oi-heart {{ $ejaculation->is_liked ? 'text-danger' : '' }}"></span><span class="like-count">{{ $ejaculation->likes_count ? $ejaculation->likes_count : '' }}</span></button>
-    @if (!empty($ejaculation->link))
-        <span class="add-to-collection-button" data-link="{{ $ejaculation->link }}" data-tags="{{ $ejaculation->textTags() }}">
-            <button type="button" class="btn btn-link text-secondary"
-                    data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
-                    title="コレクションに追加"><span class="oi oi-plus"></span></button>
-        </span>
-    @endif
+    @auth
+        @if (!empty($ejaculation->link))
+            <span class="add-to-collection-button" data-link="{{ $ejaculation->link }}" data-tags="{{ $ejaculation->textTags() }}">
+                <button type="button" class="btn btn-link text-secondary"
+                        data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+                        title="コレクションに追加"><span class="oi oi-plus"></span></button>
+            </span>
+        @endif
+    @endauth
     @if ($ejaculation->user->isMe())
         <button type="button" class="btn btn-link text-secondary"
                 data-toggle="tooltip" data-placement="bottom"
