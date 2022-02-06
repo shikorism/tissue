@@ -19,7 +19,7 @@ class CollectionController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->only('index');
+        $this->middleware('auth')->except('show');
         $this->middleware(function (Request $request, $next) {
             $collection = $request->route('collection');
             if ($collection instanceof Collection && !$collection->user->isMe()) {
