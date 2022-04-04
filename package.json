@@ -48,6 +48,7 @@
     "open-iconic": "^1.1.1",
     "popper.js": "^1.14.7",
     "postcss": "^8.3.1",
+    "postcss-scss": "^4.0.2",
     "prettier": "^2.4.1",
     "qs": "^6.10.1",
     "react": "^17.0.2",
@@ -56,12 +57,13 @@
     "resolve-url-loader": "^3.1.1",
     "sass": "^1.26.8",
     "sass-loader": "^12.1.0",
-    "stylelint": "^13.6.1",
+    "stylelint": "^14.0.1",
     "stylelint-config-recess-order": "^2.3.0",
     "ts-loader": "^6.0.1",
     "typescript": "^3.4.5"
   },
   "stylelint": {
+    "customSyntax": "postcss-scss",
     "extends": "stylelint-config-recess-order"
   },
   "husky": {
