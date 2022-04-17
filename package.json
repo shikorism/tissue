@@ -16,7 +16,7 @@
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.0-rc.0",
-    "@types/bootstrap": "^4.5.0",
+    "@types/bootstrap": "^5.1.9",
     "@types/cal-heatmap": "^3.3.10",
     "@types/chart.js": "^2.9.24",
     "@types/classnames": "^2.2.10",
