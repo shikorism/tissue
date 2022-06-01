@@ -22,7 +22,7 @@ class Formatter
      */
     public function formatInterval($value)
     {
-        $days = floor($value / 86400);
+        $days = number_format(floor($value / 86400));
         $hours = floor($value % 86400 / 3600);
         $minutes = floor($value % 3600 / 60);
 
