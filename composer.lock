@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac65e9a83fa66f021984d1dee084fdbc",
+    "content-hash": "16e8500f9d7b6028aef2be496df606a7",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -72,16 +72,16 @@
         },
         {
             "name": "antlr/antlr4-php-runtime",
-            "version": "0.5.1",
+            "version": "0.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antlr/antlr-php-runtime.git",
-                "reference": "73790bc994cec4b18a414865234ab0db198b065d"
+                "reference": "12f51dcb932510481286fd14d59823ed242eda4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antlr/antlr-php-runtime/zipball/73790bc994cec4b18a414865234ab0db198b065d",
-                "reference": "73790bc994cec4b18a414865234ab0db198b065d",
+                "url": "https://api.github.com/repos/antlr/antlr-php-runtime/zipball/12f51dcb932510481286fd14d59823ed242eda4e",
+                "reference": "12f51dcb932510481286fd14d59823ed242eda4e",
                 "shasum": ""
             },
             "require": {
@@ -117,9 +117,9 @@
             ],
             "support": {
                 "issues": "https://github.com/antlr/antlr-php-runtime/issues",
-                "source": "https://github.com/antlr/antlr-php-runtime/tree/0.5.1"
+                "source": "https://github.com/antlr/antlr-php-runtime/tree/0.6.0"
             },
-            "time": "2021-08-13T11:44:19+00:00"
+            "time": "2022-02-06T21:22:20+00:00"
         },
         {
             "name": "clue/stream-filter",
