@@ -7,6 +7,18 @@ use Tests\TestCase;
 
 class FormatterTest extends TestCase
 {
+    public function testFormatIntervalHundredDays()
+    {
+        $formatter = new Formatter();
+        $this->assertSame('100日 0時間 0分', $formatter->formatInterval(100 * 86400));
+    }
+
+    public function testFormatIntervalThousandDays()
+    {
+        $formatter = new Formatter();
+        $this->assertSame('1,000日 0時間 0分', $formatter->formatInterval(1000 * 86400));
+    }
+
     public function testNormalizeUrlWithoutQuery()
     {
         $formatter = new Formatter();
