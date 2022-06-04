@@ -6,6 +6,7 @@ type CheckboxProps = {
     className?: string;
     checked?: boolean;
     onChange?: (newValue: boolean) => void;
+    children?: React.ReactNode;
 };
 
 export const CheckBox: React.FC<CheckboxProps> = ({ id, name, className, checked, onChange, children }) => (

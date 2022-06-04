@@ -29,7 +29,7 @@
             @else
                 <div class="card">
                     <div class="card-body">
-                        @component('components.ejaculation', ['ejaculation' => $ejaculation, 'header' => 'span', 'likeUsersTall' => true])
+                        @component('components.ejaculation', ['ejaculation' => $ejaculation, 'header' => 'span', 'likeUsersTall' => true, 'showSource' => true])
                         @endcomponent
                     </div>
                 </div>
