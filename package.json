@@ -86,6 +86,6 @@
     ]
   },
   "dependencies": {
-    "react-router-dom": "6"
+    "react-router-dom": "6.3.0"
   }
 }
