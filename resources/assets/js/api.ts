@@ -1,113 +1,57 @@
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useQuery } from 'react-query';
 import { fetchGet, ResponseError } from './fetch';
 
-/**
- * @example
- *   flat([1, 2, [30, [40, 50]]]) // => [1, 2, 30, 40, 50]
- *   flat({ foo: 'hoge', bar: 'fuga', baz: [10, 20, 30] }) // => ['hoge', 'fuga', 10, 20, 30]
- */
-function flat(input: unknown): unknown[] {
-    if (Array.isArray(input)) {
-        let flattened: any[] = [];
-        for (const v of input) {
-            flattened = [...flattened, ...flat(v)];
-        }
-        return flattened;
-    } else if (input !== null && typeof input === 'object') {
-        return flat(Object.values(input));
+function asJson(response: Response) {
+    if (response.ok) {
+        return response.json();
     } else {
-        return [input];
+        throw new ResponseError(response);
     }
 }
 
-function makeFetchHook<Params, Data>(fetch: (params: Params) => Promise<Response>) {
-    return (params: Params) => {
-        const [loading, setLoading] = useState(false);
-        const [data, setData] = useState<Data | undefined>(undefined);
-        const [totalCount, setTotalCount] = useState<number | undefined>(undefined);
-        const [error, setError] = useState<any>(null);
-        const [reloadCounter, setReloadCounter] = useState(0);
+export type PaginatedResult<Data> = {
+    data: Data;
+    totalCount?: number;
+};
 
-        const resolvedCallbacksRef = useRef<((data: Data) => void)[]>([]);
-        const rejectedCallbacksRef = useRef<((reason?: any) => void)[]>([]);
-        const reload = useCallback(() => {
-            setReloadCounter((v) => v + 1);
-            return new Promise<Data>((resolved, rejected) => {
-                resolvedCallbacksRef.current.push(resolved);
-                rejectedCallbacksRef.current.push(rejected);
-            });
-        }, []);
+async function asPaginatedJson<Data>(response: Response): Promise<PaginatedResult<Data>> {
+    if (response.ok) {
+        const total = response.headers.get('X-Total-Count');
+        const data = await response.json();
 
-        const clear = useCallback(() => {
-            setData(undefined);
-            setTotalCount(undefined);
-            setError(undefined);
-            setReloadCounter(0);
-        }, []);
-
-        useEffect(() => {
-            setLoading(true);
-
-            let cancelled = false;
-            (async () => {
-                try {
-                    const response = await fetch(params);
-                    if (cancelled) {
-                        return;
-                    }
-                    if (response.ok) {
-                        const total = response.headers.get('X-Total-Count');
-                        if (total) {
-                            setTotalCount(parseInt(total, 10));
-                        } else {
-                            setTotalCount(undefined);
-                        }
-
-                        const data = await response.json();
-                        if (cancelled) {
-                            return;
-                        }
-
-                        setData(data);
-                        setLoading(false);
-
-                        resolvedCallbacksRef.current.forEach((resolved) => resolved(data));
-                        resolvedCallbacksRef.current.splice(0);
-                        rejectedCallbacksRef.current.splice(0);
-                    }
-                    throw new ResponseError(response);
-                } catch (e) {
-                    console.error(e);
-                    setError(e);
-                    setLoading(false);
-
-                    rejectedCallbacksRef.current.forEach((rejected) => rejected(e));
-                    resolvedCallbacksRef.current.splice(0);
-                    rejectedCallbacksRef.current.splice(0);
-                }
-            })();
-
-            return () => {
-                cancelled = true;
-            };
-        }, [...flat(params), reloadCounter]);
-
-        return { loading, data, setData, totalCount, error, reload, clear };
-    };
+        return {
+            data,
+            totalCount: total ? parseInt(total, 10) : undefined,
+        };
+    } else {
+        throw new ResponseError(response);
+    }
 }
 
-export const useFetchMyProfile = makeFetchHook<void, Tissue.Profile>(() => fetchGet(`/api/me`));
+export const useMyProfileQuery = () =>
+    useQuery<Tissue.Profile, ResponseError>('MyProfile', () => fetchGet('/api/me').then(asJson), { staleTime: 300000 });
 
-export const useFetchMyCollections = makeFetchHook<void, Tissue.Collection[]>(() => fetchGet(`/api/collections`));
+export const useMyCollectionsQuery = () =>
+    useQuery<Tissue.Collection[], ResponseError>('MyCollections', () => fetchGet('/api/collections').then(asJson), {
+        staleTime: 300000,
+    });
 
-export const useFetchCollections = makeFetchHook<{ username: string }, Tissue.Collection[]>(({ username }) =>
-    fetchGet(`/api/users/${username}/collections`)
-);
+export const useCollectionsQuery = (username: string) =>
+    useQuery<Tissue.Collection[], ResponseError>(['Collections', username], () =>
+        fetchGet(`/api/users/${username}/collections`).then(asJson)
+    );
 
-export const useFetchCollection = makeFetchHook<{ id: string }, Tissue.Collection>(({ id }) =>
-    fetchGet(`/api/collections/${id}`)
-);
+export const useCollectionQuery = (id: string) =>
+    useQuery<Tissue.Collection, ResponseError>(['Collection', id], () =>
+        fetchGet(`/api/collections/${id}`).then(asJson)
+    );
 
-export const useFetchCollectionItems = makeFetchHook<{ id: string; page?: string | null }, Tissue.CollectionItem[]>(
-    ({ id, page }) => fetchGet(`/api/collections/${id}/items`, page ? { page } : undefined)
-);
+export const useCollectionItemsQuery = (id: string, page?: string | null) =>
+    useQuery<PaginatedResult<Tissue.CollectionItem[]>, ResponseError>(
+        ['CollectionItems', id, { page: page || 1 }],
+        () =>
+            fetchGet(`/api/collections/${id}/items`, page ? { page } : undefined).then((response) =>
+                asPaginatedJson(response)
+            ),
+        { keepPreviousData: true }
+    );

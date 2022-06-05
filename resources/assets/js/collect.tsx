@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { useQueryClient } from 'react-query';
 import classNames from 'classnames';
 import { FieldError } from './components/FieldError';
 import { TagInput } from './components/TagInput';
 import { MetadataPreview } from './components/MetadataPreview';
 import { fetchPostJson, ResponseError } from './fetch';
 import { showToast } from './tissue';
-import { useFetchMyCollections } from './api';
+import { useMyCollectionsQuery } from './api';
+import { QueryClientProvider } from './query';
 import {
     CollectionEditModal,
     CollectionFormErrors,
@@ -34,17 +36,18 @@ const CollectForm = () => {
     const [errors, setErrors] = useState<FormErrors>({});
     const [linkForPreview, setLinkForPreview] = useState(values.link);
     const [submitting, setSubmitting] = useState<boolean>(false);
-    const fetchMyCollections = useFetchMyCollections();
+    const queryClient = useQueryClient();
+    const myCollectionsQuery = useMyCollectionsQuery();
     const [showCreateModal, setShowCreateModal] = useState(false);
 
     useEffect(() => {
-        if (!fetchMyCollections.loading && fetchMyCollections.data && fetchMyCollections.data.length !== 0) {
-            if (fetchMyCollections.data.find((col) => col.id == collectionId)) {
+        if (!myCollectionsQuery.isLoading && myCollectionsQuery.data && myCollectionsQuery.data.length !== 0) {
+            if (myCollectionsQuery.data.find((col) => col.id == collectionId)) {
                 return;
             }
-            setCollectionId(fetchMyCollections.data[0].id);
+            setCollectionId(myCollectionsQuery.data[0].id);
         }
-    }, [fetchMyCollections.loading]);
+    }, [myCollectionsQuery.isLoading]);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -90,8 +93,7 @@ const CollectForm = () => {
                 const createdItem = await response.json();
                 showToast('コレクションを作成しました', { color: 'success', delay: 5000 });
                 setShowCreateModal(false);
-                fetchMyCollections.setData((col) => [...(col || []), createdItem]);
-                fetchMyCollections.reload();
+                queryClient.setQueryData<Tissue.Collection[]>('MyCollections', (col) => [...(col || []), createdItem]);
                 setCollectionId(createdItem.id);
                 return;
             }
@@ -133,11 +135,11 @@ const CollectForm = () => {
                         name="collection"
                         id="collection"
                         className="custom-select"
-                        disabled={!fetchMyCollections.data}
+                        disabled={!myCollectionsQuery.data}
                         value={collectionId}
                         onChange={(e) => setCollectionId(e.target.value)}
                     >
-                        {fetchMyCollections.data?.map((collection) => (
+                        {myCollectionsQuery.data?.map((collection) => (
                             <option key={collection.id} value={collection.id}>
                                 {collection.title}
                             </option>
@@ -220,4 +222,9 @@ const CollectForm = () => {
     );
 };
 
-ReactDOM.render(<CollectForm />, document.getElementById('form'));
+ReactDOM.render(
+    <QueryClientProvider>
+        <CollectForm />
+    </QueryClientProvider>,
+    document.getElementById('form')
+);

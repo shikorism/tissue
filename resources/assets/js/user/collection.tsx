@@ -1,11 +1,17 @@
 import { Button, Modal, ModalProps, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import classNames from 'classnames';
+import { useQueryClient } from 'react-query';
 import { fetchDeleteJson, fetchPutJson, ResponseError } from '../fetch';
 import { showToast } from '../tissue';
-import { useFetchCollection, useFetchCollectionItems } from '../api';
-import { useMyProfile } from '../context';
+import {
+    PaginatedResult,
+    useCollectionQuery,
+    useCollectionItemsQuery,
+    useMyCollectionsQuery,
+    useMyProfileQuery,
+} from '../api';
 import { MetadataPreview } from '../components/MetadataPreview';
 import { TagInput } from '../components/TagInput';
 import { FieldError } from '../components/FieldError';
@@ -18,7 +24,6 @@ import {
     CollectionFormValidationError,
     CollectionFormValues,
 } from '../components/collections/CollectionEditModal';
-import { CollectionsContext, MyCollectionsContext } from './collections';
 import { AddToCollectionButton } from '../components/collections/AddToCollectionButton';
 
 interface ItemEditModalProps extends ModalProps {
@@ -184,9 +189,9 @@ type CollectionItemProps = {
 };
 
 const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
-    const me = useMyProfile();
-    const collections = useContext(CollectionsContext);
-    const myCollections = useContext(MyCollectionsContext);
+    const { data: me } = useMyProfileQuery();
+    const queryClient = useQueryClient();
+    const myCollectionsQuery = useMyCollectionsQuery();
     const { username } = useParams();
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -258,13 +263,10 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
                     <AddToCollectionButton
                         link={item.link}
                         tags={item.tags}
-                        collections={myCollections?.data}
+                        collections={myCollectionsQuery?.data}
                         onCreateCollection={() => {
-                            myCollections?.reload();
-                            // 現在表示しているページが自分のコレクションであれば、そちらもリロードが必要
-                            if (username === me?.name) {
-                                collections?.reload();
-                            }
+                            queryClient.invalidateQueries('MyCollections');
+                            queryClient.invalidateQueries(['Collections', username]);
                         }}
                     />
                 )}
@@ -327,7 +329,7 @@ type CollectionHeaderProps = {
 };
 
 const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdate, onDelete }) => {
-    const me = useMyProfile();
+    const { data: me } = useMyProfileQuery();
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [deleting, setDeleting] = useState(false);
@@ -436,81 +438,103 @@ const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdat
     );
 };
 
-export const Collection: React.FC = () => {
-    const { username, id } = useParams();
+const CollectionItemList: React.FC = () => {
+    const { id } = useParams();
     const [searchParams] = useSearchParams();
-    const navigate = useNavigate();
+    const page = searchParams.get('page');
 
-    const collections = useContext(CollectionsContext);
-    const myCollections = useContext(MyCollectionsContext);
-    const fetchCollection = useFetchCollection({ id: id as string });
-    const fetchCollectionItems = useFetchCollectionItems({
-        id: id as string,
-        page: searchParams.get('page'),
-    });
-
-    useEffect(() => {
-        fetchCollection.clear();
-        fetchCollectionItems.clear();
-    }, [id]);
-
-    useEffect(() => {
-        if (!fetchCollection.loading && fetchCollection.data && fetchCollection.data.user_name !== username) {
-            // リロードをかけるため、location.hrefを変更
-            location.href = `/user/${fetchCollection.data.user_name}/collections/${fetchCollection.data.id}`;
-        }
-    }, [username, fetchCollection.loading]);
-
-    const handleCollectionUpdate = (collection: Tissue.Collection) => {
-        fetchCollection.setData(collection);
-        collections?.setData((col) => col?.map((c) => (c.id === collection.id ? collection : c)));
-        myCollections?.setData((col) => col?.map((c) => (c.id === collection.id ? collection : c)));
-    };
-
-    const handleCollectionDelete = () => {
-        collections?.setData((col) => col?.filter((c) => c.id !== fetchCollection.data.id));
-        collections?.reload();
-        myCollections?.setData((col) => col?.filter((c) => c.id !== fetchCollection.data.id));
-        myCollections?.reload();
-        navigate('../');
-    };
+    const queryClient = useQueryClient();
+    const collectionItemsQuery = useCollectionItemsQuery(id as string, page);
 
     const handleItemUpdate = (item: Tissue.CollectionItem) => {
-        fetchCollectionItems.setData((items) => items?.map((i) => (i.id === item.id ? item : i)));
+        queryClient.setQueryData<PaginatedResult<Tissue.CollectionItem[]> | undefined>(
+            ['CollectionItems', id, { page: page || 1 }],
+            (result) =>
+                result ? { ...result, data: result.data?.map((i) => (i.id === item.id ? item : i)) } : undefined
+        );
     };
 
     return (
         <>
-            {fetchCollection.error?.response?.status === 404 && (
-                <p className="mt-4">お探しのコレクションは見つかりませんでした。</p>
-            )}
-            {fetchCollection.data && (
-                <CollectionHeader
-                    collection={fetchCollection.data}
-                    onUpdate={handleCollectionUpdate}
-                    onDelete={handleCollectionDelete}
-                />
-            )}
-            {fetchCollectionItems.data && (
+            {collectionItemsQuery.data && (
                 <ul className="list-group">
-                    {fetchCollectionItems.loading ? null : fetchCollectionItems.data.length === 0 ? (
+                    {collectionItemsQuery.isLoading ? null : collectionItemsQuery.data.data.length === 0 ? (
                         <li className="list-group-item border-bottom-only">
                             <p className="my-3">このコレクションにはまだオカズが登録されていません。</p>
                         </li>
                     ) : (
-                        fetchCollectionItems.data.map((item) => (
+                        collectionItemsQuery.data.data.map((item) => (
                             <CollectionItem key={item.id} item={item} onUpdate={handleItemUpdate} />
                         ))
                     )}
                 </ul>
             )}
-            {!!fetchCollectionItems.totalCount && (
+            {!!collectionItemsQuery.data?.totalCount && (
                 <Pagination
                     className="mt-4 justify-content-center"
                     perPage={20}
-                    totalCount={fetchCollectionItems.totalCount}
+                    totalCount={collectionItemsQuery.data.totalCount}
                 />
             )}
+        </>
+    );
+};
+
+export const Collection: React.FC = () => {
+    const { username, id } = useParams();
+    const [searchParams] = useSearchParams();
+    const page = searchParams.get('page');
+    const navigate = useNavigate();
+
+    const queryClient = useQueryClient();
+    const collectionQuery = useCollectionQuery(id as string);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [page]);
+
+    useEffect(() => {
+        if (!collectionQuery.isLoading && collectionQuery.data && collectionQuery.data.user_name !== username) {
+            // リロードをかけるため、location.hrefを変更
+            location.href = `/user/${collectionQuery.data.user_name}/collections/${collectionQuery.data.id}`;
+        }
+    }, [username, collectionQuery.isLoading]);
+
+    const handleCollectionUpdate = (collection: Tissue.Collection) => {
+        queryClient.setQueryData(['Collection', id], collection);
+        queryClient.setQueryData<Tissue.Collection[] | undefined>(['Collections', username], (col) =>
+            col?.map((c) => (c.id === collection.id ? collection : c))
+        );
+        queryClient.setQueryData<Tissue.Collection[] | undefined>('MyCollections', (col) =>
+            col?.map((c) => (c.id === collection.id ? collection : c))
+        );
+    };
+
+    const handleCollectionDelete = () => {
+        queryClient.setQueryData<Tissue.Collection[] | undefined>(['Collections', username], (col) =>
+            col?.filter((c) => c.id !== collectionQuery.data.id)
+        );
+        queryClient.invalidateQueries(['Collections', username]);
+        queryClient.setQueryData<Tissue.Collection[] | undefined>('MyCollections', (col) =>
+            col?.filter((c) => c.id !== collectionQuery.data.id)
+        );
+        queryClient.invalidateQueries('MyCollections');
+        navigate('../');
+    };
+
+    return (
+        <>
+            {collectionQuery.error?.response?.status === 404 && (
+                <p className="mt-4">お探しのコレクションは見つかりませんでした。</p>
+            )}
+            {collectionQuery.data && (
+                <CollectionHeader
+                    collection={collectionQuery.data}
+                    onUpdate={handleCollectionUpdate}
+                    onDelete={handleCollectionDelete}
+                />
+            )}
+            <CollectionItemList key={id} />
         </>
     );
 };

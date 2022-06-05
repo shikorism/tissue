@@ -1,11 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Link, Outlet, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import { MyProfileContext, useMyProfile } from '../context';
-import { useFetchMyProfile, useFetchCollections, useFetchMyCollections } from '../api';
+import { useQueryClient } from 'react-query';
+import { useCollectionsQuery, useMyProfileQuery } from '../api';
 import { showToast } from '../tissue';
 import { fetchPostJson, ResponseError } from '../fetch';
+import { QueryClientProvider } from '../query';
 import { Collection } from './collection';
 import {
     CollectionEditModal,
@@ -13,11 +14,6 @@ import {
     CollectionFormValidationError,
     CollectionFormValues,
 } from '../components/collections/CollectionEditModal';
-
-export const CollectionsContext = React.createContext<ReturnType<typeof useFetchCollections> | undefined>(undefined);
-export const MyCollectionsContext = React.createContext<ReturnType<typeof useFetchMyCollections> | undefined>(
-    undefined
-);
 
 type SidebarItemProps = {
     collection: Tissue.Collection;
@@ -52,13 +48,13 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ collection }) => {
 
 type SidebarProps = {
     collections?: Tissue.Collection[];
-    reloadCollections: () => void;
 };
 
-const Sidebar: React.FC<SidebarProps> = ({ collections, reloadCollections }) => {
-    const me = useMyProfile();
+const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
+    const { data: me } = useMyProfileQuery();
     const { username } = useParams();
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
     const [showCreateModal, setShowCreateModal] = useState(false);
 
     const handleSubmit = async (values: CollectionFormValues) => {
@@ -67,7 +63,8 @@ const Sidebar: React.FC<SidebarProps> = ({ collections, reloadCollections }) => 
             if (response.status === 201) {
                 const createdItem = await response.json();
                 showToast('作成しました', { color: 'success', delay: 5000 });
-                reloadCollections();
+                queryClient.invalidateQueries('MyCollections');
+                queryClient.invalidateQueries(['Collections', createdItem.user_name]);
                 setShowCreateModal(false);
                 navigate(`/user/${createdItem.user_name}/collections/${createdItem.id}`);
                 return;
@@ -131,55 +128,42 @@ const Sidebar: React.FC<SidebarProps> = ({ collections, reloadCollections }) => 
 
 const Collections: React.FC = () => {
     const { username } = useParams();
-    const fetchMyProfile = useFetchMyProfile();
-    const fetchMyCollections = useFetchMyCollections();
-    const fetchCollections = useFetchCollections({ username: username as string });
+    const collectionsQuery = useCollectionsQuery(username as string);
 
     return (
-        <MyProfileContext.Provider value={fetchMyProfile.data}>
-            <div className="container">
-                <div className="row">
-                    <div className="col-lg-4">
-                        <Sidebar
-                            collections={fetchCollections.data}
-                            reloadCollections={() => {
-                                fetchMyCollections.reload();
-                                fetchCollections.reload();
-                            }}
-                        />
-                    </div>
-                    <div className="col-lg-8">
-                        {fetchCollections.error?.response?.status === 403 ? (
-                            <p className="mt-4">
-                                <span className="oi oi-lock-locked" /> このユーザはチェックイン履歴を公開していません。
-                            </p>
-                        ) : (
-                            <MyCollectionsContext.Provider value={fetchMyCollections}>
-                                <CollectionsContext.Provider value={fetchCollections}>
-                                    <Outlet />
-                                </CollectionsContext.Provider>
-                            </MyCollectionsContext.Provider>
-                        )}
-                    </div>
+        <div className="container">
+            <div className="row">
+                <div className="col-lg-4">
+                    <Sidebar collections={collectionsQuery.data} />
+                </div>
+                <div className="col-lg-8">
+                    {collectionsQuery.error?.response?.status === 403 ? (
+                        <p className="mt-4">
+                            <span className="oi oi-lock-locked" /> このユーザはチェックイン履歴を公開していません。
+                        </p>
+                    ) : (
+                        <Outlet />
+                    )}
                 </div>
             </div>
-        </MyProfileContext.Provider>
+        </div>
     );
 };
 
 const Index: React.FC = () => {
+    const { username } = useParams();
     const navigate = useNavigate();
-    const collections = useContext(CollectionsContext);
+    const collectionsQuery = useCollectionsQuery(username as string);
 
     useEffect(() => {
         // リスト先頭のコレクションに自動遷移
-        if (collections && !collections.loading && collections.data && collections.data.length > 0) {
-            const first = collections.data[0];
+        if (!collectionsQuery.isLoading && collectionsQuery.data && collectionsQuery.data.length > 0) {
+            const first = collectionsQuery.data[0];
             navigate(`/user/${first.user_name}/collections/${first.id}`);
         }
-    }, [collections?.loading]);
+    }, [collectionsQuery.isLoading]);
 
-    if (collections && !collections.loading && collections.data?.length === 0) {
+    if (!collectionsQuery.isLoading && collectionsQuery.data?.length === 0) {
         return <p className="mt-4">コレクションがありません。</p>;
     }
 
@@ -187,13 +171,15 @@ const Index: React.FC = () => {
 };
 
 ReactDOM.render(
-    <BrowserRouter>
-        <Routes>
-            <Route path="/user/:username/collections" element={<Collections />}>
-                <Route index element={<Index />} />
-                <Route path=":id" element={<Collection />} />
-            </Route>
-        </Routes>
-    </BrowserRouter>,
+    <QueryClientProvider>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/user/:username/collections" element={<Collections />}>
+                    <Route index element={<Index />} />
+                    <Route path=":id" element={<Collection />} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    </QueryClientProvider>,
     document.getElementById('app')
 );
