@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": "^7.2",
+        "php": "^8.0",
         "ext-dom": "*",
         "ext-intl": "*",
         "ext-json": "*",
@@ -93,7 +93,7 @@
         "sort-packages": true,
         "optimize-autoloader": true,
         "platform": {
-            "php": "7.4"
+            "php": "8.0"
         },
         "allow-plugins": {
             "symfony/thanks": false
