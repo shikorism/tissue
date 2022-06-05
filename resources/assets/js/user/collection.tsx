@@ -386,10 +386,26 @@ const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdat
                 <h4 className="mb-1">{collection.title}</h4>
                 {me?.id === collection.user_id && (
                     <div>
-                        <Button className="mr-2" variant="secondary" size="sm" onClick={() => setShowEditModal(true)}>
+                        <Button
+                            className="mr-2"
+                            variant="primary"
+                            size="sm"
+                            href={`/collect?collection=${collection.id}`}
+                        >
+                            <span className="oi oi-plus mr-2" />
+                            オカズを追加
+                        </Button>
+                        <Button
+                            className="mr-2"
+                            variant="outline-secondary"
+                            size="sm"
+                            onClick={() => setShowEditModal(true)}
+                        >
+                            <span className="oi oi-wrench mr-2" />
                             設定
                         </Button>
-                        <Button variant="danger" size="sm" onClick={() => setShowDeleteModal(true)}>
+                        <Button variant="outline-secondary" size="sm" onClick={() => setShowDeleteModal(true)}>
+                            <span className="oi oi-trash mr-2" />
                             削除
                         </Button>
                     </div>

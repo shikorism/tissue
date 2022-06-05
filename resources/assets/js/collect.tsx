@@ -27,10 +27,11 @@ type FormErrors = {
 };
 
 const CollectForm = () => {
-    const [collectionId, setCollectionId] = useState('');
+    const searchParams = new URLSearchParams(location.search);
+    const [collectionId, setCollectionId] = useState(searchParams.get('collection') || '');
     const [values, setValues] = useState<FormValues>({
-        link: '',
-        note: '',
+        link: searchParams.get('link') || '',
+        note: searchParams.get('note') || '',
         tags: [],
     });
     const [errors, setErrors] = useState<FormErrors>({});
