@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Link, Outlet, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { useQueryClient } from 'react-query';
+import classNames from 'classnames';
 import { useCollectionsQuery, useMyProfileQuery } from '../api';
 import { showToast } from '../tissue';
 import { fetchPostJson, ResponseError } from '../fetch';
@@ -21,29 +22,25 @@ type SidebarItemProps = {
 
 const SidebarItem: React.FC<SidebarItemProps> = ({ collection }) => {
     const { id } = useParams();
+    const isSelected = collection.id == id;
 
-    if (collection.id == id) {
-        return (
-            <li className="list-group-item d-flex justify-content-between align-items-center active">
-                <div style={{ wordBreak: 'break-all' }}>
-                    <span className="oi oi-folder mr-1" />
-                    {collection.title}
-                </div>
-            </li>
-        );
-    } else {
-        return (
-            <Link
-                to={`/user/${collection.user_name}/collections/${collection.id}`}
-                className="list-group-item d-flex justify-content-between align-items-center text-dark"
-            >
-                <div style={{ wordBreak: 'break-all' }}>
-                    <span className="oi oi-folder text-secondary mr-1" />
-                    {collection.title}
-                </div>
-            </Link>
-        );
-    }
+    return (
+        <Link
+            to={`/user/${collection.user_name}/collections/${collection.id}`}
+            className={classNames(
+                'list-group-item',
+                'd-flex',
+                'justify-content-between',
+                'align-items-center',
+                isSelected ? 'active' : 'text-dark'
+            )}
+        >
+            <div style={{ wordBreak: 'break-all' }}>
+                <span className={classNames('oi', 'oi-folder', 'mr-1', { 'text-secondary': !isSelected })} />
+                {collection.title}
+            </div>
+        </Link>
+    );
 };
 
 type SidebarProps = {
