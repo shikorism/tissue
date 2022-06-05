@@ -6,9 +6,7 @@ return (new \PhpCsFixer\Config())
         'array_syntax' => [
             'syntax' => 'short'
         ],
-        'blank_line_before_return' => true,
         'function_typehint_space' => true,
-        'method_separation' => true,
         'ordered_imports' => true,
         'return_type_declaration' => true,
         'new_with_braces' => true,
