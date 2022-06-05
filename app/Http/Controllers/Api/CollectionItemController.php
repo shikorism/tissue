@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Validator;
 
 class CollectionItemController extends Controller
@@ -64,6 +65,10 @@ class CollectionItemController extends Controller
             'tags.max' => 'タグは最大40個までです。',
             'tags.*.not_regex' => 'The :attribute cannot contain spaces, tabs and newlines.',
         ])->validate();
+
+        if ($collection->items()->count() >= CollectionItem::PER_COLLECTION_LIMIT) {
+            throw new UnprocessableEntityHttpException('これ以上コレクションに追加することはできません');
+        }
 
         $item = DB::transaction(function () use ($collection, $validated) {
             $item = new CollectionItem($validated);

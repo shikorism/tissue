@@ -79,6 +79,9 @@ const CollectForm = () => {
                     setErrors(errors);
                     setSubmitting(false);
                     return;
+                } else if (data.error?.message) {
+                    showToast(data.error.message, { color: 'danger', delay: 5000 });
+                    return;
                 }
             }
             showToast('エラーが発生しました', { color: 'danger', delay: 5000 });

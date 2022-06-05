@@ -52,8 +52,13 @@ export const AddToCollectionButton: React.FC<AddToCollectionButtonProps> = ({
             console.error(e);
             if (e instanceof ResponseError && e.response.status == 422) {
                 const data = await e.response.json();
-                if (data.error?.violations && data.error.violations.some((v: any) => v.field === 'link')) {
-                    showToast('すでに登録されています', { color: 'danger', delay: 5000 });
+                if (data.error?.violations) {
+                    if (data.error.violations.some((v: any) => v.field === 'link')) {
+                        showToast('すでに登録されています', { color: 'danger', delay: 5000 });
+                        return;
+                    }
+                } else if (data.error?.message) {
+                    showToast(data.error.message, { color: 'danger', delay: 5000 });
                     return;
                 }
             }

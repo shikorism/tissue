@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class CollectionItem extends Model
 {
+    const PER_COLLECTION_LIMIT = 1000;
+
     protected $fillable = [
         'link',
         'note',
