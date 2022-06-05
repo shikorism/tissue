@@ -3,7 +3,7 @@ version: 2.1
 executors:
   build:
     docker:
-      - image: circleci/php:7.4-node-browsers
+      - image: cimg/php:7.4-browsers
         environment:
           APP_DEBUG: true
           APP_ENV: testing
