@@ -81,6 +81,9 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
                         (errors[field] || (errors[field] = [])).push(violation.message);
                     }
                     throw new CollectionFormValidationError(errors);
+                } else if (data.error?.message) {
+                    showToast(data.error.message, { color: 'danger', delay: 5000 });
+                    return;
                 }
             }
             showToast('エラーが発生しました', { color: 'danger', delay: 5000 });

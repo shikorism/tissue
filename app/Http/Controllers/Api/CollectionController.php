@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 class CollectionController extends Controller
 {
@@ -56,6 +57,10 @@ class CollectionController extends Controller
             'items.*.tags' => 'nullable|array|max:40',
             'items.*.tags.*' => ['string', 'not_regex:/[\s\r\n]/u', 'max:255'],
         ]);
+
+        if (Auth::user()->collections()->count() >= Collection::PER_USER_LIMIT) {
+            throw new UnprocessableEntityHttpException('これ以上コレクションを作成することはできません');
+        }
 
         [$collection, $collectionItems] = DB::transaction(function () use ($validated) {
             $collection = new Collection(Arr::except($validated, 'items'));
