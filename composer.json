@@ -94,6 +94,9 @@
         "optimize-autoloader": true,
         "platform": {
             "php": "7.4"
+        },
+        "allow-plugins": {
+            "symfony/thanks": false
         }
     },
     "extra": {
