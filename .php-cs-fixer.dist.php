@@ -1,14 +1,18 @@
 <?php
 
-return \PhpCsFixer\Config::create()
+return (new \PhpCsFixer\Config())
     ->setRules([
         '@PSR2' => true,
         'array_syntax' => [
             'syntax' => 'short'
         ],
-        'blank_line_before_return' => true,
+        'blank_line_before_statement' => [
+            'statements' => ['return']
+        ],
         'function_typehint_space' => true,
-        'method_separation' => true,
+        'class_attributes_separation' => [
+            'elements' => ['method' => 'one']
+        ],
         'ordered_imports' => true,
         'return_type_declaration' => true,
         'new_with_braces' => true,

@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": "^7.2",
+        "php": "^8.0",
         "ext-dom": "*",
         "ext-intl": "*",
         "ext-json": "*",
@@ -42,8 +42,8 @@
         "barryvdh/laravel-debugbar": "^3.1",
         "barryvdh/laravel-ide-helper": "~2.8.2",
         "facade/ignition": "^1.4",
-        "friendsofphp/php-cs-fixer": "2.16.4",
-        "fzaninotto/faker": "^1.9.1",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^3.0",
         "phpunit/phpunit": "^8.0",
@@ -74,7 +74,7 @@
             "@php artisan package:discover --ansi"
         ],
         "fix": [
-            "php-cs-fixer fix --config=.php_cs.dist"
+            "php-cs-fixer fix"
         ],
         "test": [
             "phpunit"
@@ -93,7 +93,10 @@
         "sort-packages": true,
         "optimize-autoloader": true,
         "platform": {
-            "php": "7.4"
+            "php": "8.0"
+        },
+        "allow-plugins": {
+            "symfony/thanks": false
         }
     },
     "extra": {
