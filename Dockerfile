@@ -1,6 +1,6 @@
 FROM node:16-buster as node
 
-FROM php:7.4-apache
+FROM php:8.0-apache
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
