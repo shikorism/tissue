@@ -382,10 +382,25 @@ const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdat
 
     return (
         <div className="border-bottom">
-            <div className="d-flex justify-content-between align-items-center">
-                <h4 className="mb-1">{collection.title}</h4>
+            <div className="d-flex justify-content-between align-items-start flex-column flex-md-row">
+                <div>
+                    <h4 className="mb-1">{collection.title}</h4>
+                    <p className="mb-3">
+                        {collection.is_private ? (
+                            <small className="text-secondary">
+                                <span className="oi oi-lock-locked mr-1" />
+                                非公開コレクション
+                            </small>
+                        ) : (
+                            <small className="text-secondary">
+                                <span className="oi oi-lock-unlocked mr-1" />
+                                公開コレクション
+                            </small>
+                        )}
+                    </p>
+                </div>
                 {me?.id === collection.user_id && (
-                    <div>
+                    <div className="flex-shrink-0 mb-3 mb-md-0">
                         <Button
                             className="mr-2"
                             variant="primary"
@@ -411,19 +426,6 @@ const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdat
                     </div>
                 )}
             </div>
-            <p className="mb-3">
-                {collection.is_private ? (
-                    <small className="text-secondary">
-                        <span className="oi oi-lock-locked mr-1" />
-                        非公開コレクション
-                    </small>
-                ) : (
-                    <small className="text-secondary">
-                        <span className="oi oi-lock-unlocked mr-1" />
-                        公開コレクション
-                    </small>
-                )}
-            </p>
             <CollectionEditModal
                 mode="edit"
                 initialValues={{ title: collection.title, is_private: collection.is_private }}
