@@ -20,7 +20,7 @@
                 @if ($item->tags->isNotEmpty())
                     <p class="tis-checkin-tags mb-2">
                         @foreach ($item->tags as $tag)
-                            <a class="badge badge-secondary" href="{{ route('search', ['q' => $tag->name]) }}"><span class="oi oi-tag"></span> {{ $tag->name }}</a>
+                            <a class="badge badge-secondary" href="{{ route('search.collection', ['q' => $tag->name]) }}"><span class="oi oi-tag"></span> {{ $tag->name }}</a>
                         @endforeach
                     </p>
                 @endif

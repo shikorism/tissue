@@ -238,7 +238,7 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
                         <a
                             key={tag}
                             className="badge badge-secondary"
-                            href={`/search/checkin?q=${encodeURIComponent(tag)}`}
+                            href={`/search/collection?q=${encodeURIComponent(tag)}`}
                         >
                             <span className="oi oi-tag" /> {tag}
                         </a>
