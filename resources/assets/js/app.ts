@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie';
 import { fetchPostJson, fetchDeleteJson, ResponseError } from './fetch';
 import { linkCard, pageSelector, deleteCheckinModal, checkinMutedWarning } from './tissue';
+import { initAddToCollectionButtons } from './collection';
 
 require('./bootstrap');
 
@@ -19,7 +20,7 @@ $(() => {
     if (navigator.serviceWorker) {
         navigator.serviceWorker.register('/sw.js');
     }
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"], [data-tooltip="tooltip"]').tooltip();
     $('.alert').alert();
     document.querySelectorAll('.tis-page-selector').forEach(pageSelector);
 
@@ -98,4 +99,6 @@ $(() => {
         $this.closest('.card-link').removeClass('card-spoiler');
         $this.remove();
     });
+
+    initAddToCollectionButtons();
 });

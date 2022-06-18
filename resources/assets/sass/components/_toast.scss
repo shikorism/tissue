@@ -1,0 +1,26 @@
+@use '../z-index';
+
+.tis-toast {
+    position: fixed;
+    top: 8px;
+    left: 50%;
+    z-index: z-index.$toast;
+    width: 320px;
+    text-align: center;
+    transition: transform 200ms linear, opacity 200ms linear;
+    transform: translateX(-50%) translateY(-150%);
+
+    &.show {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    @each $color, $value in $theme-colors {
+        &-#{$color} {
+            border: 1px solid theme-color-level($color, $alert-border-level);
+
+            .toast-body {
+                @include alert-variant(theme-color-level($color, $alert-bg-level), theme-color-level($color, $alert-border-level), theme-color-level($color, $alert-color-level))
+            }
+        }
+    }
+}

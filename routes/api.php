@@ -16,10 +16,17 @@ Route::middleware('stateful')->group(function () {
     Route::get('/checkin/card', 'Api\\CardController@show')
         ->middleware('throttle:30|180,1,card');
 
-    Route::middleware(['throttle:60,1', 'auth'])->group(function () {
-        Route::post('/likes', 'Api\\LikeController@store');
-        Route::delete('/likes/{id}', 'Api\\LikeController@destroy');
-        Route::apiResource('checkin', 'Api\\CheckinController')->only(['destroy']);
+    Route::middleware('throttle:60,1')->group(function () {
+        Route::middleware('auth')->group(function () {
+            Route::get('/me', 'Api\\V1\\MeController@show')->name('me.show');
+            Route::post('/likes', 'Api\\LikeController@store');
+            Route::delete('/likes/{id}', 'Api\\LikeController@destroy');
+            Route::apiResource('checkin', 'Api\\CheckinController')->only(['destroy']);
+        });
+
+        Route::apiResource('users.collections', 'Api\\UserCollectionController')->only(['index']);
+        Route::apiResource('collections', 'Api\\CollectionController');
+        Route::apiResource('collections.items', 'Api\\CollectionItemController')->except(['show']);
     });
 });
 

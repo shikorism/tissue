@@ -10,6 +10,9 @@
                 <a class="nav-link {{ Route::currentRouteName() === 'search' ? 'active' : '' }}" href="{{ route('search', $inputs) }}">チェックイン</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {{ Route::currentRouteName() === 'search.collection' ? 'active' : '' }}" href="{{ route('search.collection', $inputs) }}">コレクション</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() === 'search.related-tag' ? 'active' : '' }}" href="{{ route('search.related-tag', $inputs) }}">関連するタグ</a>
             </li>
         </ul>

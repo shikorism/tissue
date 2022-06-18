@@ -114,3 +114,15 @@ export function deleteCheckinModal(modal: Element) {
         id = target.dataset.id;
     });
 }
+
+const THEME_COLORS = ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'light', 'dark'] as const;
+type ThemeColor = typeof THEME_COLORS[number];
+export function showToast(message: string, options: Partial<{ color: ThemeColor; delay: number }> = {}) {
+    const $toast = $('.toast');
+    $toast.removeClass(THEME_COLORS.map((color) => `tis-toast-${color}`));
+    if (options.color) {
+        $toast.addClass(`tis-toast-${options.color}`);
+    }
+    $toast.find('.toast-body').text(message);
+    $toast.toast({ delay: options.delay || 5000 }).toast('show');
+}

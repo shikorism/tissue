@@ -1,5 +1,5 @@
 .ejaculation-actions {
-  & > button:not(:last-child) {
+  & > :not(:last-child) {
     margin-right: 24px;
   }
 }

@@ -1,5 +1,5 @@
+{{-- 修正の際は resources/assets/js/components/LinkCard.tsx も修正してください! --}}
 <div class="card link-card mb-2 px-0 col-12 d-none" style="font-size: small;">
-
     <a class="text-dark card-link {{ $is_too_sensitive ? 'card-spoiler' : '' }}" href="{{ $link }}" target="_blank" rel="noopener">
         <div class="row no-gutters">
             <div class="col-12 col-md-6 justify-content-center align-items-center">
