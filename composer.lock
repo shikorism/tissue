@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6db7ffcaa01cf91bb445189fb9278c3d",
+    "content-hash": "9d2bbb0d75e4b4dd92cda8cd4655c44f",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -72,27 +72,30 @@
         },
         {
             "name": "antlr/antlr4-php-runtime",
-            "version": "0.5.1",
+            "version": "0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antlr/antlr-php-runtime.git",
-                "reference": "73790bc994cec4b18a414865234ab0db198b065d"
+                "reference": "25072a68ab24f664592fa4dc8be16cc9730ccf3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antlr/antlr-php-runtime/zipball/73790bc994cec4b18a414865234ab0db198b065d",
-                "reference": "73790bc994cec4b18a414865234ab0db198b065d",
+                "url": "https://api.github.com/repos/antlr/antlr-php-runtime/zipball/25072a68ab24f664592fa4dc8be16cc9730ccf3c",
+                "reference": "25072a68ab24f664592fa4dc8be16cc9730ccf3c",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
-                "php": "7.4 - 8.0"
+                "php": "^8.0"
             },
             "require-dev": {
+                "ergebnis/composer-normalize": "^2.15",
                 "phpstan/extension-installer": "^1.0",
-                "phpstan/phpstan": "^0.11.4",
-                "slevomat/coding-standard": "^5.0.4",
-                "squizlabs/php_codesniffer": "^3.4.1"
+                "phpstan/phpstan": "^1.4",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-strict-rules": "^1.1",
+                "slevomat/coding-standard": "^7.0",
+                "squizlabs/php_codesniffer": "^3.6"
             },
             "type": "library",
             "extra": {
@@ -109,7 +112,7 @@
             "license": [
                 "BSD-3-Clause"
             ],
-            "description": "PHP 7 and 8.0 runtime for ANTLR 4",
+            "description": "PHP 8.0+ runtime for ANTLR 4",
             "keywords": [
                 "antlr4",
                 "php",
@@ -117,9 +120,9 @@
             ],
             "support": {
                 "issues": "https://github.com/antlr/antlr-php-runtime/issues",
-                "source": "https://github.com/antlr/antlr-php-runtime/tree/0.5.1"
+                "source": "https://github.com/antlr/antlr-php-runtime/tree/0.7.0"
             },
-            "time": "2021-08-13T11:44:19+00:00"
+            "time": "2022-04-13T14:23:58+00:00"
         },
         {
             "name": "clue/stream-filter",
