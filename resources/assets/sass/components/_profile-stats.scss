@@ -1,0 +1,10 @@
+.tis-profile-stats-table {
+    th {
+        padding-right: 0.5rem;
+        text-align: right;
+
+        &::after {
+            content: ":";
+        }
+    }
+}
