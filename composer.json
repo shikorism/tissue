@@ -18,6 +18,7 @@
         "ext-libxml": "*",
         "ext-mbstring": "*",
         "ext-pdo": "*",
+        "abraham/twitteroauth": "^4.0",
         "anhskohbo/no-captcha": "^3.0",
         "antlr/antlr4-php-runtime": "^0.7.0",
         "doctrine/dbal": "^2.9",
