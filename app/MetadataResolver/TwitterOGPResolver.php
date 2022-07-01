@@ -4,7 +4,7 @@ namespace App\MetadataResolver;
 
 use GuzzleHttp\Client;
 
-class TwitterResolver implements Resolver
+class TwitterOGPResolver implements Resolver
 {
     /**
      * @var Client
