@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use App\MetadataResolver\MetadataResolver;
+use App\MetadataResolver\TwitterApiResolver;
+use App\MetadataResolver\TwitterOGPResolver;
+use App\MetadataResolver\TwitterResolver;
 use App\Services\MetadataResolveService;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
@@ -91,5 +94,12 @@ class AppServiceProvider extends ServiceProvider
         $this->app->when(MetadataResolveService::class)
             ->needs('$ignoreAccessInterval')
             ->give((bool) config('metadata.ignore_access_interval', false));
+        $this->app->bind(TwitterResolver::class, function ($app) {
+            if (empty(config('twitter.bearer_token'))) {
+                return $app->make(TwitterOGPResolver::class);
+            } else {
+                return $app->make(TwitterApiResolver::class);
+            }
+        });
     }
 }

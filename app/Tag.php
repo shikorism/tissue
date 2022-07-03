@@ -34,4 +34,9 @@ class Tag extends Model
     {
         return $this->belongsToMany('App\Metadata')->withTimestamps();
     }
+
+    public function collectionItems()
+    {
+        return $this->belongsToMany(CollectionItem::class)->withTimestamps();
+    }
 }

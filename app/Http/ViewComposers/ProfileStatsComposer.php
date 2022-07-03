@@ -38,6 +38,7 @@ class ProfileStatsComposer
         // 概況欄のデータ取得
         $average = 0;
         $divisor = 0;
+        $medianSources = [];
         $averageSources = DB::select(<<<'SQL'
 SELECT
   extract(epoch from ejaculated_date - lead(ejaculated_date, 1, NULL) OVER (ORDER BY ejaculated_date DESC)) AS span,
@@ -59,10 +60,12 @@ SQL
             }
             $average += $item->span;
             $divisor++;
+            $medianSources[] = $item->span;
         }
         if ($divisor > 0) {
             $average /= $divisor;
         }
+        $median = collect($medianSources)->sort()->median();
 
         $summary = DB::select(<<<'SQL'
 SELECT
@@ -88,6 +91,6 @@ SQL
 
         $total = $user->ejaculations()->count();
 
-        $view->with(compact('latestEjaculation', 'currentSession', 'average', 'summary', 'total'));
+        $view->with(compact('latestEjaculation', 'currentSession', 'average', 'median', 'summary', 'total'));
     }
 }

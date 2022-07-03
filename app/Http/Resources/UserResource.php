@@ -15,6 +15,7 @@ class UserResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id, // TODO: 公開するか悩ましい
             'name' => $this->name,
             'display_name' => $this->display_name,
             'is_protected' => $this->is_protected,

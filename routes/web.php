@@ -22,6 +22,8 @@ Route::get('/user/{name}/stats/{year}', 'UserController@statsYearly')->name('use
 Route::get('/user/{name}/stats/{year}/{month}', 'UserController@statsMonthly')->name('user.stats.monthly');
 Route::get('/user/{name}/okazu', 'UserController@okazu')->name('user.okazu');
 Route::get('/user/{name}/likes', 'UserController@likes')->name('user.likes');
+Route::get('/user/{name}/collections', 'User\CollectionController@index')->name('user.collections');
+Route::get('/user/{name}/collections/{id}', 'User\CollectionController@show')->name('user.collections.show');
 
 Route::get('/checkin/{id}', 'EjaculationController@show')->name('checkin.show');
 Route::get('/checkin-tools', 'EjaculationController@tools')->name('checkin.tools');
@@ -30,6 +32,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkin', 'EjaculationController@store')->name('checkin');
     Route::get('/checkin/{id}/edit', 'EjaculationController@edit')->name('checkin.edit');
     Route::put('/checkin/{id}', 'EjaculationController@update')->name('checkin.update');
+
+    Route::get('/collect', 'CollectController@create')->name('collect');
 
     Route::get('/timeline/public', 'TimelineController@showPublic')->name('timeline.public');
 
@@ -63,6 +67,7 @@ Route::get('/info/{id}', 'InfoController@show')->where('id', '[0-9]+')->name('in
 
 Route::redirect('/search', '/search/checkin', 301);
 Route::get('/search/checkin', 'SearchController@index')->name('search');
+Route::get('/search/collection', 'SearchController@collection')->name('search.collection');
 Route::get('/search/related-tag', 'SearchController@relatedTag')->name('search.related-tag');
 
 Route::get('/tag', 'TagController@index')->name('tag');

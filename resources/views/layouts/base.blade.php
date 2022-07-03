@@ -181,6 +181,9 @@
         </ul>
     </div>
 </footer>
+<div class="toast tis-toast">
+    <div class="toast-body"></div>
+</div>
 @guest
 <div class="modal fade" id="ageCheckModal" tabindex="-1" role="dialog" aria-labelledby="ageCheckModalTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
