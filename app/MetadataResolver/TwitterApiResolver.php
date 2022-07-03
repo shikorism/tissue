@@ -3,15 +3,12 @@ declare(strict_types=1);
 
 namespace App\MetadataResolver;
 
-use Abraham\TwitterOAuth\TwitterOAuth;
+use GuzzleHttp\Client;
 
 class TwitterApiResolver implements Resolver
 {
-    private TwitterOAuth $twitter;
-
-    public function __construct(TwitterOAuth $twitter)
+    public function __construct(private Client $client)
     {
-        $this->twitter = $twitter;
     }
 
     public function resolve(string $url): Metadata
@@ -20,20 +17,20 @@ class TwitterApiResolver implements Resolver
             throw new \RuntimeException("Unmatched URL Pattern: $url");
         }
 
-        $res = $this->twitter->get('statuses/show', ['id' => $matches['id'], 'tweet_mode' => 'extended']);
-
-        if ($this->twitter->getLastHttpCode() !== 200) {
-            throw new \RuntimeException("{$this->twitter->getLastHttpCode()}: $url");
-        }
+        $res = $this->client->get('https://api.twitter.com/1.1/statuses/show.json', [
+            'headers' => ['Authorization' => 'Bearer ' . $_ENV['TWITTER_API_BEARER_TOKEN']],
+            'query' => ['id' => $matches['id'], 'tweet_mode' => 'extended'],
+        ]);
+        $json = json_decode($res->getBody()->getContents(), true, flags: JSON_BIGINT_AS_STRING | JSON_THROW_ON_ERROR);
 
         $metadata = new Metadata();
-        $metadata->title = $res->user->name;
-        $metadata->description = $res->full_text;
+        $metadata->title = $json['user']['name'];
+        $metadata->description = $json['full_text'];
 
         // Metadataに保存可能なのは1枚の画像のみなので、動画等の情報を含む可能性があるextended_entitiesよりもentitiesから取ったほうが都合が良い
-        if (!empty($res->entities->media)) {
-            $media = $res->entities->media[0];
-            $metadata->image = $media->media_url_https;
+        if (!empty($json['entities']['media'])) {
+            $media = $json['entities']['media'][0];
+            $metadata->image = $media['media_url_https'];
         }
 
         return $metadata;

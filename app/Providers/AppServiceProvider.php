@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Abraham\TwitterOAuth\TwitterOAuth;
 use App\MetadataResolver\MetadataResolver;
 use App\MetadataResolver\TwitterApiResolver;
 use App\MetadataResolver\TwitterOGPResolver;
@@ -96,19 +95,11 @@ class AppServiceProvider extends ServiceProvider
             ->needs('$ignoreAccessInterval')
             ->give((bool) config('metadata.ignore_access_interval', false));
         $this->app->bind(TwitterResolver::class, function ($app) {
-            if (empty(config('twitter.access_token')) || empty(config('twitter.access_token_secret'))) {
+            if (empty(config('twitter.bearer_token'))) {
                 return $app->make(TwitterOGPResolver::class);
             } else {
                 return $app->make(TwitterApiResolver::class);
             }
-        });
-        $this->app->bind(TwitterOAuth::class, function () {
-            return new TwitterOAuth(
-                config('twitter.api_key'),
-                config('twitter.api_secret'),
-                config('twitter.access_token'),
-                config('twitter.access_token_secret')
-            );
         });
     }
 }
