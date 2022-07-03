@@ -18,7 +18,7 @@ class TwitterApiResolver implements Resolver
         }
 
         $res = $this->client->get('https://api.twitter.com/1.1/statuses/show.json', [
-            'headers' => ['Authorization' => 'Bearer ' . $_ENV['TWITTER_API_BEARER_TOKEN']],
+            'headers' => ['Authorization' => 'Bearer ' . config('twitter.bearer_token')],
             'query' => ['id' => $matches['id'], 'tweet_mode' => 'extended'],
         ]);
         $json = json_decode($res->getBody()->getContents(), true, flags: JSON_BIGINT_AS_STRING | JSON_THROW_ON_ERROR);
