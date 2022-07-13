@@ -9,7 +9,7 @@ use App\MetadataResolver\TwitterResolver;
 use App\Services\MetadataResolveService;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Response;
@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
 
         stream_filter_register('convert.mbstring.*', 'Stream_Filter_Mbstring');
 
-        Resource::withoutWrapping();
+        JsonResource::withoutWrapping();
 
         Response::macro('fromPaginator', function ($paginator, $resourceClass) {
             if (!($paginator instanceof LengthAwarePaginator)) {
