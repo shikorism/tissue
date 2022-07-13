@@ -23,6 +23,7 @@
         "doctrine/dbal": "^2.9",
         "erusev/parsedown": "^1.7",
         "fideloper/proxy": "^4.0",
+        "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
         "jakeasmith/http_build_url": "^1.0",
         "laravel/framework": "^7.0",
