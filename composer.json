@@ -29,6 +29,7 @@
         "laravel/helpers": "^1.2",
         "laravel/passport": "^9.0",
         "laravel/tinker": "^2.0",
+        "laravel/ui": "^2.0",
         "league/csv": "^9.5",
         "misd/linkify": "^1.1",
         "openpear/stream_filter_mbstring": "dev-master",
