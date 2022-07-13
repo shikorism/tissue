@@ -35,7 +35,7 @@
         "sentry/sentry-laravel": "^2.4.2",
         "staudenmeir/eloquent-eager-limit": "~1.4.1",
         "symfony/css-selector": "^4.3",
-        "symfony/dom-crawler": "^4.3",
+        "symfony/dom-crawler": "4.4.37",
         "t1gor/robots-txt-parser": "^0.2.4"
     },
     "require-dev": {
