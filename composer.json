@@ -22,7 +22,6 @@
         "antlr/antlr4-php-runtime": "^0.7.0",
         "doctrine/dbal": "^2.9",
         "erusev/parsedown": "^1.7",
-        "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.4.5",
         "jakeasmith/http_build_url": "^1.0",
         "laravel/framework": "^9.0",
