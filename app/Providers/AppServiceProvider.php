@@ -11,6 +11,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\ServiceProvider;
@@ -66,6 +67,8 @@ class AppServiceProvider extends ServiceProvider
                 $headers
             );
         });
+
+        Paginator::useBootstrap();
     }
 
     /**
