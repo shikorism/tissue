@@ -26,8 +26,8 @@ class PixivNovelResolverTest extends TestCase
 
         $metadata = $this->resolver->resolve('https://www.pixiv.net/novel/show.php?id=15768044');
         $this->assertEquals('研究用の精液サンプルを集めるためにふたなりアイドルをとっ捕まえて射精させていく志希の話', $metadata->title);
-        $this->assertEquals("投稿者: 夏休み\nこういうのされてみたいです", $metadata->description);
-        $this->assertEquals(['アイドルマスターシンデレラガールズ', 'ふたなり', '一ノ瀬志希', '塩見周子', '橘ありす', '鷺沢文香', '二宮飛鳥'], $metadata->tags);
+        $this->assertEquals("投稿者: banana\nこういうのされてみたいです", $metadata->description);
+        $this->assertEquals(['アイドルマスターシンデレラガールズ', 'ふたなり', '一ノ瀬志希', '塩見周子', '橘ありす', '鷺沢文香', '二宮飛鳥', 'アイマス小説100users入り'], $metadata->tags);
         if ($this->shouldUseMock()) {
             $this->assertSame('https://www.pixiv.net/ajax/novel/15768044', (string) $this->handler->getLastRequest()->getUri());
         }
