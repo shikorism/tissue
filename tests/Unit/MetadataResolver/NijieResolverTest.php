@@ -72,13 +72,25 @@ class NijieResolverTest extends TestCase
 
         $this->createResolver(NijieResolver::class, $responseText);
 
-        $metadata = $this->resolver->resolve('https://nijie.info/view.php?id=256283');
-        $this->assertSame('てすと', $metadata->title);
-        $this->assertSame('投稿者: ニジエ運営' . PHP_EOL . 'H264動画てすと　あとで消します' . PHP_EOL .  PHP_EOL . '今の所、H264コーデックのみ、出力時に音声なしにしないと投稿できません' . PHP_EOL . '動画は勝手にループします', $metadata->description);
+        $metadata = $this->resolver->resolve('https://nijie.info/view.php?id=355403');
+        $this->assertSame('ぱこぱこ', $metadata->title);
+        $this->assertSame(<<<EOS
+        投稿者: 色谷あすか
+        <font color="#ff0000">支援サイトにてサキュバスちゃんと焦らし→種付けセックスする動画を公開中です！ボイス＆SEつきは2月限定公開、長さは2分超です！</font>
+        ◆Fantia→https://fantia.jp/posts/278812
+        ◆FANBOX→https://www.pixiv.net/fanbox/creator/3188698/post/808575
+
+        ◆サキュバスちゃんの新刊委託先
+        メロン：https://www.melonbooks.co.jp/circle/index.php?circle_id=23444
+        とら：https://ec.toranoana.jp/tora_r/ec/item/040030793849/
+        BOOTH：https://aoirokanata.booth.pm/items/1805620
+        DMM：https://www.dmm.co.jp/dc/doujin/-/detail/=/cid=d_167803/aokana-005
+        DLsite：https://www.dlsite.com/maniax/dlaf/=/t/s/link/work/aid/aonizi/id/RJ276825.html
+        EOS, $metadata->description);
         $this->assertStringStartsWith('https://nijie.info/pic/logo/nijie_logo_og.png', $metadata->image);
-        $this->assertSame([], $metadata->tags);
+        $this->assertSame(['おっぱい', '貧乳', 'ロリ', 'サキュバス', 'ニーソ', '腋', '創作', 'おへそ', '動画', 'パイパン', 'アニメーション', '淫紋'], $metadata->tags);
         if ($this->shouldUseMock()) {
-            $this->assertSame('https://nijie.info/view.php?id=256283', (string) $this->handler->getLastRequest()->getUri());
+            $this->assertSame('https://nijie.info/view.php?id=355403', (string) $this->handler->getLastRequest()->getUri());
         }
     }
 
