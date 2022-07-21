@@ -23,7 +23,7 @@
         "doctrine/dbal": "^2.9",
         "erusev/parsedown": "^1.7",
         "fideloper/proxy": "^4.0",
-        "guzzlehttp/guzzle": "^6.3",
+        "guzzlehttp/guzzle": "^7.4.5",
         "jakeasmith/http_build_url": "^1.0",
         "laravel/framework": "^6.2",
         "laravel/helpers": "^1.2",
