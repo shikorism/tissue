@@ -28,7 +28,7 @@ class PixivResolverTest extends TestCase
         $this->assertEquals('coffee break', $metadata->title);
         $this->assertStringStartsWith('投稿者: 裕', $metadata->description);
         $this->assertEquals('https://i.pixiv.cat/img-master/img/2018/04/12/00/01/28/68188073_p0_master1200.jpg', $metadata->image);
-        $this->assertEquals(['オリジナル', 'カフェ', '眼鏡', 'イヤホン', 'ぱっつん', '艶ぼくろ', '眼鏡っ娘', 'オリジナル5000users入り', 'マニキュア', '赤セーター'], $metadata->tags);
+        $this->assertEquals(['オリジナル', 'カフェ', '眼鏡', 'イヤホン', 'ぱっつん', '艶ぼくろ', '眼鏡っ娘', 'マニキュア', '赤セーター', 'オリジナル7500users入り'], $metadata->tags);
         if ($this->shouldUseMock()) {
             $this->assertSame('https://www.pixiv.net/ajax/illust/68188073', (string) $this->handler->getLastRequest()->getUri());
         }
@@ -60,7 +60,7 @@ class PixivResolverTest extends TestCase
         $this->assertEquals('冬の日ラブラブ', $metadata->title);
         $this->assertEquals('投稿者: Aza' . PHP_EOL . 'ラブラブエッチのらくがき' . PHP_EOL . PHP_EOL . '三万フォロワー感謝します～' . PHP_EOL . PHP_EOL . '最近忙しいので、自分の時間が少ない・・・', $metadata->description);
         $this->assertEquals('https://i.pixiv.cat/img-master/img/2014/10/25/00/06/58/46713544_p0_master1200.jpg', $metadata->image);
-        $this->assertEquals(['落書き', 'おっぱい', 'オリジナル', 'パイズリ', '中出し', 'だいしゅきホールド', '愛のあるセックス', '黒髪ロング', 'オリジナル10000users入り'], $metadata->tags);
+        $this->assertEquals(['落書き', 'おっぱい', 'オリジナル', 'パイズリ', '中出し', '愛のあるセックス', 'だいしゅきホールド', '黒髪ロング', 'オリジナル30000users入り'], $metadata->tags);
         if ($this->shouldUseMock()) {
             $this->assertSame('https://www.pixiv.net/ajax/illust/46713544', (string) $this->handler->getLastRequest()->getUri());
         }
@@ -76,7 +76,7 @@ class PixivResolverTest extends TestCase
         $this->assertEquals('coffee break', $metadata->title);
         $this->assertStringStartsWith('投稿者: 裕', $metadata->description);
         $this->assertEquals('https://i.pixiv.cat/img-master/img/2018/04/12/00/01/28/68188073_p0_master1200.jpg', $metadata->image);
-        $this->assertEquals(['オリジナル', 'カフェ', '眼鏡', 'イヤホン', 'ぱっつん', '艶ぼくろ', '眼鏡っ娘', 'オリジナル5000users入り', 'マニキュア', '赤セーター'], $metadata->tags);
+        $this->assertEquals(['オリジナル', 'カフェ', '眼鏡', 'イヤホン', 'ぱっつん', '艶ぼくろ', '眼鏡っ娘', 'マニキュア', '赤セーター', 'オリジナル7500users入り'], $metadata->tags);
         if ($this->shouldUseMock()) {
             $this->assertSame('https://www.pixiv.net/ajax/illust/68188073', (string) $this->handler->getLastRequest()->getUri());
         }
@@ -92,7 +92,7 @@ class PixivResolverTest extends TestCase
         $this->assertEquals('coffee break', $metadata->title);
         $this->assertStringStartsWith('投稿者: 裕', $metadata->description);
         $this->assertEquals('https://i.pixiv.cat/img-master/img/2018/04/12/00/01/28/68188073_p0_master1200.jpg', $metadata->image);
-        $this->assertEquals(['オリジナル', 'カフェ', '眼鏡', 'イヤホン', 'ぱっつん', '艶ぼくろ', '眼鏡っ娘', 'オリジナル5000users入り', 'マニキュア', '赤セーター'], $metadata->tags);
+        $this->assertEquals(['オリジナル', 'カフェ', '眼鏡', 'イヤホン', 'ぱっつん', '艶ぼくろ', '眼鏡っ娘', 'マニキュア', '赤セーター', 'オリジナル7500users入り'], $metadata->tags);
         if ($this->shouldUseMock()) {
             $this->assertSame('https://www.pixiv.net/ajax/illust/68188073', (string) $this->handler->getLastRequest()->getUri());
         }
