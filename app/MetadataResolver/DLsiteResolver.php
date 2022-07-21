@@ -119,7 +119,7 @@ class DLsiteResolver implements Resolver
         // 余分な文を消す
 
         // OGPタイトルから作者名とサイト名を消す
-        $metadata->title = trim(preg_replace('~ \[[^\[\]]*\] (予告作品 )?\| DLsite(がるまに)?$~', '', $metadata->title));
+        $metadata->title = trim(preg_replace('~ \[[^\[\]]*\] (予告作品 )?\| DLsite(がるまに| comipo)?$~', '', $metadata->title));
 
         // OGP説明文から定型文を消す
         $metadata->description = preg_replace('~「DLsite( (同人|comipo|PCソフト|美少女ゲーム|成年コミック|がるまに))?( - R18)?」は.+のダウンロードショップ。お気に入りの作品をすぐダウンロードできてすぐ楽しめる！毎日更新しているのであなたが探している作品にきっと出会えます。国内最大級の二次元総合ダウンロードショップ「DLsite( comipo)?」！$~', '', $metadata->description);

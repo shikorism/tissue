@@ -42,7 +42,7 @@ class NicoSeigaResolverTest extends TestCase
         $this->createResolver(NicoSeigaResolver::class, $responseText);
 
         $metadata = $this->resolver->resolve('https://seiga.nicovideo.jp/seiga/im9232798');
-        $this->assertSame('ベッドのゆかりさん / せゆーら/Se-U-Ra さんのイラスト', $metadata->title);
+        $this->assertSame('ベッドのゆかりさん / ゆらせー さんのイラスト', $metadata->title);
         $this->assertSame('待つ側の方がつよいってスマブラが伝えてきたので', $metadata->description);
         $this->assertSame('https://lohas.nicoseiga.jp/thumb/9232798l?', $metadata->image);
         $this->assertArrayContains(['結月ゆかり', 'VOICEROID'], $metadata->tags);
