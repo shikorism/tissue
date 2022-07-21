@@ -13,7 +13,7 @@ class TwitterApiResolver implements Resolver
 
     public function resolve(string $url): Metadata
     {
-        if (preg_match('~(?:www\.)?(?:(?:mobile|m)\.)?twitter\.com/(?:#!/)?[0-9a-zA-Z_]{1,15}/status(?:es)?/(?P<id>[0-9]+)/?(?:\\?.+)?$~', $url, $matches) !== 1) {
+        if (preg_match('~(?:www\.)?(?:(?:mobile|m)\.)?twitter\.com/(?:#!/)?[0-9a-zA-Z_]{1,15}/status(?:es)?/(?P<id>[0-9]+)(?:/photo/[0-9])?/?(?:\\?.+)?$~', $url, $matches) !== 1) {
             throw new \RuntimeException("Unmatched URL Pattern: $url");
         }
 
