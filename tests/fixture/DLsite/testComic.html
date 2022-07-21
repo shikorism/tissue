@@ -2,7 +2,7 @@
 <html lang="ja-jp">
 
 <head>
-  <meta charset="utf-8"><script type="text/javascript">(window.NREUM||(NREUM={})).init={ajax:{deny_list:["bam.nr-data.net"]}};(window.NREUM||(NREUM={})).loader_config={licenseKey:"NRJS-26fb73475871c01d5bd",applicationID:"781370968"};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var i=e[n]={exports:{}};t[n][0].call(i.exports,function(e){var i=t[n][1][e];return r(i||e)},i,i.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<n.length;i++)r(n[i]);return r}({1:[function(t,e,n){function r(){}function i(t,e,n){return function(){return o(t,[u.now()].concat(f(arguments)),e?null:this,n),e?void 0:this}}var o=t("handle"),a=t(8),f=t(9),c=t("ee").get("tracer"),u=t("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],p="api-",l=p+"ixn-";a(d,function(t,e){s[e]=i(p+e,!0,"api")}),s.addPageAction=i(p+"addPageAction",!0),s.setCurrentRouteName=i(p+"routeName",!0),e.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(t,e){var n={},r=this,i="function"==typeof e;return o(l+"tracer",[u.now(),t,n],r),function(){if(c.emit((i?"":"no-")+"fn-start",[u.now(),r,i],n),i)try{return e.apply(this,arguments)}catch(t){throw c.emit("fn-err",[arguments,this,t],n),t}finally{c.emit("fn-end",[u.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){m[e]=i(l+e)}),newrelic.noticeError=function(t,e){"string"==typeof t&&(t=new Error(t)),o("err",[t,u.now(),!1,e])}},{}],2:[function(t,e,n){function r(t){if(NREUM.init){for(var e=NREUM.init,n=t.split("."),r=0;r<n.length-1;r++)if(e=e[n[r]],"object"!=typeof e)return;return e=e[n[n.length-1]]}}e.exports={getConfiguration:r}},{}],3:[function(t,e,n){function r(){return f.exists&&performance.now?Math.round(performance.now()):(o=Math.max((new Date).getTime(),o))-a}function i(){return o}var o=(new Date).getTime(),a=o,f=t(10);e.exports=r,e.exports.offset=a,e.exports.getLastTimestamp=i},{}],4:[function(t,e,n){function r(t){return!(!t||!t.protocol||"file:"===t.protocol)}e.exports=r},{}],5:[function(t,e,n){function r(t,e){var n=t.getEntries();n.forEach(function(t){"first-paint"===t.name?d("timing",["fp",Math.floor(t.startTime)]):"first-contentful-paint"===t.name&&d("timing",["fcp",Math.floor(t.startTime)])})}function i(t,e){var n=t.getEntries();n.length>0&&d("lcp",[n[n.length-1]])}function o(t){t.getEntries().forEach(function(t){t.hadRecentInput||d("cls",[t])})}function a(t){if(t instanceof m&&!g){var e=Math.round(t.timeStamp),n={type:t.type};e<=p.now()?n.fid=p.now()-e:e>p.offset&&e<=Date.now()?(e-=p.offset,n.fid=p.now()-e):e=p.now(),g=!0,d("timing",["fi",e,n])}}function f(t){"hidden"===t&&d("pageHide",[p.now()])}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var c,u,s,d=t("handle"),p=t("loader"),l=t(7),m=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){c=new PerformanceObserver(r);try{c.observe({entryTypes:["paint"]})}catch(v){}u=new PerformanceObserver(i);try{u.observe({entryTypes:["largest-contentful-paint"]})}catch(v){}s=new PerformanceObserver(o);try{s.observe({type:"layout-shift",buffered:!0})}catch(v){}}if("addEventListener"in document){var g=!1,h=["click","keydown","mousedown","pointerdown","touchstart"];h.forEach(function(t){document.addEventListener(t,a,!1)})}l(f)}},{}],6:[function(t,e,n){function r(t,e){if(!i)return!1;if(t!==i)return!1;if(!e)return!0;if(!o)return!1;for(var n=o.split("."),r=e.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var f=navigator.userAgent,c=f.match(a);c&&f.indexOf("Chrome")===-1&&f.indexOf("Chromium")===-1&&(i="Safari",o=c[1])}e.exports={agent:i,version:o,match:r}},{}],7:[function(t,e,n){function r(t){function e(){t(a&&document[a]?document[a]:document[i]?"hidden":"visible")}"addEventListener"in document&&o&&document.addEventListener(o,e,!1)}e.exports=r;var i,o,a;"undefined"!=typeof document.hidden?(i="hidden",o="visibilitychange",a="visibilityState"):"undefined"!=typeof document.msHidden?(i="msHidden",o="msvisibilitychange"):"undefined"!=typeof document.webkitHidden&&(i="webkitHidden",o="webkitvisibilitychange",a="webkitVisibilityState")},{}],8:[function(t,e,n){function r(t,e){var n=[],r="",o=0;for(r in t)i.call(t,r)&&(n[o]=e(r,t[r]),o+=1);return n}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],9:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,i=n-e||0,o=Array(i<0?0:i);++r<i;)o[r]=t[e+r];return o}e.exports=r},{}],10:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(t,e,n){function r(){}function i(t){function e(t){return t&&t instanceof r?t:t?u(t,c,a):a()}function n(n,r,i,o,a){if(a!==!1&&(a=!0),!l.aborted||o){t&&a&&t(n,r,i);for(var f=e(i),c=v(n),u=c.length,s=0;s<u;s++)c[s].apply(f,r);var p=d[w[n]];return p&&p.push([b,n,r,f]),f}}function o(t,e){y[t]=v(t).concat(e)}function m(t,e){var n=y[t];if(n)for(var r=0;r<n.length;r++)n[r]===e&&n.splice(r,1)}function v(t){return y[t]||[]}function g(t){return p[t]=p[t]||i(n)}function h(t,e){l.aborted||s(t,function(t,n){e=e||"feature",w[n]=e,e in d||(d[e]=[])})}var y={},w={},b={on:o,addEventListener:o,removeEventListener:m,emit:n,get:g,listeners:v,context:e,buffer:h,abort:f,aborted:!1};return b}function o(t){return u(t,c,a)}function a(){return new r}function f(){(d.api||d.feature)&&(l.aborted=!0,d=l.backlog={})}var c="nr@context",u=t("gos"),s=t(8),d={},p={},l=e.exports=i();e.exports.getOrSetContext=o,l.backlog=d},{}],gos:[function(t,e,n){function r(t,e,n){if(i.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return t[e]=r,r}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){i.buffer([t],r),i.emit(t,e,n)}var i=t("ee").get("handle");e.exports=r,r.ee=i},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,o,function(){return i++})}var i=1,o="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!R++){var t=M.info=NREUM.info,e=v.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return u.abort();c(E,function(e,n){t[e]||(t[e]=n)});var n=a();f("mark",["onload",n+M.offset],null,"api"),f("timing",["load",n]);var r=v.createElement("script");0===t.agent.indexOf("http://")||0===t.agent.indexOf("https://")?r.src=t.agent:r.src=l+"://"+t.agent,e.parentNode.insertBefore(r,e)}}function i(){"complete"===v.readyState&&o()}function o(){f("mark",["domContent",a()+M.offset],null,"api")}var a=t(3),f=t("handle"),c=t(8),u=t("ee"),s=t(6),d=t(4),p=t(2),l=p.getConfiguration("ssl")===!1?"http":"https",m=window,v=m.document,g="addEventListener",h="attachEvent",y=m.XMLHttpRequest,w=y&&y.prototype,b=!d(m.location);NREUM.o={ST:setTimeout,SI:m.setImmediate,CT:clearTimeout,XHR:y,REQ:m.Request,EV:m.Event,PR:m.Promise,MO:m.MutationObserver};var x=""+location,E={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1211.min.js"},O=y&&w&&w[g]&&!/CriOS/.test(navigator.userAgent),M=e.exports={offset:a.getLastTimestamp(),now:a,origin:x,features:{},xhrWrappable:O,userAgent:s,disabled:b};if(!b){t(1),t(5),v[g]?(v[g]("DOMContentLoaded",o,!1),m[g]("load",r,!1)):(v[h]("onreadystatechange",i),m[h]("onload",r)),f("mark",["firstbyte",a.getLastTimestamp()],null,"api");var R=0}},{}],"wrap-function":[function(t,e,n){function r(t,e){function n(e,n,r,c,u){function nrWrapper(){var o,a,s,p;try{a=this,o=d(arguments),s="function"==typeof r?r(o,a):r||{}}catch(l){i([l,"",[o,a,c],s],t)}f(n+"start",[o,a,c],s,u);try{return p=e.apply(a,o)}catch(m){throw f(n+"err",[o,a,m],s,u),m}finally{f(n+"end",[o,a,p],s,u)}}return a(e)?e:(n||(n=""),nrWrapper[p]=e,o(e,nrWrapper,t),nrWrapper)}function r(t,e,r,i,o){r||(r="");var f,c,u,s="-"===r.charAt(0);for(u=0;u<e.length;u++)c=e[u],f=t[c],a(f)||(t[c]=n(f,s?c+r:r,i,c,o))}function f(n,r,o,a){if(!m||e){var f=m;m=!0;try{t.emit(n,r,o,e,a)}catch(c){i([c,n,r,o],t)}m=f}}return t||(t=s),n.inPlace=r,n.flag=p,n}function i(t,e){e||(e=s);try{e.emit("internal-error",t)}catch(n){}}function o(t,e,n){if(Object.defineProperty&&Object.keys)try{var r=Object.keys(t);return r.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(o){i([o],n)}for(var a in t)l.call(t,a)&&(e[a]=t[a]);return e}function a(t){return!(t&&t instanceof Function&&t.apply&&!t[p])}function f(t,e){var n=e(t);return n[p]=t,o(t,n,s),n}function c(t,e,n){var r=t[e];t[e]=f(r,n)}function u(){for(var t=arguments.length,e=new Array(t),n=0;n<t;++n)e[n]=arguments[n];return e}var s=t("ee"),d=t(9),p="nr@original",l=Object.prototype.hasOwnProperty,m=!1;e.exports=r,e.exports.wrapFunction=f,e.exports.wrapInPlace=c,e.exports.argsToArray=u},{}]},{},["loader"]);</script>
+  <meta charset="utf-8">
 <meta name="viewport" content="width=1024">
 <meta http-equiv="Content-Style-Type" content="text/css">
 <meta http-equiv="Content-Script-Type" content="text/javascript">
@@ -24,10 +24,10 @@
 </script>
 
 
-  
-      
-  
-  
+
+
+
+
   <link rel="canonical" href="https://www.dlsite.com/comic/work/=/product_id/BJ138581.html">
 
   <link rel="alternate" media="only screen and (max-width: 640px)" href="https://www.dlsite.com/comic-touch/work/=/product_id/BJ138581.html" class="alternate_smartphone" />
@@ -48,7 +48,7 @@
 <meta name="twitter:site" content="@DLsite">
 <meta name="twitter:image:src" content="https://img.dlsite.jp/modpub/images2/work/books/BJ139000/BJ138581_img_main.jpg">
 
-<meta property="og:title" content="快楽ヒストリエ [火鳥] | DLsite">
+<meta property="og:title" content="快楽ヒストリエ [ワニマガジン社] | DLsite comipo">
 <meta property="og:type" content="website">
 <meta property="og:description" content="天地創造と原初の人類を描いた「創世編」をはじめ、英雄たちの偉業を大真面目に考証した正真正銘の学術コミック全15編。「DLsite comipo」はコミック・マンガ・電子書籍のダウンロードショップ。お気に入りの作品をすぐダウンロードできてすぐ楽しめる！毎日更新しているのであなたが探している作品にきっと出会えます。国内最大級の二次元総合ダウンロードショップ「DLsite comipo」！">
 <meta property="og:url" content="https://www.dlsite.com/comic/work/=/product_id/BJ138581.html">
@@ -69,44 +69,44 @@ if (/uniqid=\./.test(document.cookie)) {
 </script>
 
   <link rel="stylesheet" href="/css/reset.css?1631666836" type="text/css" id="reset" />
-<link rel="stylesheet" href="/css/default.css?1631667861" type="text/css" id="default" />
-<link rel="stylesheet" href="/css/layout_2col_work.css?1631666836" type="text/css" id="layout_2col_work" />
-<link rel="stylesheet" href="/css/common.css?1636091283" type="text/css" id="common" />
+<link rel="stylesheet" href="/css/default.css?1654565065" type="text/css" id="default" />
+<link rel="stylesheet" href="/css/layout_2col_work.css?1646715873" type="text/css" id="layout_2col_work" />
+<link rel="stylesheet" href="/css/common.css?1656648493" type="text/css" id="common" />
 <link rel="stylesheet" href="/css/switch.css?1631666836" type="text/css" id="switch" />
-<link rel="stylesheet" href="/css/suggest.css?1631666836" type="text/css" id="suggest" />
-<link rel="stylesheet" href="/css/header_campaign_banner.css?1631667861" type="text/css" id="header_campaign_banner" />
+<link rel="stylesheet" href="/css/suggest.css?1638859796" type="text/css" id="suggest" />
+<link rel="stylesheet" href="/css/header_campaign_banner.css?1648093203" type="text/css" id="header_campaign_banner" />
 <link rel="stylesheet" href="/modpub/universal/css/universal.css?" type="text/css" id="universal" />
-<link rel="stylesheet" href="/css/work_template.css?1634781695" type="text/css" id="work_template" />
-<link rel="stylesheet" href="/css/work_slider.css?1631667861" type="text/css" id="work_slider" />
-<link rel="stylesheet" href="/css/couponget.css?1631667861" type="text/css" id="couponget" />
+<link rel="stylesheet" href="/css/work_template.css?1657083020" type="text/css" id="work_template" />
+<link rel="stylesheet" href="/css/work_slider.css?1638859796" type="text/css" id="work_slider" />
+<link rel="stylesheet" href="/css/couponget.css?1638859796" type="text/css" id="couponget" />
 
-  <script type="text/javascript" src="/js/libs/libraries-pack.js?1635738397"></script>
-<script type="text/javascript" src="/js/dlsite_util.js?1627347590"></script>
+  <script type="text/javascript" src="/js/libs/libraries-pack.js?1657085258"></script>
+<script type="text/javascript" src="/js/dlsite_util.js?1655256023"></script>
 <script type="text/javascript" src="/js/slide_menu.js?1553754105"></script>
-<script type="text/javascript" src="/js/dlsite_suggest.js?1617866986"></script>
+<script type="text/javascript" src="/js/dlsite_suggest.js?1644305082"></script>
 <script type="text/javascript" src="/js/dlsite_trigger.js?1553754105"></script>
 <script type="text/javascript" src="/js/jquery.slideproduct.js?1610442922"></script>
-<script type="text/javascript" src="/js/dlsite_img_filter.js?1635137983"></script>
+<script type="text/javascript" src="/js/dlsite_img_filter.js?1645685263"></script>
 <script type="text/javascript" src="/js/dlsite/work/work_logger.js?1617856051"></script>
 <script type="text/javascript" src="/js/libs/clipboard.min.js?1562550059"></script>
 <script type="text/javascript" src="/js/swiper4.0.7/js/swiper.min.js?1553754105"></script>
 <script type="text/javascript" src="/js/picturefill.min.js?1626658133"></script>
 
-  
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'}); var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl+ '&gtm_auth=Z_ubU9a2b3yGEFSh9Hdtkg&gtm_preview=env-12&gtm_cookies_win=x';f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-NTSRG2');</script>
 <!-- End Google Tag Manager -->
 
 
 
-  
+
 
 
 </head>
 
 <body class="style_comic t_male">
-  
-  
+
+
 <script>
 (function(){
 $.extend({
@@ -115,7 +115,7 @@ $.extend({
     if ($.useAdultcheck) return;
     $.useAdultcheck = true;
     var s = document.createElement('script');
-    s.src = '/js/adultcheck.js?1635137983';
+    s.src = '/js/adultcheck.js?1654564925';
     s.defer = true;
     document.querySelector('head').appendChild(s);
   }
@@ -134,21 +134,51 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
 
 
     <div data-vue-component="header-banner" data-vue-async="true" data-section_name="campaign_header_banner">
-    <div v-if="loading" class="hd_cp_banner type_1bn">
+    <div v-if="loading" class="hd_cp_banner type_4bn">
     <ul class="cp_bn_list">
-            <li class="cp_bn_item" style="background-color: #ce232b;">
-        <a href="https://www.dlsite.com/home/campaign/founding-festival" >
+            <li class="cp_bn_item" style="background-color: #ffffff;">
+        <a href="https://www.dlsite.com/comic/promo/works/=/key/webtoon-setsale" >
+          <div class="cp_bn_inner">
+            <div class="cp_bn_reminder " style="background-color: #111111; color: ;">
+              <div class="cp_bn_reminder_content"><i class="cp_bn_reminder_period type_date">7/29</i><i class="cp_bn_reminder_period type_time">13:59</i>まで</div>
+            </div>
+            <div class="cp_bn"><img src="/modpub/images/works/sl_45645/bn_hd_pc_ja_jp.png" alt=""></div>
+                      </div>
+        </a>
+      </li>
+            <li class="cp_bn_item" style="background-color: #008cde;">
+        <a href="https://www.dlsite.com/comic/promo/works/=/key/natsudensho-first2022" >
+          <div class="cp_bn_inner">
+            <div class="cp_bn_reminder " style="background-color: ; color: ;">
+              <div class="cp_bn_reminder_content"><i class="cp_bn_reminder_period type_date">8/06</i><i class="cp_bn_reminder_period type_time">23:59</i>まで</div>
+            </div>
+            <div class="cp_bn"><img src="/modpub/images/works/sl_45512/bn_hd_pc_ja_jp.png" alt=""></div>
+                      </div>
+        </a>
+      </li>
+            <li class="cp_bn_item" style="background-color: #FCF8B5;">
+        <a href="https://www.dlsite.com/comic/fsr/=/language/jp/keyword/%E8%AC%9B%E8%AB%87%E7%A4%BE%7CKADOKAWA%7C%E4%B8%80%E8%BF%85%E7%A4%BE%7C%E3%83%9E%E3%83%83%E3%82%B0%E3%82%AC%E3%83%BC%E3%83%87%E3%83%B3%7C%E5%8F%8C%E8%91%89%E7%A4%BE%7C%E5%B0%91%E5%B9%B4%E7%94%BB%E5%A0%B1%E7%A4%BE+-%E3%83%9C%E3%83%BC%E3%82%A4%E3%82%BA%E3%83%A9%E3%83%96+-%E3%83%86%E3%82%A3%E3%83%BC%E3%83%B3%E3%82%BA%E3%83%A9%E3%83%96/age_category%5B0%5D/general/order%5B0%5D/trend/options_and_or/and/options%5B0%5D/JPN/options%5B1%5D/NM/per_page/30/show_type/3/hd/1/lang_options%5B0%5D/%E6%97%A5%E6%9C%AC%E8%AA%9E/lang_options%5B1%5D/%E8%A8%80%E8%AA%9E%E4%B8%8D%E8%A6%81/page/1" >
           <div class="cp_bn_inner">
             <div class="cp_bn_reminder blank" style="background-color: ; color: ;">
               <div class="cp_bn_reminder_content"></div>
             </div>
-            <div class="cp_bn"><img src="/modpub/images/campaign/founding_festival_25th/bn_hd_cp.jpg" alt=""></div>
+            <div class="cp_bn"><img src="/modpub/images/banner/comipo/2022_46013/bn_hd_cp.png" alt="DLsite comipoの全作品に使える25％OFFクーポン配布中"></div>
+                      </div>
+        </a>
+      </li>
+            <li class="cp_bn_item" style="background-color: #F53134;">
+        <a href="https://paypay.ne.jp/event/matsuri202207-paypay-jumbo/?promotion" target="_blank">
+          <div class="cp_bn_inner">
+            <div class="cp_bn_reminder blank" style="background-color: ; color: ;">
+              <div class="cp_bn_reminder_content"></div>
+            </div>
+            <div class="cp_bn"><img src="/modpub/images/banner/floor_header/paypay_2206/bn_hd_45685_ja_jp.png" alt="2022夏の超PayPay祭"></div>
                       </div>
         </a>
       </li>
           </ul>
   </div>
-    
+
   <div v-else-if="is_show_frame" :class="style" class="hd_cp_banner" v-cloak>
     <ul class="cp_bn_list">
       <li v-for="campaign in campaigns" class="cp_bn_item" :data-ab-test="campaign.abTest" :style="{'background-color': campaign.mainColor}">
@@ -170,19 +200,21 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
       </li>
     </ul>
   </div>
-  
+
 </div>
 
   <div data-vue-component="coupon-modal" v-cloak></div>
+
+  <template data-vue-component="comipo-age-check" data-product_id="BJ138581"></template>
 
 <div data-vue-component="header-locale-suggest-dialog" data-vue-async="true"></div>
 
 <div data-vue-component="ie-alert" v-cloak></div>
   <!-- container -->
     <div itemscope itemtype="http://schema.org/Product" id="container" site="comic">
-    
+
       <div id="top_header">
-        
+
       </div>
 
       <!-- header -->
@@ -226,7 +258,7 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
             <input name="from" type="hidden" value="fs.header" id="header_search_from">
 
                                         <input type="hidden" name="comipo_search_group" :value="selected">
-            
+
             <div class="globalSearchSelect">
               <div class="globalSearchSelect-lable">
                 <span v-text="searchCategories[selected]">すべて</span>
@@ -238,6 +270,7 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
                 <option value="comipo_lightnovel">ラノベ</option>
                 <option value="comipo_tl">TL</option>
                 <option value="comipo_bl">BL</option>
+                <option value="comipo_webtoon">WEBTOON</option>
                 <option value="comipo_voice">ボイス・音声</option>
                               </select>
             </div>
@@ -257,8 +290,12 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
             <button id="search_button" class="globalSearchBtn" type="submit" @click="saveSelected()"><i>検索</i></button>
           </form>
         </div>
+        <div
+          class="globalSearchBg"
+          :class="{active: isFocus}"
+        ></div>
         <div class="detailedSearch">
-          <a href="https://www.dlsite.com/comic/fs">詳細検索</a>
+          <a href="https://www.dlsite.com/comic/fs">こだわり条件</a>
         </div>
             <!-- /検索 -->
       <!-- アイコンメニュー -->
@@ -316,7 +353,7 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
                                         重要なお知らせが<span>{{ circleNotices }}件</span>あります。                  </div>
                 </li>
                 <li class="menu_list_item">
-                  <a href="https://login.dlsite.com/user/self?lang=ja&redirect_uri=https%3A%2F%2Fwww.dlsite.com%2Fcomic%2F" class="link" target="_blank">
+                  <a href="https://login.dlsite.com/user/self?lang=ja&redirect_uri=https%3A%2F%2Fwww.dlsite.com%2Fcomic%2F&cancel_uri=https://www.dlsite.com/comic/" class="link" target="_blank">
                     <i>アカウント管理</i>
                   </a>
                 </li>
@@ -350,7 +387,7 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
                                         重要なお知らせが<span>{{ circleNotices }}件</span>あります。                  </div>
                 </li>
                 <li class="menu_list_item">
-                  <a href="https://login.dlsite.com/user/self?lang=ja&redirect_uri=https%3A%2F%2Fwww.dlsite.com%2Fcomic%2F" class="link" target="_blank">
+                  <a href="https://login.dlsite.com/user/self?lang=ja&redirect_uri=https%3A%2F%2Fwww.dlsite.com%2Fcomic%2F&cancel_uri=https://www.dlsite.com/comic/" class="link" target="_blank">
                     <i>アカウント管理</i>
                   </a>
                 </li>
@@ -395,16 +432,17 @@ if ((dlsite.isAdult() && dlsite.getId() !== 'circle' && !(dlsite.isFemale() && d
           <li class="floorTab-item type-ln "><a href="https://www.dlsite.com/comic/top/lightnovel">ラノベ</a></li>
           <li class="floorTab-item type-tl "><a href="https://www.dlsite.com/comic/top/tl">TL</a></li>
           <li class="floorTab-item type-bl "><a href="https://www.dlsite.com/comic/top/bl">BL</a></li>
+          <li class="floorTab-item type-webtoon "><a href="https://www.dlsite.com/comic/top/webtoon">WEBTOON</a></li>
           <li class="floorTab-item type-voice "><a href="https://www.dlsite.com/comic/top/voice">ボイス・音声</a></li>
         </ul>
-        
+
                 <div class="floorNavLink">
           <div class="floorNavLink-item type-adult"><a href="https://www.dlsite.com/books/">男性向け R18へ</a></div>
                                           <div class="floorNavLink-item type-female"><a href="https://www.dlsite.com/girls-pro/">女性向けへ</a></div>
         </div>
               </div>
 
-      
+
     </div>
       </div>
 </header>
@@ -426,7 +464,7 @@ if (loginchecked & 1) {
 }
 </script>
 
-        
+
       </div>
       <!-- /header -->
 
@@ -475,7 +513,7 @@ if (loginchecked & 1) {
         </a>
         <meta itemprop="position" content="6">
               </li>
-                            
+
       </ul>
 <div class="base_title_br clearfix">
 
@@ -488,37 +526,38 @@ if (loginchecked & 1) {
 
 
 
+
+
 </div>
-<h1 itemprop="name" id="work_name">
-<a href="https://www.dlsite.com/comic/work/=/product_id/BJ138581.html" itemprop="url">快楽ヒストリエ</a>
-</h1>
+<h1 itemprop="name" id="work_name">快楽ヒストリエ</h1>
 
 <template data-vue-component="dlchannel-topic" data-product-id="BJ138581" data-product-name="快楽ヒストリエ" data-maker-name="ワニマガジン社"></template>
 
 
-  
-    
-  
 
-  
-<template data-vue-component="share-button" data-twitter-share-url="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdlsite.jp%2Fcowot%2FBJ138581%2F%3Futm_content%3DBJ138581%26locale%3Dja_JP%0A&text=%E5%BF%AB%E6%A5%BD%E3%83%92%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A8%2F%E7%81%AB%E9%B3%A5%20%28WANI%20MAGAZINE%20COMICS%20SPECIAL%29&hashtags=DLsite&lang=ja
+
+
+
+
+<template data-vue-component="share-button" data-twitter-share-url="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdlsite.jp%2Fcowot%2FBJ138581%2F%3Futm_content%3DBJ138581%26locale%3Dja_JP%0A&text=%E5%BF%AB%E6%A5%BD%E3%83%92%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A8%2F%E7%81%AB%E9%B3%A5%20%28WANI%20MAGAZINE%20COMICS%20SPECIAL%29&hashtags=DLsite_comipo&lang=ja
 " data-share-url="https://www.dlsite.com/comic/work/=/product_id/BJ138581.html" data-share-title="快楽ヒストリエ" data-share-maker-name="ワニマガジン社"></template>
 
 </div>
       </div>
       <!-- /top_wrapper -->
-      
+
       <!-- wrapper -->
       <div id="wrapper">
 
         <template data-vue-component="share-group"></template>
 
-        
+
         <!-- main -->
         <div id="main" data-section_name="main">
+
           <!-- main_inner -->
           <div id="main_inner">
-            
+
 
 <!-- work_header -->
 <div id="work_header">
@@ -565,7 +604,7 @@ if (loginchecked & 1) {
 
               <picture>
                 <source
-                  :srcset="item.src.replace('.jpg', '.webp').replace('.stg','')"
+                  :srcset="item.src.replace('.jpg', '.webp')"
                   type="image/webp"
                 >
                 <img
@@ -580,7 +619,7 @@ if (loginchecked & 1) {
 
               <picture>
                 <source
-                  :srcset="item.src.replace('.jpg', '.webp').replace('.stg','')"
+                  :srcset="item.src.replace('.jpg', '.webp')"
                   type="image/webp"
                 >
                 <img
@@ -607,7 +646,7 @@ if (loginchecked & 1) {
 
                 <picture>
                   <source
-                    :srcset="item.thumb.src.replace('.jpg', '.webp').replace('.stg','')"
+                    :srcset="item.thumb.src.replace('.jpg', '.webp')"
                     type="image/webp"
                   >
                   <img
@@ -634,6 +673,8 @@ if (loginchecked & 1) {
     <span v-t="{ path: 'product.slider.totalImages', args: [items.length] }"></span>
   </div>
 
+
+
   <!-- Popup viewer -->
   <div v-if="popupVisible" class="slider_popup_overlay" @click="hidePopup">
     <div class="slider_popup" @click.stop>
@@ -645,7 +686,7 @@ if (loginchecked & 1) {
 
             <picture>
               <source
-                :srcset="item.thumb.src.replace('.jpg', '.webp').replace('.stg','')"
+                :srcset="item.thumb.src.replace('.jpg', '.webp')"
                 type="image/webp"
               >
               <img
@@ -672,7 +713,7 @@ if (loginchecked & 1) {
 
             <picture>
               <source
-                :srcset="items[swiper.realIndex].src.replace('.jpg', '.webp').replace('.stg','')"
+                :srcset="items[swiper.realIndex].src.replace('.jpg', '.webp')"
                 type="image/webp"
               >
               <img
@@ -698,7 +739,7 @@ if (loginchecked & 1) {
 
 
   <script type="text/javascript">
-    
+
     jQuery(function($){
       var isGirlsPro = dlsite.isFemale() && dlsite.isTL() && dlsite.isGirlsGame();
       var isGirlsDrama = dlsite.isFemale() && dlsite.isTL() && dlsite.isDrama();
@@ -708,7 +749,7 @@ if (loginchecked & 1) {
         document.querySelector('.product-slider').addEventListener('contextmenu', function(e) { e.preventDefault(); });
       }
     });
-    
+
   </script>
 
 
@@ -729,14 +770,13 @@ if (loginchecked & 1) {
 
     <div v-if="(product.dl_count !== undefined && product.dl_count > 0) || product.rate_count > 0" v-cloak class="work_right_info_item">
       <dl class="work_right_info_title value">
-        
-        <!-- 評価 ここから -->
-        <template v-if="product.rate_count > 0" v-cloak>
+
+                <template v-if="product.rate_count > 0" v-cloak>
           <dt v-t="'product.evaluate.rating_label'"></dt>
           <dd class="star_box" @mouseenter="showRateDetail" @mouseleave="hideRateDetail">
             <span class="point average_count">{{ product.rate_average_2dp }}</span>
             <div class="star_wrap">
-              
+
               <span class="rate" :class="'rate' + product.rate_average_star"></span>
 
               <div class="rating_popup" :class="{ open: is_open_rate }" v-if="is_display_rate">
@@ -808,18 +848,17 @@ if (loginchecked & 1) {
                   </div>
                 </div>
               </div>
-              
+
             </div>
             <span class="count">({{ product.rate_count|number_format }})</span></p>
           </dd>
         </template>
-        <!-- 評価 ここまで -->
-      </dl>
+              </dl>
     </div>
 
     <div v-if="(!isFemale() && product.wishlist_count !== undefined && product.wishlist_count > 0) || product.review_count" v-cloak class="work_right_info_item">
       <dl class="work_right_info_title">
-        
+
         <!-- レビュー ここから -->
         <template v-if="product.review_count" v-cloak>
           <dt v-t="'product.evaluate.review_number_label'"></dt>
@@ -877,8 +916,8 @@ if (loginchecked & 1) {
                           快楽ヒストリエ
               </td>
     </tr>
-    
-    
+
+
         <tr>
       <th>年齢指定</th>
       <td>
@@ -891,7 +930,9 @@ if (loginchecked & 1) {
     <th>作品形式</th>
     <td>
       <div class="work_genre" id="category_type">
-        <a href="https://www.dlsite.com/comic/fsr/=/work_category%5B0%5D/books/work_type/MNG/from/icon.work"><span class="icon_MNG" title="マンガ">マンガ</span></a><a href="https://www.dlsite.com/comic/fsr/=/work_category%5B0%5D/books/from/icon.work"><span class="icon_TNB" title="単行本">単行本</span></a>      </div>
+        <a href="https://www.dlsite.com/comic/fsr/=/work_category%5B0%5D/books/work_type/MNG/from/icon.work"><span class="icon_MNG" title="マンガ">マンガ</span></a>
+        <a href="https://www.dlsite.com/comic/fsr/=/work_category%5B0%5D/books/from/icon.work"><span class="icon_TNB" title="単行本">単行本</span></a>
+                      </div>
     </td>
   </tr>
 
@@ -902,38 +943,38 @@ if (loginchecked & 1) {
             <span class="icon_PVA" title="専用ビューア">専用ビューア</span>          </div>
         </td>
       </tr>
-      
+
                                         <tr>
       <th>ページ数</th>
       <td>155</td>
     </tr>
-  
+
       <tr>
       <th>ジャンル</th>
       <td>
         <div class="main_genre">
-                        
-<a href="https://www.dlsite.com/comic/fsr/=/genre/065/work_category/books/from/work.genre">おっぱい</a>
-<a href="https://www.dlsite.com/comic/fsr/=/genre/207/work_category/books/from/work.genre">ロリ</a>
-<a href="https://www.dlsite.com/comic/fsr/=/genre/211/work_category/books/from/work.genre">ショタ</a>
-<a href="https://www.dlsite.com/comic/fsr/=/genre/212/work_category/books/from/work.genre">妹</a>
-<a href="https://www.dlsite.com/comic/fsr/=/genre/304/work_category/books/from/work.genre">おやじ</a>
-<a href="https://www.dlsite.com/comic/fsr/=/genre/234/work_category/books/from/work.genre">女王様/お姫様</a>
-<a href="https://www.dlsite.com/comic/fsr/=/genre/427/work_category/books/from/work.genre">王子様/王子系</a>
-<a href="https://www.dlsite.com/comic/fsr/=/genre/233/work_category/books/from/work.genre">戦士</a>
-<a href="https://www.dlsite.com/comic/fsr/=/genre/075/work_category/books/from/work.genre">セーラー服</a>
-<a href="https://www.dlsite.com/comic/fsr/=/genre/091/work_category/books/from/work.genre">着物/和服</a>
-<a href="https://www.dlsite.com/comic/fsr/=/genre/452/work_category/books/from/work.genre">青年コミック</a>
-<a href="https://www.dlsite.com/comic/fsr/=/genre/005/work_category/books/from/work.genre">ギャグ</a>
-<a href="https://www.dlsite.com/comic/fsr/=/genre/007/work_category/books/from/work.genre">コメディ</a>
-<a href="https://www.dlsite.com/comic/fsr/=/genre/017/work_category/books/from/work.genre">歴史/時代物</a>
-<a href="https://www.dlsite.com/comic/fsr/=/genre/321/work_category/books/from/work.genre">褐色/日焼け</a>
 
-                    
+  <a href="https://www.dlsite.com/comic/fsr/=/genre/065/work_category/books/from/work.genre">おっぱい</a>
+  <a href="https://www.dlsite.com/comic/fsr/=/genre/207/work_category/books/from/work.genre">ロリ</a>
+  <a href="https://www.dlsite.com/comic/fsr/=/genre/211/work_category/books/from/work.genre">ショタ</a>
+  <a href="https://www.dlsite.com/comic/fsr/=/genre/212/work_category/books/from/work.genre">妹</a>
+  <a href="https://www.dlsite.com/comic/fsr/=/genre/304/work_category/books/from/work.genre">おやじ</a>
+  <a href="https://www.dlsite.com/comic/fsr/=/genre/234/work_category/books/from/work.genre">女王様/お姫様</a>
+  <a href="https://www.dlsite.com/comic/fsr/=/genre/427/work_category/books/from/work.genre">王子様/王子系</a>
+  <a href="https://www.dlsite.com/comic/fsr/=/genre/233/work_category/books/from/work.genre">戦士</a>
+  <a href="https://www.dlsite.com/comic/fsr/=/genre/075/work_category/books/from/work.genre">セーラー服</a>
+  <a href="https://www.dlsite.com/comic/fsr/=/genre/091/work_category/books/from/work.genre">着物/和服</a>
+  <a href="https://www.dlsite.com/comic/fsr/=/genre/452/work_category/books/from/work.genre">青年コミック</a>
+  <a href="https://www.dlsite.com/comic/fsr/=/genre/005/work_category/books/from/work.genre">ギャグ</a>
+  <a href="https://www.dlsite.com/comic/fsr/=/genre/007/work_category/books/from/work.genre">コメディ</a>
+  <a href="https://www.dlsite.com/comic/fsr/=/genre/017/work_category/books/from/work.genre">歴史/時代物</a>
+  <a href="https://www.dlsite.com/comic/fsr/=/genre/321/work_category/books/from/work.genre">褐色/日焼け</a>
+
+
         </div>
       </td>
     </tr>
-  
+
        <tr>
     <th>ファイル容量</th>
     <td>
@@ -989,7 +1030,7 @@ if (loginchecked & 1) {
 </script>
 
 
-<div data-vue-component="product-sales-end" data-product-id="BJ138581" v-cloak></div>
+<div data-vue-component="product-sales-end" data-product-id="BJ138581" data-is-sp-site="" v-cloak></div>
 
 </div>
 
@@ -999,7 +1040,8 @@ if (loginchecked & 1) {
 </div>
 
 <ul class="work_edition">
-  
+
+
   </ul>
 
 </div>
@@ -1012,11 +1054,12 @@ if (loginchecked & 1) {
 <div class="title_01 clearfix"><h2>作品内容</h2></div>
 
 <div itemprop="description" class="work_parts_container">
-      
+
+
 <div class="work_parts type_text">
 
-        
-    
+
+
           <div class="work_parts_area">
         <p>『COMIC快楽天ビースト』の猛禽・火鳥の初単行本!<br />
 膨大な資料を読み解き、脚色のない史実のみを記した秘史短編集です。<br />
@@ -1029,237 +1072,29 @@ if (loginchecked & 1) {
 歴史に新たなギャグページを刻む1冊です。</p>
       </div>
 
-    
+
 </div>
-    
+
 </div>
 
 <!-- spec -->
 <!-- /spec -->
 
 <!-- review -->
-<div class="title_01 clearfix" id="review_link"><h2>ユーザーレビュー</h2></div>
-
-
-<div class="work_article" id="work_review" data-section_name="work_review">
-
-    <table class="reviewer_most_genre" cellspacing="0">
-    <tbody>
-      <tr>
-        <th>
-          <p>レビュアーに多く選ばれたジャンル :</p>
-        </th>
-        <td>
-                    <span><a href="https://www.dlsite.com/comic/fsr/=/genre/017/from/work.review_genre">歴史/時代物（3）</a></span>
-                    <span><a href="https://www.dlsite.com/comic/fsr/=/genre/005/from/work.review_genre">ギャグ（3）</a></span>
-                  </td>
-      </tr>
-    </tbody>
-  </table>
-  
-  <div class="review_head">
-      <p class="float_l review_count">レビュー数 : <span class="review_work_count">4件</span></p>
-              <template data-vue-component="product-review-order" data-layout="pc" data-product_id="BJ138581"></template>
-        </div>
-
-  <!-- work_review_list -->
-  <table id="work_review_list" cellspacing="0">
-        <tbody itemprop="review" itemscope itemtype="https://schema.org/Review">
-      <tr>
-        <td class="review_title">
-          <p class="pickup_mark">ピックアップ</p>          <div class="review_title_l">
-            <div class="title"><span itemprop="name">
-                            <a href="https://www.dlsite.com/comic/work/reviewlist/=/reviewer/REV0014802/product_id/BJ138581.html">そもそもR-18じゃないのが驚きなのだが</a>
-                          </span></div>
-            <p>
-              <meta itemprop="datePublished" content="2018-01-20">2018年01月20日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/comic/reviewlist/=/reviewer/REV0014802">穂積</a></span> さん</span>
-                              <span class="popularity_reviewer gold">人気レビュアー：1位</span>
-                                          <span class="purchased">購入済み</span>
-                          </p>
-          </div>
-                    <div class="review_title_r">
-            <span class="reviewer_recommend">レビュアーオススメ！</span>
-          </div>
-                  </td>
-      </tr>
-      <tr>
-        <td class="review_main _review_main">
-                    <div class="reviewer_genre">
-            <p>レビュアーが選んだジャンル :</p>
-            <ul class="reviewer_select_genre">
-                            <li><a href="https://www.dlsite.com/comic/fsr/=/genre/050/from/review.genre">チラリズム</a></li>
-                            <li><a href="https://www.dlsite.com/comic/fsr/=/genre/207/from/review.genre">ロリ</a></li>
-                            <li><a href="https://www.dlsite.com/comic/fsr/=/genre/220/from/review.genre">お姉さん</a></li>
-                            <li><a href="https://www.dlsite.com/comic/fsr/=/genre/091/from/review.genre">着物/和服</a></li>
-                            <li><a href="https://www.dlsite.com/comic/fsr/=/genre/005/from/review.genre">ギャグ</a></li>
-                            <li><a href="https://www.dlsite.com/comic/fsr/=/genre/016/from/review.genre">ファンタジー</a></li>
-                            <li><a href="https://www.dlsite.com/comic/fsr/=/genre/017/from/review.genre">歴史/時代物</a></li>
-                            <li><a href="https://www.dlsite.com/comic/fsr/=/genre/250/from/review.genre">女体化</a></li>
-                            <li><a href="https://www.dlsite.com/comic/fsr/=/genre/452/from/review.genre">青年コミック</a></li>
-                            <li><a href="https://www.dlsite.com/comic/fsr/=/genre/295/from/review.genre">ソフトエッチ</a></li>
-                          </ul>
-          </div>
-          
-                    <div class="_SW1">
-            <p class="review_caution">
-              いや、たしかに明確な局部の描写ないし、決定的な男女の交合はアングルでぼかされています。
-エロよりもギャグに比重が大きいと言っても間違っていない作品です。
-だから、「全年齢」枠での販売となるのは全くの妥...
-              <span class="review_open"><a href="#" onclick="return false;">レビューを全文表示</a></span>
-            </p>
-          </div>
-          
-          <div class="_SW2"  style="display: none;" >
-            <p class="reviewer_descrip" itemprop="reviewBody">いや、たしかに明確な局部の描写ないし、決定的な男女の交合はアングルでぼかされています。<br />
-エロよりもギャグに比重が大きいと言っても間違っていない作品です。<br />
-だから、「全年齢」枠での販売となるのは全くの妥当で何ら非の打ち所がありません。<br />
-でもなぁ、載ってた雑誌はR-18なんだけど。<br />
-[作品内容]にも書いてあるように、またサンプルページを見ても「何言ってんだ?こいつ」となるように、歴史上の偉人が掲載誌『COMIC快楽天ビースト』を愛読していたと仮定した上で進行するギャグ作品なのです。<br />
-エロ漫画が尊く素晴らしい物なのは言うまでもなく当然だとしても、それを歴史に織り込むストーリー作りが無茶苦茶すぎます。<br />
-お気軽に女体化してきますし、それを奇想天外な論理で裏付けし、開いた口が塞がらないのを通り越して閉まってない口から笑い声が出てきます。<br />
-シュールギャグのフルスロットルです。<br />
-原始編、古代編、平安編、鎌倉編、安土桃山編、戦国編、島原編、江戸吉原編、徳川綱吉編、幕末編、日本神話編、古代エジプト編、古代ギリシャ編、古代ローマ編、創世編など多岐にわたるものの、全て「男はエロ漫画を熟読し、生身の女から縁遠い」のが大前提で成り立っています。<br />
-漫画どころか紙すら確立されていなかった時代でそれをやるもんだから、もはや訳が分かりません。<br />
-しかしながら、テンポが良くて意味不明に笑えてきます。<br />
-そして、本作の最も恐ろしい所は画力です。<br />
-ギャグとデッサン力の融合は危険だと再認識させられます。<br />
-劇画的とすら言える素晴らしい絵で、真面目な顔の偉人がエロ漫画を大絶賛しているとそれだけで面白いのは間違いありません。</p>
-            <p class="review_ref">
-              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="12660" data-product_id="BJ138581">
-              <span class="useful">26人 が役に立ったと答えています</span>              <span class="review_report">[&nbsp;<a href="https://www.dlsite.com/comic/contact/review/=/reviewer_id/REV0014802/product_id/BJ138581.html">報告する</a>&nbsp;]</span>
-            </p>
-            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-        <tbody itemprop="review" itemscope itemtype="https://schema.org/Review">
-      <tr>
-        <td class="review_title">
-          <p class="pickup_mark">ピックアップ</p>          <div class="review_title_l">
-            <div class="title"><span itemprop="name">
-                            <a href="https://www.dlsite.com/comic/work/reviewlist/=/reviewer/REV0025845/product_id/BJ138581.html">本業だからこそ描けるディープな世界</a>
-                          </span></div>
-            <p>
-              <meta itemprop="datePublished" content="2018-03-12">2018年03月12日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/comic/reviewlist/=/reviewer/REV0025845">iahon</a></span> さん</span>
-                              <span class="popularity_reviewer silver">人気レビュアー：15位</span>
-                                          <span class="purchased">購入済み</span>
-                          </p>
-          </div>
-                    <div class="review_title_r">
-            <span class="reviewer_recommend">レビュアーオススメ！</span>
-          </div>
-                  </td>
-      </tr>
-      <tr>
-        <td class="review_main _review_main">
-                    <div class="reviewer_genre">
-            <p>レビュアーが選んだジャンル :</p>
-            <ul class="reviewer_select_genre">
-                            <li><a href="https://www.dlsite.com/comic/fsr/=/genre/310/from/review.genre">評論</a></li>
-                            <li><a href="https://www.dlsite.com/comic/fsr/=/genre/005/from/review.genre">ギャグ</a></li>
-                            <li><a href="https://www.dlsite.com/comic/fsr/=/genre/017/from/review.genre">歴史/時代物</a></li>
-                          </ul>
-          </div>
-          
-                    <div class="_SW1">
-            <p class="review_caution">
-              <strong>※ネタバレ※</strong>
-              このレビューには作品の内容に関する記述が含まれています。              <span class="review_open"><a href="#" onclick="return false;">レビューを表示する</a></span>
-            </p>
-          </div>
-          
-          <div class="_SW2"  style="display: none;" >
-            <p class="reviewer_descrip" itemprop="reviewBody">男ならみんな知ってるコミック快楽天。<br />
-そんな快楽天があの太古の昔から存在したら?<br />
-その仮定から歴史上の出来事を深く考察し、漫画にしたのがこの作品になります。<br />
-「正真正銘の学術コミック」とある通り至って真面目な内容で「本能寺の変、豊臣秀吉が黒幕説」を鋭い指摘で否定したり、「天草四郎、女子高生説」という新たな説を完璧なロジックと共に提唱したりと非常に学術的な内容になっています。<br />
-このようにマンガという読みやすい形式を採用しながらも深い歴史考察が盛り込まれた良書であることがわかります。<br />
-これを読んで皆さんも歴史学についての見聞を深めましょう。<br />
-多分一生役に立たないと思います。</p>
-            <p class="review_ref">
-              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="13156" data-product_id="BJ138581">
-              <span class="useful">11人 が役に立ったと答えています</span>              <span class="review_report">[&nbsp;<a href="https://www.dlsite.com/comic/contact/review/=/reviewer_id/REV0025845/product_id/BJ138581.html">報告する</a>&nbsp;]</span>
-            </p>
-            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-        <tbody itemprop="review" itemscope itemtype="https://schema.org/Review">
-      <tr>
-        <td class="review_title">
-                    <div class="review_title_l">
-            <div class="title"><span itemprop="name">
-                            <a href="https://www.dlsite.com/comic/work/reviewlist/=/reviewer/REV0019267/product_id/BJ138581.html">死にたくなったら読んで下さい。</a>
-                          </span></div>
-            <p>
-              <meta itemprop="datePublished" content="2021-05-17">2021年05月17日&nbsp;&nbsp;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.dlsite.com/comic/reviewlist/=/reviewer/REV0019267">しがない旦那の一人</a></span> さん</span>
-                              <span class="popularity_reviewer bronze">人気レビュアー：Best200</span>
-                                          <span class="purchased">購入済み</span>
-                          </p>
-          </div>
-                  </td>
-      </tr>
-      <tr>
-        <td class="review_main _review_main">
-          
-                    <div class="_SW1">
-            <p class="review_caution">
-              もし貴方がお仕事や人間関係でとても辛いことがあったとします。エロ作品で致す元気もないかも知れません。そんな時に、試しにこの漫画を読んでみて下さい。自分はそのあまりのバカ内容に、涙が出るぐらい笑いました...
-              <span class="review_open"><a href="#" onclick="return false;">レビューを全文表示</a></span>
-            </p>
-          </div>
-          
-          <div class="_SW2"  style="display: none;" >
-            <p class="reviewer_descrip" itemprop="reviewBody">もし貴方がお仕事や人間関係でとても辛いことがあったとします。エロ作品で致す元気もないかも知れません。そんな時に、試しにこの漫画を読んでみて下さい。自分はそのあまりのバカ内容に、涙が出るぐらい笑いました。そしてこんな漫画を描いて生きている人もいるんだなぁと、心が前向きになったんです。快楽ヒストリエに出会えて、本当に良かったです。</p>
-            <p class="review_ref">
-              <input value="役に立った" type="button" class="_btn_good_review btn_default" data-review_id="69220" data-product_id="BJ138581">
-                            <span class="review_report">[&nbsp;<a href="https://www.dlsite.com/comic/contact/review/=/reviewer_id/REV0019267/product_id/BJ138581.html">報告する</a>&nbsp;]</span>
-            </p>
-            <p class="mini_message _review_message" style="display: none;">&nbsp;</p>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-      </table>
-
-  <table class="review_write">
-    <tr>
-            <td>
-        <div class="review_more">
-          <p><a href="https://www.dlsite.com/comic/work/reviewlist/=/product_id/BJ138581.html">すべてのレビューを見る （4件）</a></p>
-        </div>
-      </td>
-            <td><div class="review_btn"><a href="https://www.dlsite.com/comic/review/write/work/=/product_id/BJ138581.html" class="btn_post size_xxl fs15"><i>レビューを投稿する</i></a></div></td>
-    </tr>
-  </table>
+<div class="title_01 clearfix" id="review_link">
+  <h2>ユーザーレビュー</h2>
 </div>
-<!-- /work_review_list -->
 
-<script type="text/javascript">
-//<!CDATA[
+<div data-vue-component="review" id="work_review" class="work_article">
 
-jQuery(function($){
-    "use strict";
-    var wait = false;
-    $('._btn_good_review').bind('click', function(){
-        if(wait){
-            return false;
-        }
-        wait = true;
-        var $self = $(this);
-        $.post('https://www.dlsite.com/comic/mypage/review/ajax', {act: 'good_review', review_id: $self.data('review_id'), product_id: $self.data('product_id')}, function(data){
-            wait = false;
-            $self.parents('td').find('._review_message').text(data.text).show();
-        }, 'json');
-        return false;
-    });
-});
+  <product-review-list product-id="BJ138581" is-simplified="true"></product-review-list>
 
-//]]>
-</script>
+</div>
 
+
+<div data-vue-component="review">
+  <review-modal v-show="$store.getters.onReviewModal" is-minhon="true"></review-modal>
+</div>
 
 
 <div id="work_series_top"></div>
@@ -1269,7 +1104,9 @@ jQuery(function($){
 
 
 
-            <!-- same_series -->
+
+
+<!-- same_series -->
 <!-- /same_series -->
 
 <!-- maker_works -->
@@ -1285,7 +1122,7 @@ jQuery(function($){
       </div>
       <div class="sub_title"><span class="ml10">販売作品</span></div>
     <div class="recommend_list portrait"
-    data-href="https://www.dlsite.com/comic/load/recommend/detail/v2/=/type/maker_works/workno/BJ367245%2CBJ287508%2CBJ287507%2CBJ244977%2CBJ181326%2CBJ181325%2CBJ177430%2C"
+    data-href="https://www.dlsite.com/comic/load/recommend/detail/v2/=/type/maker_works/workno/BJ428706%2CBJ428705%2CBJ367245%2CBJ287508%2CBJ287507%2CBJ244977%2CBJ181326%2CBJ181325%2CBJ177430%2C"
     data-type="maker_works"></div>
   </div>
 <!-- maker_works -->
@@ -1299,7 +1136,7 @@ jQuery(function($){
     </p>
   </div>
     <div class="recommend_list portrait"
-    data-href="https://www.dlsite.com/comic/load/recommend/detail/v2/=/type/label_works/workno/BJ244977%2CBJ181326%2CBJ181325%2CBJ177430%2CBJ118507%2CBJ118169%2CBJ118168%2CBJ115424%2CBJ115423%2CBJ115421%2CBJ115420%2CBJ115422%2CBJ090949%2CBJ090948%2C"
+    data-href="https://www.dlsite.com/comic/load/recommend/detail/v2/=/type/label_works/workno/BJ428705%2CBJ428706%2CBJ244977%2CBJ181325%2CBJ181326%2CBJ177430%2CBJ118168%2CBJ118169%2CBJ118507%2CBJ115423%2CBJ115424%2CBJ115420%2CBJ115421%2CBJ115422%2CBJ090948%2CBJ090949%2C"
     data-type="label_works"></div>
 </div>
 
@@ -1472,13 +1309,12 @@ $(function() {
 })
 </script>
 
-            
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
           </div>
           <!-- /main_inner -->
         </div>
@@ -1492,32 +1328,56 @@ $(function() {
 
       <!-- right -->
       <div id="right" data-section_name="right">
-        
-        
-        
-        <div id="work_buy_box_wrapper" data-vue-component="product-price" data-product-id="BJ138581" data-is-check="" data-is-comingsoon="0" data-section_name="right_work_price">
-  <div v-if="product.price !== undefined && (product.on_sale || product.is_rental || is_bought || rentaled)" v-cloak class="work_buy_main">
-    
-    <div id="work_price">
-      <div v-if="product.on_sale" class="work_buy_type" :class="class_buy_type_sell" @click.stop="buy_type = 'sell'">
-        
 
-        <div v-if="product.is_discount || product.is_pointup || product.is_limit_work || rentaled" class="campaign_info">
+
+
+        <div id="work_buy_box_wrapper" data-vue-component="product-price" data-product-id="BJ138581" data-is-check="" data-is-comingsoon="0" data-section_name="right_work_price">
+  <div v-if="typeof product.price !== 'undefined' && (product.translation_info.is_parent || product.on_sale || product.is_rental || is_bought || rentaled)" v-cloak class="work_buy_main">
+
+    <div id="work_price">
+      <div v-if="product.translation_info.is_parent || product.on_sale" class="work_buy_type" :class="class_buy_type_sell" @click.stop="buy_type = 'sell'">
+
+
+        <div v-if="product.voice_pack && product.is_discount" class="campaign_info">
+          <!-- 割引中 -->
+          <p v-if="product.is_discount" class="type_sale"><span v-t="'product.price.sale_now'"></span></p>
+        </div>
+        <div v-else-if="product.is_discount || product.is_pointup || product.is_limit_work || rentaled" class="campaign_info">
           <p v-if="product.is_limit_work" class="type_quantity"><span v-t="'product.title_works.limit_sales'"></span></p>
           <!-- タイムセール -->
           <p v-if="product.is_timesale" class="type_sale">
-            <span>{{$t('product.title_works.limit_sales')}} {{ product.discount_rate == 100 ? $t('product.price.discount_free') : product.discount_rate + '%OFF' }}</span>
+            <span>{{$t('product.title_works.limit_sales')}} {{ product.discount_rate == 100 ? $t('product.title_works.only_now_free') : product.discount_rate + '%OFF' }}</span>
           </p>
           <!-- 割引・無料販売 -->
           <template v-else-if="product.is_discount">
-            <p v-if="product.discount_to && !dlsite.isComipo()" class="type_sale transition">
-              <a rel="noopener" :href="product.discount_to">
-                <span>{{ product.discount_rate == 100 ? $t('product.price.discount_free') : product.discount_rate + '%OFF' }}<span v-if="product.discount_end_date" class="period">{{ $t('product.price.til', [product.discount_end_date]) }}</span><span class="fs11" v-t="'product.price.sale_link'"></span></span>
-              </a>
-            </p>
-            <p v-else class="type_sale">
-              <span>{{ product.discount_rate == 100 ? $t('product.price.discount_free') : product.discount_rate + '%OFF' }}<span class="period" v-if="product.discount_end_date">{{ $t('product.price.til', [product.discount_end_date]) }}</span></span>
-            </p>
+            <div v-if="product.discount_to && !dlsite.isComipo()">
+              <!-- ab_35978_a -->
+              <p class="type_sale transition ab_35978_a">
+                <a rel="noopener" :href="product.discount_to">
+                  <span>{{ product.discount_rate == 100 ? $t('product.title_works.only_now_free') : product.discount_rate + '%OFF' }}<span v-if="product.discount_end_date" class="period">{{ $t('product.price.til', [product.discount_end_date]) }}</span><span class="fs11" v-t="'product.price.sale_link'"></span></span>
+                </a>
+              </p>
+              <!-- ab_35978_b -->
+              <div class="work_border ab_35978_b">
+                <p class="type_sale" data-toggle="found">
+                  <span>{{ product.discount_rate == 100 ? $t('product.title_works.only_now_free') : product.discount_rate + '%OFF' }}</span>
+                </p>
+                <span class="type_date" v-if="product.discount_end_date">（{{ $t('product.price.til', [product.discount_end_date]) }}）</span>
+              </div>
+            </div>
+            <div v-else>
+              <!-- ab_35978_a -->
+              <p class="type_sale ab_35978_a">
+                <span>{{ product.discount_rate == 100 ? $t('product.title_works.only_now_free') : product.discount_rate + '%OFF' }}<span class="period" v-if="product.discount_end_date">{{ $t('product.price.til', [product.discount_end_date]) }}</span></span>
+              </p>
+              <!-- ab_35978_b -->
+              <div class="work_border ab_35978_b">
+                <p class="type_sale" data-toggle="found">
+                  <span>{{ product.discount_rate == 100 ? $t('product.title_works.only_now_free') : product.discount_rate + '%OFF' }}</span>
+                </p>
+                <span class="type_date" v-if="product.discount_end_date">({{ $t('product.price.til', [product.discount_end_date]) }})</span>
+              </div>
+            </div>
           </template>
           <!-- ポイント還元 -->
           <p v-if="product.is_pointup && (product.product_point || product.default_point)" class="type_point">
@@ -1526,48 +1386,121 @@ $(function() {
         </div>
 
         <div class="work_buy_container">
-          
-                    
-          <div class="work_buy_body" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
-            <meta itemprop="price" :content="real_price">
-            <meta itemprop="priceCurrency" content="JPY">
-            <div v-if="product.is_discount" class="work_buy_label" v-t="'product.price.special_price'"><!-- セール特価 --></div>
-            <div v-else class="work_buy_label" v-t="'product.price.price'"><!-- 価格 --></div>
-            <div class="work_buy_content">
-              <strong v-if="product.is_discount" class="price">{{ real_price | number_format }}<i v-html="yen_symbol_label"></i></strong>
-              <span v-else class="price">{{ product.price_str }}<i v-html="yen_symbol_label"></i></span>
-              <!-- 通貨換算額 -->
-              <tempalate v-if="locale_price">
-                <span class="separator">/</span>
-                <strong  class="price" v-html="locale_price"></strong>
-              </template>
-            </div>
+
+                    <div v-if="limited_free_end_time" class="free_limited_btn">
+            <p v-html="$t('limited_free.end_date_text.pc', [format_limited_free_end_time])"></p>
+            <p class="work_stream free_limited"><a href="https://play.dlsite.com/free/BJ138581" class="btn_st" target="_blank">無料で読む</a></p>
           </div>
 
-          <div v-if="product.is_discount" class="work_buy_body">
-            <div class="work_buy_label" v-t="'product.price.normal_price'"><!-- 通常価格 --></div>
-            <div class="work_buy_content">
-                <span class="strike">{{ product.official_price_str || product.price_str }}<i v-html="yen_symbol_label"></i></span>
+          <template v-if="product.voice_pack">
+            <!-- ab_35978_a -->
+            <div class="work_buy_body ab_35978_a" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+              <meta itemprop="price" :content="real_price">
+              <meta itemprop="priceCurrency" content="JPY">
+              <div class="work_buy_label" v-t="'product.price.price'"><!-- 価格 --></div>
+              <div class="work_buy_content">
+                <span class="price">{{ product.voice_pack.sum_price | number_format  }}<i v-html="yen_symbol_label"></i></span>
+              </div>
+            </div>
+
+            <div class="price_inner_comipo">
+              <div class="work_buy_body">
+                <div class="work_buy_label label_comipo" v-t="'product.price.comic_main'"><!-- コミック本体 --></div>
+                <div class="work_buy_content">
+                  <div class="work_buy_content_right">
+                    <span v-if="product.voice_pack.parent_official_price" class="price strike">{{ product.voice_pack.parent_official_price | number_format }}<i v-html="yen_symbol_label"></i></span>
+                    <strong class="price comipo_price_black"><span>{{ product.voice_pack.parent_price | number_format }}<i v-html="yen_symbol_label"></i></span></strong>
+                  </div>
+                </div>
+              </div>
+              <div class="work_buy_body">
+                <div class="work_buy_label label_comipo" v-t="'product.price.additional_voice'"><!-- 追加ボイス --></div>
+                <div class="work_buy_content">
+                  <div class="work_buy_content_right">
+                    <span v-if="product.voice_pack.child_official_price" class="price strike">{{ product.voice_pack.child_official_price | number_format }}<i v-html="yen_symbol_label"></i></span>
+                    <strong class="price comipo_price_black"><span>{{ product.voice_pack.child_price | number_format }}<i v-html="yen_symbol_label"></i></span></strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ab_35978_b -->
+            <div class="work_buy_body ab_35978_b" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+              <meta itemprop="price" :content="real_price">
+              <meta itemprop="priceCurrency" content="JPY">
+              <div class="work_buy_label" v-t="'product.price.price'"><!-- 価格 --></div>
+              <div class="work_buy_content">
+                <span class="price">{{ product.voice_pack.sum_price | number_format  }}<i v-html="yen_symbol_label"></i></span>
+              </div>
+            </div>
+
+            <div v-if="real_point" class="work_buy_body">
+              <div class="work_buy_label" v-t="'product.price.point'"><!-- ポイント --></div>
+              <div class="work_buy_content">
+                <span class="work_point point_up">{{ product.voice_pack.sum_point | number_format }}<i>pt</i></span>
+              </div>
+            </div>
+          </template>
+          <template v-else>
+            <!-- ab_35978_a -->
+            <div class="work_buy_body ab_35978_a" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+              <meta itemprop="price" :content="real_price">
+              <meta itemprop="priceCurrency" content="JPY">
+              <div v-if="product.is_discount" class="work_buy_label" v-t="'product.price.special_price'"><!-- セール特価 --></div>
+              <div v-else class="work_buy_label" v-t="'product.price.price'"><!-- 価格 --></div>
+              <div class="work_buy_content">
+                <strong v-if="product.is_discount" class="price">{{ real_price | number_format }}<i v-html="yen_symbol_label"></i></strong>
+                <span v-else class="price">{{ product.price_str }}<i v-html="yen_symbol_label"></i></span>
                 <!-- 通貨換算額 -->
-                <template v-if="locale_official_price">
+                <template v-if="locale_price">
                   <span class="separator">/</span>
-                  <span class="strike" v-html="locale_official_price"></span>
+                  <strong  class="price" v-html="locale_price"></strong>
                 </template>
+              </div>
             </div>
-          </div>
 
-          <div v-if="dlsite.getLocale() != 'ja-jp'" class="work_buy_body">
-            <p>[&nbsp;<a :href="estimation_link" v-t="'product.price.estimation'"></a>&nbsp;]</p>
-          </div>
-
-          <div v-if="real_point" class="work_buy_body">
-            <div class="work_buy_label" v-t="'product.price.point'"><!-- ポイント --></div>
-            <div class="work_buy_content">
-              <strong class="work_point point_up">{{ real_point | number_format }}<i v-if="real_point">pt ({{ $t('product.price.point_return', [real_point_rate]) }})</i><i v-else>pt</i></strong>
+            <div v-if="product.is_discount" class="work_buy_body">
+              <div class="work_buy_label" v-t="'product.price.normal_price'"><!-- 通常価格 --></div>
+              <div class="work_buy_content">
+                  <span class="strike">{{ product.official_price_str || product.price_str }}<i v-html="yen_symbol_label"></i></span>
+                  <!-- 通貨換算額 -->
+                  <template v-if="locale_official_price">
+                    <span class="separator">/</span>
+                    <span class="strike" v-html="locale_official_price"></span>
+                  </template>
+              </div>
             </div>
-          </div>
-          
-                                        
+
+            <!-- ab_35978_b -->
+            <div class="work_buy_body ab_35978_b" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+              <meta itemprop="price" :content="real_price">
+              <meta itemprop="priceCurrency" content="JPY">
+              <div v-if="product.is_discount" class="work_buy_label" v-t="'product.price.special_price'"><!-- セール特価 --></div>
+              <div v-else class="work_buy_label" v-t="'product.price.price'"><!-- 価格 --></div>
+              <div class="work_buy_content">
+                <strong v-if="product.is_discount" class="price">{{ real_price | number_format }}<i v-html="yen_symbol_label"></i></strong>
+                <span v-else class="price">{{ product.price_str }}<i v-html="yen_symbol_label"></i></span>
+                <!-- 通貨換算額 -->
+                <template v-if="locale_price">
+                  <span class="separator">/</span>
+                  <strong  class="price" v-html="locale_price"></strong>
+                </template>
+              </div>
+            </div>
+
+            <div v-if="dlsite.getLocale() != 'ja-jp'" class="work_buy_body">
+              <p>[&nbsp;<a :href="estimation_link" v-t="'product.price.estimation'"></a>&nbsp;]</p>
+            </div>
+
+            <div v-if="real_point" class="work_buy_body">
+              <div class="work_buy_label" v-t="'product.price.point'"><!-- ポイント --></div>
+              <div class="work_buy_content">
+                <strong class="work_point point_up">{{ real_point | number_format }}<i v-if="real_point">pt ({{ $t('product.price.point_return', [real_point_rate]) }})</i><i v-else>pt</i></strong>
+              </div>
+            </div>
+          </template>
+
+
           <div v-if="bestCouponDiscount" v-cloak class="coupon_available">
             <span class="coupon_available_head">会員登録でクーポンを複数プレゼント！</span>
             <div class="coupon_available_inner">
@@ -1575,20 +1508,20 @@ $(function() {
                 <dt class="ex">一番お得なクーポン利用価格</dt>
                 <dd class="total type_jpy">
                   {{ (product.price - bestCouponDiscount).toLocaleString() }}<span>円</span>
-                  
+
                 </dd>
                 <dd class="total" v-html="$options.filters.exchanger_discount_format(product.locale_price, bestCouponRate, dlsite.getLocale())"></dd>
               </dl>
             </div>
           </div>
-          
+
           <div v-else-if="bestUserCoupon" v-cloak class="coupon_available">
             <div class="coupon_available_inner">
               <dl class="coupon_detail">
                 <dt class="ex">一番お得なクーポン利用価格</dt>
                 <dd class="total type_jpy">
                   {{ (product.price - bestUserCouponDiscount).toLocaleString() }}<span>円</span>
-                  
+
                 </dd>
                 <dd class="total" v-html="$options.filters.exchanger_discount_format(product.locale_price, bestUserCouponRate, dlsite.getLocale())"></dd>
               </dl>
@@ -1599,10 +1532,14 @@ $(function() {
               <a href="https://www.dlsite.com/comic/mypage/coupon/list">利用条件の確認はこちら</a>
             </div>
           </div>
+
+          <!-- みんなで翻訳親作品で子作品がある場合 -->
+          <select-translator v-if="product.translators" product-id="BJ138581"></select-translator>
+
         </div>
       </div>
     </div>
-    <div id="work_buy_btn">
+    <div v-if="!product.translation_info.is_parent" id="work_buy_btn">
       <!-- ダウンロード -->
       <template v-if=" ! product.is_sale && is_comingsoon && !is_check">
         <div class="pre_work_message">
@@ -1616,14 +1553,14 @@ $(function() {
       </template>
       <template v-else>
         <template v-if="is_bought">
-          
-                    
-          <p class="work_stream"><a rel="noopener" href="https://play.dlsite.com/?workno=BJ138581" class="btn_st" :class="{ disabled: ! product.dlsiteplay_work || product.dl_format == 16 }" title="ブラウザ視聴" target="_blank">ブラウザ視聴</a></p>
-          <p v-if="product.dl_format !== 20 && product.dl_format !== 21" class="work_cart">
-            <a :href="product.down_url" class="btn_dl" :class="{ disabled: product.dl_format == 17 }">ダウンロード</a>
-          </p>
-          
-                    
+
+
+              <p class="work_stream"><a rel="noopener" href="https://play.dlsite.com/?workno=BJ138581" class="btn_st" :class="{ disabled: ! product.dlsiteplay_work || product.dl_format == 16 }" title="ブラウザ視聴" target="_blank">ブラウザ視聴</a></p>
+              <p v-if="product.dl_format !== 20 && product.dl_format !== 21 && product.dl_format !== 22 && product.dl_format !== 24" class="work_cart">
+                <a :href="product.down_url" class="btn_dl" :class="{ disabled: product.dl_format == 17 }">ダウンロード</a>
+              </p>
+
+
         </template>
         <template v-else-if="is_already">
           <p class="work_already">既に持っています</p>
@@ -1655,24 +1592,27 @@ $(function() {
             <a href="#" class="btn_cart disabled" v-t="'product.item.sold_out'"></a>
           </p>
           <p v-else-if="carted && ! carted.rental_id" class="work_cart">
-            
+
                           <a :href="makeUrl('/cart', { product_id: product.product_id })" class="btn_cart_in" v-t="'cart.in_cart'"><!-- カートに入っています --></a>
-                      
+
           </p>
           <template v-else>
-          
-                          
+
+
               <p class="work_cart" v-if="!isAccountLogin">
-                <a href="https://www.dlsite.com/comic/pay/member/=/relayout/cart/buynow/1/product_id/BJ138581.html" class="btn_buy">会員登録して購入</a>
+                <a v-if="product.voice_pack" :href="makeUrl('/pay/member', { relayout:'cart', buynow:1, 'product_ids[]': product.voice_pack.product_ids })" class="btn_buy">会員登録して購入</a>
+                <a v-else href="https://www.dlsite.com/comic/pay/member/=/relayout/cart/buynow/1/product_id/BJ138581.html" class="btn_buy">会員登録して購入</a>
               </p>
               <p class="work_cart">
-                <a @click.prevent="addCart({ product_id:product.product_id }); showCartPopup()" :href="makeUrl('/cart', { product_id: product.product_id })" class="btn_cart" v-t="'cart.add_cart'"><!-- カートに入れる --></a>
+                <a v-if="product.voice_pack" @click.prevent="addSeriesToCart({ product_ids:product.voice_pack.product_ids }); showCartPopup()" :href="makeUrl('/cart', { product_id: product.product_id })" class="btn_cart" v-t="'cart.add_cart'"><!-- カートに入れる --></a>
+                <a v-else @click.prevent="addCart({ product_id:product.product_id }); showCartPopup()" :href="makeUrl('/cart', { product_id: product.product_id })" class="btn_cart" v-t="'cart.add_cart'"><!-- カートに入れる --></a>
               </p>
               <p class="work_cart" v-if="isAccountLogin">
-                <a href="https://www.dlsite.com/comic/pay/member/=/relayout/cart/buynow/1/product_id/BJ138581.html" class="btn_buy">すぐに購入</a>
+                <a v-if="product.voice_pack" :href="makeUrl('/pay/member', { relayout:'cart', buynow:1, 'product_ids[]': product.voice_pack.product_ids })" class="btn_buy">すぐに購入</a>
+                <a v-else href="https://www.dlsite.com/comic/pay/member/=/relayout/cart/buynow/1/product_id/BJ138581.html" class="btn_buy">すぐに購入</a>
               </p>
-              
-                      
+
+
           </template>
         </template>
 
@@ -1689,9 +1629,9 @@ $(function() {
           <div v-else class="work_rating" v-cloak><a href="https://www.dlsite.com/comic/mypage/short-review" class="btn_rating">作品を評価する</a></div>
         </template>
 
-        
+
         <!-- 多言語の場合、ポイント購入へのリンクを表示する -->
-                
+
 
         <!-- カートボタン押下時にレコメンドのモーダル表示 -->
         <div v-show="this.$store.state.is_carted" class="add_cart_overlay" @click.stop.prevent="function(){ closeRecommend(); $(document.body).removeClass('scrolling_stop'); }">
@@ -1709,9 +1649,9 @@ $(function() {
       </template>
 
     </div>
-    
+
   </div>
-  <div v-else-if="product.price === undefined" class="work_buy_main">
+  <div v-else-if="typeof product.price === 'undefined'" class="work_buy_main">
     <!-- IE8 or noscript -->
     <div id="work_price">
       <div class="work_buy_type">
@@ -1745,18 +1685,20 @@ $(function() {
           <div class="work_thumb">
             <img src="//img.dlsite.jp/resize/images2/work/books/BJ139000/BJ138581_img_main_240x240.jpg" alt="快楽ヒストリエ [ワニマガジン社]" class="target_type">
           </div>
-          
+
           <div class="work_buy_body_wrap">
             <div class="work_buy_body">
               <div class="work_buy_label" v-t="'product.price.price'"><!-- 価格 --></div>
               <div class="work_buy_content">
-                <strong class="price">{{ real_price | number_format }}<i v-t="'product.price.yen'"></i></strong>
+                <strong v-if="product.voice_pack" class="price">{{ product.voice_pack.sum_price | number_format }}<i v-t="'product.price.yen'"></i></strong>
+                <strong v-else class="price">{{ real_price | number_format }}<i v-t="'product.price.yen'"></i></strong>
               </div>
             </div>
             <div v-if="product.product_point || product.default_point" class="work_buy_body">
               <div class="work_buy_label" v-t="'product.price.point'"><!-- ポイント --></div>
               <div class="work_buy_content">
-                <strong class="work_point">{{ (product.product_point || product.default_point) | number_format }}<i>pt</i></strong>
+                <strong v-if="product.voice_pack" class="work_point">{{ product.voice_pack.sum_point | number_format }}<i>pt</i></strong>
+                <strong v-else class="work_point">{{ (product.product_point || product.default_point) | number_format }}<i>pt</i></strong>
               </div>
             </div>
           </div>
@@ -1773,22 +1715,25 @@ $(function() {
           </template>
 
           <template v-else-if=" ! is_bought && product.on_sale">
-          
+
             <p v-if="carted && ! carted.rental_id" class="work_cart">
               <a href="https://www.dlsite.com/comic/cart/=/product_id/BJ138581.html" class="btn_cart_in" v-t="'cart.in_cart_s'"><!-- カートに追加済み --></a>
             </p>
             <template v-else>
               <p class="work_cart" v-if="!isAccountLogin">
-                <a href="https://www.dlsite.com/comic/pay/member/=/relayout/cart/buynow/1/product_id/BJ138581.html" class="btn_buy">会員登録して購入</a>
+                <a v-if="product.voice_pack" :href="makeUrl('/pay/member', { relayout:'cart', buynow:1, 'product_ids[]': product.voice_pack.product_ids })" class="btn_buy">会員登録して購入</a>
+                <a v-else href="https://www.dlsite.com/comic/pay/member/=/relayout/cart/buynow/1/product_id/BJ138581.html" class="btn_buy">会員登録して購入</a>
               </p>
               <p class="work_cart">
-                <a @click.prevent="addCart({ product_id:product.product_id }); showCartPopup()" href="https://www.dlsite.com/comic/cart/=/product_id/BJ138581.html" class="btn_cart" data-link-name="float" v-t="'cart.add_cart_s'"><!-- カートに追加 --></a>
+                <a v-if="product.voice_pack" @click.prevent="addSeriesToCart({ product_ids:product.voice_pack.product_ids }); showCartPopup()" href="https://www.dlsite.com/comic/cart/=/product_id/BJ138581.html" class="btn_cart" data-link-name="float" v-t="'cart.add_cart_s'"><!-- カートに追加 --></a>
+                <a v-else @click.prevent="addCart({ product_id:product.product_id }); showCartPopup()" href="https://www.dlsite.com/comic/cart/=/product_id/BJ138581.html" class="btn_cart" data-link-name="float" v-t="'cart.add_cart_s'"><!-- カートに追加 --></a>
               </p>
               <p class="work_cart" v-if="isAccountLogin">
-                <a href="https://www.dlsite.com/comic/pay/member/=/relayout/cart/buynow/1/product_id/BJ138581.html" class="btn_buy">すぐに購入</a>
+                <a v-if="product.voice_pack" :href="makeUrl('/pay/member', { relayout:'cart', buynow:1, 'product_ids[]': product.voice_pack.product_ids })" class="btn_buy">すぐに購入</a>
+                <a v-else href="https://www.dlsite.com/comic/pay/member/=/relayout/cart/buynow/1/product_id/BJ138581.html" class="btn_buy">すぐに購入</a>
               </p>
             </template>
-          
+
           </template>
 
           <p v-if="user.customer_id && ! is_favorite" class="work_favorite">
@@ -1799,28 +1744,28 @@ $(function() {
           </p>
           </div>
         </div>
-        
+
       </div>
     </div>
   </div>
-  
+
     <coupon-obtain
     link-coupons="https://www.dlsite.com/comic/coupon/=/ajax/1/product_id/BJ138581.html"
     link-obtain="https://www.dlsite.com/comic/get/coupon/=/ajax/1/code/"
   >
   </coupon-obtain>
 
-    
+
   <div class="work_privilege_guide" v-if="gift && gift.title || coupons.length || bonuses.length" v-cloak>
     <p class="separate_title"><span>購入特典</span></p>
-    
+
     <div class="work_privilege_guide_inner">
       <ul>
         <li v-if="gift && gift.title">
           <p class="label bonus_code">{{ gift.title }}</p>
           <p v-if="gift.distribute_end_str" class="distribution_period">
-          
-                        {{ gift.distribute_end_str }}まで配布中          
+
+                        {{ gift.distribute_end_str }}まで配布中
           </p>
           <p class="body" v-html="gift.description"></p>
         </li>
@@ -1830,21 +1775,21 @@ $(function() {
           <p class="body" v-html="coupon.info"></p>
           <p v-if="coupon.user_limit_date" class="period"><span>有効期限：</span>{{ coupon.user_limit_date }}</p>
           <p v-else-if="coupon.limit_days_day" class="period">
-          
-                        <span>有効期限：</span>取得から{{ coupon.limit_days_day }}日後          
+
+                        <span>有効期限：</span>取得から{{ coupon.limit_days_day }}日後
           </p>
         </li>
         <li v-for="bonus in bonuses">
           <p class="label limited_benefit">{{ bonus.title }}</p>
           <p v-if="bonus.end_date_str" class="distribution_period type_work">
-          
-                        {{ bonus.end_date_str }}まで配布中          
+
+                        {{ bonus.end_date_str }}まで配布中
           </p>
           <p class="body" v-html="bonus.description"></p>
         </li>
       </ul>
     </div>
-    
+
     <p v-if="product.is_rental" class="guide_message">レンタルでは購入特典は<br>付与されません。</p>
   </div>
 
@@ -1857,8 +1802,8 @@ $(function() {
       <li class="sysreq_list_item type_android"><i>Android</i></li>
     </ul>
   </div>
-    
-    
+
+
   <div class="os_popup" :class="{ active: is_display_machine_list }">
     <div class="os_popup_header">対応OS</div>
     <div class="os_popup_body">
@@ -1885,7 +1830,7 @@ $(function() {
   </div>
 </div>
 
-  
+
 
   <div class="work_buy_guide type_affiliate" v-if="!is_comingsoon && !product.affiliate_deny" v-cloak>
     <ul class="guide_list">
@@ -1896,57 +1841,57 @@ $(function() {
     </ul>
   </div>
 </div>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       </div>
       <!-- /right -->
 
-            
-      
-      
-      
+
+
+
+
       <!-- footer -->
       <div id="footer" data-section_name="footer">
-        
+
         <div class="footer_abj_mark">
-  <img src="https://www.dlsite.com/modpub/images/web/comipo/comipo_abj_icon.png" alt="ABJマーク" width="100">
+  <img src="/modpub/images/web/comipo/comipo_abj_mark.png" alt="ABJマーク" width="100">
   <p>
     ABJマークは、この電子書店・電子書籍配信サービスが、著作権者からコンテンツ使用許諾を得た正規版配信サービスであることを示す登録商標（登録番号　第6091713号）です。<br>
     ABJマークの詳細、ABJマークを掲示しているサービスの一覧は<a href="https://aebs.or.jp" target="_blank" rel="noopener">こちら</a>。
@@ -1961,52 +1906,54 @@ $(function() {
 </ul>
 </div>
 
-    <div class="footer_section">
-    <div class="footer_section_inner">
-        <div class="link_list_wrap">
-            <div class="link_list_box col_2">
-                <div class="label">DLsiteについて</div>
+<div class="footer_section">
+  <div class="footer_section_inner">
+    <div class="link_list_wrap">
+      <div class="link_list_box col_2">
+                <div class="label">DLsite comipoについて</div>
                 <ul class="link_list">
-                    <li class="link_list_item"><a rel="noopener" href="https://www.eisys.co.jp/company/information" target="_blank">会社概要</a></li>
-                                        <li class="link_list_item"><a href="https://www.dlsite.com/comic/user/regulations">利用規約</a></li>
-                    <li class="link_list_item"><a href="https://www.dlsite.com/comic/guide/law">特定商取引法に基づく表示</a></li>
-                    <li class="link_list_item"><a href="https://www.dlsite.com/comic/guide/settlement">資金決済法に基づく表記</a></li>
-                    <li class="link_list_item"><a href="https://www.dlsite.com/comic/guide/privacy">個人情報の取扱いについて</a></li>
-                    <li class="link_list_item"><a href="https://www.dlsite.com/comic/mosaic">コンプライアンスポリシー</a></li>
-                    <li class="link_list_item"><a href="https://www.dlsite.com/comic/guide/copy">著作権</a></li>
-                                    </ul>
-            </div>
-            <div class="link_list_box">
-                <div class="label">ヘルプ&amp;ガイド</div>
-                <ul class="link_list">
-                                        <li class="link_list_item"><a rel="noopener" href="https://www.dlsite.com/comic/faq/=/type/user" target="_blank">よくある質問</a></li>
-                                    </ul>
-            </div>
-            <div class="link_list_box">
-                <div class="label">DLsiteのサービス</div>
-                <ul class="link_list">
-                                                            <li class="link_list_item"><a href="https://www.dlsite.com/comic/mypage/setting/mail">メールマガジン</a></li>
-                                    </ul>
-            </div>
-        </div>
-    </div>
-    <div class="footer_section_inner payment">
-      <div class="label">お支払い&amp;ポイント</div>
-      <div class="footer_payment_box">
+                    <li class="link_list_item"><a rel="noopener" href="https://vivion.jp/company/information" target="_blank">会社概要</a></li>
+                              <li class="link_list_item"><a href="https://www.dlsite.com/comic/user/regulations">利用規約</a></li>
+          <li class="link_list_item"><a href="https://www.dlsite.com/comic/guide/law">特定商取引法に基づく表示</a></li>
+          <li class="link_list_item"><a href="https://www.dlsite.com/comic/guide/settlement">資金決済法に基づく表記</a></li>
+          <li class="link_list_item"><a href="https://www.dlsite.com/comic/guide/privacy">個人情報の取扱いについて</a></li>
+          <li class="link_list_item"><a href="https://www.dlsite.com/comic/mosaic">コンプライアンスポリシー</a></li>
+          <li class="link_list_item"><a href="https://www.dlsite.com/comic/guide/copy">著作権</a></li>
+                  </ul>
+      </div>
+      <div class="link_list_box">
+        <div class="label">ヘルプ&amp;ガイド</div>
         <ul class="link_list">
-          <li class="link_list_item"><a href="https://www.dlsite.com/comic/guide/creditcard">お支払い方法</a></li>
-                              <li class="link_list_item"><a href="https://www.dlsite.com/comic/guide/payment#link_point">ポイント購入方法</a></li>
-        </ul>
-        <a href="https://www.dlsite.com/comic/guide/creditcard" class="footer_payment_img">
-                      <img src="/modpub/images/web/common/payment_wide.jpg" alt="多彩な決済方法">
-                  </a>
+                    <li class="link_list_item"><a rel="noopener" href="https://www.dlsite.com/comic/faq/=/type/user" target="_blank">よくある質問</a></li>
+                  </ul>
+      </div>
+      <div class="link_list_box">
+                <div class="label">DLsite comipoのサービス</div>
+                <ul class="link_list">
+                              <li class="link_list_item"><a href="https://www.dlsite.com/comic/mypage/setting/mail">メールマガジン</a></li>
+                  </ul>
       </div>
     </div>
-        <div id="copyright">
-    <div class="container clearfix">
-        <div id="system">推奨環境：最新版のMicrosoft Edge、Safari、Chrome、Firefox（JavaScript・Cookieを許可）</div>
-        <p>&copy; 1996 DLsite</p>
+  </div>
+  <div class="footer_section_inner payment">
+    <div class="label">お支払い&amp;ポイント</div>
+    <div class="footer_payment_box">
+      <ul class="link_list">
+        <li class="link_list_item"><a href="https://www.dlsite.com/comic/guide/creditcard">お支払い方法</a></li>
+                        <li class="link_list_item"><a href="https://www.dlsite.com/comic/guide/payment#link_point">ポイント購入方法</a></li>
+      </ul>
+      <a href="https://www.dlsite.com/comic/guide/creditcard" class="footer_payment_img">
+                <img src="/modpub/images/web/common/payment_wide.jpg" alt="多彩な決済方法">
+              </a>
     </div>
+  </div>
+    </div>
+
+<div id="copyright">
+  <div class="container clearfix">
+    <div id="system">推奨環境：最新版のMicrosoft Edge、Safari、Chrome、Firefox（JavaScript・Cookieを許可）</div>
+        <p>&copy; 2021 viviON, inc.</p>
+      </div>
 </div>
 
 <div data-vue-component="thumb-img-popup-in-swiper"></div>
@@ -2017,7 +1964,7 @@ $(function() {
     <!-- /container -->
 
         <!-- script_footer -->
-    
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -2031,8 +1978,8 @@ $(function() {
 
 <div data-vue-component="cookie-policy" data-async="true"></div>
 
-<script type="text/javascript" src="/vue/js/pc/vendor.js?cdn_cache=1&v=0.1.2&_=1631681407"></script>
-<script type="text/javascript" src="/vue/js/pc/app.js?cdn_cache=1&v=0.1.2&_=1635996724"></script>
+<script type="text/javascript" src="/vue/js/pc/vendor.js?cdn_cache=1&v=0.1.2&_=1643863895"></script>
+<script type="text/javascript" src="/vue/js/pc/app.js?cdn_cache=1&v=0.1.2&_=1657852476"></script>
 
 
 <script type="text/javascript">
@@ -2086,7 +2033,7 @@ div.measure_tag {
 
 <div class="measure_tag"></div>
     <!-- /script_footer -->
-        <script type="text/javascript">var contents = {"impression":[],"detail":[{"id":"BJ138581","name":"\u5feb\u697d\u30d2\u30b9\u30c8\u30ea\u30a8","category":"comic","brand":"BG01095","price":900,"regist_date":"2018\/01\/20","image_main":"\/\/img.dlsite.jp\/modpub\/images2\/work\/books\/BJ139000\/BJ138581_img_main.jpg","official_price":"","series_id":"TITLE00040537","series_name":"\u5feb\u697d\u30d2\u30b9\u30c8\u30ea\u30a8","title_id":"TITLE00040537","title_name":"\u5feb\u697d\u30d2\u30b9\u30c8\u30ea\u30a8"}],"time":0.0008580684661865234};</script>
-<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"NRJS-26fb73475871c01d5bd","applicationID":"781370968","transactionName":"YwQBYkdWDRZQVxUKDlpONkRcGAoLVVEZTRFcEQ==","queueTime":0,"applicationTime":1202,"atts":"T0MCFA9MHhg=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+        <script type="text/javascript">var contents = {"impression":[],"detail":[{"id":"BJ138581","name":"\u5feb\u697d\u30d2\u30b9\u30c8\u30ea\u30a8","category":"comic","brand":"BG01095","price":900,"regist_date":"2018\/01\/20","image_main":"\/\/img.dlsite.jp\/modpub\/images2\/work\/books\/BJ139000\/BJ138581_img_main.jpg","official_price":"","series_id":"TITLE00040537","series_name":"\u5feb\u697d\u30d2\u30b9\u30c8\u30ea\u30a8","title_id":"TITLE00040537","title_name":"\u5feb\u697d\u30d2\u30b9\u30c8\u30ea\u30a8"}],"time":0.0008361339569091797};</script>
+</body>
 
 </html>
