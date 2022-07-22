@@ -13,7 +13,7 @@ class TwitterApiResolver implements Resolver
 
     public function resolve(string $url): Metadata
     {
-        if (preg_match('~(?:www\.)?(?:(?:mobile|m)\.)?twitter\.com/(?:#!/)?[0-9a-zA-Z_]{1,15}/status(?:es)?/(?P<id>[0-9]+)(?:/photo/[0-9])?/?(?:\\?.+)?$~', $url, $matches) !== 1) {
+        if (preg_match('~(?:www\.)?(?:(?:mobile|m)\.)?twitter\.com/(?:#!/)?[0-9a-zA-Z_]{1,15}/status(?:es)?/(?P<id>[0-9]+)(?:/photo/(?<index>[1-4]))?/?(?:\\?.+)?$~', $url, $matches) !== 1) {
             throw new \RuntimeException("Unmatched URL Pattern: $url");
         }
 
@@ -27,9 +27,9 @@ class TwitterApiResolver implements Resolver
         $metadata->title = $json['user']['name'];
         $metadata->description = $json['full_text'];
 
-        // Metadataに保存可能なのは1枚の画像のみなので、動画等の情報を含む可能性があるextended_entitiesよりもentitiesから取ったほうが都合が良い
-        if (!empty($json['entities']['media'])) {
-            $media = $json['entities']['media'][0];
+        if (!empty($json['extended_entities']['media'])) {
+            $index = ($matches['index'] ?? 1) - 1;
+            $media = $json['extended_entities']['media'][$index] ?? $json['extended_entities']['media'][0];
             $metadata->image = $media['media_url_https'];
         }
 
