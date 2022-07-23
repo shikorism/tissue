@@ -5,7 +5,7 @@ namespace App\MetadataResolver;
 
 use GuzzleHttp\Client;
 
-class TwitterApiResolver implements Resolver
+class TwitterApiResolver implements TwitterResolver
 {
     public function __construct(private Client $client)
     {
