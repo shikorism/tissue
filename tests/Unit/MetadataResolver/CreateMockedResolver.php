@@ -32,7 +32,11 @@ trait CreateMockedResolver
     {
         $this->snapshotFilenames[$sequence] = $filename;
 
-        return file_get_contents($filename);
+        if (file_exists($filename)) {
+            return file_get_contents($filename);
+        } else {
+            return '';
+        }
     }
 
     /**

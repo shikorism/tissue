@@ -20,17 +20,23 @@ class HentaiFoundryResolverTest extends TestCase
 
     public function test()
     {
-        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/HentaiFoundry/illust.html');
+        $responses = [
+            $this->fetchSnapshot(__DIR__ . '/../../fixture/HentaiFoundry/illust_0.html', 0),
+            $this->fetchSnapshot(__DIR__ . '/../../fixture/HentaiFoundry/illust_1.html', 1),
+        ];
 
-        $this->createResolver(HentaiFoundryResolver::class, $responseText);
+        $this->createResolverEx(HentaiFoundryResolver::class, [
+            ['responseText' => $responses[0], 'status' => 301, 'headers' => ['Location' => '/pictures/user/DevilHS/723498/Witchcraft']],
+            ['responseText' => $responses[1]],
+        ]);
 
         $metadata = $this->resolver->resolve('https://www.hentai-foundry.com/pictures/user/DevilHS/723498/Witchcraft');
         $this->assertSame('Witchcraft', $metadata->title);
         $this->assertSame('by DevilHS' . PHP_EOL . 'gift for Liru', $metadata->description);
-        $this->assertEquals(['witch', 'futa'], $metadata->tags);
+        $this->assertEquals(['futa', 'witch'], $metadata->tags);
         $this->assertSame('https://pictures.hentai-foundry.com/d/DevilHS/723498/DevilHS-723498-Witchcraft.png', $metadata->image);
         if ($this->shouldUseMock()) {
-            $this->assertSame('https://www.hentai-foundry.com/pictures/user/DevilHS/723498/Witchcraft?enterAgree=1', (string) $this->handler->getLastRequest()->getUri());
+            $this->assertSame('https://www.hentai-foundry.com/pictures/user/DevilHS/723498/Witchcraft', (string) $this->handler->getLastRequest()->getUri());
         }
     }
 }
