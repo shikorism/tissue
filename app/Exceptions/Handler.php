@@ -2,13 +2,13 @@
 
 namespace App\Exceptions;
 
-use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -30,12 +30,12 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param  \Exception  $exception
+     * @param  \Throwable  $exception
      * @return void
      *
-     * @throws \Exception
+     * @throws \Throwable
      */
-    public function report(Exception $exception)
+    public function report(Throwable $exception)
     {
         if (app()->bound('sentry') && $this->shouldReport($exception)) {
             app('sentry')->captureException($exception);
@@ -48,12 +48,12 @@ class Handler extends ExceptionHandler
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
+     * @param  \Throwable  $exception
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @throws \Exception
+     * @throws \Throwable
      */
-    public function render($request, Exception $exception)
+    public function render($request, Throwable $exception)
     {
         return parent::render($request, $exception);
     }
@@ -74,7 +74,7 @@ class Handler extends ExceptionHandler
         return redirect()->guest(route('login'));
     }
 
-    protected function prepareException(Exception $e)
+    protected function prepareException(Throwable $e)
     {
         if (!config('app.debug') && $e instanceof ModelNotFoundException) {
             return new NotFoundHttpException('Resource not found.', $e);
@@ -83,7 +83,7 @@ class Handler extends ExceptionHandler
         return parent::prepareException($e);
     }
 
-    protected function prepareJsonResponse($request, Exception $e)
+    protected function prepareJsonResponse($request, Throwable $e)
     {
         $status = $this->isHttpException($e) ? $e->getStatusCode() : 500;
 
