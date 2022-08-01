@@ -12,6 +12,7 @@ class TrimStrings extends BaseTrimmer
      * @var array
      */
     protected $except = [
+        'current_password',
         'password',
         'password_confirmation',
     ];

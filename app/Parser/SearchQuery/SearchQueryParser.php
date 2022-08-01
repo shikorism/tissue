@@ -26,7 +26,7 @@ namespace App\Parser\SearchQuery {
         public const WORD = 1, QUOTED_TEXT = 2, NOT = 3, DELIMITER = 4, WS = 5;
 
         public const RULE_query = 0, RULE_expression = 1, RULE_negativeExpression = 2,
-               RULE_positiveExpression = 3, RULE_target = 4, RULE_keyword = 5;
+        RULE_positiveExpression = 3, RULE_target = 4, RULE_keyword = 5;
 
         /**
          * @var array<string>
@@ -199,8 +199,8 @@ namespace App\Parser\SearchQuery {
                         $this->positiveExpression();
                         break;
 
-                default:
-                    throw new NoViableAltException($this);
+                    default:
+                        throw new NoViableAltException($this);
                 }
             } catch (RecognitionException $exception) {
                 $localContext->exception = $exception;
@@ -259,13 +259,13 @@ namespace App\Parser\SearchQuery {
                         $this->target();
                         $this->setState(30);
                         $this->keyword();
-                    break;
+                        break;
 
                     case 2:
                         $this->enterOuterAlt($localContext, 2);
                         $this->setState(32);
                         $this->keyword();
-                    break;
+                        break;
                 }
             } catch (RecognitionException $exception) {
                 $localContext->exception = $exception;
@@ -335,7 +335,7 @@ namespace App\Parser\SearchQuery {
                             $this->errorHandler->sync($this);
                             $_la = $this->input->LA(1);
                         }
-                    break;
+                        break;
 
                     case 2:
                         $this->enterOuterAlt($localContext, 2);
@@ -343,13 +343,13 @@ namespace App\Parser\SearchQuery {
                         $this->match(self::WORD);
                         $this->setState(47);
                         $this->match(self::DELIMITER);
-                    break;
+                        break;
 
                     case 3:
                         $this->enterOuterAlt($localContext, 3);
                         $this->setState(48);
                         $this->match(self::QUOTED_TEXT);
-                    break;
+                        break;
                 }
             } catch (RecognitionException $exception) {
                 $localContext->exception = $exception;
