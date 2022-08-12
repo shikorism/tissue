@@ -245,7 +245,9 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
                     ))}
                 </p>
             )}
-            {item.note != '' && <p className="mb-2 text-break" dangerouslySetInnerHTML={{ __html: item.note }} />}
+            {item.note_html != '' && (
+                <p className="mb-2 text-break" dangerouslySetInnerHTML={{ __html: item.note_html }} />
+            )}
             <div className="ejaculation-actions">
                 <OverlayTrigger
                     placement="bottom"
