@@ -26,7 +26,10 @@ class MelonbooksResolver implements Resolver
     {
         $cookieJar = CookieJar::fromArray(['AUTH_ADULT' => '1'], 'www.melonbooks.co.jp');
 
-        $res = $this->client->get($url, ['cookies' => $cookieJar]);
+        $res = $this->client->get($url, [
+            'cookies' => $cookieJar,
+            'curl' => [CURLOPT_SSL_CIPHER_LIST => 'DEFAULT@SECLEVEL=1']
+        ]);
         $metadata = $this->ogpResolver->parse($res->getBody());
 
         $dom = new \DOMDocument();
