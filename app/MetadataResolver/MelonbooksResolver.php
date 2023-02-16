@@ -44,7 +44,7 @@ class MelonbooksResolver implements Resolver
         }
 
         // 抽出
-        preg_match('~^(.+)（(.+)）の通販・購入はメロンブックス$~', $metadata->title, $match);
+        preg_match('~^(.+)（(.+)）の通販・購入はメロンブックス~', $metadata->title, $match);
         $title = $match[1];
         $maker = $match[2];
 
