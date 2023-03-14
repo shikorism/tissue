@@ -64,7 +64,7 @@ class PixivResolver implements Resolver
         $metadata->title = $json['body']['illustTitle'] ?? '';
         $metadata->description = '投稿者: ' . $json['body']['userName'] . PHP_EOL . strip_tags(str_replace('<br />', PHP_EOL, $json['body']['illustComment'] ?? ''));
         $metadata->image = $this->proxize(
-            str_replace("/c/250x250_80_a2", "", $json['body']['userIllusts'][$illustId]['url'])
+            str_replace(['/c/250x250_80_a2', '_square1200'], ['', '_master1200'], $json['body']['userIllusts'][$illustId]['url'])
                 ?? ''
         );
 
