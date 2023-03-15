@@ -60,7 +60,7 @@
     "react-router-dom": "^6.3.0",
     "redoc-cli": "^0.13.15",
     "resolve-url-loader": "^5.0.0",
-    "sass": "^1.26.8",
+    "sass": "^1.59.3",
     "sass-loader": "^13.0.0",
     "stylelint": "^14.9.1",
     "stylelint-config-recess-order": "^3.0.0",
