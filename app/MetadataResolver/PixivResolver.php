@@ -63,7 +63,14 @@ class PixivResolver implements Resolver
 
         $metadata->title = $json['body']['illustTitle'] ?? '';
         $metadata->description = '投稿者: ' . $json['body']['userName'] . PHP_EOL . strip_tags(str_replace('<br />', PHP_EOL, $json['body']['illustComment'] ?? ''));
-        $metadata->image = $this->proxize($json['body']['urls']['regular'] ?? '');
+        $metadata->image = $this->proxize(
+            str_replace(
+                ['/c/250x250_80_a2/', '/custom-thumb/', '_square1200', '_custom1200'],
+                ['/', '/img-master/', '_master1200', '_master1200'],
+                $json['body']['userIllusts'][$illustId]['url']
+            )
+                ?? ''
+        );
 
         // ページ数の指定がある場合は画像URLをそのページにする
         if ($page != 0) {
