@@ -18,26 +18,59 @@ class IwaraResolverTest extends TestCase
         }
     }
 
-    public function testOldVideoUrl()
+    public function testVideo()
     {
         $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Iwara/video.json');
 
         $this->createResolver(IwaraResolver::class, $responseText);
 
-        $url = 'https://ecchi.iwara.tv/videos/5gd9auxxqkhw3w58o';
+        $url = 'https://www.iwara.tv/video/rdBNaAPKwS3AjZ';
         $metadata = $this->resolver->resolve($url);
-        $this->assertEquals('鹿島とプリンツでLamb【ep5】', $metadata->title);
-        $this->assertEquals('投稿者: nana77 shinshi' . PHP_EOL . 'コメント、like等ありがとうございます。' . PHP_EOL . '対決のルールは不明です。', $metadata->description);
-        $this->assertEquals(['nana77shinshi'], $metadata->tags);
-        $this->assertEquals('https://files.iwara.tv/image/original/f8aaafb8-3c5e-454e-aa14-423a06ce220b/thumbnail-00.jpg', $metadata->image);
+        $this->assertEquals('すーぱー☆あふぇくしょん - そに子 / Super Affection - Sonico', $metadata->title);
+        $this->assertEquals('投稿者: ミュー' . PHP_EOL . '高画質版、別視点などはこちらに' . PHP_EOL . 'https://fantia.jp/fanclubs/246278' . PHP_EOL . 'https://www.patreon.com/mu_mmd', $metadata->description);
+        $this->assertEquals(['bikini', 'blender', 'dance', 'mikumikudance', 'super_sonico', 'user2234567'], $metadata->tags);
+        $this->assertEquals('https://files.iwara.tv/image/original/b2c987ae-206a-4018-b6de-39aca962a272/thumbnail-09.jpg', $metadata->image);
         if ($this->shouldUseMock()) {
-            $this->assertSame('https://api.iwara.tv/video/5gd9auxxqkhw3w58o', (string) $this->handler->getLastRequest()->getUri());
+            $this->assertSame('https://api.iwara.tv/video/rdBNaAPKwS3AjZ', (string) $this->handler->getLastRequest()->getUri());
         }
     }
 
-    public function testOldVideoUrlYouTube()
+    public function testVideoOldUrl()
     {
-        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Iwara/youtube.json');
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Iwara/video.json');
+
+        $this->createResolver(IwaraResolver::class, $responseText);
+
+        $url = 'https://ecchi.iwara.tv/videos/rdBNaAPKwS3AjZ';
+        $metadata = $this->resolver->resolve($url);
+        $this->assertEquals('すーぱー☆あふぇくしょん - そに子 / Super Affection - Sonico', $metadata->title);
+        $this->assertEquals('投稿者: ミュー' . PHP_EOL . '高画質版、別視点などはこちらに' . PHP_EOL . 'https://fantia.jp/fanclubs/246278' . PHP_EOL . 'https://www.patreon.com/mu_mmd', $metadata->description);
+        $this->assertEquals(['bikini', 'blender', 'dance', 'mikumikudance', 'super_sonico', 'user2234567'], $metadata->tags);
+        $this->assertEquals('https://files.iwara.tv/image/original/b2c987ae-206a-4018-b6de-39aca962a272/thumbnail-09.jpg', $metadata->image);
+        if ($this->shouldUseMock()) {
+            $this->assertSame('https://api.iwara.tv/video/rdBNaAPKwS3AjZ', (string) $this->handler->getLastRequest()->getUri());
+        }
+    }
+
+    public function testVideoUrlYoutubeCom()
+    {
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Iwara/youtube-com.json');
+
+        $this->createResolver(IwaraResolver::class, $responseText);
+
+        $url = 'https://iwara.tv/videos/6e0loc1av2hjkjknn';
+        $metadata = $this->resolver->resolve($url);
+        $this->assertEquals('MMD Genshin impact R18 - Eula - Jessi zoom', $metadata->title);
+        $this->assertEquals('投稿者: Gangz' . PHP_EOL . 'R18 high quality ver: https://www.patreon.com/posts/69513286' . PHP_EOL . 'R18 720p ver: https://www.patreon.com/posts/69513481', $metadata->description);
+        $this->assertEquals(['dance', 'game', 'genshin_impact', 'sex', 'gangz'], $metadata->tags);
+        $this->assertEquals('https://img.youtube.com/vi/4jY5KaIMAWQ/maxresdefault.jpg', $metadata->image);
+        if ($this->shouldUseMock()) {
+            $this->assertSame('https://api.iwara.tv/video/6e0loc1av2hjkjknn', (string) $this->handler->getLastRequest()->getUri());
+        }
+    }
+    public function testVideoUrlYoutuBe()
+    {
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Iwara/youtu-be.json');
 
         $this->createResolver(IwaraResolver::class, $responseText);
 
@@ -52,13 +85,30 @@ class IwaraResolverTest extends TestCase
         }
     }
 
-    public function testOldImageUrl()
+    public function testImage()
     {
         $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Iwara/image.json');
 
         $this->createResolver(IwaraResolver::class, $responseText);
 
         $url = 'https://www.iwara.tv/image/Mpf9JAonH9rTjG/';
+        $metadata = $this->resolver->resolve($url);
+        $this->assertEquals('鏡音りん18歳', $metadata->title);
+        $this->assertEquals('投稿者: Lion MUSASHI' . PHP_EOL . '今回はあんまエロくないです。', $metadata->description);
+        $this->assertEquals(['lionmusashi'], $metadata->tags);
+        $this->assertEquals('https://files.iwara.tv/image/large/bb970f8e-3dec-47b5-a8cf-b85abb32f13a/jing_yin_rin18sui_a.jpg', $metadata->image);
+        if ($this->shouldUseMock()) {
+            $this->assertSame('https://api.iwara.tv/image/Mpf9JAonH9rTjG', (string) $this->handler->getLastRequest()->getUri());
+        }
+    }
+
+    public function testImageOldUrl()
+    {
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Iwara/image.json');
+
+        $this->createResolver(IwaraResolver::class, $responseText);
+
+        $url = 'https://iwara.tv/images/Mpf9JAonH9rTjG/';
         $metadata = $this->resolver->resolve($url);
         $this->assertEquals('鏡音りん18歳', $metadata->title);
         $this->assertEquals('投稿者: Lion MUSASHI' . PHP_EOL . '今回はあんまエロくないです。', $metadata->description);
