@@ -68,6 +68,7 @@ class IwaraResolverTest extends TestCase
             $this->assertSame('https://api.iwara.tv/video/6e0loc1av2hjkjknn', (string) $this->handler->getLastRequest()->getUri());
         }
     }
+
     public function testVideoUrlYoutuBe()
     {
         $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Iwara/youtu-be.json');
