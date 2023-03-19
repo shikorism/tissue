@@ -57,7 +57,6 @@ class IwaraResolver implements Resolver
                             break;
                         default:
                             throw new \RuntimeException("Unsupported embed type: {$json['embedUrl']} in $url");
-                            break;
                     }
                 } else {
                     // 通常のアップロードされた動画
