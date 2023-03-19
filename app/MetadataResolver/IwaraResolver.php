@@ -38,7 +38,7 @@ class IwaraResolver implements Resolver
         $metadata->tags = array_values(array_diff(array_column($json['tags'], 'id'), $excludeTags));
         // 投稿者のusernameをタグに追加する
         // nameにはスペースなどの空白が含まれていることがあるためusernameを使用する
-        array_push($metadata->tags, $json['user']['username']);
+        $metadata->tags[] = $json['user']['username'];
 
         switch ($m['type']) {
             case 'video':
