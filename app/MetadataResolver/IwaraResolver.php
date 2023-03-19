@@ -3,7 +3,6 @@
 namespace App\MetadataResolver;
 
 use GuzzleHttp\Client;
-use Symfony\Component\DomCrawler\Crawler;
 
 class IwaraResolver implements Resolver
 {
@@ -19,40 +18,62 @@ class IwaraResolver implements Resolver
 
     public function resolve(string $url): Metadata
     {
-        $res = $this->client->get($url);
+        preg_match('~iwara\.tv/(?P<type>video|image)[s]?/(?P<id>\w+)~', $url, $m);
+
+        if (!isset($m['type']) || !isset($m['id'])) {
+            throw new \RuntimeException("Invalid URL: $url");
+        }
+
         $metadata = new Metadata();
-        $html = (string) $res->getBody();
-        $crawler = new Crawler($html);
 
-        $infoElements = $crawler->filter('#video-player + div, .field-name-field-video-url + div, .field-name-field-images + div');
-        $title = $infoElements->filter('h1.title')->text();
-        $author = $infoElements->filter('.username')->text();
-        $description = $infoElements->filter('.field-type-text-with-summary')->text('');
-        $tags =  $infoElements->filter('a[href^="/videos"], a[href^="/images"]')->extract('_text');
-        // 役に立たないタグを削除する
-        $tags = array_values(array_diff($tags, ['Uncategorized', 'Other']));
-        array_push($tags, $author);
+        $apiUrl = "https://api.iwara.tv/{$m['type']}/{$m['id']}";
+        $res = $this->client->get($apiUrl);
+        $json = json_decode($res->getBody(), true);
 
-        $metadata->title = $title;
-        $metadata->description = '投稿者: ' . $author . PHP_EOL . trim($description);
-        $metadata->tags = $tags;
+        $metadata->title = $json['title'];
+        $metadata->description = "投稿者: {$json['user']['name']}" . PHP_EOL . trim(str_replace("\n\n", "\n", $json['body']));
 
-        // iwara video
-        if ($crawler->filter('#video-player')->count()) {
-            $metadata->image = 'https:' . $crawler->filter('#video-player')->attr('poster');
-        }
+        $excludeTags = ['uncategorized', 'other'];
+        // excludeTagsのidを持つタグを除外し、配列のindexを0から再構成する
+        $metadata->tags = array_values(array_diff(array_column($json['tags'], 'id'), $excludeTags));
+        // 投稿者のusernameをタグに追加する
+        // nameにはスペースなどの空白が含まれていることがあるためusernameを使用する
+        array_push($metadata->tags, $json['user']['username']);
 
-        // youtube
-        if ($crawler->filter('iframe[src^="//www.youtube.com"]')->count()) {
-            if (preg_match('~youtube\.com/embed/(\S+)\?~', $crawler->filter('iframe[src^="//www.youtube.com"]')->attr('src'), $matches) === 1) {
-                $youtubeId = $matches[1];
-                $metadata->image = 'https://img.youtube.com/vi/' . $youtubeId . '/maxresdefault.jpg';
-            }
-        }
+        switch ($m['type']) {
+            case 'video':
+                if ($json['embedUrl']) {
+                    // 埋め込みタイプの動画
+                    // 過去にはvimeoに対応していたが現在ではYouTubeのみ対応している
+                    switch (parse_url($json['embedUrl'], PHP_URL_HOST)) {
+                        case 'www.youtube.com':
+                            parse_str(parse_url($json['embedUrl'], PHP_URL_QUERY), $params);
+                            $id = $params['v'];
+                            $metadata->image = "https://img.youtube.com/vi/{$id}/maxresdefault.jpg";
+                            break;
+                        case 'youtu.be':
+                            $id = basename($json['embedUrl']);
+                            $metadata->image = "https://img.youtube.com/vi/{$id}/maxresdefault.jpg";
+                            break;
+                        default:
+                            throw new \RuntimeException("Unsupported embed type: {$json['embedUrl']} in $url");
+                            break;
+                    }
+                } else {
+                    // 通常のアップロードされた動画
+                    $fileNumber = sprintf('%02d', $json['thumbnail']);
+                    $thumbnailUrl = "https://files.iwara.tv/image/original/{$json['file']['id']}/thumbnail-{$fileNumber}.jpg";
+                    $metadata->image = $thumbnailUrl;
+                }
+                break;
 
-        // images
-        if ($crawler->filter('.field-name-field-images')->count()) {
-            $metadata->image = 'https:' . $crawler->filter('.field-name-field-images a')->first()->attr('href');
+            case 'image':
+                $fileName = str_replace('.png', '.jpg', $json['thumbnail']['name']);
+                $metadata->image = "https://files.iwara.tv/image/large/{$json['thumbnail']['id']}/{$fileName}";
+                break;
+
+            default:
+                throw new \RuntimeException("Unsupported type: {$m['type']} in $url");
         }
 
         return $metadata;
