@@ -33,7 +33,7 @@
         "league/csv": "^9.5",
         "misd/linkify": "^1.1",
         "openpear/stream_filter_mbstring": "dev-master",
-        "sentry/sentry-laravel": "^2.4.2",
+        "sentry/sentry-laravel": "^3.3.2",
         "staudenmeir/eloquent-eager-limit": "~1.7.1",
         "symfony/css-selector": "^4.3",
         "symfony/dom-crawler": "4.4.37",
