@@ -14,7 +14,7 @@ class MetadataResolver implements Resolver
         '~komiflo\.com(/#!)?/comics/(\\d+)~' => KomifloResolver::class,
         '~www\.melonbooks\.co\.jp/detail/detail\.php~' => MelonbooksResolver::class,
         '~ec\.toranoana\.(jp|shop)/(tora|joshi)(_[rd]+)?/(ec|digi)/item/~' => ToranoanaResolver::class,
-        '~iwara\.tv/(videos|images)/.*~' => IwaraResolver::class,
+        '~((www|ecchi)\.)?iwara\.tv/(video|image)[s]?/\w+~' => IwaraResolver::class,
         '~www\.dlsite\.com/.*/(work|announce)/=/product_id/..\d+(\.html)?~' => DLsiteResolver::class,
         '~www\.dlsite\.com/.*/dlaf/=(/.+/.+)?/link/work/aid/.+(/id)?/..\d+(\.html)?~' => DLsiteResolver::class,
         '~www\.dlsite\.com/.*/dlaf/=/aid/.+/url/.+~' => DLsiteResolver::class,
@@ -32,7 +32,7 @@ class MetadataResolver implements Resolver
         '~www\.plurk\.com\/p\/.*~' => PlurkResolver::class,
         '~store\.steampowered\.com/app/\d+~' => SteamResolver::class,
         '~ss\.kb10uy\.org/posts/\d+$~' => Kb10uyShortStoryServerResolver::class,
-        '~www\.hentai-foundry\.com/pictures/user/.+/\d+/.+~'=> HentaiFoundryResolver::class,
+        '~www\.hentai-foundry\.com/pictures/user/.+/\d+/.+~' => HentaiFoundryResolver::class,
         '~(www\.)?((mobile|m)\.)?twitter\.com/(#!/)?[0-9a-zA-Z_]{1,15}/status(es)?/([0-9]+)(/photo/[1-4])?/?(\\?.+)?$~' => TwitterResolver::class,
         '~www\.mgstage\.com/~' => MGStageResolver::class,
     ];
