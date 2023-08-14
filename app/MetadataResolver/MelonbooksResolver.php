@@ -26,9 +26,14 @@ class MelonbooksResolver implements Resolver
     {
         $cookieJar = CookieJar::fromArray(['AUTH_ADULT' => '1'], 'www.melonbooks.co.jp');
 
+        $curlopt = [];
+        if (!str_contains(curl_version()['ssl_version'], 'NSS/')) {
+            // OpenSSLを使用している場合、SECLEVELを下げて接続する
+            $curlopt[CURLOPT_SSL_CIPHER_LIST] = 'DEFAULT@SECLEVEL=1';
+        }
         $res = $this->client->get($url, [
             'cookies' => $cookieJar,
-            'curl' => [CURLOPT_SSL_CIPHER_LIST => 'DEFAULT@SECLEVEL=1']
+            'curl' => $curlopt
         ]);
         $metadata = $this->ogpResolver->parse($res->getBody());
 
