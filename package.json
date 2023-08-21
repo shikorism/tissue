@@ -45,7 +45,7 @@
     "js-cookie": "^2.2.0",
     "laravel-mix": "^6.0.49",
     "laravel-mix-bundle-analyzer": "^1.0.2",
-    "lint-staged": "^10.5.3",
+    "lint-staged": "^14.0.1",
     "open-iconic": "^1.1.1",
     "popper.js": "^1.14.7",
     "postcss": "^8.3.1",
