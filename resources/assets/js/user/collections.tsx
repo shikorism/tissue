@@ -53,6 +53,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const [showCreateModal, setShowCreateModal] = useState(false);
+    const [order, setOrder] = useState<'asc' | 'desc'>('asc');
 
     const handleSubmit = async (values: CollectionFormValues) => {
         try {
@@ -95,22 +96,39 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
         <div className="card mb-4">
             <div className="card-header d-flex justify-content-between align-items-center">
                 <span>コレクション</span>
-                {username === me?.name && (
+                <div>
+                    {username === me?.name && (
+                        <Button
+                            variant="link"
+                            className="text-secondary mr-2"
+                            size="sm"
+                            title="追加"
+                            onClick={() => setShowCreateModal(true)}
+                        >
+                            <span className="oi oi-plus" />
+                        </Button>
+                    )}
                     <Button
                         variant="link"
                         className="text-secondary"
                         size="sm"
-                        title="追加"
-                        onClick={() => setShowCreateModal(true)}
+                        title="並べ替え"
+                        onClick={() => setOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'))}
                     >
-                        <span className="oi oi-plus" />
+                        {order === 'asc' ? (
+                            <span className="oi oi-sort-ascending"></span>
+                        ) : (
+                            <span className="oi oi-sort-descending"></span>
+                        )}
                     </Button>
-                )}
+                </div>
             </div>
             <div className="list-group list-group-flush">
-                {collections.map((collection) => (
-                    <SidebarItem key={collection.id} collection={collection} />
-                ))}
+                {collections
+                    .sort((a, b) => (order === 'asc' ? a.id - b.id : b.id - a.id))
+                    .map((collection) => (
+                        <SidebarItem key={collection.id} collection={collection} />
+                    ))}
                 {collections.length === 0 && (
                     <li className="list-group-item d-flex justify-content-between align-items-center" />
                 )}
