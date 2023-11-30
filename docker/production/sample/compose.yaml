@@ -4,6 +4,8 @@ services:
     env_file: .env
     volumes:
       - ./storage:/app/storage
+    extra_hosts:
+      - host.docker.internal:host-gateway
 
   nginx:
     image: ghcr.io/shikorism/tissue-nginx
