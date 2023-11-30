@@ -1,0 +1,71 @@
+name: Build container image
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+    tags:
+      - '**'
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/metadata-action@v5
+        id: meta_foundation
+        with:
+          images: ghcr.io/${{ github.repository }}-foundation
+
+      - uses: docker/build-push-action@v5
+        with:
+          push: true
+          context: .
+          file: ./docker/production/foundation.dockerfile
+          tags: ${{ steps.meta_foundation.outputs.tags }}
+          labels: ${{ steps.meta_foundation.outputs.labels }}
+
+      - uses: docker/metadata-action@v5
+        id: meta_nginx
+        with:
+          images: ghcr.io/${{ github.repository }}-nginx
+
+      - uses: docker/build-push-action@v5
+        with:
+          push: true
+          context: .
+          file: ./docker/production/nginx.dockerfile
+          tags: ${{ steps.meta_nginx.outputs.tags }}
+          labels: ${{ steps.meta_nginx.outputs.labels }}
+          build-args: |
+            TISSUE_FOUNDATION_IMAGE_NAME=${{ steps.meta_foundation.outputs.tags }}
+
+      - uses: docker/metadata-action@v5
+        id: meta_php
+        with:
+          images: ghcr.io/${{ github.repository }}-php
+
+      - uses: docker/build-push-action@v5
+        with:
+          push: true
+          context: .
+          file: ./docker/production/php.dockerfile
+          tags: ${{ steps.meta_php.outputs.tags }}
+          labels: ${{ steps.meta_php.outputs.labels }}
+          build-args: |
+            TISSUE_FOUNDATION_IMAGE_NAME=${{ steps.meta_foundation.outputs.tags }}

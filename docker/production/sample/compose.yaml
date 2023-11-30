@@ -1,0 +1,15 @@
+services:
+  php:
+    image: ghcr.io/shikorism/tissue-php
+    env_file: .env
+    volumes:
+      - ./storage:/app/storage
+
+  nginx:
+    image: ghcr.io/shikorism/tissue-nginx
+    environment:
+      PHP_APP_HOST: php
+    ports:
+      - 127.0.0.1:4545:80
+    depends_on:
+      - php
