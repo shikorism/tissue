@@ -1,6 +1,7 @@
 services:
   php:
     image: ghcr.io/shikorism/tissue-php
+    restart: always
     env_file: .env
     volumes:
       - ./storage:/app/storage
@@ -9,6 +10,7 @@ services:
 
   nginx:
     image: ghcr.io/shikorism/tissue-nginx
+    restart: always
     environment:
       PHP_APP_HOST: php
     ports:
