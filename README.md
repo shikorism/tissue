@@ -7,15 +7,17 @@ a.k.a. shikorism.net
 
 ## 構成
 
-- Laravel 6
-- Bootstrap 4.4.1
+- Laravel 9
+- Bootstrap 4.5.0
 
 ## 実行環境
 
 - PHP 8.0
 - PostgreSQL 14
-  - ⚠️ 2021年11月以前に環境を構築したことがある場合、移行作業が必要です！  
-    [開発環境向けの移行手順](https://github.com/shikorism/tissue/issues/752#issuecomment-939257394) を参考にしてください。
+
+> [!WARNING]
+> 2021年11月以前に環境を構築したことがある場合、移行作業が必要です！
+> [開発環境向けの移行手順](https://github.com/shikorism/tissue/issues/752#issuecomment-939257394) を参考にしてください。
 
 ## 開発環境の構築
 
@@ -26,34 +28,34 @@ Docker を用いた開発環境の構築方法です。
 2. Docker イメージをビルドします
 
 ```
-docker-compose build
+docker compose build
 ```
 
 3. Docker コンテナを起動します。
 
 ```
-docker-compose up -d
+docker compose up -d
 ```
 
 4. Composer と yarn を使い必要なライブラリをインストールします。
 
 ```
-docker-compose exec web composer install
-docker-compose exec web yarn install
+docker compose exec web composer install
+docker compose exec web yarn install
 ```
 
 5. 暗号化キーの作成と、データベースのマイグレーションおよびシーディングを行います。
 
 ```
-docker-compose exec web php artisan key:generate
-docker-compose exec web php artisan migrate
-docker-compose exec web php artisan db:seed
+docker compose exec web php artisan key:generate
+docker compose exec web php artisan migrate
+docker compose exec web php artisan db:seed
 ```
 
 6. OAuth2サーバ設定の初期化を行います。
 
 ```
-docker-compose exec web php artisan passport:install
+docker compose exec web php artisan passport:install
 ```
 
 コマンドを実行すると、次のようなメッセージが出力されます。**この内容は控えておいてください。**
@@ -82,20 +84,20 @@ PASSPORT_PERSONAL_ACCESS_CLIENT_SECRET=xxxxxxxx
 8. ファイルに書き込めるように権限を設定します。
 
 ```
-docker-compose exec web chown -R www-data /var/www/html/storage
+docker compose exec web chown -R www-data /var/www/html/storage
 ```
 
 9. アセットをビルドします。
 
 ```
-docker-compose exec web yarn dev
+docker compose exec web yarn dev
 ```
 
 
 10. 最後に `.env` を読み込み直すために起動し直します。
 
 ```
-docker-compose up -d
+docker compose up -d
 ```
 
 これで準備は完了です。Tissue が動いていれば `http://localhost:4545/` でアクセスができます。
@@ -103,7 +105,7 @@ docker-compose up -d
 ## デバッグ実行
 
 ```
-docker-compose -f docker-compose.yml -f docker-compose.debug.yml up -d
+docker compose -f docker compose.yml -f docker compose.debug.yml up -d
 ```
 
 で起動することにより、DB のポート`5432`を開放してホストマシンから接続できるようになります。
@@ -111,7 +113,7 @@ docker-compose -f docker-compose.yml -f docker-compose.debug.yml up -d
 ## アセットのリアルタイムビルド
 `yarn watch`を使うとソースファイルを監視して差分があると差分ビルドしてくれます。フロント開発時は活用しましょう。
 ```
-docker-compose run --rm web yarn watch
+docker compose run --rm web yarn watch
 ```
 
 もしファイル変更時に更新されない場合は`yarn watch-poll`を試してみてください。  
@@ -124,10 +126,5 @@ docker-compose run --rm web yarn watch
 テストは以下のコマンドで実行できます。
 
 ```
-docker-compose exec web composer test
+docker compose exec web composer test
 ```
-
-## 環境構築上の諸注意
-
-- 初版時点では、DB サーバとして PostgreSQL を使うよう .env ファイルを設定するくらいです。
-  当分、PostgreSQL から変える気はないので専用 SQL 等を平気で使います。
