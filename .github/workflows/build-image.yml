@@ -34,6 +34,11 @@ jobs:
         id: meta_foundation
         with:
           images: ghcr.io/${{ github.repository }}-foundation
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
 
       - uses: docker/build-push-action@v5
         with:
@@ -49,6 +54,11 @@ jobs:
         id: meta_nginx
         with:
           images: ghcr.io/${{ github.repository }}-nginx
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
 
       - uses: docker/build-push-action@v5
         with:
@@ -66,6 +76,11 @@ jobs:
         id: meta_php
         with:
           images: ghcr.io/${{ github.repository }}-php
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
 
       - uses: docker/build-push-action@v5
         with:
