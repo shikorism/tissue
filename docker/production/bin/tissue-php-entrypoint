@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+# init storage
+STORAGE=/app/storage
+install -o www-data -g www-data -m 0755 -d \
+    $STORAGE \
+    $STORAGE/app{,/public} \
+    $STORAGE/framework{,/cache,/cache/data,/sessions,/views} \
+    $STORAGE/logs
+
+exec docker-php-entrypoint "$@"
