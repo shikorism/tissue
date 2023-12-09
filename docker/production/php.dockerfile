@@ -14,5 +14,6 @@ COPY --from=foundation --chown=www-data:www-data /app /app
 COPY ./docker/production/bin/tissue-php-entrypoint /usr/local/bin/
 COPY ./docker/production/config/php.ini "$PHP_INI_DIR/php.ini"
 
+WORKDIR /app
 ENTRYPOINT ["tissue-php-entrypoint"]
 CMD ["php-fpm"]

@@ -9,4 +9,9 @@ install -o www-data -g www-data -m 0755 -d \
     $STORAGE/framework{,/cache,/cache/data,/sessions,/views} \
     $STORAGE/logs
 
+# optimize
+php artisan config:cache
+#php artisan route:cache
+php artisan view:cache
+
 exec docker-php-entrypoint "$@"
