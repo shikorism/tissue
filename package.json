@@ -49,7 +49,7 @@
     "open-iconic": "^1.1.1",
     "popper.js": "^1.14.7",
     "postcss": "^8.4.31",
-    "postcss-scss": "^4.0.4",
+    "postcss-scss": "^4.0.9",
     "prettier": "^2.4.1",
     "qs": "^6.11.0",
     "react": "^17.0.2",
