@@ -1,4 +1,4 @@
-// Bootstrap Variable Overlide
+// Bootstrap Variable Override
 $primary: #e53fb1;
 
 // Bootstrap
@@ -44,4 +44,8 @@ $primary: #e53fb1;
     color: #fff;
     background-color: #e53fb1;
     border-radius: 0.5rem;
+}
+
+.text-large {
+    font-size: large;
 }

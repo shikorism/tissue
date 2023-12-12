@@ -7,7 +7,7 @@
         <div class="tis-profile-mini-name">
             <a class="text-muted" href="{{ route('user.profile', ['name' => $user->name]) }}">&commat;{{ $user->name }}</a>
             @if ($user->is_protected)
-                <span class="oi oi-lock-locked text-muted"></span>
+                <i class="ti ti-lock text-muted"></i>
             @endif
         </div>
     </div>

@@ -1,4 +1,4 @@
-<h6 class="font-weight-bold"><span class="oi oi-timer"></span> 現在のセッション</h6>
+<h6 class="font-weight-bold"><i class="ti ti-clock-play"></i> 現在のセッション</h6>
 @if (isset($currentSession))
     <p class="card-text mb-0">{{ $currentSession }}経過</p>
     <p class="card-text">({{ $latestEjaculation->ejaculated_date->format('Y/m/d H:i') }} にリセット)</p>
@@ -7,7 +7,7 @@
     <p class="card-text">(一度チェックインすると始まります)</p>
 @endif
 
-<h6 class="font-weight-bold"><span class="oi oi-graph"></span> 概況</h6>
+<h6 class="font-weight-bold"><i class="ti ti-timeline"></i> 概況</h6>
 <table class="tis-profile-stats-table">
     <tr>
         <th>平均記録</th>

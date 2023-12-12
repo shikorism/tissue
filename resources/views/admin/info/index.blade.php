@@ -22,7 +22,7 @@
                 <tr>
                     <td>
                         @if ($info->pinned)
-                            <span class="badge badge-secondary"><span class="oi oi-pin"></span>ピン留め</span>
+                            <span class="badge badge-secondary"><i class="ti ti-pinned-filled"></i>ピン留め</span>
                         @endif
                         <span class="badge {{ $categories[$info->category]['class'] }}">{{ $categories[$info->category]['label'] }}</span>
                     </td>

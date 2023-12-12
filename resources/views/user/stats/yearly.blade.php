@@ -31,13 +31,13 @@
                     @component('components.link-card', ['link' => $item->normalized_link, 'is_too_sensitive' => false])
                     @endcomponent
                     <p class="d-flex align-items-baseline mb-2 col-12 px-0">
-                        <span class="oi oi-link-intact mr-1"></span><a class="overflow-hidden" href="{{ $item->normalized_link }}" target="_blank" rel="noopener">{{ $item->normalized_link }}</a>
+                        <i class="ti ti-link mr-1"></i><a class="overflow-hidden" href="{{ $item->normalized_link }}" target="_blank" rel="noopener">{{ $item->normalized_link }}</a>
                     </p>
                 </div>
                 <div class="ejaculation-actions">
-                    <button type="button" class="btn btn-link text-secondary"
+                    <button type="button" class="btn text-secondary"
                             data-toggle="tooltip" data-placement="bottom"
-                            title="同じオカズでチェックイン" data-href="{{ route('checkin', ['link' => $item->normalized_link]) }}"><span class="oi oi-reload"></span></button>
+                            title="同じオカズでチェックイン" data-href="{{ route('checkin', ['link' => $item->normalized_link]) }}"><i class="ti ti-reload"></i></button>
                 </div>
             </li>
         @empty

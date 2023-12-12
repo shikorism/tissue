@@ -5,7 +5,7 @@
 @section('tab-content')
 @if (($user->is_protected || $user->private_likes) && !$user->isMe())
     <p class="mt-4">
-        <span class="oi oi-lock-locked"></span> このユーザはいいね一覧を公開していません。
+        <i class="ti ti-lock"></i> このユーザはいいね一覧を公開していません。
     </p>
 @else
     <ul class="list-group">
