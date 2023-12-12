@@ -14,8 +14,8 @@ RUN apt-get update \
     && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf \
     && a2enmod rewrite
 
-COPY dist/bin /usr/local/bin/
-COPY dist/php.d /usr/local/etc/php/php.d/
+COPY ../../dist/bin /usr/local/bin/
+COPY ../../dist/php.d /usr/local/etc/php/php.d/
 
 COPY --from=node /usr/local/bin/node /usr/local/bin/
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules

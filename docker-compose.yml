@@ -2,7 +2,9 @@ version: "3"
 
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: docker/development/web.dockerfile
     env_file:
       - .env
     volumes:
@@ -28,7 +30,7 @@ services:
   antlr:
     build:
       context: .
-      dockerfile: antlr.Dockerfile
+      dockerfile: docker/development/antlr.dockerfile
     volumes:
       - .:/app
     working_dir: /app
