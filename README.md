@@ -105,7 +105,7 @@ docker compose up -d
 ## デバッグ実行
 
 ```
-docker compose -f docker compose.yml -f docker compose.debug.yml up -d
+docker compose -f compose.yaml -f compose.debug.yaml up -d
 ```
 
 で起動することにより、DB のポート`5432`を開放してホストマシンから接続できるようになります。
