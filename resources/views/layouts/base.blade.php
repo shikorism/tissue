@@ -73,7 +73,7 @@
                         <div class="input-group">
                             <input type="search" name="q" class="form-control" placeholder="検索..." value="{{ stripos(Route::currentRouteName(), 'search') === 0 ? $inputs['q'] : '' }}" required>
                             <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="submit"><span class="oi oi-magnifying-glass" aria-hidden="true"></span><span class="sr-only">検索</span></button>
+                                <button class="btn btn-outline-secondary" type="submit"><i class="ti ti-search" aria-hidden="true"></i><span class="sr-only">検索</span></button>
                             </div>
                         </div>
                     </form>
