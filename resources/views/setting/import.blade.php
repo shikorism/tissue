@@ -18,7 +18,7 @@
         </div>
         @if (session('import_errors'))
             <div class="alert alert-danger">
-                <p class="alert-heading"><span class="oi oi-warning"></span> <strong>インポートに失敗しました</strong></p>
+                <p class="alert-heading"><i class="ti ti-alert-triangle font-weight-normal"></i> <strong>インポートに失敗しました</strong></p>
                 @foreach (session('import_errors') as $err)
                     <p class="mb-0">{{ $err }}</p>
                 @endforeach

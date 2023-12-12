@@ -112,7 +112,7 @@ const ItemEditModal: React.FC<ItemEditModalProps> = ({ item, onUpdate, show, onH
                     <div className="form-row">
                         <div className="form-group col-sm-12">
                             <label htmlFor="link">
-                                <span className="oi oi-link-intact" /> オカズリンク
+                                <i className="ti ti-link" /> オカズリンク
                             </label>
                             <input
                                 type="text"
@@ -133,7 +133,7 @@ const ItemEditModal: React.FC<ItemEditModalProps> = ({ item, onUpdate, show, onH
                     <div className="form-row">
                         <div className="form-group col-sm-12">
                             <label htmlFor="tagInput">
-                                <span className="oi oi-tags" /> タグ
+                                <i className="ti ti-tags" /> タグ
                             </label>
                             <TagInput
                                 id="tagInput"
@@ -151,7 +151,7 @@ const ItemEditModal: React.FC<ItemEditModalProps> = ({ item, onUpdate, show, onH
                     <div className="form-row">
                         <div className="form-group col-sm-12">
                             <label htmlFor="note">
-                                <span className="oi oi-comment-square" /> ノート
+                                <i className="ti ti-message-circle" /> ノート
                             </label>
                             <textarea
                                 id="note"
@@ -226,7 +226,7 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
             <div className="row mx-0">
                 <LinkCard link={item.link} />
                 <p className="d-flex align-items-baseline mb-2 col-12 px-0">
-                    <span className="oi oi-link-intact mr-1" />
+                    <i className="ti ti-link mr-1" />
                     <a className="overflow-hidden" href={item.link} target="_blank" rel="noopener noreferrer">
                         {item.link}
                     </a>
@@ -240,7 +240,7 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
                             className="badge badge-secondary"
                             href={`/search/collection?q=${encodeURIComponent(tag)}`}
                         >
-                            <span className="oi oi-tag" /> {tag}
+                            <i className="ti ti-tag" /> {tag}
                         </a>
                     ))}
                 </p>
@@ -255,10 +255,10 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
                 >
                     <button
                         type="button"
-                        className="btn btn-link text-secondary"
+                        className="btn text-secondary"
                         onClick={() => (location.href = item.checkin_url)}
                     >
-                        <span className="oi oi-check" />
+                        <i className="ti ti-send" />
                     </button>
                 </OverlayTrigger>
                 {me && (
@@ -275,21 +275,17 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
                 {username === me?.name && (
                     <>
                         <OverlayTrigger placement="bottom" overlay={<Tooltip id={`edit_${item.id}`}>編集</Tooltip>}>
-                            <button
-                                type="button"
-                                className="btn btn-link text-secondary"
-                                onClick={() => setShowEditModal(true)}
-                            >
-                                <span className="oi oi-pencil" />
+                            <button type="button" className="btn text-secondary" onClick={() => setShowEditModal(true)}>
+                                <i className="ti ti-edit" />
                             </button>
                         </OverlayTrigger>
                         <OverlayTrigger placement="bottom" overlay={<Tooltip id={`delete_${item.id}`}>削除</Tooltip>}>
                             <button
                                 type="button"
-                                className="btn btn-link text-secondary"
+                                className="btn text-secondary"
                                 onClick={() => setShowDeleteModal(true)}
                             >
-                                <span className="oi oi-trash" />
+                                <i className="ti ti-trash" />
                             </button>
                         </OverlayTrigger>
                     </>
@@ -390,12 +386,12 @@ const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdat
                     <p className="mb-3">
                         {collection.is_private ? (
                             <small className="text-secondary">
-                                <span className="oi oi-lock-locked mr-1" />
+                                <i className="ti ti-lock mr-1" />
                                 非公開コレクション
                             </small>
                         ) : (
                             <small className="text-secondary">
-                                <span className="oi oi-lock-unlocked mr-1" />
+                                <i className="ti ti-lock-open mr-1" />
                                 公開コレクション
                             </small>
                         )}
@@ -409,7 +405,7 @@ const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdat
                             size="sm"
                             href={`/collect?collection=${collection.id}`}
                         >
-                            <span className="oi oi-plus mr-2" />
+                            <i className="ti ti-plus mr-2" />
                             オカズを追加
                         </Button>
                         <Button
@@ -418,11 +414,11 @@ const CollectionHeader: React.FC<CollectionHeaderProps> = ({ collection, onUpdat
                             size="sm"
                             onClick={() => setShowEditModal(true)}
                         >
-                            <span className="oi oi-wrench mr-2" />
+                            <i className="ti ti-edit mr-2" />
                             設定
                         </Button>
                         <Button variant="outline-secondary" size="sm" onClick={() => setShowDeleteModal(true)}>
-                            <span className="oi oi-trash mr-2" />
+                            <i className="ti ti-trash mr-2" />
                             削除
                         </Button>
                     </div>

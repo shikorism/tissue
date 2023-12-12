@@ -10,8 +10,8 @@ import {
 } from './CollectionEditModal';
 
 const ToggleButton = React.forwardRef<HTMLButtonElement>((props, ref) => (
-    <Button {...props} ref={ref} variant="link" className="text-secondary">
-        <span className="oi oi-plus" />
+    <Button {...props} ref={ref} variant="" className="text-secondary">
+        <i className="ti ti-folder-plus" />
     </Button>
 ));
 ToggleButton.displayName = 'ToggleButton';
@@ -110,7 +110,7 @@ export const AddToCollectionButton: React.FC<AddToCollectionButtonProps> = ({
                         ))}
                         <Dropdown.Divider />
                         <Dropdown.Item eventKey="new">
-                            <span className="oi oi-plus mr-2 text-secondary" />
+                            <i className="ti ti-plus mr-2 text-secondary" />
                             新しいコレクションに追加
                         </Dropdown.Item>
                     </>

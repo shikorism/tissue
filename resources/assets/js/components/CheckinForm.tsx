@@ -109,7 +109,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
             <div className="form-row">
                 <div className="form-group col-sm-12">
                     <label htmlFor="link">
-                        <span className="ti ti-link" /> オカズリンク
+                        <i className="ti ti-link" /> オカズリンク
                     </label>
                     <input
                         type="text"
@@ -130,7 +130,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
             <div className="form-row">
                 <div className="form-group col-sm-12">
                     <label htmlFor="note">
-                        <span className="ti ti-message-circle" /> ノート
+                        <i className="ti ti-message-circle" /> ノート
                     </label>
                     <textarea
                         id="note"
@@ -154,7 +154,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
                         checked={isPrivate}
                         onChange={(v) => setPrivate(v)}
                     >
-                        <span className="ti ti-lock" /> このチェックインを非公開にする
+                        <i className="ti ti-lock" /> このチェックインを非公開にする
                     </CheckBox>
                     <CheckBox
                         id="isTooSensitive"
@@ -163,8 +163,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
                         checked={isTooSensitive}
                         onChange={(v) => setTooSensitive(v)}
                     >
-                        <span className="ti ti-alert-triangle" />{' '}
-                        チェックイン対象のオカズをより過激なオカズとして設定する
+                        <i className="ti ti-alert-triangle" /> チェックイン対象のオカズをより過激なオカズとして設定する
                     </CheckBox>
                     <CheckBox
                         id="discardElapsedTime"
@@ -173,7 +172,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
                         checked={discardElapsedTime}
                         onChange={(v) => setDiscardElapsedTime(v)}
                     >
-                        <span className="ti ti-clock-x" /> 前回チェックインからの経過時間を記録しない
+                        <i className="ti ti-clock-x" /> 前回チェックインからの経過時間を記録しない
                         <br />
                         <small className="form-text text-muted">
                             長期間お使いにならなかった場合など、経過時間に意味が無い時のリセット用オプションです。

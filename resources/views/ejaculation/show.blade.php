@@ -17,13 +17,13 @@
             @if ($user->is_protected && !$user->isMe())
                 <div class="card">
                     <div class="card-body">
-                        <span class="oi oi-lock-locked"></span> このユーザはチェックイン履歴を公開していません。
+                        <i class="ti ti-lock"></i> このユーザはチェックイン履歴を公開していません。
                     </div>
                 </div>
             @elseif ($ejaculation->is_private && !$user->isMe())
                 <div class="card">
                     <div class="card-body">
-                        <span class="oi oi-lock-locked"></span> 非公開チェックインのため、表示できません
+                        <i class="ti ti-lock"></i> 非公開チェックインのため、表示できません
                     </div>
                 </div>
             @else
