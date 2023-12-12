@@ -50,7 +50,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
                 )}
                 <div className="form-group col-sm-6">
                     <label htmlFor="date">
-                        <span className="oi oi-calendar" /> 日付
+                        <i className="ti ti-calendar-event" /> 日付
                     </label>
                     <input
                         type="text"
@@ -70,7 +70,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
                 </div>
                 <div className="form-group col-sm-6">
                     <label htmlFor="time">
-                        <span className="oi oi-clock" /> 時刻
+                        <i className="ti ti-clock" /> 時刻
                     </label>
                     <input
                         type="text"
@@ -93,7 +93,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
             <div className="form-row">
                 <div className="form-group col-sm-12">
                     <label htmlFor="tagInput">
-                        <span className="oi oi-tags" /> タグ
+                        <i className="ti ti-tags" /> タグ
                     </label>
                     <TagInput
                         id="tagInput"
@@ -109,7 +109,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
             <div className="form-row">
                 <div className="form-group col-sm-12">
                     <label htmlFor="link">
-                        <span className="oi oi-link-intact" /> オカズリンク
+                        <span className="ti ti-link" /> オカズリンク
                     </label>
                     <input
                         type="text"
@@ -130,7 +130,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
             <div className="form-row">
                 <div className="form-group col-sm-12">
                     <label htmlFor="note">
-                        <span className="oi oi-comment-square" /> ノート
+                        <span className="ti ti-message-circle" /> ノート
                     </label>
                     <textarea
                         id="note"
@@ -154,7 +154,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
                         checked={isPrivate}
                         onChange={(v) => setPrivate(v)}
                     >
-                        <span className="oi oi-lock-locked" /> このチェックインを非公開にする
+                        <span className="ti ti-lock" /> このチェックインを非公開にする
                     </CheckBox>
                     <CheckBox
                         id="isTooSensitive"
@@ -163,7 +163,8 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
                         checked={isTooSensitive}
                         onChange={(v) => setTooSensitive(v)}
                     >
-                        <span className="oi oi-warning" /> チェックイン対象のオカズをより過激なオカズとして設定する
+                        <span className="ti ti-alert-triangle" />{' '}
+                        チェックイン対象のオカズをより過激なオカズとして設定する
                     </CheckBox>
                     <CheckBox
                         id="discardElapsedTime"
@@ -172,7 +173,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
                         checked={discardElapsedTime}
                         onChange={(v) => setDiscardElapsedTime(v)}
                     >
-                        <span className="oi oi-timer" /> 前回チェックインからの経過時間を記録しない
+                        <span className="ti ti-clock-x" /> 前回チェックインからの経過時間を記録しない
                         <br />
                         <small className="form-text text-muted">
                             長期間お使いにならなかった場合など、経過時間に意味が無い時のリセット用オプションです。
