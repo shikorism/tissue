@@ -1,8 +1,7 @@
 .ejaculation-actions {
     button {
-        font-size: 1.4em;
-
         & > i {
+            font-size: 1.4em;
             font-weight: normal;
         }
     }
@@ -18,6 +17,7 @@
 
 .like-count:not(:empty) {
   padding-left: 0.5rem;
+  vertical-align: top;
 }
 
 .like-users {
