@@ -106,7 +106,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
                             title="追加"
                             onClick={() => setShowCreateModal(true)}
                         >
-                            <i className="ti ti-plus font-weight-normal text-large" />
+                            <i className="ti ti-plus text-large" />
                         </Button>
                     )}
                     <Button
@@ -117,9 +117,9 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
                         onClick={() => setOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'))}
                     >
                         {order === 'asc' ? (
-                            <i className="ti ti-sort-ascending-letters font-weight-normal text-large"></i>
+                            <i className="ti ti-sort-ascending-letters text-large"></i>
                         ) : (
-                            <i className="ti ti-sort-descending-letters font-weight-normal text-large"></i>
+                            <i className="ti ti-sort-descending-letters text-large"></i>
                         )}
                     </Button>
                 </div>

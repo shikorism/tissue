@@ -5,7 +5,7 @@
             <a class="text-dark" href="{{ route('user.profile', ['name' => $user->name]) }}">{{ $user->display_name }}</a>
         </h4>
         <h6 class="card-subtitle">
-            <a class="text-muted font-weight-normal" href="{{ route('user.profile', ['name' => $user->name]) }}">&commat;{{ $user->name }}</a>
+            <a class="text-muted" href="{{ route('user.profile', ['name' => $user->name]) }}">&commat;{{ $user->name }}</a>
             @if ($user->is_protected)
                 <i class="ti ti-lock text-muted"></i>
             @endif
