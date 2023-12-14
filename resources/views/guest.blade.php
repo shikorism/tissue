@@ -12,7 +12,7 @@
 <div class="container">
     <div class="row py-4">
         <div class="col-lg-4">
-            <h1 class="text-center text-secondary display-1"><span class="ti ti-ballpen font-weight-normal"></span></h1>
+            <h1 class="text-center text-secondary display-1"><span class="ti ti-ballpen"></span></h1>
         </div>
         <div class="col-lg-8">
             <h4 class="text-center text-lg-left mb-4">思い出を残す</h4>
@@ -21,7 +21,7 @@
     </div>
     <div class="row py-4">
         <div class="col-lg-4">
-            <h1 class="text-center text-secondary display-1"><i class="ti ti-timeline font-weight-normal"></i></h1>
+            <h1 class="text-center text-secondary display-1"><i class="ti ti-timeline"></i></h1>
         </div>
         <div class="col-lg-8">
             <h4 class="text-center text-lg-left mb-4">自分を知る</h4>
