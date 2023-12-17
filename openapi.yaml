@@ -4,7 +4,10 @@ info:
   description: |
     夜のライフログサービス Tissue の公開API仕様です。
     全てのAPIのURLは `https://shikorism.net/api` から始まります。
-  version: 0.2.0
+
+    一部APIではドキュメントに無いプロパティを応答する場合がありますが、これは正式な仕様ではありません。
+    予告なく削除する可能性がありますので**使用しないでください**。
+  version: 0.3.0
 servers:
   - url: 'https://shikorism.net/api'
 tags:
@@ -14,6 +17,8 @@ tags:
     description: ユーザー情報に関する操作
   - name: checkin
     description: チェックインに関する操作
+  - name: collection
+    description: コレクションに関する操作
 paths:
   /webhooks/checkin/{id}:
     post:
@@ -200,6 +205,51 @@ paths:
           description: ユーザーがチェックイン履歴を公開していない場合
         404:
           description: 存在しないユーザー
+  /v1/users/{name}/collections:
+    get:
+      summary: コレクション一覧の取得
+      description: 指定したユーザーのコレクション一覧を取得します。
+      tags:
+        - users
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: ユーザー名
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: ページ番号
+          schema:
+            type: integer
+            default: 1
+        - name: per_page
+          in: query
+          description: 1ページあたりのアイテム数
+          schema:
+            type: integer
+            default: 20
+            minimum: 10
+            maximum: 100
+      responses:
+        200:
+          description: 成功
+          headers:
+            X-Total-Count:
+              description: 全体のアイテム数
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Collection'
+        403:
+          description: ユーザーがチェックイン履歴を公開していない場合
+        404:
+          description: 存在しないユーザー
   /v1/checkins:
     post:
       summary: チェックインの作成
@@ -339,6 +389,303 @@ paths:
           description: 成功、または既に存在しない場合
         403:
           description: 自分以外のチェックインに対して操作を試みた場合
+  /v1/collections:
+    post:
+      summary: コレクションの作成
+      description: 新規コレクションを作成します。
+      tags:
+        - collection
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCollection'
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+        422:
+          description: バリデーションエラー
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - error
+                properties:
+                  status:
+                    type: number
+                    description: HTTPステータスコードと同じ値
+                    example: 422
+                  error:
+                    $ref: '#/components/schemas/ValidationError'
+  /v1/collections/{collection_id}:
+    get:
+      summary: コレクションの取得
+      description: 指定したIDのコレクションの情報を取得します。
+      tags:
+        - collection
+      parameters:
+        - name: collection_id
+          in: path
+          required: true
+          description: コレクションID
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+        404:
+          description: 存在しない、またはアクセス権の無いコレクションの場合 (ユーザーがチェックイン履歴を公開していない、またはコレクションが非公開設定)
+    put:
+      summary: コレクションの編集
+      description: 指定したIDのコレクションの情報を編集します。
+      tags:
+        - collection
+      parameters:
+        - name: collection_id
+          in: path
+          required: true
+          description: コレクションID
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCollection'
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+        403:
+          description: 自分以外が作成したコレクションに対して操作を試みた場合
+        404:
+          description: 存在しない場合
+        422:
+          description: バリデーションエラー
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - error
+                properties:
+                  status:
+                    type: number
+                    description: HTTPステータスコードと同じ値
+                    example: 422
+                  error:
+                    $ref: '#/components/schemas/ValidationError'
+    delete:
+      summary: コレクションの削除
+      description: |
+        指定したIDのコレクションを削除します。
+
+        ### 注意
+        実装上の都合で、Checkin APIと異なり**応答がべき等ではありません**。既に削除されている場合は404エラーになりますので、ご注意ください。
+      tags:
+        - collection
+      parameters:
+        - name: collection_id
+          in: path
+          required: true
+          description: コレクションID
+          schema:
+            type: integer
+            format: int64
+      responses:
+        204:
+          description: 成功
+        403:
+          description: 自分以外が作成したコレクションに対して操作を試みた場合
+        404:
+          description: 存在しない場合
+  /v1/collections/{collection_id}/items:
+    get:
+      summary: コレクション内アイテム一覧の取得
+      description: 指定したコレクションに含まれるアイテムの一覧を取得します。
+      tags:
+        - collection
+      parameters:
+        - name: collection_id
+          in: path
+          required: true
+          description: コレクションID
+          schema:
+            type: integer
+            format: int64
+        - name: page
+          in: query
+          description: ページ番号
+          schema:
+            type: integer
+            default: 1
+        - name: per_page
+          in: query
+          description: 1ページあたりのアイテム数
+          schema:
+            type: integer
+            default: 20
+            minimum: 10
+            maximum: 100
+      responses:
+        200:
+          description: 成功
+          headers:
+            X-Total-Count:
+              description: 全体のアイテム数
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CollectionItem'
+        404:
+          description: コレクションが存在しない、またはアクセス権の無いコレクションの場合 (ユーザーがチェックイン履歴を公開していない、またはコレクションが非公開設定)
+    post:
+      summary: コレクションにアイテムを追加
+      description: 指定したコレクションに新しいアイテムを追加します。
+      tags:
+        - collection
+      parameters:
+        - name: collection_id
+          in: path
+          required: true
+          description: コレクションID
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCollectionItem'
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionItem'
+        422:
+          description: バリデーションエラー
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - error
+                properties:
+                  status:
+                    type: number
+                    description: HTTPステータスコードと同じ値
+                    example: 422
+                  error:
+                    $ref: '#/components/schemas/ValidationError'
+  /v1/collections/{collection_id}/items/{collection_item_id}:
+    patch:
+      summary: コレクションアイテムの更新
+      description: |
+        指定したIDのコレクションアイテムの情報を更新します。
+        リクエスト内の項目は全て省略可能であり、更新したい項目のみを送信することができます。
+      tags:
+        - collection
+      parameters:
+        - name: collection_id
+          in: path
+          required: true
+          description: コレクションID
+          schema:
+            type: integer
+            format: int64
+        - name: collection_item_id
+          in: path
+          required: true
+          description: コレクションアイテムID
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCollectionItem'
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionItem'
+        403:
+          description: 自分以外が作成したコレクションに対して操作を試みた場合
+        404:
+          description: 存在しない場合
+        422:
+          description: バリデーションエラー
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - error
+                properties:
+                  status:
+                    type: number
+                    description: HTTPステータスコードと同じ値
+                    example: 422
+                  error:
+                    $ref: '#/components/schemas/ValidationError'
+    delete:
+      summary: コレクションからアイテムを削除
+      description: |
+        コレクションから、指定したIDのコレクションアイテムを削除します。
+
+        ### 注意
+        実装上の都合で、Checkin APIと異なり**応答がべき等ではありません**。既に削除されている場合は404エラーになりますので、ご注意ください。
+      tags:
+        - collection
+      parameters:
+        - name: collection_id
+          in: path
+          required: true
+          description: コレクションID
+          schema:
+            type: integer
+            format: int64
+        - name: collection_item_id
+          in: path
+          required: true
+          description: コレクションアイテムID
+          schema:
+            type: integer
+            format: int64
+      responses:
+        204:
+          description: 成功
+        403:
+          description: 自分以外が作成したコレクションに対して操作を試みた場合
+        404:
+          description: 存在しない場合
 components:
   schemas:
     User:
@@ -508,6 +855,107 @@ components:
               default: false
             discard_elapsed_time:
               default: false
+    Collection:
+      type: object
+      description: コレクション
+      required:
+        - id
+        - user_name
+        - title
+        - is_private
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: コレクションID
+        title:
+          type: string
+          description: コレクションのタイトル
+          example: My collection
+        is_private:
+          type: boolean
+          description: 非公開コレクションとして設定
+          example: false
+    UpdateCollection:
+      type: object
+      required:
+        - title
+        - is_private
+      properties:
+        title:
+          type: string
+          maxLength: 255
+          description: コレクションのタイトル
+          example: My collection
+        is_private:
+          type: boolean
+          description: 非公開コレクションとして設定
+          example: false
+    CreateCollection:
+      $ref: '#/components/schemas/UpdateCollection'
+    CollectionItem:
+      type: object
+      required:
+        - id
+        - collection_id
+        - link
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: コレクションアイテムID
+        collection_id:
+          type: integer
+          format: int64
+          description: コレクションID
+        link:
+          type: string
+          maxLength: 2000
+          description: オカズリンク (http, https)
+          example: http://example.com
+        note:
+          type: string
+          maxLength: 500
+          description: ノート
+          example: すごく抜ける
+        tags:
+          type: array
+          items:
+            type: string
+            maxLength: 255
+          description: タグ
+          example:
+            - Example
+            - Example_2
+    UpdateCollectionItem:
+      type: object
+      properties:
+        note:
+          type: string
+          maxLength: 500
+          description: ノート
+          example: すごく抜ける
+        tags:
+          type: array
+          maxItems: 40
+          items:
+            type: string
+            maxLength: 255
+          description: タグ
+          example:
+            - Example
+            - Example_2
+    CreateCollectionItem:
+      allOf:
+        - required:
+            - link
+          properties:
+            link:
+              type: string
+              maxLength: 2000
+              description: オカズリンク (http, https)
+              example: http://example.com
+        - $ref: '#/components/schemas/UpdateCollectionItem'
     ValidationError:
       type: object
       description: バリデーションエラー

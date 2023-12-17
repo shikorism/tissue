@@ -109,19 +109,19 @@ jobs:
       # Run unit test
       - run:
           command: |
-            mkdir -p /tmp/phpunit
-            ./vendor/bin/phpunit --log-junit /tmp/phpunit/phpunit.xml --coverage-clover=/tmp/phpunit/coverage.xml
+            mkdir -p /tmp/phpunit{,-coverage}
+            ./vendor/bin/phpunit --log-junit /tmp/phpunit/phpunit.xml --coverage-clover=/tmp/phpunit-coverage/coverage.xml
           when: always
           environment:
             XDEBUG_MODE: coverage
       - store_test_results:
           path: /tmp/phpunit
       - store_artifacts:
-          path: /tmp/phpunit/coverage.xml
+          path: /tmp/phpunit-coverage/coverage.xml
 
       # Upload coverage
       - run:
-          command: bash <(curl -s https://codecov.io/bash) -f /tmp/phpunit/coverage.xml
+          command: bash <(curl -s https://codecov.io/bash) -f /tmp/phpunit-coverage/coverage.xml
           when: always
 
   test_resolver:

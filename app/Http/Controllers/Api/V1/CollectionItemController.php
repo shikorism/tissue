@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Collection;
 use App\CollectionItem;
@@ -19,7 +19,6 @@ class CollectionItemController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except('index');
         $this->middleware(function (Request $request, $next) {
             $collection = $request->route('collection');
             if ($collection instanceof Collection && !$collection->user->isMe()) {

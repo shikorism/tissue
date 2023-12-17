@@ -3,10 +3,13 @@
 namespace App;
 
 use App\Utilities\Formatter;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class CollectionItem extends Model
 {
+    use HasFactory;
+
     const PER_COLLECTION_LIMIT = 1000;
 
     protected $fillable = [
