@@ -22,11 +22,13 @@ Route::middleware('stateful')->group(function () {
             Route::post('/likes', 'Api\\LikeController@store');
             Route::delete('/likes/{id}', 'Api\\LikeController@destroy');
             Route::apiResource('checkin', 'Api\\CheckinController')->only(['destroy']);
+            Route::apiResource('collections', 'Api\\V1\\CollectionController')->only(['index', 'store', 'update', 'destroy']);
+            Route::apiResource('collections.items', 'Api\\V1\\CollectionItemController')->only(['store', 'update', 'destroy']);
         });
 
         Route::apiResource('users.collections', 'Api\\UserCollectionController')->only(['index']);
-        Route::apiResource('collections', 'Api\\CollectionController');
-        Route::apiResource('collections.items', 'Api\\CollectionItemController')->except(['show']);
+        Route::apiResource('collections', 'Api\\V1\\CollectionController')->only(['show']);
+        Route::apiResource('collections.items', 'Api\\V1\\CollectionItemController')->only(['index']);
     });
 });
 
@@ -44,4 +46,7 @@ Route::middleware(['throttle:60,1', 'auth:api'])
         Route::apiResource('users', 'UserController')->only(['show']);
         Route::apiResource('users.checkins', 'UserCheckinController')->only(['index']);
         Route::apiResource('checkins', 'CheckinController')->except(['index']);
+        Route::apiResource('users.collections', 'UserCollectionController')->only(['index']);
+        Route::apiResource('collections', 'CollectionController')->except(['index']);
+        Route::apiResource('collections.items', 'CollectionItemController')->except(['show']);
     });
