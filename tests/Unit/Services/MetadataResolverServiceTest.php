@@ -28,7 +28,7 @@ class MetadataResolverServiceTest extends TestCase
         $this->seed();
         Carbon::setTestNow('2020-07-21 19:19:19');
         // FIXME: 今書かれてるテストはresolveのHTTPリクエストのみを考慮しているので、ContentProviderにデータがないとリクエスト回数がずれる
-        factory(ContentProvider::class)->create();
+        ContentProvider::factory()->create();
     }
 
     protected function tearDown(): void

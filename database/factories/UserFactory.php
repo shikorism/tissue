@@ -1,23 +1,40 @@
 <?php
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
-    static $password;
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\User>
+ */
+class UserFactory extends Factory
+{
+    private static ?string $password = null;
 
-    return [
-        'name' => substr($faker->userName, 0, 15),
-        'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => Str::random(10),
-        'display_name' => substr($faker->name, 0, 20),
-        'is_protected' => false,
-        'accept_analytics' => false,
-        'private_likes' => false,
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition()
+    {
+        return [
+            'name' => substr($this->faker->userName, 0, 15),
+            'email' => $this->faker->unique()->safeEmail,
+            'password' => self::$password ?: self::$password = bcrypt('secret'),
+            'remember_token' => Str::random(10),
+            'display_name' => substr($this->faker->name, 0, 20),
+            'is_protected' => false,
+            'accept_analytics' => false,
+            'private_likes' => false,
+        ];
+    }
 
-$factory->state(App\User::class, 'protected', [
-    'is_protected' => true,
-]);
+    public function protected()
+    {
+        return $this->state(fn (array $attributes) => [
+            'is_protected' => true,
+        ]);
+    }
+}
