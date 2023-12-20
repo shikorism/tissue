@@ -2,13 +2,14 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 class CheckinWebhook extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
 
     /** @var int ユーザーごとの作成数制限 */
     const PER_USER_LIMIT = 10;
