@@ -57,7 +57,7 @@ $(() => {
                 })
                 .then((data) => {
                     $this.data('liked', false);
-                    $this.find('.oi-heart').removeClass('text-danger');
+                    $this.find('.ti-heart-filled').removeClass('text-danger');
 
                     const count = data.ejaculation ? data.ejaculation.likes_count : 0;
                     $this.find('.like-count').text(count ? count : '');
@@ -76,7 +76,7 @@ $(() => {
                 })
                 .then((data) => {
                     $this.data('liked', true);
-                    $this.find('.oi-heart').addClass('text-danger');
+                    $this.find('.ti-heart-filled').addClass('text-danger');
 
                     const count = data.ejaculation ? data.ejaculation.likes_count : 0;
                     $this.find('.like-count').text(count ? count : '');

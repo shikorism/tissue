@@ -7,7 +7,7 @@
     <hr>
     <p>Tissueからあなたのアカウントに関する情報を削除します。</p>
     <div class="alert alert-danger">
-        <h4 class="alert-heading"><span class="oi oi-warning"></span> 警告</h4>
+        <h4 class="alert-heading"><i class="ti ti-alert-triangle"></i> 警告</h4>
         <p><strong>削除はすぐに実行され、取り消すことはできません！</strong></p>
         <p class="my-0">なりすましを防止するため、あなたのユーザー名はサーバーに記録されます。今後、同じユーザー名を使って再登録することはできません。</p>
     </div>

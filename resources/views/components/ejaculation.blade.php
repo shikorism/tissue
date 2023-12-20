@@ -17,13 +17,13 @@
 @if ($ejaculation->is_private || $ejaculation->source === 'csv' || $ejaculation->tags->isNotEmpty())
     <p class="tis-checkin-tags mb-2">
         @if ($ejaculation->is_private)
-            <span class="badge badge-warning"><span class="oi oi-lock-locked"></span> 非公開</span>
+            <span class="badge badge-warning"><i class="ti ti-lock"></i> 非公開</span>
         @endif
         @if ($ejaculation->source === 'csv')
-            <span class="badge badge-info"><span class="oi oi-cloud-upload"></span> インポート</span>
+            <span class="badge badge-info"><i class="ti ti-cloud-upload"></i> インポート</span>
         @endif
         @foreach ($ejaculation->tags as $tag)
-            <a class="badge badge-secondary" href="{{ route('search', ['q' => $tag->name]) }}"><span class="oi oi-tag"></span> {{ $tag->name }}</a>
+            <a class="badge badge-secondary" href="{{ route('search', ['q' => $tag->name]) }}"><i class="ti ti-tag"></i> {{ $tag->name }}</a>
         @endforeach
     </p>
 @endif
@@ -34,7 +34,7 @@
             @component('components.link-card', ['link' => $ejaculation->link, 'is_too_sensitive' => $ejaculation->is_too_sensitive])
             @endcomponent
             <p class="d-flex align-items-baseline mb-2 col-12 px-0">
-                <span class="oi oi-link-intact mr-1"></span><a class="overflow-hidden" href="{{ $ejaculation->link }}" target="_blank" rel="noopener">{{ $ejaculation->link }}</a>
+                <i class="ti ti-link mr-1"></i><a class="overflow-hidden" href="{{ $ejaculation->link }}" target="_blank" rel="noopener">{{ $ejaculation->link }}</a>
             </p>
         </div>
     @endif
@@ -85,27 +85,27 @@
 @endif
 <!-- actions -->
 <div class="ejaculation-actions">
-    <button type="button" class="btn btn-link text-secondary"
+    <button type="button" class="btn text-secondary"
             data-toggle="tooltip" data-placement="bottom"
-            title="同じオカズでチェックイン" data-href="{{ $ejaculation->makeCheckinURL() }}"><span class="oi oi-reload"></span></button>
-    <button type="button" class="btn btn-link text-secondary like-button"
+            title="同じオカズでチェックイン" data-href="{{ $ejaculation->makeCheckinURL() }}"><i class="ti ti-reload"></i></button>
+    <button type="button" class="btn text-secondary like-button"
             data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
-            title="いいね" data-id="{{ $ejaculation->id }}" data-liked="{{ (bool)$ejaculation->is_liked }}"><span class="oi oi-heart {{ $ejaculation->is_liked ? 'text-danger' : '' }}"></span><span class="like-count">{{ $ejaculation->likes_count ? $ejaculation->likes_count : '' }}</span></button>
+            title="いいね" data-id="{{ $ejaculation->id }}" data-liked="{{ (bool)$ejaculation->is_liked }}"><i class="ti ti-heart-filled {{ $ejaculation->is_liked ? 'text-danger' : '' }}"></i><span class="like-count">{{ $ejaculation->likes_count ? $ejaculation->likes_count : '' }}</span></button>
     @auth
         @if (!empty($ejaculation->link))
             <span class="add-to-collection-button" data-link="{{ $ejaculation->link }}" data-tags="{{ $ejaculation->textTags() }}">
-                <button type="button" class="btn btn-link text-secondary"
+                <button type="button" class="btn text-secondary"
                         data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
-                        title="コレクションに追加"><span class="oi oi-plus"></span></button>
+                        title="コレクションに追加"><i class="ti ti-folder-plus"></i></button>
             </span>
         @endif
     @endauth
     @if ($ejaculation->user->isMe())
-        <button type="button" class="btn btn-link text-secondary"
+        <button type="button" class="btn text-secondary"
                 data-toggle="tooltip" data-placement="bottom"
-                title="修正" data-href="{{ route('checkin.edit', ['id' => $ejaculation->id]) }}"><span class="oi oi-pencil"></span></button>
-        <button type="button" class="btn btn-link text-secondary"
+                title="修正" data-href="{{ route('checkin.edit', ['id' => $ejaculation->id]) }}"><i class="ti ti-edit"></i></button>
+        <button type="button" class="btn text-secondary"
                 data-toggle="tooltip" data-placement="bottom"
-                title="削除" data-target="#deleteCheckinModal" data-id="{{ $ejaculation->id }}" data-date="{{ $ejaculation->ejaculated_date }}"><span class="oi oi-trash"></span></button>
+                title="削除" data-target="#deleteCheckinModal" data-id="{{ $ejaculation->id }}" data-date="{{ $ejaculation->ejaculated_date }}"><i class="ti ti-trash"></i></button>
     @endif
 </div>

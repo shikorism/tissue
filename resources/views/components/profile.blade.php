@@ -5,9 +5,9 @@
             <a class="text-dark" href="{{ route('user.profile', ['name' => $user->name]) }}">{{ $user->display_name }}</a>
         </h4>
         <h6 class="card-subtitle">
-            <a class="text-muted font-weight-normal" href="{{ route('user.profile', ['name' => $user->name]) }}">&commat;{{ $user->name }}</a>
+            <a class="text-muted" href="{{ route('user.profile', ['name' => $user->name]) }}">&commat;{{ $user->name }}</a>
             @if ($user->is_protected)
-                <span class="oi oi-lock-locked text-muted"></span>
+                <i class="ti ti-lock text-muted"></i>
             @endif
         </h6>
 
@@ -21,7 +21,7 @@
         {{-- URL --}}
         @if (!empty($user->url))
             <p class="card-text d-flex mt-3">
-                <span class="oi oi-link-intact mr-1 mt-1"></span>
+                <i class="ti ti-link mr-1 mt-1"></i>
                 <a href="{{ $user->url }}" rel="me nofollow noopener" target="_blank" class="text-truncate">{{ preg_replace('~\Ahttps?://~', '', $user->url) }}</a>
             </p>
         @endif

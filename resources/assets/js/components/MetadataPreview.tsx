@@ -36,7 +36,7 @@ const MetadataLoading = () => (
         <div className="col-12">
             <div className="card-body">
                 <h6 className="card-title text-center font-weight-bold text-info">
-                    <span className="oi oi-loop-circular" /> オカズの情報を読み込んでいます…
+                    <i className="ti ti-loader" /> オカズの情報を読み込んでいます…
                 </h6>
             </div>
         </div>
@@ -48,7 +48,7 @@ const MetadataLoadFailed = () => (
         <div className="col-12">
             <div className="card-body">
                 <h6 className="card-title text-center font-weight-bold text-danger">
-                    <span className="oi oi-circle-x" /> オカズの情報を読み込めませんでした
+                    <i className="ti ti-circle-x" /> オカズの情報を読み込めませんでした
                 </h6>
             </div>
         </div>
@@ -138,7 +138,7 @@ export const MetadataPreview: React.FC<MetadataPreviewProps> = ({ link, tags, on
                                                         className={tagClasses(tag)}
                                                         onClick={() => !tag.used && onClickTag(tag.name)}
                                                     >
-                                                        <span className="oi oi-tag" /> {tag.name}
+                                                        <i className="ti ti-tag" /> {tag.name}
                                                     </li>
                                                 ))}
                                             </ul>

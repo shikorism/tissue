@@ -29,6 +29,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ collection }) => {
             to={`/user/${collection.user_name}/collections/${collection.id}`}
             className={classNames(
                 'list-group-item',
+                'list-group-item-action',
                 'd-flex',
                 'justify-content-between',
                 'align-items-center',
@@ -36,7 +37,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ collection }) => {
             )}
         >
             <div style={{ wordBreak: 'break-all' }}>
-                <span className={classNames('oi', 'oi-folder', 'mr-1', { 'text-secondary': !isSelected })} />
+                <i className={classNames('ti', 'ti-folder', 'mr-1', { 'text-secondary': !isSelected })} />
                 {collection.title}
             </div>
         </Link>
@@ -99,26 +100,26 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
                 <div>
                     {username === me?.name && (
                         <Button
-                            variant="link"
+                            variant=""
                             className="text-secondary mr-2"
                             size="sm"
                             title="追加"
                             onClick={() => setShowCreateModal(true)}
                         >
-                            <span className="oi oi-plus" />
+                            <i className="ti ti-plus text-large" />
                         </Button>
                     )}
                     <Button
-                        variant="link"
+                        variant=""
                         className="text-secondary"
                         size="sm"
                         title="並べ替え"
                         onClick={() => setOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'))}
                     >
                         {order === 'asc' ? (
-                            <span className="oi oi-sort-ascending"></span>
+                            <i className="ti ti-sort-ascending-letters text-large"></i>
                         ) : (
-                            <span className="oi oi-sort-descending"></span>
+                            <i className="ti ti-sort-descending-letters text-large"></i>
                         )}
                     </Button>
                 </div>
@@ -157,7 +158,7 @@ const Collections: React.FC = () => {
                 <div className="col-lg-8">
                     {collectionsQuery.error?.response?.status === 403 ? (
                         <p className="mt-4">
-                            <span className="oi oi-lock-locked" /> このユーザはチェックイン履歴を公開していません。
+                            <i className="ti ti-lock" /> このユーザはチェックイン履歴を公開していません。
                         </p>
                     ) : (
                         <Outlet />
