@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Link, Outlet, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
 import { useCollectionsQuery, useMyProfileQuery } from '../api';
 import { showToast } from '../tissue';
@@ -61,7 +61,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
             if (response.status === 201) {
                 const createdItem = await response.json();
                 showToast('作成しました', { color: 'success', delay: 5000 });
-                queryClient.invalidateQueries('MyCollections');
+                queryClient.invalidateQueries(['MyCollections']);
                 queryClient.invalidateQueries(['Collections', createdItem.user_name]);
                 setShowCreateModal(false);
                 navigate(`/user/${createdItem.user_name}/collections/${createdItem.id}`);

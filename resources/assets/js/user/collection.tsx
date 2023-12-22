@@ -2,7 +2,7 @@ import { Button, Modal, ModalProps, OverlayTrigger, Tooltip } from 'react-bootst
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import classNames from 'classnames';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { fetchDeleteJson, fetchPutJson, ResponseError } from '../fetch';
 import { showToast } from '../tissue';
 import {
@@ -267,7 +267,7 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
                         tags={item.tags}
                         collections={myCollectionsQuery?.data}
                         onCreateCollection={() => {
-                            queryClient.invalidateQueries('MyCollections');
+                            queryClient.invalidateQueries(['MyCollections']);
                             queryClient.invalidateQueries(['Collections', username]);
                         }}
                     />
@@ -525,7 +525,7 @@ export const Collection: React.FC = () => {
         queryClient.setQueryData<Tissue.Collection[] | undefined>(['Collections', username], (col) =>
             col?.map((c) => (c.id === collection.id ? collection : c))
         );
-        queryClient.setQueryData<Tissue.Collection[] | undefined>('MyCollections', (col) =>
+        queryClient.setQueryData<Tissue.Collection[] | undefined>(['MyCollections'], (col) =>
             col?.map((c) => (c.id === collection.id ? collection : c))
         );
     };
@@ -535,10 +535,10 @@ export const Collection: React.FC = () => {
             col?.filter((c) => c.id !== collectionQuery.data.id)
         );
         queryClient.invalidateQueries(['Collections', username]);
-        queryClient.setQueryData<Tissue.Collection[] | undefined>('MyCollections', (col) =>
+        queryClient.setQueryData<Tissue.Collection[] | undefined>(['MyCollections'], (col) =>
             col?.filter((c) => c.id !== collectionQuery.data.id)
         );
-        queryClient.invalidateQueries('MyCollections');
+        queryClient.invalidateQueries(['MyCollections']);
         navigate('../');
     };
 

@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
-import { QueryClient, QueryClientProvider as Provider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+import { QueryClient, QueryClientProvider as Provider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const queryClient = new QueryClient({
     defaultOptions: {
