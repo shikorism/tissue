@@ -32,11 +32,11 @@ class DailyCheckinSummary extends Controller
             $since = CarbonImmutable::createFromFormat('Y-m-d', $validated['since'])->startOfDay();
             $until = null;
         } elseif (!empty($validated['until'])) {
+            $since = null;
             $until = CarbonImmutable::createFromFormat('Y-m-d', $validated['until'])->startOfDay()->addDay();
-            $since = null;
         } else {
-            $until = CarbonImmutable::tomorrow()->startOfDay();
             $since = null;
+            $until = null;
         }
 
         $countByDay = (new EjaculationCountByDay($user))->query();
