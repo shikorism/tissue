@@ -17,12 +17,12 @@ class EjaculationCountByDay
     {
         return Ejaculation::select(DB::raw(
             <<<'SQL'
-to_char(ejaculated_date, 'YYYY/MM/DD') AS "date",
+to_char(ejaculated_date, 'YYYY-MM-DD') AS "date",
 count(*) AS "count"
 SQL
         ))
             ->where('user_id', $this->user->id)
-            ->groupBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"))
-            ->orderBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"));
+            ->groupBy(DB::raw("to_char(ejaculated_date, 'YYYY-MM-DD')"))
+            ->orderBy(DB::raw("to_char(ejaculated_date, 'YYYY-MM-DD')"));
     }
 }

@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1\UserStats;
 
@@ -10,7 +9,7 @@ use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
-class Calendar extends Controller
+class DailyCheckinSummary extends Controller
 {
     public function __invoke(Request $request, User $user)
     {
@@ -49,14 +48,6 @@ class Calendar extends Controller
             ->where('ejaculated_date', '<', $until)
             ->get();
 
-        $countByTimestamp = [];
-        foreach ($countByDay as $data) {
-            $date = CarbonImmutable::createFromFormat('Y/m/d', $data->date)->startOfDay();
-            $countByTimestamp[$date->timestamp] = $data->count;
-        }
-
-        return response()->json([
-            'count_by_day' => $countByTimestamp,
-        ], options: JSON_FORCE_OBJECT);
+        return response()->json($countByDay);
     }
 }

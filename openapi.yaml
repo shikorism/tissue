@@ -252,56 +252,11 @@ paths:
           description: ユーザーがチェックイン履歴を公開していない場合
         404:
           description: 存在しないユーザー
-  /v1/users/{name}/stats/tags:
+  /v1/users/{name}/stats/checkin/daily:
     get:
-      summary: 最も使用したタグ
-      description: 指定したユーザーが期間内に最も使用したタグの上位10件を取得します。
-      tags:
-        - user-stats
-      parameters:
-        - name: name
-          in: path
-          required: true
-          description: ユーザー名
-          schema:
-            type: string
-        - name: since
-          in: query
-          description: 集計範囲の開始日
-          required: false
-          schema:
-            type: string
-            format: date
-            example: 2020-07-21
-        - name: until
-          in: query
-          description: 集計範囲の終了日
-          required: false
-          schema:
-            type: string
-            format: date
-            example: 2021-07-21
-      responses:
-        200:
-          description: 成功
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/MostlyUsedCheckinTag'
-        403:
-          description: ユーザーがチェックイン履歴を公開していない場合
-        404:
-          description: 存在しないユーザー
-  /v1/users/{name}/stats/calendar:
-    get:
-      summary: カレンダーヒートマップ用データの取得
+      summary: 日毎のチェックイン数
       description: |
         指定したユーザーのチェックイン数を日毎に合計した情報を取得します。
-
-        ### フォーマット
-        [cal-heatmap v3 互換](https://cal-heatmap.com/v3/index.html#data-format)です。キーのタイムスタンプは全て日本標準時の0:00を指します。
 
         ### 範囲指定について
         集計範囲を日付で指定することができます。
@@ -340,7 +295,51 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserCalendarStats'
+                type: array
+                items:
+                  $ref: '#/components/schemas/DailyCheckinSummary'
+        403:
+          description: ユーザーがチェックイン履歴を公開していない場合
+        404:
+          description: 存在しないユーザー
+  /v1/users/{name}/stats/tags:
+    get:
+      summary: 最も使用したタグ
+      description: 指定したユーザーが期間内に最も使用したタグの上位10件を取得します。
+      tags:
+        - user-stats
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: ユーザー名
+          schema:
+            type: string
+        - name: since
+          in: query
+          description: 集計範囲の開始日
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2020-07-21
+        - name: until
+          in: query
+          description: 集計範囲の終了日
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2021-07-21
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MostlyUsedCheckinTag'
         403:
           description: ユーザーがチェックイン履歴を公開していない場合
         404:
@@ -1051,6 +1050,20 @@ components:
               description: オカズリンク (http, https)
               example: http://example.com
         - $ref: '#/components/schemas/UpdateCollectionItem'
+    DailyCheckinSummary:
+      type: object
+      required:
+        - date
+        - count
+      properties:
+        date:
+          type: string
+          format: date
+          description: 日付
+          example: 2020-07-21
+        count:
+          type: integer
+          description: チェックイン回数
     MostlyUsedCheckinTag:
       type: object
       required:
@@ -1064,20 +1077,6 @@ components:
         count:
           type: integer
           description: 使用回数
-    UserCalendarStats:
-      type: object
-      description: カレンダーヒートマップ用データ
-      required:
-        - count_by_day
-      properties:
-        count_by_day:
-          type: object
-          description: 日毎のチェックイン数
-          additionalProperties:
-            type: number
-          example:
-            1595257200: 1
-            1595343600: 2
     ValidationError:
       type: object
       description: バリデーションエラー
