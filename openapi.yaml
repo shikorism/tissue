@@ -252,6 +252,48 @@ paths:
           description: ユーザーがチェックイン履歴を公開していない場合
         404:
           description: 存在しないユーザー
+  /v1/users/{name}/stats/tags:
+    get:
+      summary: 最も使用したタグ
+      description: 指定したユーザーが期間内に最も使用したタグの上位10件を取得します。
+      tags:
+        - user-stats
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: ユーザー名
+          schema:
+            type: string
+        - name: since
+          in: query
+          description: 集計範囲の開始日
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2020-07-21
+        - name: until
+          in: query
+          description: 集計範囲の終了日
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2021-07-21
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MostlyUsedCheckinTag'
+        403:
+          description: ユーザーがチェックイン履歴を公開していない場合
+        404:
+          description: 存在しないユーザー
   /v1/users/{name}/stats/calendar:
     get:
       summary: カレンダーヒートマップ用データの取得
@@ -1009,6 +1051,19 @@ components:
               description: オカズリンク (http, https)
               example: http://example.com
         - $ref: '#/components/schemas/UpdateCollectionItem'
+    MostlyUsedCheckinTag:
+      type: object
+      required:
+        - name
+        - count
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: タグ
+        count:
+          type: integer
+          description: 使用回数
     UserCalendarStats:
       type: object
       description: カレンダーヒートマップ用データ

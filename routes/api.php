@@ -54,6 +54,7 @@ Route::middleware(['throttle:60,1', 'auth:api'])
             ->prefix('users/{user}/stats')
             ->name('users.stats.')
             ->group(function () {
+                Route::get('/tags', 'MostlyUsedCheckinTags')->name('tags');
                 Route::get('/calendar', 'Calendar')->name('calendar');
             });
     });
