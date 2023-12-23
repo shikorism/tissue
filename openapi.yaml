@@ -19,6 +19,8 @@ tags:
     description: チェックインに関する操作
   - name: collection
     description: コレクションに関する操作
+  - name: user-stats
+    description: ユーザーの統計情報
 paths:
   /webhooks/checkin/{id}:
     post:
@@ -246,6 +248,57 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Collection'
+        403:
+          description: ユーザーがチェックイン履歴を公開していない場合
+        404:
+          description: 存在しないユーザー
+  /v1/users/{name}/stats/calendar:
+    get:
+      summary: カレンダーヒートマップ用データの取得
+      description: |
+        指定したユーザーのチェックイン数を日毎に合計した情報を取得します。
+
+        ### フォーマット
+        [cal-heatmap v3 互換](https://cal-heatmap.com/v3/index.html#data-format)です。キーのタイムスタンプは全て日本標準時の0:00を指します。
+
+        ### 範囲指定について
+        集計範囲を日付で指定することができます。
+
+        `since` のみを指定した場合はその日から1年分、`until` のみを指定した場合はその日までの1年分を集計します。
+
+        両方指定した場合はその範囲で集計しますが、1年分を越えて集計することはできません。超過していた場合は `since` から1年分までに制限されます。
+      tags:
+        - user-stats
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: ユーザー名
+          schema:
+            type: string
+        - name: since
+          in: query
+          description: 集計範囲の開始日
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2020-07-21
+        - name: until
+          in: query
+          description: 集計範囲の終了日
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2021-07-21
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCalendarStats'
         403:
           description: ユーザーがチェックイン履歴を公開していない場合
         404:
@@ -956,6 +1009,20 @@ components:
               description: オカズリンク (http, https)
               example: http://example.com
         - $ref: '#/components/schemas/UpdateCollectionItem'
+    UserCalendarStats:
+      type: object
+      description: カレンダーヒートマップ用データ
+      required:
+        - count_by_day
+      properties:
+        count_by_day:
+          type: object
+          description: 日毎のチェックイン数
+          additionalProperties:
+            type: number
+          example:
+            1595257200: 1
+            1595343600: 2
     ValidationError:
       type: object
       description: バリデーションエラー

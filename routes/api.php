@@ -49,4 +49,11 @@ Route::middleware(['throttle:60,1', 'auth:api'])
         Route::apiResource('users.collections', 'UserCollectionController')->only(['index']);
         Route::apiResource('collections', 'CollectionController')->except(['index']);
         Route::apiResource('collections.items', 'CollectionItemController')->except(['show']);
+
+        Route::namespace('UserStats')
+            ->prefix('users/{user}/stats')
+            ->name('users.stats.')
+            ->group(function () {
+                Route::get('/calendar', 'Calendar')->name('calendar');
+            });
     });
