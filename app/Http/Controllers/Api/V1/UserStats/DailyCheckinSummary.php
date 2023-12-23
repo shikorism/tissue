@@ -28,26 +28,25 @@ class DailyCheckinSummary extends Controller
             if ($until->isBefore($since)) {
                 [$since, $until] = [$until, $since];
             }
-
-            if ($until->diffInYears($since) >= 1) {
-                $until = $since->addYear();
-            }
         } elseif (!empty($validated['since'])) {
             $since = CarbonImmutable::createFromFormat('Y-m-d', $validated['since'])->startOfDay();
-            $until = $since->addYear();
+            $until = null;
         } elseif (!empty($validated['until'])) {
             $until = CarbonImmutable::createFromFormat('Y-m-d', $validated['until'])->startOfDay()->addDay();
-            $since = $until->subYear();
+            $since = null;
         } else {
             $until = CarbonImmutable::tomorrow()->startOfDay();
-            $since = $until->subYear();
+            $since = null;
         }
 
-        $countByDay = (new EjaculationCountByDay($user))->query()
-            ->where('ejaculated_date', '>=', $since)
-            ->where('ejaculated_date', '<', $until)
-            ->get();
+        $countByDay = (new EjaculationCountByDay($user))->query();
+        if ($since !== null) {
+            $countByDay = $countByDay->where('ejaculated_date', '>=', $since);
+        }
+        if ($until !== null) {
+            $countByDay = $countByDay->where('ejaculated_date', '<', $until);
+        }
 
-        return response()->json($countByDay);
+        return response()->json($countByDay->get());
     }
 }
