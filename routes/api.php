@@ -55,6 +55,7 @@ Route::middleware(['throttle:60,1', 'auth:api'])
             ->name('users.stats.')
             ->group(function () {
                 Route::get('/checkin/daily', 'DailyCheckinSummary')->name('checkin.daily');
+                Route::get('/checkin/hourly', 'HourlyCheckinSummary')->name('checkin.hourly');
                 Route::get('/tags', 'MostlyUsedCheckinTags')->name('tags');
             });
     });

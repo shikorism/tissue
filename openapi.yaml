@@ -294,6 +294,48 @@ paths:
           description: ユーザーがチェックイン履歴を公開していない場合
         404:
           description: 存在しないユーザー
+  /v1/users/{name}/stats/checkin/hourly:
+    get:
+      summary: 時間毎のチェックイン数
+      description: 指定したユーザーのチェックイン数を時間毎に合計した情報を取得します。
+      tags:
+        - user-stats
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: ユーザー名
+          schema:
+            type: string
+        - name: since
+          in: query
+          description: 集計範囲の開始日
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2020-07-21
+        - name: until
+          in: query
+          description: 集計範囲の終了日
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2021-07-21
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HourlyCheckinSummary'
+        403:
+          description: ユーザーがチェックイン履歴を公開していない場合
+        404:
+          description: 存在しないユーザー
   /v1/users/{name}/stats/tags:
     get:
       summary: 最も使用したタグ
@@ -1053,6 +1095,20 @@ components:
           format: date
           description: 日付
           example: 2020-07-21
+        count:
+          type: integer
+          description: チェックイン回数
+    HourlyCheckinSummary:
+      type: object
+      required:
+        - hour
+        - count
+      properties:
+        hour:
+          type: integer
+          description: 時間 (0時〜23時)
+          minimum: 0
+          maximum: 23
         count:
           type: integer
           description: チェックイン回数
