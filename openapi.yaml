@@ -189,6 +189,12 @@ paths:
             default: 20
             minimum: 10
             maximum: 100
+        - name: has_link
+          in: query
+          description: オカズリンクを含むチェックインのみ取得
+          schema:
+            type: boolean
+            default: false
       responses:
         200:
           description: 成功

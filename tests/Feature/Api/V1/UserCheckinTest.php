@@ -144,4 +144,30 @@ class UserCheckinTest extends TestCase
             ]
         ], true);
     }
+
+    public function testHasLink()
+    {
+        $user = User::factory()->create();
+        Passport::actingAs($user);
+
+        $target = User::factory()->create();
+        $hasLink = Ejaculation::factory()->create([
+            'user_id' => $target->id,
+            'link' => 'http://example.com',
+        ]);
+        Ejaculation::factory()->create([
+            'user_id' => $target->id,
+        ]);
+
+        $response = $this->getJson('/api/v1/users/' . $target->name . '/checkins?has_link=true');
+
+        $response->assertStatus(200);
+        $response->assertHeader('X-Total-Count', 1);
+        $response->assertJsonCount(1);
+        $response->assertJson([
+            [
+                'id' => $hasLink->id,
+            ]
+        ], true);
+    }
 }

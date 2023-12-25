@@ -36,6 +36,9 @@ discard_elapsed_time
 SQL
         ))
             ->where('user_id', $user->id);
+        if ($request->boolean('has_link')) {
+            $query = $query->where('link', '<>', '');
+        }
         if (!Auth::check() || $user->id !== Auth::id()) {
             $query = $query->where('is_private', false);
         }
