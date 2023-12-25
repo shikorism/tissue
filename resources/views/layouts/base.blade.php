@@ -178,6 +178,7 @@
         <ul class="list-inline">
             <li class="list-inline-item"><a href="https://github.com/shibafu528" class="text-dark">Admin(@shibafu528)</a></li>
             <li class="list-inline-item"><a href="https://github.com/shikorism/tissue" class="text-dark">GitHub</a></li>
+            <li class="list-inline-item"><a href="{{ url('/apidoc.html') }}" class="text-dark">API</a></li>
         </ul>
     </div>
 </footer>
