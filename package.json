@@ -11,7 +11,7 @@
     "eslint": "eslint --ext .js,.ts,.tsx resources/",
     "stylelint": "stylelint resources/assets/sass/**/*",
     "doc": "redoc-cli bundle --options.pathInMiddlePanel -o public/apidoc.html openapi.yaml",
-    "doc-watch": "chokidar openapi.yaml -c \"npm run doc\"",
+    "doc-watch": "chokidar openapi.yaml --initial -c \"npm run doc\"",
     "heroku-postbuild": "npm run production && npm run doc"
   },
   "devDependencies": {
