@@ -19,6 +19,8 @@ tags:
     description: チェックインに関する操作
   - name: collection
     description: コレクションに関する操作
+  - name: user-stats
+    description: ユーザーの統計情報
 paths:
   /webhooks/checkin/{id}:
     post:
@@ -246,6 +248,184 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Collection'
+        403:
+          description: ユーザーがチェックイン履歴を公開していない場合
+        404:
+          description: 存在しないユーザー
+  /v1/users/{name}/stats/checkin/daily:
+    get:
+      summary: 日毎のチェックイン数
+      description: 指定したユーザーのチェックイン数を日毎に合計した情報を取得します。
+      tags:
+        - user-stats
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: ユーザー名
+          schema:
+            type: string
+        - name: since
+          in: query
+          description: 集計範囲の開始日
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2020-07-21
+        - name: until
+          in: query
+          description: 集計範囲の終了日
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2021-07-21
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DailyCheckinSummary'
+        403:
+          description: ユーザーがチェックイン履歴を公開していない場合
+        404:
+          description: 存在しないユーザー
+  /v1/users/{name}/stats/checkin/hourly:
+    get:
+      summary: 時間毎のチェックイン数
+      description: 指定したユーザーのチェックイン数を時間毎に合計した情報を取得します。
+      tags:
+        - user-stats
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: ユーザー名
+          schema:
+            type: string
+        - name: since
+          in: query
+          description: 集計範囲の開始日
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2020-07-21
+        - name: until
+          in: query
+          description: 集計範囲の終了日
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2021-07-21
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HourlyCheckinSummary'
+        403:
+          description: ユーザーがチェックイン履歴を公開していない場合
+        404:
+          description: 存在しないユーザー
+  /v1/users/{name}/stats/tags:
+    get:
+      summary: 最も使用したタグ
+      description: 指定したユーザーが期間内に最も使用したタグの上位10件を取得します。
+      tags:
+        - user-stats
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: ユーザー名
+          schema:
+            type: string
+        - name: since
+          in: query
+          description: 集計範囲の開始日
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2020-07-21
+        - name: until
+          in: query
+          description: 集計範囲の終了日
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2021-07-21
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MostlyUsedCheckinTag'
+        403:
+          description: ユーザーがチェックイン履歴を公開していない場合
+        404:
+          description: 存在しないユーザー
+  /v1/users/{name}/stats/links:
+    get:
+      summary: 最も使用したオカズ
+      description: |
+        指定したユーザーが期間内に最も使用したオカズの上位10件を取得します。
+
+        ### 範囲指定について
+        負荷を抑えるため、集計範囲を最大1年分に制限しています。
+
+        `since` のみを指定した場合はその日から1年分、`until` のみを指定した場合はその日までの1年分を集計します。
+
+        両方指定した場合で1年以上の範囲を指定すると `since` から1年分までに制限して集計します。
+
+        どちらも指定しなかった場合は、今年1年分のデータを集計します。
+      tags:
+        - user-stats
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: ユーザー名
+          schema:
+            type: string
+        - name: since
+          in: query
+          description: 集計範囲の開始日
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2020-07-21
+        - name: until
+          in: query
+          description: 集計範囲の終了日
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2021-07-21
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MostlyUsedLink'
         403:
           description: ユーザーがチェックイン履歴を公開していない場合
         404:
@@ -956,6 +1136,60 @@ components:
               description: オカズリンク (http, https)
               example: http://example.com
         - $ref: '#/components/schemas/UpdateCollectionItem'
+    DailyCheckinSummary:
+      type: object
+      required:
+        - date
+        - count
+      properties:
+        date:
+          type: string
+          format: date
+          description: 日付
+          example: 2020-07-21
+        count:
+          type: integer
+          description: チェックイン回数
+    HourlyCheckinSummary:
+      type: object
+      required:
+        - hour
+        - count
+      properties:
+        hour:
+          type: integer
+          description: 時間 (0時〜23時)
+          minimum: 0
+          maximum: 23
+        count:
+          type: integer
+          description: チェックイン回数
+    MostlyUsedCheckinTag:
+      type: object
+      required:
+        - name
+        - count
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: タグ
+        count:
+          type: integer
+          description: 使用回数
+    MostlyUsedLink:
+      type: object
+      required:
+        - name
+        - count
+      properties:
+        link:
+          type: string
+          description: オカズリンク
+          example: http://example.com
+        count:
+          type: integer
+          description: 使用回数
     ValidationError:
       type: object
       description: バリデーションエラー
