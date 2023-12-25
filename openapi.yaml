@@ -7,7 +7,7 @@ info:
 
     一部APIではドキュメントに無いプロパティを応答する場合がありますが、これは正式な仕様ではありません。
     予告なく削除する可能性がありますので**使用しないでください**。
-  version: 0.3.0
+  version: 2023.12.3
 servers:
   - url: 'https://shikorism.net/api'
 tags:
