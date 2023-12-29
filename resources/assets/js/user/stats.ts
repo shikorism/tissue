@@ -1,6 +1,27 @@
 import CalHeatMap from 'cal-heatmap';
-import Chart from 'chart.js';
+import {
+    BarController,
+    BarElement,
+    CategoryScale,
+    Chart,
+    LineController,
+    LineElement,
+    LinearScale,
+    PointElement,
+    Tooltip,
+} from 'chart.js';
 import { addMonths, format } from 'date-fns';
+
+Chart.register([
+    LineController,
+    LineElement,
+    PointElement,
+    CategoryScale,
+    LinearScale,
+    BarController,
+    BarElement,
+    Tooltip,
+]);
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const graphData = JSON.parse(document.getElementById('graph-data')!.textContent as string);
@@ -22,26 +43,24 @@ function createLineGraph(id: string, labels: string[], data: any) {
             ],
         },
         options: {
-            legend: {
-                display: false,
-            },
             elements: {
                 line: {
                     tension: 0,
                 },
             },
             scales: {
-                yAxes: [
-                    {
-                        ticks: {
-                            beginAtZero: true,
-                        },
-                    },
-                ],
+                y: {
+                    beginAtZero: true,
+                },
             },
-            tooltips: {
-                mode: 'index',
-                intersect: false,
+            plugins: {
+                legend: {
+                    display: false,
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                },
             },
         },
     });
@@ -64,21 +83,19 @@ function createBarGraph(id: string, labels: string[], data: any) {
             ],
         },
         options: {
-            legend: {
-                display: false,
-            },
             scales: {
-                yAxes: [
-                    {
-                        ticks: {
-                            beginAtZero: true,
-                        },
-                    },
-                ],
+                y: {
+                    beginAtZero: true,
+                },
             },
-            tooltips: {
-                mode: 'index',
-                intersect: false,
+            plugins: {
+                legend: {
+                    display: false,
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                },
             },
         },
     });
