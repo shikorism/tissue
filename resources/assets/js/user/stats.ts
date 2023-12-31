@@ -8,6 +8,7 @@ import {
     LineElement,
     LinearScale,
     PointElement,
+    Filler,
     Tooltip,
 } from 'chart.js';
 import { addMonths, format } from 'date-fns';
@@ -20,6 +21,7 @@ Chart.register([
     LinearScale,
     BarController,
     BarElement,
+    Filler,
     Tooltip,
 ]);
 
@@ -37,6 +39,7 @@ function createLineGraph(id: string, labels: string[], data: any) {
                 {
                     data: data,
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true,
                     borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 1,
                 },
