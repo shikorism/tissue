@@ -56,7 +56,7 @@ class FanzaResolver implements Resolver
             $metadata->title = trim($crawler->filter('#title')->text(''));
             $metadata->description = trim(strip_tags(str_replace('【FANZA(ファンザ)】', '', $crawler->filter('meta[name="description"]')->attr('content'))));
             $metadata->image = preg_replace("~(pr|ps)\.jpg$~", 'pl.jpg', $crawler->filter('meta[property="og:image"]')->attr('content'));
-            $metadata->tags = $this->array_finish($crawler->filter('.box-rank+table a[href*="list/=/article="]')->extract(['_text']));
+            $metadata->tags = $this->array_finish($crawler->filter('.box-rank+table a[href*="list/?"]')->extract(['_text']));
 
             return $metadata;
         }
