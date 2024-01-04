@@ -28,21 +28,25 @@
 
 <!--[if gte IE 9]> <link href="https://p.dmm.co.jp/p/common/pinned/favicon.ico" rel="shortcut icon" /><![endif]-->
 <link href="https://www.dmm.co.jp/digital/videoc/-/detail/=/cid=sweet015/" rel="canonical" />
-<link href="https://digstatic.dmm.com/css/base.css?1606709431" media="screen" rel="stylesheet" type="text/css" />
-<link href="https://digstatic.dmm.com/css/www.dmm.co.jp.digital.css?1604894931" media="screen" rel="stylesheet" type="text/css" />
-<link href="https://digstatic.dmm.com/style/digital/videomarket/pc/common.css?1604556314" media="screen" rel="stylesheet" type="text/css" />
-<link href="https://digstatic.dmm.com/css/review.css?1540367655" media="screen" rel="stylesheet" type="text/css" />
+<link href="https://digstatic.dmm.com/css/base.css?1689918079" media="screen" rel="stylesheet" type="text/css" />
+<link href="https://digstatic.dmm.com/css/www.dmm.co.jp.digital.css?1702884405" media="screen" rel="stylesheet" type="text/css" />
+<link href="https://digstatic.dmm.com/style/digital/videomarket/pc/common.css?1702364801" media="screen" rel="stylesheet" type="text/css" />
+<link href="https://digstatic.dmm.com/css/review.css?1638155917" media="screen" rel="stylesheet" type="text/css" />
 <link href="https://p.dmm.co.jp/p/apple-touch-icon.png" rel="apple-touch-icon" />
 <link href="https://p.dmm.co.jp/p/apple-touch-icon.png" rel="apple-touch-icon-precomposed" />
-<script type="text/javascript" defer="defer" src="https://assets.digstatic.dmm.com/script/campaign/insertJS/InsertJS_NewUser_AiAPI.js"></script>
+<script type="text/javascript" defer="defer" src="https://assets.digstatic.dmm.com/script/campaign/insertJS/welcomeCoupon/index.js"></script>
+<script type="text/javascript" defer="defer" src="https://assets.digstatic.dmm.com/script/modules/ConnectLocalStorage/browsingHistory.js"></script>
 <script type="text/javascript" src="https://digstatic.dmm.com/js/bugfix.js?1421734015"></script>
 <script type="text/javascript" src="https://digstatic.dmm.com/js/library/jquery_1_8_3/jquery-1.8.3.min.js?1358679782"></script>
 <script type="text/javascript" src="https://digstatic.dmm.com/js/digital/jquery.ds-localnav.js"></script>
 <script type="text/javascript" src="https://digstatic.dmm.com/js/suggest.js?1549348780"></script>
 <script type="text/javascript" src="https://digstatic.dmm.com/js/suggest_ajax.js?1458112746"></script>
-<script type="text/javascript" src="https://digstatic.dmm.com/js/common/assemble_library.js?1396493104"></script>
+<script type="text/javascript" defer="defer" src="https://digstatic.dmm.com/js/digital/vue/v2.5.17/vue.min.js"></script>
+<script type="text/javascript" defer="defer" src="https://cdj.dap.dmm.co.jp/dmm-c-sdk.js?1704310130"></script>
+<script type="text/javascript" src="https://digstatic.dmm.com/js/common/assemble_library.js?1613714430"></script>
 <script type="text/javascript" src="https://digstatic.dmm.com/js/warning_banner.js?1603940182"></script>
 <script type="text/javascript" src="https://digstatic.dmm.com/js/jquery.cookie.js?1306488106"></script>
+<script type="text/javascript" defer="defer" src="https://assets.digstatic.dmm.com/script/modules/SaleCountdown/saleCountdown.js"></script>
 <script type="text/javascript" defer="defer" src="https://digstatic.dmm.com/js/parts_request.js?1488448508"></script>
 <script type="text/javascript" defer="defer" src="https://digstatic.dmm.com/js/digital/bandaich.js"></script>
 <script type="text/javascript" defer="defer" src="https://digstatic.dmm.com/js/detail.js?1271382689"></script>
@@ -57,24 +61,9 @@
 <script type="text/javascript" defer="defer" src="https://digstatic.dmm.com/js/dmmplayer_app_boot.js"></script>
 <script type="text/javascript" defer="defer" src="https://digstatic.dmm.com/js/jquery.d-smoothscroll.js?1478509839"></script>
 <script type="text/javascript" src="https://digstatic.dmm.com/js/common/review.js?1485762835"></script>
+<script type="text/javascript" defer="defer" src="https://digstatic.dmm.com/js/digital/digital_detail_select.js?1699333346"></script>
 <script type="text/javascript" src="https://digstatic.dmm.com/js/common/set_tracking.js?1463477665"></script>
 <script type="text/javascript" src="https://digstatic.dmm.com/js/Silverlight.js?1545035979"></script>
-<script type="text/javascript">
-    //<![CDATA[
-    function sendGaEventCode(action) {
-    var label;
-
-    label = 'videoc';
-
-        if (label == '') {
-        label = 'top';
-    }
-
-    _gaq.push(['_trackEvent', 'mtab_general_digital', action, label]);
-    ga('mutual.send', 'event', 'mtab_general_digital', action, label);
-}
-    //]]>
-</script>
 <script type="text/javascript">
     //<![CDATA[
     
@@ -92,6 +81,24 @@ $(function() {
         clickSampleImage(gaContentId, 'column', this.getAttribute('id'));
     });
 
+        $('.cont-smplex #next_num').on('click', function() {
+        var now_num = parseInt($('#now_num').text()) + 1;
+        ga('mutual.send', 'event', 'detail_digital', 'click_photo', gaContentId);
+        clickSampleImage(gaContentId, 'column', `sample-image${now_num}`);
+    });
+
+        $('.cont-smplex #preview-middle').on('click', function() {
+        var now_num = parseInt($('#now_num').text()) + 1;
+        ga('mutual.send', 'event', 'detail_digital', 'click_photo', gaContentId);
+        clickSampleImage(gaContentId, 'column', `sample-image${now_num}`);
+    });
+
+        $('.cont-smplex #back_num').on('click', function() {
+        var now_num = parseInt($('#now_num').text()) - 1;
+        ga('mutual.send', 'event', 'detail_digital', 'click_photo', gaContentId);
+        clickSampleImage(gaContentId, 'column', `sample-image${now_num}`);
+    });
+
         $('div #detail-sample-movie').on('click', function() {
         ga('mutual.send', 'event', 'detail_digital', 'play_sample', gaContentId);
         clickPlaySample(gaContentId);
@@ -105,22 +112,51 @@ $(function() {
 });
 
 // i3 Tracking JavaScript「サンプル画像」
-function clickSampleImage(cid, viaInfo, viaOption) {
+function clickSampleImage(cid, viaInfo, viaOption, alikeImageId) {
+    var imageId;
+    var viaShowPosition;
+
+    if (viaInfo == "alike") { // alikeだったら
+        if (Array.isArray(alikeImageId)) { // alikeかつ類似画像表示結果だったら
+            viaShowPosition = "sample_image_recommend";
+        } else { // alikeかつ類似画像をクリックしたら
+            imageId = alikeImageId;
+            viaShowPosition = imageId;
+        }
+    } else { // 通常だったら
+        imageId = cid + '-' + viaOption.replace("sample-image", "");
+        viaShowPosition = imageId;
+    }
+
     if (cid && viaInfo && viaOption) {
         var viaInfoMap = {
             'big': 'イメージ拡大',
-            'column': 'イメージ列挙サンプル'
+            'column': 'イメージ列挙サンプル',
+            'alike': 'イメージ推薦サンプル'
         }
         i3('create', 'sample_image');
         i3('sample_image.set', 'detail', {
             content_id: cid,
             via_info: viaInfoMap[viaInfo],
-            via_option: viaOption
+            via_option: viaOption,
+            via_show_position: viaShowPosition
         });
-        i3('sample_image.add', 'detail', {
-            content_id: cid,
-            has_stock: true
-        });
+
+        // alikeかつ類似画像表示結果だったら
+        if (viaInfo == "alike" && Array.isArray(alikeImageId)) {
+            for (let i = 0; i < 4; i++) {
+                i3('sample_image.add', 'detail', {
+                    content_id: alikeImageId[i],
+                    has_stock: true
+                });
+            }
+        } else {
+            i3('sample_image.add', 'detail', {
+                content_id: imageId,
+                has_stock: true
+            });
+        }
+
         i3('sample_image.send', 'click', 'sample_image');
     }
 }
@@ -141,8 +177,6 @@ function clickPlaySample(cid) {
 <script type="text/javascript">
     //<![CDATA[
     
-var optimisationFlg = false;
-
 function onSilverlightError(sender, args) {
     var appSource = "";
     if (sender != null && sender != 0) {
@@ -186,6 +220,10 @@ function resizePlayer(width, height) {
 
 
 function closePlayer() {
+    let target = document.querySelector("#DMMSample_player_now").parentNode;
+    let target_src = document.querySelector("#DMMSample_player_now").getAttribute("src");
+    let target_cid = target_src.substring(target_src.indexOf('cid='), target_src.indexOf('/mtype')).replace("cid=","");
+
     var url = location.href;
     if (match = url.match(/#top|#sample-image-block|#review|#h264|\?.*/)) {
         url = url.replace(match,"");
@@ -195,44 +233,41 @@ function closePlayer() {
 
     var pars = '';
 
-              $.ajax({
-            type: 'GET',
-            url: basket_url + pars,
-            success: function(response) {
-                document.getElementById('sample-video').innerHTML = response;
-                preview_initialize();
-            },
-            error: function() {
-                alert("not url");
-            }
-          });
-            return false;
-}
+    let basket_url_cid = basket_url.substr(basket_url.indexOf('cid=') + 1).replace("id=","").replace("/","");
 
-function sampleplay(url) {
-    var pars = '';
-    $('#sample-video').load(url + pars);
+    if (basket_url_cid != target_cid) {
+      basket_url = basket_url.replace(basket_url_cid, target_cid);
+    }
+
+
+    $.ajax({
+      type: 'GET',
+      url: basket_url + pars,
+      success: function(response) {
+          target.innerHTML = response;
+          preview_initialize();
+      },
+      error: function() {
+          console.log("not url")
+      }
+    });
     return false;
 }
 
-function sampleplay_seo() {
-    $("#sample-video").addClass("hide");
-    $("#google-optimisation-video").removeClass("hide");
-    var video = document.querySelector("#DMMSample_player_now").contentDocument.querySelector("video");
-    video.play();
-}
-
-function sampleplay_seo_after(url) {
-      $("#sample-video").removeClass("hide");
-    $("#google-optimisation-video").addClass("hide");
+function sampleplay(url, isModal) {
     var pars = '';
-    $('#sample-video').load(url + pars);
+    if (isModal) {
+      $('#modalSamplevideo').load(url + pars);
+    } else {
+      $('#sample-video').load(url + pars);
+    }
     return false;
 }
 
 function samplereplay(url) {
-      var pars = '';
-    $('#sample-video').load(url + pars);
+  let target = document.querySelector("#sample-after").parentNode;
+    var pars = '';
+    $(target).load(url + pars);
 
     return false;
 }
@@ -258,24 +293,9 @@ function vrsampleplay(url) {
    dmmPartsRequest.loadRecommend('#recommend', {
        target_content_id        : 'sweet015',
        target_content_shoptable : 'shop\u005fdigital\u005fvideoc',
-       from_GET                 : 'BFsBDVxNEggJVwsae1cKUSIEW0ZRUANXQFlWXAFfTENfVAobBFMGW1ZHCksJB18NQ1cGBwUUVAFPUgJGA1ANAFVbAAlEDRIIC18TXV1SRAwSXwcPChtWCVNXGlYKSAYHRVAFA1YGWwIIRwpLCQNcFRcEWl9UG19bWFIMG0FfAQpHDF9dE1oEEAMWCw8JFAJeBgxCV1wbX0pYVw1EXARBWVdDC0pcAFsQTgxVXVxVRAwSXwcGChsXXBIDRQdGCkUBR1pDA1cMQx8aXkICAgZcFQIKWEJCVghVBxAVXUFfAQpHBVVNB18NEAMWCwkDDEREBBVXRFFNC0tQQAwVCFQNElhDC0pcBVsQWwxVGghFXA9bR0VBVVwQCVNXFV1BXwEKRwBTTQ9ZDxADFgsNCRQPWQUAThQLSl4IVFgVAlsWR1wEGGRLB1gSXlkRVBoIVFwGWhYMBwgDRl8LEEQScwZUVRYSdlYUUwhVVkcKWgkGXURbUAwUXlgSUFNADBUIUg0SAQhXUBJXDRADFgsMCRQLVggLFA1DA1IDQAZSElMMWxJeEgoAXBQAUUwMXlZsVwQVWhYMBAobDQpAWURcB18VWVY\u002aUVtEDQgIClACCAhL',
+       from_GET                 : 'BFsBDFxNEggJVwsae1cKUSIEW0ZRUANXQFlWXAFfTENfVAobBFMGW1ZHCksJB18NQ1cGBwUUVAFPUgJGA1ANAFVbAAlEDRIIC18TXV1SRAwSXwcPChtWCVNXGlYKSAYHRVAFA1YGWwIIRwpLCQNcFRcEWl9UG19bWFIMG0FfAQpHDF9dE1oEEAMWCw8JFAJeBgxCV1wbX0pYVw1EXARBWVdDC0pcAFsQTgxVXVxVRAwSXwcGChsXXBIDRQdGCkUBR1pDA1cMQx8aXkICAgZcFQIKWEJCVghVBxAVXUFfAQpHBVVNB18NEAMWCwkDDEREBBVXRFFNC0tQQAwVCFQNElhDC0pcBVsQWwxVGghFXA9bR0VBVVwQCVNXFV1BXwEKRwBTTQ9ZDxADFgsNCRQPWQUAThQLSl4IVFgVAlsWR1wEGGRLB1gSXlkRVBoIVFwGWhYMBwgDRl8LEEQScwZUVRYSdlYUUwhVVkcKWgkGXURbUAwUXlgSUFNADBUIUg0SAQhXUBJXDRADFgsMCRQLVggLFA1DA1IDQAZSElMMWxJeEgoAXBQAUUwMXlZsVwQVWhYMBAobDQpAWURcBV8VXxUEXmYPUkMJdl5CAgYMRF5SOldUEgIXA1FUDURRUFEJVAcIDUsOBABdSAVaAgFLDlhXARsID1cLBgFRBwdRBVFHWk0\u005f',
    });
-});
-    //]]>
-</script>
-<script type="text/javascript">
-    //<![CDATA[
-    $(document).ready(function(){
-    var type = {item: 11, similar: 12};
-    browseRecommend.loadRecommend('#recommend1', {
-        target_content_id        : 'sweet015',
-        target_content_shoptable : 'shop\u005fdigital\u005fvideoc',
-        from_GET                 : 'BFsBDFxNEggJVwsae1cKUSIEW0ZRUANXQFlWXAFfTENfVAobBFMGW1ZHCksJB18NQ1cGBwUUVAFPUgJGA1ANAFVbAAlEDRIIC18TXV1SRAwSXwcPChtWCVNXGlYKSAYHRVAFA1YGWwIIRwpLCQNcFRcEWl9UG19bWFIMG0FfAQpHDF9dE1oEEAMWCw8JFAJeBgxCV1wbX0pYVw1EXARBWVdDC0pcAFsQTgxVXVxVRAwSXwcGChsXXBIDRQdGCkUBR1pDA1cMQx8aXkICAgZcFQIKWEJCVghVBxAVXUFfAQpHBVVNB18NEAMWCwkDDEREBBVXRFFNC0tQQAwVCFQNElhDC0pcBVsQWwxVGghFXA9bR0VBVVwQCVNXFV1BXwEKRwBTTQ9ZDxADFgsJAQxEQhIARGlEVjtQFgdaRAkWDQFTWxJdD0URXlkcZUpSWBVbABFTFAtbXghZEQ1XCl8VVgwTQ00nVQJXSxZ3V0FTD1APRw1UCglfSlhXDURcBEFZVEMLSlwBWxBcDFZRR1cKFVoWDAIKGwlYCwwVXUFfAQpHBVVNB18NEAMWCwwJFBVeFQAUDUMDVgNAElRECRYNAVRbElgFQghdViJUVkFTRAwSXwQMElBXG1kRDV4IR1pVCANVSw9SQwlLXwECERRdSg\u005f\u005f',
-        floor     : 'digital_videoc',
-        cookie_id : '',
-        logic_id  : '',
-        type      : type,
-    });
+
 });
     //]]>
 </script>
@@ -373,7 +393,7 @@ function vrsampleplay(url) {
     list-style: none;
     border-bottom: 1px #c4d0f5 solid;
 }
-.page-detail .area-select-ptn li ~ li {
+.page-detail .area-select-ptn ul:not([class]) li ~ li {
     border-top: 1px #c4d0f5 dotted;
 }
 .page-detail .area-select-ptn li.toaster {
@@ -437,10 +457,20 @@ function vrsampleplay(url) {
     font-size: 14px;
 }
 
+.page-detail .area-select-ptn dl dd.price > span[data-purchase-labal] {
+    color: #333333;
+    line-height: 30px;
+}
+
 #d-ie7 .page-detail .area-select-ptn label dd {display: inline;}
 
 .page-detail #basket_contents > .bx-ptn.area-select-ptn {
     border-bottom: none;
+}
+.page-detail #basket_contents > .bx-ptn.area-select-ptn > span[data-purchase-labal] {
+    display: block;
+    font-weight: 600;
+    margin: 6px 0 0;
 }
 .page-detail #ajax_contents > .bx-ptn.area-select-ptn {
     padding: 0 3px 16px;
@@ -482,6 +512,9 @@ function vrsampleplay(url) {
     border: 1px #ccc solid;
     font-weight: normal;
 }
+.page-detail .bx-ptn table.tbl-bps td p.mv-info-tbl {
+    margin:2px !important;
+}
 .page-detail .bx-ptn table.tbl-bps th {
     background: #e1e1e1;
 }
@@ -496,6 +529,7 @@ function vrsampleplay(url) {
 .page-detail .bx-ptn table.tbl-bps td.format .ico-st {
     margin: 0 2px 0 11px;
 }
+.page-detail .bx-ptn table.tbl-bps td.format .ico-4k + .ico-st,
 .page-detail .bx-ptn table.tbl-bps td.format .ico-hd + .ico-st,
 .page-detail .bx-ptn table.tbl-bps td.format .ico-dl + .ico-st {
     margin: 0 2px 0 0;
@@ -890,10 +924,8 @@ a:visited.link-blu {
     font-size: 12px;
     font-weight: bold;
 }
-
-/* 物販導線用バナー */
-.banner-mono {
-    margin-top: 42px;
+[v-cloak] {
+    display: none;
 }
 
 -->
@@ -1027,12 +1059,12 @@ color:rgba(0,0,0,0.3);
   _gaq.push(
     ['_setAccount', 'UA-31336-2'],
     ['_setDomainName', '.dmm.co.jp'],
-    ['_setCustomVar', 4, '38', '4.68', 3],
-    ['_setCustomVar', 7, '38', '4.5', 2],
-    ['_setCustomVar', 8, '38', '4.5', 3],
+    ['_setCustomVar', 4, '49', '4.63', 3],
+    ['_setCustomVar', 7, '49', '4.5', 2],
+    ['_setCustomVar', 8, '49', '4.5', 3],
     ['_setSampleRate', '10'],
     ['_setCampaignCookieTimeout', 2592000000],
-    ['_trackPageview', '/digital/videoc/-/detail/=/cid=sweet015/?i3_ref=list&i3_ord=1']
+    ['_trackPageview', '/service/-/json/?method=Pc']
   );
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
@@ -1046,14 +1078,14 @@ color:rgba(0,0,0,0.3);
       // gtm product review dataLayer
       window.dataLayer = window.dataLayer || [];
       dataLayer.push({
-        'review.dimension20' : '38',
-        'review.dimension21' : '38',
+        'review.dimension20' : '49',
+        'review.dimension21' : '49',
         'review.dimension22' : '1',
-        'review.dimension23' : '4.68',
+        'review.dimension23' : '4.63',
         'review.dimension24' : '4.5',
         'review.dimension25' : '4.5',
-        'review.dimension26' : '18',
-        'review.dimension27' : '18',
+        'review.dimension26' : '24',
+        'review.dimension27' : '24',
         'review.dimension28' : '1',
       });
     }
@@ -1076,27 +1108,21 @@ color:rgba(0,0,0,0.3);
 
 
 <script type="application/ld+json">
-{
-    "@context" : "http://schema.org",
-    "@type" : "Product",
-    "name" : "ねる",
-    "image" : "https://pics.dmm.co.jp/digital/amateur/sweet015/sweet015jp.jpg",
-    "aggregateRating" : {
-      "@type" : "AggregateRating",
-      "ratingValue" : "4.68",
-      "ratingCount" : "38"
-    }
-}
+{"@context":"http://schema.org", "@type":"Product", "name":"ねる", "image":"https://pics.dmm.co.jp/digital/amateur/sweet015/sweet015jp.jpg", "description":"鉄板オナ素材的ハイシコリティ！もうサンプルは見ていただけましたか！？そうなんです！非の打ち所まるで無し！恋するキラッキラの瞳！愛嬌抜群の純真笑顔！Gカップ巨乳にむっちむちの恵体！モザイク越しにも伝わってしまう雑誌グラビア級の美少女ルックス！このスペックなのに自分に自信が持てない系のウブっ子！触れただけで濡れだす敏感ボディ！ねっとりDキスから嬉しそうに大量唾液をゴク飲みする程度には恋愛洗脳済み！溢れ出るガマン汁を丁寧に舐めとるラブいフェラ！ビックビク痙攣しながら困り顔で何度も何度も連続イキ絶頂！", "sku":"sweet015", "brand":{"@type":"Brand", "name":"素人ホイホイsweet！"}, "subjectOf":{"@type":"VideoObject", "name":"ねる", "description":"鉄板オナ素材的ハイシコリティ！もうサンプルは見ていただけましたか！？そうなんです！非の打ち所まるで無し！恋するキラッキラの瞳！愛嬌抜群の純真笑顔！Gカップ巨乳にむっちむちの恵体！モザイク越しにも伝わってしまう雑誌グラビア級の美少女ルックス！このスペックなのに自分に自信が持てない系のウブっ子！触れただけで濡れだす敏感ボディ！ねっとりDキスから嬉しそうに大量唾液をゴク飲みする程度には恋愛洗脳済み！溢れ出るガマン汁を丁寧に舐めとるラブいフェラ！ビックビク痙攣しながら困り顔で何度も何度も連続イキ絶頂！", "contentUrl":"https://cc3001.dmm.co.jp/litevideo/freepv/s/swe/sweet015/sweet015_sm_w.mp4", "thumbnailUrl":"https://pics.dmm.co.jp/digital/amateur/sweet015/sweet015jp-002.jpg", "uploadDate":"2019-05-08", "actor":{"@type":"Person", "name":"ねる", "alternateName":"ねる"}, "genre":["巨乳", "制服", "清楚", "美少女", "女子校生", "ハイビジョン"]}, "offers":{"@type":"Offer", "availability":"https://schema.org/InStock", "priceCurrency":"JPY", "price":"490"}, "aggregateRating":{"@type":"AggregateRating", "ratingValue":"4.63", "ratingCount":"49"}}
 </script>
-<link rel="preload" href="https://navismithapis-cdn.com/css/pc/min.css?v=2.10.15" as="style">
-<link rel="stylesheet" href="https://navismithapis-cdn.com/css/pc/min.css?v=2.10.15"><script src="https://navismithapis-cdn.com/js/pigeon.js?v=2.10.15" crossorigin="anonymous" id="naviapi-pigeon" data-env="prod" data-version="v2" data-site-type="adult" data-view-type="pc" defer></script>
-<script src="https://navismithapis-cdn.com/js/pc-tablet-global.js?v=2.10.15" crossorigin="anonymous" defer></script>
-<script src="https://navismithapis-cdn.com/js/search-select.js?v=2.10.15" crossorigin="anonymous" defer></script>
-<script src="https://navismithapis-cdn.com/js/suggest.js?v=2.10.15" crossorigin="anonymous" defer></script>
-<script src="https://navismithapis-cdn.com/js/pc-tablet-basket.js?v=2.10.15" crossorigin="anonymous" defer></script>
-<script src="https://navismithapis-cdn.com/js/pc-tablet-login.js?v=2.10.15" crossorigin="anonymous" defer></script>
-<script src="https://navismithapis-cdn.com/js/pc-tablet-service-com.js?v=2.10.15" crossorigin="anonymous" defer></script>
-<script type="text/javascript" src="https://dmm-extension.com/js/sys-support-dp.js" charset="UTF-8" crossorigin="anonymous"></script>
+<link rel="preload" href="https://navismithapis-cdn.com/css/pc/min.css?v=7cc549086112c5ed519352d9b9501f650882d4cd" as="style">
+<link rel="stylesheet" href="https://navismithapis-cdn.com/css/pc/min.css?v=7cc549086112c5ed519352d9b9501f650882d4cd"><script src="https://navismithapis-cdn.com/js/is_internal.js?v=7cc549086112c5ed519352d9b9501f650882d4cd" crossorigin="anonymous" id="naviapi-is-internal" data-env="prod" data-is-internal="true" defer></script>
+<script src="https://navismithapis-cdn.com/js/pigeon.js?v=7cc549086112c5ed519352d9b9501f650882d4cd" crossorigin="anonymous" id="naviapi-pigeon" data-env="prod" data-version="v2" data-site-type="adult" data-view-type="pc" defer></script>
+<script type="text/javascript" defer="defer" src="https://cdj.dap.dmm.co.jp/dmm-c-sdk.js"></script>
+<script src="https://navismithapis-cdn.com/js/pc-tablet-global.js?v=7cc549086112c5ed519352d9b9501f650882d4cd" crossorigin="anonymous" defer></script>
+<script src="https://navismithapis-cdn.com/js/search-select.js?v=7cc549086112c5ed519352d9b9501f650882d4cd" crossorigin="anonymous" defer></script>
+<script src="https://navismithapis-cdn.com/js/suggest.js?v=7cc549086112c5ed519352d9b9501f650882d4cd" crossorigin="anonymous" defer></script>
+<script src="https://navismithapis-cdn.com/js/notification.js?v=7cc549086112c5ed519352d9b9501f650882d4cd" crossorigin="anonymous" id="naviapi-notification" data-env="prod" defer></script>
+<script src="https://navismithapis-cdn.com/js/pc-tablet-basket.js?v=7cc549086112c5ed519352d9b9501f650882d4cd" crossorigin="anonymous" defer></script>
+<script src="https://navismithapis-cdn.com/js/pc-tablet-login.js?v=7cc549086112c5ed519352d9b9501f650882d4cd" crossorigin="anonymous" defer></script>
+<script src="https://navismithapis-cdn.com/js/pc-tablet-service-com.js?v=7cc549086112c5ed519352d9b9501f650882d4cd" crossorigin="anonymous"
+    defer></script>
+
 </head>
 
 <body name="dmm_main" >
@@ -1116,100 +1142,405 @@ a[e]=a[e]||function(){i=arguments[arguments.length-1],"function"==typeof i&&setT
 function(b,c){return function(){a[e].q.length>b&&c()}}(a[e].q.length,i),f),a[e].q.push(
 arguments)},a[e].q=a[e].q||[],a[e].t=f,j=b.createElement(c),k=b.getElementsByTagName(c)[0],
 j.async=1,j.src=d,j.charset="utf-8",k.parentNode.insertBefore(j,k),a[e].s=~~new Date
-}(window,document,"script","//stat.i3.dmm.com/latest/js/dmm.tracking.min.js?202010151450","i3",2000);
+}(window,document,"script","//stat.i3.dmm.com/plus/tracking.js","i3",2000);
 i3('init','i3_u8q00q');
 i3('create');
 i3('send', 'view', 'page');
-</script><!-- Google Tag Manager DataLayer-->
+</script>
+<script>
+(() => {
+  const isValid = function(value) {
+    return value && value !== "" && value !== "undefined";
+  };
+  const searchParams = new URLSearchParams(window.location.search);
+  const clientId = searchParams.get("clientId");
+  const sessionId = searchParams.get("sessionId");
+  if (isValid(clientId) && isValid(sessionId)) {
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag("js", new Date());
+    gtag("set" , {
+        "client_id": clientId,
+        "session_id": sessionId
+    });
+  }
+})();
+</script>
+<!-- Google Tag Manager DataLayer-->
+
+<script>
+/**
+ * GTM用ユーティリティ関数 (javascript)
+ * 
+ * [注意]
+ * 1.下記を厳守しないと、一部環境(フロントエンドでscriptタグをパースしているような環境)で
+ * エラーが出ます。(コードの改行が反映されず、コードがくっついた状態で解釈されるため)
+ * 
+ * ・コメントは、// は使わない
+ * ・関数の行の最後にも、セミコロンを付与する
+ * 
+ * 2.必ずES5未満のコードを書いてください。(具体的には、GTMのタグのjavascriptでエラーが出ない内容が求められる)
+ * */
+
+/**
+ GA用共通変数
+ */
+window.dmm_mkbase_ga_event_params = {
+    user_id: '', /* ( DMMのオープンな会員ID。非ログイン時はカラ。) */
+    common_last_login_user_id: '', /* ( cookie(cdp_id) ) */
+    common_profile_id: '', /*( プロフィールID )*/
+    common_layout: 'pc', /*( pc or sp ) */
+    page_type: '' /* (top, floor_top, service_top, detail, etc...) */
+}; 
+
+/**GA用ユーティリティー関数
+ dataLayerのオブジェクトに、タグAPIからの返却値を追加する関数。
+ */
+window.dmm_mkbase_ga_util = {
+    merge_common_data: function (data) {
+        window.dataLayer = window.dataLayer || [];
+        window.rawDatas = window.rawDatas || [];
+        if (window.rawDatas.length > 0) {
+            while(window.rawDatas.length > 0) {
+                const rawData = window.rawDatas.shift();
+                dataLayer.push(this.raw_data_convert_ga(rawData));
+            }
+        } 
+        return this.raw_data_convert_ga(data);
+    },
+    raw_data_convert_ga: function (data) {
+        /* 強●的にdatalayerをresetする */
+        window.dataLayer.push({ 
+            ecommerce: null,
+            cloud_retail: null,
+            via_info: null,
+            via_option: null,
+            via_view_rank: null,
+            via_show_position: null,
+            via_target_id: null,
+            misc: null
+        });
+
+        /* 明示的なイベント発火か?をtrueにする */
+        data['manual_fire_event'] = true;
+
+        /* tracking-tag-api経由イベントを識別する */
+        data['is_managed_by_tracking_tag_api'] = true;
+        
+        var event_name_prefix = 'mkbase_ga--';
+        /* イベント名にprefixが含まれていない場合は、付与する */
+        if(data['event'].indexOf(event_name_prefix) === -1){
+            data['event'] = event_name_prefix + data['event'];
+        }
+
+        /* via情報の追加 */
+        if (!(data.via_info || data.via_option || data.via_view_rank || data.via_show_position)) {
+            var paramsString = window.location.search;
+            var searchParams = new URLSearchParams(paramsString);
+            data.via_info = searchParams.get('i3_ref');
+            data.via_option = searchParams.get('dmmref');
+            data.via_view_rank = searchParams.get('i3_ord');
+            data.via_show_position = searchParams.get('i3_pst');
+        }
+
+        /* page_typeの更新（SPA対応） */
+        if (data.page_type) {
+            window.dmm_mkbase_ga_event_params.page_type = data.page_type
+        }
+
+        /* profile_idの更新（SPA対応） */
+        if (data.common_profile_id) {
+            window.dmm_mkbase_ga_event_params.common_profile_id = data.common_profile_id
+        }
+
+        /* cloud_retail存在しない場合のエラー回避 */
+        if (data.cloud_retail === undefined || data.cloud_retail.productDetails === undefined) {
+            return data;
+        }
+
+        /* cloud_retail内のecommerceパラメータを移行 */
+        var items = [];
+        var sum_price = 0;
+        for (var i = 0; i < data.cloud_retail.productDetails.length; i++) {
+            var _t = data.cloud_retail.productDetails[i];
+            var item = {};
+
+            if ('item_name' in _t.product) {
+                item['item_name'] = _t.product.item_name;
+            }
+            if ('id' in _t.product) {
+                var _id_tmp = "" + _t.product.id;
+                /* 商品idにprefixが含まれていた場合は、GA4に送るIDからはprefixを除く */
+                if (_id_tmp.indexOf("::::") > -1) {
+                    var splited = _id_tmp.split("::::");
+                    if (splited[1] && splited[1].length > 0) {
+                        _id_tmp = splited[1];
+                    }
+                }
+                item['item_id'] = _id_tmp;
+            }
+            if ('item_variant' in _t.product) {
+                item['item_variant'] = _t.product.item_variant;
+            }
+            if ('priceInfo' in _t.product) {
+                if ('price' in _t.product.priceInfo) {
+                    item['price'] = _t.product.priceInfo.price;
+                }
+                if ('currencyCode' in _t.product.priceInfo) {
+                    item['currency'] = _t.product.priceInfo.currencyCode;
+                }
+            }
+            if ('affiliation' in _t.product) {
+                item['affiliation'] = _t.product.affiliation;
+            }
+            if ('coupon' in _t.product) {
+                item['coupon'] = _t.product.coupon;
+            }
+            if ('discount' in _t.product) {
+                item['discount'] = _t.product.discount;
+            }
+            if ('index' in _t.product) {
+                item['index'] = _t.product.index;
+            }
+            if ('item_brand' in _t.product) {
+                item['item_brand'] = _t.product.item_brand;
+            }
+            if ('item_category' in _t.product) {
+                item['item_category'] = _t.product.item_category;
+            }
+            if ('item_category2' in _t.product) {
+                item['item_category2'] = _t.product.item_category2;
+            }
+            if ('item_category3' in _t.product) {
+                item['item_category3'] = _t.product.item_category3;
+            }
+            if ('item_category4' in _t.product) {
+                item['item_category4'] = _t.product.item_category4;
+            }
+            if ('item_category5' in _t.product) {
+                item['item_category5'] = _t.product.item_category5;
+            }
+            if ('item_list_id' in _t.product) {
+                item['item_list_id'] = _t.product.item_list_id;
+            }
+            if ('item_list_name' in _t.product) {
+                item['item_list_name'] = _t.product.item_list_name;
+            }
+
+            if ('promotion_id' in _t.product) {
+                item['promotion_id'] = _t.product.promotion_id;
+            }
+
+            if ('promotion_name' in _t.product) {
+                item['promotion_name'] = _t.product.promotion_name;
+            }
+
+            if ('creative_name' in _t.product) {
+                item['creative_name'] = _t.product.creative_name;
+            }
+
+            if ('creative_slot' in _t.product) {
+                item['creative_slot'] = _t.product.creative_slot;
+            }
+
+            if ('location_id' in _t.product) {
+                item['location_id'] = _t.product.location_id;
+            }
+
+
+            if ('quantity' in _t) {
+                item['quantity'] = _t.quantity;
+            }
+
+            items.push(item);
+
+            /* cloud_retail非対応パラメータの削除 */
+            delete data.cloud_retail.productDetails[i].product.item_name;
+            delete data.cloud_retail.productDetails[i].product.item_variant;
+            delete data.cloud_retail.productDetails[i].product.affiliation;
+            delete data.cloud_retail.productDetails[i].product.coupon;
+            delete data.cloud_retail.productDetails[i].product.discount;
+            delete data.cloud_retail.productDetails[i].product.index;
+            delete data.cloud_retail.productDetails[i].product.item_brand;
+            delete data.cloud_retail.productDetails[i].product.item_category;
+            delete data.cloud_retail.productDetails[i].product.item_category2;
+            delete data.cloud_retail.productDetails[i].product.item_category3;
+            delete data.cloud_retail.productDetails[i].product.item_category4;
+            delete data.cloud_retail.productDetails[i].product.item_category5;
+            delete data.cloud_retail.productDetails[i].product.item_list_id;
+            delete data.cloud_retail.productDetails[i].product.item_list_name;
+            delete data.cloud_retail.productDetails[i].product.promotion_id;
+            delete data.cloud_retail.productDetails[i].product.promotion_name;
+            delete data.cloud_retail.productDetails[i].product.creative_name;
+            delete data.cloud_retail.productDetails[i].product.creative_slot;
+            delete data.cloud_retail.productDetails[i].product.location_id;
+        }
+
+        if (!("ecommerce" in data)){ data.ecommerce = {}; }
+        data.ecommerce.items = items;
+
+        /* valueが無ければ追加 */
+        if (!("value" in data.ecommerce) && items.length > 0) {
+            data.ecommerce.value = sum_price;
+        }
+
+        return data;
+    }
+};
+(function(){
+  window.dataLayer = window.dataLayer || [];
+
+  window.dmm_mkbase_ga_util = window.dmm_mkbase_ga_util || {};
+
+  window.dmm_mkbase_ga_util.merge_common_data = window.dmm_mkbase_ga_util.merge_common_data || function (data) { return data; };
+
+  /* https://cloud.google.com/retail/docs/user-events?hl=ja */
+
+  var home_paeg_view = {
+    "event": "mkbase_retail--home_page_view",
+    "cloud_retail": {
+      "eventType": "home-page-view"
+    }
+  };
+
+  /* prefix入れないために、dmm_mkbase_ga_util挟まない */
+  window.dataLayer.push({ ecommerce: null });
+  window.dataLayer.push(home_paeg_view);
+
+  /* 非i3導入ドメインの対応 */
+  var i3_flag = '';
+  if (i3_flag === '0') {
+    var page_view = {
+      "event": "mkbase_ga--page_view",
+      "cloud_retail": {
+        "eventType": "home-page-view"
+      }
+    };
+    window.dataLayer.push( window.dmm_mkbase_ga_util.merge_common_data(page_view));
+  }
+})();
+
+</script>
+
 <script>
 (function() {
 if (!window["Marketing"]) { window.Marketing = {}; }
 var j={"host":"www.dmm.co.jp","device":"pc"};
 window.Marketing.Gateway = { getParam: function(k) { if (!k) { return j; } return j[k]; } };})();
 window.dataLayer = window.dataLayer || [];
-dataLayer.push({"dtm":{"viewLayout":"pc","isForeign":0}});
+dataLayer.push({"dtm":{"viewLayout":"pc","isForeign":0,"profileId":""}});
 </script><!-- Google Tag Manager snippet-->
 <script>
 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-JLBT'); // GTM from TagAPI
+})(window,document,'script','dataLayer','GTM-PLC9LTZ'); // GTM from TagAPI
 </script><!-- Google Tag Manager snippet(noscript) -->
 <noscript>
-<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-JLBT"
+<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PLC9LTZ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe>
-</noscript><script>
+</noscript><script type="text/javascript" async src="https://d2ezz24t9nm0vu.cloudfront.net/"></script><script>
 var trackingTagApi = trackingTagApi || {};
 trackingTagApi.environment = 'production';
 </script>
+
 <script>
-var _mtm = _mtm || [];
-var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-g.type='text/javascript'; g.async=true; g.defer=true; g.src='https://cdn.dtm.dmm.co.jp/tagmanager_v1.js'; s.parentNode.insertBefore(g,s);
-</script></div><noscript>
+/**
+ * ・コメントは、// は使わない
+ * ・関数の行の最後にも、セミコロンを付与する
+ * */
+
+/**
+ タグパラメーター
+ */
+window.dmm_mkbase_tag_api_params = {
+    environment: 'production', /* environment */
+    is_affiliate_owner: '' /* affiliate owner */
+};
+
+</script>
+</div><noscript>
   <a class="_n4v1-noscript" href="https://help.dmm.co.jp/-/detail/=/qid=10305/">JavaScriptを有効にしてください<span>設定方法はこちら</span></a>
 </noscript>
-<header class="_n4v1-header">
+<header class="_n4v1-header" id="_n4v1-header">
   <div class="_n4v1-header-left"><div class="_n4v1-global _n4v1-header-parts">
-  <span class="_n4v1-global-icon"><img src="https://navismithapis-cdn.com/img/service_r18.svg" alt="サービス" class="_n4v1-global-icon-r18"></span>
+  <span class="_n4v1-global-icon"><img src="https://navismithapis-cdn.com/img/service.svg" alt="サービス" class="_n4v1-global-icon-com" width="50" height="42"></span>
   <div class="_n4v1-global-navi">
     <div class="_n4v1-global-column">
-      <a href="https://www.dmm.co.jp/top/" class="_n4v1-global-boxlink _n4v1-global-boxlink-r18" data-navi-pigeon-click="" data-various="navigation" data-option="global" data-extra-map='{"link": "adult_top"}'>FANZA トップへ</a>
+      <a href="https://www.dmm.co.jp/top/" class="_n4v1-global-boxlink _n4v1-global-boxlink-r18"
+        data-navi-pigeon-click="" data-various="navigation" data-option="global"
+        data-extra-map='{"link": "adult_top"}'>FANZA トップへ</a>
       <ul>
         <li class="d-translate">
-          <a href="https://games.dmm.co.jp/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click="" data-various="navigation" data-option="global" data-extra-map='{"link": "games", "order": 1}'  >
+          <a href="https://games.dmm.co.jp/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "games", "order": 1}' >
             <span class="_n4v1-global-item-text _n4v1-global-item-text-r18">
-              FANZA GAMES
+              オンラインゲーム
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://dlsoft.dmm.co.jp/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click="" data-various="navigation" data-option="global" data-extra-map='{"link": "dlsoft", "order": 2}'  >
+          <a href="https://dlsoft.dmm.co.jp/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "dlsoft", "order": 2}' >
             <span class="_n4v1-global-item-text _n4v1-global-item-text-r18">
-              アダルトPCゲーム
+              PCゲーム
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/digital/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click="" data-various="navigation" data-option="global" data-extra-map='{"link": "digital", "order": 3}'  >
+          <a href="https://www.dmm.co.jp/digital/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "digital", "order": 3}' >
             <span class="_n4v1-global-item-text _n4v1-global-item-text-r18">
               動画
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/monthly/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click="" data-various="navigation" data-option="global" data-extra-map='{"link": "monthly", "order": 4}'  >
+          <a href="https://www.dmm.co.jp/monthly/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "monthly", "order": 4}' >
             <span class="_n4v1-global-item-text _n4v1-global-item-text-r18">
               月額動画
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/monthly/prime/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click="" data-various="navigation" data-option="global" data-extra-map='{"link": "prime", "order": 5}'  >
+          <a href="https://tv.dmm.co.jp/vod/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "fanzatv", "order": 5}' >
             <span class="_n4v1-global-item-text _n4v1-global-item-text-r18">
-              見放題ch ライト
+              FANZA TV
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/litevideo/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click="" data-various="navigation" data-option="global" data-extra-map='{"link": "litevideo", "order": 6}'  >
+          <a href="https://www.dmm.co.jp/litevideo/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "litevideo", "order": 6}' >
             <span class="_n4v1-global-item-text _n4v1-global-item-text-r18">
               無料動画
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/live/chat/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click="" data-various="navigation" data-option="global" data-extra-map='{"link": "livechat", "order": 7}'  >
+          <a href="https://www.dmm.co.jp/live/chat/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "livechat", "order": 7}' >
             <span class="_n4v1-global-item-text _n4v1-global-item-text-r18">
               ライブチャット
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="http://www.dmm.co.jp/deai/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click="" data-various="navigation" data-option="global" data-extra-map='{"link": "deai", "order": 8}'  >
+          <a href="https://deai.dmm.co.jp/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "deai", "order": 8}' >
             <span class="_n4v1-global-item-text _n4v1-global-item-text-r18">
               出会い
+            </span>
+          </a>
+        </li>
+        <li class="d-translate">
+          <a href="https://www.dmm.co.jp/dc/doujin/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "doujin", "order": 9}' >
+            <span class="_n4v1-global-item-text _n4v1-global-item-text-r18">
+              同人
             </span>
           </a>
         </li>
@@ -1218,49 +1549,69 @@ g.type='text/javascript'; g.async=true; g.defer=true; g.src='https://cdn.dtm.dmm
     <div class="_n4v1-global-column">
       <ul>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/dc/doujin/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click="" data-various="navigation" data-option="global" data-extra-map='{"link": "doujin", "order": 9}'  >
-            <span class="_n4v1-global-item-text _n4v1-global-item-text-r18">
-              同人
-            </span>
-          </a>
-        </li>
-        <li class="d-translate">
-          <a href="https://book.dmm.co.jp/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click="" data-various="navigation" data-option="global" data-extra-map='{"link": "book", "order": 10}'  >
+          <a href="https://book.dmm.co.jp/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "book", "order": 10}' >
             <span class="_n4v1-global-item-text _n4v1-global-item-text-r18">
               電子書籍
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://unlimited.book.dmm.co.jp/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click="" data-various="navigation" data-option="global" data-extra-map='{"link": "unlimited-book", "order": 11}'  >
+          <a href="https://unlimited.book.dmm.co.jp/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "unlimited-book", "order": 11}' >
             <span class="_n4v1-global-item-text _n4v1-global-item-text-r18">
               読み放題
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/rental/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click="" data-various="navigation" data-option="global" data-extra-map='{"link": "rental", "order": 12}'  >
+          <a href="https://www.dmm.co.jp/rental/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "rental", "order": 12}' >
             <span class="_n4v1-global-item-text _n4v1-global-item-text-r18">
-              DVD／CDレンタル
+              宅配レンタル
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/mono/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click="" data-various="navigation" data-option="global" data-extra-map='{"link": "mono", "order": 13}'  >
+          <a href="https://www.dmm.co.jp/mono/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "mono", "order": 13}' >
             <span class="_n4v1-global-item-text _n4v1-global-item-text-r18">
               通販
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://news.dmm.co.jp/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click="" data-various="navigation" data-option="global" data-extra-map='{"link": "news", "order": 14}'  >
+          <a href="https://www.dmm.co.jp/kuji/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "kuji", "order": 14}' >
+            <span class="_n4v1-global-item-text _n4v1-global-item-text-r18">
+              オンラインくじ
+            </span>
+          </a>
+        </li>
+        <li class="d-translate">
+          <a href="https://news.dmm.co.jp/" target="_self" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "news", "order": 15}' >
             <span class="_n4v1-global-item-text _n4v1-global-item-text-r18">
               ニュース／情報
             </span>
           </a>
         </li>
       </ul>
-      <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fwww.dmm.com%2F" class="_n4v1-global-boxlink _n4v1-global-boxlink-com" data-navi-pigeon-click="" data-various="navigation" data-option="global" data-extra-map='{"link": "general_top"}'>一般向けトップへ (DMM.com)</a>
+
+
+      <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fwww.dmm.com%2F"
+        class="_n4v1-global-boxlink _n4v1-global-boxlink-com" data-navi-pigeon-click="" data-various="navigation"
+        data-option="global" data-extra-map='{"link": "general_top"}'>一般向けトップへ (DMM.com)</a>
+      <ul>
+        <li class="d-translate">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fclinic.dmm.com%2F" target="_self" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "clinic"}'>
+            <span class="_n4v1-global-item-text _n4v1-global-item-text-r18">
+              オンラインクリニック
+            </span>
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 </div><a href="https://www.dmm.co.jp/digital/videoc/" class="_n4v1-logo _n4v1-header-parts" data-navi-pigeon-click="" data-various="navigation" data-option="logo">
@@ -1272,211 +1623,363 @@ g.type='text/javascript'; g.async=true; g.defer=true; g.src='https://cdn.dtm.dmm
     <input type="hidden" name="redirect" value="1"/>
     <input type="hidden" name="enc" value="UTF-8" />
     <div id="select-parent" class="_n4v1-search-selectbox">
-      <select id="select-box" name="category" aria-label="サービス選択"><option value="">すべて</option><option value="digital">動画</option><option value="digital_videoa">&nbsp;&nbsp;-&nbsp;ビデオ</option><option value="digital_videovr">&nbsp;&nbsp;-&nbsp;VR動画</option><option value="digital_videoc" selected>&nbsp;&nbsp;-&nbsp;素人</option><option value="digital_anime">&nbsp;&nbsp;-&nbsp;アニメ</option><option value="digital_nikkatsu">&nbsp;&nbsp;-&nbsp;成人映画</option><option value="monthly">月額動画</option><option value="sub_monthly_prime">見放題ch ライト</option><option value="sample_litevideo">無料動画</option><option value="pcgame">アダルトPCゲーム</option><option value="digital_pcgame">&nbsp;&nbsp;-&nbsp;アダルトPCゲーム</option><option value="pcgame_music">&nbsp;&nbsp;-&nbsp;音楽</option><option value="doujin">同人</option><option value="ebook">電子書籍</option><option value="comic">&nbsp;&nbsp;-&nbsp;アダルトコミック</option><option value="novel">&nbsp;&nbsp;-&nbsp;美少女ノベル・官能小説</option><option value="photo">&nbsp;&nbsp;-&nbsp;アダルト写真集・雑誌</option><option value="unlimited_book">読み放題</option><option value="mono">通販</option><option value="mono_dvd">&nbsp;&nbsp;-&nbsp;DVD</option><option value="mono_goods">&nbsp;&nbsp;-&nbsp;大人のおもちゃ</option><option value="mono_figure">&nbsp;&nbsp;-&nbsp;フィギュア・グッズ</option><option value="mono_anime">&nbsp;&nbsp;-&nbsp;アニメ</option><option value="mono_pcgame">&nbsp;&nbsp;-&nbsp;PCゲーム</option><option value="mono_book">&nbsp;&nbsp;-&nbsp;ブック</option><option value="mono_doujin">&nbsp;&nbsp;-&nbsp;同人</option><option value="rental">DVDレンタル</option><option value="rental_dvd">&nbsp;&nbsp;-&nbsp;月額レンタル</option><option value="ppr_dvd">&nbsp;&nbsp;-&nbsp;単品レンタル</option><option value="actress">AV女優情報</option><option value="fanzanews">FANZAニュース</option></select>
-      <span id="select-display">&nbsp;&nbsp;-&nbsp;素人</span>
+      <select id="select-box" name="category" aria-label="サービス選択"><option value="">すべて</option><option value="digital">動画</option><option value="digital_videoa">&nbsp;&nbsp;-&nbsp;ビデオ</option><option value="digital_videovr">&nbsp;&nbsp;-&nbsp;VR動画</option><option value="digital_videoc" selected>&nbsp;&nbsp;-&nbsp;素人</option><option value="digital_anime">&nbsp;&nbsp;-&nbsp;アニメ</option><option value="digital_nikkatsu">&nbsp;&nbsp;-&nbsp;成人映画</option><option value="monthly">月額動画</option><option value="fanzatv">FANZA TV</option><option value="fanzatvplus">&nbsp;&nbsp;-&nbsp;FANZA TV Plus</option><option value="sample_litevideo">無料動画</option><option value="pcgame">PCゲーム</option><option value="digital_pcgame">&nbsp;&nbsp;-&nbsp;PCゲーム</option><option value="pcgame_music">&nbsp;&nbsp;-&nbsp;音楽</option><option value="doujin">同人</option><option value="ebook">電子書籍</option><option value="comic">&nbsp;&nbsp;-&nbsp;アダルトコミック</option><option value="novel">&nbsp;&nbsp;-&nbsp;美少女ノベル・官能小説</option><option value="photo">&nbsp;&nbsp;-&nbsp;アダルト写真集・雑誌</option><option value="bl">&nbsp;&nbsp;-&nbsp;BL</option><option value="tl">&nbsp;&nbsp;-&nbsp;TL</option><option value="unlimited_book">読み放題</option><option value="mono">通販</option><option value="mono_dvd">&nbsp;&nbsp;-&nbsp;DVD</option><option value="mono_goods">&nbsp;&nbsp;-&nbsp;大人のおもちゃ</option><option value="mono_figure">&nbsp;&nbsp;-&nbsp;フィギュア・グッズ</option><option value="mono_anime">&nbsp;&nbsp;-&nbsp;アニメ</option><option value="mono_pcgame">&nbsp;&nbsp;-&nbsp;PCゲーム</option><option value="mono_book">&nbsp;&nbsp;-&nbsp;ブック</option><option value="mono_doujin">&nbsp;&nbsp;-&nbsp;同人</option><option value="rental">宅配レンタル</option><option value="rental_dvd">&nbsp;&nbsp;-&nbsp;月額DVDレンタル</option><option value="ppr_dvd">&nbsp;&nbsp;-&nbsp;単品DVDレンタル</option><option value="actress">AV女優情報</option><option value="fanzanews">FANZAニュース</option></select>
+      <span id="select-display">
+&nbsp;&nbsp;-&nbsp;素人</span>
     </div>
     <div class="_n4v1-search-txt"><input type="text" name="searchstr" value="" placeholder="キーワードから探す（商品・サービス・ゲームなど）" id="naviapi-search-text" aria-label="キーワード"></div>
     <div class="_n4v1-search-submit">
-<input class="_n4v1-search-r18-bg" type="image" src="https://navismithapis-cdn.com/img/search_submit_r18.svg" name="commit" id="naviapi-search-submit" alt="検索ナビ"></div>
+<input class="_n4v1-search-r18-bg" type="image" src="https://navismithapis-cdn.com/img/pc_search_submit.svg" name="commit" id="naviapi-search-submit" alt="検索ナビ" width="33" height="30"></div>
   </form>
   <script id="naviapi-suggest-script"></script>
   <div id="naviapi-suggest-display" class="_n4v1-search _n4v1-search-suggest _n4v1-search-suggest-hide"></div>
-</div><a class="_n4v1-help _n4v1-header-parts" href="https://help.dmm.co.jp/"><img src="https://navismithapis-cdn.com/img/help_r18.svg" alt="ヘルプ" class="_n4v1-header-icon-img" data-navi-pigeon-click="" data-various="navigation" data-option="help"></a><div class="_n4v1-basket _n4v1-header-parts">
-  <span class="_n4v1-basket-default _n4v1-header-icon"><img src="https://navismithapis-cdn.com/img/basket_r18.svg" alt="バスケット" class="_n4v1-header-icon-img"></span>
-  <div class="_n4v1-basket-main _n4v1-header-right-hover"><div class="_n4v1-basket-container">
-      <span class="_n4v1-basket-container-srv"><span class="_n4v1-basket-container-srv-txt">デジタル商品</span>
-      </span>
-      <ul>        <li class="_n4v1-basket-container-item">
-          <a href="https://www.dmm.co.jp/digital/-/basket/" data-navi-pigeon-click="" data-various="navigation" data-option="basket" data-extra-map='{"link": "digital"}'>
-            <p class="_n4v1-basket-container-item-txt">動画</p>
-            <p class="_n4v1-basket-container-item-arrow"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg"></p>
-          </a>
-        </li>        <li class="_n4v1-basket-container-item">
-          <a href="https://book.dmm.co.jp/basket/" data-navi-pigeon-click="" data-various="navigation" data-option="basket" data-extra-map='{"link": "book"}'>
-            <p class="_n4v1-basket-container-item-txt">電子書籍</p>
-            <p class="_n4v1-basket-container-item-arrow"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg"></p>
-          </a>
-        </li>        <li class="_n4v1-basket-container-item">
-          <a href="https://www.dmm.co.jp/dc/doujin/-/basket/" data-navi-pigeon-click="" data-various="navigation" data-option="basket" data-extra-map='{"link": "doujin"}'>
-            <p class="_n4v1-basket-container-item-txt">同人</p>
-            <p class="_n4v1-basket-container-item-arrow"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg"></p>
-          </a>
-        </li>        <li class="_n4v1-basket-container-item">
-          <a href="https://dlsoft.dmm.co.jp/basket/" data-navi-pigeon-click="" data-various="navigation" data-option="basket" data-extra-map='{"link": "dlsoft"}'>
-            <p class="_n4v1-basket-container-item-txt">アダルトPCゲーム</p>
-            <p class="_n4v1-basket-container-item-arrow"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg"></p>
-          </a>
-        </li></ul>
-    </div><div class="_n4v1-basket-container">
-      <span class="_n4v1-basket-container-srv"><span class="_n4v1-basket-container-srv-txt">レンタル</span>
-      </span>
-      <ul>        <li class="_n4v1-basket-container-item">
-          <a href="https://www.dmm.co.jp/rental/ppr/-/basket/" data-navi-pigeon-click="" data-various="navigation" data-option="basket" data-extra-map='{"link": "rental_ppr"}'>
-            <p class="_n4v1-basket-container-item-txt">DVD/CD</p>
-            <p class="_n4v1-basket-container-item-arrow"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg"></p>
-          </a>
-        </li>        <li class="_n4v1-basket-container-item">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fwww.dmm.com%2Frental%2Fcomic%2F-%2Fbasket%2F" data-navi-pigeon-click="" data-various="navigation" data-option="basket" data-extra-map='{"link": "rental_comic"}'>
-            <p class="_n4v1-basket-container-item-txt">コミック</p>
-            <p class="_n4v1-basket-container-item-arrow"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg"></p>
-          </a>
-        </li>        <li class="_n4v1-basket-container-item">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fwww.dmm.com%2Frental%2Firoiro%2Fbasket%2F" data-navi-pigeon-click="" data-various="navigation" data-option="basket" data-extra-map='{"link": "rental_iroiro"}'>
-            <p class="_n4v1-basket-container-item-txt">いろいろレンタル</p>
-            <p class="_n4v1-basket-container-item-arrow"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg"></p>
-          </a>
-        </li></ul>
-    </div><div class="_n4v1-basket-container">
-      <span class="_n4v1-basket-container-srv"><span class="_n4v1-basket-container-srv-txt">通販</span>
-      </span>
-      <ul>        <li class="_n4v1-basket-container-item">
-          <a href="https://www.dmm.co.jp/mono/-/basket/" data-navi-pigeon-click="" data-various="navigation" data-option="basket" data-extra-map='{"link": "mono"}'>
-            <p class="_n4v1-basket-container-item-txt">通販</p>
-            <p class="_n4v1-basket-container-item-arrow"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg"></p>
-          </a>
-        </li>        <li class="_n4v1-basket-container-item">
-          <a href="https://www.dmm.co.jp/mono/dmp/-/basket/" data-navi-pigeon-click="" data-various="navigation" data-option="basket" data-extra-map='{"link": "mono_market_place"}'>
-            <p class="_n4v1-basket-container-item-txt">マーケットプレイス</p>
-            <p class="_n4v1-basket-container-item-arrow"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg"></p>
-          </a>
-        </li></ul>
-    </div><div class="_n4v1-basket-container">
-      <span class="_n4v1-basket-container-srv"><span class="_n4v1-basket-container-srv-txt">.make</span>
-      </span>
-      <ul>        <li class="_n4v1-basket-container-item">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fmake.dmm.com%2Fcart%2F" data-navi-pigeon-click="" data-various="navigation" data-option="basket" data-extra-map='{"link": "make_print"}'>
-            <p class="_n4v1-basket-container-item-txt">3Dプリント</p>
-            <p class="_n4v1-basket-container-item-arrow"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg"></p>
-          </a>
-        </li>        <li class="_n4v1-basket-container-item">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=http%3A%2F%2Frobots.dmm.com%2Fbasket" data-navi-pigeon-click="" data-various="navigation" data-option="basket" data-extra-map='{"link": "make_robots"}'>
-            <p class="_n4v1-basket-container-item-txt">ロボット</p>
-            <p class="_n4v1-basket-container-item-arrow"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg"></p>
-          </a>
-        </li></ul>
-    </div></div>
-</div><div class="_n4v1-login _n4v1-header-parts">
-  <span class="_n4v1-login-icon _n4v1-header-icon"><img src="https://navismithapis-cdn.com/img/login_text_r18.svg" alt="ログイン" class="_n4v1-header-icon-img _n4v1-header-icon-img-r18"></span>
-  <div class="_n4v1-login-main _n4v1-header-right-hover">
-    <div class="_n4v1-login-loginmenu"><a href="https://www.dmm.co.jp/my/-/register/=/back_url=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/" class="_n4v1-login-loginlink _n4v1-login-register" data-navi-pigeon-click="" data-various="navigation" data-option="login" data-extra-map='{"link":"signup"}'>DMMアカウント登録</a>
-      <a href="https://www.dmm.co.jp/my/-/login/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/" class="_n4v1-login-loginlink _n4v1-login-login" data-navi-pigeon-click="" data-various="navigation" data-option="login" data-extra-map='{"link":"login"}'>ログイン</a><p class="_n4v1-login-note">FANZA・FANZA GAMESのご利用には、DMMアカウントが必要です</p></div>
-    <div class="_n4v1-login-container">
-      <div class="_n4v1-login-purchased">
-        <p class="_n4v1-login-heading">
-          <img src="https://navismithapis-cdn.com/img/login_purchased.svg" alt="チェック">購入済み情報
+</div><a id="naviapi-notification-icon" class="_n4v1-notification _n4v1-header-parts" href="https://notification.dmm.co.jp/" data-navi-pigeon-click="" data-various="navigation" data-option="notification"><img src="https://navismithapis-cdn.com/img/notification.svg" alt="お知らせ" class="_n4v1-header-icon-img" width="38" height="38"></a><div id="naviapi-bookmark" class="_n4v1-bookmark-stacking-context _n4v1-header-parts">
+  <div class="_n4v1-bookmark">
+    <span class="_n4v1-bookmark-icon _n4v1-header-icon">
+      <img src="https://navismithapis-cdn.com/img/bookmark.svg" alt="お気に入り" class="_n4v1-header-icon-img" width="38" height="38">
+    </span>
+    <div class="_n4v1-bookmark-main _n4v1-header-right-hover">
+        <p class="_n4v1-bookmark-heading">
+          <img src="https://navismithapis-cdn.com/img/login_star.svg">お気に入り
         </p>
-        <ul class="_n4v1-login-items">          <li class="_n4v1-login-item _n4v1-login-item-purchased">
-            <a href="https://www.dmm.co.jp/digital/-/mylibrary/=/page=1/" data-navi-pigeon-click="" data-various="navigation" data-option="login" data-extra-map='{"group": "purchased", "link": "digital"}'>
-              <span class="_n4v1-login-item-name">動画</span>
-              <span class="_n4v1-login-item-tag">購入済み商品</span>
+        <ul class="_n4v1-bookmark-items">          <li class="_n4v1-bookmark-item _n4v1-bookmark-item-fav">
+            <a href="https://dlsoft.dmm.co.jp/bookmark/" data-navi-pigeon-click="" data-various="navigation" data-option="favorite" data-extra-map='{"link": "dlsoft"}'>
+              <span class="_n4v1-bookmark-item-name">PCゲーム</span>
+              <span class="_n4v1-bookmark-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt="矢印"></span>
             </a>
-          </li>          <li class="_n4v1-login-item _n4v1-login-item-purchased">
-            <a href="https://book.dmm.co.jp/library/" data-navi-pigeon-click="" data-various="navigation" data-option="login" data-extra-map='{"group": "purchased", "link": "book"}'>
-              <span class="_n4v1-login-item-name">電子書籍</span>
-              <span class="_n4v1-login-item-tag">購入済み商品</span>
+          </li>          <li class="_n4v1-bookmark-item _n4v1-bookmark-item-fav">
+            <a href="https://www.dmm.co.jp/digital/-/bookmark/" data-navi-pigeon-click="" data-various="navigation" data-option="favorite" data-extra-map='{"link": "digital"}'>
+              <span class="_n4v1-bookmark-item-name">動画</span>
+              <span class="_n4v1-bookmark-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt="矢印"></span>
             </a>
-          </li>          <li class="_n4v1-login-item _n4v1-login-item-purchased">
-            <a href="https://www.dmm.co.jp/dc/-/mylibrary/" data-navi-pigeon-click="" data-various="navigation" data-option="login" data-extra-map='{"group": "purchased", "link": "doujin"}'>
-              <span class="_n4v1-login-item-name">同人</span>
-              <span class="_n4v1-login-item-tag">購入済み商品</span>
+          </li>          <li class="_n4v1-bookmark-item _n4v1-bookmark-item-fav">
+            <a href="https://tv.dmm.co.jp/my/bookmark/" data-navi-pigeon-click="" data-various="navigation" data-option="favorite" data-extra-map='{"link": "fanzatv"}'>
+              <span class="_n4v1-bookmark-item-name">FANZA TV</span>
+              <span class="_n4v1-bookmark-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt="矢印"></span>
             </a>
-          </li>          <li class="_n4v1-login-item _n4v1-login-item-purchased">
-            <a href="https://dlsoft.dmm.co.jp/mylibrary/" data-navi-pigeon-click="" data-various="navigation" data-option="login" data-extra-map='{"group": "purchased", "link": "dlsoft"}'>
-              <span class="_n4v1-login-item-name">アダルトPCゲーム</span>
-              <span class="_n4v1-login-item-tag">購入済み商品</span>
+          </li>          <li class="_n4v1-bookmark-item _n4v1-bookmark-item-fav">
+            <a href="https://www.dmm.co.jp/live/my/-/favorite/" data-navi-pigeon-click="" data-various="navigation" data-option="favorite" data-extra-map='{"link": "livechat"}'>
+              <span class="_n4v1-bookmark-item-name">ライブチャット</span>
+              <span class="_n4v1-bookmark-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt="矢印"></span>
             </a>
-          </li>          <li class="_n4v1-login-item _n4v1-login-item-purchased">
-            <a href="https://www.dmm.co.jp/rental/-/wishlist/" data-navi-pigeon-click="" data-various="navigation" data-option="login" data-extra-map='{"group": "purchased", "link": "rental"}'>
-              <span class="_n4v1-login-item-name">月額レンタル</span>
-              <span class="_n4v1-login-item-tag">月額リスト</span>
+          </li>          <li class="_n4v1-bookmark-item _n4v1-bookmark-item-fav">
+            <a href="https://www.dmm.co.jp/dc/doujin/-/bookmark/" data-navi-pigeon-click="" data-various="navigation" data-option="favorite" data-extra-map='{"link": "doujin"}'>
+              <span class="_n4v1-bookmark-item-name">同人</span>
+              <span class="_n4v1-bookmark-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt="矢印"></span>
             </a>
-          </li>          <li class="_n4v1-login-item _n4v1-login-item-purchased">
-            <a href="http://personal.games.dmm.co.jp/my-games/" data-navi-pigeon-click="" data-various="navigation" data-option="login" data-extra-map='{"group": "purchased", "link": "games"}'>
-              <span class="_n4v1-login-item-name">FANZA GAMES</span>
-              <span class="_n4v1-login-item-tag">マイゲーム</span>
+          </li>          <li class="_n4v1-bookmark-item _n4v1-bookmark-item-fav">
+            <a href="https://book.dmm.co.jp/shelf/?tab=favorite" data-navi-pigeon-click="" data-various="navigation" data-option="favorite" data-extra-map='{"link": "book"}'>
+              <span class="_n4v1-bookmark-item-name">電子書籍</span>
+              <span class="_n4v1-bookmark-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt="矢印"></span>
             </a>
-          </li>          <li class="_n4v1-login-item _n4v1-login-item-purchased">
-            <a href="https://www.dmm.co.jp/mono/-/order/" data-navi-pigeon-click="" data-various="navigation" data-option="login" data-extra-map='{"group": "purchased", "link": "mono"}'>
-              <span class="_n4v1-login-item-name">通販</span>
-              <span class="_n4v1-login-item-tag">注文履歴</span>
+          </li>          <li class="_n4v1-bookmark-item _n4v1-bookmark-item-fav">
+            <a href="https://www.dmm.co.jp/rental/-/bookmark/" data-navi-pigeon-click="" data-various="navigation" data-option="favorite" data-extra-map='{"link": "rental"}'>
+              <span class="_n4v1-bookmark-item-name">宅配レンタル</span>
+              <span class="_n4v1-bookmark-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt="矢印"></span>
             </a>
-          </li></ul>
-        <ul class="_n4v1-login-items">          <li class="_n4v1-login-item _n4v1-login-item-purchased">
-            <a href="https://www.dmm.co.jp/auction/-/situation/" data-navi-pigeon-click="" data-various="navigation" data-option="login" data-extra-map='{"group": "purchased", "link": "mono_auction"}'>
-              <span class="_n4v1-login-item-name">オークション</span>
-              <span class="_n4v1-login-item-tag">オークション履歴</span>
-            </a>
-          </li>          <li class="_n4v1-login-item _n4v1-login-item-purchased">
-            <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fmvno.dmm.com%2Fmypage%2F" data-navi-pigeon-click="" data-various="navigation" data-option="login" data-extra-map='{"group": "purchased", "link": "mvno"}'>
-              <span class="_n4v1-login-item-name">モバイル/格安スマホ</span>
-              <span class="_n4v1-login-item-tag">マイページ</span>
-            </a>
-          </li>          <li class="_n4v1-login-item _n4v1-login-item-purchased">
-            <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fmake.dmm.com%2Fmypage%2Fmy3d%2F" data-navi-pigeon-click="" data-various="navigation" data-option="login" data-extra-map='{"group": "purchased", "link": "make"}'>
-              <span class="_n4v1-login-item-name">make 3Dプリント</span>
-              <span class="_n4v1-login-item-tag">マイ3Dデータ</span>
-            </a>
-          </li>          <li class="_n4v1-login-item _n4v1-login-item-purchased">
-            <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Frobots.dmm.com%2Fmypage%2Forder" data-navi-pigeon-click="" data-various="navigation" data-option="login" data-extra-map='{"group": "purchased", "link": "robots"}'>
-              <span class="_n4v1-login-item-name">ロボット</span>
-              <span class="_n4v1-login-item-tag">マイページ</span>
+          </li>          <li class="_n4v1-bookmark-item _n4v1-bookmark-item-fav">
+            <a href="https://www.dmm.co.jp/mono/-/bookmark/" data-navi-pigeon-click="" data-various="navigation" data-option="favorite" data-extra-map='{"link": "mono"}'>
+              <span class="_n4v1-bookmark-item-name">通販</span>
+              <span class="_n4v1-bookmark-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt="矢印"></span>
             </a>
           </li></ul>
-      </div>
-      <div class="_n4v1-login-account-and-fav">
-        <div class="_n4v1-login-account">
-          <p class="_n4v1-login-heading">
-            <img src="https://navismithapis-cdn.com/img/login_account.svg">アカウント
-          </p>
-          <ul class="_n4v1-login-items">
-            <li class="_n4v1-login-item _n4v1-login-item-account">
-              <a href="https://www.dmm.co.jp/my/-/top/" data-navi-pigeon-click="" data-various="navigation" data-option="login" data-extra-map='{"link":"account_info"}'>
-                <span class="_n4v1-login-item-name">DMMアカウント情報</span>
-                <span class="_n4v1-login-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt="矢印"></span>
-              </a>
-            </li>
-          </ul>
+    </div>
+  </div>
+</div><a id="naviapi-coupon-icon" class="_n4v1-coupon _n4v1-header-parts" href="https://coupon.dmm.co.jp/" data-navi-pigeon-click="" data-various="navigation" data-option="coupon">
+  <img src="https://navismithapis-cdn.com/img/coupon.svg" alt="クーポン" class="_n4v1-header-icon-img" width="38" height="38">
+</a><a class="_n4v1-help _n4v1-header-parts" href="https://help.dmm.co.jp/"><img src="https://navismithapis-cdn.com/img/help.svg" alt="ヘルプ" class="_n4v1-header-icon-img" data-navi-pigeon-click="" data-various="navigation" data-option="help" width="38" height="38"></a><div class="_n4v1-basket-stacking-context _n4v1-header-parts">
+  <div class="_n4v1-basket">
+    <span class="_n4v1-basket-default _n4v1-header-icon"><img src="https://navismithapis-cdn.com/img/basket.svg" alt="バスケット" class="_n4v1-header-icon-img" width="38" height="38"></span>
+    <div class="_n4v1-basket-main _n4v1-header-right-hover"><div class="_n4v1-basket-container">
+        <span class="_n4v1-basket-container-srv"><span class="_n4v1-basket-container-srv-txt">デジタル商品</span>
+        </span>
+        <ul>          <li class="_n4v1-basket-container-item">
+            <a href="https://www.dmm.co.jp/digital/-/basket/" data-navi-pigeon-click="" data-various="navigation" data-option="basket" data-extra-map='{"link": "digital"}'>
+              <p class="_n4v1-basket-container-item-txt">動画</p>
+              <p class="_n4v1-basket-container-item-arrow"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg"></p>
+            </a>
+          </li>          <li class="_n4v1-basket-container-item">
+            <a href="https://book.dmm.co.jp/basket/" data-navi-pigeon-click="" data-various="navigation" data-option="basket" data-extra-map='{"link": "book"}'>
+              <p class="_n4v1-basket-container-item-txt">電子書籍</p>
+              <p class="_n4v1-basket-container-item-arrow"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg"></p>
+            </a>
+          </li>          <li class="_n4v1-basket-container-item">
+            <a href="https://www.dmm.co.jp/dc/doujin/-/basket/" data-navi-pigeon-click="" data-various="navigation" data-option="basket" data-extra-map='{"link": "doujin"}'>
+              <p class="_n4v1-basket-container-item-txt">同人</p>
+              <p class="_n4v1-basket-container-item-arrow"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg"></p>
+            </a>
+          </li>          <li class="_n4v1-basket-container-item">
+            <a href="https://dlsoft.dmm.co.jp/basket/" data-navi-pigeon-click="" data-various="navigation" data-option="basket" data-extra-map='{"link": "dlsoft"}'>
+              <p class="_n4v1-basket-container-item-txt">PCゲーム</p>
+              <p class="_n4v1-basket-container-item-arrow"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg"></p>
+            </a>
+          </li></ul>
+      </div><div class="_n4v1-basket-container">
+        <span class="_n4v1-basket-container-srv"><span class="_n4v1-basket-container-srv-txt">宅配レンタル</span>
+        </span>
+        <ul>          <li class="_n4v1-basket-container-item">
+            <a href="https://www.dmm.co.jp/rental/ppr/-/basket/" data-navi-pigeon-click="" data-various="navigation" data-option="basket" data-extra-map='{"link": "rental_ppr"}'>
+              <p class="_n4v1-basket-container-item-txt">DVD/CD</p>
+              <p class="_n4v1-basket-container-item-arrow"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg"></p>
+            </a>
+          </li>          <li class="_n4v1-basket-container-item">
+            <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fwww.dmm.com%2Frental%2Fcomic%2F-%2Fbasket%2F" data-navi-pigeon-click="" data-various="navigation" data-option="basket" data-extra-map='{"link": "rental_comic"}'>
+              <p class="_n4v1-basket-container-item-txt">コミック</p>
+              <p class="_n4v1-basket-container-item-arrow"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg"></p>
+            </a>
+          </li></ul>
+      </div><div class="_n4v1-basket-container">
+        <span class="_n4v1-basket-container-srv"><span class="_n4v1-basket-container-srv-txt">通販</span>
+        </span>
+        <ul>          <li class="_n4v1-basket-container-item">
+            <a href="https://www.dmm.co.jp/mono/-/basket/" data-navi-pigeon-click="" data-various="navigation" data-option="basket" data-extra-map='{"link": "mono"}'>
+              <p class="_n4v1-basket-container-item-txt">通販</p>
+              <p class="_n4v1-basket-container-item-arrow"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg"></p>
+            </a>
+          </li>          <li class="_n4v1-basket-container-item">
+            <a href="https://www.dmm.co.jp/mono/dmp/-/basket/" data-navi-pigeon-click="" data-various="navigation" data-option="basket" data-extra-map='{"link": "mono_market_place"}'>
+              <p class="_n4v1-basket-container-item-txt">マーケットプレイス</p>
+              <p class="_n4v1-basket-container-item-arrow"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg"></p>
+            </a>
+          </li></ul>
+      </div><div class="_n4v1-basket-container">
+        <span class="_n4v1-basket-container-srv"><span class="_n4v1-basket-container-srv-txt">DMM.make</span>
+        </span>
+        <ul>          <li class="_n4v1-basket-container-item">
+            <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fmake.dmm.com%2Fcart%2F" data-navi-pigeon-click="" data-various="navigation" data-option="basket" data-extra-map='{"link": "make_print"}'>
+              <p class="_n4v1-basket-container-item-txt">3Dプリント</p>
+              <p class="_n4v1-basket-container-item-arrow"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg"></p>
+            </a>
+          </li></ul>
+      </div></div>
+  </div>
+</div><div class="_n4v1-login-stacking-context _n4v1-header-parts" id="naviapi-header-login">
+  <div class="_n4v1-login" data-navi-pigeon-cursor-hover-with-condition-mouseover-at-most-once>
+    <div class="_n4v1-login-content">
+      <span
+        class="_n4v1-login-icon _n4v1-header-icon"
+        data-navi-pigeon-mouseover-at-most-once-by-a-hover
+        data-various="navigation"
+        data-option="header-login-icon"
+      >
+        <img
+          src="https://navismithapis-cdn.com/img/login.svg"
+          alt=""
+          class="_n4v1-header-icon-img"
+          width="38"
+          height="38"
+        />
+      </span></div>
+    <div class="_n4v1-login-main _n4v1-header-right-hover"><div class="_n4v1-login-loginmenu">
+        <a
+          href="https://accounts.dmm.co.jp/welcome/signup/email/=/back_url=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__"
+          class="_n4v1-login-loginlink _n4v1-login-register"
+          data-navi-pigeon-click=""
+          data-various="navigation"
+          data-option="login"
+          data-extra-map='{"link":"signup"}'
+          >DMMアカウント登録</a
+        >
+        <a
+          href="https://accounts.dmm.co.jp/service/login/password/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__"
+          class="_n4v1-login-loginlink _n4v1-login-login"
+          data-navi-pigeon-click=""
+          data-various="navigation"
+          data-option="login"
+          data-extra-map='{"link":"login"}'
+          >ログイン</a
+        ><p class="_n4v1-login-note">
+          FANZA・FANZA GAMESのご利用には、DMMアカウントが必要です
+        </p></div><div class="_n4v1-login-container">
+        <div class="_n4v1-login-container-left"><div class="_n4v1-login-purchased">
+            <p class="_n4v1-login-heading">
+              <img
+                src="https://navismithapis-cdn.com/img/login_purchased.svg"
+                alt=""
+              />購入済み情報
+            </p>
+            <ul class="_n4v1-login-items">              <li class="_n4v1-login-item _n4v1-login-item-purchased">
+                <a
+                  href="https://library.games.dmm.co.jp/"
+                  target="_self"
+                  data-navi-pigeon-click=""
+                  data-various="navigation"
+                  data-option="login"
+                  data-extra-map='{"group": "purchased", "link": "games"}'
+                  
+                >
+                  <span class="_n4v1-login-item-name">オンラインゲーム</span>
+                  <span class="_n4v1-login-item-tag">マイゲーム</span>
+                </a>
+              </li>              <li class="_n4v1-login-item _n4v1-login-item-purchased">
+                <a
+                  href="https://dlsoft.dmm.co.jp/mylibrary/"
+                  target="_self"
+                  data-navi-pigeon-click=""
+                  data-various="navigation"
+                  data-option="login"
+                  data-extra-map='{"group": "purchased", "link": "dlsoft"}'
+                  
+                >
+                  <span class="_n4v1-login-item-name">PCゲーム</span>
+                  <span class="_n4v1-login-item-tag">購入済み商品</span>
+                </a>
+              </li>              <li class="_n4v1-login-item _n4v1-login-item-purchased">
+                <a
+                  href="https://www.dmm.co.jp/digital/-/mylibrary/=/page=1/"
+                  target="_self"
+                  data-navi-pigeon-click=""
+                  data-various="navigation"
+                  data-option="login"
+                  data-extra-map='{"group": "purchased", "link": "digital"}'
+                  
+                >
+                  <span class="_n4v1-login-item-name">動画</span>
+                  <span class="_n4v1-login-item-tag">購入済み商品</span>
+                </a>
+              </li>              <li class="_n4v1-login-item _n4v1-login-item-purchased">
+                <a
+                  href="https://www.dmm.co.jp/dc/-/mylibrary/"
+                  target="_self"
+                  data-navi-pigeon-click=""
+                  data-various="navigation"
+                  data-option="login"
+                  data-extra-map='{"group": "purchased", "link": "doujin"}'
+                  
+                >
+                  <span class="_n4v1-login-item-name">同人</span>
+                  <span class="_n4v1-login-item-tag">購入済み商品</span>
+                </a>
+              </li>              <li class="_n4v1-login-item _n4v1-login-item-purchased">
+                <a
+                  href="https://book.dmm.co.jp/library/"
+                  target="_self"
+                  data-navi-pigeon-click=""
+                  data-various="navigation"
+                  data-option="login"
+                  data-extra-map='{"group": "purchased", "link": "book"}'
+                  
+                >
+                  <span class="_n4v1-login-item-name">電子書籍</span>
+                  <span class="_n4v1-login-item-tag">購入済み商品</span>
+                </a>
+              </li>              <li class="_n4v1-login-item _n4v1-login-item-purchased">
+                <a
+                  href="https://www.dmm.co.jp/rental/-/wishlist/"
+                  target="_self"
+                  data-navi-pigeon-click=""
+                  data-various="navigation"
+                  data-option="login"
+                  data-extra-map='{"group": "purchased", "link": "rental"}'
+                  
+                >
+                  <span class="_n4v1-login-item-name">宅配レンタル</span>
+                  <span class="_n4v1-login-item-tag">月額リスト</span>
+                </a>
+              </li></ul>
+            <ul class="_n4v1-login-items">              <li class="_n4v1-login-item _n4v1-login-item-purchased">
+                <a
+                  href="https://www.dmm.co.jp/mono/-/order/"
+                  target="_self"
+                  data-navi-pigeon-click=""
+                  data-various="navigation"
+                  data-option="login"
+                  data-extra-map='{"group": "purchased", "link": "mono"}'
+                  
+                >
+                  <span class="_n4v1-login-item-name">通販</span>
+                  <span class="_n4v1-login-item-tag">注文履歴</span>
+                </a>
+              </li>              <li class="_n4v1-login-item _n4v1-login-item-purchased">
+                <a
+                  href="https://www.dmm.co.jp/auction/-/situation/"
+                  target="_self"
+                  data-navi-pigeon-click=""
+                  data-various="navigation"
+                  data-option="login"
+                  data-extra-map='{"group": "purchased", "link": "mono_auction"}'
+                  
+                >
+                  <span class="_n4v1-login-item-name">アダルトオークション</span>
+                  <span class="_n4v1-login-item-tag">オークション履歴</span>
+                </a>
+              </li>              <li class="_n4v1-login-item _n4v1-login-item-purchased">
+                <a
+                  href="https://www.dmm.co.jp/kuji/history/"
+                  target="_blank"
+                  data-navi-pigeon-click=""
+                  data-various="navigation"
+                  data-option="login"
+                  data-extra-map='{"group": "purchased", "link": "kuji"}'
+                  rel="noopener"
+                >
+                  <span class="_n4v1-login-item-name">オンラインくじ</span>
+                  <span class="_n4v1-login-item-tag">購入済み商品</span>
+                </a>
+              </li>              <li class="_n4v1-login-item _n4v1-login-item-purchased">
+                <a
+                  href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fmake.dmm.com%2Fmypage%2Fmy3d%2F"
+                  target="_self"
+                  data-navi-pigeon-click=""
+                  data-various="navigation"
+                  data-option="login"
+                  data-extra-map='{"group": "purchased", "link": "make"}'
+                  
+                >
+                  <span class="_n4v1-login-item-name">3Dプリント</span>
+                  <span class="_n4v1-login-item-tag">マイ3Dデータ</span>
+                </a>
+              </li>              <li class="_n4v1-login-item _n4v1-login-item-purchased">
+                <a
+                  href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fmvno.dmm.com%2Fmypage%2F"
+                  target="_blank"
+                  data-navi-pigeon-click=""
+                  data-various="navigation"
+                  data-option="login"
+                  data-extra-map='{"group": "purchased", "link": "mvno"}'
+                  rel="noopener"
+                >
+                  <span class="_n4v1-login-item-name">モバイル</span>
+                  <span class="_n4v1-login-item-tag">マイページ</span>
+                </a>
+              </li></ul>
+          </div>
         </div>
-        <div class="_n4v1-login-fav">
-          <p class="_n4v1-login-heading">
-            <img src="https://navismithapis-cdn.com/img/login_star.svg">お気に入り
-          </p>
-          <ul class="_n4v1-login-items">            <li class="_n4v1-login-item _n4v1-login-item-fav">
-              <a href="https://www.dmm.co.jp/digital/-/bookmark/" data-navi-pigeon-click="" data-various="navigation" data-option="login" data-extra-map='{"group": "favorite", "link": "digital"}'>
-                <span class="_n4v1-login-item-name">動画</span>
-                <span class="_n4v1-login-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt="矢印"></span>
-              </a>
-            </li>            <li class="_n4v1-login-item _n4v1-login-item-fav">
-              <a href="https://book.dmm.co.jp/bookmark/" data-navi-pigeon-click="" data-various="navigation" data-option="login" data-extra-map='{"group": "favorite", "link": "book"}'>
-                <span class="_n4v1-login-item-name">電子書籍</span>
-                <span class="_n4v1-login-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt="矢印"></span>
-              </a>
-            </li>            <li class="_n4v1-login-item _n4v1-login-item-fav">
-              <a href="https://www.dmm.co.jp/dc/doujin/-/bookmark/" data-navi-pigeon-click="" data-various="navigation" data-option="login" data-extra-map='{"group": "favorite", "link": "doujin"}'>
-                <span class="_n4v1-login-item-name">同人</span>
-                <span class="_n4v1-login-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt="矢印"></span>
-              </a>
-            </li>            <li class="_n4v1-login-item _n4v1-login-item-fav">
-              <a href="https://dlsoft.dmm.co.jp/bookmark/" data-navi-pigeon-click="" data-various="navigation" data-option="login" data-extra-map='{"group": "favorite", "link": "dlsoft"}'>
-                <span class="_n4v1-login-item-name">アダルトPCゲーム</span>
-                <span class="_n4v1-login-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt="矢印"></span>
-              </a>
-            </li>            <li class="_n4v1-login-item _n4v1-login-item-fav">
-              <a href="https://www.dmm.co.jp/rental/-/bookmark/" data-navi-pigeon-click="" data-various="navigation" data-option="login" data-extra-map='{"group": "favorite", "link": "rental"}'>
-                <span class="_n4v1-login-item-name">DVD/CDレンタル</span>
-                <span class="_n4v1-login-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt="矢印"></span>
-              </a>
-            </li>            <li class="_n4v1-login-item _n4v1-login-item-fav">
-              <a href="https://www.dmm.co.jp/mono/-/bookmark/" data-navi-pigeon-click="" data-various="navigation" data-option="login" data-extra-map='{"group": "favorite", "link": "mono"}'>
-                <span class="_n4v1-login-item-name">通販</span>
-                <span class="_n4v1-login-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt="矢印"></span>
-              </a>
-            </li>            <li class="_n4v1-login-item _n4v1-login-item-fav">
-              <a href="https://www.dmm.co.jp/live/my/-/favorite/" data-navi-pigeon-click="" data-various="navigation" data-option="login" data-extra-map='{"group": "favorite", "link": "livechat"}'>
-                <span class="_n4v1-login-item-name">ライブチャット</span>
-                <span class="_n4v1-login-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt="矢印"></span>
-              </a>
-            </li></ul>
+        <div class="_n4v1-login-container-right">
+          <div class="_n4v1-login-account-and-fav">
+            <ul class="_n4v1-login-items"><li class="_n4v1-login-item _n4v1-login-item-account">
+                  <a href="https://www.pointclub.dmm.co.jp/#achievement" data-navi-pigeon-click="" data-various="navigation" data-option='header-login-contents-point-info' data-extra-map='{"link": "point_info"}'><span class="_n4v1-login-item-icon"><img src="https://navismithapis-cdn.com/img/point_history.svg" alt="" class="_n4v1-login-item-icon-img"></span><span class="_n4v1-login-item-name">ポイント履歴</span>
+                    <span class="_n4v1-login-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt=""></span>
+                  </a>
+                </li><li class="_n4v1-login-item _n4v1-login-item-account">
+                  <a href="https://www.pointclub.dmm.co.jp/relay/exchange" data-navi-pigeon-click="" data-various="navigation" data-option='header-login-contents-point-exchange' data-extra-map='{"link": "point_exchange"}'><span class="_n4v1-login-item-icon"><img src="https://navismithapis-cdn.com/img/point_exchange.svg" alt="" class="_n4v1-login-item-icon-img"></span><span class="_n4v1-login-item-name">ポイント交換</span>
+                    <span class="_n4v1-login-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt=""></span>
+                  </a>
+                </li><li class="_n4v1-login-item _n4v1-login-item-account">
+                  <a href="https://accounts.dmm.co.jp/settings" data-navi-pigeon-click="" data-various="navigation" data-option='login' data-extra-map='{"link": "account_info"}'><span class="_n4v1-login-item-icon"><img src="https://navismithapis-cdn.com/img/login.svg" alt="" class="_n4v1-login-item-icon-img"></span><span class="_n4v1-login-item-name">DMMアカウント情報</span>
+                    <span class="_n4v1-login-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt=""></span>
+                  </a>
+                </li><li class="_n4v1-login-item _n4v1-login-item-account">
+                  <a href="https://accounts.dmm.co.jp/settings/premium" data-navi-pigeon-click="" data-various="navigation" data-option='login' data-extra-map='{"link": "premium"}'><span class="_n4v1-login-item-icon"><img src="https://navismithapis-cdn.com/img/premium.svg" alt="" class="_n4v1-login-item-icon-img"></span><span class="_n4v1-login-item-name">DMMプレミアムマイページ</span>
+                    <span class="_n4v1-login-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt=""></span>
+                  </a>
+                </li><li class="_n4v1-login-item _n4v1-login-item-account">
+                  <a href="https://payment.dmm.co.jp/payment/" data-navi-pigeon-click="" data-various="navigation" data-option='login' data-extra-map='{"link": "card_info"}'><span class="_n4v1-login-item-icon"><img src="https://navismithapis-cdn.com/img/payment.svg" alt="" class="_n4v1-login-item-icon-img"></span><span class="_n4v1-login-item-name">クレジットカード情報</span>
+                    <span class="_n4v1-login-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt=""></span>
+                  </a>
+                </li><li class="_n4v1-login-item _n4v1-login-item-account">
+                  <a href="https://mail-information.dmm.co.jp" data-navi-pigeon-click="" data-various="navigation" data-option='login' data-extra-map='{"link": "notification"}'><span class="_n4v1-login-item-icon"><img src="https://navismithapis-cdn.com/img/notification.svg" alt="" class="_n4v1-login-item-icon-img"></span><span class="_n4v1-login-item-name">通知設定</span>
+                    <span class="_n4v1-login-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt=""></span>
+                  </a>
+                </li><li class="_n4v1-login-item _n4v1-login-item-account">
+                  <a href="https://accounts.dmm.co.jp/settings/service" data-navi-pigeon-click="" data-various="navigation" data-option='login' data-extra-map='{"link": "service_info"}'><span class="_n4v1-login-item-name">サービス利用情報</span>
+                    <span class="_n4v1-login-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt=""></span>
+                  </a>
+                </li><li class="_n4v1-login-item _n4v1-login-item-account">
+                  <a href="https://support.dmm.co.jp/" data-navi-pigeon-click="" data-various="navigation" data-option='login' data-extra-map='{"link": "support"}'><span class="_n4v1-login-item-name">ヘルプセンター</span>
+                    <span class="_n4v1-login-item-img"><img src="https://navismithapis-cdn.com/img/pc_arrow.svg" alt=""></span>
+                  </a>
+                </li></ul></div>
         </div>
       </div>
     </div>
@@ -1490,248 +1993,161 @@ g.type='text/javascript'; g.async=true; g.defer=true; g.src='https://cdn.dtm.dmm
   </a>
 </div><div class="_n4v1-service_com _n4v1-header-parts">
   <span class="_n4v1-service_com-icon _n4v1-header-icon">
-    <img src="https://navismithapis-cdn.com/img/pc_service_com_arrow.svg" alt="サービス" class="_n4v1-header-icon-img">
+    <img src="https://navismithapis-cdn.com/img/pc_service_com_arrow.svg" alt="サービス" class="_n4v1-header-icon-img" width="10"
+      height="9">
   </span>
   <div class="_n4v1-service_com-navi">
     <span class="_n4v1-service_com-icon-hover _n4v1-header-icon">
-      <img src="https://navismithapis-cdn.com/img/pc_service_com_arrow_hover.svg" alt="サービス" class="_n4v1-header-icon-img">
+      <img src="https://navismithapis-cdn.com/img/pc_service_com_arrow_hover.svg" alt="サービス" class="_n4v1-header-icon-img"
+        width="10" height="9">
     </span>
     <div class="_n4v1-service_com-column">
-      <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fwww.dmm.com%2F" class="_n4v1-service_com-boxlink _n4v1-service_com-boxlink-com" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "general_top"}'>一般向けトップへ (DMM.com)</a>
+      <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fwww.dmm.com%2F"
+        class="_n4v1-service_com-boxlink _n4v1-service_com-boxlink-com" data-navi-pigeon-click=""
+        data-various="navigation" data-option="service_list" data-extra-map='{"link": "general_top"}'>一般向けトップへ
+        (DMM.com)</a>
       <ul>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fgames.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "games", "order": 1}' >
-            <img src="https://p-smith.com/service-icon/netgame.svg" class="_n4v1-service_com-item-icon">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Ftv.dmm.com%2Fvod%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "dmmtv", "order": 1}' >
+            <img src="https://p-smith.com/service-icon/dmmtv.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
             <span class="_n4v1-service_com-item-text">
-              DMM GAMES
+              DMM TV
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fdlsoft.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "dlsoft", "order": 2}' >
-            <img src="https://p-smith.com/service-icon/pcsoft.svg" class="_n4v1-service_com-item-icon">
-            <span class="_n4v1-service_com-item-text">
-              PCゲーム/ソフトウェア
-            </span>
-          </a>
-        </li>
-        <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Ffx.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "fx", "order": 3}' >
-            <img src="https://p-smith.com/service-icon/fx.svg" class="_n4v1-service_com-item-icon">
-            <span class="_n4v1-service_com-item-text">
-              DMM FX
-            </span>
-          </a>
-        </li>
-        <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fbitcoin.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "bitcoin", "order": 4}' >
-            <img src="https://p-smith.com/service-icon/bitcoin.svg" class="_n4v1-service_com-item-icon">
-            <span class="_n4v1-service_com-item-text">
-              DMM ビットコイン
-            </span>
-          </a>
-        </li>
-        <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fkabu.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "kabu", "order": 5}' >
-            <img src="https://p-smith.com/service-icon/kabu.svg" class="_n4v1-service_com-item-icon">
-            <span class="_n4v1-service_com-item-text">
-              DMM 株
-            </span>
-          </a>
-        </li>
-        <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fbanusy.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "banusy", "order": 6}' >
-            <img src="https://p-smith.com/service-icon/banusy.svg" class="_n4v1-service_com-item-icon">
-            <span class="_n4v1-service_com-item-text">
-              DMM バヌーシー
-            </span>
-          </a>
-        </li>
-        <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fbook.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "book", "order": 7}' >
-            <img src="https://p-smith.com/service-icon/book.svg" class="_n4v1-service_com-item-icon">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fbook.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "book", "order": 2}' >
+            <img src="https://p-smith.com/service-icon/book.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
             <span class="_n4v1-service_com-item-text">
               電子書籍
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=http%3A%2F%2Fwww.dmm.com%2Fdigital%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "digital", "order": 8}' >
-            <img src="https://p-smith.com/service-icon/digital.svg" class="_n4v1-service_com-item-icon">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fgames.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "games", "order": 3}' >
+            <img src="https://p-smith.com/service-icon/netgame.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
             <span class="_n4v1-service_com-item-text">
-              動画
+              オンラインゲーム
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fwww.dmm.com%2Fmonthly%2Fprime%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "prime", "order": 9}' >
-            <img src="https://p-smith.com/service-icon/digital.svg" class="_n4v1-service_com-item-icon">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fwww.dmm.com%2Frental%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "rental", "order": 4}' >
+            <img src="https://p-smith.com/service-icon/rental.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
             <span class="_n4v1-service_com-item-text">
-              動画見放題ch
+              宅配レンタル
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fshowbooth.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "showbooth", "order": 10}' >
-            <img src="https://p-smith.com/service-icon/showbooth.svg" class="_n4v1-service_com-item-icon">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fonkure.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "onkure", "order": 5}' >
+            <img src="https://p-smith.com/service-icon/onkure.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
             <span class="_n4v1-service_com-item-text">
-              オンライン展示会
+              オンラインクレーンゲーム
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Feikaiwa.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "eikaiwa", "order": 11}' >
-            <img src="https://p-smith.com/service-icon/eikaiwa.svg" class="_n4v1-service_com-item-icon">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Ffx.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "fx", "order": 6}' >
+            <img src="https://p-smith.com/service-icon/fx.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
             <span class="_n4v1-service_com-item-text">
-              DMM 英会話
+              FX/CFD
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Flounge.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "salon", "order": 12}' >
-            <img src="https://p-smith.com/service-icon/lounge.svg" class="_n4v1-service_com-item-icon">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fkabu.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "kabu", "order": 7}' >
+            <img src="https://p-smith.com/service-icon/kabu.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
+            <span class="_n4v1-service_com-item-text">
+              株
+            </span>
+          </a>
+        </li>
+        <li class="d-translate">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fbitcoin.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "bitcoin", "order": 8}' >
+            <img src="https://p-smith.com/service-icon/bitcoin.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
+            <span class="_n4v1-service_com-item-text">
+              暗号資産
+            </span>
+          </a>
+        </li>
+        <li class="d-translate">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fbanusy.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "banusy", "order": 9}' >
+            <img src="https://p-smith.com/service-icon/banusy.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
+            <span class="_n4v1-service_com-item-text">
+              バヌーシー
+            </span>
+          </a>
+        </li>
+        <li class="d-translate">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fdlsoft.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "dlsoft", "order": 10}' >
+            <img src="https://p-smith.com/service-icon/pcsoft.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
+            <span class="_n4v1-service_com-item-text">
+              PCゲーム/ソフトウェア
+            </span>
+          </a>
+        </li>
+        <li class="d-translate">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Feikaiwa.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "eikaiwa", "order": 11}' >
+            <img src="https://p-smith.com/service-icon/eikaiwa.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
+            <span class="_n4v1-service_com-item-text">
+              英会話
+            </span>
+          </a>
+        </li>
+        <li class="d-translate">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Flounge.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "salon", "order": 12}' >
+            <img src="https://p-smith.com/service-icon/lounge.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
             <span class="_n4v1-service_com-item-text">
               オンラインサロン
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fweb-camp.io%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "webcamp", "order": 13}' >
-            <img src="https://p-smith.com/service-icon/webcamp.svg" class="_n4v1-service_com-item-icon">
-            <span class="_n4v1-service_com-item-text">
-              プログラミングスクール
-            </span>
-          </a>
-        </li>
-        <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fwww.dmm.com%2Frental%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "rental", "order": 14}' >
-            <img src="https://p-smith.com/service-icon/rental.svg" class="_n4v1-service_com-item-icon">
-            <span class="_n4v1-service_com-item-text">
-              DVD/CDレンタル
-            </span>
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div class="_n4v1-service_com-column">
-      <ul>
-        <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fwww.dmm.com%2Frental%2Firoiro%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "rental_iroiro", "order": 15}' >
-            <img src="https://p-smith.com/service-icon/iroiro.svg" class="_n4v1-service_com-item-icon">
-            <span class="_n4v1-service_com-item-text">
-              いろいろレンタル
-            </span>
-          </a>
-        </li>
-        <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fwww.dmm.com%2Fmono%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "mono", "order": 16}' >
-            <img src="https://p-smith.com/service-icon/mono.svg" class="_n4v1-service_com-item-icon">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fwww.dmm.com%2Fmono%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "mono", "order": 13}' >
+            <img src="https://p-smith.com/service-icon/mono.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
             <span class="_n4v1-service_com-item-text">
               通販
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fscratch.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "scratch", "order": 17}' >
-            <img src="https://p-smith.com/service-icon/scratch.svg" class="_n4v1-service_com-item-icon">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fclinic.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "clinic", "order": 14}' >
+            <img src="https://p-smith.com/service-icon/clinic_com.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
             <span class="_n4v1-service_com-item-text">
-              DMM スクラッチ
+              オンラインクリニック
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fmake.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "make", "order": 18}' >
-            <img src="https://p-smith.com/service-icon/make.svg" class="_n4v1-service_com-item-icon">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fscratch.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "scratch", "order": 15}' >
+            <img src="https://p-smith.com/service-icon/scratch.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
             <span class="_n4v1-service_com-item-text">
-              DMM.make
+              スクラッチ
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fkariyushi-aquarium.com%2F" target="_blank" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "aquarium", "order": 19}' rel="noopener">
-            <img src="https://p-smith.com/service-icon/aquarium.svg" class="_n4v1-service_com-item-icon">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fkeirin.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "chariloto", "order": 16}' >
+            <img src="https://p-smith.com/service-icon/race.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
             <span class="_n4v1-service_com-item-text">
-              DMMかりゆし水族館
-            </span>
-          </a>
-        </li>
-        <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fteamlabplanets.dmm.com%2F" target="_blank" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "planets", "order": 20}' rel="noopener">
-            <img src="https://p-smith.com/service-icon/planets.svg" class="_n4v1-service_com-item-icon">
-            <span class="_n4v1-service_com-item-text">
-              チームラボ プラネッツ
-            </span>
-          </a>
-        </li>
-        <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Frobots.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "robots", "order": 21}' >
-            <img src="https://p-smith.com/service-icon/robots.svg" class="_n4v1-service_com-item-icon">
-            <span class="_n4v1-service_com-item-text">
-              DMM.make ROBOTS
-            </span>
-          </a>
-        </li>
-        <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fpictures.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "pictures", "order": 22}' >
-            <img src="https://p-smith.com/service-icon/pictures.svg" class="_n4v1-service_com-item-icon">
-            <span class="_n4v1-service_com-item-text">
-              DMM pictures アニメ
-            </span>
-          </a>
-        </li>
-        <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fstage.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "stage", "order": 23}' >
-            <img src="https://p-smith.com/service-icon/stage.svg" class="_n4v1-service_com-item-icon">
-            <span class="_n4v1-service_com-item-text">
-              DMM STAGE
-            </span>
-          </a>
-        </li>
-        <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fauto.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "auto", "order": 24}' >
-            <img src="https://p-smith.com/service-icon/auto.svg" class="_n4v1-service_com-item-icon">
-            <span class="_n4v1-service_com-item-text">
-              DMM AUTO
-            </span>
-          </a>
-        </li>
-        <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fp-town.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "p_town", "order": 25}' >
-            <img src="https://p-smith.com/service-icon/ptown.svg" class="_n4v1-service_com-item-icon">
-            <span class="_n4v1-service_com-item-text">
-              パチンコ/パチスロ
-            </span>
-          </a>
-        </li>
-        <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fchariloto.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "chariloto", "order": 26}' >
-            <img src="https://p-smith.com/service-icon/race.svg" class="_n4v1-service_com-item-icon">
-            <span class="_n4v1-service_com-item-text">
-              DMM 競輪
-            </span>
-          </a>
-        </li>
-        <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2F100man.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "100man", "order": 27}' >
-            <img src="https://p-smith.com/service-icon/100man.svg" class="_n4v1-service_com-item-icon">
-            <span class="_n4v1-service_com-item-text">
-              DMM 百万長者
-            </span>
-          </a>
-        </li>
-        <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fmvno.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "mvno", "order": 28}' >
-            <img src="https://p-smith.com/service-icon/mvno.svg" class="_n4v1-service_com-item-icon">
-            <span class="_n4v1-service_com-item-text">
-              DMM mobile 格安スマホ
-            </span>
-          </a>
-        </li>
-        <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fhikari.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "hikari", "order": 29}' >
-            <img src="https://p-smith.com/service-icon/hikari.svg" class="_n4v1-service_com-item-icon">
-            <span class="_n4v1-service_com-item-text">
-              DMM 光 ネット回線
+              競輪
             </span>
           </a>
         </li>
@@ -1740,51 +2156,161 @@ g.type='text/javascript'; g.async=true; g.defer=true; g.src='https://cdn.dtm.dmm
     <div class="_n4v1-service_com-column">
       <ul>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fsyukatsulabo.jp%2F" target="_blank" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "syukatsu", "order": 30}' rel="noopener">
-            <img src="https://p-smith.com/service-icon/syukatsu.svg" class="_n4v1-service_com-item-icon">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fp-town.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "p_town", "order": 17}' >
+            <img src="https://p-smith.com/service-icon/ptown.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
             <span class="_n4v1-service_com-item-text">
-              終活ねっと
+              パチンコ/パチスロ
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fnogyo.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "nogyo", "order": 31}' >
-            <img src="https://p-smith.com/service-icon/nogyo.svg" class="_n4v1-service_com-item-icon">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fteamlabplanets.dmm.com%2F" target="_blank" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "planets", "order": 18}' rel="noopener">
+            <img src="https://p-smith.com/service-icon/planets.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
             <span class="_n4v1-service_com-item-text">
-              DMM 農業
+              チームラボ プラネッツ
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fenergy.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "energy", "order": 32}' >
-            <img src="https://p-smith.com/service-icon/energy.svg" class="_n4v1-service_com-item-icon">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fkariyushi-aquarium.com%2F" target="_blank" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "aquarium", "order": 19}' rel="noopener">
+            <img src="https://p-smith.com/service-icon/aquarium.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
             <span class="_n4v1-service_com-item-text">
-              エナジー/太陽光発電
+              かりゆし水族館
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fkouenirai.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "kouenirai", "order": 33}' >
-            <img src="https://p-smith.com/service-icon/kouenirai.svg" class="_n4v1-service_com-item-icon">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fweb-camp.io%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "webcamp", "order": 20}' >
+            <img src="https://p-smith.com/service-icon/webcamp.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
             <span class="_n4v1-service_com-item-text">
-              講演依頼
+              プログラミングスクール
             </span>
           </a>
         </li>
         <li class="d-translate">
-          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fpayment.dmm.com%2Fcreditcard%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click="" data-various="navigation" data-option="service_list" data-extra-map='{"link": "dmmcard", "order": 34}' >
-            <img src="https://p-smith.com/service-icon/dmmcard.svg" class="_n4v1-service_com-item-icon">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fstage.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "stage", "order": 21}' >
+            <img src="https://p-smith.com/service-icon/stage.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
             <span class="_n4v1-service_com-item-text">
-              DMMカード
+              舞台情報
+            </span>
+          </a>
+        </li>
+        <li class="d-translate">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fpictures.dmm.com%2F" target="_self" class="_n4v1-service_com-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="service_list" data-extra-map='{"link": "pictures", "order": 22}' >
+            <img src="https://p-smith.com/service-icon/pictures.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
+            <span class="_n4v1-service_com-item-text">
+              DMM pictures
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="_n4v1-service_com-column">
+      <ul>
+        <div class="_n4v1-service_com-column-title">
+          <img src="https://navismithapis-cdn.com/img/corporation.svg" alt="ビジネス・法人向け" width="24" height="24">
+          <a class="_n4v1-global-boxlink _n4v1-service_com-title-to-b">ビジネス・法人向け</a>
+        </div>
+        <li class="d-translate">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fmake.dmm.com%2F" target="_blank" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "make_tob", "order": 23}' rel="noopener">
+            <img src="https://p-smith.com/service-icon/business_icon.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
+            <span class="_n4v1-service_com-item-text">
+              DMM.make
+            </span>
+          </a>
+        </li>
+        <li class="d-translate">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fnogyo.dmm.com%2F" target="_blank" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "nogyo_tob", "order": 24}' rel="noopener">
+            <img src="https://p-smith.com/service-icon/business_icon.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
+            <span class="_n4v1-service_com-item-text">
+              農業
+            </span>
+          </a>
+        </li>
+        <li class="d-translate">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Feikaiwa.dmm.com%2Fbiz%2F" target="_blank" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "eikaiwa_tob", "order": 25}' rel="noopener">
+            <img src="https://p-smith.com/service-icon/business_icon.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
+            <span class="_n4v1-service_com-item-text">
+              英会話
+            </span>
+          </a>
+        </li>
+        <li class="d-translate">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Feikaiwa.dmm.com%2Fapp%2Fmeeting" target="_blank" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "bellbird_tob", "order": 26}' rel="noopener">
+            <img src="https://p-smith.com/service-icon/business_icon.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
+            <span class="_n4v1-service_com-item-text">
+              Bellbird
+            </span>
+          </a>
+        </li>
+        <li class="d-translate">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fsousei.dmm.com%2F" target="_blank" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "sousei_tob", "order": 27}' rel="noopener">
+            <img src="https://p-smith.com/service-icon/business_icon.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
+            <span class="_n4v1-service_com-item-text">
+              地方創生
+            </span>
+          </a>
+        </li>
+        <li class="d-translate">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fev-charge.dmm.com%2F" target="_blank" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "ev_tob", "order": 28}' rel="noopener">
+            <img src="https://p-smith.com/service-icon/business_icon.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
+            <span class="_n4v1-service_com-item-text">
+              EV CHARGE
+            </span>
+          </a>
+        </li>
+        <li class="d-translate">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fchatboost.dmm.com%2F" target="_blank" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "chatboost_tob", "order": 29}' rel="noopener">
+            <img src="https://p-smith.com/service-icon/business_icon.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
+            <span class="_n4v1-service_com-item-text">
+              チャットブースト
+            </span>
+          </a>
+        </li>
+        <li class="d-translate">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fonline-event.dmm.com%2F" target="_blank" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "showbooth_tob", "order": 30}' rel="noopener">
+            <img src="https://p-smith.com/service-icon/business_icon.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
+            <span class="_n4v1-service_com-item-text">
+              オンラインイベント開催/支援
+            </span>
+          </a>
+        </li>
+        <li class="d-translate">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fenergy.dmm.com%2F" target="_blank" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "energy_tob", "order": 31}' rel="noopener">
+            <img src="https://p-smith.com/service-icon/business_icon.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
+            <span class="_n4v1-service_com-item-text">
+              エネルギー/太陽光発電
+            </span>
+          </a>
+        </li>
+        <li class="d-translate">
+          <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Fvirtualoffice.dmm.com%2F" target="_blank" class="_n4v1-global-item" data-navi-pigeon-click=""
+            data-various="navigation" data-option="global" data-extra-map='{"link": "office_tob", "order": 32}' rel="noopener">
+            <img src="https://p-smith.com/service-icon/business_icon.svg" class="_n4v1-service_com-item-icon" width="22" height="22" loading="lazy">
+            <span class="_n4v1-service_com-item-text">
+              バーチャルオフィス
             </span>
           </a>
         </li>
       </ul>
     </div>
   </div>
-</div></div>
-</header>
-<style type="text/css">
+</div></div></header><style type="text/css">
 /* ========================= [ #digital-localnav ] */
 #digital-localnav {
     background: #404849 url(https://p.dmm.co.jp/p/ds/common/bg_localnav.png) repeat 0 0;
@@ -1882,58 +2408,58 @@ g.type='text/javascript'; g.async=true; g.defer=true; g.src='https://cdn.dtm.dmm
 <div id="digital-localnav" class="group">
     <ul>
         <li >
-            <a href="/digital/" onclick="sendGaEventCode('top')">動画トップ</a>
+            <a href="/digital/">動画トップ</a>
         </li>
         <li >
-            <a href="/digital/videoa/" onclick="sendGaEventCode('videoa')">ビデオ</a>
+            <a href="/digital/videoa/">ビデオ</a>
         </li>
         <li >
-            <a href="/digital/videovr/" onclick="sendGaEventCode('videovr')">VR動画</a>
+            <a href="/digital/videovr/">VR動画</a>
         </li>
         <li class="on">
-            <a href="/digital/videoc/" onclick="sendGaEventCode('videoc')">素人</a>
+            <a href="/digital/videoc/">素人</a>
         </li>
-        <li >
-            <a href="/digital/anime/" onclick="sendGaEventCode('anime')">アニメ</a>
+                <li >
+            <a href="/digital/anime/">アニメ</a>
         </li>
-        <li >
-            <a href="/digital/nikkatsu/" onclick="sendGaEventCode('nikkatsu')">成人映画</a>
+                <li >
+            <a href="/digital/nikkatsu/">成人映画</a>
         </li>
-        <li class="popup"><span>デバイス</span>
+        <li>
+            <a href="https://www.dmm.co.jp/service/-/exchange/=/?url=https%3A%2F%2Ftv.dmm.com%2Fvod%2Frestrict%2F">グラビア</a>
+        </li>
+                <li class="popup"><span>デバイス</span>
             <ul>
                 <li >
-                    <a href="https://www.dmm.co.jp/service/-/exchange/=/url=DRVESRUMTh1PEkYWV1sLGQIKWxlUUANQFgNbSVsVX18LBG9QCEITXRcMX1xWTkhfFQha/"  onclick="sendGaEventCode('iphone_intro')">iPhone/iPad</a>
+                    <a href="https://www.dmm.co.jp/service/-/exchange/=/url=DRVESRUMTh1PEkYWV1sLGQIKWxlUUANQFgNbSVsVX18LBG9QCEITXRcMX1xWTkhfFQha/">iPhone/iPad</a>
                 </li>
                 <li >
-                    <a href="/digital/android_intro/index.html" onclick="sendGaEventCode('android_intro')">Android</a>
+                    <a href="https://www.dmm.co.jp/service/-/exchange/=/url=DRVESRUMTh1PEkYWV1sLGQIKWxlcVgAWAwxTFF0MU28MD0RLCRkIXFwASRZbQgtb/">Android</a>
                 </li>
                 <li >
-                    <a href="/digital/chromecast_intro/" onclick="sendGaEventCode('chromecast_intro')">Chromecast</a>
+                    <a href="/digital/chromecast_intro/">Chromecast</a>
                 </li>
                 <li >
-                    <a href="/digital/amazonfiretv/" onclick="sendGaEventCode('amazonfiretv')">Amazon Fire TV端末</a>
+                    <a href="/digital/amazonfiretv/">Amazon Fire TV端末</a>
                 </li>
                 <li >
-                    <a href="/digital/appletv/" onclick="sendGaEventCode('appletv')">AppleTV</a>
+                    <a href="/digital/appletv/">AppleTV</a>
                 </li>
                 <li >
-                    <a href="/digital/chromecast_androidtv" onclick="sendGaEventCode('android_tv')">Android TV</a>
+                    <a href="/digital/chromecast_androidtv">Android TV</a>
                 </li>
                 <li >
-                    <a href="/digital/tv_intro/index.html" onclick="sendGaEventCode('tv_intro')">テレビ</a>
+                    <a href="/digital/tv_intro/index.html">テレビ</a>
                 </li>
                 <li >
-                    <a href="/digital/psvita/" onclick="sendGaEventCode('psvita')">PS5/PS4</a>
+                    <a href="/digital/psvita/">PS5/PS4</a>
                 </li>
                 <li >
-                    <a href="/digital/vr/" onclick="sendGaEventCode('vr')">VR</a>
+                    <a href="/digital/vr/">VR</a>
                 </li>
             </ul>
         </li>
-    </ul>
-    <div class="sub-nav">
-        <a href="https://www.dmm.co.jp/service/-/exchange/=/url=DRVESRUMTh1PEkYWV1sLGQIKWxlUUANQFgNbSQ__/" onclick="sendGaEventCode('general_digital_top')">DMM.com 動画へ</a>
-    </div>
+            </ul>
     <!-- /digital-localnav -->
 </div>
 
@@ -1947,7 +2473,7 @@ g.type='text/javascript'; g.async=true; g.defer=true; g.src='https://cdn.dtm.dmm
 <div id="side-l" class="mg-b12">
 <!-- 左ナビ動画共通導線枠取得 -->
 <div id="dig-side-pickup">
-    <dig-navi-side-pick-up price-changed-bookmark-count='0' is-coupon-target-user-str='' navi-coupon-info='[]' system-time-stamp='1607616689'></dig-navi-side-pick-up>
+    <dig-navi-side-pick-up price-changed-bookmark-count='0'></dig-navi-side-pick-up>
 </div>
 
 <!-- FAST parts -->
@@ -1964,26 +2490,26 @@ g.type='text/javascript'; g.async=true; g.defer=true; g.src='https://cdn.dtm.dmm
 <p>商品リストから探す</p>
 <div class="side-sub-capt">人気商品</div>
 <ul>
-<li><a href="https://www.dmm.co.jp/digital/videoc/-/list/=/sort=ranking/">人気順</a></li>
-<li><a href="https://www.dmm.co.jp/digital/videoc/-/list/=/sort=saleranking_asc/">売上げ本数順</a></li>
-<li><a href="https://www.dmm.co.jp/digital/videoc/-/list/=/sort=review_rank/">評価の高い順</a></li>
-<li><a href="https://www.dmm.co.jp/digital/videoc/-/list/=/sort=bookmark_desc/">お気に入り数順</a></li>
+<li><a href="https://www.dmm.co.jp/digital/videoc/-/list/?sort=ranking">人気順</a></li>
+<li><a href="https://www.dmm.co.jp/digital/videoc/-/list/?sort=saleranking_asc">売上げ本数順</a></li>
+<li><a href="https://www.dmm.co.jp/digital/videoc/-/list/?sort=review_rank">評価の高い順</a></li>
+<li><a href="https://www.dmm.co.jp/digital/videoc/-/list/?sort=bookmark_desc">お気に入り数順</a></li>
 </ul>
 
 <div class="side-sub-capt">配信開始日</div>
 <ul>
-<li><a href="https://www.dmm.co.jp/digital/videoc/-/list/=/sort=date/">新着順</a></li>
+<li><a href="https://www.dmm.co.jp/digital/videoc/-/list/?sort=date">新着順</a></li>
 </ul>
 
 <div class="side-sub-capt">お得な商品</div>
 <ul>
 <li>
-  <a href="/digital/videoc/-/list/=/article=campaign/id=gdq62uW,grCVgJSL1pv21ODL0LaX3d6yhOGyhbHech0hLnd4go33AQiKjb18cCA_/">
-    <span>今ドキ女子の性事情・E-DOGA他30％OFF</span>
+  <a href="/digital/videoc/-/list/?campaign=UFHfheN5J3Tb54rbsIqFtMqCmpoF3NiH">
+    <span>50％OFFセール第5弾</span>
   </a>
   <img height="12" width="24" class="side-new" alt="New" src="https://p.dmm.co.jp/p/common/side/tx_new.gif">
 </li>
-<li class="d-pickupside"><a href="https://www.dmm.co.jp/digital/videoc/-/list/=/article=keyword/id=6565/sort=ranking/"><span>期間限定セール</span></a></li>
+<li class="d-pickupside"><a href="https://www.dmm.co.jp/digital/videoc/-/list/?keyword=6565&sort=ranking"><span>期間限定セール</span></a></li>
 </ul>
 </div>
 
@@ -1991,15 +2517,16 @@ g.type='text/javascript'; g.async=true; g.defer=true; g.src='https://cdn.dtm.dmm
 <div class="side-menu">
 <p>ジャンルから探す</p>
 <ul>
-<li><a href="/digital/videoc/-/list/=/article=keyword/id=8508/">巨乳</a></li>
-<li><a href="/digital/videoc/-/list/=/article=keyword/id=1014/">熟女</a></li>
-<li><a href="/digital/videoc/-/list/=/article=keyword/id=1039/">人妻・主婦</a></li>
-<li><a href="/digital/videoc/-/list/=/article=keyword/id=1018/">女子校生</a></li>
-<li><a href="/digital/videoc/-/list/=/article=keyword/id=5001/">中出し</a></li>
-<li><a href="/digital/videoc/-/list/=/article=keyword/id=1027/">美少女</a></li>
-<li><a href="/digital/videoc/-/list/=/article=keyword/id=8502/">清楚</a></li>
-<li><a href="/digital/videoc/-/list/=/article=keyword/id=8523/">貧乳・微乳</a></li>
-<li><a href="/digital/videoc/-/list/=/article=keyword/id=8528/">外国人</a></li>
+<li><a href="/digital/videoc/-/list/?keyword=8508">巨乳</a></li>
+<li><a href="/digital/videoc/-/list/?keyword=1014">熟女</a></li>
+<li><a href="/digital/videoc/-/list/?keyword=1039">人妻・主婦</a></li>
+<li><a href="/digital/videoc/-/list/?keyword=1018">女子校生</a></li>
+<li><a href="/digital/videoc/-/list/?keyword=5001">中出し</a></li>
+<li><a href="/digital/videoc/-/list/?keyword=1027">美少女</a></li>
+<li><a href="/digital/videoc/-/list/?keyword=8502">清楚</a></li>
+<li><a href="/digital/videoc/-/list/?keyword=8523">貧乳・微乳</a></li>
+<li><a href="/digital/videoc/-/list/?keyword=8528">外国人</a></li>
+<li><a href="/digital/videoc/-/list/?keyword=79015">4K</a></li>
 </ul>
 <div class="right pd-r6">
 <a href="https://www.dmm.co.jp/digital/videoc/-/genre/" class="arrow">ジャンル一覧へ</a>
@@ -2153,20 +2680,20 @@ g.type='text/javascript'; g.async=true; g.defer=true; g.src='https://cdn.dtm.dmm
 <div class="side-menu">
 <p>レーベルから探す</p>
 <ul>
-<li><a href="/digital/videoc/-/list/=/article=label/id=26292/">しろうとまんまん</a></li>
-<li><a href="/digital/videoc/-/list/=/article=label/id=46177/">MOON FORCE</a></li>
-<li><a href="/digital/videoc/-/list/=/article=label/id=26302/">素人ホイホイZ</a></li>
-<li><a href="/digital/videoc/-/list/=/article=label/id=46173/">素人ホイホイpower</a></li>
-<li><a href="/digital/videoc/-/list/=/article=label/id=5356/">S-CUTE</a></li>
-<li><a href="/digital/videoc/-/list/=/article=label/id=25010/">俺の素人</a></li>
-<li><a href="/digital/videoc/-/list/=/article=label/id=25882/">素人ホイホイ</a></li>
-<li><a href="/digital/videoc/-/list/=/article=label/id=2062406/">蜃気楼</a></li>
-<li><a href="/digital/videoc/-/list/=/article=label/id=25712/">ハメドリネットワークSecondEdition</a></li>
-<li><a href="/digital/videoc/-/list/=/article=label/id=23039/">恋する花嫁</a></li>
-<li><a href="/digital/videoc/-/list/=/article=label/id=29805/">アイドリ</a></li>
-<li><a href="/digital/videoc/-/list/=/article=label/id=23869/">バイトちゃん</a></li>
-<li><a href="/digital/videoc/-/list/=/article=label/id=8046/">舞ワイフ</a></li>
-<li><a href="/digital/videoc/-/list/=/article=label/id=26359/">素人ホイホイsweet！</a></li>
+<li><a href="/digital/videoc/-/list/?label=2063018">俺の素人-Z-</a></li>
+<li><a href="/digital/videoc/-/list/?label=2062406">蜃気楼</a></li>
+<li><a href="/digital/videoc/-/list/?label=26302">素人ホイホイZ</a></li>
+<li><a href="/digital/videoc/-/list/?label=5356">S-CUTE</a></li>
+<li><a href="/digital/videoc/-/list/?label=26292">しろうとまんまん</a></li>
+<li><a href="/digital/videoc/-/list/?label=2063761">素人ムクムク-塩-</a></li>
+<li><a href="/digital/videoc/-/list/?label=2064179">暗黒</a></li>
+<li><a href="/digital/videoc/-/list/?label=2064576">素人ホイホイLOVER</a></li>
+<li><a href="/digital/videoc/-/list/?label=46177">MOON FORCE</a></li>
+<li><a href="/digital/videoc/-/list/?label=2063534">素人ペイペイ</a></li>
+<li><a href="/digital/videoc/-/list/?label=46173">素人ホイホイpower</a></li>
+<li><a href="/digital/videoc/-/list/?label=25882">素人ホイホイ</a></li>
+<li><a href="/digital/videoc/-/list/?label=2064054">素人ホイホイSH</a></li>
+<li><a href="/digital/videoc/-/list/?label=2065715">陰娘</a></li>
 </ul>
 <div class="right pd-r6">
 <a href="https://www.dmm.co.jp/digital/videoc/-/label/recommend/" class="arrow">レーベル一覧へ</a>
@@ -2177,8 +2704,8 @@ g.type='text/javascript'; g.async=true; g.defer=true; g.src='https://cdn.dtm.dmm
 <div class="side-menu">
 <p>デバイスから探す</p>
 <ul>
-<li><a href="https://www.dmm.co.jp/digital/videoc/-/list/=/device=tv/sort=ranking/">テレビ対応</a></li>
-<li><a href="https://www.dmm.co.jp/digital/videoc/-/list/=/device=vita/sort=ranking/">PS5/PS4対応</a></li>
+<li><a href="https://www.dmm.co.jp/digital/videoc/-/list/?device=tv&sort=ranking">テレビ対応</a></li>
+<li><a href="https://www.dmm.co.jp/digital/videoc/-/list/?device=vita&sort=ranking">PS5/PS4対応</a></li>
 </ul>
 </div>
 
@@ -2192,20 +2719,22 @@ g.type='text/javascript'; g.async=true; g.defer=true; g.src='https://cdn.dtm.dmm
 </div>
 
 <div class="side-menu">
-<p><a href="http://www.dmm.co.jp/service/-/exchange/=/url=SgVZXg9CAF4X" class="arrow">一般作品動画へ</a></p>
-</div>
-
-<div class="side-menu">
 <p><a href="https://www.dmm.co.jp/digital/videoc/-/request/" class="arrow">リクエスト</a></p>
 </div>
 
+</div>
+
+<div class="side-pickup" style="background-color:#fff;">
+    <!-- 左ナビAD(カスタム) -->
+    <div class="dmm-c-banner-tags" s="BCD0627E7251B243960C8A4F246F74EB53599A72DD163E2F41B095628A9286509D863C32F7AC89594DD00E85761C661D966BFF49C74118A2051F846C62CAEF12"></div>
 </div>
 </div>
 <!-- /su --></td>
 <td id="mu">
 
-<div class="page-detail">
 
+
+<div class="page-detail">
 <div class="area-headline group">
 <div class="hreview">
 <h1 id="title" class="item fn">ねる</h1></div>
@@ -2228,6 +2757,7 @@ g.type='text/javascript'; g.async=true; g.defer=true; g.src='https://cdn.dtm.dmm
 <style type="text/css">
 <!--
 #sample-after {
+  width: 100%;
   border: 1px #bbb solid;
 }
 #sample-after th {
@@ -2290,11 +2820,9 @@ g.type='text/javascript'; g.async=true; g.defer=true; g.src='https://cdn.dtm.dmm
 -->
 </style>
 
-
 <div class="center" id="sample-video">
 
 <img src="https://pics.dmm.co.jp/digital/amateur/sweet015/sweet015jp.jpg" alt="ねる" id="package-src-sweet015" class="tdmm"><div id="detail-sample-movie">
-
     <div class="mg-t6"><a class="d-btn" href="javascript:void(0);"  onclick="sampleplay('/digital/videoc/-/detail/ajax-movie/=/cid=sweet015/'); return false;"><span>無料サンプル動画を見る</span></a></div>
 
 <noscript>
@@ -2307,14 +2835,12 @@ JavaScriptを有効にして<br>
 
 </div></div>
 
-
-
 </div>
 
 
 <div class="box-rank">
 
-<p>お気に入り登録数<span class="tx-count"><span>35218</span></span></p>
+<p>お気に入り登録数<span class="tx-count"><span>33436</span></span></p>
 <!-- [ #box-rank ] --></div>
 
 
@@ -2327,7 +2853,7 @@ JavaScriptを有効にして<br>
 <tr>
 <tr>
 <td align="right" valign="top" class="nw">対応デバイス：</td>
-<td>パソコン、iPhone/iPad、Android、Chromecast、Amazon Fire TV端末、Apple TV、テレビ、PS5™/PS4®</td>
+<td>パソコン、iPhone/iPad、Android、Chromecast、Amazon Fire TV端末、Apple TV、テレビ、PS5™/PS4®Pro/PS4®</td>
 </tr>
 
 
@@ -2340,9 +2866,7 @@ JavaScriptを有効にして<br>
 
 <tr>
 <td align="right" valign="top" class="nw">収録時間：</td>
-<td>95分
-
-</td>
+<td>95分</td>
 </tr>
 
 <tr>
@@ -2358,13 +2882,15 @@ JavaScriptを有効にして<br>
 
 <tr>
 <td align="right" valign="top" class="nw">レーベル：</td>
-<td><a href="/digital/videoc/-/list/=/article=label/id=26359/">素人ホイホイsweet！</a></td>
+<td><a href="/digital/videoc/-/list/?label=26359" data-i3dmmref="sweet015" data-i3ref="detail" data-listorder="1" data-i3pst="info_label" onmousedown="var p=[];p.push('dmmref='+this.dataset.i3dmmref);p.push('i3_ref='+this.dataset.i3ref);p.push('i3_ord='+this.dataset.listorder);p.push('i3_pst='+this.dataset.i3pst);this.href+='&'+p.join('&amp;');this.onmousedown='function(){};'" >素人ホイホイsweet！</a></td>
 </tr>
     <tr>
     <td align="right" valign="top" class="nw">ジャンル：</td>
     <td>
-    <a href="/digital/videoc/-/list/=/article=keyword/id=8508/">巨乳</a>&nbsp;&nbsp;<a href="/digital/videoc/-/list/=/article=keyword/id=48/">制服</a>&nbsp;&nbsp;<a href="/digital/videoc/-/list/=/article=keyword/id=8502/">清楚</a>&nbsp;&nbsp;<a href="/digital/videoc/-/list/=/article=keyword/id=1027/">美少女</a>&nbsp;&nbsp;<a href="/digital/videoc/-/list/=/article=keyword/id=1018/">女子校生</a>&nbsp;&nbsp;<a href="/digital/videoc/-/list/=/article=keyword/id=6533/">ハイビジョン</a>    </td>
+    <a href="/digital/videoc/-/list/?keyword=8508" data-i3dmmref="sweet015" data-i3ref="detail" data-listorder="1" data-i3pst="info_genre" onmousedown="var p=[];p.push('dmmref='+this.dataset.i3dmmref);p.push('i3_ref='+this.dataset.i3ref);p.push('i3_ord='+this.dataset.listorder);p.push('i3_pst='+this.dataset.i3pst);this.href+='&'+p.join('&amp;');this.onmousedown='function(){};'" >巨乳</a>&nbsp;&nbsp;<a href="/digital/videoc/-/list/?keyword=48" data-i3dmmref="sweet015" data-i3ref="detail" data-listorder="2" data-i3pst="info_genre" onmousedown="var p=[];p.push('dmmref='+this.dataset.i3dmmref);p.push('i3_ref='+this.dataset.i3ref);p.push('i3_ord='+this.dataset.listorder);p.push('i3_pst='+this.dataset.i3pst);this.href+='&'+p.join('&amp;');this.onmousedown='function(){};'" >制服</a>&nbsp;&nbsp;<a href="/digital/videoc/-/list/?keyword=8502" data-i3dmmref="sweet015" data-i3ref="detail" data-listorder="3" data-i3pst="info_genre" onmousedown="var p=[];p.push('dmmref='+this.dataset.i3dmmref);p.push('i3_ref='+this.dataset.i3ref);p.push('i3_ord='+this.dataset.listorder);p.push('i3_pst='+this.dataset.i3pst);this.href+='&'+p.join('&amp;');this.onmousedown='function(){};'" >清楚</a>&nbsp;&nbsp;<a href="/digital/videoc/-/list/?keyword=1027" data-i3dmmref="sweet015" data-i3ref="detail" data-listorder="4" data-i3pst="info_genre" onmousedown="var p=[];p.push('dmmref='+this.dataset.i3dmmref);p.push('i3_ref='+this.dataset.i3ref);p.push('i3_ord='+this.dataset.listorder);p.push('i3_pst='+this.dataset.i3pst);this.href+='&'+p.join('&amp;');this.onmousedown='function(){};'" >美少女</a>&nbsp;&nbsp;<a href="/digital/videoc/-/list/?keyword=1018" data-i3dmmref="sweet015" data-i3ref="detail" data-listorder="5" data-i3pst="info_genre" onmousedown="var p=[];p.push('dmmref='+this.dataset.i3dmmref);p.push('i3_ref='+this.dataset.i3ref);p.push('i3_ord='+this.dataset.listorder);p.push('i3_pst='+this.dataset.i3pst);this.href+='&'+p.join('&amp;');this.onmousedown='function(){};'" >女子校生</a>&nbsp;&nbsp;<a href="/digital/videoc/-/list/?keyword=6533" data-i3dmmref="sweet015" data-i3ref="detail" data-listorder="6" data-i3pst="info_genre" onmousedown="var p=[];p.push('dmmref='+this.dataset.i3dmmref);p.push('i3_ref='+this.dataset.i3ref);p.push('i3_ord='+this.dataset.listorder);p.push('i3_pst='+this.dataset.i3pst);this.href+='&'+p.join('&amp;');this.onmousedown='function(){};'" >ハイビジョン</a>    </td>
     </tr>
+
+    
     <tr>
     <td align="right" valign="top" class="nw">品番：</td>
     <td>sweet015</td>
@@ -2398,15 +2924,15 @@ JavaScriptを有効にして<br>
         特集
     </h2>
     <ul>
-        <li><a href="https://www.dmm.co.jp/digital/videoc/shirotohoihoi/">FANZAオリジナル『素人ホイホイZ/素人ホイホイsweet！』</a></li>    </ul>
+        <li><a href="https://www.dmm.co.jp/digital/videoc/shirotohoihoi/">FANZAオリジナル『素人ホイホイZ/素人ホイホイSH/素人ホイホイLOVER/素人ホイホイFriends/素人ホイホイpower/素人ホイホイ/素人ホイホイsweet』</a></li>    </ul>
 </div>
 </div>
 
-<div class="headline mg-b10 lh3"><h2>サンプル写真</h2></div><div id="sample-image-block" class="d-zoomimg-sm"><a name="sample-image" id="sample-image1"><img src="https://pics.dmm.co.jp/digital/amateur/sweet015/sweet015js-001.jpg" border="0" alt="ねる" class="mg-b6"></a>
-<a name="sample-image" id="sample-image2"><img src="https://pics.dmm.co.jp/digital/amateur/sweet015/sweet015js-002.jpg" border="0" alt="ねる" class="mg-b6"></a>
-<a name="sample-image" id="sample-image3"><img src="https://pics.dmm.co.jp/digital/amateur/sweet015/sweet015js-003.jpg" border="0" alt="ねる" class="mg-b6"></a>
-<a name="sample-image" id="sample-image4"><img src="https://pics.dmm.co.jp/digital/amateur/sweet015/sweet015js-004.jpg" border="0" alt="ねる" class="mg-b6"></a>
-<a name="sample-image" id="sample-image5"><img src="https://pics.dmm.co.jp/digital/amateur/sweet015/sweet015js-005.jpg" border="0" alt="ねる" class="mg-b6"></a>
+<div class="headline mg-b10 lh3"><h2>サンプル写真</h2></div><div id="sample-image-block" class="d-zoomimg-sm"><a name="sample-image" id="sample-image1" href="https://pics.dmm.co.jp/digital/amateur/sweet015/sweet015jp-001.jpg"><img src="https://pics.dmm.co.jp/digital/amateur/sweet015/sweet015js-001.jpg" border="0" alt="ねる" class="mg-b6"></a>
+<a name="sample-image" id="sample-image2" href="https://pics.dmm.co.jp/digital/amateur/sweet015/sweet015jp-002.jpg"><img src="https://pics.dmm.co.jp/digital/amateur/sweet015/sweet015js-002.jpg" border="0" alt="ねる" class="mg-b6"></a>
+<a name="sample-image" id="sample-image3" href="https://pics.dmm.co.jp/digital/amateur/sweet015/sweet015jp-003.jpg"><img src="https://pics.dmm.co.jp/digital/amateur/sweet015/sweet015js-003.jpg" border="0" alt="ねる" class="mg-b6"></a>
+<a name="sample-image" id="sample-image4" href="https://pics.dmm.co.jp/digital/amateur/sweet015/sweet015jp-004.jpg"><img src="https://pics.dmm.co.jp/digital/amateur/sweet015/sweet015js-004.jpg" border="0" alt="ねる" class="mg-b6"></a>
+<a name="sample-image" id="sample-image5" href="https://pics.dmm.co.jp/digital/amateur/sweet015/sweet015jp-005.jpg"><img src="https://pics.dmm.co.jp/digital/amateur/sweet015/sweet015js-005.jpg" border="0" alt="ねる" class="mg-b6"></a>
 <br><div class="tx10">該当シーンは動画本編に収録されていない場合がございます<br></div></div><noscript><div class="mg-b6"><span class="red">拡大サンプル画像をご覧いただくにはJavaScriptを有効にしてください</span><br><a href="/help/faq_16_html/=/ch_navi=none#Q3" target="_blank" class="arrow">JavaScriptの設定方法</a></div></noscript><style type="text/css">
 <!--
 a.nolink:hover, a.nolink:active {
@@ -2504,6 +3030,7 @@ a.nolink:hover, a.nolink:active {
 
     jQuery(document).ready(function(){
         var now_type = '';
+                var val8k = "";
                 var val4k = "";
                 var valhd = "";
                 var valhdlm = "";
@@ -2515,7 +3042,7 @@ a.nolink:hover, a.nolink:active {
                 var valtt = "";
         
 $.ajax({
-    url     : "/digital/videoc/-/detail/ajax-selected-basket/=/cid=sweet015/type=hd/hdflag=0",
+    url     : "/digital/videoc/-/detail/ajax-selected-basket/=/cid=sweet015/type=hd/hdflag=0/",
     type    : "GET",
     success : function(data) {
         valhd = data;
@@ -2532,7 +3059,7 @@ $.ajax({
 
 });
 $.ajax({
-    url     : "/digital/videoc/-/detail/ajax-selected-basket/=/cid=sweet015/type=dl/hdflag=0",
+    url     : "/digital/videoc/-/detail/ajax-selected-basket/=/cid=sweet015/type=dl/hdflag=0/",
     type    : "GET",
     success : function(data) {
         valdl = data;
@@ -2549,7 +3076,7 @@ $.ajax({
 
 });
 $.ajax({
-    url     : "/digital/videoc/-/detail/ajax-selected-basket/=/cid=sweet015/type=st/hdflag=0",
+    url     : "/digital/videoc/-/detail/ajax-selected-basket/=/cid=sweet015/type=st/hdflag=0/",
     type    : "GET",
     success : function(data) {
         valst = data;
@@ -2679,7 +3206,7 @@ $.ajax({
             });
         });
     });
-
+        loadTvInfo();
 
     } // end function
 
@@ -2741,25 +3268,27 @@ $.ajax({
 <ul>
 
 
-<li><label for="hd" class="on"><input name="ptn" type="radio" value="1" id="hd" checked="checked"><dl><dt class="col2">HD版ダウンロード&nbsp;＋&nbsp;<br>HD版ストリーミング</dt><dd class="limit">無期限</dd><dd class="price">
+
+
+<li data-pid="sweet015dl6"><label for="hd" class="on"><input name="ptn" type="radio" value="1" id="hd" checked="checked"><dl><dt class="col2">HD版ダウンロード&nbsp;＋&nbsp;<br>HD版ストリーミング</dt><dd class="limit">無期限</dd><dd class="price"><span >
 1,820円
-</dd>
+</span></dd>
 </dl></label></li>
 
 
 
-<li><label for="dl"><input name="ptn" type="radio" value="4" id="dl" ><dl><dt class="col2">ダウンロード&nbsp;＋&nbsp;<br>ストリーミング</dt><dd class="limit">無期限</dd><dd class="price">
+<li data-pid="sweet015"><label for="dl"><input name="ptn" type="radio" value="4" id="dl" ><dl><dt class="col2">ダウンロード&nbsp;＋&nbsp;<br>ストリーミング</dt><dd class="limit">無期限</dd><dd class="price"><span >
 1,620円
-</dd></dl></label></li>
+</span></dd></dl></label></li>
 
 
 
 
 
 
-<li><label for="st"><input name="ptn" type="radio" value="6" id="st" ><dl><dt>HD版ストリーミング</dt><dd class="limit">7日間</dd><dd class="price">
+<li data-pid="sweet015st"><label for="st"><input name="ptn" type="radio" value="6" id="st" ><dl><dt>HD版ストリーミング</dt><dd class="limit">7日間</dd><dd class="price"><span >
 490円
-</dd></dl></label></li>
+</span></dd></dl></label></li>
 
 </ul>
 </form>
@@ -2773,8 +3302,6 @@ $.ajax({
 </li>
   <li><a id="share_hatena" href="http://b.hatena.ne.jp/"><img src="https://p.dmm.co.jp/p/common/ico/sns_hatena.png" alt="B" title="はてなブックマークに追加"></a>
 </li>
-  <li><a id="share_facebook" href="http://www.facebook.com/"><img src="https://p.dmm.co.jp/p/common/ico/sns_facebook.png" alt="f" title="Facebookで共有"></a>
-</li>
 </ul><!-- d-share-button --></div>
 
 <img src="https://p.dmm.co.jp/p/spacer.gif" alt="" width="320" height="1">
@@ -2785,13 +3312,21 @@ $.ajax({
 
 
 
-<div id="recommend"><!--レコメンド--></div>
+<div id="recommend"><!--レコメン���--></div>
 
-<!-- 物販導線バナー -->
-<div class="banner-mono center">
-    <a href="/mono/goods/-/list/=/article=keyword/id=10223/" onfocus="this.href='/mono/goods/-/list/=/article=keyword/id=10223/?dmmref=dig_detail_mono&i3_ref=banner_article10223'">
-        <img width="800" height="70" alt="第一弾 冬の大セール 大人のおもちゃ50%OFF" src="https://p.dmm.co.jp/p/ds_video/bnr/video2mono_cp_800x70.jpg">
-    </a>
+    <!-- あなたと好みが似た人が見ている商品 -->
+    <div class="area-digital-userToItem">
+        <dig-recommend-carousel category-name="userToItem" carousel-style="recommend" v-clock />
+    </div>
+
+    <!-- 最近チェックした商品 -->
+    <div class="area-digital-history">
+        <dig-recommend-carousel category-name="history" carousel-style="recommend" v-clock />
+    </div>
+
+<div style="text-align: center; padding-top: 36px;">
+    <div class="dmm-c-banner-tags" s="8752680A0F5A65575C4C63BE757663CB31B0880D556988D24E7071A9C41FD36065BE0BF0ED3BA84F32E3585427C667F250F9BF9A2EA397711DEB48C2557D8360"></div>
+    <script src="https://cdj.dap.dmm.co.jp/dmm-c-sdk.js" async></script>
 </div>
 
 
@@ -2814,10 +3349,10 @@ $.ajax({
 
                                     <div class="d-review__points">
                                         <p class="d-review__average">平均評価
-                                            <strong>4.68点</strong>
+                                            <strong>4.63点</strong>
                                         </p>
                                         <p class="d-review__evaluates">総評価数
-                                            <strong>38</strong>（18件のコメント）
+                                            <strong>49</strong>（24件のコメント）
                                         </p>
                                     </div>
                                 </div>
@@ -2844,6 +3379,7 @@ $.ajax({
 <ul>
 <li><span>1</span></li>
 <li><a href="#review" onclick="review_load('2', 'yes_desc', ''); ">2</a></li>
+<li><a href="#review" onclick="review_load('3', 'yes_desc', ''); ">3</a></li>
 <li><a href="#review" onclick="review_load('2', 'yes_desc', ''); ">次へ</a></li>
 
 </ul>
@@ -2869,46 +3405,46 @@ $.ajax({
                                                 <div class="d-review__unit__bottom">
                                                     <p>
                                                         <span class="d-review__unit__reviewer">
-                                                            <a href="http://www.dmm.co.jp/review/-/list/reviewer/=/id=150978/">ボナパ<span>さんのレビュー</span></a>
+                                                            <a href="https://www.dmm.co.jp/review/-/list/reviewer/=/id=150978/">ボナパ<span>さんのレビュー</span></a>
                                                         </span>
                                                         <span class="d-review__unit__postdate">-2019/05/21                                                        </span>
                                                         <span class="d-review__unit__service">-素人(動画)</span>
                                                         <span class="d-review__unit__used">購入・利用済み</span>
                                                     </p>
                                                     <div id="evaluate0" class="d-review__unit__evaluate">このレビューは参考になりましたか？
-<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://www.dmm.co.jp/my/-/login/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">はい</a>
-<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://www.dmm.co.jp/my/-/login/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">いいえ</a>
+<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://accounts.dmm.co.jp/service/login/password/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">はい</a>
+<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://accounts.dmm.co.jp/service/login/password/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">いいえ</a>
 
                                                     </div>
-                                                    <p class="d-review__unit__voted">40人中、<strong>32人</strong>が参考になったと投票しています。</p>
+                                                    <p class="d-review__unit__voted">49人中、<strong>34人</strong>が参考になったと投票しています。</p>
                                                 </div>
                                             </li>
                                             <li class="d-review__unit">
                                                 <p>
                                                     <span class="d-rating-50">　</span>
-                                                                                                        <span class="d-review__unit__title">ギリ。</span>
+                                                                                                        <span class="d-review__unit__title">まりあ＝ギリねる</span>
                                                 </p>
 
                                                 <div class="d-review__unit__comment fn-d-review__many-text">相変わらず、男心を擽る白ムチ＆おキレイな「逢沢まりあ」嬢。<br />
-<br />
-素晴らしく視聴価値はあるが、制服はギリであろうし(視れる事は貴重ではあるが)、誠に残念ながら、ハードなプレイはない。。。<br />
+素晴らしく視聴価値はあるが、制服はギリであろうし(視れる事は貴重ではあるが)、<br />
+誠に残念ながら、ハードなプレイはない…。<br />
 <br />
 </div>
                                                 <div class="d-review__unit__bottom">
                                                     <p>
                                                         <span class="d-review__unit__reviewer">
-                                                            <a href="http://www.dmm.co.jp/review/-/list/reviewer/=/id=61490/">moukari<span>さんのレビュー</span></a>
+                                                            <a href="https://www.dmm.co.jp/review/-/list/reviewer/=/id=61490/">moukari<span>さんのレビュー</span></a>
                                                         </span>
                                                         <span class="d-review__unit__postdate">-2019/09/25                                                        </span>
                                                         <span class="d-review__unit__service">-素人(動画)</span>
                                                         <span class="d-review__unit__used">購入・利用済み</span>
                                                     </p>
                                                     <div id="evaluate1" class="d-review__unit__evaluate">このレビューは参考になりましたか？
-<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://www.dmm.co.jp/my/-/login/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">はい</a>
-<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://www.dmm.co.jp/my/-/login/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">いいえ</a>
+<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://accounts.dmm.co.jp/service/login/password/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">はい</a>
+<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://accounts.dmm.co.jp/service/login/password/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">いいえ</a>
 
                                                     </div>
-                                                    <p class="d-review__unit__voted">22人中、<strong>14人</strong>が参考になったと投票しています。</p>
+                                                    <p class="d-review__unit__voted">21人中、<strong>20人</strong>が参考になったと投票しています。</p>
                                                 </div>
                                             </li>
                                             <li class="d-review__unit">
@@ -2921,18 +3457,18 @@ $.ajax({
                                                 <div class="d-review__unit__bottom">
                                                     <p>
                                                         <span class="d-review__unit__reviewer">
-                                                            <a href="http://www.dmm.co.jp/review/-/list/reviewer/=/id=127434/">なべちゃんず<span>さんのレビュー</span></a>
+                                                            <a href="https://www.dmm.co.jp/review/-/list/reviewer/=/id=127434/">なべちゃんず<span>さんのレビュー</span></a>
                                                         </span>
                                                         <span class="d-review__unit__postdate">-2019/05/13                                                        </span>
                                                         <span class="d-review__unit__service">-素人(動画)</span>
                                                         <span class="d-review__unit__used">購入・利用済み</span>
                                                     </p>
                                                     <div id="evaluate2" class="d-review__unit__evaluate">このレビューは参考になりましたか？
-<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://www.dmm.co.jp/my/-/login/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">はい</a>
-<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://www.dmm.co.jp/my/-/login/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">いいえ</a>
+<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://accounts.dmm.co.jp/service/login/password/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">はい</a>
+<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://accounts.dmm.co.jp/service/login/password/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">いいえ</a>
 
                                                     </div>
-                                                    <p class="d-review__unit__voted">21人中、<strong>14人</strong>が参考になったと投票しています。</p>
+                                                    <p class="d-review__unit__voted">25人中、<strong>14人</strong>が参考になったと投票しています。</p>
                                                 </div>
                                             </li>
                                             <li class="d-review__unit">
@@ -2946,18 +3482,18 @@ $.ajax({
                                                 <div class="d-review__unit__bottom">
                                                     <p>
                                                         <span class="d-review__unit__reviewer">
-                                                            <a href="http://www.dmm.co.jp/review/-/list/reviewer/=/id=120094/">灯台マニア<span>さんのレビュー</span></a>
+                                                            <a href="https://www.dmm.co.jp/review/-/list/reviewer/=/id=120094/">灯台マニア<span>さんのレビュー</span></a>
                                                         </span>
                                                         <span class="d-review__unit__postdate">-2019/05/08                                                        </span>
                                                         <span class="d-review__unit__service">-素人(動画)</span>
                                                         <span class="d-review__unit__used">購入・利用済み</span>
                                                     </p>
                                                     <div id="evaluate3" class="d-review__unit__evaluate">このレビューは参考になりましたか？
-<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://www.dmm.co.jp/my/-/login/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">はい</a>
-<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://www.dmm.co.jp/my/-/login/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">いいえ</a>
+<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://accounts.dmm.co.jp/service/login/password/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">はい</a>
+<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://accounts.dmm.co.jp/service/login/password/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">いいえ</a>
 
                                                     </div>
-                                                    <p class="d-review__unit__voted">23人中、<strong>13人</strong>が参考になったと投票しています。</p>
+                                                    <p class="d-review__unit__voted">24人中、<strong>13人</strong>が参考になったと投票しています。</p>
                                                 </div>
                                             </li>
                                             <li class="d-review__unit">
@@ -2974,18 +3510,18 @@ $.ajax({
                                                 <div class="d-review__unit__bottom">
                                                     <p>
                                                         <span class="d-review__unit__reviewer">
-                                                            <a href="http://www.dmm.co.jp/review/-/list/reviewer/=/id=151329/">性欲大魔王<span>さんのレビュー</span></a>
+                                                            <a href="https://www.dmm.co.jp/review/-/list/reviewer/=/id=151329/">性欲大魔王<span>さんのレビュー</span></a>
                                                         </span>
                                                         <span class="d-review__unit__postdate">-2019/05/28                                                        </span>
                                                         <span class="d-review__unit__service">-素人(動画)</span>
                                                         <span class="d-review__unit__used">購入・利用済み</span>
                                                     </p>
                                                     <div id="evaluate4" class="d-review__unit__evaluate">このレビューは参考になりましたか？
-<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://www.dmm.co.jp/my/-/login/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">はい</a>
-<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://www.dmm.co.jp/my/-/login/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">いいえ</a>
+<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://accounts.dmm.co.jp/service/login/password/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">はい</a>
+<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://accounts.dmm.co.jp/service/login/password/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">いいえ</a>
 
                                                     </div>
-                                                    <p class="d-review__unit__voted">29人中、<strong>8人</strong>が参考になったと投票しています。</p>
+                                                    <p class="d-review__unit__voted">37人中、<strong>9人</strong>が参考になったと投票しています。</p>
                                                 </div>
                                             </li>
                                             <li class="d-review__unit">
@@ -2998,18 +3534,18 @@ $.ajax({
                                                 <div class="d-review__unit__bottom">
                                                     <p>
                                                         <span class="d-review__unit__reviewer">
-                                                            <a href="http://www.dmm.co.jp/review/-/list/reviewer/=/id=4941/">toratoratora<span>さんのレビュー</span></a>
+                                                            <a href="https://www.dmm.co.jp/review/-/list/reviewer/=/id=4941/">toratoratora<span>さんのレビュー</span></a>
                                                         </span>
                                                         <span class="d-review__unit__postdate">-2019/08/23                                                        </span>
                                                         <span class="d-review__unit__service">-素人(動画)</span>
                                                         <span class="d-review__unit__used">購入・利用済み</span>
                                                     </p>
                                                     <div id="evaluate5" class="d-review__unit__evaluate">このレビューは参考になりましたか？
-<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://www.dmm.co.jp/my/-/login/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">はい</a>
-<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://www.dmm.co.jp/my/-/login/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">いいえ</a>
+<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://accounts.dmm.co.jp/service/login/password/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">はい</a>
+<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://accounts.dmm.co.jp/service/login/password/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">いいえ</a>
 
                                                     </div>
-                                                    <p class="d-review__unit__voted">8人中、<strong>6人</strong>が参考になったと投票しています。</p>
+                                                    <p class="d-review__unit__voted">9人中、<strong>6人</strong>が参考になったと投票しています。</p>
                                                 </div>
                                             </li>
                                             <li class="d-review__unit">
@@ -3024,18 +3560,18 @@ $.ajax({
                                                 <div class="d-review__unit__bottom">
                                                     <p>
                                                         <span class="d-review__unit__reviewer">
-                                                            <a href="http://www.dmm.co.jp/review/-/list/reviewer/=/id=150875/">ひまなかおるくん<span>さんのレビュー</span></a>
+                                                            <a href="https://www.dmm.co.jp/review/-/list/reviewer/=/id=150875/">ファンネリアム<span>さんのレビュー</span></a>
                                                         </span>
                                                         <span class="d-review__unit__postdate">-2019/05/20                                                        </span>
                                                         <span class="d-review__unit__service">-素人(動画)</span>
                                                         <span class="d-review__unit__used">購入・利用済み</span>
                                                     </p>
                                                     <div id="evaluate6" class="d-review__unit__evaluate">このレビューは参考になりましたか？
-<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://www.dmm.co.jp/my/-/login/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">はい</a>
-<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://www.dmm.co.jp/my/-/login/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">いいえ</a>
+<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://accounts.dmm.co.jp/service/login/password/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">はい</a>
+<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://accounts.dmm.co.jp/service/login/password/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">いいえ</a>
 
                                                     </div>
-                                                    <p class="d-review__unit__voted">23人中、<strong>4人</strong>が参考になったと投票しています。</p>
+                                                    <p class="d-review__unit__voted">25人中、<strong>5人</strong>が参考になったと投票しています。</p>
                                                 </div>
                                             </li>
                                             <li class="d-review__unit">
@@ -3049,15 +3585,15 @@ $.ajax({
                                                 <div class="d-review__unit__bottom">
                                                     <p>
                                                         <span class="d-review__unit__reviewer">
-                                                            <a href="http://www.dmm.co.jp/review/-/list/reviewer/=/id=155844/">454545＾＾<span>さんのレビュー</span></a>
+                                                            <a href="https://www.dmm.co.jp/review/-/list/reviewer/=/id=155844/">454545＾＾<span>さんのレビュー</span></a>
                                                         </span>
                                                         <span class="d-review__unit__postdate">-2019/08/07                                                        </span>
                                                         <span class="d-review__unit__service">-素人(動画)</span>
                                                         <span class="d-review__unit__used">購入・利用済み</span>
                                                     </p>
                                                     <div id="evaluate7" class="d-review__unit__evaluate">このレビューは参考になりましたか？
-<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://www.dmm.co.jp/my/-/login/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">はい</a>
-<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://www.dmm.co.jp/my/-/login/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">いいえ</a>
+<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://accounts.dmm.co.jp/service/login/password/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">はい</a>
+<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://accounts.dmm.co.jp/service/login/password/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">いいえ</a>
 
                                                     </div>
                                                     <p class="d-review__unit__voted">7人中、<strong>3人</strong>が参考になったと投票しています。</p>
@@ -3078,15 +3614,15 @@ $.ajax({
                                                 <div class="d-review__unit__bottom">
                                                     <p>
                                                         <span class="d-review__unit__reviewer">
-                                                            <a href="http://www.dmm.co.jp/review/-/list/reviewer/=/id=158182/">王君<span>さんのレビュー</span></a>
+                                                            <a href="https://www.dmm.co.jp/review/-/list/reviewer/=/id=158182/">王君<span>さんのレビュー</span></a>
                                                         </span>
                                                         <span class="d-review__unit__postdate">-2019/09/17                                                        </span>
                                                         <span class="d-review__unit__service">-素人(動画)</span>
                                                         <span class="d-review__unit__used">購入・利用済み</span>
                                                     </p>
                                                     <div id="evaluate8" class="d-review__unit__evaluate">このレビューは参考になりましたか？
-<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://www.dmm.co.jp/my/-/login/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">はい</a>
-<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://www.dmm.co.jp/my/-/login/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">いいえ</a>
+<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://accounts.dmm.co.jp/service/login/password/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">はい</a>
+<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://accounts.dmm.co.jp/service/login/password/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">いいえ</a>
 
                                                     </div>
                                                     <p class="d-review__unit__voted">6人中、<strong>2人</strong>が参考になったと投票しています。</p>
@@ -3105,15 +3641,15 @@ $.ajax({
                                                 <div class="d-review__unit__bottom">
                                                     <p>
                                                         <span class="d-review__unit__reviewer">
-                                                            <a href="http://www.dmm.co.jp/review/-/list/reviewer/=/id=155707/">Dried<span>さんのレビュー</span></a>
+                                                            <a href="https://www.dmm.co.jp/review/-/list/reviewer/=/id=155707/">Dried<span>さんのレビュー</span></a>
                                                         </span>
                                                         <span class="d-review__unit__postdate">-2019/08/05                                                        </span>
                                                         <span class="d-review__unit__service">-素人(動画)</span>
                                                         <span class="d-review__unit__used">購入・利用済み</span>
                                                     </p>
                                                     <div id="evaluate9" class="d-review__unit__evaluate">このレビューは参考になりましたか？
-<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://www.dmm.co.jp/my/-/login/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">はい</a>
-<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://www.dmm.co.jp/my/-/login/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">いいえ</a>
+<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://accounts.dmm.co.jp/service/login/password/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">はい</a>
+<a href="javascript:void(0)" class="d-review__unit__evaluate-btn" onClick="location.href='https://accounts.dmm.co.jp/service/login/password/=/path=SgVZXg9CAF4XE1hcVlkFGExKUlNEWA1VTV8YBVsBCkMSBFVNVgdUHQ__/'">いいえ</a>
 
                                                     </div>
                                                     <p class="d-review__unit__voted">8人中、<strong>2人</strong>が参考になったと投票しています。</p>
@@ -3126,6 +3662,7 @@ $.ajax({
 <ul>
 <li><span>1</span></li>
 <li><a href="#review" onclick="review_load('2', 'yes_desc', ''); ">2</a></li>
+<li><a href="#review" onclick="review_load('3', 'yes_desc', ''); ">3</a></li>
 <li><a href="#review" onclick="review_load('2', 'yes_desc', ''); ">次へ</a></li>
 
 </ul>
@@ -3137,21 +3674,21 @@ $.ajax({
 $(document).on('ready', function(){
     
             i3('create', 'review_show_load');
-            
+
             i3('review_show_load.set', 'review', {
                 page_type: 'review',
                 shop_name:  'digital\u005fvideoc',
                 action_type: 'load',
-                timestamp: '2020-12-11 01:11:29',
+                timestamp: '2024-01-04 04:28:50',
                 content_id: 'sweet015',
                 review_type: 3,
                 review_star_avg: 4.5,
-                review_evaluate_avg: 4.68,
-                review_posting_cnt: 38,
-                review_comment_cnt: 18,
+                review_evaluate_avg: 4.63,
+                review_posting_cnt: 49,
+                review_comment_cnt: 24,
                 sort: 'helpful',
                 page: 1,
-                page_cnt: 2,
+                page_cnt: 3,
                 review_show_cnt: 10
             });
         i3('review_show_load.send', 'show', 'review');
@@ -3165,21 +3702,21 @@ $(document).on('ready', function(){
         if (scrollTop > showTriggerNodePosition && show_page_set == 0) {
             
             i3('create', 'review_show_show');
-            
+
             i3('review_show_show.set', 'review', {
                 page_type: 'review',
                 shop_name:  'digital\u005fvideoc',
                 action_type: 'show',
-                timestamp: '2020-12-11 01:11:29',
+                timestamp: '2024-01-04 04:28:50',
                 content_id: 'sweet015',
                 review_type: 3,
                 review_star_avg: 4.5,
-                review_evaluate_avg: 4.68,
-                review_posting_cnt: 38,
-                review_comment_cnt: 18,
+                review_evaluate_avg: 4.63,
+                review_posting_cnt: 49,
+                review_comment_cnt: 24,
                 sort: 'helpful',
                 page: 1,
-                page_cnt: 2,
+                page_cnt: 3,
                 review_show_cnt: 10
             });
         
@@ -3189,18 +3726,18 @@ $(document).on('ready', function(){
                     review_star: 5,
                     review_word_cnt: 126,
                     review_read_more_kind: 2,
-                    review_reference_total: 40,
-                    review_reference_yes: 32
+                    review_reference_total: 49,
+                    review_reference_yes: 34
                 });
                 
                    i3('review_show_show.add', 'review', {
                     review_review_id:'eb95eaf5099a2953ed3d73e9f28b24ed',
                     review_reviewer_id: 61490,
                     review_star: 5,
-                    review_word_cnt: 97,
+                    review_word_cnt: 92,
                     review_read_more_kind: 1,
-                    review_reference_total: 22,
-                    review_reference_yes: 14
+                    review_reference_total: 21,
+                    review_reference_yes: 20
                 });
                 
                    i3('review_show_show.add', 'review', {
@@ -3209,7 +3746,7 @@ $(document).on('ready', function(){
                     review_star: 5,
                     review_word_cnt: 44,
                     review_read_more_kind: 1,
-                    review_reference_total: 21,
+                    review_reference_total: 25,
                     review_reference_yes: 14
                 });
                 
@@ -3219,7 +3756,7 @@ $(document).on('ready', function(){
                     review_star: 5,
                     review_word_cnt: 36,
                     review_read_more_kind: 1,
-                    review_reference_total: 23,
+                    review_reference_total: 24,
                     review_reference_yes: 13
                 });
                 
@@ -3229,8 +3766,8 @@ $(document).on('ready', function(){
                     review_star: 3,
                     review_word_cnt: 148,
                     review_read_more_kind: 1,
-                    review_reference_total: 29,
-                    review_reference_yes: 8
+                    review_reference_total: 37,
+                    review_reference_yes: 9
                 });
                 
                    i3('review_show_show.add', 'review', {
@@ -3239,7 +3776,7 @@ $(document).on('ready', function(){
                     review_star: 5,
                     review_word_cnt: 119,
                     review_read_more_kind: 1,
-                    review_reference_total: 8,
+                    review_reference_total: 9,
                     review_reference_yes: 6
                 });
                 
@@ -3249,8 +3786,8 @@ $(document).on('ready', function(){
                     review_star: 4,
                     review_word_cnt: 109,
                     review_read_more_kind: 1,
-                    review_reference_total: 23,
-                    review_reference_yes: 4
+                    review_reference_total: 25,
+                    review_reference_yes: 5
                 });
                 
                    i3('review_show_show.add', 'review', {
@@ -3285,28 +3822,28 @@ $(document).on('ready', function(){
                 i3('review_show_show.send', 'show', 'review');
                                show_page_set = 1;
         }
-    
+
         var endTriggerNodes = $(endTriggerNode);
         if (endTriggerNodes.length > 0) {
             var endTriggerNodePosition = endTriggerNodes.offset().top - $(window).height();
             if (scrollTop > endTriggerNodePosition && end_page_set == 0) {
                 
             i3('create', 'review_show_scroll_end');
-            
+
             i3('review_show_scroll_end.set', 'review', {
                 page_type: 'review',
                 shop_name:  'digital\u005fvideoc',
                 action_type: 'scroll\u005fend',
-                timestamp: '2020-12-11 01:11:29',
+                timestamp: '2024-01-04 04:28:50',
                 content_id: 'sweet015',
                 review_type: 3,
                 review_star_avg: 4.5,
-                review_evaluate_avg: 4.68,
-                review_posting_cnt: 38,
-                review_comment_cnt: 18,
+                review_evaluate_avg: 4.63,
+                review_posting_cnt: 49,
+                review_comment_cnt: 24,
                 sort: 'helpful',
                 page: 1,
-                page_cnt: 2,
+                page_cnt: 3,
                 review_show_cnt: 10
             });
         i3('review_show_scroll_end.send', 'show', 'review');
@@ -3320,7 +3857,7 @@ function review_load(pos, sort, no_review_button)
 {
     if(typeof no_review_button === 'undefined') no_review_button = 0;
 
-    var url = 'https://www.dmm.co.jp/review/-/list/ajax-list/';
+    var url = 'https://www.dmm.co.jp/digital/-/parts-api/=/type=review/';
     var params = {
         'cid'             :'sweet015',
         'title'           :'\u306d\u308b',
@@ -3337,9 +3874,40 @@ function review_load(pos, sort, no_review_button)
 
 function review_evaluate(key, params)
 {
-    var url = 'https://www.dmm.co.jp/review/-/list/ajax-evaluate/';
-    $("#evaluate" + key).html('読み込み中です...');
-    $("#evaluate" + key).load(url, params);
+    var requestUrl = "https://reviewapp.dmm.co.jp/review/v1/ajax/evaluate";
+
+    var targetElement = document.getElementById("evaluate" + key);
+
+    targetElement.innerHTML = "読み込み中です...";
+
+    var currentUrl = window.location.href;
+    var qIndex = currentUrl.indexOf("?");
+    var detailUrl = qIndex >= 0? currentUrl.substring(0, qIndex) : currentUrl;
+    var requestParams = {
+        "evaluate": params.evaluate,
+        "review_id": params.review,
+        "reviewer_id": parseInt(params.reviewer),
+        "detail_url": detailUrl
+    };
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", requestUrl, true);
+    xhr.withCredentials = true;
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState !== XMLHttpRequest.DONE || xhr.status !== 200) {
+            return;
+        }
+        var res = JSON.parse(xhr.responseText);
+        if (res.is_login === false) { // 未ログイン
+            window.location.href = res.redirect_url;
+        } else if (res.is_login === true) { // ログイン
+            targetElement.innerHTML = res.message;
+        } else { // エラー
+            targetElement.innerHTML = "エラーが発生しました。再度時間をおいてお試しください。";
+        }
+    };
+    xhr.send(JSON.stringify(requestParams));
 }
 
 // 並び替え用
@@ -3417,9 +3985,6 @@ $(function() {
 
 
 
-<div id="recommend1"><!--レコメンド--></div>
-
-
 
 
     <ol itemscope itemtype="https://schema.org/BreadcrumbList"
@@ -3457,8 +4022,8 @@ $(function() {
                 itemtype="https://schema.org/ListItem">
                                     <a itemprop="item"
                        itemtype="https://schema.org/WebPage"
-                       itemid="/digital/videoc/-/list/=/article=maker/id=46712/sort=ranking/"
-                       href="/digital/videoc/-/list/=/article=maker/id=46712/sort=ranking/">
+                       itemid="/digital/videoc/-/list/?maker=46712&amp;sort=ranking"
+                       href="/digital/videoc/-/list/?maker=46712&amp;sort=ranking">
                         <span itemprop="name">素人ホイホイsweet！</span>
                     </a>
                                 <meta itemprop="position" content="3" />
@@ -3470,8 +4035,8 @@ $(function() {
                 itemtype="https://schema.org/ListItem">
                                     <a itemprop="item"
                        itemtype="https://schema.org/WebPage"
-                       itemid="/digital/videoc/-/list/=/article=label/id=26359/sort=ranking/"
-                       href="/digital/videoc/-/list/=/article=label/id=26359/sort=ranking/">
+                       itemid="/digital/videoc/-/list/?label=26359&amp;sort=ranking"
+                       href="/digital/videoc/-/list/?label=26359&amp;sort=ranking">
                         <span itemprop="name">素人ホイホイsweet！</span>
                     </a>
                                 <meta itemprop="position" content="4" />
@@ -3492,7 +4057,7 @@ $(function() {
 
 
 <div class="bd-t pd-t6 lh4 mg-b12">当サービスを利用するには、会員登録(無料)が必要です。<br>
-  <a href="/digital/top/guide/howto_html/=/ch_navi=/" target="_blank" class="arrow">素人サービスご利用方法説明ページへ</a> <a href="/regist/" class="arrow bold mg-l12">会員登録</a><br>
+  <a href="/digital/top/guide/howto_html/=/ch_navi=/" target="_blank" class="arrow">素人サービスご利用方法説明ページへ</a> <a href="https://accounts.dmm.co.jp/welcome/signup/email/" class="arrow bold mg-l12">会員登録</a><br>
 <span class="red">※月額動画会員の方はこの作品を購入する場合、月額料金に加え別途料金が必要となりますのでご注意ください。</span></div>
 <!-- ad-display script -->
 <div class="mg-b12 center">
@@ -3526,7 +4091,7 @@ $(function() {
     <ul>
       <li><a href="http://digitalcommerce.co.jp/" target="_self" >株式会社デジタルコマース</a></li>
       <li><a href="https://www.dmm.co.jp/rule/=/category=digital_service/" target="_self" >デジタルコンテンツ利用規約</a></li>
-      <li><a href="https://terms.dmm.co.jp/commerce_dcm/" target="_self" >特定商取引法に基づく表示（デジタルコマース）</a></li>
+      <li><a href="https://terms.dmm.co.jp/commerce_dcm/" target="_self" >取引に関する告知事項</a></li>
     </ul>
   </div>
   <div class="_n4v1-subfooter-column">
@@ -3539,12 +4104,12 @@ $(function() {
     </dl>
   </div>
 </div><div class="_n4v1-mainfooter">
-    <span><a href="https://terms.dmm.co.jp/profile/" target="_self" rel="">会社概要</a></span>
+    <span><a href="https://terms.dmm.co.jp/profile/" target="_blank" rel="nofollow noopener">会社概要</a></span>
     <span><a href="https://terms.dmm.co.jp/member/" target="_self" rel="">会員規約</a></span>
     <span><a href="https://terms.dmm.co.jp/privacy/" target="_self" rel="">個人情報保護に関して</a></span>
     <span><a href="https://terms.dmm.co.jp/commerce/" target="_self" rel="">特定商取引法に基づく表示</a></span>
-    <span><a href="https://terms.dmm.co.jp/partner/" target="_self" rel="">ビジネスパートナー募集</a></span>
-</div><div class="_n4v1-copyright">Copyright &copy; since 1998 DMM All Rights Reserved.</div></footer>
+    <span><a href="https://dmm-corp.com/business/partnership/" target="_blank" rel="">事業提携・事業譲渡(M&amp;A)</a></span>
+</div><div class="_n4v1-copyright"><img src="https://navismithapis-cdn.com/img/copyright.svg"></div></footer>
 <!--[if IE 7]></div><![endif]-->
 <script type="text/javascript" defer="defer" src="https://digstatic.dmm.com/js/social_analyzer.js?1507616407"></script>
 <script type="text/javascript" src="https://digstatic.dmm.com/js/digital/preview_jquery.js"></script>
@@ -3594,54 +4159,7 @@ document.body.appendChild(setSidePickupPluginScript);
 </script>
 <script type="text/javascript">
     //<![CDATA[
-    function monoBanner() {
-    var script = document.createElement('script');
-    script.src = 'https://assets.digstatic.dmm.com/script/analytics/dig-ec-events/viewableBlockEvent/viewableBlockEvent.js';
-    script.onload = function() {
-        var presets = [];
-        presets.push({
-            label: 'mono-banner-inView',
-            selector: '.banner-mono',
-            events: {
-                init: function(d) {
-                    d.target.addEventListener('click', function(e) {
-                        var floor = 'videoc';
-                        var bannerId  = 'banner_monolist_article10223';
-                        i3('create', 'mono_banner');
-                        i3('mono_banner.set', 'detail', {
-                            via_info: 'detail', // 表示ページ
-                            via_option: floor, // フロア名
-                            via_view_rank: '0',
-                        });
-                        i3('mono_banner.add', 'detail', {
-                            content_id: bannerId,
-                        });
-                        i3('mono_banner.send', 'click', 'banner', function(){});
-                    });
-                },
-                inView: function(d) {
-                    var bannerId  = 'banner_monolist_article10223';
-                    i3('create', 'mono_banner');
-                    i3('mono_banner.set', 'banner', {
-                        type: '0',
-                        show_position: 'detail'
-                    });
-                    i3('mono_banner.add', 'banner', {
-                        content_id: bannerId
-                    });
-                    i3('mono_banner.send', 'show', 'banner', function(){});
-                }
-            }
-        });
-        new window._dig_ec_events.viewableBlockEvent(presets);
-    }
-    document.body.appendChild(script);
-};
-window.addEventListener("DOMContentLoaded",function(){
-    monoBanner();
-});
-
-// i3 Tracking JavaScript
+    // i3 Tracking JavaScript
 var items = new Object();
 i3('create', 'detail');
 i3('detail.set', 'detail', {"content_id":"sweet015"});
@@ -3714,17 +4232,23 @@ function myAddCart(purchaseCredit, product_id, price) {
     });
 }
 
-function myAddCartI3(e, price) {
+
+function myAddCartI3(e, price, callback) {
     let thisClass = e.parentNode;
     if(document.getElementsByClassName('ds-btn-bskt-add').length > 0 && thisClass.classList.contains('ds-btn-cash') == false) {
+        callback(e);
         return false;
     }
+
     var pid       = '';
     var packId        = $('label input[name=ptn]:checked').attr('id');
     if (packId == null || packId == undefined) {
         packId = '';
     }
     switch (packId) {
+        case '4k':
+            pid       = '';
+            break;
         case 'hd':
             pid       = 'sweet015dl6';
             break;
@@ -3748,7 +4272,8 @@ function myAddCartI3(e, price) {
     i3('create', 'cart');
     i3('cart.add', 'detail', items[pid]);
     i3('cart.send', 'click', 'add_cart', function() {
-        console.log('myAddCartI3');
+        // console.log('myAddCartI3');
+        if(typeof callback === "function") callback(e);
     });
 
         if(thisClass.classList.contains('ds-btn-cash')) {
@@ -3756,6 +4281,7 @@ function myAddCartI3(e, price) {
     } else {
         ga('mutual.send', 'event', 'detail_digital', 'add_basket', gaContentId);
     }
+    return false;
 }
 
 
@@ -3789,6 +4315,28 @@ function myAddFavorite() {
         document.favorite.submit();
     });
 }
+
+<!-- Vueコンポーネント導入 -->
+// レコメンドカルーセルコンポーネントの読み込み
+var recommendItemScript = document.createElement('script');
+recommendItemScript.src = 'https://digstatic.dmm.com/js/digital/vue/plugin/block/DigRecommendCarousel/pc-recommend-carousel.umd.min.js';
+recommendItemScript.onload = function(){
+    new Vue({el:".area-digital-userToItem"});
+    new Vue({el:".area-digital-history"});
+}
+document.body.appendChild(recommendItemScript);
+
+// ローカルストレージに閲覧履歴用にデータを保存する
+document.addEventListener("DOMContentLoaded", async () => {
+    let data = {
+        cid: 'sweet015',
+        shop: 'videoc'
+    };
+    const connectBrowsingHistory = await new window._dig_ec_events.connectBrowsingHistory;
+    setTimeout(() => {
+        connectBrowsingHistory.setPackageItem('dig-browsing-history', data);
+    }, 3000)
+});
 
     //]]>
 </script></body>
