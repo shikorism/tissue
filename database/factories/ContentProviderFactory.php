@@ -1,14 +1,25 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use App\ContentProvider;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(ContentProvider::class, function (Faker $faker) {
-    return [
-        'host' => 'example.com',
-        'robots' => null,
-        'robots_cached_at' => now(),
-    ];
-});
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\ContentProvider>
+ */
+class ContentProviderFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition()
+    {
+        return [
+            'host' => 'example.com',
+            'robots' => null,
+            'robots_cached_at' => now(),
+        ];
+    }
+}

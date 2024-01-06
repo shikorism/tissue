@@ -1,4 +1,6 @@
-import Chart from 'chart.js';
+import { Chart, BarController, BarElement, CategoryScale, LinearScale, Legend, Tooltip } from 'chart.js';
+
+Chart.register([BarController, BarElement, CategoryScale, LinearScale, Legend, Tooltip]);
 
 const graph = document.getElementById('global-count-graph') as HTMLCanvasElement;
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -22,26 +24,22 @@ new Chart(graph.getContext('2d')!, {
     },
     options: {
         maintainAspectRatio: false,
-        legend: {
-            display: false,
-        },
         elements: {
             line: {},
         },
         scales: {
-            xAxes: [
-                {
-                    display: false,
-                },
-            ],
-            yAxes: [
-                {
-                    display: false,
-                    ticks: {
-                        beginAtZero: true,
-                    },
-                },
-            ],
+            x: {
+                display: false,
+            },
+            y: {
+                display: false,
+                beginAtZero: true,
+            },
+        },
+        plugins: {
+            legend: {
+                display: false,
+            },
         },
     },
 });

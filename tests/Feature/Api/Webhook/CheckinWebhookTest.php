@@ -28,8 +28,8 @@ class CheckinWebhookTest extends TestCase
 
     public function testSuccessful()
     {
-        $user = factory(User::class)->create();
-        $webhook = factory(CheckinWebhook::class)->create(['user_id' => $user->id]);
+        $user = User::factory()->create();
+        $webhook = CheckinWebhook::factory()->create(['user_id' => $user->id]);
 
         $response = $this->postJson('/api/webhooks/checkin/' . $webhook->id, [
             'checked_in_at' => Carbon::create(2019, 7, 21, 19, 19, 19)->toIso8601String(),
@@ -57,8 +57,8 @@ class CheckinWebhookTest extends TestCase
 
     public function testSuccessfulPrivateAndSensitive()
     {
-        $user = factory(User::class)->create();
-        $webhook = factory(CheckinWebhook::class)->create(['user_id' => $user->id]);
+        $user = User::factory()->create();
+        $webhook = CheckinWebhook::factory()->create(['user_id' => $user->id]);
 
         $response = $this->postJson('/api/webhooks/checkin/' . $webhook->id, [
             'is_private' => true,
@@ -78,8 +78,8 @@ class CheckinWebhookTest extends TestCase
 
     public function testSuccessfulAllDefault()
     {
-        $user = factory(User::class)->create();
-        $webhook = factory(CheckinWebhook::class)->create(['user_id' => $user->id]);
+        $user = User::factory()->create();
+        $webhook = CheckinWebhook::factory()->create(['user_id' => $user->id]);
 
         $response = $this->postJson('/api/webhooks/checkin/' . $webhook->id);
 
@@ -100,7 +100,7 @@ class CheckinWebhookTest extends TestCase
 
     public function testUserDestroyed()
     {
-        $webhook = factory(CheckinWebhook::class)->create(['user_id' => null]);
+        $webhook = CheckinWebhook::factory()->create(['user_id' => null]);
 
         $response = $this->postJson('/api/webhooks/checkin/' . $webhook->id);
 
@@ -111,8 +111,8 @@ class CheckinWebhookTest extends TestCase
 
     public function testValidationFailed()
     {
-        $user = factory(User::class)->create();
-        $webhook = factory(CheckinWebhook::class)->create(['user_id' => $user->id]);
+        $user = User::factory()->create();
+        $webhook = CheckinWebhook::factory()->create(['user_id' => $user->id]);
 
         $response = $this->postJson('/api/webhooks/checkin/' . $webhook->id, [
             'checked_in_at' => new Carbon('1999-12-31T23:59:00+0900'),
@@ -129,10 +129,10 @@ class CheckinWebhookTest extends TestCase
 
     public function testConflictCheckedInAt()
     {
-        $user = factory(User::class)->create();
-        $webhook = factory(CheckinWebhook::class)->create(['user_id' => $user->id]);
+        $user = User::factory()->create();
+        $webhook = CheckinWebhook::factory()->create(['user_id' => $user->id]);
         $ejaculatedDate = new Carbon('2020-07-21T19:19:00+0900');
-        factory(Ejaculation::class)->create([
+        Ejaculation::factory()->create([
             'user_id' => $user->id,
             'ejaculated_date' => $ejaculatedDate
         ]);

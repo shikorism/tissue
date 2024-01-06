@@ -23,7 +23,7 @@ class CheckinCsvImporterTest extends TestCase
 
     public function testIncompatibleCharsetEUCJP()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $this->expectException(CsvImportException::class);
         $this->expectExceptionMessage('文字コード判定に失敗しました。UTF-8 (BOM無し) または Shift_JIS をお使いください。');
 
@@ -36,7 +36,7 @@ class CheckinCsvImporterTest extends TestCase
      */
     public function testMissingTime($filename)
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $this->expectException(CsvImportException::class);
         $this->expectExceptionMessage('日時列は必須です。');
 
@@ -57,7 +57,7 @@ class CheckinCsvImporterTest extends TestCase
      */
     public function testDate($expectedDate, $filename)
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $importer = new CheckinCsvImporter($user, $filename);
         $importer->execute();
@@ -81,7 +81,7 @@ class CheckinCsvImporterTest extends TestCase
 
     public function testInvalidDate()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         try {
             $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/invalid-date.utf8.csv');
@@ -112,7 +112,7 @@ class CheckinCsvImporterTest extends TestCase
 
     public function testNoteUTF8()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/note.utf8.csv');
         $importer->execute();
@@ -129,7 +129,7 @@ class CheckinCsvImporterTest extends TestCase
      */
     public function testNoteOverLength($filename)
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $this->expectException(CsvImportException::class);
         $this->expectExceptionMessage('2 行 : ノートには500文字以下の文字列を指定してください。');
 
@@ -147,7 +147,7 @@ class CheckinCsvImporterTest extends TestCase
 
     public function testLinkUTF8()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/link.utf8.csv');
         $importer->execute();
@@ -159,7 +159,7 @@ class CheckinCsvImporterTest extends TestCase
 
     public function testLinkOverLengthUTF8()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $this->expectException(CsvImportException::class);
         $this->expectExceptionMessage('3 行 : オカズリンクには2000文字以下の文字列を指定してください。');
 
@@ -169,7 +169,7 @@ class CheckinCsvImporterTest extends TestCase
 
     public function testLinkIsNotUrlUTF8()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $this->expectException(CsvImportException::class);
         $this->expectExceptionMessage('2 行 : オカズリンクには正しい形式のURLを指定してください。');
 
@@ -179,7 +179,7 @@ class CheckinCsvImporterTest extends TestCase
 
     public function testTag1UTF8()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/tag1.utf8.csv');
         $importer->execute();
@@ -193,7 +193,7 @@ class CheckinCsvImporterTest extends TestCase
 
     public function testTag2UTF8()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/tag2.utf8.csv');
         $importer->execute();
@@ -208,7 +208,7 @@ class CheckinCsvImporterTest extends TestCase
 
     public function testTagOverLengthUTF8()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $this->expectException(CsvImportException::class);
         $this->expectExceptionMessage('3 行 : タグ1は255文字以内にしてください。');
 
@@ -218,7 +218,7 @@ class CheckinCsvImporterTest extends TestCase
 
     public function testTagCanAcceptJumpedColumnUTF8()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/tag-jumped-column.utf8.csv');
         $importer->execute();
@@ -233,7 +233,7 @@ class CheckinCsvImporterTest extends TestCase
 
     public function testTagCantAcceptMultilineUTF8()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $this->expectException(CsvImportException::class);
         $this->expectExceptionMessage('2 行 : タグ1に改行を含めることはできません。');
 
@@ -243,7 +243,7 @@ class CheckinCsvImporterTest extends TestCase
 
     public function testTagCantAcceptWhitespaceUTF8()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $this->expectException(CsvImportException::class);
         $this->expectExceptionMessage('2 行 : タグ1にスペースを含めることはできません。');
 
@@ -253,7 +253,7 @@ class CheckinCsvImporterTest extends TestCase
 
     public function testTagCanAccept40ColumnsUTF8()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/tag-41-column.utf8.csv');
         $importer->execute();
@@ -267,7 +267,7 @@ class CheckinCsvImporterTest extends TestCase
 
     public function testSkipAllNullTagColumns()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/tag-null.utf8.csv');
         $importer->execute();
@@ -280,7 +280,7 @@ class CheckinCsvImporterTest extends TestCase
 
     public function testSourceIsCsv()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/date.utf8.csv');
         $importer->execute();
@@ -292,7 +292,7 @@ class CheckinCsvImporterTest extends TestCase
 
     public function testIsPrivateUTF8()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/private.utf8.csv');
         $importer->execute();
@@ -313,7 +313,7 @@ class CheckinCsvImporterTest extends TestCase
 
     public function testIsTooSensitiveUTF8()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/too-sensitive.utf8.csv');
         $importer->execute();
@@ -334,7 +334,7 @@ class CheckinCsvImporterTest extends TestCase
 
     public function testDiscardElapsedTimeUTF8()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $importer = new CheckinCsvImporter($user, __DIR__ . '/../../fixture/Csv/discard-elapsed-time.utf8.csv');
         $importer->execute();
@@ -355,8 +355,8 @@ class CheckinCsvImporterTest extends TestCase
 
     public function testDontThrowUniqueKeyViolation()
     {
-        $user = factory(User::class)->create();
-        factory(Ejaculation::class)->create([
+        $user = User::factory()->create();
+        Ejaculation::factory()->create([
             'user_id' => $user->id,
             'ejaculated_date' => Carbon::create(2020, 1, 23, 6, 1, 0, 'Asia/Tokyo')
         ]);
@@ -370,8 +370,8 @@ class CheckinCsvImporterTest extends TestCase
 
     public function testRecordLimit()
     {
-        $user = factory(User::class)->create();
-        factory(Ejaculation::class, 5000)->create([
+        $user = User::factory()->create();
+        Ejaculation::factory(5000)->create([
             'user_id' => $user->id,
             'source' => Ejaculation::SOURCE_CSV
         ]);

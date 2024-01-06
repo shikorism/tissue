@@ -28,7 +28,7 @@ class MeTest extends TestCase
 
     public function testBasicProfile()
     {
-        $user = factory(User::class)->create()->fresh(); // 不思議なことにリロードしないとnot null列の結果がおかしい
+        $user = User::factory()->create()->fresh(); // 不思議なことにリロードしないとnot null列の結果がおかしい
         Passport::actingAs($user);
 
         $response = $this->getJson('/api/v1/me');
@@ -46,7 +46,7 @@ class MeTest extends TestCase
 
     public function testBioAndUrl()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'bio' => 'happy f*cking',
             'url' => 'http://example.com',
         ]);
@@ -67,18 +67,18 @@ class MeTest extends TestCase
 
     public function testCheckinSummary()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        factory(Ejaculation::class)->create([
+        Ejaculation::factory()->create([
             'user_id' => $user->id,
             'ejaculated_date' => Carbon::create(2020, 7, 1, 0, 0, 0, 'Asia/Tokyo')
         ]);
-        factory(Ejaculation::class)->create([
+        Ejaculation::factory()->create([
             'user_id' => $user->id,
             'ejaculated_date' => Carbon::create(2020, 7, 3, 0, 0, 0, 'Asia/Tokyo')
         ]);
-        factory(Ejaculation::class)->create([
+        Ejaculation::factory()->create([
             'user_id' => $user->id,
             'ejaculated_date' => Carbon::create(2020, 7, 7, 0, 0, 0, 'Asia/Tokyo')
         ]);

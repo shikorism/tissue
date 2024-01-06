@@ -21,10 +21,10 @@ class UserCheckinTest extends TestCase
 
     public function testDefaultQuery()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $ejaculation = factory(Ejaculation::class)->create([
+        $ejaculation = Ejaculation::factory()->create([
             'user_id' => $user->id,
             'ejaculated_date' => Carbon::create(2020, 7, 1, 0, 0, 0, 'Asia/Tokyo'),
             'link' => '',
@@ -52,10 +52,10 @@ class UserCheckinTest extends TestCase
 
     public function testPagination()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        factory(Ejaculation::class, 11)->create([
+        Ejaculation::factory(11)->create([
             'user_id' => $user->id,
         ]);
         $oldest = $user->ejaculations()->orderBy('ejaculated_date')->first();
@@ -74,10 +74,10 @@ class UserCheckinTest extends TestCase
 
     public function testProtected()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $target = factory(User::class)->state('protected')->create();
+        $target = User::factory()->protected()->create();
 
         $response = $this->getJson('/api/v1/users/' . $target->name . '/checkins');
 
@@ -86,10 +86,10 @@ class UserCheckinTest extends TestCase
 
     public function testMissing()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $target = factory(User::class)->create();
+        $target = User::factory()->create();
         $target->delete();
 
         $response = $this->getJson('/api/v1/users/' . $target->name . '/checkins');
@@ -99,14 +99,14 @@ class UserCheckinTest extends TestCase
 
     public function testExposeMyPrivateCheckins()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        factory(Ejaculation::class)->create([
+        Ejaculation::factory()->create([
             'user_id' => $user->id,
             'is_private' => false,
         ]);
-        factory(Ejaculation::class)->create([
+        Ejaculation::factory()->create([
             'user_id' => $user->id,
             'is_private' => true,
         ]);
@@ -120,15 +120,15 @@ class UserCheckinTest extends TestCase
 
     public function testHidePrivateCheckins()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $target = factory(User::class)->create();
-        $public = factory(Ejaculation::class)->create([
+        $target = User::factory()->create();
+        $public = Ejaculation::factory()->create([
             'user_id' => $target->id,
             'is_private' => false,
         ]);
-        factory(Ejaculation::class)->create([
+        Ejaculation::factory()->create([
             'user_id' => $target->id,
             'is_private' => true,
         ]);
@@ -141,6 +141,32 @@ class UserCheckinTest extends TestCase
         $response->assertJson([
             [
                 'id' => $public->id,
+            ]
+        ], true);
+    }
+
+    public function testHasLink()
+    {
+        $user = User::factory()->create();
+        Passport::actingAs($user);
+
+        $target = User::factory()->create();
+        $hasLink = Ejaculation::factory()->create([
+            'user_id' => $target->id,
+            'link' => 'http://example.com',
+        ]);
+        Ejaculation::factory()->create([
+            'user_id' => $target->id,
+        ]);
+
+        $response = $this->getJson('/api/v1/users/' . $target->name . '/checkins?has_link=true');
+
+        $response->assertStatus(200);
+        $response->assertHeader('X-Total-Count', 1);
+        $response->assertJsonCount(1);
+        $response->assertJson([
+            [
+                'id' => $hasLink->id,
             ]
         ], true);
     }

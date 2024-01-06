@@ -23,17 +23,17 @@ class SettingTest extends TestCase
 
     public function testDestroyUser()
     {
-        $user = factory(User::class)->create();
-        $ejaculation = factory(Ejaculation::class)->create(['user_id' => $user->id]);
+        $user = User::factory()->create();
+        $ejaculation = Ejaculation::factory()->create(['user_id' => $user->id]);
 
-        $anotherUser = factory(User::class)->create();
-        $anotherEjaculation = factory(Ejaculation::class)->create(['user_id' => $anotherUser->id]);
+        $anotherUser = User::factory()->create();
+        $anotherEjaculation = Ejaculation::factory()->create(['user_id' => $anotherUser->id]);
 
-        $like = factory(Like::class)->create([
+        $like = Like::factory()->create([
             'user_id' => $user->id,
             'ejaculation_id' => $anotherEjaculation->id,
         ]);
-        $anotherLike = factory(Like::class)->create([
+        $anotherLike = Like::factory()->create([
             'user_id' => $anotherUser->id,
             'ejaculation_id' => $ejaculation->id,
         ]);

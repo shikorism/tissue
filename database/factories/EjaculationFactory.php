@@ -1,13 +1,26 @@
 <?php
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+
+namespace Database\Factories;
 
 use App\Ejaculation;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Ejaculation::class, function (Faker $faker) {
-    return [
-        'ejaculated_date' => $faker->date('Y-m-d H:i:s'),
-        'note' => $faker->text,
-        'source' => Ejaculation::SOURCE_WEB,
-    ];
-});
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Ejaculation>
+ */
+class EjaculationFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition()
+    {
+        return [
+            'ejaculated_date' => $this->faker->date('Y-m-d H:i:s'),
+            'note' => $this->faker->text,
+            'source' => Ejaculation::SOURCE_WEB,
+        ];
+    }
+}

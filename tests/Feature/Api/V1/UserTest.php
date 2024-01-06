@@ -19,7 +19,7 @@ class UserTest extends TestCase
 
     public function testMyself()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
         $response = $this->getJson('/api/v1/users/' . $user->name);
@@ -37,7 +37,7 @@ class UserTest extends TestCase
 
     public function testMyselfBioAndUrl()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'bio' => 'happy f*cking',
             'url' => 'http://example.com',
         ]);
@@ -58,10 +58,10 @@ class UserTest extends TestCase
 
     public function testProtected()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $target = factory(User::class)->state('protected')->create([
+        $target = User::factory()->protected()->create([
             'bio' => 'test test...',
             'url' => 'http://example.com',
         ]);
@@ -84,10 +84,10 @@ class UserTest extends TestCase
 
     public function testMissing()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $target = factory(User::class)->create();
+        $target = User::factory()->create();
         $target->delete();
 
         $response = $this->getJson('/api/v1/users/' . $target->name);

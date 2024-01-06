@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
 import { FieldError } from './components/FieldError';
 import { TagInput } from './components/TagInput';
@@ -97,7 +97,10 @@ const CollectForm = () => {
                 const createdItem = await response.json();
                 showToast('コレクションを作成しました', { color: 'success', delay: 5000 });
                 setShowCreateModal(false);
-                queryClient.setQueryData<Tissue.Collection[]>('MyCollections', (col) => [...(col || []), createdItem]);
+                queryClient.setQueryData<Tissue.Collection[]>(['MyCollections'], (col) => [
+                    ...(col || []),
+                    createdItem,
+                ]);
                 setCollectionId(createdItem.id);
                 return;
             }

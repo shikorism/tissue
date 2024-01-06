@@ -22,7 +22,7 @@ class CollectionItemTest extends TestCase
 
     public function testGet()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
         $collection = Collection::factory()->create([
@@ -52,7 +52,7 @@ class CollectionItemTest extends TestCase
 
     public function testGetPagination()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
         $collection = Collection::factory()->create([
@@ -81,10 +81,10 @@ class CollectionItemTest extends TestCase
 
     public function testGetProtected()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $targetUser = factory(User::class)->state('protected')->create();
+        $targetUser = User::factory()->protected()->create();
         $collection = Collection::factory()->create([
             'user_id' => $targetUser->id,
             'title' => 'test collection',
@@ -102,7 +102,7 @@ class CollectionItemTest extends TestCase
 
     public function testGetMyPrivate()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
         $collection = Collection::factory()->create([
@@ -122,10 +122,10 @@ class CollectionItemTest extends TestCase
 
     public function testGetOthersPrivate()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $targetUser = factory(User::class)->create();
+        $targetUser = User::factory()->create();
         $collection = Collection::factory()->create([
             'user_id' => $targetUser->id,
             'title' => 'test collection',
@@ -143,7 +143,7 @@ class CollectionItemTest extends TestCase
 
     public function testGetMissing()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
         $response = $this->getJson('/api/v1/collections/0/items');
@@ -153,7 +153,7 @@ class CollectionItemTest extends TestCase
 
     public function testPost()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
         $collection = Collection::factory()->create([
@@ -184,7 +184,7 @@ class CollectionItemTest extends TestCase
 
     public function testPostConflictLink()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
         $collection = Collection::factory()->create([
@@ -212,7 +212,7 @@ class CollectionItemTest extends TestCase
 
     public function testPostMissingCollection()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
         $response = $this->postJson('/api/v1/collections/0/items', [
@@ -225,7 +225,7 @@ class CollectionItemTest extends TestCase
 
     public function testPatch()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
         $collection = Collection::factory()->create([
@@ -253,7 +253,7 @@ class CollectionItemTest extends TestCase
 
     public function testPatchMissing()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
         $collection = Collection::factory()->create([
@@ -271,10 +271,10 @@ class CollectionItemTest extends TestCase
 
     public function testPatchOthers()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $targetUser = factory(User::class)->create();
+        $targetUser = User::factory()->create();
         $collection = Collection::factory()->create([
             'user_id' => $targetUser->id,
             'title' => 'test collection',
@@ -294,7 +294,7 @@ class CollectionItemTest extends TestCase
 
     public function testDelete()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
         $collection = Collection::factory()->create([
@@ -315,7 +315,7 @@ class CollectionItemTest extends TestCase
 
     public function testDeleteMissing()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
         $collection = Collection::factory()->create([
@@ -331,10 +331,10 @@ class CollectionItemTest extends TestCase
 
     public function testDeleteOthers()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $targetUser = factory(User::class)->create();
+        $targetUser = User::factory()->create();
         $collection = Collection::factory()->create([
             'user_id' => $targetUser->id,
             'title' => 'test collection',

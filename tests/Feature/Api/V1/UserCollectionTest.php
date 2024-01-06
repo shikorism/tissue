@@ -22,7 +22,7 @@ class UserCollectionTest extends TestCase
 
     public function testDefaultQuery()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
         $collection = Collection::factory()->create([
@@ -46,7 +46,7 @@ class UserCollectionTest extends TestCase
 
     public function testPagination()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
         Collection::factory(11)
@@ -70,10 +70,10 @@ class UserCollectionTest extends TestCase
 
     public function testProtected()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $target = factory(User::class)->state('protected')->create();
+        $target = User::factory()->protected()->create();
 
         $response = $this->getJson('/api/v1/users/' . $target->name . '/collections');
 
@@ -82,10 +82,10 @@ class UserCollectionTest extends TestCase
 
     public function testMissing()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $target = factory(User::class)->create();
+        $target = User::factory()->create();
         $target->delete();
 
         $response = $this->getJson('/api/v1/users/' . $target->name . '/collections');
@@ -95,7 +95,7 @@ class UserCollectionTest extends TestCase
 
     public function testExposeMyPrivateCollections()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
         Collection::factory()->create([
@@ -118,10 +118,10 @@ class UserCollectionTest extends TestCase
 
     public function testHidePrivateCollections()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $target = factory(User::class)->create();
+        $target = User::factory()->create();
         $public = Collection::factory()->create([
             'user_id' => $target->id,
             'title' => 'public collection',

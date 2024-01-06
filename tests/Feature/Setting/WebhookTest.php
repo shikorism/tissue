@@ -19,7 +19,7 @@ class WebhookTest extends TestCase
 
     public function testStoreWebhooks()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)
             ->followingRedirects()
@@ -32,8 +32,8 @@ class WebhookTest extends TestCase
 
     public function testStoreWebhooksHas9Hooks()
     {
-        $user = factory(User::class)->create();
-        $webhooks = factory(CheckinWebhook::class, CheckinWebhook::PER_USER_LIMIT - 1)->create(['user_id' => $user->id]);
+        $user = User::factory()->create();
+        $webhooks = CheckinWebhook::factory(CheckinWebhook::PER_USER_LIMIT - 1)->create(['user_id' => $user->id]);
 
         $response = $this->actingAs($user)
             ->followingRedirects()
@@ -46,8 +46,8 @@ class WebhookTest extends TestCase
 
     public function testStoreWebhooksHas10Hooks()
     {
-        $user = factory(User::class)->create();
-        $webhooks = factory(CheckinWebhook::class, CheckinWebhook::PER_USER_LIMIT)->create(['user_id' => $user->id]);
+        $user = User::factory()->create();
+        $webhooks = CheckinWebhook::factory(CheckinWebhook::PER_USER_LIMIT)->create(['user_id' => $user->id]);
 
         $response = $this->actingAs($user)
             ->followingRedirects()
@@ -60,8 +60,8 @@ class WebhookTest extends TestCase
 
     public function testDestroyWebhooks()
     {
-        $user = factory(User::class)->create();
-        $webhook = factory(CheckinWebhook::class)->create(['user_id' => $user->id]);
+        $user = User::factory()->create();
+        $webhook = CheckinWebhook::factory()->create(['user_id' => $user->id]);
 
         $response = $this->actingAs($user)
             ->followingRedirects()

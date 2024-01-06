@@ -21,10 +21,10 @@ class CheckinTest extends TestCase
 
     public function testGet()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $ejaculation = factory(Ejaculation::class)->create([
+        $ejaculation = Ejaculation::factory()->create([
             'user_id' => $user->id,
             'ejaculated_date' => Carbon::create(2020, 7, 1, 0, 0, 0, 'Asia/Tokyo'),
             'link' => '',
@@ -49,11 +49,11 @@ class CheckinTest extends TestCase
 
     public function testGetProtected()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $targetUser = factory(User::class)->state('protected')->create();
-        $ejaculation = factory(Ejaculation::class)->create([
+        $targetUser = User::factory()->protected()->create();
+        $ejaculation = Ejaculation::factory()->create([
             'user_id' => $targetUser->id,
             'ejaculated_date' => Carbon::create(2020, 7, 1, 0, 0, 0, 'Asia/Tokyo'),
         ]);
@@ -65,10 +65,10 @@ class CheckinTest extends TestCase
 
     public function testGetMyPrivate()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $ejaculation = factory(Ejaculation::class)->create([
+        $ejaculation = Ejaculation::factory()->create([
             'user_id' => $user->id,
             'ejaculated_date' => Carbon::create(2020, 7, 1, 0, 0, 0, 'Asia/Tokyo'),
             'is_private' => true,
@@ -81,11 +81,11 @@ class CheckinTest extends TestCase
 
     public function testGetOthersPrivate()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $targetUser = factory(User::class)->create();
-        $ejaculation = factory(Ejaculation::class)->create([
+        $targetUser = User::factory()->create();
+        $ejaculation = Ejaculation::factory()->create([
             'user_id' => $targetUser->id,
             'ejaculated_date' => Carbon::create(2020, 7, 1, 0, 0, 0, 'Asia/Tokyo'),
             'is_private' => true,
@@ -98,11 +98,11 @@ class CheckinTest extends TestCase
 
     public function testGetMissing()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $targetUser = factory(User::class)->create();
-        $ejaculation = factory(Ejaculation::class)->create([
+        $targetUser = User::factory()->create();
+        $ejaculation = Ejaculation::factory()->create([
             'user_id' => $targetUser->id,
             'ejaculated_date' => Carbon::create(2020, 7, 1, 0, 0, 0, 'Asia/Tokyo'),
         ]);
@@ -115,10 +115,10 @@ class CheckinTest extends TestCase
 
     public function testPatchMissing()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $ejaculation = factory(Ejaculation::class)->create([
+        $ejaculation = Ejaculation::factory()->create([
             'user_id' => $user->id,
             'ejaculated_date' => Carbon::create(2020, 7, 1, 0, 0, 0, 'Asia/Tokyo'),
         ]);
@@ -133,11 +133,11 @@ class CheckinTest extends TestCase
 
     public function testPatchOthers()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $targetUser = factory(User::class)->create();
-        $ejaculation = factory(Ejaculation::class)->create([
+        $targetUser = User::factory()->create();
+        $ejaculation = Ejaculation::factory()->create([
             'user_id' => $targetUser->id,
             'ejaculated_date' => Carbon::create(2020, 7, 1, 0, 0, 0, 'Asia/Tokyo'),
         ]);
@@ -151,10 +151,10 @@ class CheckinTest extends TestCase
 
     public function testDelete()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $ejaculation = factory(Ejaculation::class)->create([
+        $ejaculation = Ejaculation::factory()->create([
             'user_id' => $user->id,
             'ejaculated_date' => Carbon::create(2020, 7, 1, 0, 0, 0, 'Asia/Tokyo'),
         ]);
@@ -167,10 +167,10 @@ class CheckinTest extends TestCase
 
     public function testDeleteMissing()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $ejaculation = factory(Ejaculation::class)->create([
+        $ejaculation = Ejaculation::factory()->create([
             'user_id' => $user->id,
             'ejaculated_date' => Carbon::create(2020, 7, 1, 0, 0, 0, 'Asia/Tokyo'),
         ]);
@@ -184,11 +184,11 @@ class CheckinTest extends TestCase
 
     public function testDeleteOthers()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         Passport::actingAs($user);
 
-        $targetUser = factory(User::class)->create();
-        $ejaculation = factory(Ejaculation::class)->create([
+        $targetUser = User::factory()->create();
+        $ejaculation = Ejaculation::factory()->create([
             'user_id' => $targetUser->id,
             'ejaculated_date' => Carbon::create(2020, 7, 1, 0, 0, 0, 'Asia/Tokyo'),
         ]);

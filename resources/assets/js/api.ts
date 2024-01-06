@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { fetchGet, ResponseError } from './fetch';
 
 function asJson(response: Response) {
@@ -29,10 +29,12 @@ async function asPaginatedJson<Data>(response: Response): Promise<PaginatedResul
 }
 
 export const useMyProfileQuery = () =>
-    useQuery<Tissue.Profile, ResponseError>('MyProfile', () => fetchGet('/api/me').then(asJson), { staleTime: 300000 });
+    useQuery<Tissue.Profile, ResponseError>(['MyProfile'], () => fetchGet('/api/me').then(asJson), {
+        staleTime: 300000,
+    });
 
 export const useMyCollectionsQuery = () =>
-    useQuery<Tissue.Collection[], ResponseError>('MyCollections', () => fetchGet('/api/collections').then(asJson), {
+    useQuery<Tissue.Collection[], ResponseError>(['MyCollections'], () => fetchGet('/api/collections').then(asJson), {
         staleTime: 300000,
     });
 
