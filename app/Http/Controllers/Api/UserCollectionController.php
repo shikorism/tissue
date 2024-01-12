@@ -15,7 +15,7 @@ class UserCollectionController extends Controller
             throw new AccessDeniedHttpException('このユーザはチェックイン履歴を公開していません');
         }
 
-        $collections = $user->collections();
+        $collections = $user->collections()->orderBy('id');
         if (!$user->isMe()) {
             $collections = $collections->where('is_private', false);
         }
