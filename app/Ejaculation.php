@@ -60,6 +60,9 @@ class Ejaculation extends Model
         self::creating(function (Ejaculation $ejaculation) {
             $ejaculation->normalized_link = app(Formatter::class)->normalizeUrl($ejaculation->link);
         });
+        self::updating(function (Ejaculation $ejaculation) {
+            $ejaculation->normalized_link = app(Formatter::class)->normalizeUrl($ejaculation->link);
+        });
     }
 
     public function user()
