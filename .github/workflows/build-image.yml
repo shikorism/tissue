@@ -7,7 +7,12 @@ on:
       - develop
     tags:
       - '**'
-  pull_request:
+  workflow_dispatch:
+    inputs:
+      pull_request_number:
+        description: 'Pull request number'
+        type: number
+        required: true
 
 jobs:
   build:
@@ -18,7 +23,15 @@ jobs:
       packages: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout pull request
+        uses: actions/checkout@v4
+        if:  ${{ github.event_name == 'workflow_dispatch' }}
+        with:
+          ref: refs/pull/${{ inputs.pull_request_number }}/merge
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        if:  ${{ github.event_name != 'workflow_dispatch' }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -35,8 +48,8 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}-foundation
           tags: |
-            type=ref,event=branch
-            type=ref,event=pr
+            type=ref,enable=${{ github.event_name != 'workflow_dispatch' }},event=branch
+            type=raw,enable=${{ github.event_name == 'workflow_dispatch' }},value=pr-${{ inputs.pull_request_number }}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
 
@@ -55,8 +68,8 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}-nginx
           tags: |
-            type=ref,event=branch
-            type=ref,event=pr
+            type=ref,enable=${{ github.event_name != 'workflow_dispatch' }},event=branch
+            type=raw,enable=${{ github.event_name == 'workflow_dispatch' }},value=pr-${{ inputs.pull_request_number }}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
 
@@ -77,8 +90,8 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}-php
           tags: |
-            type=ref,event=branch
-            type=ref,event=pr
+            type=ref,enable=${{ github.event_name != 'workflow_dispatch' }},event=branch
+            type=raw,enable=${{ github.event_name == 'workflow_dispatch' }},value=pr-${{ inputs.pull_request_number }}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
 
