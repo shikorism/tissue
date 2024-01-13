@@ -48,7 +48,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}-foundation
           tags: |
-            type=ref,event=branch
+            type=ref,enable=${{ github.event_name != 'workflow_dispatch' }},event=branch
             type=raw,enable=${{ github.event_name == 'workflow_dispatch' }},value=pr-${{ inputs.pull_request_number }}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
@@ -68,7 +68,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}-nginx
           tags: |
-            type=ref,event=branch
+            type=ref,enable=${{ github.event_name != 'workflow_dispatch' }},event=branch
             type=raw,enable=${{ github.event_name == 'workflow_dispatch' }},value=pr-${{ inputs.pull_request_number }}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
@@ -90,7 +90,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}-php
           tags: |
-            type=ref,event=branch
+            type=ref,enable=${{ github.event_name != 'workflow_dispatch' }},event=branch
             type=raw,enable=${{ github.event_name == 'workflow_dispatch' }},value=pr-${{ inputs.pull_request_number }}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
