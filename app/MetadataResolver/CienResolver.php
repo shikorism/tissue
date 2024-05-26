@@ -5,7 +5,7 @@ namespace App\MetadataResolver;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 
-class CienResolver extends MetadataResolver
+class CienResolver implements Resolver
 {
     /**
      * @var Client
