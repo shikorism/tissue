@@ -7,13 +7,8 @@ use GuzzleHttp\Client;
 
 class FxTwitterResolver implements TwitterResolver
 {
-    private Client $client;
-    private OGPResolver $ogpResolver;
-
-    public function __construct(Client $client, OGPResolver $ogpResolver)
+    public function __construct(private Client $client, private OGPResolver $ogpResolver)
     {
-        $this->client = $client;
-        $this->ogpResolver = $ogpResolver;
     }
 
     public function resolve(string $url): Metadata
