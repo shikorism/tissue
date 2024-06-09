@@ -1,5 +1,5 @@
 services:
-  web:
+  web: &php
     build:
       context: .
       dockerfile: docker/development/web.dockerfile
@@ -25,6 +25,10 @@ services:
     networks:
       - backend
     restart: always
+  scheduler:
+    <<: *php
+    command: php artisan schedule:work
+    ports: []
   antlr:
     build:
       context: .

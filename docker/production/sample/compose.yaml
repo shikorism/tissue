@@ -1,5 +1,5 @@
 services:
-  php:
+  php: &php
     image: ghcr.io/shikorism/tissue-php
     restart: always
     env_file: .env
@@ -17,3 +17,7 @@ services:
       - 127.0.0.1:4545:80
     depends_on:
       - php
+
+  scheduler:
+    <<: *php
+    command: php artisan schedule:work

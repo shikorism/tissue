@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
+use App\MetadataResolver\FxTwitterResolver;
 use App\MetadataResolver\MetadataResolver;
-use App\MetadataResolver\TwitterApiResolver;
-use App\MetadataResolver\TwitterOGPResolver;
+use App\MetadataResolver\Resolver;
 use App\MetadataResolver\TwitterResolver;
 use App\Services\MetadataResolveService;
+use App\Utilities\ApplyProviderPolicyMiddleware;
 use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -78,9 +80,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(MetadataResolver::class, function ($app) {
-            return new MetadataResolver();
-        });
+        $this->app->singleton(MetadataResolver::class);
         $this->app->singleton('parsedown', function () {
             return Parsedown::instance();
         });
@@ -91,18 +91,25 @@ class AppServiceProvider extends ServiceProvider
                 ]
             ]);
         });
+        $this->app->when(MetadataResolver::class)->needs(Client::class)->give(function ($app) {
+            $stack = HandlerStack::create();
+            $stack->push($app->make(ApplyProviderPolicyMiddleware::class));
+
+            return new Client([
+                RequestOptions::HEADERS => [
+                    'User-Agent' => 'TissueBot/1.0'
+                ],
+                'handler' => $stack,
+            ]);
+        });
         $this->app->when(MetadataResolveService::class)
             ->needs('$circuitBreakCount')
             ->give((int) config('metadata.circuit_break_count', 5));
-        $this->app->when(MetadataResolveService::class)
+        $this->app->when(ApplyProviderPolicyMiddleware::class)
             ->needs('$ignoreAccessInterval')
             ->give((bool) config('metadata.ignore_access_interval', false));
         $this->app->bind(TwitterResolver::class, function ($app) {
-            if (empty(config('twitter.bearer_token'))) {
-                return $app->make(TwitterOGPResolver::class);
-            } else {
-                return $app->make(TwitterApiResolver::class);
-            }
+            return $app->make(FxTwitterResolver::class);
         });
     }
 }

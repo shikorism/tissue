@@ -68,6 +68,7 @@ class MetadataResolverServiceTest extends TestCase
         $handler = HandlerStack::create(new MockHandler([new Response(404)]));
         $client = new Client(['handler' => $handler]);
         $this->instance(Client::class, $client);
+        $this->app->when(MetadataResolver::class)->needs(Client::class)->give(fn () => $client);
 
         try {
             $service = app()->make(MetadataResolveService::class);
@@ -91,6 +92,7 @@ class MetadataResolverServiceTest extends TestCase
         $handler = HandlerStack::create(new MockHandler([new Response(503), new Response(503)]));
         $client = new Client(['handler' => $handler]);
         $this->instance(Client::class, $client);
+        $this->app->when(MetadataResolver::class)->needs(Client::class)->give(fn () => $client);
 
         try {
             $service = app()->make(MetadataResolveService::class);
@@ -161,6 +163,7 @@ HTML;
         ]));
         $client = new Client(['handler' => $handler]);
         $this->instance(Client::class, $client);
+        $this->app->when(MetadataResolver::class)->needs(Client::class)->give(fn () => $client);
 
         for ($i = 0; $i < 2; $i++) {
             try {
