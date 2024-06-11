@@ -57,7 +57,7 @@ class NijieResolver implements Resolver
             // サムネイルからメイン画像に
             $metadata->image = str_replace('__s_rs_l160x160/', '__s_rs_l0x0/', $data['thumbnailUrl']);
         }
-        $metadata->tags = $crawler->filter('#view-tag span.tag_name')->extract('_text');
+        $metadata->tags = $crawler->filter('#view-tag span.tag_name')->extract(['_text']);
 
         return $metadata;
     }

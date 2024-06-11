@@ -49,7 +49,7 @@ class HentaiFoundryResolver implements Resolver
         $metadata->title = $crawler->filter('#picBox .boxtitle .imageTitle')->text();
         $metadata->description = 'by ' . $author . PHP_EOL . $description;
         $metadata->image = 'https:' . $crawler->filter('img[src^="//picture"]')->attr('src');
-        $metadata->tags = $crawler->filter('a[rel="tag"]')->extract('_text');
+        $metadata->tags = $crawler->filter('a[rel="tag"]')->extract(['_text']);
 
         return $metadata;
     }
