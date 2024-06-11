@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Link, Outlet, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { useQueryClient } from '@tanstack/react-query';
@@ -188,7 +188,7 @@ const Index: React.FC = () => {
     return null;
 };
 
-ReactDOM.render(
+createRoot(document.getElementById('app') as HTMLElement).render(
     <QueryClientProvider>
         <BrowserRouter>
             <Routes>
@@ -198,6 +198,5 @@ ReactDOM.render(
                 </Route>
             </Routes>
         </BrowserRouter>
-    </QueryClientProvider>,
-    document.getElementById('app')
+    </QueryClientProvider>
 );
