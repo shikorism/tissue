@@ -30,7 +30,7 @@ export async function initAddToCollectionButtons() {
                         tags={tags}
                         collections={data}
                         onCreateCollection={initAddToCollectionButtons}
-                    />
+                    />,
                 );
             });
         } else {

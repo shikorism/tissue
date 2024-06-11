@@ -32,7 +32,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ collection }) => {
                 'd-flex',
                 'justify-content-between',
                 'align-items-center',
-                isSelected ? 'active' : 'text-dark'
+                isSelected ? 'active' : 'text-dark',
             )}
         >
             <div style={{ wordBreak: 'break-all' }}>
@@ -198,5 +198,5 @@ createRoot(document.getElementById('app') as HTMLElement).render(
                 </Route>
             </Routes>
         </BrowserRouter>
-    </QueryClientProvider>
+    </QueryClientProvider>,
 );

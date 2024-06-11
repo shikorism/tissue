@@ -470,7 +470,7 @@ const CollectionItemList: React.FC = () => {
         queryClient.setQueryData<PaginatedResult<Tissue.CollectionItem[]> | undefined>(
             ['CollectionItems', id, { page: page || 1 }],
             (result) =>
-                result ? { ...result, data: result.data?.map((i) => (i.id === item.id ? item : i)) } : undefined
+                result ? { ...result, data: result.data?.map((i) => (i.id === item.id ? item : i)) } : undefined,
         );
     };
 
@@ -523,20 +523,20 @@ export const Collection: React.FC = () => {
     const handleCollectionUpdate = (collection: Tissue.Collection) => {
         queryClient.setQueryData(['Collection', id], collection);
         queryClient.setQueryData<Tissue.Collection[] | undefined>(['Collections', username], (col) =>
-            col?.map((c) => (c.id === collection.id ? collection : c))
+            col?.map((c) => (c.id === collection.id ? collection : c)),
         );
         queryClient.setQueryData<Tissue.Collection[] | undefined>(['MyCollections'], (col) =>
-            col?.map((c) => (c.id === collection.id ? collection : c))
+            col?.map((c) => (c.id === collection.id ? collection : c)),
         );
     };
 
     const handleCollectionDelete = () => {
         queryClient.setQueryData<Tissue.Collection[] | undefined>(['Collections', username], (col) =>
-            col?.filter((c) => c.id !== collectionQuery.data.id)
+            col?.filter((c) => c.id !== collectionQuery.data.id),
         );
         queryClient.invalidateQueries(['Collections', username]);
         queryClient.setQueryData<Tissue.Collection[] | undefined>(['MyCollections'], (col) =>
-            col?.filter((c) => c.id !== collectionQuery.data.id)
+            col?.filter((c) => c.id !== collectionQuery.data.id),
         );
         queryClient.invalidateQueries(['MyCollections']);
         navigate('../');

@@ -232,5 +232,5 @@ const CollectForm = () => {
 createRoot(document.getElementById('form') as HTMLElement).render(
     <QueryClientProvider>
         <CollectForm />
-    </QueryClientProvider>
+    </QueryClientProvider>,
 );
