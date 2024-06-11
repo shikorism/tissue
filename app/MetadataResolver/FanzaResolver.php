@@ -78,7 +78,7 @@ class FanzaResolver implements Resolver
         }
 
         // 電子書籍
-        if (mb_strpos($url, 'book.dmm.co.jp/product/') !== false) {
+        if (mb_strpos($url, 'book.dmm.co.jp/product/') !== false || mb_strpos($url, 'book.dmm.co.jp/detail/') !== false) {
             $json = $crawler->filter('script[type="application/ld+json"]')->first()->text('', false);
             $data = json_decode($json, true);
 
