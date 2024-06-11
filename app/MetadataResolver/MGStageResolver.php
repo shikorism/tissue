@@ -28,7 +28,7 @@ class MGStageResolver implements Resolver
 
         $metadata = new Metadata();
         $metadata->title = trim($crawler->filter('.tag')->text(''));
-        $metadata->description = trim(strip_tags($crawler->filter('.txt.introduction')->text('')));
+        $metadata->description = trim(strip_tags($crawler->filter('.txt.introduction')->text('', false)));
         $metadata->image = $crawler->filter('meta[property="og:image"]')->attr('content');
 
         // 作品に設定されているジャンルをトリム後に重複排除し、昇順ソートしてタグへ設定する

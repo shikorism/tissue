@@ -37,7 +37,7 @@ class NijieResolver implements Resolver
         $metadata = $this->ogpResolver->parse($html);
         $crawler = new Crawler($html);
 
-        $json = $crawler->filter('script[type="application/ld+json"]')->first()->text();
+        $json = $crawler->filter('script[type="application/ld+json"]')->first()->text(null, false);
 
         // 改行がそのまま入っていることがあるのでデコード前にエスケープが必要
         $data = json_decode(preg_replace('/\r?\n/', '\n', $json), true);
