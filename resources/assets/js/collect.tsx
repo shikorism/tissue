@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
 import { FieldError } from './components/FieldError';
@@ -229,9 +229,8 @@ const CollectForm = () => {
     );
 };
 
-ReactDOM.render(
+createRoot(document.getElementById('form') as HTMLElement).render(
     <QueryClientProvider>
         <CollectForm />
-    </QueryClientProvider>,
-    document.getElementById('form')
+    </QueryClientProvider>
 );
