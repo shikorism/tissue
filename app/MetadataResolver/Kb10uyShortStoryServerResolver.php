@@ -28,8 +28,8 @@ class Kb10uyShortStoryServerResolver implements Resolver
 
         $metadata = new Metadata();
         $metadata->title = $infoElement->filter('h1')->text();
-        $metadata->description = trim($infoElement->filter('p.summary')->text());
-        $metadata->tags = array_values(array_diff($infoElement->filter('ul.tags > li.tag > a')->extract('_text'), self::EXCLUDED_TAGS));
+        $metadata->description = trim($infoElement->filter('p.summary')->text('', false));
+        $metadata->tags = array_values(array_diff($infoElement->filter('ul.tags > li.tag > a')->extract(['_text']), self::EXCLUDED_TAGS));
 
         return $metadata;
     }
