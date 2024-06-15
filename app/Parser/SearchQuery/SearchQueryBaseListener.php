@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Generated from resources/grammar/SearchQuery.g4 by ANTLR 4.10.1
+ * Generated from resources/grammar/SearchQuery.g4 by ANTLR 4.13.1
  */
 
 namespace App\Parser\SearchQuery;

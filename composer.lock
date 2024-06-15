@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bfad30ec89457f255e492788629d667e",
+    "content-hash": "161efaf8553ab5c0268c7b0c9594dd61",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -72,21 +72,22 @@
         },
         {
             "name": "antlr/antlr4-php-runtime",
-            "version": "0.7.0",
+            "version": "0.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antlr/antlr-php-runtime.git",
-                "reference": "25072a68ab24f664592fa4dc8be16cc9730ccf3c"
+                "reference": "3afe41b19f8ea3d6b10400397712cb8181da5e25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antlr/antlr-php-runtime/zipball/25072a68ab24f664592fa4dc8be16cc9730ccf3c",
-                "reference": "25072a68ab24f664592fa4dc8be16cc9730ccf3c",
+                "url": "https://api.github.com/repos/antlr/antlr-php-runtime/zipball/3afe41b19f8ea3d6b10400397712cb8181da5e25",
+                "reference": "3afe41b19f8ea3d6b10400397712cb8181da5e25",
                 "shasum": ""
             },
             "require": {
-                "ext-mbstring": "*",
-                "php": "^8.0"
+                "ext-mbstring": "^8.0",
+                "php": "^8.0",
+                "psr/log": "^2.0 || ^3.0"
             },
             "require-dev": {
                 "ergebnis/composer-normalize": "^2.15",
@@ -120,9 +121,9 @@
             ],
             "support": {
                 "issues": "https://github.com/antlr/antlr-php-runtime/issues",
-                "source": "https://github.com/antlr/antlr-php-runtime/tree/0.7.0"
+                "source": "https://github.com/antlr/antlr-php-runtime/tree/0.9.1"
             },
-            "time": "2022-04-13T14:23:58+00:00"
+            "time": "2023-09-04T20:27:34+00:00"
         },
         {
             "name": "brick/math",
