@@ -30,6 +30,7 @@ services:
     command: php artisan schedule:work
     ports: []
   antlr:
+    image: tissue-antlr:4.13.1
     build:
       context: .
       dockerfile: docker/development/antlr.dockerfile
