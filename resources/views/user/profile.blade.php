@@ -30,8 +30,7 @@
                 @foreach ($tags as $tag)
                     <a class="list-group-item d-flex justify-content-between align-items-center text-dark" href="{{ route('search', ['q' => $tag->name]) }}">
                         <div style="word-break: break-all;">
-                            <i class="ti ti-tag text-secondary"></i>
-                            {{ $tag->name }}
+                            <i class="ti ti-tag text-secondary mr-2 d-inline-block"></i>{{ $tag->name }}
                         </div>
                         <span class="badge badge-secondary badge-pill">{{ $tag->count }}</span>
                     </a>
