@@ -22,7 +22,7 @@
                         <i class="ti ti-tag mr-1" style="margin-top: 0.25rem;"></i>
                         <div class="tis-checkin-tags">
                             @foreach ($item->tags as $tag)
-                                <a href="{{ route('search.collection', ['q' => $tag->name]) }}"><span style="opacity: 0.7;">#</span>{{ $tag->name }}</a>
+                                <a class="tis-checkin-tag" href="{{ route('search.collection', ['q' => $tag->name]) }}">{{ $tag->name }}</a>
                             @endforeach
                         </div>
                     </div>

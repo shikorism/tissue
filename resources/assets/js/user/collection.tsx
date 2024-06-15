@@ -237,8 +237,11 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
                     <i className="ti ti-tag mr-1" style={{ marginTop: '0.25rem' }} />
                     <p className="tis-checkin-tags mb-0">
                         {item.tags.map((tag: string) => (
-                            <a key={tag} href={`/search/collection?q=${encodeURIComponent(tag)}`}>
-                                <span style={{ opacity: 0.7 }}>#</span>
+                            <a
+                                key={tag}
+                                className="tis-checkin-tag"
+                                href={`/search/collection?q=${encodeURIComponent(tag)}`}
+                            >
                                 {tag}
                             </a>
                         ))}
