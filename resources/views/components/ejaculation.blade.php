@@ -14,7 +14,7 @@
     @endswitch
 </div>
 <!-- tags -->
-@if ($ejaculation->is_private || $ejaculation->source === 'csv' || $ejaculation->tags->isNotEmpty())
+@if ($ejaculation->is_private || $ejaculation->source === 'csv')
     <p class="tis-checkin-tags mb-2">
         @if ($ejaculation->is_private)
             <span class="badge badge-warning"><i class="ti ti-lock"></i> 非公開</span>
@@ -22,10 +22,17 @@
         @if ($ejaculation->source === 'csv')
             <span class="badge badge-info"><i class="ti ti-cloud-upload"></i> インポート</span>
         @endif
-        @foreach ($ejaculation->tags as $tag)
-            <a class="badge badge-secondary" href="{{ route('search', ['q' => $tag->name]) }}"><i class="ti ti-tag"></i> {{ $tag->name }}</a>
-        @endforeach
     </p>
+@endif
+@if ($ejaculation->tags->isNotEmpty())
+    <div class="d-flex mb-2">
+        <i class="ti ti-tag mr-1" style="margin-top: 0.25rem;"></i>
+        <div class="tis-checkin-tags">
+            @foreach ($ejaculation->tags as $tag)
+                <a href="{{ route('search', ['q' => $tag->name]) }}"><span style="opacity: 0.7;">#</span>{{ $tag->name }}</a>
+            @endforeach
+        </div>
+    </div>
 @endif
 <div class="{{ $ejaculation->isMuted() ? 'tis-checkin-muted' : '' }}">
     <!-- okazu link -->
