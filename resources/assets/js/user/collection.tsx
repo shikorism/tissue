@@ -239,7 +239,7 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
                         {item.tags.map((tag: string) => (
                             <a
                                 key={tag}
-                                className="tis-checkin-tag"
+                                className="badge badge-secondary"
                                 href={`/search/collection?q=${encodeURIComponent(tag)}`}
                             >
                                 {tag}

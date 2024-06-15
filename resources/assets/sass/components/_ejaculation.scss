@@ -45,7 +45,7 @@
 .tis-checkin-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: .6ch 1ch;
+    gap: .6ch;
 
     & > .badge {
         max-width: 100%;
@@ -54,12 +54,5 @@
         text-align: left;
         word-break: break-all;
         white-space: normal;
-    }
-}
-
-.tis-checkin-tag {
-    &::before {
-        content: '#';
-        opacity: .6;
     }
 }
