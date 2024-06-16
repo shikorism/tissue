@@ -53,6 +53,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
     const { username } = useParams();
     const navigate = useNavigate();
     const queryClient = useQueryClient();
+    const [filter, setFilter] = useState('');
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [order, setOrder] = useState<'asc' | 'desc'>('asc');
 
@@ -95,8 +96,16 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
 
     return (
         <div className="card mb-4">
-            <div className="card-header d-flex justify-content-between align-items-center">
-                <span>コレクション</span>
+            <div className="card-header d-flex justify-content-between align-items-center" style={{ gap: '1rem' }}>
+                <div className="flex-grow-1">
+                    <input
+                        className="form-control"
+                        type="search"
+                        placeholder="検索"
+                        value={filter}
+                        onChange={(e) => setFilter(e.target.value)}
+                    />
+                </div>
                 <div>
                     {username === me?.name && (
                         <Button
@@ -127,6 +136,9 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
             <div className="list-group list-group-flush">
                 {collections
                     .sort((a, b) => (order === 'asc' ? a.id - b.id : b.id - a.id))
+                    .filter((collection) =>
+                        filter ? collection.title.toLowerCase().includes(filter.toLowerCase()) : true,
+                    )
                     .map((collection) => (
                         <SidebarItem key={collection.id} collection={collection} />
                     ))}
