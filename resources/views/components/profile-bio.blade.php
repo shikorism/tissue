@@ -11,7 +11,7 @@
             {{-- URL --}}
             @if (!empty($user->url))
                 <p class="card-text d-flex mt-3">
-                    <span class="oi oi-link-intact mr-1 mt-1"></span>
+                    <i class="ti ti-link mr-1 mt-1"></i>
                     <a href="{{ $user->url }}" rel="me nofollow noopener" target="_blank" class="text-truncate">{{ preg_replace('~\Ahttps?://~', '', $user->url) }}</a>
                 </p>
             @endif

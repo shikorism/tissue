@@ -22,7 +22,7 @@
                 {{ csrf_field() }}
 
                 <div class="form-group">
-                    <label for="name"><span class="oi oi-person"></span> ユーザー名</label>
+                    <label for="name"><i class="ti ti-user"></i> ユーザー名</label>
                     <input id="name" name="name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" type="text" value="{{ old('name') }}" required>
                     <small class="form-text text-muted">半角英数字と一部記号が使用できます。一度決めたら変更できません。</small>
 
@@ -31,7 +31,7 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="email"><span class="oi oi-envelope-closed"></span> メールアドレス</label>
+                    <label for="email"><i class="ti ti-mail"></i> メールアドレス</label>
                     <input id="email" name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" type="email" value="{{ old('email') }}" required>
 
                     @if ($errors->has('email'))
@@ -39,7 +39,7 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="password"><span class="oi oi-key"></span> パスワード</label>
+                    <label for="password"><i class="ti ti-key"></i> パスワード</label>
                     <input id="password" name="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" type="password" required>
 
                     @if ($errors->has('password'))

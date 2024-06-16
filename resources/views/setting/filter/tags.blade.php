@@ -57,7 +57,7 @@
             @foreach ($tagFilters as $tagFilter)
                 <div class="list-group-item d-flex justify-content-between align-items-center">
                     <div class="flex-grow-1 mr-2">
-                        <div><span class="oi oi-tag text-secondary"></span> {{ $tagFilter->tag_name }}</div>
+                        <div><i class="ti ti-tag text-secondary"></i> {{ $tagFilter->tag_name }}</div>
                         <small class="text-muted">
                             @switch ($tagFilter->mode)
                                 @case (\App\TagFilter::MODE_MASK)

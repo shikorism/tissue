@@ -15,7 +15,7 @@
                 {{ csrf_field() }}
 
                 <div class="form-group">
-                    <label for="email"><span class="oi oi-envelope-closed"></span> メールアドレス</label>
+                    <label for="email"><i class="ti ti-mail"></i> メールアドレス</label>
                     <input id="email" name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" type="email" value="{{ old('email') }}" required autofocus>
 
                     @if ($errors->has('email'))
