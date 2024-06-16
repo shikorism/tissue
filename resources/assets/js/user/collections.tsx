@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Link, Outlet, Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import { BrowserRouter, Link, Outlet, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
@@ -18,9 +18,10 @@ import {
 
 type SidebarItemProps = {
     collection: Tissue.Collection;
+    collapse: boolean;
 };
 
-const SidebarItem: React.FC<SidebarItemProps> = ({ collection }) => {
+const SidebarItem: React.FC<SidebarItemProps> = ({ collection, collapse }) => {
     const { id } = useParams();
     const isSelected = collection.id == id;
 
@@ -30,10 +31,11 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ collection }) => {
             className={classNames(
                 'list-group-item',
                 'list-group-item-action',
-                'd-flex',
+                'd-lg-flex',
                 'justify-content-between',
                 'align-items-center',
                 isSelected ? 'active' : 'text-dark',
+                !isSelected && collapse ? 'd-none' : 'd-flex',
             )}
         >
             <div style={{ wordBreak: 'break-all' }}>
@@ -50,12 +52,18 @@ type SidebarProps = {
 
 const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
     const { data: me } = useMyProfileQuery();
+    const location = useLocation();
     const { username } = useParams();
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const [filter, setFilter] = useState('');
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [order, setOrder] = useState<'asc' | 'desc'>('asc');
+    const [collapse, setCollapse] = useState(true);
+
+    useEffect(() => {
+        setCollapse(true);
+    }, [location]);
 
     const handleSubmit = async (values: CollectionFormValues) => {
         try {
@@ -96,7 +104,24 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
 
     return (
         <div className="card mb-4">
-            <div className="card-header d-flex justify-content-between align-items-center" style={{ gap: '1rem' }}>
+            <div className="card-header align-items-center d-flex d-lg-none">
+                <Button
+                    variant=""
+                    className="text-secondary ml-n2 mr-1"
+                    size="sm"
+                    onClick={() => setCollapse((v) => !v)}
+                >
+                    {collapse ? <i className="ti ti-caret-right-filled" /> : <i className="ti ti-caret-down-filled" />}
+                </Button>
+                コレクション
+            </div>
+            <div
+                className={classNames(
+                    'card-header d-lg-flex justify-content-between align-items-center',
+                    collapse ? 'd-none' : 'd-flex',
+                )}
+                style={{ gap: '1rem' }}
+            >
                 <div className="flex-grow-1">
                     <input
                         className="form-control"
@@ -140,7 +165,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
                         filter ? collection.title.toLowerCase().includes(filter.toLowerCase()) : true,
                     )
                     .map((collection) => (
-                        <SidebarItem key={collection.id} collection={collection} />
+                        <SidebarItem key={collection.id} collection={collection} collapse={collapse} />
                     ))}
                 {collections.length === 0 && (
                     <li className="list-group-item d-flex justify-content-between align-items-center" />
