@@ -1464,6 +1464,18 @@
   dependencies:
     dequal "^2.0.3"
 
+"@tabler/icons-webfont@^3.6.0":
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons-webfont/-/icons-webfont-3.6.0.tgz#45a75c87cf239c1d6fe55cd46ad7ab80f63d7fed"
+  integrity sha512-UiJ3j6m9VEyfNBBYFxa89t1HtC5n1zA6wrQ+Z04zx2hQ6kyHMoj8DnSNSt0/KJipvnIbWgNxDBmGTXA2KjK+SA==
+  dependencies:
+    "@tabler/icons" "3.6.0"
+
+"@tabler/icons@3.6.0":
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-3.6.0.tgz#9d5aeb4108bcd0d97b3c955ea425b645ea79a304"
+  integrity sha512-Zv0Ofc64RCMpZ2F8CvsWAphrSjerx5hEErt/RMmE+W8r4E5l5Lizi+My9KbbZQ4NyAtrtrOX80OY1oROZrRzEA==
+
 "@tanstack/match-sorter-utils@^8.7.0":
   version "8.8.4"
   resolved "https://registry.yarnpkg.com/@tanstack/match-sorter-utils/-/match-sorter-utils-8.8.4.tgz#0b2864d8b7bac06a9f84cb903d405852cc40a457"
@@ -1492,18 +1504,6 @@
   dependencies:
     "@tanstack/query-core" "4.36.1"
     use-sync-external-store "^1.2.0"
-
-"@tabler/icons-webfont@^2.44.0":
-  version "2.44.0"
-  resolved "https://registry.yarnpkg.com/@tabler/icons-webfont/-/icons-webfont-2.44.0.tgz#105024173bf89964ec0485292daec62f2a6c2e90"
-  integrity sha512-E5+CYnZXKTUGFhpb0KGiRR4s+Tylbsq6/CA88QKn44xaBfU3ui/zVwKc1vaTKBL9kxZIxNz7qLkne+lUd/Hvzw==
-  dependencies:
-    "@tabler/icons" "2.44.0"
-
-"@tabler/icons@2.44.0":
-  version "2.44.0"
-  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-2.44.0.tgz#9f3cf86150b23e84a6eaf9d29ab2b2aaa8c7eed6"
-  integrity sha512-WPPtihDcAwEm1QZM9MXQw6+r/R2/qx7KMU1eegsi9DsqBLAb0W2kbt6e/syvd6j9c+6XNpRVBW1ziGqSWQAWOg==
 
 "@trysound/sax@0.2.0":
   version "0.2.0"
