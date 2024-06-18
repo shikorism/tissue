@@ -138,7 +138,7 @@ export const MetadataPreview: React.FC<MetadataPreviewProps> = ({ link, tags, on
                                                         className={tagClasses(tag)}
                                                         onClick={() => !tag.used && onClickTag(tag.name)}
                                                     >
-                                                        <i className="ti ti-tag" /> {tag.name}
+                                                        <i className="ti ti-tag-filled" /> {tag.name}
                                                     </li>
                                                 ))}
                                             </ul>

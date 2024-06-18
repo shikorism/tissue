@@ -60,7 +60,7 @@ export const TagInput: React.FC<TagInputProps> = ({ id, name, values, isInvalid,
                         className={classNames('list-inline-item', 'badge', 'badge-primary', 'tis-tag-input-item')}
                         onClick={() => removeTag(i)}
                     >
-                        <i className="ti ti-tag" /> {tag} | x
+                        <i className="ti ti-tag-filled" /> {tag} | x
                     </li>
                 ))}
                 <li className="list-inline-item">

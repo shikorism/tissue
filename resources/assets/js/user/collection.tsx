@@ -233,19 +233,16 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
                 </p>
             </div>
             {item.tags.length !== 0 && (
-                <p className="d-flex mb-2">
-                    <i className="ti ti-tag mr-1" style={{ marginTop: '0.25rem' }} />
-                    <p className="tis-checkin-tags mb-0">
-                        {item.tags.map((tag: string) => (
-                            <a
-                                key={tag}
-                                className="badge badge-secondary"
-                                href={`/search/collection?q=${encodeURIComponent(tag)}`}
-                            >
-                                {tag}
-                            </a>
-                        ))}
-                    </p>
+                <p className="tis-checkin-tags mb-2">
+                    {item.tags.map((tag: string) => (
+                        <a
+                            key={tag}
+                            className="badge badge-secondary"
+                            href={`/search/collection?q=${encodeURIComponent(tag)}`}
+                        >
+                            <i className="ti ti-tag-filled" /> {tag}
+                        </a>
+                    ))}
                 </p>
             )}
             {item.note_html != '' && (
