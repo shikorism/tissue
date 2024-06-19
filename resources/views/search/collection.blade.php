@@ -18,14 +18,11 @@
                     </p>
                 </div>
                 @if ($item->tags->isNotEmpty())
-                    <div class="d-flex mb-2">
-                        <i class="ti ti-tag mr-1" style="margin-top: 0.25rem;"></i>
-                        <div class="tis-checkin-tags">
-                            @foreach ($item->tags as $tag)
-                                <a class="badge badge-secondary" href="{{ route('search.collection', ['q' => $tag->name]) }}">{{ $tag->name }}</a>
-                            @endforeach
-                        </div>
-                    </div>
+                    <p class="tis-checkin-tags mb-2">
+                        @foreach ($item->tags as $tag)
+                            <a class="badge badge-secondary" href="{{ route('search.collection', ['q' => $tag->name]) }}"><i class="ti ti-tag-filled"></i> {{ $tag->name }}</a>
+                        @endforeach
+                    </p>
                 @endif
                 @if (!empty($item->note))
                     <p class="mb-2 text-break">
