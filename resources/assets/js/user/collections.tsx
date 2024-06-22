@@ -15,6 +15,8 @@ import {
     CollectionFormValidationError,
     CollectionFormValues,
 } from '../components/collections/CollectionEditModal';
+import { SortKey, SortKeySelect } from '../components/collections/SortKeySelect';
+import { compareAsc, parseISO } from 'date-fns';
 
 type SidebarItemProps = {
     collection: Tissue.Collection;
@@ -58,7 +60,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
     const queryClient = useQueryClient();
     const [filter, setFilter] = useState('');
     const [showCreateModal, setShowCreateModal] = useState(false);
-    const [order, setOrder] = useState<'asc' | 'desc'>('asc');
+    const [sort, setSort] = useState<SortKey>('id:asc');
     const [collapse, setCollapse] = useState(true);
 
     useEffect(() => {
@@ -102,6 +104,23 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
         return null;
     }
 
+    const sortedCollections = collections.sort((a, b) => {
+        const [field] = sort.split(':');
+        switch (field) {
+            case 'id':
+                return a.id - b.id;
+            case 'name':
+                return a.title.localeCompare(b.title);
+            case 'updated_at':
+                return compareAsc(parseISO(a.updated_at), parseISO(b.updated_at));
+            default:
+                throw 'invalid sort key';
+        }
+    });
+    if (sort.split(':')[1] === 'desc') {
+        sortedCollections.reverse();
+    }
+
     return (
         <div className="card mb-4">
             <div className="card-header align-items-center d-flex d-lg-none">
@@ -116,10 +135,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
                 コレクション
             </div>
             <div
-                className={classNames(
-                    'card-header d-lg-flex justify-content-between align-items-center',
-                    collapse ? 'd-none' : 'd-flex',
-                )}
+                className={classNames('card-header d-lg-flex', collapse ? 'd-none' : 'd-flex')}
                 style={{ gap: '1rem' }}
             >
                 <div className="flex-grow-1">
@@ -130,12 +146,13 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
                         value={filter}
                         onChange={(e) => setFilter(e.target.value)}
                     />
+                    <SortKeySelect className="mt-2" value={sort} onChange={setSort} />
                 </div>
                 <div>
                     {username === me?.name && (
                         <Button
                             variant=""
-                            className="text-secondary mr-2"
+                            className="text-secondary mt-1 mr-2"
                             size="sm"
                             title="追加"
                             onClick={() => setShowCreateModal(true)}
@@ -143,24 +160,10 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
                             <i className="ti ti-plus text-large" />
                         </Button>
                     )}
-                    <Button
-                        variant=""
-                        className="text-secondary"
-                        size="sm"
-                        title="並べ替え"
-                        onClick={() => setOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'))}
-                    >
-                        {order === 'asc' ? (
-                            <i className="ti ti-sort-ascending-letters text-large"></i>
-                        ) : (
-                            <i className="ti ti-sort-descending-letters text-large"></i>
-                        )}
-                    </Button>
                 </div>
             </div>
             <div className="list-group list-group-flush">
-                {collections
-                    .sort((a, b) => (order === 'asc' ? a.id - b.id : b.id - a.id))
+                {sortedCollections
                     .filter((collection) =>
                         filter ? collection.title.toLowerCase().includes(filter.toLowerCase()) : true,
                     )

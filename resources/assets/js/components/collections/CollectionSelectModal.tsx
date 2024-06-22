@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ListGroup, ListGroupItem, Modal, ModalProps } from 'react-bootstrap';
 import { compareAsc, parseISO } from 'date-fns';
+import { SortKeySelect } from './SortKeySelect';
 
 type SortKey = 'id:asc' | 'id:desc' | 'name:asc' | 'name:desc' | 'updated_at:asc' | 'updated_at:desc';
 
@@ -61,25 +62,7 @@ export const CollectionSelectModal: React.FC<CollectionSelectModalProps> = ({
                                 onChange={(e) => setFilter(e.target.value)}
                             />
                         </div>
-                        <div className="mt-2 position-relative">
-                            <i
-                                className="ti ti-sort-ascending-letters mr-2 position-absolute text-secondary"
-                                style={{ top: '22%', left: '0.75rem' }}
-                            />
-                            <select
-                                className="form-control form-control-sm"
-                                style={{ paddingLeft: '1.75rem' }}
-                                value={sort}
-                                onChange={(e) => setSort(e.target.value as SortKey)}
-                            >
-                                <option value="name:asc">名前 昇順</option>
-                                <option value="name:desc">名前 降順</option>
-                                <option value="id:asc">作成日時 昇順</option>
-                                <option value="id:desc">作成日時 降順</option>
-                                <option value="updated_at:asc">更新日時 昇順</option>
-                                <option value="updated_at:desc">更新日時 降順</option>
-                            </select>
-                        </div>
+                        <SortKeySelect className="mt-2" value={sort} onChange={setSort} />
                     </ListGroupItem>
                     {sortedCollections
                         .filter((collection) =>
