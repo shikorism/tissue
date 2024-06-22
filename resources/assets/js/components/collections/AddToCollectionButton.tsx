@@ -9,6 +9,7 @@ import {
     CollectionFormValues,
 } from './CollectionEditModal';
 import { CollectionSelectModal } from './CollectionSelectModal';
+import { parseISO, compareDesc } from 'date-fns';
 
 const ToggleButton = React.forwardRef<HTMLButtonElement>((props, ref) => (
     <Button {...props} ref={ref} variant="" className="text-secondary">
@@ -115,7 +116,8 @@ export const AddToCollectionButton: React.FC<AddToCollectionButtonProps> = ({
                 {collections ? (
                     <>
                         {collections
-                            .filter((_, i) => i < 5) // TODO: 最近使ったものを表示したい
+                            .sort((a, b) => compareDesc(parseISO(a.updated_at), parseISO(b.updated_at)))
+                            .filter((_, i) => i < 5)
                             .map((collection) => (
                                 <Dropdown.Item key={collection.id} eventKey={collection.id}>
                                     <i className="ti ti-folder mr-2 text-secondary" />

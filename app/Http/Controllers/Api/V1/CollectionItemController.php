@@ -72,6 +72,7 @@ class CollectionItemController extends Controller
         $item = DB::transaction(function () use ($collection, $validated) {
             $item = new CollectionItem($validated);
             $collection->items()->save($item);
+            $collection->touch();
 
             $tagIds = [];
             if (!empty($validated['tags'])) {
@@ -119,6 +120,7 @@ class CollectionItemController extends Controller
 
         DB::transaction(function () use ($item, $validated) {
             $item->save();
+            $item->collection->touch();
 
             if (isset($validated['tags'])) {
                 $tagIds = [];
@@ -143,7 +145,11 @@ class CollectionItemController extends Controller
     public function destroy(Collection $collection, CollectionItem $item)
     {
         $this->authorize('edit', $item);
-        $item->delete();
+
+        DB::transaction(function () use ($item) {
+            $item->collection->touch();
+            $item->delete();
+        });
 
         return response()->noContent();
     }
