@@ -16,7 +16,7 @@ import {
     CollectionFormValues,
 } from '../components/collections/CollectionEditModal';
 import { SortKey, SortKeySelect } from '../components/collections/SortKeySelect';
-import { compareAsc, parseISO } from 'date-fns';
+import { sortAndFilteredCollections } from '../components/collections/search';
 
 type SidebarItemProps = {
     collection: Tissue.Collection;
@@ -104,23 +104,6 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
         return null;
     }
 
-    const sortedCollections = collections.sort((a, b) => {
-        const [field] = sort.split(':');
-        switch (field) {
-            case 'id':
-                return a.id - b.id;
-            case 'name':
-                return a.title.localeCompare(b.title);
-            case 'updated_at':
-                return compareAsc(parseISO(a.updated_at), parseISO(b.updated_at));
-            default:
-                throw 'invalid sort key';
-        }
-    });
-    if (sort.split(':')[1] === 'desc') {
-        sortedCollections.reverse();
-    }
-
     return (
         <div className="card mb-4">
             <div className="card-header align-items-center d-flex d-lg-none">
@@ -163,13 +146,9 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
                 </div>
             </div>
             <div className="list-group list-group-flush">
-                {sortedCollections
-                    .filter((collection) =>
-                        filter ? collection.title.toLowerCase().includes(filter.toLowerCase()) : true,
-                    )
-                    .map((collection) => (
-                        <SidebarItem key={collection.id} collection={collection} collapse={collapse} />
-                    ))}
+                {sortAndFilteredCollections(collections, sort, filter).map((collection) => (
+                    <SidebarItem key={collection.id} collection={collection} collapse={collapse} />
+                ))}
                 {collections.length === 0 && (
                     <li className="list-group-item d-flex justify-content-between align-items-center" />
                 )}
