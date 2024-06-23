@@ -20,6 +20,7 @@ class CollectionResource extends JsonResource
             'user_name' => $this->user->name,
             'title' => $this->title,
             'is_private' => $this->is_private,
+            'updated_at' => $this->updated_at,
         ];
     }
 }
