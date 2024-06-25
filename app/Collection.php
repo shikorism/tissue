@@ -10,7 +10,7 @@ class Collection extends Model
     use HasFactory;
 
     /** @var int ユーザーごとの作成数制限 */
-    const PER_USER_LIMIT = 100;
+    const PER_USER_LIMIT = 500;
 
     protected $fillable = [
         'title',

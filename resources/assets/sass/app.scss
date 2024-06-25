@@ -1,11 +1,11 @@
-// Bootstrap Variable Overlide
+// Bootstrap Variable Override
 $primary: #e53fb1;
 
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
-// Open Iconic
-@import "~open-iconic/font/css/open-iconic-bootstrap";
+// Tabler Icons
+@import "~@tabler/icons-webfont/dist/tabler-icons";
 
 // Legacy app styles
 @import "tissue.css";
@@ -38,4 +38,8 @@ $primary: #e53fb1;
     color: #fff;
     background-color: #e53fb1;
     border-radius: 0.5rem;
+}
+
+.text-large {
+    font-size: large;
 }

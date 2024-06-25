@@ -8,10 +8,12 @@ import {
     CollectionFormValidationError,
     CollectionFormValues,
 } from './CollectionEditModal';
+import { CollectionSelectModal } from './CollectionSelectModal';
+import { parseISO, compareDesc } from 'date-fns';
 
 const ToggleButton = React.forwardRef<HTMLButtonElement>((props, ref) => (
-    <Button {...props} ref={ref} variant="link" className="text-secondary">
-        <span className="oi oi-plus" />
+    <Button {...props} ref={ref} variant="" className="text-secondary">
+        <i className="ti ti-folder-plus" />
     </Button>
 ));
 ToggleButton.displayName = 'ToggleButton';
@@ -30,21 +32,14 @@ export const AddToCollectionButton: React.FC<AddToCollectionButtonProps> = ({
     onCreateCollection,
 }) => {
     const [showCreateModal, setShowCreateModal] = useState(false);
+    const [showSelectModal, setShowSelectModal] = useState(false);
 
-    const handleSelect = async (eventKey: string | null) => {
-        if (eventKey === 'new') {
-            setShowCreateModal(true);
-            return;
-        }
-
-        const collection = collections?.find((collection) => collection.id == eventKey);
-        if (!collection) {
-            return;
-        }
+    const handleSelectCollection = async (collection: Tissue.Collection) => {
         try {
             const response = await fetchPostJson(`/api/collections/${collection.id}/items`, { link, tags });
             if (response.ok) {
                 showToast(`${collection.title} に追加しました`, { color: 'success', delay: 5000 });
+                setShowSelectModal(false);
             } else {
                 throw new ResponseError(response);
             }
@@ -64,6 +59,23 @@ export const AddToCollectionButton: React.FC<AddToCollectionButtonProps> = ({
             }
             showToast(`${collection.title} に追加できませんでした`, { color: 'danger', delay: 5000 });
         }
+    };
+
+    const handleSelect = async (eventKey: string | null) => {
+        if (eventKey === 'new') {
+            setShowCreateModal(true);
+            return;
+        }
+        if (eventKey === 'select') {
+            setShowSelectModal(true);
+            return;
+        }
+
+        const collection = collections?.find((collection) => collection.id == eventKey);
+        if (!collection) {
+            return;
+        }
+        await handleSelectCollection(collection);
     };
 
     const handleSubmit = async (values: CollectionFormValues) => {
@@ -103,14 +115,24 @@ export const AddToCollectionButton: React.FC<AddToCollectionButtonProps> = ({
                 <Dropdown.Header>コレクションに追加</Dropdown.Header>
                 {collections ? (
                     <>
-                        {collections.map((collection) => (
-                            <Dropdown.Item key={collection.id} eventKey={collection.id}>
-                                {collection.title}
+                        {collections
+                            .sort((a, b) => compareDesc(parseISO(a.updated_at), parseISO(b.updated_at)))
+                            .filter((_, i) => i < 5)
+                            .map((collection) => (
+                                <Dropdown.Item key={collection.id} eventKey={collection.id}>
+                                    <i className="ti ti-folder mr-2 text-secondary" />
+                                    {collection.title}
+                                </Dropdown.Item>
+                            ))}
+                        {collections.length > 5 && (
+                            <Dropdown.Item eventKey="select">
+                                <i className="ti ti-dots mr-2 text-secondary" />
+                                その他のコレクション
                             </Dropdown.Item>
-                        ))}
+                        )}
                         <Dropdown.Divider />
                         <Dropdown.Item eventKey="new">
-                            <span className="oi oi-plus mr-2 text-secondary" />
+                            <i className="ti ti-plus mr-2 text-secondary" />
                             新しいコレクションに追加
                         </Dropdown.Item>
                     </>
@@ -135,6 +157,15 @@ export const AddToCollectionButton: React.FC<AddToCollectionButtonProps> = ({
                 show={showCreateModal}
                 onHide={() => setShowCreateModal(false)}
             />
+            {collections && (
+                <CollectionSelectModal
+                    title="追加先のコレクションを選択"
+                    collections={collections}
+                    show={showSelectModal}
+                    onHide={() => setShowSelectModal(false)}
+                    onSelectCollection={handleSelectCollection}
+                />
+            )}
         </Dropdown>
     );
 };

@@ -19,7 +19,7 @@
         "ext-mbstring": "*",
         "ext-pdo": "*",
         "anhskohbo/no-captcha": "^3.0",
-        "antlr/antlr4-php-runtime": "^0.7.0",
+        "antlr/antlr4-php-runtime": "^0.9.1",
         "doctrine/dbal": "^3.7",
         "erusev/parsedown": "^1.7",
         "guzzlehttp/guzzle": "^7.4.5",
@@ -34,8 +34,8 @@
         "openpear/stream_filter_mbstring": "dev-master",
         "sentry/sentry-laravel": "^4.1.0",
         "staudenmeir/eloquent-eager-limit": "~1.7.1",
-        "symfony/css-selector": "^4.3",
-        "symfony/dom-crawler": "4.4.37",
+        "symfony/css-selector": "^6.0",
+        "symfony/dom-crawler": "^6.0",
         "t1gor/robots-txt-parser": "^0.2.4"
     },
     "require-dev": {

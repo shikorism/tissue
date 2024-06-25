@@ -4,6 +4,22 @@
 @endpush
 
 @section('content')
+@if (!empty($informations))
+<div class="mt-n4 mb-4 pt-2 bg-light border-top border-bottom">
+    <div class="container d-flex" style="gap: .5rem;">
+        <div class="flex-shrink-0 font-weight-bold"><i class="ti ti-info-circle"></i></div>
+        <ul class="flex-grow list-unstyled mb-0 small">
+            @foreach($informations as $info)
+                <li class="mb-2">
+                    <a href="{{ route('info.show', ['id' => $info->id]) }}">
+                        <span class="badge {{ $categories[$info->category]['class'] }}">{{ $categories[$info->category]['label'] }}</span> {{ $info->title }} <small class="text-secondary">- {{ $info->created_at->format('n月j日') }}</small>
+                    </a>
+                </li>
+            @endforeach
+        </ul>
+    </div>
+</div>
+@endif
 <div class="container">
     <div class="row">
         <div class="col-lg-4">
@@ -13,20 +29,6 @@
                     @endcomponent
                     @component('components.profile-stats', ['user' => Auth::user()])
                     @endcomponent
-                </div>
-            </div>
-            <div class="card mb-4">
-                <div class="card-header">サイトからのお知らせ</div>
-                <div class="list-group list-group-flush tis-sidebar-info">
-                    @foreach($informations as $info)
-                        <a class="list-group-item" href="{{ route('info.show', ['id' => $info->id]) }}">
-                            @if ($info->pinned)
-                                <span class="badge badge-secondary"><span class="oi oi-pin"></span>ピン留め</span>
-                            @endif
-                            <span class="badge {{ $categories[$info->category]['class'] }}">{{ $categories[$info->category]['label'] }}</span> {{ $info->title }} <small class="text-secondary">- {{ $info->created_at->format('n月j日') }}</small>
-                        </a>
-                    @endforeach
-                    <a href="{{ route('info') }}" class="list-group-item text-right">お知らせ一覧 &raquo;</a>
                 </div>
             </div>
         </div>

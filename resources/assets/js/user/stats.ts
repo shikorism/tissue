@@ -143,7 +143,7 @@ if (document.getElementById('cal-heatmap')) {
 
 if (document.getElementById('monthly-graph')) {
     const { keys: monthlyKey, values: monthlySum } = createMonthlyGraphData(
-        new Date(getCurrentYear(), 0, 1, 0, 0, 0, 0)
+        new Date(getCurrentYear(), 0, 1, 0, 0, 0, 0),
     );
     createLineGraph('monthly-graph', monthlyKey, monthlySum);
 }

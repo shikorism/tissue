@@ -13,7 +13,7 @@
                 @foreach ($tags as $tag)
                     <tr>
                         <td style="word-break: break-all;">
-                            <a class="text-reset" href="{{ route('search', ['q' => $tag->name]) }}"><span class="oi oi-tag text-secondary mr-2"></span>{{ $tag->name }}</a>
+                            <a class="text-reset" href="{{ route('search', ['q' => $tag->name]) }}"><i class="ti ti-tag text-secondary mr-2 d-inline-block"></i>{{ $tag->name }}</a>
                         </td>
                         <td class="text-right">
                             <a class="text-reset text-decoration-none" href="{{ route('search', ['q' => $tag->name]) }}">{{ number_format($tag->count) }}</a>
@@ -37,7 +37,7 @@
                 @foreach ($tagsIncludesMetadata as $tag)
                     <tr>
                         <td style="word-break: break-all;">
-                            <a class="text-reset" href="{{ route('search', ['q' => $tag->name]) }}"><span class="oi oi-tag text-secondary mr-2"></span>{{ $tag->name }}</a>
+                            <a class="text-reset" href="{{ route('search', ['q' => $tag->name]) }}"><i class="ti ti-tag text-secondary mr-2 d-inline-block"></i>{{ $tag->name }}</a>
                         </td>
                         <td class="text-right">
                             <a class="text-reset text-decoration-none" href="{{ route('search', ['q' => $tag->name]) }}">{{ number_format($tag->count) }}</a>

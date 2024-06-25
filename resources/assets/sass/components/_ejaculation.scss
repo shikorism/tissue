@@ -1,7 +1,13 @@
 .ejaculation-actions {
-  & > :not(:last-child) {
-    margin-right: 24px;
-  }
+    button {
+        & > i {
+            font-size: 1.4em;
+        }
+    }
+
+    & > :not(:last-child) {
+        margin-right: 16px;
+    }
 }
 
 .like-button {
@@ -10,6 +16,7 @@
 
 .like-count:not(:empty) {
   padding-left: 0.5rem;
+  vertical-align: top;
 }
 
 .like-users {
@@ -47,9 +54,5 @@
         text-align: left;
         word-break: break-all;
         white-space: normal;
-
-        & > .oi-flash {
-            top: 2px;
-        }
     }
 }

@@ -12,7 +12,7 @@
                 {{ csrf_field() }}
 
                 <div class="form-group">
-                    <label for="email"><span class="oi oi-envelope-closed"></span> メールアドレス</label>
+                    <label for="email"><i class="ti ti-mail"></i> メールアドレス</label>
                     <input id="email" name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" type="email" value="{{ old('email') }}" required autofocus>
 
                     @if ($errors->has('email'))
@@ -20,7 +20,7 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="password"><span class="oi oi-key"></span> パスワード</label>
+                    <label for="password"><i class="ti ti-key"></i> パスワード</label>
                     <input id="password" name="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" type="password" required>
 
                     @if ($errors->has('password'))

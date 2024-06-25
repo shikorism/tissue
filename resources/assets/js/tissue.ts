@@ -116,7 +116,7 @@ export function deleteCheckinModal(modal: Element) {
 }
 
 const THEME_COLORS = ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'light', 'dark'] as const;
-type ThemeColor = typeof THEME_COLORS[number];
+type ThemeColor = (typeof THEME_COLORS)[number];
 export function showToast(message: string, options: Partial<{ color: ThemeColor; delay: number }> = {}) {
     const $toast = $('.toast');
     $toast.removeClass(THEME_COLORS.map((color) => `tis-toast-${color}`));

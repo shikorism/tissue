@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Generated from resources/grammar/SearchQuery.g4 by ANTLR 4.10.1
+ * Generated from resources/grammar/SearchQuery.g4 by ANTLR 4.13.1
  */
 
 namespace App\Parser\SearchQuery {
@@ -96,7 +96,7 @@ namespace App\Parser\SearchQuery {
                 return;
             }
 
-            RuntimeMetaData::checkVersion('4.10.1', RuntimeMetaData::VERSION);
+            RuntimeMetaData::checkVersion('4.13.1', RuntimeMetaData::VERSION);
 
             $atn = (new ATNDeserializer())->deserialize(self::SERIALIZED_ATN);
 

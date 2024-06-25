@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter, Link, Outlet, Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter, Link, Outlet, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
@@ -15,12 +15,15 @@ import {
     CollectionFormValidationError,
     CollectionFormValues,
 } from '../components/collections/CollectionEditModal';
+import { SortKey, SortKeySelect } from '../components/collections/SortKeySelect';
+import { sortAndFilteredCollections } from '../components/collections/search';
 
 type SidebarItemProps = {
     collection: Tissue.Collection;
+    collapse: boolean;
 };
 
-const SidebarItem: React.FC<SidebarItemProps> = ({ collection }) => {
+const SidebarItem: React.FC<SidebarItemProps> = ({ collection, collapse }) => {
     const { id } = useParams();
     const isSelected = collection.id == id;
 
@@ -29,14 +32,16 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ collection }) => {
             to={`/user/${collection.user_name}/collections/${collection.id}`}
             className={classNames(
                 'list-group-item',
-                'd-flex',
+                'list-group-item-action',
+                'd-lg-flex',
                 'justify-content-between',
                 'align-items-center',
-                isSelected ? 'active' : 'text-dark'
+                isSelected ? 'active' : 'text-dark',
+                !isSelected && collapse ? 'd-none' : 'd-flex',
             )}
         >
             <div style={{ wordBreak: 'break-all' }}>
-                <span className={classNames('oi', 'oi-folder', 'mr-1', { 'text-secondary': !isSelected })} />
+                <i className={classNames('ti', 'ti-folder', 'mr-1', { 'text-secondary': !isSelected })} />
                 {collection.title}
             </div>
         </Link>
@@ -49,11 +54,18 @@ type SidebarProps = {
 
 const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
     const { data: me } = useMyProfileQuery();
+    const location = useLocation();
     const { username } = useParams();
     const navigate = useNavigate();
     const queryClient = useQueryClient();
+    const [filter, setFilter] = useState('');
     const [showCreateModal, setShowCreateModal] = useState(false);
-    const [order, setOrder] = useState<'asc' | 'desc'>('asc');
+    const [sort, setSort] = useState<SortKey>('id:asc');
+    const [collapse, setCollapse] = useState(true);
+
+    useEffect(() => {
+        setCollapse(true);
+    }, [location]);
 
     const handleSubmit = async (values: CollectionFormValues) => {
         try {
@@ -94,41 +106,49 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
 
     return (
         <div className="card mb-4">
-            <div className="card-header d-flex justify-content-between align-items-center">
-                <span>コレクション</span>
+            <div className="card-header align-items-center d-flex d-lg-none">
+                <Button
+                    variant=""
+                    className="text-secondary ml-n2 mr-1"
+                    size="sm"
+                    onClick={() => setCollapse((v) => !v)}
+                >
+                    {collapse ? <i className="ti ti-caret-right-filled" /> : <i className="ti ti-caret-down-filled" />}
+                </Button>
+                コレクション
+            </div>
+            <div
+                className={classNames('card-header d-lg-flex', collapse ? 'd-none' : 'd-flex')}
+                style={{ gap: '1rem' }}
+            >
+                <div className="flex-grow-1">
+                    <input
+                        className="form-control"
+                        type="search"
+                        placeholder="検索"
+                        value={filter}
+                        onChange={(e) => setFilter(e.target.value)}
+                    />
+                    <SortKeySelect className="mt-2" value={sort} onChange={setSort} />
+                </div>
                 <div>
                     {username === me?.name && (
                         <Button
-                            variant="link"
-                            className="text-secondary mr-2"
+                            variant=""
+                            className="text-secondary mt-1 mr-2"
                             size="sm"
                             title="追加"
                             onClick={() => setShowCreateModal(true)}
                         >
-                            <span className="oi oi-plus" />
+                            <i className="ti ti-plus text-large" />
                         </Button>
                     )}
-                    <Button
-                        variant="link"
-                        className="text-secondary"
-                        size="sm"
-                        title="並べ替え"
-                        onClick={() => setOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'))}
-                    >
-                        {order === 'asc' ? (
-                            <span className="oi oi-sort-ascending"></span>
-                        ) : (
-                            <span className="oi oi-sort-descending"></span>
-                        )}
-                    </Button>
                 </div>
             </div>
             <div className="list-group list-group-flush">
-                {collections
-                    .sort((a, b) => (order === 'asc' ? a.id - b.id : b.id - a.id))
-                    .map((collection) => (
-                        <SidebarItem key={collection.id} collection={collection} />
-                    ))}
+                {sortAndFilteredCollections(collections, sort, filter).map((collection) => (
+                    <SidebarItem key={collection.id} collection={collection} collapse={collapse} />
+                ))}
                 {collections.length === 0 && (
                     <li className="list-group-item d-flex justify-content-between align-items-center" />
                 )}
@@ -157,7 +177,7 @@ const Collections: React.FC = () => {
                 <div className="col-lg-8">
                     {collectionsQuery.error?.response?.status === 403 ? (
                         <p className="mt-4">
-                            <span className="oi oi-lock-locked" /> このユーザはチェックイン履歴を公開していません。
+                            <i className="ti ti-lock" /> このユーザはチェックイン履歴を公開していません。
                         </p>
                     ) : (
                         <Outlet />
@@ -188,7 +208,7 @@ const Index: React.FC = () => {
     return null;
 };
 
-ReactDOM.render(
+createRoot(document.getElementById('app') as HTMLElement).render(
     <QueryClientProvider>
         <BrowserRouter>
             <Routes>
@@ -199,5 +219,4 @@ ReactDOM.render(
             </Routes>
         </BrowserRouter>
     </QueryClientProvider>,
-    document.getElementById('app')
 );

@@ -40,12 +40,12 @@ export const useMyCollectionsQuery = () =>
 
 export const useCollectionsQuery = (username: string) =>
     useQuery<Tissue.Collection[], ResponseError>(['Collections', username], () =>
-        fetchGet(`/api/users/${username}/collections`).then(asJson)
+        fetchGet(`/api/users/${username}/collections`).then(asJson),
     );
 
 export const useCollectionQuery = (id: string) =>
     useQuery<Tissue.Collection, ResponseError>(['Collection', id], () =>
-        fetchGet(`/api/collections/${id}`).then(asJson)
+        fetchGet(`/api/collections/${id}`).then(asJson),
     );
 
 export const useCollectionItemsQuery = (id: string, page?: string | null) =>
@@ -53,7 +53,7 @@ export const useCollectionItemsQuery = (id: string, page?: string | null) =>
         ['CollectionItems', id, { page: page || 1 }],
         () =>
             fetchGet(`/api/collections/${id}/items`, page ? { page } : undefined).then((response) =>
-                asPaginatedJson(response)
+                asPaginatedJson(response),
             ),
-        { keepPreviousData: true }
+        { keepPreviousData: true },
     );

@@ -76,7 +76,7 @@ export const Pagination: React.FC<PaginationProps> = ({ className, perPage, tota
                                         {p}
                                     </Link>
                                 </li>
-                            )
+                            ),
                         )}
                     </React.Fragment>
                 ))}

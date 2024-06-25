@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
 import { FieldError } from './components/FieldError';
@@ -128,7 +128,7 @@ const CollectForm = () => {
                 <div className="form-group col-sm-12">
                     <div className="d-flex justify-content-between">
                         <label htmlFor="collection">
-                            <span className="oi oi-folder" /> 追加先
+                            <i className="ti ti-folder" /> 追加先
                         </label>
                         <button
                             className="btn btn-link p-0 mb-2"
@@ -157,7 +157,7 @@ const CollectForm = () => {
             <div className="form-row">
                 <div className="form-group col-sm-12">
                     <label htmlFor="link">
-                        <span className="oi oi-link-intact" /> オカズリンク
+                        <i className="ti ti-link" /> オカズリンク
                     </label>
                     <input
                         type="text"
@@ -183,7 +183,7 @@ const CollectForm = () => {
             <div className="form-row">
                 <div className="form-group col-sm-12">
                     <label htmlFor="tagInput">
-                        <span className="oi oi-tags" /> タグ
+                        <i className="ti ti-tags" /> タグ
                     </label>
                     <TagInput
                         id="tagInput"
@@ -199,7 +199,7 @@ const CollectForm = () => {
             <div className="form-row">
                 <div className="form-group col-sm-12">
                     <label htmlFor="note">
-                        <span className="oi oi-comment-square" /> ノート
+                        <i className="ti ti-message-circle" /> ノート
                     </label>
                     <textarea
                         id="note"
@@ -229,9 +229,8 @@ const CollectForm = () => {
     );
 };
 
-ReactDOM.render(
+createRoot(document.getElementById('form') as HTMLElement).render(
     <QueryClientProvider>
         <CollectForm />
     </QueryClientProvider>,
-    document.getElementById('form')
 );

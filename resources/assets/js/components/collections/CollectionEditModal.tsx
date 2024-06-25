@@ -88,7 +88,7 @@ export const CollectionEditModal: React.FC<CollectionEditModalProps> = ({
                     <div className="form-row">
                         <div className="form-group col-sm-12">
                             <label htmlFor="title">
-                                <span className="oi oi-folder" /> タイトル
+                                <i className="ti ti-folder" /> タイトル
                             </label>
                             <input
                                 type="text"
@@ -105,7 +105,7 @@ export const CollectionEditModal: React.FC<CollectionEditModalProps> = ({
                     <div className="form-row">
                         <div className="form-group col-sm-12">
                             <p className="mb-1">
-                                <span className="oi oi-eye" /> 公開設定
+                                <i className="ti ti-eye" /> 公開設定
                             </p>
                             <Form.Check
                                 custom

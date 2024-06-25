@@ -30,8 +30,7 @@
                 @foreach ($tags as $tag)
                     <a class="list-group-item d-flex justify-content-between align-items-center text-dark" href="{{ route('search', ['q' => $tag->name]) }}">
                         <div style="word-break: break-all;">
-                            <span class="oi oi-tag text-secondary"></span>
-                            {{ $tag->name }}
+                            <i class="ti ti-tag text-secondary mr-2 d-inline-block"></i>{{ $tag->name }}
                         </div>
                         <span class="badge badge-secondary badge-pill">{{ $tag->count }}</span>
                     </a>
@@ -45,7 +44,7 @@
 @section('tab-content')
 @if ($user->is_protected && !$user->isMe())
     <p class="mt-4">
-        <span class="oi oi-lock-locked"></span> このユーザはチェックイン履歴を公開していません。
+        <i class="ti ti-lock"></i> このユーザはチェックイン履歴を公開していません。
     </p>
 @else
     @if (Route::currentRouteName() === 'user.profile' && $ejaculations->count() !== 0 && $ejaculations->currentPage() === 1)

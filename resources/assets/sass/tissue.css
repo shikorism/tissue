@@ -54,12 +54,6 @@
     border-radius: 0;
 }
 
-@media (min-width: 992px) {
-    .tis-sidebar-info {
-        font-size: small;
-    }
-}
-
 #navbarNav > .d-lg-none > .row > div:first-of-type {
     padding-right: 7.5px;
     padding-left: 15px;
