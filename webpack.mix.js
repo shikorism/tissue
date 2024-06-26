@@ -27,6 +27,7 @@ mix.ts('resources/assets/js/app.ts', 'public/js')
     .ts('resources/assets/js/checkin.tsx', 'public/js')
     .ts('resources/assets/js/collect.tsx', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
+    .copy('node_modules/@tabler/icons-sprite/dist/tabler-sprite.svg', 'public')
     .autoload({
         jquery: ['$', 'jQuery', 'window.jQuery'],
     })

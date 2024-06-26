@@ -1464,6 +1464,13 @@
   dependencies:
     dequal "^2.0.3"
 
+"@tabler/icons-sprite@^3.7.0":
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons-sprite/-/icons-sprite-3.7.0.tgz#1f8ab19937b09e32d336b16a9ea5ba0297da3e88"
+  integrity sha512-phrk0IHPRsSNEdJOMbIlHqZXx3+L1szhAdStxnxvsXpvY/t2qHaW9YLcXnipzXlKkQPH/2ajxI0+UqkcgFq8Sg==
+  dependencies:
+    "@tabler/icons" "3.7.0"
+
 "@tabler/icons-webfont@^3.6.0":
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/@tabler/icons-webfont/-/icons-webfont-3.6.0.tgz#45a75c87cf239c1d6fe55cd46ad7ab80f63d7fed"
@@ -1475,6 +1482,11 @@
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-3.6.0.tgz#9d5aeb4108bcd0d97b3c955ea425b645ea79a304"
   integrity sha512-Zv0Ofc64RCMpZ2F8CvsWAphrSjerx5hEErt/RMmE+W8r4E5l5Lizi+My9KbbZQ4NyAtrtrOX80OY1oROZrRzEA==
+
+"@tabler/icons@3.7.0":
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-3.7.0.tgz#b522723844644b50ccaddd0fd19a91c0eb3095da"
+  integrity sha512-lJGIZLSWrPO6VygRUbaVvQjWgL2EaiBMD8e6leCYUQ8ZPO4LIzKMq358C8KlhXJcyNiRz1Io3YWoc/DNTcWqSg==
 
 "@tanstack/match-sorter-utils@^8.7.0":
   version "8.8.4"

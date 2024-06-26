@@ -88,5 +88,8 @@
     "*.php": [
       "composer fix"
     ]
+  },
+  "dependencies": {
+    "@tabler/icons-sprite": "^3.7.0"
   }
 }
