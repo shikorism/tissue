@@ -77,6 +77,10 @@ class PixivResolver implements Resolver
             $metadata->image = str_replace('_p0', '_p' . $page, $metadata->image);
         }
 
+        // AI生成タグ
+        if (!empty($json['body']['aiType']) && $json['body']['aiType'] === 2) {
+            $metadata->tags[] = 'AI生成';
+        }
         // タグ
         if (!empty($json['body']['tags']['tags'])) {
             foreach ($json['body']['tags']['tags'] as $tag) {
