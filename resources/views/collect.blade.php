@@ -15,5 +15,5 @@
 @endsection
 
 @push('script')
-    <script src="{{ mix('js/collect.js') }}"></script>
+    @vite('resources/assets/js/collect.tsx')
 @endpush

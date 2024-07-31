@@ -22,5 +22,5 @@
 
 @push('script')
     <script id="initialState" type="application/json">@json($initialState)</script>
-    <script src="{{ mix('js/checkin.js') }}"></script>
+    @vite('resources/assets/js/checkin.tsx')
 @endpush

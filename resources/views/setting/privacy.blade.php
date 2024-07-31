@@ -28,5 +28,5 @@
 @endsection
 
 @push('script')
-    <script src="{{ mix('js/setting/privacy.js') }}"></script>
+    @vite('resources/assets/js/setting/privacy.ts')
 @endpush

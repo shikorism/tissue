@@ -94,5 +94,5 @@
 @endsection
 
 @push('script')
-    <script src="{{ mix('js/setting/filter/tags.js') }}"></script>
+    @vite('resources/assets/js/setting/filter/tags.ts')
 @endpush
