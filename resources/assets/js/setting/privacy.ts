@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 $('#protected').on('change', function () {
     if (!$(this).prop('checked')) {
         alert(
