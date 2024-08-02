@@ -12,11 +12,12 @@ COPY . /app
 
 RUN composer install -n --no-dev --prefer-dist --optimize-autoloader
 
-FROM node:16.20.2-bullseye
+FROM node:22.5.1-bullseye
 
 WORKDIR /app
 COPY --from=php /app /app
 
+RUN corepack enable
 RUN yarn install \
     && yarn run prod \
     && yarn run doc
