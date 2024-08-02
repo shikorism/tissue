@@ -1,4 +1,4 @@
-FROM node:16-buster as node
+FROM node:22.5.1-bullseye as node
 
 FROM php:8.0-apache
 
@@ -21,11 +21,10 @@ COPY --from=node /usr/local/bin/node /usr/local/bin/
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 COPY --from=node /opt/yarn-* /opt/yarn
 
-RUN ln -s /opt/yarn/bin/yarn /usr/local/bin/yarn \
-    && ln -s ../lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
-    && ln -s ../lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
-
-
+RUN ln -s ../lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
+    && ln -s ../lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx \
+    && ln -s ../lib/node_modules/corepack/dist/corepack.js /usr/local/bin/corepack
+RUN corepack enable
 
 ENTRYPOINT ["tissue-entrypoint.sh"]
 CMD ["apache2-foreground"]
