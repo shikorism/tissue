@@ -26,6 +26,8 @@ RUN ln -s ../lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
     && ln -s ../lib/node_modules/corepack/dist/corepack.js /usr/local/bin/corepack
 RUN corepack enable
 
+ENV COREPACK_ENABLE_DOWNLOAD_PROMPT 0
+
 ENTRYPOINT ["tissue-entrypoint.sh"]
 CMD ["apache2-foreground"]
 
