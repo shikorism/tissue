@@ -28,7 +28,7 @@ mix.ts('resources/assets/js/app.ts', 'public/js')
     .ts('resources/assets/js/collect.tsx', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
     .extract(['jquery', 'bootstrap', 'react', 'react-dom', 'react-bootstrap'])
-    .extract(['chart.js', '@kurkle/color', 'cal-heatmap', 'd3'], 'public/js/vendor/chart')
+    .extract({ libraries: /chart\.js|@kurkle\/color|cal-heatmap|d3|d3-[a-z0-9-]+/ }, 'public/js/vendor/chart')
     .react()
     .version()
     .sourceMaps(false);
