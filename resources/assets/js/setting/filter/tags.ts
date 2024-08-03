@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 const deleteModal = document.getElementById('deleteTagFilterModal');
 if (deleteModal) {
     let id: any = null;

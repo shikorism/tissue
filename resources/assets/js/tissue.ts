@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import { fetchGet, fetchDeleteJson, ResponseError } from './fetch';
 
 export function suicide<T>(e: T) {
