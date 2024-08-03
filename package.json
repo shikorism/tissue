@@ -12,7 +12,8 @@
     "stylelint": "stylelint resources/assets/sass/**/*",
     "doc": "redoc-cli bundle --options.pathInMiddlePanel -o public/apidoc.html openapi.yaml",
     "doc-watch": "chokidar openapi.yaml --initial -c \"npm run doc\"",
-    "heroku-postbuild": "npm run production && npm run doc"
+    "heroku-postbuild": "npm run production && npm run doc",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.24.1",
@@ -72,11 +73,6 @@
   "stylelint": {
     "customSyntax": "postcss-scss",
     "extends": "stylelint-config-recess-order"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "*.{css,scss}": [
