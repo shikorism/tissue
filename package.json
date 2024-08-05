@@ -52,7 +52,7 @@
     "laravel-mix-bundle-analyzer": "^1.0.2",
     "lint-staged": "^10.5.3",
     "popper.js": "^1.14.7",
-    "postcss": "^8.4.38",
+    "postcss": "^8.4.40",
     "postcss-scss": "^4.0.9",
     "prettier": "^3.3.2",
     "qs": "^6.13.0",
