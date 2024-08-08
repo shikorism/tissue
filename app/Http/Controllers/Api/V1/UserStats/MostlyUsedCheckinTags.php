@@ -44,7 +44,7 @@ class MostlyUsedCheckinTags extends Controller
         $result = (new CountUsedTags(Auth::user(), $user))
             ->since($since)
             ->until($until)
-            ->setIncludesMetadata($request->boolean('includesMetadata'))
+            ->setIncludesMetadata($request->boolean('includes_metadata'))
             ->query();
 
         return response()->json($result);
