@@ -57,3 +57,16 @@ export const useCollectionItemsQuery = (id: string, page?: string | null) =>
             ),
         { keepPreviousData: true },
     );
+
+export const useUserStatsTagsQuery = (username: string | undefined, includesMetadata?: boolean) =>
+    useQuery<Tissue.TagStats[], ResponseError>(
+        ['UserStatsTags', username, !!includesMetadata],
+        () =>
+            fetchGet(`/api/users/${username}/stats/tags`, {
+                includes_metadata: JSON.stringify(!!includesMetadata),
+            }).then(asJson),
+        { enabled: !!username },
+    );
+
+export const useRecentTagsQuery = () =>
+    useQuery<string[], ResponseError>(['RecentTags'], () => fetchGet(`/api/recent-tags`).then(asJson));
