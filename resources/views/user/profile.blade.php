@@ -2,12 +2,6 @@
 
 @section('title', $user->display_name . ' (@' . $user->name . ')')
 
-@push('head')
-    @if (Route::currentRouteName() === 'user.profile')
-        <link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
-    @endif
-@endpush
-
 @section('sidebar')
     {{-- TODO: タイムラインとオカズのテンプレを分けたら条件外す --}}
     @if (Route::currentRouteName() === 'user.profile')

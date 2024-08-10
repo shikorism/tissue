@@ -1,4 +1,5 @@
 import ClipboardJS from 'clipboard';
+import $ from 'jquery';
 
 $('.access-token').on('focus', function () {
     $(this).trigger('select');

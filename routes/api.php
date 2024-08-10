@@ -24,11 +24,22 @@ Route::middleware('stateful')->group(function () {
             Route::apiResource('checkin', 'Api\\CheckinController')->only(['destroy']);
             Route::apiResource('collections', 'Api\\V1\\CollectionController')->only(['index', 'store', 'update', 'destroy']);
             Route::apiResource('collections.items', 'Api\\V1\\CollectionItemController')->only(['store', 'update', 'destroy']);
+            Route::get('/recent-tags', 'Api\\V1\\RecentTagsController')->name('recent-tags');
         });
 
         Route::apiResource('users.collections', 'Api\\UserCollectionController')->only(['index']);
         Route::apiResource('collections', 'Api\\V1\\CollectionController')->only(['show']);
         Route::apiResource('collections.items', 'Api\\V1\\CollectionItemController')->only(['index']);
+
+        Route::namespace('Api\\V1\\UserStats')
+            ->prefix('users/{user}/stats')
+            ->name('users.stats.')
+            ->group(function () {
+                Route::get('/checkin/daily', 'DailyCheckinSummary')->name('checkin.daily');
+                Route::get('/checkin/hourly', 'HourlyCheckinSummary')->name('checkin.hourly');
+                Route::get('/links', 'MostlyUsedLinks')->name('links');
+                Route::get('/tags', 'MostlyUsedCheckinTags')->name('tags');
+            });
     });
 });
 

@@ -62,8 +62,10 @@ SQL
             ->get();
         $countByDay = [];
         foreach ($countByDayQuery as $data) {
-            $date = Carbon::createFromFormat('Y/m/d', $data->date);
-            $countByDay[$date->timestamp] = $data->count;
+            $countByDay[] = [
+                't' => Carbon::createFromFormat('Y/m/d', $data->date)->timestamp,
+                'count' => $data->count
+            ];
         }
 
         return view('user.profile')->with(compact('user', 'ejaculations', 'tags', 'countByDay'));
@@ -283,7 +285,7 @@ SQL
             $date = Carbon::createFromFormat('Y/m/d', $data->date);
             $yearAndMonth = $date->format('Y/m');
 
-            $dailySum[$date->timestamp] = $data->count;
+            $dailySum[] = ['t' => $date->timestamp, 'count' => $data->count];
             $yearlySum[$date->year] += $data->count;
             $dowSum[$date->dayOfWeek] += $data->count;
             $monthlySum[$yearAndMonth] = ($monthlySum[$yearAndMonth] ?? 0) + $data->count;

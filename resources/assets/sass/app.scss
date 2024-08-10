@@ -5,7 +5,7 @@ $primary: #e53fb1;
 @import "~bootstrap/scss/bootstrap";
 
 // Tabler Icons
-@import "~@tabler/icons-webfont/dist/tabler-icons";
+@import "~@tabler/icons-webfont/dist/tabler-icons.css";
 
 // Legacy app styles
 @import "tissue.css";
@@ -42,4 +42,8 @@ $primary: #e53fb1;
 
 .text-large {
     font-size: large;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }
