@@ -5,6 +5,7 @@ import { CheckBox } from './CheckBox';
 import { FieldError, StandaloneFieldError } from './FieldError';
 import { TagInput } from './TagInput';
 import { MetadataPreview } from './MetadataPreview';
+import { FavoriteTags } from './FavoriteTags';
 
 type CheckinFormProps = {
     initialState: any;
@@ -104,6 +105,9 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
                     />
                     <small className="form-text text-muted">Tab, Enter, 半角スペースのいずれかで入力確定します。</small>
                     <FieldError errors={initialState.errors?.tags} />
+                </div>
+                <div className="form-group col-sm-12">
+                    <FavoriteTags tags={tags} onClickTag={(v) => setTags(tags.concat(v))} />
                 </div>
             </div>
             <div className="form-row">
