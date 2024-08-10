@@ -2,18 +2,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "npm run development",
-    "development": "mix",
-    "watch": "mix watch",
-    "watch-poll": "mix watch -- --watch-options-poll=1000",
-    "hot": "mix watch --hot",
-    "prod": "npm run production",
-    "production": "mix --production",
+    "dev": "vite",
+    "build": "vite build",
+    "prod": "npm run build",
     "eslint": "eslint --ext .js,.ts,.tsx resources/",
     "stylelint": "stylelint resources/assets/sass/**/*",
     "doc": "redoc-cli bundle --options.pathInMiddlePanel -o public/apidoc.html openapi.yaml",
     "doc-watch": "chokidar openapi.yaml --initial -c \"npm run doc\"",
-    "heroku-postbuild": "npm run production && npm run doc",
     "prepare": "husky"
   },
   "devDependencies": {
