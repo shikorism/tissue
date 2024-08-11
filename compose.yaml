@@ -1,5 +1,6 @@
 services:
   web: &php
+    image: tissue-dev-web
     build:
       context: .
       dockerfile: docker/development/web.dockerfile
@@ -29,6 +30,18 @@ services:
     <<: *php
     command: php artisan schedule:work
     ports: []
+  front:
+    image: tissue-dev-web
+    command: yarn dev --host
+    env_file:
+      - .env
+    volumes:
+      - .:/var/www/html
+    ports:
+      - 5173:5173
+    restart: always
+    depends_on:
+      - web
   antlr:
     image: tissue-antlr:4.13.1
     build:
