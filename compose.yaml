@@ -32,13 +32,13 @@ services:
     ports: []
   front:
     image: tissue-dev-web
-    command: yarn dev --host
+    command: yarn dev --host --port 4546
     env_file:
       - .env
     volumes:
       - .:/var/www/html
     ports:
-      - 5173:5173
+      - 4546:4546
     restart: always
     depends_on:
       - web
