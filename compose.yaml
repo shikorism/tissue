@@ -32,11 +32,12 @@ services:
     ports: []
   front:
     image: tissue-dev-web
-    command: yarn dev --host --port 4546
+    command: sh -c "yarn && yarn dev --host --port 4546"
     env_file:
       - .env
     volumes:
       - .:/var/www/html
+      - front_node_modules:/var/www/html/node_modules
     ports:
       - 4546:4546
     restart: always
@@ -58,3 +59,4 @@ networks:
 
 volumes:
   db:
+  front_node_modules:
