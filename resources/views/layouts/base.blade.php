@@ -13,7 +13,8 @@
     @endif
 
     <link href="{{ asset('manifest.json') }}" rel="manifest">
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    @vite('resources/assets/sass/app.scss')
+    @viteReactRefresh
 
     @stack('head')
 </head>
@@ -203,9 +204,7 @@
   </div>
 </div>
 @endguest
-<script src="{{ mix('js/manifest.js') }}"></script>
-<script src="{{ mix('js/vendor.js') }}"></script>
-<script src="{{ mix('js/app.js') }}"></script>
+@vite('resources/assets/js/app.ts')
 @stack('script')
 </body>
 </html>

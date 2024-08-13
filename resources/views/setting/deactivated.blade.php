@@ -12,5 +12,5 @@
 @endsection
 
 @push('script')
-    <script src="{{ mix('js/setting/deactivate.js') }}"></script>
+    @vite('resources/assets/js/setting/deactivate.ts')
 @endpush

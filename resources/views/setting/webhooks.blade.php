@@ -66,5 +66,5 @@
 @endsection
 
 @push('script')
-    <script src="{{ mix('js/setting/webhooks.js') }}"></script>
+    @vite('resources/assets/js/setting/webhooks.ts')
 @endpush

@@ -2,10 +2,10 @@
 $primary: #e53fb1;
 
 // Bootstrap
-@import "~bootstrap/scss/bootstrap";
+@import "bootstrap/scss/bootstrap";
 
 // Tabler Icons
-@import "~@tabler/icons-webfont/dist/tabler-icons.css";
+@import "@tabler/icons-webfont/dist/tabler-icons.css";
 
 // Legacy app styles
 @import "tissue.css";

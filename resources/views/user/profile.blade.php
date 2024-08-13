@@ -68,8 +68,7 @@
 @push('script')
     @if (Route::currentRouteName() === 'user.profile')
         <script id="count-by-day" type="application/json">@json($countByDay)</script>
-        <script src="{{ mix('js/vendor/chart.js') }}"></script>
-        <script src="{{ mix('js/user/profile.js') }}"></script>
+        @vite('resources/assets/js/user/profile.ts')
     @endif
 @endpush
 
