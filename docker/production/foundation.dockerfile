@@ -12,7 +12,7 @@ COPY . /app
 
 RUN composer install -n --no-dev --prefer-dist --optimize-autoloader
 
-FROM node:22.5.1-bullseye
+FROM node:22.6.0-bullseye
 
 WORKDIR /app
 COPY --from=php /app /app
