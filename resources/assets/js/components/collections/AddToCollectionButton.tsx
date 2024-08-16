@@ -85,7 +85,7 @@ export const AddToCollectionButton: React.FC<AddToCollectionButtonProps> = ({
                 await response.json();
                 showToast('作成して追加しました', { color: 'success', delay: 5000 });
                 setShowCreateModal(false);
-                onCreateCollection && onCreateCollection();
+                onCreateCollection?.();
                 return;
             }
             throw new ResponseError(response);
