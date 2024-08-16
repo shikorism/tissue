@@ -94,16 +94,22 @@ jobs:
       - store_test_results:
           path: /tmp/php-cs-fixer
 
+      # Run tsc
+      - run:
+          name: tsc
+          command: yarn run lint:tsc
+          when: always
+
       # Run stylelint
       - run:
           name: stylelint
-          command: yarn run stylelint
+          command: yarn run lint:stylelint
           when: always
 
       # Run eslint
       - run:
           name: eslint
-          command: yarn run eslint
+          command: yarn run lint:eslint
           when: always
 
       # Run unit test
