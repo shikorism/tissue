@@ -35,14 +35,12 @@ if (document.getElementById('cal-heatmap')) {
             },
         },
         [
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             [LegendLite],
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             [
                 Tooltip,
                 {
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
                     text: (timestamp: number, value: number, dayjsDate: Dayjs) =>
                         `${dayjsDate.format('YYYY/MM/DD')} - ${value || 0}回`,
                 },
