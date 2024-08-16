@@ -3,8 +3,7 @@ import $ from 'jquery';
 import { fetchPostJson, fetchDeleteJson, ResponseError } from './fetch';
 import { linkCard, pageSelector, deleteCheckinModal, checkinMutedWarning } from './tissue';
 import { initAddToCollectionButtons } from './collection';
-
-require('./bootstrap');
+import 'bootstrap';
 
 $(() => {
     if (Cookies.get('agechecked')) {

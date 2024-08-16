@@ -1,0 +1,6 @@
+extends:
+  - recommended
+
+theme:
+  openapi:
+    pathInMiddlePanel: true

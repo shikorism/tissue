@@ -79,5 +79,5 @@
 @endsection
 
 @push('script')
-    <script src="{{ mix('js/setting/tokens.js') }}"></script>
+    @vite('resources/assets/js/setting/tokens.ts')
 @endpush

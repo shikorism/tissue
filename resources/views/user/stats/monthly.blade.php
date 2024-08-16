@@ -14,6 +14,5 @@
 
 @push('script')
 <script id="graph-data" type="application/json">@json($graphData)</script>
-<script src="{{ mix('js/vendor/chart.js') }}"></script>
-<script src="{{ mix('js/user/stats.js') }}"></script>
+@vite('resources/assets/js/user/stats.ts')
 @endpush

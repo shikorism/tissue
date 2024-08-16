@@ -38,5 +38,5 @@
 @endsection
 
 @push('script')
-    <script src="{{ mix('js/setting/import.js') }}"></script>
+    @vite('resources/assets/js/setting/import.ts')
 @endpush

@@ -1,6 +1,6 @@
-FROM node:22.5.1-bullseye as node
+FROM node:22.6.0-bullseye as node
 
-FROM php:8.0-apache
+FROM php:8.1.29-apache
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 

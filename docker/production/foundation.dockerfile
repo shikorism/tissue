@@ -1,4 +1,4 @@
-FROM php:8.0.30-cli-bullseye as php
+FROM php:8.1.29-cli-bullseye as php
 
 RUN apt-get update \
     && apt-get install -y git libpq-dev unzip libicu-dev \
@@ -12,7 +12,7 @@ COPY . /app
 
 RUN composer install -n --no-dev --prefer-dist --optimize-autoloader
 
-FROM node:22.5.1-bullseye
+FROM node:22.6.0-bullseye
 
 WORKDIR /app
 COPY --from=php /app /app
