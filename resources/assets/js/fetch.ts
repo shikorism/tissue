@@ -61,12 +61,7 @@ export class ResponseError extends Error {
 
     constructor(response: Response, ...rest: any) {
         super(...rest);
-        if (Error.captureStackTrace) {
-            Error.captureStackTrace(this, ResponseError);
-        }
-
         this.name = 'ResponseError';
         this.response = response;
-        Object.setPrototypeOf(this, new.target.prototype);
     }
 }
