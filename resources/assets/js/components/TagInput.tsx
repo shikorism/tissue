@@ -14,7 +14,7 @@ export const TagInput: React.FC<TagInputProps> = ({ id, name, values, isInvalid,
     const containerClass = classNames('form-control', 'h-auto', { 'is-invalid': isInvalid });
     const inputRef = useRef<HTMLInputElement>(null);
     const removeTag = (index: number) => {
-        onChange && onChange(values.filter((v, i) => i != index));
+        onChange?.(values.filter((v, i) => i != index));
     };
     const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (buffer.trim() !== '') {
@@ -46,7 +46,7 @@ export const TagInput: React.FC<TagInputProps> = ({ id, name, values, isInvalid,
     const commitBuffer = () => {
         const newTag = buffer.trim().replace(/\s+/g, '_');
         if (newTag.length === 0) return;
-        onChange && onChange(values.concat(newTag));
+        onChange?.(values.concat(newTag));
         setBuffer('');
     };
 
