@@ -33,12 +33,10 @@ Chart.register([
     Tooltip,
 ]);
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const graphData = JSON.parse(document.getElementById('graph-data')!.textContent as string);
 
 function createLineGraph(id: string, labels: string[], data: any) {
     const context = (document.getElementById(id) as HTMLCanvasElement).getContext('2d');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return new Chart(context!, {
         type: 'line',
         data: {
@@ -79,7 +77,6 @@ function createLineGraph(id: string, labels: string[], data: any) {
 
 function createBarGraph(id: string, labels: string[], data: any) {
     const context = (document.getElementById(id) as HTMLCanvasElement).getContext('2d');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     new Chart(context!, {
         type: 'bar',
         data: {
@@ -161,14 +158,12 @@ if (document.getElementById('cal-heatmap')) {
             },
         },
         [
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             [LegendLite],
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             [
                 CHTooltip,
                 {
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
                     text: (timestamp: number, value: number, dayjsDate: Dayjs) =>
                         `${dayjsDate.format('YYYY/MM/DD')} - ${value || 0}回`,
                 },

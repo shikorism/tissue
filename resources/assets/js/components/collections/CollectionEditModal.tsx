@@ -18,13 +18,8 @@ export class CollectionFormValidationError extends Error {
 
     constructor(errors: CollectionFormErrors, ...rest: any) {
         super(...rest);
-        if (Error.captureStackTrace) {
-            Error.captureStackTrace(this, CollectionFormValidationError);
-        }
-
         this.name = 'CollectionFormValidationError';
         this.errors = errors;
-        Object.setPrototypeOf(this, new.target.prototype);
     }
 }
 
