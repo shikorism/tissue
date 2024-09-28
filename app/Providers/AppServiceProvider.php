@@ -41,6 +41,8 @@ class AppServiceProvider extends ServiceProvider
                 throw new \LogicException('invalid type');
             }
 
+            $paginator = $paginator->withQueryString();
+
             $headers = [];
 
             $links = [
