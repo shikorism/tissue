@@ -21,7 +21,11 @@ class FantiaResolver implements Resolver
         preg_match("~posts/(\d+)~", $url, $match);
         $postId = $match[1];
 
-        $res = $this->client->get("https://fantia.jp/api/v1/posts/{$postId}");
+        $res = $this->client->get("https://fantia.jp/api/v1/posts/{$postId}", [
+            'headers' => [
+                'X-Requested-With' => 'XMLHttpRequest'
+            ]
+        ]);
         $data = json_decode(str_replace('\r\n', '\n', (string) $res->getBody()), true);
         $post = $data['post'];
 
