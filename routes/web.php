@@ -84,4 +84,10 @@ Route::middleware('can:admin')
         Route::get('/info/{info}', 'InfoController@edit')->name('info.edit');
         Route::put('/info/{info}', 'InfoController@update')->name('info.update');
         Route::delete('/info/{info}', 'InfoController@destroy')->name('info.destroy');
+        Route::get('/rules', 'RuleController@index')->name('rule');
+        Route::get('/rules/create', 'RuleController@create')->name('rule.create');
+        Route::post('/rules', 'RuleController@store')->name('rule.store');
+        Route::get('/rules/{rule}', 'RuleController@edit')->name('rule.edit');
+        Route::put('/rules/{rule}', 'RuleController@update')->name('rule.update');
+        Route::delete('/rules/{rule}', 'RuleController@destroy')->name('rule.destroy');
     });
