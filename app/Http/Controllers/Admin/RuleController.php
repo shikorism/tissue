@@ -12,8 +12,7 @@ class RuleController extends Controller
     public function index()
     {
         $rules = Rule::query()
-            ->orderBy('position')
-            ->orderBy('id')
+            ->sorted()
             ->get();
 
         return view('admin.rule.index')->with(compact('rules'));

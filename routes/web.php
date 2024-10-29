@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkin', 'EjaculationController@store')->name('checkin');
     Route::get('/checkin/{id}/edit', 'EjaculationController@edit')->name('checkin.edit');
     Route::put('/checkin/{id}', 'EjaculationController@update')->name('checkin.update');
+    Route::get('/checkin/{ejaculation}/report', 'EjaculationReportController@create')->name('checkin.report');
+    Route::post('/checkin/{ejaculation}/report', 'EjaculationReportController@store')->name('checkin.report.store');
 
     Route::get('/collect', 'CollectController@create')->name('collect');
 
