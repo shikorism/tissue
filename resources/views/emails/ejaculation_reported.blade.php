@@ -7,4 +7,6 @@
 - 報告理由: {{ $report->violatedRule?->summary ?? 'その他' }}
 
 詳細は管理画面から確認してください。
+
+[{{ route('admin.reports.show', ['report' => $report]) }}]({{ route('admin.reports.show', ['report' => $report]) }})
 </x-mail::message>
