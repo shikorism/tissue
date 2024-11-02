@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Ejaculation;
 use App\Http\Requests\EjaculationReportRequest;
+use App\Mail\EjaculationReported;
 use App\Report;
 use App\Rule;
+use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class EjaculationReportController extends Controller
 {
@@ -33,6 +36,8 @@ class EjaculationReportController extends Controller
         }
 
         $report->save();
+
+        Mail::to(User::administrators()->get())->send(new EjaculationReported($report));
 
         return redirect()->route('checkin.show', ['id' => $ejaculation->id])->with('status', 'チェックインを報告しました。');
     }
