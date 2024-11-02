@@ -92,4 +92,6 @@ Route::middleware('can:admin')
         Route::get('/rules/{rule}', 'RuleController@edit')->name('rule.edit');
         Route::put('/rules/{rule}', 'RuleController@update')->name('rule.update');
         Route::delete('/rules/{rule}', 'RuleController@destroy')->name('rule.destroy');
+        Route::get('/reports', 'ReportController@index')->name('reports');
+        Route::get('/reports/{report}', 'ReportController@show')->name('reports.show');
     });
