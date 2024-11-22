@@ -23,6 +23,11 @@ class ReportController extends Controller
 
     public function show(Report $report)
     {
-        return view('admin.reports.show')->with(compact('report'));
+        $report->load([
+            'violatedRule' => fn ($query) => $query->withTrashed(),
+        ]);
+        $strikes = Report::where('target_user_id', $report->target_user_id)->count();
+
+        return view('admin.reports.show')->with(compact('report', 'strikes'));
     }
 }
