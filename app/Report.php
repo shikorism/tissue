@@ -36,4 +36,9 @@ class Report extends Model
     {
         return $this->belongsTo(Rule::class, 'violated_rule_id');
     }
+
+    public function moderations()
+    {
+        return $this->hasMany(Moderation::class, 'report_id');
+    }
 }

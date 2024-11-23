@@ -30,6 +30,7 @@ class ReportController extends Controller
     {
         $report->load([
             'violatedRule' => fn ($query) => $query->withTrashed(),
+            'moderations.moderator',
         ]);
         $strikes = Report::where('target_user_id', $report->target_user_id)->count();
 

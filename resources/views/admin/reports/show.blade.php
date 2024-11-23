@@ -68,5 +68,46 @@
             </div>
             <button type="submit" class="btn btn-primary d-block">実行</button>
         </form>
+        <hr>
+        <h4>モデレーション履歴</h4>
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th>日時</th>
+                <th>操作者</th>
+                <th>操作</th>
+                <th>メッセージ</th>
+                <th>メール通知</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach ($report->moderations as $moderation)
+                <tr>
+                    <td>{{ $moderation->created_at->format('Y/m/d H:i:s') }}</td>
+                    <td><a href="{{ route('user.profile', ['name' => $moderation->moderator->name]) }}">&commat;{{ $moderation->moderator->name }}</a></td>
+                    <td>
+                        @switch($moderation->action)
+                            @case(\App\ModerationAction::SuspendCheckin)
+                                チェックイン非表示
+                                @break
+                            @case(\App\ModerationAction::SuspendUser)
+                                ユーザー非表示
+                                @break
+                        @endswitch
+                    </td>
+                    <td>
+                        @if (empty($moderation->comment))
+                            -
+                        @else
+                            {{ nl2br(e($moderation->comment)) }}
+                        @endif
+                    </td>
+                    <td>
+                        {{ $moderation->send_email ? '送信済' : '-' }}
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
     </div>
 @endsection
