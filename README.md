@@ -12,7 +12,7 @@ a.k.a. shikorism.net
 
 ## 実行環境
 
-- PHP 8.1
+- PHP 8.2
 - PostgreSQL 14
 
 > [!WARNING]
