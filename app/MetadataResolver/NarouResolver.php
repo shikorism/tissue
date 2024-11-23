@@ -2,6 +2,7 @@
 
 namespace App\MetadataResolver;
 
+use App\Facades\Formatter;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
 
@@ -35,7 +36,7 @@ class NarouResolver implements Resolver
 
         // 一見旧式のDOMDocumentを使っているように見えるがこれは罠で、なろうのHTMLはDOMCrawlerだとパースに失敗する
         $dom = new \DOMDocument();
-        @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'ASCII,JIS,UTF-8,eucJP-win,SJIS-win'));
+        @$dom->loadHTML(Formatter::htmlEntities($html, 'ASCII,JIS,UTF-8,eucJP-win,SJIS-win'));
         $xpath = new \DOMXPath($dom);
 
         $metadata = $this->ogpResolver->parse($html);

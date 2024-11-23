@@ -2,7 +2,7 @@ ARG TISSUE_FOUNDATION_IMAGE_NAME
 
 FROM ${TISSUE_FOUNDATION_IMAGE_NAME} as foundation
 
-FROM php:8.1.29-fpm-bullseye
+FROM php:8.2.26-fpm-bullseye
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends libpq-dev libicu-dev \

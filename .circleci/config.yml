@@ -3,7 +3,7 @@ version: 2.1
 executors:
   build:
     docker:
-      - image: cimg/php:8.1-browsers
+      - image: cimg/php:8.2-browsers
         environment:
           APP_DEBUG: true
           APP_ENV: testing
