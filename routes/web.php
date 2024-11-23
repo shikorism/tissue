@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkin', 'EjaculationController@store')->name('checkin');
     Route::get('/checkin/{id}/edit', 'EjaculationController@edit')->name('checkin.edit');
     Route::put('/checkin/{id}', 'EjaculationController@update')->name('checkin.update');
+    Route::get('/checkin/{ejaculation}/report', 'EjaculationReportController@create')->name('checkin.report');
+    Route::post('/checkin/{ejaculation}/report', 'EjaculationReportController@store')->name('checkin.report.store');
 
     Route::get('/collect', 'CollectController@create')->name('collect');
 
@@ -84,4 +86,13 @@ Route::middleware('can:admin')
         Route::get('/info/{info}', 'InfoController@edit')->name('info.edit');
         Route::put('/info/{info}', 'InfoController@update')->name('info.update');
         Route::delete('/info/{info}', 'InfoController@destroy')->name('info.destroy');
+        Route::get('/rules', 'RuleController@index')->name('rule');
+        Route::get('/rules/create', 'RuleController@create')->name('rule.create');
+        Route::post('/rules', 'RuleController@store')->name('rule.store');
+        Route::get('/rules/{rule}', 'RuleController@edit')->name('rule.edit');
+        Route::put('/rules/{rule}', 'RuleController@update')->name('rule.update');
+        Route::delete('/rules/{rule}', 'RuleController@destroy')->name('rule.destroy');
+        Route::get('/reports', 'ReportController@index')->name('reports');
+        Route::get('/reports/{report}', 'ReportController@show')->name('reports.show');
+        Route::post('/reports/{report}/action', 'ReportController@action')->name('reports.action');
     });

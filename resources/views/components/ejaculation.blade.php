@@ -84,6 +84,7 @@
     </div>
 @endif
 <!-- actions -->
+@if ($showActions ?? true)
 <div class="ejaculation-actions">
     <button type="button" class="btn text-secondary"
             data-toggle="tooltip" data-placement="bottom"
@@ -107,5 +108,10 @@
         <button type="button" class="btn text-secondary"
                 data-toggle="tooltip" data-placement="bottom"
                 title="削除" data-target="#deleteCheckinModal" data-id="{{ $ejaculation->id }}" data-date="{{ $ejaculation->ejaculated_date }}"><i class="ti ti-trash"></i></button>
+    @else
+        <button type="button" class="btn text-secondary"
+                data-toggle="tooltip" data-placement="bottom"
+                title="問題を報告" data-href="{{ route('checkin.report', ['ejaculation' => $ejaculation]) }}"><i class="ti ti-flag"></i></button>
     @endif
 </div>
+@endif
