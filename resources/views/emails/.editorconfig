@@ -1,0 +1,2 @@
+[*.blade.php]
+trim_trailing_whitespace = false

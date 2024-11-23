@@ -94,4 +94,5 @@ Route::middleware('can:admin')
         Route::delete('/rules/{rule}', 'RuleController@destroy')->name('rule.destroy');
         Route::get('/reports', 'ReportController@index')->name('reports');
         Route::get('/reports/{report}', 'ReportController@show')->name('reports.show');
+        Route::post('/reports/{report}/action', 'ReportController@action')->name('reports.action');
     });
