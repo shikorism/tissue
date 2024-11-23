@@ -26,7 +26,7 @@
         "jakeasmith/http_build_url": "^1.0",
         "laravel/framework": "^9.0",
         "laravel/helpers": "^1.2",
-        "laravel/passport": "^10.0",
+        "laravel/passport": "^12.3",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^4.2",
         "league/csv": "^9.5",
