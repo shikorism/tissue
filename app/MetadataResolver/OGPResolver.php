@@ -2,6 +2,7 @@
 
 namespace App\MetadataResolver;
 
+use App\Facades\Formatter;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\RequestOptions;
@@ -30,7 +31,7 @@ class OGPResolver implements Resolver, Parser
         }
 
         $dom = new \DOMDocument();
-        @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'ASCII,JIS,UTF-8,eucJP-win,SJIS-win'));
+        @$dom->loadHTML(Formatter::htmlEntities($html, 'ASCII,JIS,UTF-8,eucJP-win,SJIS-win'));
         $xpath = new \DOMXPath($dom);
 
         $metadata = new Metadata();
