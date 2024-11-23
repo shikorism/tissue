@@ -150,4 +150,19 @@ class Formatter
     {
         return preg_replace('/[%_]/', '\\\\$0', $value);
     }
+
+    /**
+     * PHP 8.1までの `mb_convert_encoding($input, 'HTML-ENTITIES', $from)` 相当のHTMLエンティティ化処理を行います。
+     * @param string $input エンコードする文字列
+     * @param string|null $fromEncoding `$input` の文字コード (nullの場合はdefault_charsetに準ずる、通常はUTF-8)
+     * @return string エンティティ化された文字列
+     */
+    public function htmlEntities(string $input, string $fromEncoding = null): string
+    {
+        // 非Unicode文字列は上手く処理できないので、UTF-8に正規化する
+        $input = mb_convert_encoding($input, 'UTF-8', $fromEncoding);
+
+        // 参考: https://github.com/php/php-src/pull/7177#issuecomment-1317296767
+        return mb_encode_numericentity($input, [0x80, 0x10fffff, 0, 0x1fffff]);
+    }
 }

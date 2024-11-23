@@ -2,6 +2,7 @@
 
 namespace App\MetadataResolver;
 
+use App\Facades\Formatter;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
 
@@ -38,7 +39,7 @@ class MelonbooksResolver implements Resolver
         $metadata = $this->ogpResolver->parse($res->getBody());
 
         $dom = new \DOMDocument();
-        @$dom->loadHTML(mb_convert_encoding($res->getBody(), 'HTML-ENTITIES', 'UTF-8'));
+        @$dom->loadHTML(Formatter::htmlEntities($res->getBody(), 'UTF-8'));
         $xpath = new \DOMXPath($dom);
         $descriptionNodelist = $xpath->query('//div[contains(@class, "item-detail")]/*[contains(@class, "page-headline") and contains(text(), "作品詳細")]/following-sibling::div[1]');
         $specialDescriptionNodelist = $xpath->query('//div[contains(@class, "item-detail")]/*[contains(@class, "page-headline") and contains(text(), "スタッフのオススメポイント")]/following-sibling::div[1]');

@@ -2,6 +2,7 @@
 
 namespace App\MetadataResolver;
 
+use App\Facades\Formatter;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
 
@@ -28,7 +29,7 @@ class ToranoanaResolver implements Resolver
         $metadata = $this->ogpResolver->parse($res->getBody());
 
         $dom = new \DOMDocument();
-        @$dom->loadHTML(mb_convert_encoding($res->getBody(), 'HTML-ENTITIES', 'UTF-8'));
+        @$dom->loadHTML(Formatter::htmlEntities($res->getBody(), 'UTF-8'));
         $xpath = new \DOMXPath($dom);
         $imgNode = $xpath->query('//*[@id="preview"]//img')->item(0);
         if ($imgNode !== null) {

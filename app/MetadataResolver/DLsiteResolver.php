@@ -2,6 +2,7 @@
 
 namespace App\MetadataResolver;
 
+use App\Facades\Formatter;
 use GuzzleHttp\Client;
 
 class DLsiteResolver implements Resolver
@@ -29,7 +30,7 @@ class DLsiteResolver implements Resolver
     public function extractTags(string $html): array
     {
         $dom = new \DOMDocument();
-        @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+        @$dom->loadHTML(Formatter::htmlEntities($html, 'UTF-8'));
         $xpath = new \DOMXPath($dom);
 
         $genreNode = $xpath->query("//div[@class='main_genre'][1]");
@@ -79,7 +80,7 @@ class DLsiteResolver implements Resolver
         $metadata = $this->ogpResolver->parse($res->getBody());
 
         $dom = new \DOMDocument();
-        @$dom->loadHTML(mb_convert_encoding($res->getBody(), 'HTML-ENTITIES', 'UTF-8'));
+        @$dom->loadHTML(Formatter::htmlEntities($res->getBody(), 'UTF-8'));
         $xpath = new \DOMXPath($dom);
 
         // OGPタイトルから[]に囲まれているmakerを取得する

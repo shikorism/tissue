@@ -3,7 +3,7 @@ version: 2.1
 executors:
   build:
     docker:
-      - image: cimg/php:8.1-browsers
+      - image: cimg/php:8.2-browsers
         environment:
           APP_DEBUG: true
           APP_ENV: testing
@@ -115,6 +115,7 @@ jobs:
       # Run unit test
       - run:
           command: |
+            php artisan passport:install -n
             mkdir -p /tmp/phpunit{,-coverage}
             ./vendor/bin/phpunit --log-junit /tmp/phpunit/phpunit.xml --coverage-clover=/tmp/phpunit-coverage/coverage.xml
           when: always

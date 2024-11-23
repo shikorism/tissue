@@ -240,4 +240,9 @@ class EjaculationController extends Controller
     {
         return view('ejaculation.tools');
     }
+
+    public function report()
+    {
+
+    }
 }

@@ -177,4 +177,9 @@ SQL
             'shortest_interval' => (int) $summary[0]->shortest,
         ];
     }
+
+    public function scopeAdministrators($query)
+    {
+        return $query->where('is_admin', true);
+    }
 }
