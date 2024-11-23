@@ -26,7 +26,7 @@ namespace App\Parser\SearchQuery {
         public const WORD = 1, QUOTED_TEXT = 2, NOT = 3, DELIMITER = 4, WS = 5;
 
         public const RULE_query = 0, RULE_expression = 1, RULE_negativeExpression = 2,
-        RULE_positiveExpression = 3, RULE_target = 4, RULE_keyword = 5;
+            RULE_positiveExpression = 3, RULE_target = 4, RULE_keyword = 5;
 
         /**
          * @var array<string>
