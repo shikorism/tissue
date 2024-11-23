@@ -8,6 +8,7 @@ export default defineConfig({
             'resources/assets/sass/app.scss',
             'resources/assets/js/app.ts',
             'resources/assets/js/home.ts',
+            'resources/assets/js/admin/rules.ts',
             'resources/assets/js/user/profile.ts',
             'resources/assets/js/user/stats.ts',
             'resources/assets/js/user/collections.tsx',
