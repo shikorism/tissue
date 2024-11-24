@@ -52,7 +52,7 @@ class NarouResolver implements Resolver
         $keywordNodeList = $xpath->query('//th[contains(text(), "キーワード")]/following-sibling::td[1]');
         if ($keywordNodeList->length !== 0) {
             $keyword = trim($keywordNodeList->item(0)->textContent);
-            $metadata->tags = array_values(array_filter(preg_split('/\s/u', $keyword)));
+            $metadata->tags = preg_split('/\s+/u', $keyword);
         }
 
         // 作者名
