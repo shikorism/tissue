@@ -2,9 +2,9 @@
 
 namespace App\MetadataResolver;
 
+use App\Facades\Formatter;
 use GuzzleHttp\Client;
 use Illuminate\Support\Str;
-use Symfony\Component\DomCrawler\Crawler;
 
 class NijieResolver implements Resolver
 {
@@ -35,9 +35,9 @@ class NijieResolver implements Resolver
         $res =  $this->client->get($url);
         $html = (string) $res->getBody();
         $metadata = $this->ogpResolver->parse($html);
-        $crawler = new Crawler($html);
+        $document = \Dom\HTMLDocument::createFromString(Formatter::htmlEntities($res->getBody(), 'UTF-8'), LIBXML_NOERROR);
 
-        $json = $crawler->filter('script[type="application/ld+json"]')->first()->text(null, false);
+        $json = $document->querySelector('script[type="application/ld+json"]')->textContent;
 
         // 改行がそのまま入っていることがあるのでデコード前にエスケープが必要
         $data = json_decode(preg_replace('/\r?\n/', '\n', $json), true);
@@ -57,7 +57,9 @@ class NijieResolver implements Resolver
             // サムネイルからメイン画像に
             $metadata->image = str_replace('__s_rs_l160x160/', '__s_rs_l0x0/', $data['thumbnailUrl']);
         }
-        $metadata->tags = $crawler->filter('#view-tag span.tag_name')->extract(['_text']);
+        foreach ($document->querySelectorAll('#view-tag span.tag_name') as $tag) {
+            $metadata->tags[] = $tag->textContent;
+        }
 
         return $metadata;
     }
