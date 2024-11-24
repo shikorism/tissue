@@ -1,13 +1,13 @@
 FROM node:22.6.0-bullseye as node
 
-FROM php:8.2.26-apache
+FROM php:8.4.1-apache
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
 RUN apt-get update \
     && apt-get install -y git libpq-dev unzip libicu-dev \
     && docker-php-ext-install pdo_pgsql intl \
-    && pecl install xdebug \
+    && pecl install xdebug-beta \
     && curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
     && sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
