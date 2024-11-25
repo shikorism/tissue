@@ -34,7 +34,7 @@
         "openpear/stream_filter_mbstring": "dev-master",
         "sentry/sentry-laravel": "^4.1.0",
         "staudenmeir/eloquent-eager-limit": "~1.7.1",
-        "symfony/css-selector": "^6.0",
+        "symfony/css-selector": "^7.1",
         "symfony/dom-crawler": "^6.0",
         "t1gor/robots-txt-parser": "^0.2.4"
     },
