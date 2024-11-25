@@ -45,7 +45,7 @@
         "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^6.1",
-        "phpunit/phpunit": "^9.0",
+        "phpunit/phpunit": "^11.4",
         "spatie/laravel-ignition": "^1.0",
         "symfony/thanks": "^1.0"
     },
