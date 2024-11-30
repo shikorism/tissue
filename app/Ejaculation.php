@@ -26,8 +26,8 @@ class Ejaculation extends Model
         'checkin_webhook_id', 'oauth_access_token_id',
     ];
 
-    protected $dates = [
-        'ejaculated_date'
+    protected $casts = [
+        'ejaculated_date' => 'datetime'
     ];
 
     /** @var bool|null */
