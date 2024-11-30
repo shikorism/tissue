@@ -99,7 +99,7 @@ SQL;
         $dateSince = $this->since ?: Carbon::minValue();
         $dateUntil = $this->until ?: now()->addMonth()->startOfMonth();
 
-        return DB::select(DB::raw($sql), [
+        return DB::select($sql, [
             $this->user->id, false, $this->operator !== null && $this->user->id === $this->operator->id, $dateSince, $dateUntil,
             $this->user->id, false, $this->operator !== null && $this->user->id === $this->operator->id, $dateSince, $dateUntil
         ]);
