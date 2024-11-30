@@ -24,7 +24,7 @@
         "erusev/parsedown": "^1.7",
         "guzzlehttp/guzzle": "^7.4.5",
         "jakeasmith/http_build_url": "^1.0",
-        "laravel/framework": "^9.0",
+        "laravel/framework": "^10.0",
         "laravel/helpers": "^1.2",
         "laravel/passport": "^12.3",
         "laravel/tinker": "^2.0",
@@ -33,7 +33,7 @@
         "misd/linkify": "^1.1",
         "openpear/stream_filter_mbstring": "dev-master",
         "sentry/sentry-laravel": "^4.1.0",
-        "staudenmeir/eloquent-eager-limit": "~1.7.1",
+        "staudenmeir/eloquent-eager-limit": "~1.8.0",
         "symfony/css-selector": "^6.0",
         "symfony/dom-crawler": "^6.0",
         "t1gor/robots-txt-parser": "^0.2.4"
@@ -46,7 +46,7 @@
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^6.1",
         "phpunit/phpunit": "^9.0",
-        "spatie/laravel-ignition": "^1.0",
+        "spatie/laravel-ignition": "^2.0",
         "symfony/thanks": "^1.0"
     },
     "autoload": {
@@ -103,6 +103,6 @@
             "dont-discover": []
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
