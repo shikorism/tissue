@@ -62,4 +62,19 @@ class NarouResolverTest extends TestCase
             $this->assertSame('https://novel18.syosetu.com/novelview/infotop/ncode/n0477gn/', (string) $this->handler->getLastRequest()->getUri());
         }
     }
+
+    public function testFeaturesInKeyword()
+    {
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/Narou/testFeaturesInKeyword.html');
+
+        $this->createResolver(NarouResolver::class, $responseText);
+
+        $metadata = $this->resolver->resolve('https://novel18.syosetu.com/n6404hk/');
+        $this->assertEquals('王子繁殖促進計画「王子の性欲を刺激せよ」　～よってたかって性欲を刺激される小国王子の異世界奮闘記～', $metadata->title);
+        $this->assertEquals("作者: ひもの\n小国だが王子に転生した俺。　\n意外に甘くない現実に戸惑いつつも、いつかはエロエロハーレムが作れたらいいな、と思っていたが……　\n\n幼馴染が、いとこのお姉ちゃんが、周りの美少女達が、恥じらいながらも一生懸命、俺の性欲を刺激してくる。　\n\nえ？　俺の性欲を刺激するために、国家プロジェクトが立ち上がった？……", $metadata->description);
+        $this->assertEquals(['残酷な描写あり', '異世界転生', '男主人公', 'ハーレム', '魔法', 'オリジナル戦記', '戦記', '淫語', '羞恥', '美少女', 'イチャラブ', '♡喘ぎ', '孕ませ', '巨乳'], $metadata->tags);
+        if ($this->shouldUseMock()) {
+            $this->assertSame('https://novel18.syosetu.com/novelview/infotop/ncode/n6404hk/', (string) $this->handler->getLastRequest()->getUri());
+        }
+    }
 }

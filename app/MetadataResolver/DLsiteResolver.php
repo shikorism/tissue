@@ -33,16 +33,11 @@ class DLsiteResolver implements Resolver
         @$dom->loadHTML(Formatter::htmlEntities($html, 'UTF-8'));
         $xpath = new \DOMXPath($dom);
 
-        $genreNode = $xpath->query("//div[@class='main_genre'][1]");
-        if ($genreNode->length === 0) {
-            return [];
-        }
-
-        $tagsNode = $genreNode->item(0)->getElementsByTagName('a');
+        $tagsNode = $xpath->query("//div[@class='main_genre']/a");
         $tags = [];
 
-        for ($i = 0; $i <= $tagsNode->length - 1; $i++) {
-            $tags[] = $tagsNode->item($i)->textContent;
+        foreach ($tagsNode as $node) {
+            $tags[] = $node->textContent;
         }
 
         // 重複削除

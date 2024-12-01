@@ -162,6 +162,22 @@ class DLsiteResolverTest extends TestCase
         }
     }
 
+    public function testGirlsCoupling()
+    {
+        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testGirlsCoupling.html');
+
+        $this->createResolver(DLsiteResolver::class, $responseText);
+
+        $metadata = $this->resolver->resolve('https://www.dlsite.com/girls/work/=/product_id/RJ01008713.html');
+        $this->assertEquals('♂が受け。ネコちゃん×ネコくん', $metadata->title);
+        $this->assertEquals('サークル名: pink carrot' . PHP_EOL . '同級生のネコ♂くんをえっちに攻めるネコ♀ちゃんのすけべ漫画。', $metadata->description);
+        $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/doujin/RJ01009000/RJ01008713_img_main.jpg', $metadata->image);
+        $this->assertEquals(['フェラチオ', '乳首/乳輪', '制服', '同級生/同僚', '女×男', '焦らし', '獣耳', '男性受け', '逆転無し'], $metadata->tags);
+        if ($this->shouldUseMock()) {
+            $this->assertSame('https://www.dlsite.com/girls/work/=/product_id/RJ01008713.html', (string) $this->handler->getLastRequest()->getUri());
+        }
+    }
+
     public function testBL()
     {
         $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/DLsite/testBL.html');
