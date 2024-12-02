@@ -96,7 +96,7 @@ ORDER BY count DESC
 LIMIT 10
 SQL;
 
-        $dateSince = $this->since ?: Carbon::minValue();
+        $dateSince = $this->since ?: Carbon::create(1);
         $dateUntil = $this->until ?: now()->addMonth()->startOfMonth();
 
         return DB::select($sql, [

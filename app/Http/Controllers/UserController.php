@@ -372,7 +372,7 @@ LIMIT 10
 SQL;
 
         if ($dateSince === null) {
-            $dateSince = Carbon::minValue();
+            $dateSince = Carbon::create(1);
         }
         if ($dateUntil === null) {
             $dateUntil = now()->addMonth()->startOfMonth();
@@ -406,7 +406,7 @@ LIMIT 10
 SQL;
 
         if ($dateSince === null) {
-            $dateSince = Carbon::minValue();
+            $dateSince = Carbon::create(1);
         }
         if ($dateUntil === null) {
             $dateUntil = now()->addMonth()->startOfMonth();
