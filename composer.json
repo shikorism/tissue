@@ -34,6 +34,7 @@
         "sentry/sentry-laravel": "^4.1.0",
         "symfony/css-selector": "^6.0",
         "symfony/dom-crawler": "^6.0",
+        "symfony/mailer": "~7.1.0",
         "t1gor/robots-txt-parser": "^0.2.4"
     },
     "require-dev": {
