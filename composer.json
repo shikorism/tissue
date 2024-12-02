@@ -20,7 +20,6 @@
         "ext-pdo": "*",
         "anhskohbo/no-captcha": "^3.0",
         "antlr/antlr4-php-runtime": "^0.9.1",
-        "doctrine/dbal": "^3.7",
         "erusev/parsedown": "^1.7",
         "guzzlehttp/guzzle": "^7.4.5",
         "jakeasmith/http_build_url": "^1.0",
