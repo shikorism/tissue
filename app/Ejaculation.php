@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class Ejaculation extends Model
 {
-    use HasEagerLimit, HasFactory;
+    use HasFactory;
 
     const SOURCE_WEB = 'web';
     const SOURCE_CSV = 'csv';
@@ -26,8 +25,8 @@ class Ejaculation extends Model
         'checkin_webhook_id', 'oauth_access_token_id',
     ];
 
-    protected $dates = [
-        'ejaculated_date'
+    protected $casts = [
+        'ejaculated_date' => 'datetime'
     ];
 
     /** @var bool|null */

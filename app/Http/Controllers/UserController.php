@@ -372,13 +372,13 @@ LIMIT 10
 SQL;
 
         if ($dateSince === null) {
-            $dateSince = Carbon::minValue();
+            $dateSince = Carbon::create(1);
         }
         if ($dateUntil === null) {
             $dateUntil = now()->addMonth()->startOfMonth();
         }
 
-        return DB::select(DB::raw($sql), [
+        return DB::select($sql, [
             $user->id, false, Auth::check() && $user->id === Auth::id(), $dateSince, $dateUntil,
             $user->id, false, Auth::check() && $user->id === Auth::id(), $dateSince, $dateUntil
         ]);
@@ -406,13 +406,13 @@ LIMIT 10
 SQL;
 
         if ($dateSince === null) {
-            $dateSince = Carbon::minValue();
+            $dateSince = Carbon::create(1);
         }
         if ($dateUntil === null) {
             $dateUntil = now()->addMonth()->startOfMonth();
         }
 
-        return DB::select(DB::raw($sql), [
+        return DB::select($sql, [
             $user->id, false, Auth::check() && $user->id === Auth::id(), $dateSince, $dateUntil
         ]);
     }

@@ -61,13 +61,13 @@ LIMIT 10
 SQL;
 
         if ($dateSince === null) {
-            $dateSince = CarbonImmutable::minValue();
+            $dateSince = CarbonImmutable::create(1);
         }
         if ($dateUntil === null) {
             $dateUntil = now()->addMonth()->startOfMonth();
         }
 
-        return DB::select(DB::raw($sql), [
+        return DB::select($sql, [
             $user->id, false, Auth::check() && $user->id === Auth::id(), $dateSince, $dateUntil
         ]);
     }

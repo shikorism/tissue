@@ -29,14 +29,6 @@ class TokenController extends Controller
             ->get();
         $tokensLimit = User::PERSONAL_TOKEN_PER_USER_LIMIT;
 
-        // FIXME: どうしてこんなことをする羽目に...
-        $dateHacker = function () {
-            $this->dates[] = 'created_at';
-        };
-        foreach ($tokens as $token) {
-            $dateHacker->call($token);
-        }
-
         return view('setting.tokens')->with(compact('tokens', 'tokensLimit'));
     }
 

@@ -19,9 +19,7 @@ class ContentProvider extends Model
         'robots_cached_at',
     ];
 
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'robots_cached_at',
+    protected $casts = [
+        'robots_cached_at' => 'datetime',
     ];
 }
