@@ -66,7 +66,7 @@ class ApplyProviderPolicyMiddleware
 
             // 連続アクセス制限
             if ($lastAccess !== null) {
-                $elapsedSeconds = $lastAccess->diffInSeconds(now(), false);
+                $elapsedSeconds = (int) $lastAccess->diffInSeconds(now());
                 if ($elapsedSeconds < $contentProvider->access_interval_sec) {
                     if ($elapsedSeconds < 0) {
                         $wait = abs($elapsedSeconds) + $contentProvider->access_interval_sec;
