@@ -20,5 +20,7 @@ class Information extends Model
         'category', 'pinned', 'title', 'content'
     ];
 
-    protected $dates = ['deleted_at'];
+    protected $casts = [
+        'deleted_at' => 'datetime'
+    ];
 }

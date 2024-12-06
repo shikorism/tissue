@@ -17,7 +17,7 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => substr($this->faker->userName, 0, 15),
@@ -31,7 +31,7 @@ class UserFactory extends Factory
         ];
     }
 
-    public function protected()
+    public function protected(): static
     {
         return $this->state(fn (array $attributes) => [
             'is_protected' => true,

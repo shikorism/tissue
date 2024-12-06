@@ -23,10 +23,8 @@ class AppServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         Blade::directive('parsedown', function ($expression) {
             return "<?php echo app('parsedown')->text($expression); ?>";
@@ -77,10 +75,8 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(MetadataResolver::class);
         $this->app->singleton('parsedown', function () {

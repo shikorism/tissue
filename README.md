@@ -7,7 +7,7 @@ a.k.a. shikorism.net
 
 ## 構成
 
-- Laravel 9
+- Laravel 11
 - Bootstrap 4.5.0
 
 ## 実行環境
