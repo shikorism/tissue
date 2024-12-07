@@ -49,7 +49,7 @@ class MostlyUsedLinks extends Controller
         return response()->json($this->countMostFrequentlyUsedOkazu($user, $since, $until));
     }
 
-    private function countMostFrequentlyUsedOkazu(User $user, CarbonInterface $dateSince = null, CarbonInterface $dateUntil = null)
+    private function countMostFrequentlyUsedOkazu(User $user, ?CarbonInterface $dateSince = null, ?CarbonInterface $dateUntil = null)
     {
         $sql = <<<SQL
 SELECT normalized_link as link, count(*) as count

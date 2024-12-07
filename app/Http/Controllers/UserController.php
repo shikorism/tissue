@@ -238,7 +238,7 @@ SQL
         return $availableMonths;
     }
 
-    private function makeGraphData(User $user, CarbonInterface $dateSince = null, CarbonInterface $dateUntil = null): array
+    private function makeGraphData(User $user, ?CarbonInterface $dateSince = null, ?CarbonInterface $dateUntil = null): array
     {
         if ($dateUntil === null) {
             $dateUntil = now()->addMonth()->startOfMonth();
@@ -320,7 +320,7 @@ SQL
             ->orderBy(DB::raw("to_char(ejaculated_date, 'YYYY/MM/DD')"));
     }
 
-    private function countUsedTags(User $user, CarbonInterface $dateSince = null, CarbonInterface $dateUntil = null)
+    private function countUsedTags(User $user, ?CarbonInterface $dateSince = null, ?CarbonInterface $dateUntil = null)
     {
         if ($dateUntil === null) {
             $dateUntil = now()->addMonth()->startOfMonth();
@@ -348,7 +348,7 @@ SQL
             ->get();
     }
 
-    private function countUsedTagsIncludesMetadata(User $user, CarbonInterface $dateSince = null, CarbonInterface $dateUntil = null)
+    private function countUsedTagsIncludesMetadata(User $user, ?CarbonInterface $dateSince = null, ?CarbonInterface $dateUntil = null)
     {
         $sql = <<<SQL
 SELECT tg.name, count(*) count
@@ -394,7 +394,7 @@ SQL
         );
     }
 
-    private function countMostFrequentlyUsedOkazu(User $user, CarbonInterface $dateSince = null, CarbonInterface $dateUntil = null)
+    private function countMostFrequentlyUsedOkazu(User $user, ?CarbonInterface $dateSince = null, ?CarbonInterface $dateUntil = null)
     {
         $sql = <<<SQL
 SELECT normalized_link, count(*) as count
