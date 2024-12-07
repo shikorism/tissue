@@ -32,7 +32,7 @@ class EjaculationReportRequest extends FormRequest
 
     public function withValidator(Validator $validator)
     {
-        $validator->sometimes('comment', 'exists:rules,id', function ($input) {
+        $validator->sometimes('violated_rule', 'exists:rules,id', function ($input) {
             return $input->violated_rule !== 'other';
         });
     }
