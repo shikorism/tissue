@@ -111,8 +111,7 @@ class User extends Authenticatable
             ->orderByDesc('ejaculated_date')
             ->first();
         if (!empty($latestEjaculation)) {
-            $currentSession = $latestEjaculation->ejaculated_date
-                ->diffInSeconds(Carbon::now());
+            $currentSession = (int) $latestEjaculation->ejaculated_date->diffInSeconds(Carbon::now());
         } else {
             $currentSession = null;
         }
