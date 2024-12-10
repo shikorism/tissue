@@ -858,10 +858,10 @@
   dependencies:
     classnames "*"
 
-"@types/clipboard@^2.0.7":
-  version "2.0.7"
-  resolved "https://registry.yarnpkg.com/@types/clipboard/-/clipboard-2.0.7.tgz#db578ceec578947be2d603b003667ebdd5f274e1"
-  integrity sha512-VwVFUHlneOsWfv/GaaY7Kwk4XasDqkAlyFQtsHxnOw0yyBYWTrlEXtmb9RtC+VFBCdtuOeIXECmELNd5RrKp/g==
+"@types/clipboard@^2.0.10":
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/@types/clipboard/-/clipboard-2.0.10.tgz#f08bfa75f2352f629572ebbeccfff0e497c41141"
+  integrity sha512-6CIsNdBfOTN92GHhQ0BaGY9KoV4DPH7ynCk5eggSDy3HW7OHLKWJUskL72uoVxl2kZ/XCq28TEgI0HKxLbRxyQ==
   dependencies:
     clipboard "*"
 
