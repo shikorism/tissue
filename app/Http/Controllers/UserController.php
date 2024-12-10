@@ -87,12 +87,13 @@ SQL
             ->with(compact('user', 'graphData', 'availableMonths', 'tags', 'tagsIncludesMetadata'));
     }
 
-    public function statsYearly($name, $year)
+    public function statsYearly(Request $request, $name, $year)
     {
         $user = User::where('name', $name)->first();
         if (empty($user)) {
             abort(404);
         }
+        $compare = $request->query('compare') === '1';
 
         $validator = Validator::make(compact('year'), [
             'year' => 'required|date_format:Y'
@@ -113,8 +114,15 @@ SQL
         $tagsIncludesMetadata = collect($this->countUsedTagsIncludesMetadata($user, $dateSince, $dateUntil));
         $mostFrequentlyUsedRanking = collect($this->countMostFrequentlyUsedOkazu($user, $dateSince, $dateUntil));
 
+        $compareData = null;
+        if ($compare) {
+            $compareDateSince = Carbon::createFromDate($year - 1, 1, 1, config('app.timezone'))->startOfDay();
+            $compareDateUntil = Carbon::createFromDate($year - 1, 1, 1, config('app.timezone'))->addYear()->startOfDay();
+            $compareData = $this->makeGraphData($user, $compareDateSince, $compareDateUntil);
+        }
+
         return view('user.stats.yearly')
-            ->with(compact('user', 'graphData', 'availableMonths', 'tags', 'tagsIncludesMetadata', 'mostFrequentlyUsedRanking'))
+            ->with(compact('user', 'graphData', 'availableMonths', 'tags', 'tagsIncludesMetadata', 'mostFrequentlyUsedRanking', 'compareData'))
             ->with('currentYear', (int) $year);
     }
 

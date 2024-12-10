@@ -34,22 +34,34 @@ Chart.register([
 ]);
 
 const graphData = JSON.parse(document.getElementById('graph-data')!.textContent as string);
+const compareDataJson = document.getElementById('compare-data')?.textContent;
+const compareData = compareDataJson ? JSON.parse(compareDataJson) : null;
 
-function createLineGraph(id: string, labels: string[], data: any) {
+function createLineGraph(id: string, labels: string[], data: any, compareData: any = null) {
     const context = (document.getElementById(id) as HTMLCanvasElement).getContext('2d');
+    const datasets = [
+        {
+            data: data,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            fill: true,
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1,
+        },
+    ];
+    if (compareData) {
+        datasets.splice(0, 0, {
+            data: compareData,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            fill: true,
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1,
+        });
+    }
     return new Chart(context!, {
         type: 'line',
         data: {
             labels: labels,
-            datasets: [
-                {
-                    data: data,
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    fill: true,
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1,
-                },
-            ],
+            datasets: datasets,
         },
         options: {
             elements: {
@@ -75,20 +87,29 @@ function createLineGraph(id: string, labels: string[], data: any) {
     });
 }
 
-function createBarGraph(id: string, labels: string[], data: any) {
+function createBarGraph(id: string, labels: string[], data: any, compareData: any = null) {
     const context = (document.getElementById(id) as HTMLCanvasElement).getContext('2d');
+    const datasets = [
+        {
+            data: data,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1,
+        },
+    ];
+    if (compareData) {
+        datasets.splice(0, 0, {
+            data: compareData,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1,
+        });
+    }
     new Chart(context!, {
         type: 'bar',
         data: {
             labels: labels,
-            datasets: [
-                {
-                    data: data,
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1,
-                },
-            ],
+            datasets: datasets,
         },
         options: {
             scales: {
@@ -109,7 +130,7 @@ function createBarGraph(id: string, labels: string[], data: any) {
     });
 }
 
-function createMonthlyGraphData(from: Date) {
+function createMonthlyGraphData(from: Date, data: any) {
     const keys = [];
     const values = [];
 
@@ -117,7 +138,7 @@ function createMonthlyGraphData(from: Date) {
         const current = addMonths(from, i);
         const yearAndMonth = format(current, 'yyyy/MM');
         keys.push(yearAndMonth);
-        values.push(graphData.monthlySum[yearAndMonth] || 0);
+        values.push(data.monthlySum[yearAndMonth] || 0);
     }
 
     return { keys, values };
@@ -175,15 +196,32 @@ if (document.getElementById('cal-heatmap')) {
 if (document.getElementById('monthly-graph')) {
     const { keys: monthlyKey, values: monthlySum } = createMonthlyGraphData(
         new Date(getCurrentYear(), 0, 1, 0, 0, 0, 0),
+        graphData,
     );
-    createLineGraph('monthly-graph', monthlyKey, monthlySum);
+    createLineGraph(
+        'monthly-graph',
+        monthlyKey,
+        monthlySum,
+        compareData
+            ? createMonthlyGraphData(new Date(getCurrentYear() - 1, 0, 1, 0, 0, 0, 0), compareData).values
+            : null,
+    );
 }
 if (document.getElementById('yearly-graph')) {
     createLineGraph('yearly-graph', graphData.yearlyKey, graphData.yearlySum);
 }
 if (document.getElementById('hourly-graph')) {
-    createBarGraph('hourly-graph', graphData.hourlyKey, graphData.hourlySum);
+    createBarGraph('hourly-graph', graphData.hourlyKey, graphData.hourlySum, compareData?.hourlySum);
 }
 if (document.getElementById('dow-graph')) {
-    createBarGraph('dow-graph', ['日', '月', '火', '水', '木', '金', '土'], graphData.dowSum);
+    createBarGraph('dow-graph', ['日', '月', '火', '水', '木', '金', '土'], graphData.dowSum, compareData?.dowSum);
+}
+
+const compare = document.getElementById('compare') as HTMLInputElement | null;
+if (compare) {
+    const params = new URLSearchParams(location.search);
+    compare.checked = params.get('compare') === '1';
+    compare.addEventListener('change', () => {
+        location.search = compare.checked ? '?compare=1' : '';
+    });
 }
