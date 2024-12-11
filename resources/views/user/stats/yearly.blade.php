@@ -6,7 +6,13 @@
     <h5 class="my-4">Shikontribution graph</h5>
     <div id="cal-heatmap" class="tis-contribution-graph"></div>
     <hr class="my-4">
-    <h5 class="my-4">月間チェックイン回数</h5>
+    <div class="my-4 d-flex justify-content-between">
+        <h5 class="my-0">月間チェックイン回数</h5>
+        <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="compare">
+            <label class="custom-control-label" for="compare">去年のデータも表示</label>
+        </div>
+    </div>
     <canvas id="monthly-graph" class="w-100"></canvas>
     <hr class="my-4">
     <h5 class="my-4">時間別チェックイン回数</h5>
@@ -46,5 +52,8 @@
 
 @push('script')
 <script id="graph-data" type="application/json">@json($graphData)</script>
+@if ($compareData !== null)
+<script id="compare-data" type="application/json">@json($compareData)</script>
+@endif
 @vite('resources/assets/js/user/stats.ts')
 @endpush
