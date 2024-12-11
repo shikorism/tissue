@@ -220,8 +220,8 @@ if (document.getElementById('dow-graph')) {
 const compare = document.getElementById('compare') as HTMLInputElement | null;
 if (compare) {
     const params = new URLSearchParams(location.search);
-    compare.checked = params.get('compare') === '1';
+    compare.checked = params.get('compare') === 'prev';
     compare.addEventListener('change', () => {
-        location.search = compare.checked ? '?compare=1' : '';
+        location.search = compare.checked ? '?compare=prev' : '';
     });
 }

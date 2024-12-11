@@ -93,7 +93,7 @@ SQL
         if (empty($user)) {
             abort(404);
         }
-        $compare = $request->query('compare') === '1';
+        $comparePrev = $request->query('compare') === 'prev';
 
         $validator = Validator::make(compact('year'), [
             'year' => 'required|date_format:Y'
@@ -115,7 +115,7 @@ SQL
         $mostFrequentlyUsedRanking = collect($this->countMostFrequentlyUsedOkazu($user, $dateSince, $dateUntil));
 
         $compareData = null;
-        if ($compare) {
+        if ($comparePrev) {
             $compareDateSince = Carbon::createFromDate($year - 1, 1, 1, config('app.timezone'))->startOfDay();
             $compareDateUntil = Carbon::createFromDate($year - 1, 1, 1, config('app.timezone'))->addYear()->startOfDay();
             $compareData = $this->makeGraphData($user, $compareDateSince, $compareDateUntil);
