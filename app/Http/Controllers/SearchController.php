@@ -9,6 +9,7 @@ use App\Parser\SearchQueryParser;
 use App\Tag;
 use App\Utilities\Formatter;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -30,13 +31,12 @@ class SearchController extends Controller
         ]);
 
         $results = Ejaculation::query()
-            ->whereHas('user', function ($query) {
-                $query->where('is_protected', false);
+            ->where(function (Builder $query) {
+                $query->where('is_private', false)->whereHas('user', fn ($q) => $q->where('is_protected', false));
                 if (Auth::check()) {
-                    $query->orWhere('id', Auth::id());
+                    $query->orWhereHas('user', fn ($q) => $q->where('id', Auth::id()));
                 }
             })
-            ->where('is_private', false)
             ->orderBy('ejaculated_date', 'desc')
             ->with(['user', 'tags'])
             ->withLikes()
