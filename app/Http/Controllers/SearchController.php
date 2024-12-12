@@ -140,13 +140,12 @@ class SearchController extends Controller
             ->select('collection_items.*')
             ->join('collections', 'collections.id', '=', 'collection_items.collection_id')
             ->with(['collection', 'collection.user', 'tags'])
-            ->whereHas('collection.user', function ($query) {
-                $query->where('is_protected', false);
+            ->where(function (Builder $query) {
+                $query->where('collections.is_private', false)->whereHas('collection.user', fn (Builder $q) => $q->where('is_protected', false));
                 if (Auth::check()) {
-                    $query->orWhere('id', Auth::id());
+                    $query->orWhereHas('collection.user', fn (Builder $q) => $q->where('id', Auth::id()));
                 }
             })
-            ->where('collections.is_private', false)
             ->orderByDesc('id');
 
         try {
