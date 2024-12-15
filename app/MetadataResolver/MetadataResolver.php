@@ -35,6 +35,7 @@ class MetadataResolver implements Resolver
         '~www\.hentai-foundry\.com/pictures/user/.+/\d+/.+~' => HentaiFoundryResolver::class,
         '~(www\.)?((mobile|m)\.)?(twitter|x)\.com/(#!/)?[0-9a-zA-Z_]{1,15}/status(es)?/([0-9]+)(/photo/[1-4])?/?(\\?.+)?$~' => TwitterResolver::class,
         '~www\.mgstage\.com/~' => MGStageResolver::class,
+        '~booth.pm/([a-z]+/)?items/[0-9]+~' => BoothResolver::class,
     ];
 
     public $mimeTypes = [
