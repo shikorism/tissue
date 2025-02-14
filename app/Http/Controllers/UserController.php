@@ -63,7 +63,7 @@ SQL
         $countByDay = [];
         foreach ($countByDayQuery as $data) {
             $countByDay[] = [
-                't' => Carbon::createFromFormat('Y/m/d', $data->date)->timestamp,
+                't' => Carbon::createFromFormat('Y/m/d', $data->date, 'UTC')->startOfDay()->timestamp,
                 'count' => $data->count
             ];
         }
