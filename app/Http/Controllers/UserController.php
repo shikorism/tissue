@@ -63,7 +63,7 @@ SQL
         $countByDay = [];
         foreach ($countByDayQuery as $data) {
             $countByDay[] = [
-                't' => Carbon::createFromFormat('Y/m/d', $data->date)->timestamp,
+                't' => Carbon::createFromFormat('Y/m/d', $data->date, 'UTC')->startOfDay()->timestamp,
                 'count' => $data->count
             ];
         }
@@ -290,7 +290,7 @@ SQL
         }
 
         foreach ($groupByDay as $data) {
-            $date = Carbon::createFromFormat('Y/m/d', $data->date);
+            $date = Carbon::createFromFormat('Y/m/d', $data->date, 'UTC')->startOfDay();
             $yearAndMonth = $date->format('Y/m');
 
             $dailySum[] = ['t' => $date->timestamp, 'count' => $data->count];
