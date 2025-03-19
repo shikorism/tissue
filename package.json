@@ -21,7 +21,7 @@
     "@tanstack/react-query-devtools": "^4.0.0",
     "@types/bootstrap": "^4.6.2",
     "@types/classnames": "^2.2.10",
-    "@types/clipboard": "^2.0.7",
+    "@types/clipboard": "^2.0.10",
     "@types/jquery": "^3.5.30",
     "@types/js-cookie": "^3.0.6",
     "@types/lodash-es": "^4.17.12",
