@@ -25,7 +25,7 @@ class CheckinCsvExporter
     public function execute()
     {
         $csv = Writer::createFromPath($this->filename, 'wb');
-        $csv->setNewline("\r\n");
+        $csv->setEndOfLine("\r\n");
         if ($this->charset === 'SJIS-win') {
             $csv->appendStreamFilterOnWrite('convert.mbstring.encoding.UTF-8:SJIS-win');
         }
