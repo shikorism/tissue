@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Link, Outlet, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { BrowserRouter, Link, Outlet, Route, Routes, useLocation, useNavigate, useParams } from 'react-router';
 import { Button } from 'react-bootstrap';
 import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
@@ -210,7 +210,7 @@ const Index: React.FC = () => {
 
 createRoot(document.getElementById('app') as HTMLElement).render(
     <QueryClientProvider>
-        <BrowserRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
+        <BrowserRouter>
             <Routes>
                 <Route path="/user/:username/collections" element={<Collections />}>
                     <Route index element={<Index />} />
