@@ -210,7 +210,7 @@ const Index: React.FC = () => {
 
 createRoot(document.getElementById('app') as HTMLElement).render(
     <QueryClientProvider>
-        <BrowserRouter>
+        <BrowserRouter future={{ v7_startTransition: true }}>
             <Routes>
                 <Route path="/user/:username/collections" element={<Collections />}>
                     <Route index element={<Index />} />
