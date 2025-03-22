@@ -98,7 +98,7 @@ export const MetadataPreview: React.FC<MetadataPreviewProps> = ({ link, tags, on
             badge: true,
             'badge-primary': !s.used,
             'badge-secondary': s.used,
-            'metadata-tag-item': true,
+            'tis-metadata-preview-tag-item': true,
         });
     const suggestions =
         metadata?.tags.map((t) => ({
