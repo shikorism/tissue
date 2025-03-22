@@ -45,7 +45,7 @@ class CheckinCsvImporter
         $csv = Reader::createFromPath($this->filename, 'r');
         $csv->setHeaderOffset(0);
         if ($charset === 'SJIS-win') {
-            $csv->addStreamFilter('convert.mbstring.encoding.SJIS-win:UTF-8');
+            $csv->appendStreamFilterOnRead('convert.mbstring.encoding.SJIS-win:UTF-8');
         }
 
         // Import

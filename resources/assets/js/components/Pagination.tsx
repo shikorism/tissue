@@ -1,5 +1,5 @@
 import React from 'react';
-import { createSearchParams, Link, useSearchParams } from 'react-router-dom';
+import { createSearchParams, Link, useSearchParams } from 'react-router';
 
 type PaginationProps = {
     className?: string;

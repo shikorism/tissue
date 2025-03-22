@@ -25,9 +25,9 @@ class CheckinCsvExporter
     public function execute()
     {
         $csv = Writer::createFromPath($this->filename, 'wb');
-        $csv->setNewline("\r\n");
+        $csv->setEndOfLine("\r\n");
         if ($this->charset === 'SJIS-win') {
-            $csv->addStreamFilter('convert.mbstring.encoding.UTF-8:SJIS-win');
+            $csv->appendStreamFilterOnWrite('convert.mbstring.encoding.UTF-8:SJIS-win');
         }
 
         $header = ['日時', 'ノート', 'オカズリンク', '非公開', 'センシティブ', '経過時間リセット'];
