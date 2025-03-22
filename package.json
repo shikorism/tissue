@@ -41,7 +41,7 @@
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-react": "^7.37.4",
     "globals": "^15.9.0",
-    "husky": "^9.1.4",
+    "husky": "^9.1.7",
     "jquery": "^3.7.1",
     "js-cookie": "^3.0.5",
     "laravel-vite-plugin": "^1.2.0",
