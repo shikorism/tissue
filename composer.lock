@@ -8,21 +8,21 @@
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
-            "version": "3.6.0",
+            "version": "3.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anhskohbo/no-captcha.git",
-                "reference": "6f129419a7f0d0a1ed9849fdaaed34e6d83a03cc"
+                "reference": "87666572f0dbe1e3380a2e9ae7574bf3a2d0804e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anhskohbo/no-captcha/zipball/6f129419a7f0d0a1ed9849fdaaed34e6d83a03cc",
-                "reference": "6f129419a7f0d0a1ed9849fdaaed34e6d83a03cc",
+                "url": "https://api.github.com/repos/anhskohbo/no-captcha/zipball/87666572f0dbe1e3380a2e9ae7574bf3a2d0804e",
+                "reference": "87666572f0dbe1e3380a2e9ae7574bf3a2d0804e",
                 "shasum": ""
             },
             "require": {
                 "guzzlehttp/guzzle": "^6.2|^7.0",
-                "illuminate/support": "^5.0|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
+                "illuminate/support": "^5.0|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
                 "php": ">=5.5.5"
             },
             "require-dev": {
@@ -31,12 +31,12 @@
             "type": "library",
             "extra": {
                 "laravel": {
-                    "providers": [
-                        "Anhskohbo\\NoCaptcha\\NoCaptchaServiceProvider"
-                    ],
                     "aliases": {
                         "NoCaptcha": "Anhskohbo\\NoCaptcha\\Facades\\NoCaptcha"
-                    }
+                    },
+                    "providers": [
+                        "Anhskohbo\\NoCaptcha\\NoCaptchaServiceProvider"
+                    ]
                 }
             },
             "autoload": {
@@ -66,9 +66,9 @@
             ],
             "support": {
                 "issues": "https://github.com/anhskohbo/no-captcha/issues",
-                "source": "https://github.com/anhskohbo/no-captcha/tree/3.6.0"
+                "source": "https://github.com/anhskohbo/no-captcha/tree/3.7.0"
             },
-            "time": "2024-03-13T02:22:17+00:00"
+            "time": "2025-02-25T18:53:34+00:00"
         },
         {
             "name": "antlr/antlr4-php-runtime",
