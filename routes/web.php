@@ -13,6 +13,8 @@
 
 Auth::routes();
 
+Route::view('/app/{path?}', 'app')->where('path', '.*');
+
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/user', 'UserController@redirectMypage')->middleware('auth');

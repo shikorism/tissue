@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
     plugins: [
@@ -20,7 +21,9 @@ export default defineConfig({
             'resources/assets/js/setting/filter/tags.ts',
             'resources/assets/js/checkin.tsx',
             'resources/assets/js/collect.tsx',
+            'frontend/App.tsx',
         ]),
         react(),
+        tailwindcss(),
     ],
 });
