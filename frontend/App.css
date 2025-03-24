@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@import "@tabler/icons-webfont/dist/tabler-icons.css";
+
+@theme {
+    --color-primary: #e53fb1;
+    --color-secondary: #6c757d;
+    --color-gray-back: #f8f9fa;
+    --color-gray-border: #dee2e6;
+    --color-success: #28a745;
+    --color-info: #17a2b8;
+    --color-warning: #ffc107;
+    --color-danger: #dc3545;
+}
+
+@layer base {
+    body {
+        color: var(--color-neutral-800);
+    }
+}
+
+:root {
+    --global-nav-width: 240px;
+}
