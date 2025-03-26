@@ -19,3 +19,6 @@ indent_size = 2
 
 [composer.json]
 indent_size = 4
+
+[*.tsp]
+indent_size = 2
