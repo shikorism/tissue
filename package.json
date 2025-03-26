@@ -11,6 +11,9 @@
     "lint:stylelint": "stylelint resources/assets/sass/**/*",
     "doc": "redocly build-docs -o public/apidoc.html openapi.yaml",
     "doc-watch": "chokidar openapi.yaml --initial -c \"npm run doc\"",
+    "tsp:compile": "tsp compile tsp",
+    "tsp:watch": "tsp compile tsp --watch",
+    "tsp:format": "tsp format '**/*.tsp'",
     "prepare": "husky"
   },
   "devDependencies": {
@@ -28,6 +31,11 @@
     "@types/qs": "^6.9.18",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.1",
+    "@typespec/compiler": "^0.67.1",
+    "@typespec/http": "^0.67.1",
+    "@typespec/openapi": "^0.67.1",
+    "@typespec/openapi3": "^0.67.1",
+    "@typespec/rest": "^0.67.1",
     "@vitejs/plugin-react": "^4.3.4",
     "bootstrap": "^4.6.2",
     "cal-heatmap": "^4.2.4",
