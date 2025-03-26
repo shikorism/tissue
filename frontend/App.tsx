@@ -1,21 +1,25 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Route, Routes } from 'react-router';
+import { RouterProvider, createBrowserRouter } from 'react-router';
 import { QueryClientProvider } from './components/QueryClientProvider';
 import { BaseLayout } from './layouts/BaseLayout';
 import { Home } from './pages/Home';
 import { NotFound } from './pages/NotFound';
 import './App.css';
 
+const router = createBrowserRouter([
+    {
+        path: 'app',
+        element: <BaseLayout />,
+        children: [
+            { index: true, element: <Home /> },
+            { path: '*', element: <NotFound /> },
+        ],
+    },
+]);
+
 createRoot(document.getElementById('app') as HTMLElement).render(
     <QueryClientProvider>
-        <BrowserRouter>
-            <Routes>
-                <Route path="app" element={<BaseLayout />}>
-                    <Route index element={<Home />} />
-                    <Route path="*" element={<NotFound />} />
-                </Route>
-            </Routes>
-        </BrowserRouter>
+        <RouterProvider router={router} />
     </QueryClientProvider>,
 );
