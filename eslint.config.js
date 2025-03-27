@@ -3,6 +3,7 @@ import ts from 'typescript-eslint';
 import globals from 'globals';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import jquery from 'eslint-plugin-jquery';
+import { globalIgnores } from 'eslint/config';
 
 export default [
     js.configs.recommended,
@@ -41,4 +42,5 @@ export default [
             },
         },
     },
+    globalIgnores(['frontend/api/schema.ts']),
 ];
