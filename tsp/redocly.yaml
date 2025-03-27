@@ -1,0 +1,7 @@
+extends:
+  - recommended
+
+rules:
+  no-empty-servers: off
+  operation-summary: off
+  security-defined: off

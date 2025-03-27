@@ -1,7 +1,9 @@
 import "@typespec/http";
+import "@typespec/openapi";
 import "../models";
 
 using TypeSpec.Http;
+using TypeSpec.OpenAPI;
 
 namespace Tissue;
 
@@ -29,6 +31,7 @@ namespace Users {
 
   @route("/collections")
   namespace Collections {
+    @operationId("users-collections-list")
     op list(
       @path username: string,
       @query page?: int32 = 1,
