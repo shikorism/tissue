@@ -1,11 +1,21 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router';
-import { QueryClientProvider } from './components/QueryClientProvider';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { BaseLayout } from './layouts/BaseLayout';
 import { Home } from './pages/Home';
 import { NotFound } from './pages/NotFound';
 import './App.css';
+
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            retry: false,
+            refetchOnWindowFocus: false,
+        },
+    },
+});
 
 const router = createBrowserRouter([
     {
@@ -19,7 +29,8 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById('app') as HTMLElement).render(
-    <QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
+        <ReactQueryDevtools position="bottom-right" />
     </QueryClientProvider>,
 );
