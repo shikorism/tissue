@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { BrandLogo } from './BrandLogo';
-import { $api, UnauthorizedError } from '../api';
+import { $api } from '../api/client';
+import { UnauthorizedError } from '../api/errors';
 
 export const GlobalHeader: React.FC = () => {
     const { data: me, error } = $api.useQuery('get', '/me');

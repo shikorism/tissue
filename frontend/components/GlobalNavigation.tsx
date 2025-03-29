@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { $api } from '../api';
+import { $api } from '../api/client';
 
 export const GlobalNavigation: React.FC = () => {
     const { data: me } = $api.useQuery('get', '/me');
