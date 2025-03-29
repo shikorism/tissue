@@ -270,17 +270,22 @@ export interface components {
             total_times: number;
             /**
              * Format: int64
-             * @description 平均チェックイン間隔 (秒)
+             * @description チェックイン間隔の平均値 (秒)
              */
             average_interval: number;
             /**
              * Format: int64
-             * @description 最長チェックイン間隔 (秒)
+             * @description チェックイン間隔の中央値 (秒)
+             */
+            median_interval: number;
+            /**
+             * Format: int64
+             * @description チェックイン間隔の最大値 (秒)
              */
             longest_interval: number;
             /**
              * Format: int64
-             * @description 最短チェックイン間隔 (秒)
+             * @description チェックイン間隔の最小値 (秒)
              */
             shortest_interval: number;
         };
