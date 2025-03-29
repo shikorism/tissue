@@ -73,6 +73,7 @@
     "sass": "^1.77.8",
     "stylelint": "^14.16.1",
     "stylelint-config-recess-order": "^3.1.0",
+    "tailwind-merge": "^3.0.2",
     "tailwindcss": "^4.0.15",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.27.0",
