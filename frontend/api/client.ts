@@ -3,8 +3,6 @@ import createClient from 'openapi-react-query';
 import type { paths } from './schema';
 import { UnauthorizedError, ResponseError } from './errors';
 
-export * from './errors';
-
 export const fetchClient = createFetchClient<paths>({
     baseUrl: '/api/',
 });
