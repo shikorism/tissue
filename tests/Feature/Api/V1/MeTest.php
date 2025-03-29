@@ -92,6 +92,7 @@ class MeTest extends TestCase
                 'total_checkins' => 3,
                 'total_times' => 518400,
                 'average_interval' => 172800,
+                'median_interval' => 259200,
                 'longest_interval' => 345600,
                 'shortest_interval' => 172800
             ]
