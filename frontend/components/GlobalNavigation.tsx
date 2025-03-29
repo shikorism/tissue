@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { useMyProfileQuery } from '../../resources/assets/js/api';
+import { $api } from '../api';
 
 export const GlobalNavigation: React.FC = () => {
-    const { data: me } = useMyProfileQuery();
+    const { data: me } = $api.useQuery('get', '/me');
 
     return (
         <nav className="fixed left-0 top-[64px] bottom-0 w-(--global-nav-width) px-4 py-2">

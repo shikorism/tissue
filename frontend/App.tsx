@@ -31,6 +31,6 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('app') as HTMLElement).render(
     <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
-        <ReactQueryDevtools position="bottom-right" />
+        <ReactQueryDevtools />
     </QueryClientProvider>,
 );
