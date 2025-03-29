@@ -11,12 +11,15 @@ model CheckinSummary {
   /** 合計時間 (秒) */
   total_times: int64;
 
-  /** 平均チェックイン間隔 (秒) */
+  /** チェックイン間隔の平均値 (秒) */
   average_interval: int64;
 
-  /** 最長チェックイン間隔 (秒) */
+  /** チェックイン間隔の中央値 (秒) */
+  median_interval: int64;
+
+  /** チェックイン間隔の最大値 (秒) */
   longest_interval: int64;
 
-  /** 最短チェックイン間隔 (秒) */
+  /** チェックイン間隔の最小値 (秒) */
   shortest_interval: int64;
 }
