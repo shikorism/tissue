@@ -17,16 +17,19 @@ const queryClient = new QueryClient({
     },
 });
 
-const router = createBrowserRouter([
-    {
-        path: 'app',
-        element: <BaseLayout />,
-        children: [
-            { index: true, element: <Home /> },
-            { path: '*', element: <NotFound /> },
-        ],
-    },
-]);
+const router = createBrowserRouter(
+    [
+        {
+            path: '/',
+            element: <BaseLayout />,
+            children: [
+                { index: true, element: <Home /> },
+                { path: '*', element: <NotFound /> },
+            ],
+        },
+    ],
+    { basename: '/app' },
+);
 
 createRoot(document.getElementById('app') as HTMLElement).render(
     <QueryClientProvider client={queryClient}>
