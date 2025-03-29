@@ -267,8 +267,8 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, onUpdate }) => {
                         tags={item.tags}
                         collections={myCollectionsQuery?.data}
                         onCreateCollection={() => {
-                            queryClient.invalidateQueries(['MyCollections']);
-                            queryClient.invalidateQueries(['Collections', username]);
+                            queryClient.invalidateQueries({ queryKey: ['MyCollections'] });
+                            queryClient.invalidateQueries({ queryKey: ['Collections', username] });
                         }}
                     />
                 )}
@@ -530,11 +530,11 @@ export const Collection: React.FC = () => {
         queryClient.setQueryData<Tissue.Collection[] | undefined>(['Collections', username], (col) =>
             col?.filter((c) => c.id !== collectionQuery.data.id),
         );
-        queryClient.invalidateQueries(['Collections', username]);
+        queryClient.invalidateQueries({ queryKey: ['Collections', username] });
         queryClient.setQueryData<Tissue.Collection[] | undefined>(['MyCollections'], (col) =>
             col?.filter((c) => c.id !== collectionQuery.data.id),
         );
-        queryClient.invalidateQueries(['MyCollections']);
+        queryClient.invalidateQueries({ queryKey: ['MyCollections'] });
         navigate('../');
     };
 

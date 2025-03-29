@@ -15,7 +15,7 @@ export const QueryClientProvider: React.FC<{ children?: ReactNode }> = ({ childr
     <Provider client={queryClient}>
         <>
             {children}
-            <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />{' '}
+            <ReactQueryDevtools initialIsOpen={false} />
         </>
     </Provider>
 );
