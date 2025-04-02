@@ -1,24 +1,22 @@
 export class ResponseError extends Error {
     response: Response;
+    error: any;
 
-    constructor(response: Response, ...rest: any) {
-        super(...rest);
+    constructor(response: Response, body: string) {
+        let message = `${response.status} ${response.statusText}`;
+        let error;
+        try {
+            error = JSON.parse(body);
+            if (error.message) {
+                message = error.message;
+            }
+        } catch {
+            error = body;
+        }
+        super(message);
+
         this.name = 'ResponseError';
         this.response = response;
-    }
-
-    static castFrom(error: unknown): ResponseError | null {
-        return error instanceof ResponseError ? error : null;
-    }
-}
-
-export class UnauthorizedError extends ResponseError {
-    constructor(response: Response) {
-        super(response, `${response.status} ${response.statusText}`);
-        this.name = 'UnauthorizedError';
-    }
-
-    static castFrom(error: unknown): UnauthorizedError | null {
-        return error instanceof UnauthorizedError ? error : null;
+        this.error = error;
     }
 }

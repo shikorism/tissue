@@ -5059,13 +5059,6 @@ openapi-fetch@^0.13.5:
   dependencies:
     openapi-typescript-helpers "^0.0.15"
 
-openapi-react-query@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/openapi-react-query/-/openapi-react-query-0.3.1.tgz#d284f8d7e4bbc26f825c5837d74528dad930dd67"
-  integrity sha512-1R3NunDpf6koap0pF4AiUO5Asw4o3GmKrer6r8+2kvfLTxgHNm9vm7F0grZUcKG1tfc9qKrGa5NSvoMqa79DMg==
-  dependencies:
-    openapi-typescript-helpers "^0.0.15"
-
 openapi-sampler@^1.5.0:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/openapi-sampler/-/openapi-sampler-1.5.1.tgz#2b0145179abb0d75eaf50c82b86ef044d22bd671"
