@@ -1,11 +1,11 @@
 import React from 'react';
 import { subSeconds, format } from 'date-fns';
 import { GlobalNavigation } from '../components/GlobalNavigation';
-import { $api } from '../api/client';
+import { useGetMe } from '../api/hooks';
 import { formatOrDefault, formatNumber, formatInterval } from '../lib/formatter';
 
 export const Home: React.FC = () => {
-    const { data: me } = $api.useQuery('get', '/me', undefined, { refetchOnMount: 'always' });
+    const { data: me } = useGetMe({ refetchOnMount: true });
 
     return (
         <>

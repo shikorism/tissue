@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { $api } from '../api/client';
+import { useGetMe } from '../api/hooks';
 
 export const GlobalNavigation: React.FC = () => {
-    const { data: me } = $api.useQuery('get', '/me');
+    const { data: me } = useGetMe();
 
     return (
         <nav className="fixed left-0 top-[64px] bottom-0 w-(--global-nav-width) px-4 py-2">
