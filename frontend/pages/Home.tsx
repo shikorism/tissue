@@ -1,11 +1,13 @@
 import React from 'react';
 import { subSeconds, format } from 'date-fns';
 import { GlobalNavigation } from '../components/GlobalNavigation';
-import { useGetMe } from '../api/hooks';
+import { useGetMe, useGetTimelinesPublic } from '../api/hooks';
 import { formatOrDefault, formatNumber, formatInterval } from '../lib/formatter';
+import { ExternalLink } from '../components/ExternalLink';
 
 export const Home: React.FC = () => {
     const { data: me } = useGetMe({ refetchOnMount: true });
+    const { data: timeline } = useGetTimelinesPublic();
 
     return (
         <>
@@ -67,6 +69,17 @@ export const Home: React.FC = () => {
                     <p className="mt-2 text-sm text-secondary">
                         最近の公開チェックインから、オカズリンク付きのものを表示しています。
                     </p>
+                    {timeline?.data?.map((checkin) => (
+                        <article key={checkin.id} className="py-4">
+                            <div>
+                                <i className="ti ti-link mr-1" />
+                                <ExternalLink className="overflow-hidden" href={checkin.link}>
+                                    {checkin.link}
+                                </ExternalLink>
+                            </div>
+                        </article>
+                    ))}
+                    {/*{JSON.stringify(timeline)}*/}
                 </div>
             </div>
         </>
