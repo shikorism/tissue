@@ -995,6 +995,8 @@ components:
             - webhook
             - api
           example: api
+        user:
+          $ref: "#/components/schemas/User"
     UpdateCheckin:
       type: object
       properties:
