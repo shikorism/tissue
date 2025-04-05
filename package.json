@@ -15,6 +15,8 @@
     "tsp:watch": "tsp compile tsp --watch",
     "tsp:format": "tsp format '**/*.tsp'",
     "api:gen": "openapi-typescript ./tsp-output/schema/openapi.yaml -o ./frontend/api/schema.ts --redocly ./tsp/redocly.yaml",
+    "api:build": "run-s tsp:compile api:gen",
+    "api:watch": "chokidar './tsp/**/*.tsp' --initial -c 'npm run api:build'",
     "prepare": "husky"
   },
   "devDependencies": {
