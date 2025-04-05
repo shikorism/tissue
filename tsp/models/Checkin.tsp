@@ -1,3 +1,5 @@
+import "./User.tsp";
+
 namespace Tissue;
 
 /** チェックインデータ */
@@ -11,4 +13,5 @@ model Checkin {
   is_too_sensitive: boolean = false;
   discard_elapsed_time: boolean = false;
   source: "web" | "csv" | "webhook" | "api";
+  user: User;
 }
