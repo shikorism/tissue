@@ -6,6 +6,11 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
 {
+    public function __construct($resource, private $withCheckinSummary = false)
+    {
+        parent::__construct($resource);
+    }
+
     /**
      * Transform the resource into an array.
      *
@@ -23,7 +28,7 @@ class UserResource extends JsonResource
             $this->mergeWhen($this->isMe() || !$this->is_protected, [
                 'bio' => $this->bio,
                 'url' => $this->url,
-                'checkin_summary' => $this->checkinSummary(),
+                'checkin_summary' => $this->when($this->withCheckinSummary, fn () => $this->checkinSummary()),
             ]),
         ];
     }
