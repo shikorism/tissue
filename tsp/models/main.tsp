@@ -5,6 +5,7 @@ import "./CollectionItem.tsp";
 import "./DailyCheckinSummary.tsp";
 import "./Error.tsp";
 import "./HourlyCheckinSummary.tsp";
+import "./Metadata.tsp";
 import "./MostlyUsedCheckinTag.tsp";
 import "./MostlyUsedLink.tsp";
 import "./User.tsp";

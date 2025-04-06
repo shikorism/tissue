@@ -4,6 +4,22 @@
  */
 
 export interface paths {
+    "/checkin/card": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getMetadata"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/checkins": {
         parameters: {
             query?: never;
@@ -346,6 +362,16 @@ export interface components {
             /** Format: int32 */
             count: number;
         };
+        Metadata: {
+            /** Format: uri */
+            url: string;
+            title: string;
+            description: string;
+            /** Format: uri */
+            image: string;
+            expires_at: string | null;
+            tags: string[];
+        };
         MostlyUsedCheckinTag: {
             name: string;
             /** Format: int32 */
@@ -392,6 +418,28 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    getMetadata: {
+        parameters: {
+            query: {
+                url: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description The request has succeeded. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Metadata"];
+                };
+            };
+        };
+    };
     Checkins_post: {
         parameters: {
             query?: never;

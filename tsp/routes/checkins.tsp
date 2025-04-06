@@ -44,3 +44,6 @@ namespace Checkins {
   @delete
   op delete(@path id: int64): NoContentResponse | Error;
 }
+
+@route("/checkin/card")
+op getMetadata(@query url: string): Metadata;

@@ -7,7 +7,7 @@ export const ExternalLink = React.forwardRef<HTMLAnchorElement, React.ComponentP
             ref={ref}
             className={cn('text-primary hover:brightness-80 hover:underline', className)}
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
             {...props}
         >
             {children}
