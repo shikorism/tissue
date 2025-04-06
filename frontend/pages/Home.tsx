@@ -4,6 +4,7 @@ import { GlobalNavigation } from '../components/GlobalNavigation';
 import { useGetMe, useGetTimelinesPublic } from '../api/hooks';
 import { formatOrDefault, formatNumber, formatInterval } from '../lib/formatter';
 import { Checkin } from '../components/Checkin';
+import { Link } from 'react-router';
 
 export const Home: React.FC = () => {
     const { data: me } = useGetMe({ refetchOnMount: true });
@@ -78,6 +79,15 @@ export const Home: React.FC = () => {
                             />
                         ))}
                     </div>
+                    {timeline && (timeline.totalCount || 0) > (timeline.data.length || 0) && (
+                        <Link to="/timeline/public?page=2" className="group">
+                            <div className="p-3 border-t-1 border-t-gray-border text-right">
+                                <span className="text-primary group-hover:brightness-80 group-hover:underline">
+                                    もっと見る &raquo;
+                                </span>
+                            </div>
+                        </Link>
+                    )}
                 </div>
             </div>
         </>
