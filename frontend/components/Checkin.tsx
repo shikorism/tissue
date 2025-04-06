@@ -18,7 +18,7 @@ export const Checkin: React.FC<Props> = ({ checkin, className }) => (
             <Link to={`/user/${checkin.user.name}`} className="mr-1 hover:underline">
                 <img
                     className="rounded inline-block align-bottom mr-1"
-                    src="https://placehold.jp/30x30.png"
+                    src={checkin.user.profile_mini_image_url}
                     alt={`${checkin.user.display_name}'s Avatar`}
                     width={30}
                     height={30}

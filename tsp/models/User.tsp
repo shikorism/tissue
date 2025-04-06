@@ -18,6 +18,9 @@ model User {
   /** いいね一覧の非公開フラグ */
   private_likes: boolean;
 
+  profile_image_url: url;
+  profile_mini_image_url: url;
+
   /** 自己紹介文 */
   @maxLength(160)
   bio?: string;

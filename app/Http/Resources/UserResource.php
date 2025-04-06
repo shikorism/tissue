@@ -25,6 +25,8 @@ class UserResource extends JsonResource
             'display_name' => $this->display_name,
             'is_protected' => $this->is_protected,
             'private_likes' => $this->is_protected || $this->private_likes, // 鍵垢の場合はフラグを秘匿
+            'profile_image_url' => $this->getProfileImageUrl(256),
+            'profile_mini_image_url' => $this->getProfileImageUrl(64),
             $this->mergeWhen($this->isMe() || !$this->is_protected, [
                 'bio' => $this->bio,
                 'url' => $this->url,

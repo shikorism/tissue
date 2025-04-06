@@ -392,6 +392,10 @@ export interface components {
             is_protected: boolean;
             /** @description いいね一覧の非公開フラグ */
             private_likes: boolean;
+            /** Format: uri */
+            profile_image_url: string;
+            /** Format: uri */
+            profile_mini_image_url: string;
             /** @description 自己紹介文 */
             bio?: string;
             /** @description プロフィール上に掲載するURL */
