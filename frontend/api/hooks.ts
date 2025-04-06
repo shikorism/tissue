@@ -22,5 +22,11 @@ export const useGetTimelinesPublic = () =>
                 totalCount: totalCount(response.response),
                 data: response.data,
             })),
-        staleTime: 60000,
+    });
+
+export const useGetMetadata = (url: string) =>
+    useQuery({
+        queryKey: ['checkin/card', url],
+        queryFn: () =>
+            fetchClient.GET('/checkin/card', { params: { query: { url } } }).then((response) => response.data),
     });
