@@ -14,3 +14,4 @@ export const ExternalLink = React.forwardRef<HTMLAnchorElement, React.ComponentP
         </a>
     ),
 );
+ExternalLink.displayName = 'ExternalLink';
