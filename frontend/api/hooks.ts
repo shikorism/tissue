@@ -18,10 +18,13 @@ export const useGetTimelinesPublic = () =>
     useQuery({
         queryKey: ['timelines/public'],
         queryFn: () =>
-            fetchClient.GET('/timelines/public').then((response) => ({
-                totalCount: totalCount(response.response),
-                data: response.data,
-            })),
+            fetchClient.GET('/timelines/public').then(
+                (response) =>
+                    response.data && {
+                        totalCount: totalCount(response.response),
+                        data: response.data,
+                    },
+            ),
     });
 
 export const useGetMetadata = (url: string) =>
