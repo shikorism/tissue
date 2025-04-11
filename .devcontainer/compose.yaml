@@ -1,0 +1,7 @@
+services:
+  web:
+    env_file: !reset []
+  scheduler:
+    env_file: !reset []
+  front:
+    env_file: !reset []

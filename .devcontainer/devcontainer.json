@@ -1,0 +1,9 @@
+{
+  "name": "tissue",
+  "dockerComposeFile": [
+    "../compose.yaml",
+    "compose.yaml"
+  ],
+  "service": "web",
+  "workspaceFolder": "/var/www/html"
+}
