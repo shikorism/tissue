@@ -5,5 +5,14 @@
     "compose.yaml"
   ],
   "service": "web",
-  "workspaceFolder": "/var/www/html"
+  "workspaceFolder": "/var/www/html",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "EditorConfig.EditorConfig",
+        "bmewburn.vscode-intelephense-client",
+        "xdebug.php-debug"
+      ]
+    }
+  }
 }

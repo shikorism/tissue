@@ -11,7 +11,8 @@
 /storage/*.key
 /vendor
 /.idea
-/.vscode
+/.vscode/*
+!/.vscode/launch.json
 /.vagrant
 Homestead.json
 Homestead.yaml
