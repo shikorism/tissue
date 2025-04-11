@@ -69,7 +69,7 @@ class FanzaResolver implements Resolver
             }));
 
             $metadata = new Metadata();
-            $metadata->title = $crawler->filter('meta[property="og:title"]')->attr('content');
+            $metadata->title = trim($crawler->filter('meta[property="og:title"]')->attr('content'));
             $metadata->description = trim($crawler->filter('.summary__txt')->text('', false));
             $metadata->image = $crawler->filter('meta[property="og:image"]')->attr('content');
             $metadata->tags = array_merge($genre, [$crawler->filter('.circleName__txt')->text('')]);
