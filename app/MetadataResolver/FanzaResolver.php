@@ -63,7 +63,7 @@ class FanzaResolver implements Resolver
 
         // 同人
         if (mb_strpos($url, 'www.dmm.co.jp/dc/doujin/-/detail/') !== false) {
-            $genre = $this->array_finish($crawler->filter('.m-productInformation a:not([href="#update-top"])')->extract(['_text']));
+            $genre = $this->array_finish($crawler->filter('.m-productInformation .informationList a:not([href="#update-top"])')->extract(['_text']));
             $genre = array_filter($genre, (function ($text) {
                 return !preg_match('~％OFF対象$~', $text);
             }));
