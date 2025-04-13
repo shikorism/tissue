@@ -25,7 +25,8 @@ class FanzaResolverTest extends TestCase
     {
         $responseText = $this->fetchSnapshot(__DIR__ . "/../../fixture/Fanza/{$filename}");
         // 出演者情報用のスナップショット
-        $performerResponseText = $this->fetchSnapshot(__DIR__ . "/../../fixture/Fanza/performer.html", 1);
+        $performerFilename = pathinfo($filename, PATHINFO_FILENAME) . "_performer.html";
+        $performerResponseText = $this->fetchSnapshot(__DIR__ . "/../../fixture/Fanza/{$performerFilename}", 1);
 
         $this->createResolverEx(FanzaResolver::class, [
             ['responseText' => $responseText],
