@@ -14,7 +14,7 @@ type CheckinFormProps = {
 export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
     const mode = initialState.mode;
     const MAX_NOTE = 500;
-    const segmenter = new Intl.Segmenter("ja", { granularity: "grapheme" });
+    const segmenter = new Intl.Segmenter('ja', { granularity: 'grapheme' });
     const [date, setDate] = useState<string>(initialState.fields.date || '');
     const [time, setTime] = useState<string>(initialState.fields.time || '');
     const [tags, setTags] = useState<string[]>(initialState.fields.tags || []);
@@ -37,7 +37,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
         }
     }, [mode, isRealtime]);
     useEffect(() => {
-        setRemainingChars(MAX_NOTE - [...segmenter.segment(note)].length)
+        setRemainingChars(MAX_NOTE - [...segmenter.segment(note)].length);
     }, [note]);
 
     return (
@@ -145,14 +145,23 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
                     <textarea
                         id="note"
                         name="note"
-                        className={classNames({ 'form-control': true, 'is-invalid': initialState.errors?.note || remainingChars < 0 })}
+                        className={classNames({
+                            'form-control': true,
+                            'is-invalid': initialState.errors?.note || remainingChars < 0,
+                        })}
                         rows={4}
                         value={note}
                         onChange={(e) => setNote(e.target.value)}
                     />
                     <small
-                        className={classNames({ "form-text": true, "text-muted": remainingChars >= 0, "invalid-feedback": remainingChars < 0 })}
-                    >残り {remainingChars} 文字</small>
+                        className={classNames({
+                            'form-text': true,
+                            'text-muted': remainingChars >= 0,
+                            'invalid-feedback': remainingChars < 0,
+                        })}
+                    >
+                        残り {remainingChars} 文字
+                    </small>
                     <FieldError errors={initialState.errors?.note} />
                 </div>
             </div>
