@@ -56,7 +56,21 @@ class FanzaResolver implements Resolver
             $metadata->title = trim($crawler->filter('#title')->text(''));
             $metadata->description = trim(strip_tags(str_replace('【FANZA(ファンザ)】', '', $crawler->filter('meta[name="description"]')->attr('content'))));
             $metadata->image = preg_replace("~(pr|ps)\.jpg$~", 'pl.jpg', $crawler->filter('meta[property="og:image"]')->attr('content'));
-            $metadata->tags = $this->array_finish($crawler->filter('.box-rank+table a[href*="list/?"]')->extract(['_text']));
+
+            $tags = $crawler->filter('.box-rank+table a[href*="list/?"]')->extract(['_text']);
+
+            // 追加の出演者情報があれば取得
+            $performerUrlPattern = '~/digital/(videoa|videoc|anime)/-/detail/ajax-performer/=/data=([^\'"]+)~';
+            if (preg_match($performerUrlPattern, $html, $matches)) {
+                $performerUrl = $matches[0];
+                $performerRes = $this->client->get('https://www.dmm.co.jp' . $performerUrl);
+                $performerHtml = (string) $performerRes->getBody();
+                $performerCrawler = new Crawler($performerHtml);
+                $performerTags = $this->array_finish($performerCrawler->filter('a')->extract(['_text']));
+                $tags = array_merge($performerTags, $tags);
+            }
+
+            $metadata->tags = $this->array_finish($tags);
 
             return $metadata;
         }
