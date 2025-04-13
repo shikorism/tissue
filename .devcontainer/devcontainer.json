@@ -14,5 +14,6 @@
         "xdebug.php-debug"
       ]
     }
-  }
+  },
+  "postCreateCommand": "node /var/www/html/.devcontainer/postCreateCommand.mjs"
 }
