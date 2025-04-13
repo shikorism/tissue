@@ -1,12 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { useGetMe } from '../api/hooks';
+import { BrandLogo } from './BrandLogo';
 
 export const GlobalNavigation: React.FC = () => {
     const { data: me } = useGetMe();
 
     return (
-        <nav className="fixed left-0 top-[64px] bottom-0 w-(--global-nav-width) px-4 py-2">
+        <nav className="hidden md:block fixed left-0 top-0 bottom-0 w-(--global-nav-width) p-4 bg-gray-back">
+            <Link to="/" className="flex items-center gap-3">
+                <BrandLogo />
+                <span className="text-xl opacity-90">Tissue</span>
+            </Link>
+            {me && (
+                <Link
+                    to="/checkin"
+                    className="block rounded my-4 py-1.5 text-center border-1 border-neutral-600 hover:bg-neutral-600 hover:text-white transition-colors"
+                >
+                    チェックイン
+                </Link>
+            )}
             <ul>
                 <NavItem to="/">
                     <i className="ti ti-home text-2xl text-neutral-600"></i>ホーム

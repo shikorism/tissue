@@ -1,10 +1,14 @@
 import React from 'react';
-import { GlobalHeader } from '../components/GlobalHeader';
 import { Outlet } from 'react-router';
+import { GlobalNavigation } from '../components/GlobalNavigation';
+import { GlobalNavigationSm } from '../components/GlobalNavigationSm';
 
 export const BaseLayout: React.FC = () => (
     <>
-        <GlobalHeader />
-        <Outlet />
+        <GlobalNavigation />
+        <GlobalNavigationSm />
+        <div className="max-sm:mb-(--global-nav-height) md:ml-(--global-nav-width)">
+            <Outlet />
+        </div>
     </>
 );
