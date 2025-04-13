@@ -13,12 +13,15 @@ type CheckinFormProps = {
 
 export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
     const mode = initialState.mode;
+    const MAX_NOTE = 500;
+    const segmenter = new Intl.Segmenter("ja", { granularity: "grapheme" });
     const [date, setDate] = useState<string>(initialState.fields.date || '');
     const [time, setTime] = useState<string>(initialState.fields.time || '');
     const [tags, setTags] = useState<string[]>(initialState.fields.tags || []);
     const [link, setLink] = useState<string>(initialState.fields.link || '');
     const [linkForPreview, setLinkForPreview] = useState(link);
     const [note, setNote] = useState<string>(initialState.fields.note || '');
+    const [remainingChars, setRemainingChars] = useState<number>(MAX_NOTE);
     const [isRealtime, setRealtime] = useState<boolean>(mode === 'create' && initialState.fields.is_realtime);
     const [isPrivate, setPrivate] = useState<boolean>(!!initialState.fields.is_private);
     const [isTooSensitive, setTooSensitive] = useState<boolean>(!!initialState.fields.is_too_sensitive);
@@ -33,6 +36,9 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
             return () => clearInterval(id);
         }
     }, [mode, isRealtime]);
+    useEffect(() => {
+        setRemainingChars(MAX_NOTE - [...segmenter.segment(note)].length)
+    }, [note]);
 
     return (
         <>
@@ -139,12 +145,14 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ initialState }) => {
                     <textarea
                         id="note"
                         name="note"
-                        className={classNames({ 'form-control': true, 'is-invalid': initialState.errors?.note })}
+                        className={classNames({ 'form-control': true, 'is-invalid': initialState.errors?.note || remainingChars < 0 })}
                         rows={4}
                         value={note}
                         onChange={(e) => setNote(e.target.value)}
                     />
-                    <small className="form-text text-muted">最大 500 文字</small>
+                    <small
+                        className={classNames({ "form-text": true, "text-muted": remainingChars >= 0, "invalid-feedback": remainingChars < 0 })}
+                    >残り {remainingChars} 文字</small>
                     <FieldError errors={initialState.errors?.note} />
                 </div>
             </div>
