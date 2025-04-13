@@ -66,7 +66,11 @@ if (!fs.existsSync(envPath)) {
 }
 
 await spawnWithLog('composer', ['install'], { shell: true, encoding: 'utf8' });
-await spawnWithLog('php', ['artisan', 'key:generate', '-n'], { shell: true, encoding: 'utf8' });
+
+if (fs.readFileSync(envPath, 'utf8').match(/^APP_KEY=$/m)) {
+    await spawnWithLog('php', ['artisan', 'key:generate', '-n'], { shell: true, encoding: 'utf8' });
+}
+
 await waitDb();
 await spawnWithLog('php', ['artisan', 'migrate', '-n'], { shell: true, encoding: 'utf8' });
 await spawnWithLog('php', ['artisan', 'db:seed', '-n'], { shell: true, encoding: 'utf8' });
