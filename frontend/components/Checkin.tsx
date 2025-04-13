@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const Checkin: React.FC<Props> = ({ checkin, className }) => (
-    <article className={cn('py-4 flex flex-col gap-2', className)}>
+    <article className={cn('py-4 flex flex-col gap-2 break-words', className)}>
         <h5>
             <Link to={`/user/${checkin.user.name}`} className="mr-1 hover:underline">
                 <img
@@ -51,7 +51,7 @@ export const Checkin: React.FC<Props> = ({ checkin, className }) => (
         {checkin.link && (
             <>
                 <LinkCard link={checkin.link} isTooSensitive={checkin.is_too_sensitive} />
-                <p>
+                <p className="flex items-baseline">
                     <i className="ti ti-link mr-1" />
                     <ExternalLink className="overflow-hidden" href={checkin.link}>
                         {checkin.link}
