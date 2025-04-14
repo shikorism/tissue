@@ -8,18 +8,10 @@ export const GlobalNavigation: React.FC = () => {
 
     return (
         <nav className="hidden md:block fixed left-0 top-0 bottom-0 w-(--global-nav-width) p-4 bg-gray-back">
-            <Link to="/" className="flex items-center gap-3">
+            <Link to="/" className="flex items-center gap-3 mb-2">
                 <BrandLogo />
                 <span className="text-xl opacity-90">Tissue</span>
             </Link>
-            {me && (
-                <Link
-                    to="/checkin"
-                    className="block rounded my-4 py-1.5 text-center border-1 border-neutral-600 hover:bg-neutral-600 hover:text-white transition-colors"
-                >
-                    チェックイン
-                </Link>
-            )}
             <ul>
                 <NavItem to="/">
                     <i className="ti ti-home text-2xl text-neutral-600"></i>ホーム
@@ -33,6 +25,15 @@ export const GlobalNavigation: React.FC = () => {
             </ul>
             {me && (
                 <>
+                    <h2 className="mt-4 mb-2 px-2 text-sm font-bold">記録する</h2>
+                    <ul>
+                        <NavItem to="/checkin">
+                            <i className="ti ti-send text-2xl text-neutral-600"></i>チェックイン
+                        </NavItem>
+                        <NavItem to="/collect">
+                            <i className="ti ti-folder-plus text-2xl text-neutral-600"></i>コレクションに追加
+                        </NavItem>
+                    </ul>
                     <h2 className="mt-4 mb-2 px-2 text-sm font-bold">マイデータ</h2>
                     <ul>
                         <NavItem to={`/user/${me.name}`}>
