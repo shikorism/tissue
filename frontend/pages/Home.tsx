@@ -11,8 +11,8 @@ export const Home: React.FC = () => {
 
     return (
         <div className="p-4">
-            <div className="p-3 max-w-[1000px] flex bg-gray-back rounded">
-                <div className="flex-1">
+            <div className="p-3 max-w-[1000px] flex flex-col md:flex-row bg-gray-back rounded">
+                <div className="flex-1 text-center md:text-start">
                     <h1 className="text-lg font-bold">現在のセッション</h1>
                     <p className="my-2 text-xl">
                         {formatOrDefault(me?.checkin_summary?.current_session_elapsed, formatInterval)}
@@ -28,18 +28,18 @@ export const Home: React.FC = () => {
                             : '\u{2015}'}
                     </p>
                 </div>
-                <table className="flex-1 text-sm">
+                <table className="flex-1 text-sm mt-2 md:mt-0">
                     <tbody>
                         <tr>
-                            <th className="pr-2 text-right w-2/5 after:content-[':']">通算回数</th>
+                            <th className="pr-2 py-1 text-right w-2/5 after:content-[':']">通算回数</th>
                             <td>{formatOrDefault(me?.checkin_summary?.total_checkins, formatNumber)}回</td>
                         </tr>
                         <tr>
-                            <th className="pr-2 text-right after:content-[':']">平均記録</th>
+                            <th className="pr-2 py-1 text-right after:content-[':']">平均記録</th>
                             <td>{formatOrDefault(me?.checkin_summary?.average_interval, formatInterval)}</td>
                         </tr>
                         <tr>
-                            <th className="pr-2 text-right after:content-[':']">中央値</th>
+                            <th className="pr-2 py-1 text-right after:content-[':']">中央値</th>
                             <td>{formatOrDefault(me?.checkin_summary?.median_interval, formatInterval)}</td>
                         </tr>
                     </tbody>
@@ -47,15 +47,15 @@ export const Home: React.FC = () => {
                 <table className="flex-1 text-sm">
                     <tbody>
                         <tr>
-                            <th className="pr-2 text-right w-2/5 after:content-[':']">最長記録</th>
+                            <th className="pr-2 py-1 text-right w-2/5 after:content-[':']">最長記録</th>
                             <td>{formatOrDefault(me?.checkin_summary?.longest_interval, formatInterval)}</td>
                         </tr>
                         <tr>
-                            <th className="pr-2 text-right after:content-[':']">最短記録</th>
+                            <th className="pr-2 py-1 text-right after:content-[':']">最短記録</th>
                             <td>{formatOrDefault(me?.checkin_summary?.shortest_interval, formatInterval)}</td>
                         </tr>
                         <tr>
-                            <th className="pr-2 text-right after:content-[':']">合計時間</th>
+                            <th className="pr-2 py-1 text-right after:content-[':']">合計時間</th>
                             <td>{formatOrDefault(me?.checkin_summary?.total_times, formatInterval)}</td>
                         </tr>
                     </tbody>
