@@ -16,7 +16,7 @@ export const LinkCard: React.FC<Props> = ({ className, link, isTooSensitive = fa
     }
 
     return (
-        <div className={cn('rounded border border-gray-border', className)}>
+        <div className={cn('rounded border border-gray-border overflow-hidden', className)}>
             <a href={link} target="_blank" rel="noopener noreferrer">
                 <div className="flex flex-col md:flex-row">
                     {data.image && (
