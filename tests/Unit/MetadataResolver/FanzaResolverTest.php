@@ -25,7 +25,7 @@ class FanzaResolverTest extends TestCase
     {
         $responseText = $this->fetchSnapshot(__DIR__ . "/../../fixture/Fanza/{$filename}");
         // 出演者情報用のスナップショット
-        $performerFilename = pathinfo($filename, PATHINFO_FILENAME) . "_performer.html";
+        $performerFilename = pathinfo($filename, PATHINFO_FILENAME) . '_performer.html';
         $performerResponseText = $this->fetchSnapshot(__DIR__ . "/../../fixture/Fanza/{$performerFilename}", 1);
 
         $this->createResolverEx(FanzaResolver::class, [
@@ -89,7 +89,7 @@ class FanzaResolverTest extends TestCase
                 '姫と穢欲のサクリファイス【Windows10対応版】',
                 'ソリデ国――国家間戦争に勝利し発展した大国は、一人の男によって襲撃される。国王に強い恨みを抱き、復讐のために行動を起こした主人公・カルドは使役している‘‘悪魔’’の力を借りて城を掌握。国政や国民には興味を示さず、国王への復讐として悪魔達の能力を使って王女・フィアナへの調教を開始する。',
                 'https://pics.dmm.co.jp/digital/pcgame/views_0630/views_0630pl.jpg',
-                ['B-銀河', '遊丸', '瑠奈璃亜', 'はっとりまさき', '蒼瀬', '木下じゃっく', '御導はるか', '薄迷', '犬童飛沫', '星天誠', '紅ぴえろ', '姫様調教シリーズ', 'お姫様', '辱め', 'SM', '淫乱', 'デモ・体験版あり', 'ファンタジー', 'ブラウザ対応', 'Windows10対応作品', 'CGがいい', 'エロに定評', 'キャラクターがいい', 'ゲーム性に定評', 'シナリオがいい', '誰でも20%ポイント還元キャンペーン']
+                ['B-銀河', '遊丸', '瑠奈璃亜', 'はっとりまさき', '蒼瀬', '木下じゃっく', '御導はるか', '薄迷', '犬童飛沫', '星天誠', '紅ぴえろ', '加々美澪', '香澄りょう', 'かわしまりの', '倉下撫子', '桜糀まい', '民安ともえ', '中家志穂', '榛名れん', '松岡侑里', '水純なな歩', '姫様調教シリーズ', 'お姫様', '辱め', 'SM', '百合・レズビアン', '淫乱', 'デモ・体験版あり', 'ファンタジー', 'ブラウザ対応', 'Windows10対応作品', 'CGがいい', 'エロに定評', 'おもちゃ', 'キャラクターがいい', 'ゲーム性に定評', 'シナリオがいい', '春の最大20%ポイント還元キャンペーン_第2弾', '【PCゲーム】10本以上で12%OFFクーポン対象', '【PCゲーム】5本以上で10%OFFクーポン対象', '【PCゲーム】3本以上で5%OFFクーポン対象'],
             ],
             // '未対応' => [
             //     'nosupport.html',

@@ -113,10 +113,10 @@ class FanzaResolver implements Resolver
         // PCゲーム
         if (mb_strpos($url, 'dlsoft.dmm.co.jp/detail/') !== false) {
             $metadata = new Metadata();
-            $metadata->title = trim($crawler->filter('#title')->text(''));
+            $metadata->title = trim($crawler->filter('.productTitle__headline')->text(''));
             $metadata->description = trim($crawler->filter('.area-detail-read .text-overflow')->text('', false));
             $metadata->image = preg_replace("~(pr|ps)\.jpg$~", 'pl.jpg', $crawler->filter('meta[property="og:image"]')->attr('content'));
-            $metadata->tags = $this->array_finish($crawler->filter('.container02 table a[href*="list/article="]')->extract(['_text']));
+            $metadata->tags = $this->array_finish($crawler->filter('.contentsDetailBottom a[href*="list/?"]')->extract(['_text']));
 
             return $metadata;
         }
