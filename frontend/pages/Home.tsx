@@ -73,6 +73,7 @@ export const Home: React.FC = () => {
                             key={checkin.id}
                             checkin={checkin}
                             className="first:border-t-0 border-t-1 border-gray-border"
+                            showActions
                         />
                     ))}
                 </div>
