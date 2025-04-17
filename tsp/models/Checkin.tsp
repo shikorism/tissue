@@ -14,4 +14,6 @@ model Checkin {
   discard_elapsed_time: boolean = false;
   source: "web" | "csv" | "webhook" | "api";
   user: User;
+  likes_count?: integer;
+  is_liked?: boolean;
 }
