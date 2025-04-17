@@ -94,6 +94,9 @@ export const Checkin: React.FC<Props> = ({ checkin, className, showActions }) =>
                         title="いいね"
                     >
                         <i className={cn('ti ti-heart-filled', checkin.is_liked && 'text-danger')} />
+                        {checkin.likes_count ? (
+                            <span className="ml-2 text-base align-text-top">{checkin.likes_count}</span>
+                        ) : null}
                     </button>
                     {me && checkin.link && (
                         <button

@@ -25,6 +25,8 @@ class EjaculationResource extends JsonResource
             'is_too_sensitive' => $this->is_too_sensitive,
             'discard_elapsed_time' => $this->discard_elapsed_time,
             'user' => new UserResource($this->user),
+            'is_liked' => $this->whenHas('is_liked'),
+            'likes_count' => $this->whenHas('likes_count'),
         ];
     }
 }
