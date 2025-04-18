@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Like;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class EjaculationResource extends JsonResource
@@ -26,6 +27,7 @@ class EjaculationResource extends JsonResource
             'discard_elapsed_time' => $this->discard_elapsed_time,
             'user' => new UserResource($this->user),
             'is_liked' => $this->whenHas('is_liked'),
+            'likes' => $this->whenLoaded('likes', fn ($likes) => UserResource::collection($likes->pluck('user'))),
             'likes_count' => $this->whenHas('likes_count'),
         ];
     }

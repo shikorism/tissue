@@ -78,7 +78,29 @@ export const Checkin: React.FC<Props> = ({ checkin, className, showActions }) =>
                 </Linkify>
             )}
 
-            {/* TODO: source, muted overlay, likes */}
+            {/* TODO: source, muted overlay */}
+
+            {checkin.likes?.length ? (
+                <div className="flex py-1 border-y border-gray-border items-center">
+                    <div className="ml-2 mr-3 text-sm text-secondary shrink-0">
+                        <strong>{checkin.likes_count}</strong> 件のいいね
+                    </div>
+                    <div className="h-[30px] grow overflow-hidden">
+                        {checkin.likes?.map((user) => (
+                            <Link key={user.name} to={`/user/${user.name}`}>
+                                <img
+                                    className="rounded inline-block align-bottom mr-1"
+                                    src={user.profile_mini_image_url}
+                                    alt={`${user.display_name}'s Avatar`}
+                                    title={user.display_name}
+                                    width={30}
+                                    height={30}
+                                />
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            ) : null}
 
             {showActions && (
                 <div className="flex gap-4">

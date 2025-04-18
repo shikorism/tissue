@@ -283,6 +283,7 @@ export interface components {
             /** @enum {string} */
             source: "web" | "csv" | "webhook" | "api";
             user: components["schemas"]["User"];
+            likes?: components["schemas"]["User"][];
             likes_count?: number;
             is_liked?: boolean;
         };
