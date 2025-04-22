@@ -16,8 +16,11 @@ export const GlobalNavigation: React.FC = () => {
                 <NavItem to="/">
                     <i className="ti ti-home text-2xl text-neutral-600"></i>ホーム
                 </NavItem>
+                <NavItem to="/search">
+                    <i className="ti ti-search text-2xl text-neutral-600"></i>検索
+                </NavItem>
                 <NavItem to="/timeline/public">
-                    <i className="ti ti-search text-2xl text-neutral-600"></i>お惣菜
+                    <i className="ti ti-layout-grid text-2xl text-neutral-600"></i>お惣菜
                 </NavItem>
                 <NavItem to="/tag">
                     <i className="ti ti-tags text-2xl text-neutral-600"></i>タグ一覧
