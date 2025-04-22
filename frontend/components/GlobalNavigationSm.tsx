@@ -10,7 +10,7 @@ export const GlobalNavigationSm: React.FC = () => {
             <Link to="/" className="flex-1 py-4 active:bg-neutral-300">
                 <i className="ti ti-home text-2xl text-neutral-600" />
             </Link>
-            <Link to="/timeline/public" className="flex-1 py-4 active:bg-neutral-300">
+            <Link to="/search" className="flex-1 py-4 active:bg-neutral-300">
                 <i className="ti ti-search text-2xl text-neutral-600" />
             </Link>
             {me && (
