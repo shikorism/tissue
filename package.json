@@ -62,7 +62,7 @@
     "stylelint-config-recess-order": "^3.1.0",
     "typescript": "^5.5.4",
     "typescript-eslint": "^8.27.0",
-    "vite": "^6.2.3"
+    "vite": "^6.3.3"
   },
   "stylelint": {
     "customSyntax": "postcss-scss",
