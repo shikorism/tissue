@@ -11,7 +11,6 @@ export const getMeQuery = ({ refetchOnMount } = { refetchOnMount: false }) =>
     queryOptions({
         queryKey: ['me'],
         queryFn: () => fetchClient.GET('/me').then((response) => response.data),
-        staleTime: 60000,
         refetchOnMount,
     });
 

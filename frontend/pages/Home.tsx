@@ -7,7 +7,7 @@ import { Checkin } from '../components/Checkin';
 import { formatOrDefault, formatNumber, formatInterval } from '../lib/formatter';
 
 export const loader = (queryClient: QueryClient) => async () => {
-    await queryClient.refetchQueries(getMeQuery()); // TODO: /api/meをfreshにするのやめてensureQueryDataにしたほうがいいかも
+    await queryClient.prefetchQuery(getMeQuery()); // ステータス欄の情報を最新にするため、常に再読み込み
     await queryClient.ensureQueryData(getTimelinesPublicQuery());
 };
 

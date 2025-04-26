@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { useGetMe } from '../api/hooks';
 import { BrandLogo } from './BrandLogo';
+import { useCurrentUser } from './AuthProvider';
 
 export const GlobalNavigation: React.FC = () => {
-    const { data: me } = useGetMe();
+    const { user: me } = useCurrentUser();
 
     return (
         <nav className="hidden md:flex flex-col fixed left-0 top-0 bottom-0 w-(--global-nav-width) p-4 bg-gray-back">
