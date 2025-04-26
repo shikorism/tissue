@@ -43,7 +43,7 @@ export const LinkCard: React.FC<Props> = ({ className, link, isTooSensitive = fa
                     )}
                     <div className="p-5 flex-1 max-h-[400px] overflow-hidden">
                         {data.title && <h6 className="font-bold mb-3">{data.title}</h6>}
-                        {data.description && <p className="text-sm whitespace-pre-line">{data.description}</p>}
+                        {data.description && <p className="text-xs whitespace-pre-line">{data.description}</p>}
                     </div>
                 </div>
             </a>
