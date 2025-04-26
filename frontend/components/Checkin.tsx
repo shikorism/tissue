@@ -36,7 +36,7 @@ export const Checkin: React.FC<Props> = ({ checkin, className, showActions }) =>
             </h5>
 
             {(checkin.is_private || checkin.source === 'csv' || checkin.tags.length > 0) && (
-                <ul className="text-xs font-bold text-white flex flex-wrap gap-[0.6ch]">
+                <ul className="text-2xs font-bold text-white flex flex-wrap gap-[0.6ch]">
                     {checkin.is_private && <li>非公開</li>}
                     {checkin.source === 'csv' && <li>インポート</li>}
                     {checkin.tags.map((tag) => (
