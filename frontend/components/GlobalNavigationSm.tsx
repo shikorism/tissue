@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { useGetMe } from '../api/hooks';
+import { useCurrentUser } from './AuthProvider';
 
 export const GlobalNavigationSm: React.FC = () => {
-    const { data: me } = useGetMe();
+    const { user: me } = useCurrentUser();
 
     return (
         <nav className="flex md:hidden fixed left-0 right-0 bottom-0 h-(--global-nav-height) z-10 bg-gray-back items-center text-center">

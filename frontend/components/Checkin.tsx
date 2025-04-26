@@ -6,7 +6,7 @@ import type { components } from '../api/schema';
 import { cn } from '../lib/cn';
 import { ExternalLink } from './ExternalLink';
 import { LinkCard } from './LinkCard';
-import { useGetMe } from '../api/hooks';
+import { useCurrentUser } from './AuthProvider';
 
 interface Props {
     checkin: components['schemas']['Checkin'];
@@ -15,7 +15,7 @@ interface Props {
 }
 
 export const Checkin: React.FC<Props> = ({ checkin, className, showActions }) => {
-    const { data: me } = useGetMe();
+    const { user: me } = useCurrentUser();
 
     return (
         <article className={cn('py-4 flex flex-col gap-2 break-words', className)}>
