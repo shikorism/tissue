@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ProgressProvider } from '@bprogress/react';
 import { BaseLayout } from './layouts/BaseLayout';
 import { Home, loader as homeLoader } from './pages/Home';
 import { PublicTimeline, loader as publicTimelineLoader } from './pages/PublicTimeline';
@@ -35,7 +36,9 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById('app') as HTMLElement).render(
     <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <ReactQueryDevtools />
+        <ProgressProvider color="#e53fb1">
+            <RouterProvider router={router} />
+            <ReactQueryDevtools />
+        </ProgressProvider>
     </QueryClientProvider>,
 );
