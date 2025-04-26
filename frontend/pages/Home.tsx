@@ -1,13 +1,19 @@
 import React from 'react';
 import { subSeconds, format } from 'date-fns';
-import { useGetMe, useGetTimelinesPublic } from '../api/hooks';
-import { formatOrDefault, formatNumber, formatInterval } from '../lib/formatter';
-import { Checkin } from '../components/Checkin';
 import { Link } from 'react-router';
+import { QueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getMeQuery, getTimelinesPublicQuery } from '../api/query';
+import { Checkin } from '../components/Checkin';
+import { formatOrDefault, formatNumber, formatInterval } from '../lib/formatter';
+
+export const loader = (queryClient: QueryClient) => async () => {
+    await queryClient.refetchQueries(getMeQuery()); // TODO: /api/meをfreshにするのやめてensureQueryDataにしたほうがいいかも
+    await queryClient.ensureQueryData(getTimelinesPublicQuery());
+};
 
 export const Home: React.FC = () => {
-    const { data: me } = useGetMe({ refetchOnMount: true });
-    const { data: timeline } = useGetTimelinesPublic();
+    const { data: me } = useSuspenseQuery(getMeQuery());
+    const { data: timeline } = useSuspenseQuery(getTimelinesPublicQuery());
 
     return (
         <div className="p-4">

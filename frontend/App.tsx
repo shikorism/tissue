@@ -4,8 +4,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { BaseLayout } from './layouts/BaseLayout';
-import { Home } from './pages/Home';
-import { PublicTimeline } from './pages/PublicTimeline';
+import { Home, loader as homeLoader } from './pages/Home';
+import { PublicTimeline, loader as publicTimelineLoader } from './pages/PublicTimeline';
 import { NotFound } from './pages/NotFound';
 import './App.css';
 
@@ -24,8 +24,8 @@ const router = createBrowserRouter(
             path: '/',
             element: <BaseLayout />,
             children: [
-                { index: true, element: <Home /> },
-                { path: 'timeline/public', element: <PublicTimeline /> },
+                { index: true, element: <Home />, loader: homeLoader(queryClient) },
+                { path: 'timeline/public', element: <PublicTimeline />, loader: publicTimelineLoader(queryClient) },
                 { path: '*', element: <NotFound /> },
             ],
         },
