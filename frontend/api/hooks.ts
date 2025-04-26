@@ -1,5 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { fetchClient } from './client';
+import type { paths } from './schema';
 
 const totalCount = (response: Response): number | undefined => {
     const total = response.headers.get('X-Total-Count');
@@ -14,17 +15,21 @@ export const useGetMe = ({ refetchOnMount } = { refetchOnMount: false }) =>
         refetchOnMount,
     });
 
-export const useGetTimelinesPublic = () =>
+export const useGetTimelinesPublic = (
+    query?: paths['/timelines/public']['get']['parameters']['query'],
+    keepPrevious: boolean = false,
+) =>
     useQuery({
-        queryKey: ['timelines/public'],
+        queryKey: ['timelines/public', query],
         queryFn: () =>
-            fetchClient.GET('/timelines/public').then(
+            fetchClient.GET('/timelines/public', { params: { query } }).then(
                 (response) =>
                     response.data && {
                         totalCount: totalCount(response.response),
                         data: response.data,
                     },
             ),
+        placeholderData: keepPrevious ? keepPreviousData : undefined,
     });
 
 export const useGetMetadata = (url: string) =>
