@@ -17,4 +17,6 @@ model Checkin {
   likes?: User[];
   likes_count?: integer;
   is_liked?: boolean;
+  checkin_interval?: integer;
+  previous_checked_in_at?: offsetDateTime;
 }

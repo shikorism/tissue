@@ -286,6 +286,9 @@ export interface components {
             likes?: components["schemas"]["User"][];
             likes_count?: number;
             is_liked?: boolean;
+            checkin_interval?: number;
+            /** Format: date-time */
+            previous_checked_in_at?: string;
         };
         /** @description チェックインの概況 */
         CheckinSummary: {
