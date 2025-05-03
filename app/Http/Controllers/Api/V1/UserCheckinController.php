@@ -58,6 +58,7 @@ discard_elapsed_time,
 user_id
 SQL
         ))
+            ->withInterval()
             ->where('user_id', $user->id);
         if ($request->boolean('has_link')) {
             $query = $query->where('link', '<>', '');
