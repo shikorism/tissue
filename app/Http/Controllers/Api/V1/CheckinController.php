@@ -75,6 +75,7 @@ class CheckinController extends Controller
                 throw new AccessDeniedHttpException('非公開チェックインのため、表示できません');
             }
         }
+        $checkin->ensureInterval();
 
         return new EjaculationResource($checkin);
     }
