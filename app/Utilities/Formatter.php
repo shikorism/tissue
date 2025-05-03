@@ -50,7 +50,7 @@ class Formatter
         $url = urldecode($url);
 
         // Remove Hashbang
-        $url = preg_replace('~/#!/~u', '/', $url);
+        $url = str_replace('/#!/', '/', $url);
 
         // Sort query parameters
         $parts = parse_url($url);
