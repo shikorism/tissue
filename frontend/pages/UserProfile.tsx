@@ -157,6 +157,9 @@ interface RecentCheckinProps {
 
 const RecentCheckin: React.FC<RecentCheckinProps> = ({ user }) => {
     const { data: checkins } = useSuspenseQuery(getUserCheckinsQuery(user.name));
+    if (checkins.data.length === 0) {
+        return null;
+    }
 
     return (
         <div>
@@ -166,7 +169,7 @@ const RecentCheckin: React.FC<RecentCheckinProps> = ({ user }) => {
                     もっと見る &raquo;
                 </Link>
             </div>
-            {checkins.data.length >= 1 ? <Checkin checkin={checkins.data[0]} showInterval showActions /> : null}
+            <Checkin checkin={checkins.data[0]} showInterval showActions />
         </div>
     );
 };
