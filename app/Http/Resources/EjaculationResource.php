@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Like;
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class EjaculationResource extends JsonResource
@@ -29,6 +30,8 @@ class EjaculationResource extends JsonResource
             'is_liked' => $this->whenHas('is_liked'),
             'likes' => $this->whenLoaded('likes', fn ($likes) => UserResource::collection($likes->pluck('user'))),
             'likes_count' => $this->whenHas('likes_count'),
+            'checkin_interval' => $this->whenHas('checkin_interval', fn ($interval) => (int) $interval),
+            'previous_checked_in_at' => $this->whenHas('previous_checked_in_at', fn ($date) => (new Carbon($date, config('app.timezone')))->format(\DateTime::ATOM)),
         ];
     }
 }
