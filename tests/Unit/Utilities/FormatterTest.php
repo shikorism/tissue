@@ -67,6 +67,14 @@ class FormatterTest extends TestCase
         $this->assertEquals('http://example.com/path/to?foo=bar&hoge=fuga', $formatter->normalizeUrl($url));
     }
 
+    public function testNormalizeUrlWithShiftJisFormat()
+    {
+        $formatter = new Formatter();
+
+        $url = 'http://example.com/?q=%82%B5%82%B1%82%B5%82%B1'; // 「しこしこ」のShift_JIS表現
+        $this->assertEquals($url, $formatter->normalizeUrl($url));
+    }
+
     public function testProfileImageSrcSet()
     {
         $formatter = new Formatter();

@@ -1,0 +1,9 @@
+services:
+  web:
+    env_file: !reset []
+    environment:
+      APP_DEBUG: true
+  scheduler:
+    env_file: !reset []
+  front:
+    env_file: !reset []

@@ -73,8 +73,8 @@ const Sidebar: React.FC<SidebarProps> = ({ collections }) => {
             if (response.status === 201) {
                 const createdItem = await response.json();
                 showToast('作成しました', { color: 'success', delay: 5000 });
-                queryClient.invalidateQueries(['MyCollections']);
-                queryClient.invalidateQueries(['Collections', createdItem.user_name]);
+                queryClient.invalidateQueries({ queryKey: ['MyCollections'] });
+                queryClient.invalidateQueries({ queryKey: ['Collections', createdItem.user_name] });
                 setShowCreateModal(false);
                 navigate(`/user/${createdItem.user_name}/collections/${createdItem.id}`);
                 return;

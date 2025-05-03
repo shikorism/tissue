@@ -4,7 +4,7 @@
 @endpush
 
 @section('content')
-@if (!empty($informations))
+@if ($informations->isNotEmpty())
 <div class="mt-n4 mb-4 pt-2 bg-light border-top border-bottom">
     <div class="container d-flex" style="gap: .5rem;">
         <div class="flex-shrink-0 font-weight-bold"><i class="ti ti-info-circle"></i></div>
