@@ -7,33 +7,47 @@ import { cn } from '../lib/cn';
 import { ExternalLink } from './ExternalLink';
 import { LinkCard } from './LinkCard';
 import { useCurrentUser } from './AuthProvider';
+import { formatInterval } from '../lib/formatter';
 
 interface Props {
     checkin: components['schemas']['Checkin'];
     className?: string;
+    showInterval?: boolean;
     showActions?: boolean;
 }
 
-export const Checkin: React.FC<Props> = ({ checkin, className, showActions }) => {
+export const Checkin: React.FC<Props> = ({ checkin, className, showInterval, showActions }) => {
     const { user: me } = useCurrentUser();
 
     return (
         <article className={cn('py-4 flex flex-col gap-2 break-words', className)}>
-            <h5>
-                <Link to={`/user/${checkin.user.name}`} className="mr-1 hover:underline">
-                    <img
-                        className="rounded inline-block align-bottom mr-1"
-                        src={checkin.user.profile_mini_image_url}
-                        alt={`${checkin.user.display_name}'s Avatar`}
-                        width={30}
-                        height={30}
-                    />
-                    <bdi className="text-xl font-medium">{checkin.user.display_name}</bdi>
-                </Link>
-                <Link to={`/checkin/${checkin.id}`} className="text-secondary hover:underline">
-                    {formatDate(checkin.checked_in_at, 'yyyy/MM/dd HH:mm')}
-                </Link>
-            </h5>
+            {showInterval && checkin.checkin_interval ? (
+                <h5>
+                    <span className="text-xl font-medium mr-2">{formatInterval(checkin.checkin_interval)}</span>
+                    <Link to={`/checkin/${checkin.id}`} className="text-secondary hover:underline">
+                        {!checkin.discard_elapsed_time && checkin.previous_checked_in_at
+                            ? `${formatDate(checkin.previous_checked_in_at, 'yyyy/MM/dd HH:mm')} 〜 `
+                            : ''}
+                        {formatDate(checkin.checked_in_at, 'yyyy/MM/dd HH:mm')}
+                    </Link>
+                </h5>
+            ) : (
+                <h5>
+                    <Link to={`/user/${checkin.user.name}`} className="mr-1 hover:underline">
+                        <img
+                            className="rounded inline-block align-bottom mr-1"
+                            src={checkin.user.profile_mini_image_url}
+                            alt={`${checkin.user.display_name}'s Avatar`}
+                            width={30}
+                            height={30}
+                        />
+                        <bdi className="text-xl font-medium">{checkin.user.display_name}</bdi>
+                    </Link>
+                    <Link to={`/checkin/${checkin.id}`} className="text-secondary hover:underline">
+                        {formatDate(checkin.checked_in_at, 'yyyy/MM/dd HH:mm')}
+                    </Link>
+                </h5>
+            )}
 
             {(checkin.is_private || checkin.source === 'csv' || checkin.tags.length > 0) && (
                 <ul className="text-2xs font-bold text-white flex flex-wrap gap-[0.6ch]">

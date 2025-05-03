@@ -166,7 +166,7 @@ const RecentCheckin: React.FC<RecentCheckinProps> = ({ user }) => {
                     もっと見る &raquo;
                 </Link>
             </div>
-            {checkins.data.length >= 1 ? <Checkin checkin={checkins.data[0]} /> : null}
+            {checkins.data.length >= 1 ? <Checkin checkin={checkins.data[0]} showInterval showActions /> : null}
         </div>
     );
 };
