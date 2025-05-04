@@ -43,7 +43,7 @@ class CheckinCsvExporter
                     foreach ($ejaculations as $ejaculation) {
                         $record = [
                             $ejaculation->ejaculated_date->format('Y/m/d H:i'),
-                            $ejaculation->note,
+                            preg_replace('/(\\\r(?!\\\n)|(?<!\\\r)\\\n)/', '\r\n', $ejaculation->note),
                             $ejaculation->link,
                             self::formatBoolean($ejaculation->is_private),
                             self::formatBoolean($ejaculation->is_too_sensitive),
