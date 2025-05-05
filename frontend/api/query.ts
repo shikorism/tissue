@@ -42,6 +42,18 @@ export const getUserStatsTagsQuery = (
                 .then((response) => ensure(response.data)),
     });
 
+export const getUserStatsCheckinDailyQuery = (
+    username: string,
+    query?: paths['/users/{username}/stats/checkin/daily']['get']['parameters']['query'],
+) =>
+    queryOptions({
+        queryKey: ['/users/{username}/stats/checkin/daily', username, query],
+        queryFn: () =>
+            fetchClient
+                .GET('/users/{username}/stats/checkin/daily', { params: { path: { username }, query } })
+                .then((response) => ensure(response.data)),
+    });
+
 export const getUserCheckinsQuery = (
     username: string,
     query?: paths['/users/{username}/checkins']['get']['parameters']['query'],

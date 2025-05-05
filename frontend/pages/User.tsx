@@ -13,7 +13,7 @@ export const User: React.FC = () => {
     const { data: user } = useSuspenseQuery(getUserQuery(username));
 
     return (
-        <>
+        <div className="flex flex-col h-screen">
             <div className="px-4 pt-4 flex flex-col gap-2 border-b-1 border-gray-border">
                 <div className="flex items-end gap-1">
                     <img
@@ -38,7 +38,7 @@ export const User: React.FC = () => {
                                 プロフィール
                             </Link>
                         </Tab>
-                        <Tab active={location.pathname === `/user/${user.name}/checkins`}>
+                        <Tab active={location.pathname.startsWith(`/user/${user.name}/checkins`)}>
                             <Link to={`/user/${user.name}/checkins`} className="block px-4 md:px-5 py-3">
                                 チェックイン
                             </Link>
@@ -67,7 +67,7 @@ export const User: React.FC = () => {
                 </div>
             </div>
             <Outlet />
-        </>
+        </div>
     );
 };
 
