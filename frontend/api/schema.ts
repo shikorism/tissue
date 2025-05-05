@@ -1037,6 +1037,9 @@ export interface operations {
             query?: {
                 page?: number;
                 per_page?: number;
+                order?: "asc" | "desc";
+                since?: string;
+                until?: string;
                 has_link?: boolean;
             };
             header?: never;
