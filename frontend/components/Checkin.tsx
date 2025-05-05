@@ -50,14 +50,22 @@ export const Checkin: React.FC<Props> = ({ checkin, className, showInterval, sho
             )}
 
             {(checkin.is_private || checkin.source === 'csv' || checkin.tags.length > 0) && (
-                <ul className="text-2xs font-bold text-white flex flex-wrap gap-[0.6ch]">
-                    {checkin.is_private && <li>非公開</li>}
-                    {checkin.source === 'csv' && <li>インポート</li>}
+                <ul className="text-2xs font-bold flex flex-wrap gap-[0.6ch]">
+                    {checkin.is_private && (
+                        <li className="inline-block px-2 py-1 max-w-full rounded text-black bg-warning break-all whitespace-normal">
+                            <i className="ti ti-lock mr-0.5" /> 非公開
+                        </li>
+                    )}
+                    {checkin.source === 'csv' && (
+                        <li className="inline-block px-2 py-1 max-w-full rounded text-white bg-info break-all whitespace-normal">
+                            <i className="ti ti-cloud-upload mr-0.5" /> インポート
+                        </li>
+                    )}
                     {checkin.tags.map((tag) => (
                         <li key={tag}>
                             <Link
                                 to={{ pathname: `/search`, search: `?q=${tag}` }}
-                                className="inline-block px-2 py-1 max-w-full rounded bg-neutral-500 hover:bg-neutral-600 break-all whitespace-normal"
+                                className="inline-block px-2 py-1 max-w-full rounded text-white bg-neutral-500 hover:bg-neutral-600 break-all whitespace-normal"
                             >
                                 <i className="ti ti-tag-filled mr-0.5" />
                                 {tag}
