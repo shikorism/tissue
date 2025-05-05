@@ -22,6 +22,9 @@ namespace Users {
       @maxValue(100)
       per_page?: int32 = 20,
 
+      @query order?: "asc" | "desc" = "desc",
+      @query since?: plainDate,
+      @query until?: plainDate,
       @query has_link?: boolean = false,
     ): {
       @header xTotalCount: int32;
