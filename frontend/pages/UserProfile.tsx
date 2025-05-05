@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLoaderData } from 'react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import Linkify from 'linkify-react';
-import { getUserCheckinsQuery, getUserQuery, getUserStatsTagsQuery } from '../api/query';
+import { getUserCheckinsQuery, getUserQuery, getUserStatsCheckinDailyQuery, getUserStatsTagsQuery } from '../api/query';
 import type { components } from '../api/schema';
 import { Checkin } from '../components/Checkin';
 import { ExternalLink } from '../components/ExternalLink';
@@ -10,6 +10,7 @@ import { LoaderData } from './UserProfile.loader';
 import { formatInterval, formatNumber, formatOrDefault } from '../lib/formatter';
 import { format, subSeconds } from 'date-fns';
 import { useCurrentUser } from '../components/AuthProvider';
+import { CheckinHeatmap } from '../components/CheckinHeatmap';
 
 export const UserProfile: React.FC = () => {
     const { user: me } = useCurrentUser();
@@ -72,7 +73,9 @@ interface ActivityProps {
 }
 
 const Activity: React.FC<ActivityProps> = ({ user }) => {
+    const { statsCheckinDailyQuery } = useLoaderData<LoaderData>();
     const { data: tags } = useSuspenseQuery(getUserStatsTagsQuery(user.name));
+    const { data: checkinStats } = useSuspenseQuery(getUserStatsCheckinDailyQuery(user.name, statsCheckinDailyQuery));
 
     return (
         <div>
@@ -81,6 +84,9 @@ const Activity: React.FC<ActivityProps> = ({ user }) => {
                 <Link to={`/user/${user.name}/stats`} className="text-primary hover:brightness-80 hover:underline">
                     グラフを見る &raquo;
                 </Link>
+            </div>
+            <div className="mt-4">
+                <CheckinHeatmap startDate={statsCheckinDailyQuery.since} data={checkinStats} />
             </div>
             <div className="mt-4 max-w-[1000px] flex flex-col md:flex-row">
                 <div className="flex-1 text-start">
