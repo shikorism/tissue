@@ -27,8 +27,8 @@ export const UserCheckins: React.FC = () => {
     }
 
     return (
-        <div className="flex grow-1">
-            <div className="w-[280px] p-4 lg:border-r-1 border-gray-border">
+        <div className="flex flex-col lg:flex-row grow-1">
+            <div className="p-4 pb-8 lg:w-[280px] border-b-1 lg:border-b-0 lg:border-r-1 border-gray-border">
                 <Calendar initialDate={currentDate} />
             </div>
             <div className="flex-1 px-4">
@@ -141,7 +141,7 @@ const Calendar: React.FC<CalendarParams> = ({ initialDate }) => {
         <div>
             <div className="flex items-center gap-2">
                 <button
-                    className="flex-1 aspect-square rounded hover:bg-neutral-100"
+                    className="flex-1 max-w-[48px] aspect-square rounded hover:bg-neutral-100"
                     onClick={() => setCurrentDate(addMonths(currentDate, -1))}
                 >
                     <i className="ti ti-caret-left-filled text-lg" />
@@ -155,7 +155,7 @@ const Calendar: React.FC<CalendarParams> = ({ initialDate }) => {
                     </Link>
                 </div>
                 <button
-                    className="flex-1 aspect-square rounded hover:bg-neutral-100"
+                    className="flex-1 max-w-[48px] aspect-square rounded hover:bg-neutral-100"
                     onClick={() => setCurrentDate(addMonths(currentDate, 1))}
                 >
                     <i className="ti ti-caret-right-filled text-lg" />
