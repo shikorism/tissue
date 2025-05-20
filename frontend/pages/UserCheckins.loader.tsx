@@ -20,11 +20,13 @@ export const loader =
 
         const url = new URL(request.url);
         const page = parseInt(url.searchParams.get('page') ?? '1', 10);
+        const link = url.searchParams.get('link') === '1';
 
         const checkinsQuery: LoaderData['checkinsQuery'] = {
             ...rangeFromDateComponents(year, month, date),
             page,
             per_page: PER_PAGE,
+            has_link: link,
         };
         if (year || month || date) {
             checkinsQuery.order = 'asc';

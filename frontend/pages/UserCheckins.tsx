@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { startOfMonth, endOfMonth, getDaysInMonth, addDays, formatDate, isSameDay, addMonths } from 'date-fns';
-import { Link, useLoaderData, useParams } from 'react-router';
+import { Link, useLoaderData, useParams, useSearchParams } from 'react-router';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { getUserCheckinsQuery, getUserStatsCheckinDailyQuery } from '../api/query';
 import { LoaderData, PER_PAGE } from './UserCheckins.loader';
@@ -11,6 +11,7 @@ import { cn } from '../lib/cn';
 
 export const UserCheckins: React.FC = () => {
     const params = useParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const { username, checkinsQuery } = useLoaderData<LoaderData>();
     const {
         data: { data, totalCount },
@@ -30,6 +31,21 @@ export const UserCheckins: React.FC = () => {
         <div className="flex flex-col lg:flex-row grow-1">
             <div className="p-4 pb-8 lg:w-[280px] border-b-1 lg:border-b-0 lg:border-r-1 border-gray-border">
                 <Calendar initialDate={currentDate} />
+                <div className="mt-2">
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={searchParams.get('link') === '1'}
+                            onChange={() =>
+                                setSearchParams((prev) => {
+                                    prev.set('link', searchParams.get('link') === '1' ? '0' : '1');
+                                    return prev;
+                                })
+                            }
+                        />
+                        <span className="ml-2">オカズ付きのみ</span>
+                    </label>
+                </div>
             </div>
             <div className="flex-1 px-4">
                 {(params.year || params.month || params.date) && (
