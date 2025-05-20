@@ -50,11 +50,6 @@ export const User: React.FC = () => {
                         </Tab>
                         <Tab>
                             <Link to="" className="block px-4 md:px-5 py-3">
-                                オカズ
-                            </Link>
-                        </Tab>
-                        <Tab>
-                            <Link to="" className="block px-4 md:px-5 py-3">
                                 いいね
                             </Link>
                         </Tab>
