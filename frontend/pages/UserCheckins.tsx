@@ -53,7 +53,10 @@ export const UserCheckins: React.FC = () => {
                         {params.year && (
                             <div>
                                 <Link
-                                    to={`/user/${username}/checkins/${params.year}`}
+                                    to={{
+                                        pathname: `/user/${username}/checkins/${params.year}`,
+                                        search: searchParams.toString(),
+                                    }}
                                     className="hover:brightness-80 hover:underline"
                                 >
                                     {params.year}年
@@ -64,7 +67,10 @@ export const UserCheckins: React.FC = () => {
                             <div>
                                 <i className="ti ti-chevron-right mr-2" />
                                 <Link
-                                    to={`/user/${username}/checkins/${params.year}/${params.month}`}
+                                    to={{
+                                        pathname: `/user/${username}/checkins/${params.year}/${params.month}`,
+                                        search: searchParams.toString(),
+                                    }}
                                     className="hover:brightness-80 hover:underline"
                                 >
                                     {params.month}月
@@ -75,7 +81,10 @@ export const UserCheckins: React.FC = () => {
                             <div>
                                 <i className="ti ti-chevron-right mr-2" />
                                 <Link
-                                    to={`/user/${username}/checkins/${params.year}/${params.month}/${params.date}`}
+                                    to={{
+                                        pathname: `/user/${username}/checkins/${params.year}/${params.month}/${params.date}`,
+                                        search: searchParams.toString(),
+                                    }}
                                     className="hover:brightness-80 hover:underline"
                                 >
                                     {params.date}日
@@ -102,6 +111,7 @@ interface CalendarParams {
 }
 
 const Calendar: React.FC<CalendarParams> = ({ initialDate }) => {
+    const [searchParams] = useSearchParams();
     const { username } = useLoaderData<LoaderData>();
     const [currentDate, setCurrentDate] = useState(initialDate || new Date());
 
@@ -137,7 +147,10 @@ const Calendar: React.FC<CalendarParams> = ({ initialDate }) => {
         cells.push(
             <Link
                 key={date.getDate()}
-                to={`/user/${username}/checkins/${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`}
+                to={{
+                    pathname: `/user/${username}/checkins/${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`,
+                    search: searchParams.toString(),
+                }}
                 title={`${formatDate(date, 'yyyy年M月d日')} (${count}回)`}
             >
                 <div
@@ -164,7 +177,10 @@ const Calendar: React.FC<CalendarParams> = ({ initialDate }) => {
                 </button>
                 <div className="flex-4 text-center">
                     <Link
-                        to={`/user/${username}/checkins/${currentDate.getFullYear()}/${currentDate.getMonth() + 1}`}
+                        to={{
+                            pathname: `/user/${username}/checkins/${currentDate.getFullYear()}/${currentDate.getMonth() + 1}`,
+                            search: searchParams.toString(),
+                        }}
                         className="hover:underline"
                     >
                         {formatDate(startOfMon, 'yyyy年M月')}
