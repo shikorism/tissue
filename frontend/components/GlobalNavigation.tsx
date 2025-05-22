@@ -40,17 +40,14 @@ export const GlobalNavigation: React.FC = () => {
                         </ul>
                         <h2 className="mt-4 mb-2 px-2 text-sm font-bold">マイデータ</h2>
                         <ul>
-                            <NavItem to={`/user/${me.name}`}>
-                                <i className="ti ti-list text-2xl text-neutral-600"></i>タイムライン
+                            <NavItem to={`/user/${me.name}/checkins`}>
+                                <i className="ti ti-list text-2xl text-neutral-600"></i>チェックイン
                             </NavItem>
                             <NavItem to={`/user/${me.name}/stats`}>
                                 <i className="ti ti-timeline text-2xl text-neutral-600"></i>グラフ
                             </NavItem>
-                            <NavItem to={`/user/${me.name}/okazu`}>
-                                <i className="ti ti-books text-2xl text-neutral-600"></i>オカズ
-                            </NavItem>
                             <NavItem to={`/user/${me.name}/likes`}>
-                                <i className="ti ti-heart text-2xl text-neutral-600"></i>いいね履歴
+                                <i className="ti ti-heart text-2xl text-neutral-600"></i>いいね
                             </NavItem>
                             <NavItem to={`/user/${me.name}/collections`}>
                                 <i className="ti ti-folder text-2xl text-neutral-600"></i>コレクション
