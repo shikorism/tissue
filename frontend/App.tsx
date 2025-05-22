@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { RouterProvider, createBrowserRouter } from 'react-router';
+import { RouterProvider, createBrowserRouter, Navigate } from 'react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ProgressProvider } from '@bprogress/react';
@@ -43,6 +43,10 @@ const router = createBrowserRouter(
                             path: 'checkins/:year?/:month?/:date?',
                             element: <UserCheckins />,
                             loader: userCheckinsLoader(queryClient),
+                        },
+                        {
+                            path: 'okazu',
+                            element: <Navigate to="../checkins?link=1" replace />,
                         },
                     ],
                 },
