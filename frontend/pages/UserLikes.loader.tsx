@@ -3,7 +3,7 @@ import { LoaderFunctionArgs } from 'react-router';
 import { getUserLikesQuery } from '../api/query';
 import type { paths } from '../api/schema';
 
-export const PER_PAGE = 20;
+export const PER_PAGE = 24;
 
 export interface LoaderData {
     username: string;

@@ -7,7 +7,7 @@ import { Pagination } from '../components/Pagination';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 import type { paths } from '../api/schema';
 
-const PER_PAGE = 20;
+const PER_PAGE = 24;
 
 interface LoaderData {
     query: paths['/timelines/public']['get']['parameters']['query'];

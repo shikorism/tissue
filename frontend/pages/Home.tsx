@@ -8,12 +8,12 @@ import { formatOrDefault, formatNumber, formatInterval } from '../lib/formatter'
 
 export const loader = (queryClient: QueryClient) => async () => {
     await queryClient.prefetchQuery(getMeQuery()); // ステータス欄の情報を最新にするため、常に再読み込み
-    await queryClient.ensureQueryData(getTimelinesPublicQuery());
+    await queryClient.ensureQueryData(getTimelinesPublicQuery({ per_page: 24 }));
 };
 
 export const Home: React.FC = () => {
     const { data: me } = useSuspenseQuery(getMeQuery());
-    const { data: timeline } = useSuspenseQuery(getTimelinesPublicQuery());
+    const { data: timeline } = useSuspenseQuery(getTimelinesPublicQuery({ per_page: 24 }));
 
     return (
         <div className="p-4">
