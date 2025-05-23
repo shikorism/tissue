@@ -70,6 +70,22 @@ export const getUserCheckinsQuery = (
             ),
     });
 
+export const getUserLikesQuery = (
+    username: string,
+    query?: paths['/users/{username}/likes']['get']['parameters']['query'],
+) =>
+    queryOptions({
+        queryKey: ['/users/{username}/likes', username, query],
+        queryFn: () =>
+            fetchClient.GET('/users/{username}/likes', { params: { path: { username }, query } }).then(
+                (response) =>
+                    ensure(response.data) && {
+                        totalCount: totalCount(response.response),
+                        data: ensure(response.data),
+                    },
+            ),
+    });
+
 export const getTimelinesPublicQuery = (
     query?: paths['/timelines/public']['get']['parameters']['query'],
     keepPrevious: boolean = false,

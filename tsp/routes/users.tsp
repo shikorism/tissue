@@ -49,6 +49,23 @@ namespace Users {
     } | Error;
   }
 
+  @route("/likes")
+  namespace Likes {
+    @operationId("users-likes-list")
+    op list(
+      @path username: string,
+      @query page?: int32 = 1,
+
+      @query
+      @minValue(20)
+      @maxValue(100)
+      per_page?: int32 = 20,
+    ): {
+      @header xTotalCount: int32;
+      @body body: Checkin[];
+    } | Error;
+  }
+
   @route("/stats")
   namespace Stats {
     @route("/checkin")
