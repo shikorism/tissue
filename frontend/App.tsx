@@ -12,6 +12,8 @@ import { UserProfile } from './pages/UserProfile';
 import { loader as userProfileLoader } from './pages/UserProfile.loader';
 import { UserCheckins } from './pages/UserCheckins';
 import { loader as userCheckinsLoader } from './pages/UserCheckins.loader';
+import { UserLikes } from './pages/UserLikes';
+import { loader as userLikesLoader } from './pages/UserLikes.loader';
 import { PublicTimeline, loader as publicTimelineLoader } from './pages/PublicTimeline';
 import { NotFound } from './pages/NotFound';
 import './App.css';
@@ -43,6 +45,11 @@ const router = createBrowserRouter(
                             path: 'checkins/:year?/:month?/:date?',
                             element: <UserCheckins />,
                             loader: userCheckinsLoader(queryClient),
+                        },
+                        {
+                            path: 'likes',
+                            element: <UserLikes />,
+                            loader: userLikesLoader(queryClient),
                         },
                         {
                             path: 'okazu',

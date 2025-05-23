@@ -29,6 +29,7 @@ Route::middleware('stateful')->group(function () {
 
         Route::apiResource('users', 'Api\\V1\\UserController')->only(['show']);
         Route::apiResource('users.checkins', 'Api\\V1\\UserCheckinController')->only(['index']);
+        Route::apiResource('users.likes', 'Api\\V1\\UserLikeController')->only(['index']);
         Route::apiResource('users.collections', 'Api\\UserCollectionController')->only(['index']);
         Route::apiResource('collections', 'Api\\V1\\CollectionController')->only(['show']);
         Route::apiResource('collections.items', 'Api\\V1\\CollectionItemController')->only(['index']);
