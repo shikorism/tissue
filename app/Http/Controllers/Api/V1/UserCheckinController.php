@@ -32,7 +32,8 @@ is_private,
 is_too_sensitive,
 link,
 source,
-discard_elapsed_time
+discard_elapsed_time,
+user_id
 SQL
         ))
             ->where('user_id', $user->id);
@@ -43,7 +44,7 @@ SQL
             $query = $query->where('is_private', false);
         }
         $ejaculations = $query->orderBy('ejaculated_date', 'desc')
-            ->with('tags')
+            ->with('tags', 'user')
             ->withLikes()
             ->withMutedStatus()
             ->paginate($inputs['per_page'] ?? 20);
