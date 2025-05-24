@@ -58,8 +58,9 @@ Route::middleware(['throttle:60,1', 'auth:api'])
         Route::get('me', 'MeController@show')->name('me.show');
         Route::apiResource('users', 'UserController')->only(['show']);
         Route::apiResource('users.checkins', 'UserCheckinController')->only(['index']);
-        Route::apiResource('checkins', 'CheckinController')->except(['index']);
         Route::apiResource('users.collections', 'UserCollectionController')->only(['index']);
+        Route::apiResource('users.likes', 'UserLikeController')->only(['index']);
+        Route::apiResource('checkins', 'CheckinController')->except(['index']);
         Route::apiResource('collections', 'CollectionController')->except(['index']);
         Route::apiResource('collections.items', 'CollectionItemController')->except(['show']);
 
