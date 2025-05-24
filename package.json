@@ -45,7 +45,7 @@
     "jquery": "^3.7.1",
     "js-cookie": "^3.0.5",
     "laravel-vite-plugin": "^1.2.0",
-    "lint-staged": "^10.5.3",
+    "lint-staged": "^16.0.0",
     "npm-run-all2": "^6.2.2",
     "popper.js": "^1.14.7",
     "postcss": "^8.4.41",
