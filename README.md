@@ -15,11 +15,10 @@ a.k.a. shikorism.net
 - PHP 8.2
 - PostgreSQL 14
 
-> [!WARNING]
-> 2021年11月以前に環境を構築したことがある場合、データベースのバージョンアップ作業が必要です！  
-> [開発環境向けの移行手順](https://github.com/shikorism/tissue/issues/752#issuecomment-939257394) を参考にしてください。
-
 ## 開発環境の構築
+
+> [!IMPORTANT]  
+> すでに開発環境は構築済みですか？ 久しぶりに開発環境を起動する際は CHANGELOG_FOR_DEV.md にも目を通してください。
 
 Docker を用いた開発環境の構築方法です。
 
