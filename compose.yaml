@@ -4,8 +4,6 @@ services:
     build:
       context: .
       dockerfile: docker/development/web.dockerfile
-    env_file:
-      - .env
     volumes:
       - .:/var/www/html
     networks:
@@ -23,6 +21,7 @@ services:
       POSTGRES_PASSWORD: tissue
     volumes:
       - db:/var/lib/postgresql/data
+      - ./docker/development/init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql
     networks:
       - backend
     restart: always
@@ -33,8 +32,6 @@ services:
   front:
     image: tissue-dev-web
     command: sh -c "yarn && yarn dev --host --port 4546"
-    env_file:
-      - .env
     volumes:
       - .:/var/www/html
       - front_node_modules:/var/www/html/node_modules

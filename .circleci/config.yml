@@ -9,6 +9,7 @@ executors:
           APP_ENV: testing
           APP_KEY: base64:f2tcw34GKT8EOtb5myZxJ8QLdgNivmyPhoQIPY2YfK8=
           DB_CONNECTION: pgsql
+          DB_HOST: 127.0.0.1
           DB_DATABASE: tissue
           DB_USERNAME: tissue
           DB_PASSWORD: tissue
