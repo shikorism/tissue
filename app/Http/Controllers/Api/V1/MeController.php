@@ -11,6 +11,6 @@ class MeController extends Controller
 {
     public function show()
     {
-        return new UserResource(Auth::user());
+        return new UserResource(Auth::user(), withCheckinSummary: true);
     }
 }

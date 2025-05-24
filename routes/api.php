@@ -40,6 +40,8 @@ Route::middleware('stateful')->group(function () {
                 Route::get('/links', 'MostlyUsedLinks')->name('links');
                 Route::get('/tags', 'MostlyUsedCheckinTags')->name('tags');
             });
+
+        Route::get('/timelines/public', 'Api\\V1\\Timelines\\PublicTimeline')->name('timelines.public');
     });
 });
 
@@ -70,4 +72,6 @@ Route::middleware(['throttle:60,1', 'auth:api'])
                 Route::get('/links', 'MostlyUsedLinks')->name('links');
                 Route::get('/tags', 'MostlyUsedCheckinTags')->name('tags');
             });
+
+        Route::get('/timelines/public', 'Timelines\\PublicTimeline')->name('timelines.public');
     });

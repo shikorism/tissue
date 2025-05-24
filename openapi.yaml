@@ -21,6 +21,8 @@ tags:
     description: コレクションに関する操作
   - name: user-stats
     description: ユーザーの統計情報
+  - name: timelines
+    description: タイムライン
 paths:
   /webhooks/checkin/{id}:
     post:
@@ -872,6 +874,48 @@ paths:
           description: 自分以外が作成したコレクションに対して操作を試みた場合
         404:
           description: 存在しない場合
+  /v1/timelines/public:
+    get:
+      summary: お惣菜コーナーのチェックイン一覧の取得
+      description: |
+        お惣菜コーナー (公開タイムライン) のチェックイン一覧を取得します。
+
+        このAPIでは以下の条件を満たしたチェックインが新着順に列挙されます。
+
+        - ユーザーがチェックインを公開している
+        - チェックインが公開設定になっている
+        - チェックインにオカズリンクが含まれている
+      tags:
+        - timelines
+      parameters:
+        - name: page
+          in: query
+          description: ページ番号
+          schema:
+            type: integer
+            default: 1
+        - name: per_page
+          in: query
+          description: 1ページあたりのアイテム数
+          schema:
+            type: integer
+            default: 20
+            minimum: 10
+            maximum: 100
+      responses:
+        200:
+          description: 成功
+          headers:
+            X-Total-Count:
+              description: 全体のアイテム数
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Checkin'
 components:
   schemas:
     User:
@@ -1000,6 +1044,8 @@ components:
             - webhook
             - api
           example: api
+        user:
+          $ref: "#/components/schemas/User"
     UpdateCheckin:
       type: object
       properties:
