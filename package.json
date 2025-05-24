@@ -30,7 +30,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "bootstrap": "^4.6.2",
     "cal-heatmap": "^4.2.4",
-    "chart.js": "^4.4.3",
+    "chart.js": "^4.4.9",
     "chokidar-cli": "^3.0.0",
     "classnames": "^2.5.1",
     "clipboard": "^2.0.11",
