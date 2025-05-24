@@ -197,6 +197,32 @@ paths:
           schema:
             type: boolean
             default: false
+        - name: since
+          in: query
+          description: 検索範囲の開始日
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2020-07-01
+        - name: until
+          in: query
+          description: 検索範囲の終了日
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2021-07-31
+        - name: order
+          in: query
+          description: チェックイン日時の並び順
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: desc
       responses:
         200:
           description: 成功
