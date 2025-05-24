@@ -222,7 +222,9 @@ class UserLikeTest extends TestCase
 
         $response->assertStatus(403);
         $response->assertJson([
-            'message' => 'このユーザーのいいねは表示できません'
+            'error' => [
+                'message' => 'このユーザーのいいねは表示できません'
+            ]
         ]);
     }
 }
