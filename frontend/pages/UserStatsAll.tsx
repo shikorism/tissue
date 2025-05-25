@@ -7,7 +7,7 @@ import { YearlyChart } from '../features/user-stats/YearlyChart';
 import { HourlyChart } from '../features/user-stats/HourlyChart';
 import { DayOfWeekChart } from '../features/user-stats/DayOfWeekChart';
 import { TagRanking } from '../features/user-stats/TagRanking';
-import { cn } from '../lib/cn';
+import { Pill } from '../components/Pill';
 
 export const UserStatsAll: React.FC = () => {
     const { username } = useLoaderData<LoaderData>();
@@ -20,7 +20,7 @@ export const UserStatsAll: React.FC = () => {
 
     return (
         <div className="px-4 lg:max-w-[800px]">
-            <div className="flex mt-2 pb-2 text-secondary border-b-1 border-gray-border">全期間の統計</div>
+            <div className="mt-2 pb-2 text-secondary border-b-1 border-gray-border">全期間の統計</div>
             <div className="flex flex-col py-4 *:not-first:mt-4 *:not-first:pt-4 *:not-first:border-t-1 *:not-first:border-gray-border">
                 <div>
                     <h2 className="text-xl font-bold mb-4">年間チェックイン回数</h2>
@@ -39,7 +39,7 @@ export const UserStatsAll: React.FC = () => {
                     <div className="flex flex-col md:flex-row gap-4">
                         <div className="flex-1">
                             <h3 className="text-center mb-2">
-                                <Pill className="text-white bg-primary">チェックインタグ</Pill>
+                                <Pill className="text-sm text-white bg-primary">チェックインタグ</Pill>
                             </h3>
                             <p className="text-center text-secondary text-sm mb-2">
                                 チェックインに追加したタグの集計です。
@@ -48,9 +48,9 @@ export const UserStatsAll: React.FC = () => {
                         </div>
                         <div className="flex-1">
                             <h3 className="text-center mb-2">
-                                <Pill className="text-white bg-primary">チェックインタグ</Pill>
+                                <Pill className="text-sm text-white bg-primary">チェックインタグ</Pill>
                                 <span className="mx-2">+</span>
-                                <Pill className="text-white bg-secondary">オカズタグ</Pill>
+                                <Pill className="text-sm text-white bg-secondary">オカズタグ</Pill>
                             </h3>
                             <p className="text-center text-secondary text-sm mb-2">
                                 オカズ自体のタグも含めた集計です。
@@ -61,18 +61,5 @@ export const UserStatsAll: React.FC = () => {
                 </div>
             </div>
         </div>
-    );
-};
-
-interface PillProps {
-    className?: string;
-    children: React.ReactNode;
-}
-
-const Pill: React.FC<PillProps> = ({ className, children }) => {
-    return (
-        <span className={cn('px-3 py-1 text-sm whitespace-nowrap align-baseline rounded-full', className)}>
-            {children}
-        </span>
     );
 };
