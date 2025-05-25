@@ -7,7 +7,6 @@ import { Checkin } from '../components/Checkin';
 import { Pagination } from '../components/Pagination';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 import { ResponseError } from '../api/errors';
-import { NotFound } from './NotFound';
 
 export const UserLikes: React.FC = () => {
     const { username, likesQuery } = useLoaderData<LoaderData>();
@@ -31,7 +30,7 @@ export const UserLikes: React.FC = () => {
             {totalCount ? (
                 <Pagination className="my-4" totalCount={totalCount} perPage={PER_PAGE} />
             ) : (
-                <div className="py-4">いいねしたチェックインがありません。</div>
+                <div className="px-2 py-4">いいねしたチェックインがありません。</div>
             )}
         </div>
     );
@@ -41,7 +40,7 @@ export const ErrorBoundary: React.FC = () => {
     const error = useRouteError();
 
     if (error instanceof ResponseError && error.response.status === 403) {
-        return <div>このユーザはいいね一覧を公開していません。</div>;
+        return <div className="p-4">このユーザはいいね一覧を公開していません。</div>;
     }
 
     throw error;
