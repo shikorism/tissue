@@ -54,6 +54,27 @@ export const getUserStatsCheckinDailyQuery = (
                 .then((response) => ensure(response.data)),
     });
 
+export const getUserStatsCheckinHourlyQuery = (
+    username: string,
+    query?: paths['/users/{username}/stats/checkin/hourly']['get']['parameters']['query'],
+) =>
+    queryOptions({
+        queryKey: ['/users/{username}/stats/checkin/hourly', username, query],
+        queryFn: () =>
+            fetchClient
+                .GET('/users/{username}/stats/checkin/hourly', { params: { path: { username }, query } })
+                .then((response) => ensure(response.data)),
+    });
+
+export const getUserStatsCheckinOldestQuery = (username: string) =>
+    queryOptions({
+        queryKey: ['/users/{username}/stats/checkin/oldest', username],
+        queryFn: () =>
+            fetchClient
+                .GET('/users/{username}/stats/checkin/oldest', { params: { path: { username } } })
+                .then((response) => ensure(response.data)),
+    });
+
 export const getUserCheckinsQuery = (
     username: string,
     query?: paths['/users/{username}/checkins']['get']['parameters']['query'],

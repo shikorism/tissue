@@ -8,4 +8,5 @@ import "./HourlyCheckinSummary.tsp";
 import "./Metadata.tsp";
 import "./MostlyUsedCheckinTag.tsp";
 import "./MostlyUsedLink.tsp";
+import "./OldestCheckinDate.tsp";
 import "./User.tsp";

@@ -43,6 +43,7 @@ Route::middleware('stateful')->group(function () {
                 Route::get('/links', 'MostlyUsedLinks')->name('links');
                 Route::get('/tags', 'MostlyUsedCheckinTags')->name('tags');
             });
+        Route::get('/users/{user}/stats/checkin/oldest', 'Api\\UserStats\\OldestCheckinDate')->name('users.stats.checkin.oldest');
 
         Route::get('/timelines/public', 'Api\\V1\\Timelines\\PublicTimeline')->name('timelines.public');
     });

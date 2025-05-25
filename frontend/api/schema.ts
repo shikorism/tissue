@@ -244,6 +244,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/users/{username}/stats/checkin/oldest": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Checkin_oldest"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/users/{username}/stats/links": {
         parameters: {
             query?: never;
@@ -403,6 +419,9 @@ export interface components {
             link: string;
             /** Format: int32 */
             count: number;
+        };
+        OldestCheckinDate: {
+            oldest_checkin_date: string | null;
         };
         /** @description ユーザーデータ */
         User: {
@@ -1225,6 +1244,37 @@ export interface operations {
             };
         };
     };
+    Checkin_oldest: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                username: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description The request has succeeded. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OldestCheckinDate"];
+                };
+            };
+            /** @description An unexpected error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
     Stats_links: {
         parameters: {
             query?: {
@@ -1264,6 +1314,7 @@ export interface operations {
             query?: {
                 since?: string;
                 until?: string;
+                includes_metadata?: boolean;
             };
             header?: never;
             path: {
