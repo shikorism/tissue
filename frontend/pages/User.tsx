@@ -43,8 +43,8 @@ export const User: React.FC = () => {
                                 チェックイン
                             </Link>
                         </Tab>
-                        <Tab>
-                            <Link to="" className="block px-4 md:px-5 py-3">
+                        <Tab active={location.pathname.startsWith(`/user/${user.name}/stats`)}>
+                            <Link to={`/user/${user.name}/stats`} className="block px-4 md:px-5 py-3">
                                 グラフ
                             </Link>
                         </Tab>

@@ -83,12 +83,20 @@ namespace Users {
         @query since?: plainDate,
         @query until?: plainDate,
       ): HourlyCheckinSummary[] | Error;
+
+      @route("/oldest")
+      op oldest(@path username: string): OldestCheckinDate | Error;
     }
 
     @route("/links")
     op links(@path username: string, @query since?: plainDate, @query until?: plainDate): MostlyUsedLink[] | Error;
 
     @route("/tags")
-    op tags(@path username: string, @query since?: plainDate, @query until?: plainDate): MostlyUsedCheckinTag[] | Error;
+    op tags(
+      @path username: string,
+      @query since?: plainDate,
+      @query until?: plainDate,
+      @query includes_metadata?: boolean = false,
+    ): MostlyUsedCheckinTag[] | Error;
   }
 }
