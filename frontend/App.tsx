@@ -12,6 +12,10 @@ import { UserProfile } from './pages/UserProfile';
 import { loader as userProfileLoader } from './pages/UserProfile.loader';
 import { UserCheckins } from './pages/UserCheckins';
 import { loader as userCheckinsLoader } from './pages/UserCheckins.loader';
+import { UserStats } from './pages/UserStats';
+import { loader as userStatsLoader } from './pages/UserStats.loader';
+import { UserStatsAll } from './pages/UserStatsAll';
+import { loader as userStatsAllLoader } from './pages/UserStatsAll.loader';
 import { UserLikes, ErrorBoundary as UserLikesErrorBoundary } from './pages/UserLikes';
 import { loader as userLikesLoader } from './pages/UserLikes.loader';
 import { PublicTimeline, loader as publicTimelineLoader } from './pages/PublicTimeline';
@@ -45,6 +49,14 @@ const router = createBrowserRouter(
                             path: 'checkins/:year?/:month?/:date?',
                             element: <UserCheckins />,
                             loader: userCheckinsLoader(queryClient),
+                        },
+                        {
+                            path: 'stats',
+                            element: <UserStats />,
+                            loader: userStatsLoader(queryClient),
+                            children: [
+                                { index: true, element: <UserStatsAll />, loader: userStatsAllLoader(queryClient) },
+                            ],
                         },
                         {
                             path: 'likes',
