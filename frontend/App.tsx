@@ -16,6 +16,8 @@ import { UserStats } from './pages/UserStats';
 import { loader as userStatsLoader } from './pages/UserStats.loader';
 import { UserStatsAll } from './pages/UserStatsAll';
 import { loader as userStatsAllLoader } from './pages/UserStatsAll.loader';
+import { UserStatsYearly } from './pages/UserStatsYearly';
+import { UserStatsMonthly } from './pages/UserStatsMonthly';
 import { UserLikes, ErrorBoundary as UserLikesErrorBoundary } from './pages/UserLikes';
 import { loader as userLikesLoader } from './pages/UserLikes.loader';
 import { PublicTimeline, loader as publicTimelineLoader } from './pages/PublicTimeline';
@@ -56,6 +58,8 @@ const router = createBrowserRouter(
                             loader: userStatsLoader(queryClient),
                             children: [
                                 { index: true, element: <UserStatsAll />, loader: userStatsAllLoader(queryClient) },
+                                { path: ':year', element: <UserStatsYearly /> },
+                                { path: ':year/:month', element: <UserStatsMonthly /> },
                             ],
                         },
                         {
