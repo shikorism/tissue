@@ -13,7 +13,7 @@ export const User: React.FC = () => {
     const { data: user } = useSuspenseQuery(getUserQuery(username));
 
     return (
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col md:h-screen">
             <div className="px-4 pt-4 flex flex-col gap-2 border-b-1 border-gray-border">
                 <div className="flex items-end gap-1">
                     <img
