@@ -128,13 +128,13 @@ export const Checkin: React.FC<Props> = ({ checkin, className, showInterval, sho
                 <div className="flex gap-4">
                     <Link
                         to={{ pathname: `/checkin`, search: makeCheckinParams(checkin) }}
-                        className="px-4 py-2 text-xl rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
+                        className="px-4 py-2 text-xl text-secondary rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
                         title="同じオカズでチェックイン"
                     >
                         <i className="ti ti-reload" />
                     </Link>
                     <button
-                        className="px-4 py-2 text-xl rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
+                        className="px-4 py-2 text-xl text-secondary rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
                         title="いいね"
                     >
                         <i className={cn('ti ti-heart-filled', checkin.is_liked && 'text-danger')} />
@@ -144,7 +144,7 @@ export const Checkin: React.FC<Props> = ({ checkin, className, showInterval, sho
                     </button>
                     {me && checkin.link && (
                         <button
-                            className="px-4 py-2 text-xl rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
+                            className="px-4 py-2 text-xl text-secondary rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
                             title="コレクションに追加"
                         >
                             <i className="ti ti-folder-plus" />
@@ -154,13 +154,13 @@ export const Checkin: React.FC<Props> = ({ checkin, className, showInterval, sho
                         <>
                             <Link
                                 to={`/checkin/${checkin.id}/edit`}
-                                className="px-4 py-2 text-xl rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
+                                className="px-4 py-2 text-xl text-secondary rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
                                 title="修正"
                             >
                                 <i className="ti ti-edit" />
                             </Link>
                             <button
-                                className="px-4 py-2 text-xl rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
+                                className="px-4 py-2 text-xl text-secondary rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
                                 title="削除"
                             >
                                 <i className="ti ti-trash" />
@@ -168,7 +168,7 @@ export const Checkin: React.FC<Props> = ({ checkin, className, showInterval, sho
                         </>
                     ) : (
                         <button
-                            className="px-4 py-2 text-xl rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
+                            className="px-4 py-2 text-xl text-secondary rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
                             title="問題を報告"
                         >
                             <i className="ti ti-flag" />
