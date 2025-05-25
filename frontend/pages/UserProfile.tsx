@@ -85,7 +85,7 @@ const Activity: React.FC<ActivityProps> = ({ user }) => {
                     グラフを見る &raquo;
                 </Link>
             </div>
-            <div className="mt-4">
+            <div className="mt-4 overflow-x-auto">
                 <CheckinHeatmap startDate={statsCheckinDailyQuery.since} data={checkinStats} />
             </div>
             <div className="mt-4 max-w-[1000px] flex flex-col md:flex-row">
