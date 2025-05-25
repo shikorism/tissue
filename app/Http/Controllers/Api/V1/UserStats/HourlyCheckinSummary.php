@@ -63,7 +63,7 @@ SQL
 
         $results = [];
         for ($hour = 0; $hour < 24; $hour++) {
-            if (!empty($groupByHour) && (int)($groupByHour->first()->hour) === $hour) {
+            if ($groupByHour->isNotEmpty() && (int)($groupByHour->first()->hour) === $hour) {
                 $data = $groupByHour->shift();
                 $results[] = ['hour' => $hour, 'count' => $data->count];
             } else {
