@@ -1,11 +1,13 @@
 import React from 'react';
-import { useLoaderData } from 'react-router';
+import { useLoaderData, useRouteError } from 'react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getUserLikesQuery } from '../api/query';
 import { LoaderData, PER_PAGE } from './UserLikes.loader';
 import { Checkin } from '../components/Checkin';
 import { Pagination } from '../components/Pagination';
 import { useScrollToTop } from '../hooks/useScrollToTop';
+import { ResponseError } from '../api/errors';
+import { NotFound } from './NotFound';
 
 export const UserLikes: React.FC = () => {
     const { username, likesQuery } = useLoaderData<LoaderData>();
@@ -33,4 +35,14 @@ export const UserLikes: React.FC = () => {
             )}
         </div>
     );
+};
+
+export const ErrorBoundary: React.FC = () => {
+    const error = useRouteError();
+
+    if (error instanceof ResponseError && error.response.status === 403) {
+        return <div>このユーザはいいね一覧を公開していません。</div>;
+    }
+
+    throw error;
 };
