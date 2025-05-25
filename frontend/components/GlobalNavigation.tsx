@@ -1,10 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { DropdownMenu } from 'radix-ui';
+import { useProgress } from '@bprogress/react';
 import { BrandLogo } from './BrandLogo';
-import { useCurrentUser } from './AuthProvider';
+import { logout, useCurrentUser } from './AuthProvider';
 
 export const GlobalNavigation: React.FC = () => {
     const { user: me } = useCurrentUser();
+    const { start, stop } = useProgress();
+
+    const handleLogout = async () => {
+        start();
+        try {
+            await logout();
+        } finally {
+            stop();
+        }
+    };
 
     return (
         <nav className="hidden md:flex flex-col fixed left-0 top-0 bottom-0 w-(--global-nav-width) p-4 bg-gray-back">
@@ -57,16 +69,43 @@ export const GlobalNavigation: React.FC = () => {
                 )}
             </div>
             {me && (
-                <div className="mt-4 p-2 flex items-center gap-1 rounded-sm hover:bg-neutral-200 cursor-pointer">
-                    <img
-                        className="rounded inline-block align-bottom mr-1"
-                        src={me.profile_image_url}
-                        alt={`${me.display_name}'s Avatar`}
-                        width={40}
-                        height={40}
-                    />
-                    <span className="text-sm overflow-ellipsis overflow-hidden text-nowrap">{me.display_name}</span>
-                </div>
+                <DropdownMenu.Root>
+                    <DropdownMenu.Trigger asChild>
+                        <button className="mt-4 p-2 flex items-center gap-1 rounded-sm hover:bg-neutral-200 data-[state=open]:bg-neutral-200 cursor-pointer">
+                            <img
+                                className="rounded inline-block align-bottom mr-1"
+                                src={me.profile_image_url}
+                                alt={`${me.display_name}'s Avatar`}
+                                width={40}
+                                height={40}
+                            />
+                            <span className="text-sm overflow-ellipsis overflow-hidden text-nowrap">
+                                {me.display_name}
+                            </span>
+                        </button>
+                    </DropdownMenu.Trigger>
+
+                    <DropdownMenu.Portal>
+                        <DropdownMenu.Content
+                            className="p-2 w-(--radix-dropdown-menu-trigger-width) bg-white border-1 border-gray-border rounded shadow-md"
+                            side="top"
+                            align="start"
+                        >
+                            <DropdownMenu.Item
+                                asChild
+                                className="block p-2 rounded data-highlighted:bg-neutral-200 select-none outline-0"
+                            >
+                                <a href="/setting/profile">設定</a>
+                            </DropdownMenu.Item>
+                            <DropdownMenu.Item
+                                className="block p-2 rounded data-highlighted:bg-neutral-200 select-none outline-0 cursor-pointer"
+                                onSelect={handleLogout}
+                            >
+                                ログアウト
+                            </DropdownMenu.Item>
+                        </DropdownMenu.Content>
+                    </DropdownMenu.Portal>
+                </DropdownMenu.Root>
             )}
         </nav>
     );

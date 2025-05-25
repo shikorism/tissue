@@ -28,3 +28,17 @@ export const useCurrentUser = (): AuthContext => {
     }
     return context;
 };
+
+// TODO: もうちょっとマシな方法を探したい
+export const logout = async () => {
+    const res = await fetch('/logout', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '',
+        },
+    });
+    if (res.redirected) {
+        window.location.href = res.url;
+    }
+};
