@@ -54,7 +54,9 @@ export const UserStats: React.FC = () => {
                             }}
                         >
                             {years.map((year) => (
-                                <option value={year}>{year === 'all' ? '全期間' : `${year}年`}</option>
+                                <option key={year} value={year}>
+                                    {year === 'all' ? '全期間' : `${year}年`}
+                                </option>
                             ))}
                         </select>
                     </div>
@@ -77,7 +79,9 @@ export const UserStats: React.FC = () => {
                             disabled={!year}
                         >
                             {months.map((month) => (
-                                <option value={month}>{month === 'all' ? '全期間' : `${month}月`}</option>
+                                <option key={month} value={month}>
+                                    {month === 'all' ? '全期間' : `${month}月`}
+                                </option>
                             ))}
                         </select>
                     </div>
