@@ -28,7 +28,14 @@ export const lineChartDatasetDefaults = {
     fill: true,
     borderColor: 'rgba(255, 99, 132, 1)',
     borderWidth: 1,
-} as const;
+};
+
+export const lineChartDatasetDefaults2 = {
+    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+    fill: true,
+    borderColor: 'rgba(54, 162, 235, 1)',
+    borderWidth: 1,
+};
 
 export const lineChartOptions = {
     elements: {
@@ -56,7 +63,13 @@ export const barChartDatasetDefaults = {
     backgroundColor: 'rgba(255, 99, 132, 0.2)',
     borderColor: 'rgba(255, 99, 132, 1)',
     borderWidth: 1,
-} as const;
+};
+
+export const barChartDatasetDefaults2 = {
+    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+    borderColor: 'rgba(54, 162, 235, 1)',
+    borderWidth: 1,
+};
 
 export const barChartOptions = {
     scales: {
