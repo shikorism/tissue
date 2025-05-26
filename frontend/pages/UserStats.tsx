@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet, useLoaderData, useNavigate, useParams } from 'react-router';
+import { Outlet, useLoaderData, useNavigate, useParams, useSearchParams } from 'react-router';
 import { LoaderData } from './UserStats.loader';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getUserStatsCheckinOldestQuery } from '../api/query';
@@ -7,6 +7,7 @@ import { getUserStatsCheckinOldestQuery } from '../api/query';
 export const UserStats: React.FC = () => {
     const navigate = useNavigate();
     const { year, month } = useParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const { username } = useLoaderData<LoaderData>();
     const { data: oldestData } = useSuspenseQuery(getUserStatsCheckinOldestQuery(username));
 
@@ -33,7 +34,7 @@ export const UserStats: React.FC = () => {
 
     return (
         <div className="flex flex-col lg:flex-row grow-1">
-            <div className="p-4 pt-0 lg:w-[280px] border-b-1 lg:border-b-0 lg:border-r-1 border-gray-border">
+            <div className="p-4 pt-0 lg:w-[280px] shrink-0 border-b-1 lg:border-b-0 lg:border-r-1 border-gray-border">
                 <div className="flex mt-2 mb-4 pb-2 text-secondary border-b-1 border-gray-border">集計条件</div>
                 <div className="flex lg:flex-col gap-4">
                     <div className="flex-1">
@@ -86,6 +87,19 @@ export const UserStats: React.FC = () => {
                         </select>
                     </div>
                 </div>
+                {year && !month && (
+                    <div className="mt-4">
+                        <label>
+                            <input
+                                id="compare"
+                                type="checkbox"
+                                checked={searchParams.get('compare') === 'prev'}
+                                onChange={(e) => setSearchParams(e.target.checked ? { compare: 'prev' } : {})}
+                            />
+                            <span className="ml-2">去年のデータも表示</span>
+                        </label>
+                    </div>
+                )}
             </div>
             <div className="flex-1">
                 <Outlet />
