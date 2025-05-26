@@ -8,6 +8,7 @@ import { HourlyChart } from '../features/user-stats/HourlyChart';
 import { DayOfWeekChart } from '../features/user-stats/DayOfWeekChart';
 import { TagRanking } from '../features/user-stats/TagRanking';
 import { Pill } from '../components/Pill';
+import { CheckinHeatmap } from '../components/CheckinHeatmap';
 
 export const UserStatsYearly: React.FC = () => {
     const { year } = useParams();
@@ -24,9 +25,15 @@ export const UserStatsYearly: React.FC = () => {
     );
 
     return (
-        <div className="px-4 lg:max-w-[800px]">
+        <div className="px-4 lg:max-w-[850px]">
             <div className="mt-2 pb-2 text-secondary border-b-1 border-gray-border">{year}年の統計</div>
             <div className="flex flex-col py-4 *:not-first:mt-4 *:not-first:pt-4 *:not-first:border-t-1 *:not-first:border-gray-border">
+                <div>
+                    <h2 className="text-xl font-bold mb-4">アクティビティ</h2>
+                    <div className="overflow-x-auto">
+                        <CheckinHeatmap startDate={query.since} data={dailyData} />
+                    </div>
+                </div>
                 <div>
                     <h2 className="text-xl font-bold mb-4">月間チェックイン回数</h2>
                     <MonthlyChart year={year!} dailyStats={dailyData} compareDailyStats={prevDailyData} />
