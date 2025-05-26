@@ -65,15 +65,15 @@ export const Home: React.FC = () => {
 
             <div className="mt-4">
                 <h1 className="text-xl">お惣菜コーナー</h1>
-                <p className="mt-2 text-sm text-secondary">
+                <p className="mt-2 mb-2 text-sm text-secondary">
                     最近の公開チェックインから、オカズリンク付きのものを表示しています。
                 </p>
-                <div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
                     {timeline?.data?.map((checkin) => (
                         <Checkin
                             key={checkin.id}
                             checkin={checkin}
-                            className="first:border-t-0 border-t-1 border-gray-border"
+                            className="px-2 border-t-1 border-gray-border"
                             showActions
                         />
                     ))}
