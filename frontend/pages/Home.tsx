@@ -1,15 +1,10 @@
 import React from 'react';
 import { subSeconds, format } from 'date-fns';
 import { Link } from 'react-router';
-import { QueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { getMeQuery, getTimelinesPublicQuery } from '../api/query';
 import { Checkin } from '../components/Checkin';
 import { formatOrDefault, formatNumber, formatInterval } from '../lib/formatter';
-
-export const loader = (queryClient: QueryClient) => async () => {
-    await queryClient.prefetchQuery(getMeQuery()); // ステータス欄の情報を最新にするため、常に再読み込み
-    await queryClient.ensureQueryData(getTimelinesPublicQuery({ per_page: 24 }));
-};
 
 export const Home: React.FC = () => {
     const { data: me } = useSuspenseQuery(getMeQuery());

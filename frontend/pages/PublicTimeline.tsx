@@ -1,29 +1,11 @@
 import React from 'react';
-import { LoaderFunctionArgs, useLoaderData } from 'react-router';
-import { QueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { useLoaderData } from 'react-router';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { getTimelinesPublicQuery } from '../api/query';
 import { Checkin } from '../components/Checkin';
 import { Pagination } from '../components/Pagination';
 import { useScrollToTop } from '../hooks/useScrollToTop';
-import type { paths } from '../api/schema';
-
-const PER_PAGE = 24;
-
-interface LoaderData {
-    query: paths['/timelines/public']['get']['parameters']['query'];
-}
-
-export const loader =
-    (queryClient: QueryClient) =>
-    async ({ request }: LoaderFunctionArgs) => {
-        const url = new URL(request.url);
-        const page = parseInt(url.searchParams.get('page') ?? '1', 10);
-        const query = { page, per_page: PER_PAGE };
-
-        await queryClient.ensureQueryData(getTimelinesPublicQuery(query));
-
-        return { query } satisfies LoaderData;
-    };
+import { PER_PAGE, LoaderData } from './PublicTimeline.loader';
 
 export const PublicTimeline: React.FC = () => {
     const { query } = useLoaderData<LoaderData>();
