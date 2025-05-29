@@ -25,6 +25,8 @@ import { UserLikes, ErrorBoundary as UserLikesErrorBoundary } from './pages/User
 import { loader as userLikesLoader } from './pages/UserLikes.loader';
 import { PublicTimeline } from './pages/PublicTimeline';
 import { loader as publicTimelineLoader } from './pages/PublicTimeline.loader';
+import { Tags } from './pages/Tags';
+import { loader as tagsLoader } from './pages/Tags.loader';
 import { NotFound } from './pages/NotFound';
 import './App.css';
 
@@ -90,6 +92,11 @@ const router = createBrowserRouter(
                     path: 'timeline/public',
                     element: <PublicTimeline />,
                     loader: publicTimelineLoader(queryClient),
+                },
+                {
+                    path: 'tag',
+                    element: <Tags />,
+                    loader: tagsLoader(queryClient),
                 },
                 { path: '*', element: <NotFound /> },
             ],

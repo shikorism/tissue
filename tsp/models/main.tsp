@@ -9,4 +9,5 @@ import "./Metadata.tsp";
 import "./MostlyUsedCheckinTag.tsp";
 import "./MostlyUsedLink.tsp";
 import "./OldestCheckinDate.tsp";
+import "./Tag.tsp";
 import "./User.tsp";
