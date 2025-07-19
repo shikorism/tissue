@@ -9,23 +9,13 @@ use Psr\Http\Message\ResponseInterface;
 
 class ActivityPubResolver implements Resolver, Parser
 {
-    /**
-     * @var \GuzzleHttp\Client
-     */
-    private $activityClient;
-
-    public function __construct()
+    public function __construct(private \GuzzleHttp\Client $client)
     {
-        $this->activityClient = new \GuzzleHttp\Client([
-            'headers' => [
-                'Accept' => 'application/activity+json, application/ld+json; profile="https://www.w3.org/ns/activitystreams"'
-            ]
-        ]);
     }
 
     public function resolve(string $url): Metadata
     {
-        $res = $this->activityClient->get($url);
+        $res = $this->get($url);
         if ($res->getStatusCode() === 200) {
             return $this->parse($res->getBody());
         } else {
@@ -52,10 +42,19 @@ class ActivityPubResolver implements Resolver, Parser
         return $metadata;
     }
 
+    private function get(string $url): ResponseInterface
+    {
+        return $this->client->get($url, [
+            'headers' => [
+                'Accept' => 'application/activity+json, application/ld+json; profile="https://www.w3.org/ns/activitystreams"'
+            ]
+        ]);
+    }
+
     private function getTitleFromActor(string $url): string
     {
         try {
-            $res = $this->activityClient->get($url);
+            $res = $this->get($url);
             if ($res->getStatusCode() !== 200) {
                 Log::info(self::class . ': Actorの取得に失敗 URL=' . $url);
 
