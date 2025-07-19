@@ -84,7 +84,7 @@ class ActivityPubResolver implements Resolver, Parser
         $html = Formatter::htmlEntities($html, 'UTF-8');
         $html = preg_replace('~<br\s*/?\s*>|</p>\s*<p[^>]*>~i', "\n", $html);
         $dom = new \DOMDocument();
-        $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        @$dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         return $dom->textContent;
     }
