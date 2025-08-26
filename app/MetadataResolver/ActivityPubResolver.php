@@ -9,23 +9,13 @@ use Psr\Http\Message\ResponseInterface;
 
 class ActivityPubResolver implements Resolver, Parser
 {
-    /**
-     * @var \GuzzleHttp\Client
-     */
-    private $activityClient;
-
-    public function __construct()
+    public function __construct(private \GuzzleHttp\Client $client)
     {
-        $this->activityClient = new \GuzzleHttp\Client([
-            'headers' => [
-                'Accept' => 'application/activity+json, application/ld+json; profile="https://www.w3.org/ns/activitystreams"'
-            ]
-        ]);
     }
 
     public function resolve(string $url): Metadata
     {
-        $res = $this->activityClient->get($url);
+        $res = $this->get($url);
         if ($res->getStatusCode() === 200) {
             return $this->parse($res->getBody());
         } else {
@@ -52,10 +42,19 @@ class ActivityPubResolver implements Resolver, Parser
         return $metadata;
     }
 
+    private function get(string $url): ResponseInterface
+    {
+        return $this->client->get($url, [
+            'headers' => [
+                'Accept' => 'application/activity+json, application/ld+json; profile="https://www.w3.org/ns/activitystreams"'
+            ]
+        ]);
+    }
+
     private function getTitleFromActor(string $url): string
     {
         try {
-            $res = $this->activityClient->get($url);
+            $res = $this->get($url);
             if ($res->getStatusCode() !== 200) {
                 Log::info(self::class . ': Actorの取得に失敗 URL=' . $url);
 
@@ -85,7 +84,7 @@ class ActivityPubResolver implements Resolver, Parser
         $html = Formatter::htmlEntities($html, 'UTF-8');
         $html = preg_replace('~<br\s*/?\s*>|</p>\s*<p[^>]*>~i', "\n", $html);
         $dom = new \DOMDocument();
-        $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        @$dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         return $dom->textContent;
     }
