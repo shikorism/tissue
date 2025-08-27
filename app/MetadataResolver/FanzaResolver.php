@@ -47,7 +47,7 @@ class FanzaResolver implements Resolver
         $cookieJar = CookieJar::fromArray(['age_check_done' => '1'], 'dmm.co.jp');
 
         // 動画旧URLの変換
-        if (preg_match('~www\.dmm\.co\.jp/digital/(videoa|videoc|anime)/-/detail/=/cid=([0-9a-z_])~', $url, $matches)) {
+        if (preg_match('~www\.dmm\.co\.jp/digital/(videoa|videoc|anime)/-/detail/=/cid=([0-9a-z_]+)~', $url, $matches)) {
             $categories = ['videoa' => 'av', 'videoc' => 'amateur'];
             $url = 'https://video.dmm.co.jp/' . ($categories[$matches[1]] ?? $matches[1]) . '/content?id=' . $matches[2];
         }
