@@ -46,34 +46,404 @@ class FanzaResolver implements Resolver
     {
         $cookieJar = CookieJar::fromArray(['age_check_done' => '1'], 'dmm.co.jp');
 
-        $res = $this->client->get($url, ['cookies' => $cookieJar]);
-        $html = (string) $res->getBody();
-        $crawler = new Crawler($html);
+        // 動画旧URLの変換
+        if (preg_match('~www\.dmm\.co\.jp/digital/(videoa|videoc|anime)/-/detail/=/cid=([0-9a-z_])~', $url, $matches)) {
+            $categories = ['videoa' => 'av', 'videoc' => 'amateur'];
+            $url = 'https://video.dmm.co.jp/' . ($categories[$matches[1]] ?? $matches[1]) . '/content?id=' . $matches[2];
+        }
 
         // 動画
-        if (preg_match('~www\.dmm\.co\.jp/digital/(videoa|videoc|anime)/-/detail~', $url)) {
-            $metadata = new Metadata();
-            $metadata->title = trim($crawler->filter('#title')->text(''));
-            $metadata->description = trim(strip_tags(str_replace('【FANZA(ファンザ)】', '', $crawler->filter('meta[name="description"]')->attr('content'))));
-            $metadata->image = preg_replace("~(pr|ps)\.jpg$~", 'pl.jpg', $crawler->filter('meta[property="og:image"]')->attr('content'));
-
-            $tags = $crawler->filter('.box-rank+table a[href*="list/?"]')->extract(['_text']);
-
-            // 追加の出演者情報があれば取得
-            $performerUrlPattern = '~/digital/(videoa|videoc|anime)/-/detail/ajax-performer/=/data=([^\'"]+)~';
-            if (preg_match($performerUrlPattern, $html, $matches)) {
-                $performerUrl = $matches[0];
-                $performerRes = $this->client->get('https://www.dmm.co.jp' . $performerUrl);
-                $performerHtml = (string) $performerRes->getBody();
-                $performerCrawler = new Crawler($performerHtml);
-                $performerTags = $this->array_finish($performerCrawler->filter('a')->extract(['_text']));
-                $tags = array_merge($performerTags, $tags);
+        if (preg_match('~video\.dmm\.co\.jp/(av|amateur|anime)/content~', $url, $matches)) {
+            parse_str(parse_url($url, PHP_URL_QUERY), $params);
+            $query = <<<'GRAPHQL'
+            query ContentPageData($id: ID!, $isAmateur: Boolean!, $isAnime: Boolean!, $isAv: Boolean!, $isCinema: Boolean!) {
+              ppvContent(id: $id) {
+                ...ContentData
+                __typename
+              }
             }
+            fragment ContentData on PPVContent {
+              id
+              floor
+              title
+              isExclusiveDelivery
+              releaseStatus
+              description
+              notices
+              isNoIndex
+              isAllowForeign
+              announcements {
+                body
+                __typename
+              }
+              featureArticles {
+                link {
+                  url
+                  text
+                  __typename
+                }
+                __typename
+              }
+              packageImage {
+                largeUrl
+                mediumUrl
+                __typename
+              }
+              sampleImages {
+                number
+                imageUrl
+                largeImageUrl
+                __typename
+              }
+              products {
+                ...ProductData
+                __typename
+              }
+              mostPopularContentImage {
+                ... on ContentSampleImage {
+                  __typename
+                  largeImageUrl
+                  imageUrl
+                }
+                ... on PackageImage {
+                  __typename
+                  largeUrl
+                  mediumUrl
+                }
+                __typename
+              }
+              priceSummary {
+                lowestSalePrice
+                lowestPrice
+                campaign {
+                  title
+                  id
+                  endAt
+                  __typename
+                }
+                __typename
+              }
+              weeklyRanking: ranking(term: Weekly)
+              monthlyRanking: ranking(term: Monthly)
+              wishlistCount
+              sample2DMovie {
+                fileID
+                highestMovieUrl
+                __typename
+              }
+              sampleVRMovie {
+                highestMovieUrl
+                __typename
+              }
+              ...AmateurAdditionalContentData @include(if: $isAmateur)
+              ...AnimeAdditionalContentData @include(if: $isAnime)
+              ...AvAdditionalContentData @include(if: $isAv)
+              ...CinemaAdditionalContentData @include(if: $isCinema)
+              __typename
+            }
+            fragment ProductData on PPVProduct {
+              id
+              priority
+              deliveryUnit {
+                id
+                priority
+                streamMaxQualityGroup
+                downloadMaxQualityGroup
+                __typename
+              }
+              priceInclusiveTax
+              sale {
+                priceInclusiveTax
+                __typename
+              }
+              expireDays
+              licenseType
+              shopName
+              availableCoupon {
+                name
+                expirationPolicy {
+                  ... on ProductCouponExpirationAt {
+                    expirationAt
+                    __typename
+                  }
+                  ... on ProductCouponExpirationDay {
+                    expirationDays
+                    __typename
+                  }
+                  __typename
+                }
+                expirationAt
+                discountedPrice
+                minPayment
+                destinationUrl
+                __typename
+              }
+              __typename
+            }
+            fragment AmateurAdditionalContentData on PPVContent {
+              deliveryStartDate
+              duration
+              amateurActress {
+                id
+                name
+                imageUrl
+                age
+                waist
+                bust
+                bustCup
+                height
+                hip
+                relatedContents {
+                  id
+                  title
+                  __typename
+                }
+                __typename
+              }
+              maker {
+                id
+                name
+                __typename
+              }
+              label {
+                id
+                name
+                __typename
+              }
+              genres {
+                id
+                name
+                __typename
+              }
+              makerContentId
+              playableInfo {
+                ...PlayableInfo
+                __typename
+              }
+              __typename
+            }
+            fragment PlayableInfo on PlayableInfo {
+              playableDevices {
+                deviceDeliveryUnits {
+                  id
+                  deviceDeliveryQualities {
+                    isDownloadable
+                    isStreamable
+                    __typename
+                  }
+                  __typename
+                }
+                device
+                name
+                priority
+                __typename
+              }
+              deviceGroups {
+                id
+                devices {
+                  deviceDeliveryUnits {
+                    deviceDeliveryQualities {
+                      isStreamable
+                      isDownloadable
+                      __typename
+                    }
+                    __typename
+                  }
+                  __typename
+                }
+                __typename
+              }
+              vrViewingType
+              __typename
+            }
+            fragment AnimeAdditionalContentData on PPVContent {
+              deliveryStartDate
+              duration
+              series {
+                id
+                name
+                __typename
+              }
+              maker {
+                id
+                name
+                __typename
+              }
+              label {
+                id
+                name
+                __typename
+              }
+              genres {
+                id
+                name
+                __typename
+              }
+              makerContentId
+              playableInfo {
+                ...PlayableInfo
+                __typename
+              }
+              __typename
+            }
+            fragment AvAdditionalContentData on PPVContent {
+              deliveryStartDate
+              makerReleasedAt
+              duration
+              actresses {
+                id
+                name
+                nameRuby
+                imageUrl
+                __typename
+              }
+              histrions {
+                id
+                name
+                __typename
+              }
+              directors {
+                id
+                name
+                __typename
+              }
+              series {
+                id
+                name
+                __typename
+              }
+              maker {
+                id
+                name
+                __typename
+              }
+              label {
+                id
+                name
+                __typename
+              }
+              genres {
+                id
+                name
+                __typename
+              }
+              contentType
+              relatedWords
+              makerContentId
+              playableInfo {
+                ...PlayableInfo
+                __typename
+              }
+              __typename
+            }
+            fragment CinemaAdditionalContentData on PPVContent {
+              deliveryStartDate
+              duration
+              actresses {
+                id
+                name
+                nameRuby
+                imageUrl
+                __typename
+              }
+              histrions {
+                id
+                name
+                __typename
+              }
+              directors {
+                id
+                name
+                __typename
+              }
+              authors {
+                id
+                name
+                __typename
+              }
+              series {
+                id
+                name
+                __typename
+              }
+              maker {
+                id
+                name
+                __typename
+              }
+              label {
+                id
+                name
+                __typename
+              }
+              genres {
+                id
+                name
+                __typename
+              }
+              makerContentId
+              playableInfo {
+                ...PlayableInfo
+                __typename
+              }
+              __typename
+            }
+            GRAPHQL;
+            $variables = [
+                'id' => $params['id'],
+                'isAv' => $matches[1] === 'av',
+                'isAmateur' => $matches[1] === 'amateur',
+                'isAnime' => $matches[1] === 'anime',
+                'isCinema' => false,
+            ];
 
+            $queryRes = $this->client->post('https://api.video.dmm.co.jp/graphql', [
+                'cookies' => $cookieJar,
+                'headers' => [
+                    'Accept' => 'application/graphql-response+json, application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' => [
+                    'operationName' => 'ContentPageData',
+                    'query' => $query,
+                    'variables' => $variables,
+                ]
+            ]);
+            $json = json_decode($queryRes->getBody()->getContents(), true);
+            $ppvContent = $json['data']['ppvContent'];
+
+            $metadata = new Metadata();
+            $metadata->title = $ppvContent['title'];
+            $metadata->description = trim(strip_tags(str_replace('<br>', "\n", $ppvContent['description'])));
+            $metadata->image = $ppvContent['packageImage']['largeUrl'] ?? $ppvContent['packageImage']['mediumUrl'];
+
+            $tags = [];
+            foreach (($ppvContent['actresses'] ?? []) as $actress) {
+                $tags[] = $actress['name'];
+            }
+            if (!empty($ppvContent['amateurActress'])) {
+                $tags[] = $ppvContent['amateurActress']['name'];
+            }
+            if (!empty($ppvContent['series'])) {
+                $tags[] = $ppvContent['series']['name'];
+            }
+            if (!empty($ppvContent['maker'])) {
+                $tags[] = $ppvContent['maker']['name'];
+            }
+            if (!empty($ppvContent['label'])) {
+                $tags[] = $ppvContent['label']['name'];
+            }
+            foreach ($ppvContent['genres'] as $genre) {
+                $tags[] = $genre['name'];
+            }
             $metadata->tags = $this->array_finish($tags);
 
             return $metadata;
         }
+
+        $res = $this->client->get($url, ['cookies' => $cookieJar]);
+        $html = (string) $res->getBody();
+        $crawler = new Crawler($html);
 
         // 同人
         if (mb_strpos($url, 'www.dmm.co.jp/dc/doujin/-/detail/') !== false) {

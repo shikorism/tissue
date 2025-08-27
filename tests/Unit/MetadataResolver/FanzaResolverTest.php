@@ -24,13 +24,9 @@ class FanzaResolverTest extends TestCase
     public function test($filename, $url, $title, $description, $image, $tags)
     {
         $responseText = $this->fetchSnapshot(__DIR__ . "/../../fixture/Fanza/{$filename}");
-        // 出演者情報用のスナップショット
-        $performerFilename = pathinfo($filename, PATHINFO_FILENAME) . '_performer.html';
-        $performerResponseText = $this->fetchSnapshot(__DIR__ . "/../../fixture/Fanza/{$performerFilename}", 1);
 
         $this->createResolverEx(FanzaResolver::class, [
             ['responseText' => $responseText],
-            ['responseText' => $performerResponseText]
         ]);
 
         $metadata = $this->resolver->resolve($url);
@@ -44,28 +40,28 @@ class FanzaResolverTest extends TestCase
     {
         return [
             '動画 digital/videoa' => [
-                'digital_videoa.html',
-                'https://www.dmm.co.jp/digital/videoa/-/detail/=/cid=pbd00490/',
+                'digital_videoa.json',
+                'https://video.dmm.co.jp/av/content/?id=pbd00490',
                 '舌テクと手淫のW快感で男をモジモジ悶えさせちゃう痴女お姉さんの乳首舐め手コキ88射精',
                 'ビン勃ちになった乳首とチ○ポ、美痴女に弄ばれるなら本望！W快感に悶えて脚ガクガクぴんぴん…最高に情けない射精の連続っ！「舐めるたび手のナカで膨らんでるよw」焦らしたり激しくしたり、吸ったり噛んだり…弱点責めるバリエーションまで豊富すぎ！M男快感たっぷり凝縮8時間！M男じゃなくたって…新しい性感に目覚めちゃうカモ？痴女のテッパン凄テクといえば乳首舐め手コキで間違いナシ！',
-                'https://pics.dmm.co.jp/digital/video/pbd00490/pbd00490pl.jpg',
-                ['山岸あや花（山岸逢花）', '深田えいみ', '初川みなみ', '蓮実クレア', '枢木あおい', '濱松愛季', '楪カレン', '櫻井まみ', '晶エリー（新井エリー、大沢佑香）', 'AIKA', '西野絵美', '新井優香', '竹内有紀', '香椎花乃', '木下ひまり（花沢ひまり）', '星奈あい', '波多野結衣', '尾崎えりか', '麻倉憂', '倉多まお', '希島あいり', 'プレミアム', 'PREMIUM_BEST', '4時間以上作品', 'ハイビジョン', '独占配信', 'M男', 'ベスト・総集編', '痴女', '手コキ']
+                'https://awsimgsrc.dmm.co.jp/pics_dig/digital/video/pbd00490/pbd00490pl.jpg',
+                ['山岸あや花（山岸逢花）', '深田えいみ', '初川みなみ', '蓮実クレア', '晶エリー（新井エリー、大沢佑香）', '櫻井まみ', '楪カレン', '濱松愛季', '枢木あおい', 'AIKA', '西野絵美', '倉多まお', '麻倉憂', '尾崎えりか', '波多野結衣', '星奈あい', '木下ひまり（花沢ひまり）', '香椎花乃', '竹内有紀', '希島あいり', 'プレミアム', 'PREMIUM_BEST', '手コキ', '痴女', 'ベスト・総集編', 'M男', '独占配信', 'ハイビジョン', '4時間以上作品']
             ],
             '素人動画 digital/videoc' => [
-                'digital_videoc.html',
-                'https://www.dmm.co.jp/digital/videoc/-/detail/=/cid=sweet015/',
+                'digital_videoc.json',
+                'https://video.dmm.co.jp/amateur/content/?id=sweet015',
                 'ねる',
                 '鉄板オナ素材的ハイシコリティ！もうサンプルは見ていただけましたか！？そうなんです！非の打ち所まるで無し！恋するキラッキラの瞳！愛嬌抜群の純真笑顔！Gカップ巨乳にむっちむちの恵体！モザイク越しにも伝わってしまう雑誌グラビア級の美少女ルックス！このスペックなのに自分に自信が持てない系のウブっ子！触れただけで濡れだす敏感ボディ！ねっとりDキスから嬉しそうに大量唾液をゴク飲みする程度には恋愛洗脳済み！溢れ出るガマン汁を丁寧に舐めとるラブいフェラ！ビックビク痙攣しながら困り顔で何度も何度も連続イキ絶頂！',
-                'https://pics.dmm.co.jp/digital/amateur/sweet015/sweet015jp.jpg',
-                ['素人ホイホイsweet！', '巨乳', '制服', '清楚', '美少女', '女子校生', 'ハイビジョン']
+                'https://awsimgsrc.dmm.co.jp/pics_dig/digital/amateur/sweet015/sweet015jp.jpg',
+                ['ねる', '素人ホイホイsweet！', 'ハイビジョン', '女子校生', '美少女', '清楚', '制服', '巨乳']
             ],
             'アニメ digital/anime' => [
-                'digital_anime.html',
-                'https://www.dmm.co.jp/digital/anime/-/detail/=/cid=h_1379jdxa57513/',
+                'digital_anime.json',
+                'https://video.dmm.co.jp/anime/content/?id=h_1379jdxa57513',
                 '性活週間 THE ANIMATION 第1巻',
                 'めちゃシコ美少女マスター・みちきんぐの初単行本が' . PHP_EOL . '『ヌーディストビーチに修学旅行で？』『リアルエロゲシチュエーション』など' . PHP_EOL . '大ヒットシリーズを手掛けたアダルトアニメ界の新進気鋭クリエイター' . PHP_EOL . '「小原和大」によって待望のOVA化！' . PHP_EOL .  PHP_EOL . '私と姉体験してみない？' . PHP_EOL . PHP_EOL . '（c）2019 みちきんぐ/GOT/ピンクパイナップル',
-                'https://pics.dmm.co.jp/digital/video/h_1379jdxa57513/h_1379jdxa57513pl.jpg',
-                ['性活週間_THE_ANIMATION', 'ピンクパイナップル', 'Pink_Pineapple', 'ハイビジョン', '中出し', 'フェラ', '巨乳', '姉・妹']
+                'https://awsimgsrc.dmm.co.jp/pics_dig/digital/video/h_1379jdxa57513/h_1379jdxa57513pl.jpg',
+                ['性活週間_THE_ANIMATION', 'ピンクパイナップル', 'Pink_Pineapple', '姉・妹', '巨乳', 'フェラ', '中出し', 'ハイビジョン']
             ],
             '同人' => [
                 'doujin.html',
