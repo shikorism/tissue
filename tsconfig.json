@@ -7,7 +7,8 @@
     "strict": true,
     "experimentalDecorators": true,
     "jsx": "react",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
   "include": [
     "resources/assets/js/**/*"

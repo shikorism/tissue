@@ -21,6 +21,8 @@ tags:
     description: コレクションに関する操作
   - name: user-stats
     description: ユーザーの統計情報
+  - name: timelines
+    description: タイムライン
 paths:
   /webhooks/checkin/{id}:
     post:
@@ -195,6 +197,32 @@ paths:
           schema:
             type: boolean
             default: false
+        - name: since
+          in: query
+          description: 検索範囲の開始日
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2020-07-01
+        - name: until
+          in: query
+          description: 検索範囲の終了日
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2021-07-31
+        - name: order
+          in: query
+          description: チェックイン日時の並び順
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: desc
       responses:
         200:
           description: 成功
@@ -211,6 +239,51 @@ paths:
                   $ref: '#/components/schemas/Checkin'
         403:
           description: ユーザーがチェックイン履歴を公開していない場合
+        404:
+          description: 存在しないユーザー
+  /v1/users/{name}/likes:
+    get:
+      summary: いいねしたチェックイン一覧の取得
+      description: 指定したユーザーがいいねしたチェックインの一覧を取得します。
+      tags:
+        - users
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: ユーザー名
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: ページ番号
+          schema:
+            type: integer
+            default: 1
+        - name: per_page
+          in: query
+          description: 1ページあたりのアイテム数
+          schema:
+            type: integer
+            default: 20
+            minimum: 10
+            maximum: 100
+      responses:
+        200:
+          description: 成功
+          headers:
+            X-Total-Count:
+              description: 全体のアイテム数
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Checkin'
+        403:
+          description: ユーザーがチェックイン履歴かいいね一覧を公開していない場合
         404:
           description: 存在しないユーザー
   /v1/users/{name}/collections:
@@ -872,6 +945,48 @@ paths:
           description: 自分以外が作成したコレクションに対して操作を試みた場合
         404:
           description: 存在しない場合
+  /v1/timelines/public:
+    get:
+      summary: お惣菜コーナーのチェックイン一覧の取得
+      description: |
+        お惣菜コーナー (公開タイムライン) のチェックイン一覧を取得します。
+
+        このAPIでは以下の条件を満たしたチェックインが新着順に列挙されます。
+
+        - ユーザーがチェックインを公開している
+        - チェックインが公開設定になっている
+        - チェックインにオカズリンクが含まれている
+      tags:
+        - timelines
+      parameters:
+        - name: page
+          in: query
+          description: ページ番号
+          schema:
+            type: integer
+            default: 1
+        - name: per_page
+          in: query
+          description: 1ページあたりのアイテム数
+          schema:
+            type: integer
+            default: 20
+            minimum: 10
+            maximum: 100
+      responses:
+        200:
+          description: 成功
+          headers:
+            X-Total-Count:
+              description: 全体のアイテム数
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Checkin'
 components:
   schemas:
     User:
@@ -915,6 +1030,7 @@ components:
         - total_checkins
         - total_times
         - average_interval
+        - median_interval
         - longest_interval
         - shortest_interval
       properties:
@@ -933,15 +1049,19 @@ components:
         average_interval:
           type: integer
           format: int64
-          description: 平均チェックイン間隔 (秒)
+          description: チェックイン間隔の平均値 (秒)
+        median_interval:
+          type: integer
+          format: int64
+          description: チェックイン間隔の中央値 (秒)
         longest_interval:
           type: integer
           format: int64
-          description: 最長チェックイン間隔 (秒)
+          description: チェックイン間隔の最大値 (秒)
         shortest_interval:
           type: integer
           format: int64
-          description: 最短チェックイン間隔 (秒)
+          description: チェックイン間隔の最小値 (秒)
     Checkin:
       type: object
       description: チェックインデータ
@@ -995,6 +1115,8 @@ components:
             - webhook
             - api
           example: api
+        user:
+          $ref: "#/components/schemas/User"
     UpdateCheckin:
       type: object
       properties:

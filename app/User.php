@@ -119,6 +119,7 @@ class User extends Authenticatable
         // 概況欄のデータ取得
         $average = 0;
         $divisor = 0;
+        $medianSources = [];
         $averageSources = DB::select(<<<'SQL'
 SELECT
   extract(epoch from ejaculated_date - lead(ejaculated_date, 1, NULL) OVER (ORDER BY ejaculated_date DESC)) AS span,
@@ -140,10 +141,12 @@ SQL
             }
             $average += $item->span;
             $divisor++;
+            $medianSources[] = $item->span;
         }
         if ($divisor > 0) {
             $average /= $divisor;
         }
+        $median = collect($medianSources)->sort()->median();
 
         $summary = DB::select(<<<'SQL'
 SELECT
@@ -172,6 +175,7 @@ SQL
             'total_checkins' => $total,
             'total_times' => (int) $summary[0]->total_times,
             'average_interval' => $average,
+            'median_interval' => $median,
             'longest_interval' => (int) $summary[0]->longest,
             'shortest_interval' => (int) $summary[0]->shortest,
         ];

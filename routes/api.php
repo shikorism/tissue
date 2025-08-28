@@ -40,6 +40,8 @@ Route::middleware('stateful')->group(function () {
                 Route::get('/links', 'MostlyUsedLinks')->name('links');
                 Route::get('/tags', 'MostlyUsedCheckinTags')->name('tags');
             });
+
+        Route::get('/timelines/public', 'Api\\V1\\Timelines\\PublicTimeline')->name('timelines.public');
     });
 });
 
@@ -56,8 +58,9 @@ Route::middleware(['throttle:60,1', 'auth:api'])
         Route::get('me', 'MeController@show')->name('me.show');
         Route::apiResource('users', 'UserController')->only(['show']);
         Route::apiResource('users.checkins', 'UserCheckinController')->only(['index']);
-        Route::apiResource('checkins', 'CheckinController')->except(['index']);
         Route::apiResource('users.collections', 'UserCollectionController')->only(['index']);
+        Route::apiResource('users.likes', 'UserLikeController')->only(['index']);
+        Route::apiResource('checkins', 'CheckinController')->except(['index']);
         Route::apiResource('collections', 'CollectionController')->except(['index']);
         Route::apiResource('collections.items', 'CollectionItemController')->except(['show']);
 
@@ -70,4 +73,6 @@ Route::middleware(['throttle:60,1', 'auth:api'])
                 Route::get('/links', 'MostlyUsedLinks')->name('links');
                 Route::get('/tags', 'MostlyUsedCheckinTags')->name('tags');
             });
+
+        Route::get('/timelines/public', 'Timelines\\PublicTimeline')->name('timelines.public');
     });

@@ -170,4 +170,129 @@ class UserCheckinTest extends TestCase
             ]
         ], true);
     }
+
+    public function testSince()
+    {
+        $user = User::factory()->create();
+        Passport::actingAs($user);
+
+        $oldCheckin = Ejaculation::factory()->create([
+            'user_id' => $user->id,
+            'ejaculated_date' => Carbon::create(2020, 6, 15, 0, 0, 0, 'Asia/Tokyo'),
+        ]);
+        $midCheckin = Ejaculation::factory()->create([
+            'user_id' => $user->id,
+            'ejaculated_date' => Carbon::create(2020, 7, 15, 0, 0, 0, 'Asia/Tokyo'),
+        ]);
+        $newCheckin = Ejaculation::factory()->create([
+            'user_id' => $user->id,
+            'ejaculated_date' => Carbon::create(2020, 8, 15, 0, 0, 0, 'Asia/Tokyo'),
+        ]);
+
+        $response = $this->getJson('/api/v1/users/' . $user->name . '/checkins?since=2020-07-01');
+
+        $response->assertStatus(200);
+        $response->assertHeader('X-Total-Count', 2);
+        $response->assertJsonCount(2);
+        $response->assertJsonFragment(['id' => $midCheckin->id]);
+        $response->assertJsonFragment(['id' => $newCheckin->id]);
+        $response->assertJsonMissing(['id' => $oldCheckin->id]);
+    }
+
+    public function testUntil()
+    {
+        $user = User::factory()->create();
+        Passport::actingAs($user);
+
+        $oldCheckin = Ejaculation::factory()->create([
+            'user_id' => $user->id,
+            'ejaculated_date' => Carbon::create(2020, 6, 15, 0, 0, 0, 'Asia/Tokyo'),
+        ]);
+        $midCheckin = Ejaculation::factory()->create([
+            'user_id' => $user->id,
+            'ejaculated_date' => Carbon::create(2020, 7, 15, 0, 0, 0, 'Asia/Tokyo'),
+        ]);
+        $newCheckin = Ejaculation::factory()->create([
+            'user_id' => $user->id,
+            'ejaculated_date' => Carbon::create(2020, 8, 15, 0, 0, 0, 'Asia/Tokyo'),
+        ]);
+
+        $response = $this->getJson('/api/v1/users/' . $user->name . '/checkins?until=2020-07-31');
+
+        $response->assertStatus(200);
+        $response->assertHeader('X-Total-Count', 2);
+        $response->assertJsonCount(2);
+        $response->assertJsonFragment(['id' => $oldCheckin->id]);
+        $response->assertJsonFragment(['id' => $midCheckin->id]);
+        $response->assertJsonMissing(['id' => $newCheckin->id]);
+    }
+
+    public function testSinceUntil()
+    {
+        $user = User::factory()->create();
+        Passport::actingAs($user);
+
+        $oldCheckin = Ejaculation::factory()->create([
+            'user_id' => $user->id,
+            'ejaculated_date' => Carbon::create(2020, 6, 15, 0, 0, 0, 'Asia/Tokyo'),
+        ]);
+        $midCheckin = Ejaculation::factory()->create([
+            'user_id' => $user->id,
+            'ejaculated_date' => Carbon::create(2020, 7, 15, 0, 0, 0, 'Asia/Tokyo'),
+        ]);
+        $newCheckin = Ejaculation::factory()->create([
+            'user_id' => $user->id,
+            'ejaculated_date' => Carbon::create(2020, 8, 15, 0, 0, 0, 'Asia/Tokyo'),
+        ]);
+
+        $response = $this->getJson('/api/v1/users/' . $user->name . '/checkins?since=2020-07-01&until=2020-07-31');
+
+        $response->assertStatus(200);
+        $response->assertHeader('X-Total-Count', 1);
+        $response->assertJsonCount(1);
+        $response->assertJsonFragment(['id' => $midCheckin->id]);
+        $response->assertJsonMissing(['id' => $oldCheckin->id]);
+        $response->assertJsonMissing(['id' => $newCheckin->id]);
+    }
+
+    public function testOrder()
+    {
+        $user = User::factory()->create();
+        Passport::actingAs($user);
+
+        $oldCheckin = Ejaculation::factory()->create([
+            'user_id' => $user->id,
+            'ejaculated_date' => Carbon::create(2020, 6, 15, 0, 0, 0, 'Asia/Tokyo'),
+        ]);
+        $midCheckin = Ejaculation::factory()->create([
+            'user_id' => $user->id,
+            'ejaculated_date' => Carbon::create(2020, 7, 15, 0, 0, 0, 'Asia/Tokyo'),
+        ]);
+        $newCheckin = Ejaculation::factory()->create([
+            'user_id' => $user->id,
+            'ejaculated_date' => Carbon::create(2020, 8, 15, 0, 0, 0, 'Asia/Tokyo'),
+        ]);
+
+        $response = $this->getJson('/api/v1/users/' . $user->name . '/checkins?order=asc');
+
+        $response->assertStatus(200);
+        $response->assertHeader('X-Total-Count', 3);
+        $response->assertJsonCount(3);
+
+        $responseData = $response->json();
+        $this->assertEquals($oldCheckin->id, $responseData[0]['id']);
+        $this->assertEquals($midCheckin->id, $responseData[1]['id']);
+        $this->assertEquals($newCheckin->id, $responseData[2]['id']);
+
+        $response = $this->getJson('/api/v1/users/' . $user->name . '/checkins?order=desc');
+
+        $response->assertStatus(200);
+        $response->assertHeader('X-Total-Count', 3);
+        $response->assertJsonCount(3);
+
+        $responseData = $response->json();
+        $this->assertEquals($newCheckin->id, $responseData[0]['id']);
+        $this->assertEquals($midCheckin->id, $responseData[1]['id']);
+        $this->assertEquals($oldCheckin->id, $responseData[2]['id']);
+    }
 }
