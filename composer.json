@@ -32,7 +32,7 @@
         "misd/linkify": "^1.1",
         "openpear/stream_filter_mbstring": "dev-master",
         "sentry/sentry-laravel": "^4.1.0",
-        "symfony/css-selector": "^6.0",
+        "symfony/css-selector": "^7.3",
         "symfony/dom-crawler": "^6.0",
         "t1gor/robots-txt-parser": "^0.2.4"
     },
