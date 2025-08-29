@@ -10,12 +10,11 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
-"@apidevtools/json-schema-ref-parser@11.7.2":
-  version "11.7.2"
-  resolved "https://registry.yarnpkg.com/@apidevtools/json-schema-ref-parser/-/json-schema-ref-parser-11.7.2.tgz#cdf3e0aded21492364a70e193b45b7cf4177f031"
-  integrity sha512-4gY54eEGEstClvEkGnwVkTkrx0sqwemEFG5OSRRn3tD91XH0+Q8XIkYIfo7IwEWPpJZwILb9GUXeShtplRc/eA==
+"@apidevtools/json-schema-ref-parser@14.0.1":
+  version "14.0.1"
+  resolved "https://registry.yarnpkg.com/@apidevtools/json-schema-ref-parser/-/json-schema-ref-parser-14.0.1.tgz#3bc445ed2eddf72bc2f9eb2e295c696bdc5be725"
+  integrity sha512-Oc96zvmxx1fqoSEdUmfmvvb59/KDOnUoJ7s2t7bISyAn0XEz57LCCw8k2Y4Pf3mwKaZLMciESALORLgfe2frCw==
   dependencies:
-    "@jsdevtools/ono" "^7.1.3"
     "@types/json-schema" "^7.0.15"
     js-yaml "^4.1.0"
 
@@ -29,15 +28,14 @@
   resolved "https://registry.yarnpkg.com/@apidevtools/swagger-methods/-/swagger-methods-3.0.2.tgz#b789a362e055b0340d04712eafe7027ddc1ac267"
   integrity sha512-QAkD5kK2b1WfjDS/UQn/qQkbwF31uqRjPTrsCs5ZG9BQGAkjwvqGFjjPqAuzac/IYzpPtRzjCP1WrTuAIjMrXg==
 
-"@apidevtools/swagger-parser@~10.1.1":
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/@apidevtools/swagger-parser/-/swagger-parser-10.1.1.tgz#e29bf17cf94b487a340e06784e9fbe20cb671c45"
-  integrity sha512-u/kozRnsPO/x8QtKYJOqoGtC4kH6yg1lfYkB9Au0WhYB0FNLpyFusttQtvhlwjtG3rOwiRz4D8DnnXa8iEpIKA==
+"@apidevtools/swagger-parser@~12.0.0":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@apidevtools/swagger-parser/-/swagger-parser-12.0.0.tgz#02667c728b0c6c1f92109d105b0561828be8c5d8"
+  integrity sha512-WLJIWcfOXrSKlZEM+yhA2Xzatgl488qr1FoOxixYmtWapBzwSC0gVGq4WObr4hHClMIiFFdOBdixNkvWqkWIWA==
   dependencies:
-    "@apidevtools/json-schema-ref-parser" "11.7.2"
+    "@apidevtools/json-schema-ref-parser" "14.0.1"
     "@apidevtools/openapi-schemas" "^2.1.0"
     "@apidevtools/swagger-methods" "^3.0.2"
-    "@jsdevtools/ono" "^7.1.3"
     ajv "^8.17.1"
     ajv-draft-04 "^1.0.0"
     call-me-maybe "^1.0.2"
@@ -49,7 +47,7 @@
   dependencies:
     "@babel/highlight" "^7.16.7"
 
-"@babel/code-frame@^7.16.0":
+"@babel/code-frame@^7.16.0", "@babel/code-frame@~7.27.1":
   version "7.27.1"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.27.1.tgz#200f715e66d52a23b221a9435534a91cc13ad5be"
   integrity sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg==
@@ -58,7 +56,7 @@
     js-tokens "^4.0.0"
     picocolors "^1.1.1"
 
-"@babel/code-frame@^7.26.2", "@babel/code-frame@~7.26.2":
+"@babel/code-frame@^7.26.2":
   version "7.26.2"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.26.2.tgz#4b5fab97d33338eff916235055f0ebc21e573a85"
   integrity sha512-RJlIHRueQgwWitWgF8OdFYGZX328Ax5BCemNGlqHfplnRT9ESi8JkFlvaVYbS+UubVY6dpv87Fs2u5M29iNFVQ==
@@ -768,11 +766,6 @@
   dependencies:
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
-
-"@jsdevtools/ono@^7.1.3":
-  version "7.1.3"
-  resolved "https://registry.yarnpkg.com/@jsdevtools/ono/-/ono-7.1.3.tgz#9df03bbd7c696a5c58885c34aa06da41c8543796"
-  integrity sha512-4JQNk+3mVzK3xh2rqd6RB4J46qUR19azEHBneZyTZM+c456qOrbbM/5xcR8huNCCcbVt7+UmizG6GuUvPvKUYg==
 
 "@jsep-plugin/assignment@^1.3.0":
   version "1.3.0"
@@ -2266,17 +2259,17 @@
     "@typescript-eslint/types" "8.27.0"
     eslint-visitor-keys "^4.2.0"
 
-"@typespec/asset-emitter@^0.69.0":
-  version "0.69.0"
-  resolved "https://registry.yarnpkg.com/@typespec/asset-emitter/-/asset-emitter-0.69.0.tgz#6bbe542783eb323dbd551727e550434063a8a8fa"
-  integrity sha512-EO/i+XwbY5PYV0zwaYbauuZDKjTZ8XDuQHzYa52vMj4RRUVHDsuaJuZ7sD5ZUJSQSXg7oExDSTzO8KYaXvg5Gg==
+"@typespec/asset-emitter@^0.73.0":
+  version "0.73.0"
+  resolved "https://registry.yarnpkg.com/@typespec/asset-emitter/-/asset-emitter-0.73.0.tgz#c8913e0cefd4bed4e18af181a2ed786d916d64d2"
+  integrity sha512-SigCa9k8gS+AiHE7Ky/kcwyqFM5kuJ0wXT+Dy89Jbd+wwrYu+mKXyXbScrTdc+MBzut+rFltFENgEYXsSvA/mA==
 
-"@typespec/compiler@^1.0.0-rc.1":
-  version "1.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/@typespec/compiler/-/compiler-1.0.0-rc.1.tgz#81bf1dc55a0bad17257f8cf0bbf1186f8e34d769"
-  integrity sha512-SDCB19wCVQVGTHOwkKnOnaGH2/vpr5aHLhTOs2k36AVsFrkurpMkL0TeE2QKiJszmkQeOnGW3bgH7Hbw15kXtw==
+"@typespec/compiler@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@typespec/compiler/-/compiler-1.3.0.tgz#cd53eb3b55c4471145f250de48227c3b5e1ec07a"
+  integrity sha512-OqpoNP3C2y8riA6C5RofPMvmj9jNiGyyhde0tM2ZE7IBOv7BBaTDqw4CJD22YnC8JEilRfPmvdVCViNrPHEjrA==
   dependencies:
-    "@babel/code-frame" "~7.26.2"
+    "@babel/code-frame" "~7.27.1"
     "@inquirer/prompts" "^7.4.0"
     ajv "~8.17.1"
     change-case "~5.4.4"
@@ -2285,34 +2278,34 @@
     is-unicode-supported "^2.1.0"
     mustache "~4.2.0"
     picocolors "~1.1.1"
-    prettier "~3.5.3"
+    prettier "~3.6.2"
     semver "^7.7.1"
     tar "^7.4.3"
     temporal-polyfill "^0.3.0"
     vscode-languageserver "~9.0.1"
     vscode-languageserver-textdocument "~1.0.12"
-    yaml "~2.7.0"
-    yargs "~17.7.2"
+    yaml "~2.8.0"
+    yargs "~18.0.0"
 
-"@typespec/http@^1.0.0-rc.1":
-  version "1.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/@typespec/http/-/http-1.0.0-rc.1.tgz#4fbe2f424730d6ea661eca1f35f72777e732de41"
-  integrity sha512-USAxsTeRF1i4g39KeHOh7/x1RzW4lpSpWQqlz/xuHAxEPVsu23BRq9AJrN/nTpgYlpGvOTbJnadWXOs20/TmBA==
+"@typespec/http@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@typespec/http/-/http-1.3.0.tgz#64ea5be5bd298d89556c1d4feca6cfdcb868652c"
+  integrity sha512-4W3KsmBHZGgECVbvyh7S7KQG06948XyVVzae+UbVDDxoUj/x4Ry0AXw3q4HmzB2BVhxw6JBrwBuVa5mxjVMzdw==
 
-"@typespec/openapi3@^1.0.0-rc.1":
-  version "1.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/@typespec/openapi3/-/openapi3-1.0.0-rc.1.tgz#21714ec31cdf44c7aa64438811f29819c46f7725"
-  integrity sha512-k+JqALqXHwjFoS7zTsuhJkbMydsp7UobNwSuw00jABTC5mkvCLwS+ZkWrkUB4+Lc3B2iNWZOCNL/Ynx3rFkq4w==
+"@typespec/openapi3@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@typespec/openapi3/-/openapi3-1.3.0.tgz#34fe25ae0731e8275c890b91d4789bced62d299f"
+  integrity sha512-ZG+swQYtdBgyTUbwPI03YQJpPUYhORtbcx6mIFNsKhsTRRC2UDq63jUNCIFCTYI6DJPzkVpra56YPNCXmQLZMg==
   dependencies:
-    "@apidevtools/swagger-parser" "~10.1.1"
-    "@typespec/asset-emitter" "^0.69.0"
+    "@apidevtools/swagger-parser" "~12.0.0"
+    "@typespec/asset-emitter" "^0.73.0"
     openapi-types "~12.1.3"
-    yaml "~2.7.0"
+    yaml "~2.8.0"
 
-"@typespec/openapi@^1.0.0-rc.1":
-  version "1.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/@typespec/openapi/-/openapi-1.0.0-rc.1.tgz#38678567c9bea34bde3f5858a9d4a47827473bfc"
-  integrity sha512-lHfn6luTc4OKpspHFfxnUD65+jhFvtp2YavCCagVZotl14U8+mxAXULZDwRgi2Wu5/CdII0v5WnA+yu1DSbFzA==
+"@typespec/openapi@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@typespec/openapi/-/openapi-1.3.0.tgz#afecef61fe9d2231e713f11ce5bb556c60d01670"
+  integrity sha512-BSeshjCZQodVGyVHn7ytcUeIcUGjqbG2Ac0NLOQaaKnISVrhTWNcgo5aFTqxAa24ZL/EuhqlSauLyYce2EV9fw==
 
 "@vitejs/plugin-react@^4.3.4":
   version "4.3.4"
@@ -2885,6 +2878,15 @@ cliui@^8.0.1:
     string-width "^4.2.0"
     strip-ansi "^6.0.1"
     wrap-ansi "^7.0.0"
+
+cliui@^9.0.1:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/cliui/-/cliui-9.0.1.tgz#6f7890f386f6f1f79953adc1f78dec46fcc2d291"
+  integrity sha512-k7ndgKhwoQveBL+/1tqGJYNz097I7WOvwbmmU2AR5+magtbjPWQTS1C5vzGkBC8Ym8UWRzfKUzUUqFLypY4Q+w==
+  dependencies:
+    string-width "^7.2.0"
+    strip-ansi "^7.1.0"
+    wrap-ansi "^9.0.0"
 
 clsx@^2.0.0:
   version "2.1.1"
@@ -6081,10 +6083,15 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@^3.5.3, prettier@~3.5.3:
+prettier@^3.5.3:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.5.3.tgz#4fc2ce0d657e7a02e602549f053b239cb7dfe1b5"
   integrity sha512-QQtaxnoDJeAkDvDKWCLiwIXkTgRhwYDEQCghU9Z6q03iyek/rxRh/2lC3HB7P8sWT2xC/y5JDctPLBIGzHKbhw==
+
+prettier@~3.6.2:
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.6.2.tgz#ccda02a1003ebbb2bfda6f83a074978f608b9393"
+  integrity sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ==
 
 pretty-format@^29.7.0:
   version "29.7.0"
@@ -6995,7 +7002,7 @@ string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
     is-fullwidth-code-point "^3.0.0"
     strip-ansi "^6.0.1"
 
-string-width@^7.0.0:
+string-width@^7.0.0, string-width@^7.2.0:
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-7.2.0.tgz#b5bb8e2165ce275d4d43476dd2700ad9091db6dc"
   integrity sha512-tsaTIkKW9b4N+AEj+SVA+WhJzV7/zMhcSu78mLKWSk7cXMOSHsBKFWUs0fWwq8QyK3MgJBQRX6Gbi4kYbdvGkQ==
@@ -7903,10 +7910,10 @@ yaml@^2.7.1:
   resolved "https://registry.yarnpkg.com/yaml/-/yaml-2.8.0.tgz#15f8c9866211bdc2d3781a0890e44d4fa1a5fff6"
   integrity sha512-4lLa/EcQCB0cJkyts+FpIRx5G/llPxfP6VQU5KByHEhLxY3IJCH0f0Hy1MHI8sClTvsIb8qwRJ6R/ZdlDJ/leQ==
 
-yaml@~2.7.0:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/yaml/-/yaml-2.7.1.tgz#44a247d1b88523855679ac7fa7cda6ed7e135cf6"
-  integrity sha512-10ULxpnOCQXxJvBgxsn9ptjq6uviG/htZKk9veJGhlqn3w/DxQ631zFF+nlQXLwmImeS5amR2dl2U8sg6U9jsQ==
+yaml@~2.8.0:
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/yaml/-/yaml-2.8.1.tgz#1870aa02b631f7e8328b93f8bc574fac5d6c4d79"
+  integrity sha512-lcYcMxX2PO9XMGvAJkJ3OsNMw+/7FKes7/hgerGUYWIoWu5j/+YQqcZr5JnPZWzOsEBgMbSbiSTn/dv/69Mkpw==
 
 yargs-parser@^13.1.2:
   version "13.1.2"
@@ -7925,6 +7932,11 @@ yargs-parser@^21.1.1:
   version "21.1.1"
   resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-21.1.1.tgz#9096bceebf990d21bb31fa9516e0ede294a77d35"
   integrity sha512-tVpsJW7DdjecAiFpbIB1e3qxIQsE6NoPc5/eTdrbbIC4h0LVsWhnoa3g+m2HclBIujHzsxZ4VJVA+GUuc2/LBw==
+
+yargs-parser@^22.0.0:
+  version "22.0.0"
+  resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-22.0.0.tgz#87b82094051b0567717346ecd00fd14804b357c8"
+  integrity sha512-rwu/ClNdSMpkSrUb+d6BRsSkLUq1fmfsY6TOpYzTwvwkg1/NRG85KBy3kq++A8LKQwX6lsu+aWad+2khvuXrqw==
 
 yargs@17.0.1:
   version "17.0.1"
@@ -7955,7 +7967,7 @@ yargs@^13.3.0:
     y18n "^4.0.0"
     yargs-parser "^13.1.2"
 
-yargs@^17.0.1, yargs@~17.7.2:
+yargs@^17.0.1:
   version "17.7.2"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-17.7.2.tgz#991df39aca675a192b816e1e0363f9d75d2aa269"
   integrity sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==
@@ -7967,6 +7979,18 @@ yargs@^17.0.1, yargs@~17.7.2:
     string-width "^4.2.3"
     y18n "^5.0.5"
     yargs-parser "^21.1.1"
+
+yargs@~18.0.0:
+  version "18.0.0"
+  resolved "https://registry.yarnpkg.com/yargs/-/yargs-18.0.0.tgz#6c84259806273a746b09f579087b68a3c2d25bd1"
+  integrity sha512-4UEqdc2RYGHZc7Doyqkrqiln3p9X2DZVxaGbwhn2pi7MrRagKaOcIKe8L3OxYcbhXLgLFUS3zAYuQjKBQgmuNg==
+  dependencies:
+    cliui "^9.0.1"
+    escalade "^3.1.1"
+    get-caller-file "^2.0.5"
+    string-width "^7.2.0"
+    y18n "^5.0.5"
+    yargs-parser "^22.0.0"
 
 yocto-queue@^0.1.0:
   version "0.1.0"
