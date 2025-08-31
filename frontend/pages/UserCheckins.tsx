@@ -4,7 +4,7 @@ import { Link, useLoaderData, useParams, useSearchParams } from 'react-router';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { getUserCheckinsQuery, getUserStatsCheckinDailyQuery } from '../api/query';
 import { LoaderData, PER_PAGE } from './UserCheckins.loader';
-import { Checkin } from '../components/Checkin';
+import { Checkin } from '../features/checkins/Checkin';
 import { Pagination } from '../components/Pagination';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 import { cn } from '../lib/cn';

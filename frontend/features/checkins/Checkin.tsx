@@ -2,12 +2,12 @@ import React from 'react';
 import { Link } from 'react-router';
 import { formatDate } from 'date-fns';
 import Linkify from 'linkify-react';
-import type { components } from '../api/schema';
-import { cn } from '../lib/cn';
-import { ExternalLink } from './ExternalLink';
-import { LinkCard } from './LinkCard';
-import { useCurrentUser } from './AuthProvider';
-import { formatInterval } from '../lib/formatter';
+import type { components } from '../../api/schema';
+import { cn } from '../../lib/cn';
+import { ExternalLink } from '../../components/ExternalLink';
+import { LinkCard } from '../../components/LinkCard';
+import { useCurrentUser } from '../../components/AuthProvider';
+import { formatInterval } from '../../lib/formatter';
 
 interface Props {
     checkin: components['schemas']['Checkin'];

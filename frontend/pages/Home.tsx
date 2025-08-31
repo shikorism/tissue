@@ -3,7 +3,7 @@ import { subSeconds, format } from 'date-fns';
 import { Link } from 'react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getMeQuery, getTimelinesPublicQuery } from '../api/query';
-import { Checkin } from '../components/Checkin';
+import { Checkin } from '../features/checkins/Checkin';
 import { formatOrDefault, formatNumber, formatInterval } from '../lib/formatter';
 
 export const Home: React.FC = () => {

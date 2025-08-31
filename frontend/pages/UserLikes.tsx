@@ -3,7 +3,7 @@ import { useLoaderData, useRouteError } from 'react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getUserLikesQuery } from '../api/query';
 import { LoaderData, PER_PAGE } from './UserLikes.loader';
-import { Checkin } from '../components/Checkin';
+import { Checkin } from '../features/checkins/Checkin';
 import { Pagination } from '../components/Pagination';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 import { ResponseError } from '../api/errors';
