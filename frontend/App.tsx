@@ -23,6 +23,10 @@ import { UserStatsMonthly } from './pages/UserStatsMonthly';
 import { loader as userStatsMonthlyLoader } from './pages/UserStatsMonthly.loader';
 import { UserLikes, ErrorBoundary as UserLikesErrorBoundary } from './pages/UserLikes';
 import { loader as userLikesLoader } from './pages/UserLikes.loader';
+import { UserCollections, ErrorBoundary as UserCollectionsErrorBoundary } from './pages/UserCollections';
+import { loader as userCollectionsLoader } from './pages/UserCollections.loader';
+import { UserCollection, ErrorBoundary as UserCollectionErrorBoundary } from './pages/UserCollection';
+import { loader as userCollectionLoader } from './pages/UserCollection.loader';
 import { PublicTimeline } from './pages/PublicTimeline';
 import { loader as publicTimelineLoader } from './pages/PublicTimeline.loader';
 import { Tags } from './pages/Tags';
@@ -85,6 +89,18 @@ const router = createBrowserRouter(
                         {
                             path: 'okazu',
                             element: <Navigate to="../checkins?link=1" replace />,
+                        },
+                        {
+                            path: 'collections',
+                            element: <UserCollections />,
+                            errorElement: <UserCollectionsErrorBoundary />,
+                            loader: userCollectionsLoader(queryClient),
+                        },
+                        {
+                            path: 'collections/:collectionId',
+                            element: <UserCollection />,
+                            errorElement: <UserCollectionErrorBoundary />,
+                            loader: userCollectionLoader(queryClient),
                         },
                     ],
                 },

@@ -35,18 +35,7 @@ namespace Users {
   @route("/collections")
   namespace Collections {
     @operationId("users-collections-list")
-    op list(
-      @path username: string,
-      @query page?: int32 = 1,
-
-      @query
-      @minValue(20)
-      @maxValue(100)
-      per_page?: int32 = 20,
-    ): {
-      @header xTotalCount: int32;
-      @body body: Collection[];
-    } | Error;
+    op list(@path username: string): Collection[] | Error;
   }
 
   @route("/likes")
