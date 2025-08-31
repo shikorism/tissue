@@ -2,7 +2,7 @@ import React from 'react';
 import { useLoaderData } from 'react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getTimelinesPublicQuery } from '../api/query';
-import { Checkin } from '../components/Checkin';
+import { Checkin } from '../features/checkins/Checkin';
 import { Pagination } from '../components/Pagination';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 import { PER_PAGE, LoaderData } from './PublicTimeline.loader';

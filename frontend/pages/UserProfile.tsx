@@ -4,13 +4,13 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import Linkify from 'linkify-react';
 import { getUserCheckinsQuery, getUserQuery, getUserStatsCheckinDailyQuery, getUserStatsTagsQuery } from '../api/query';
 import type { components } from '../api/schema';
-import { Checkin } from '../components/Checkin';
+import { Checkin } from '../features/checkins/Checkin';
 import { ExternalLink } from '../components/ExternalLink';
 import { LoaderData } from './UserProfile.loader';
 import { formatInterval, formatNumber, formatOrDefault } from '../lib/formatter';
 import { format, subSeconds } from 'date-fns';
 import { useCurrentUser } from '../components/AuthProvider';
-import { CheckinHeatmap } from '../components/CheckinHeatmap';
+import { CheckinHeatmap } from '../features/user-stats/CheckinHeatmap';
 
 export const UserProfile: React.FC = () => {
     const { user: me } = useCurrentUser();
