@@ -107,6 +107,42 @@ export const getUserLikesQuery = (
             ),
     });
 
+export const getUserCollectionsQuery = (username: string) =>
+    queryOptions({
+        queryKey: ['/users/{username}/collections', username],
+        queryFn: () =>
+            fetchClient
+                .GET('/users/{username}/collections', { params: { path: { username } } })
+                .then((response) => ensure(response.data)),
+    });
+
+export const getCollectionQuery = (collectionId: number) =>
+    queryOptions({
+        queryKey: ['/collections/{collection_id}', collectionId],
+        queryFn: () =>
+            fetchClient
+                .GET('/collections/{collection_id}', { params: { path: { collection_id: collectionId } } })
+                .then((response) => ensure(response.data)),
+    });
+
+export const getCollectionItemsQuery = (
+    collectionId: number,
+    query?: paths['/collections/{collection_id}/items']['get']['parameters']['query'],
+) =>
+    queryOptions({
+        queryKey: ['/collections/{collection_id}/items', collectionId, query],
+        queryFn: () =>
+            fetchClient
+                .GET('/collections/{collection_id}/items', { params: { path: { collection_id: collectionId }, query } })
+                .then(
+                    (response) =>
+                        ensure(response.data) && {
+                            totalCount: totalCount(response.response),
+                            data: ensure(response.data),
+                        },
+                ),
+    });
+
 export const getTimelinesPublicQuery = (
     query?: paths['/timelines/public']['get']['parameters']['query'],
     keepPrevious: boolean = false,

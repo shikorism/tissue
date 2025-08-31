@@ -2,6 +2,20 @@
 @import "@tabler/icons-webfont/dist/tabler-icons.css";
 
 @theme {
+    /* custom brand colors */
+    --color-primary-50: #fdf2fa;
+    --color-primary-100: #fbe8f7;
+    --color-primary-200: #fad0f0;
+    --color-primary-300: #f6abe2;
+    --color-primary-400: #f076ce;
+    --color-primary-500: #e53fb1;
+    --color-primary-600: #d52d98;
+    --color-primary-700: #b91d7c;
+    --color-primary-800: #991b66;
+    --color-primary-900: #801b57;
+    --color-primary-950: #4e0931;
+
+    /* [DEPRECATED] tissue-v2 compatible semantic colors */
     --color-primary: #e53fb1;
     --color-secondary: #6c757d;
     --color-gray-back: #f8f9fa;

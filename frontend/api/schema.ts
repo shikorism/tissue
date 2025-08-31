@@ -1152,10 +1152,7 @@ export interface operations {
     };
     "users-collections-list": {
         parameters: {
-            query?: {
-                page?: number;
-                per_page?: number;
-            };
+            query?: never;
             header?: never;
             path: {
                 username: string;
@@ -1167,7 +1164,6 @@ export interface operations {
             /** @description The request has succeeded. */
             200: {
                 headers: {
-                    "x-total-count": number;
                     [name: string]: unknown;
                 };
                 content: {
