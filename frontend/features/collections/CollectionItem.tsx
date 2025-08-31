@@ -17,7 +17,7 @@ export const CollectionItem: React.FC<Props> = ({ collection, item, className })
     const { user: me } = useCurrentUser();
 
     return (
-        <div className={cn('py-4 flex flex-col gap-2 break-words', className)}>
+        <article className={cn('py-4 flex flex-col gap-2 break-words', className)}>
             <LinkCard link={item.link} />
             <p className="flex items-baseline">
                 <i className="ti ti-link mr-1" />
@@ -88,7 +88,7 @@ export const CollectionItem: React.FC<Props> = ({ collection, item, className })
                     </>
                 )}
             </div>
-        </div>
+        </article>
     );
 };
 

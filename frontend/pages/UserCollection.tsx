@@ -19,17 +19,17 @@ export const UserCollection: React.FC = () => {
 
     return (
         <div className="grow-1">
-            <div className="flex-1 px-4 mx-auto lg:max-w-[1080px]">
+            <div className="flex-1 px-4">
                 <div className="flex justify-between items-center mt-2 pb-2 text-secondary border-b-1 border-gray-border">
                     <Link to=".." relative="path">
                         <i className="ti ti-chevron-left mr-1" />
-                        コレクション一覧
+                        <span className="hidden lg:inline">コレクション</span>一覧
                     </Link>
                     {collection.user_name === me?.name && (
                         <div className="flex gap-2">
                             <Button as={Link} variant="primary" to={`/collect?collection=${collection.id}`}>
                                 <i className="ti ti-plus mr-2" />
-                                オカズを追加
+                                <span className="hidden lg:inline">オカズを</span>追加
                             </Button>
                             <Button>
                                 <i className="ti ti-edit mr-2" />
@@ -58,14 +58,16 @@ export const UserCollection: React.FC = () => {
                         )}
                     </div>
                 </div>
-                {data.map((item) => (
-                    <CollectionItem
-                        key={item.id}
-                        collection={collection}
-                        item={item}
-                        className="border-b-1 border-gray-border"
-                    />
-                ))}
+                <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
+                    {data.map((item) => (
+                        <CollectionItem
+                            key={item.id}
+                            collection={collection}
+                            item={item}
+                            className="px-2 border-b-1 border-gray-border"
+                        />
+                    ))}
+                </div>
                 {totalCount ? (
                     <Pagination className="my-4" totalCount={totalCount} perPage={PER_PAGE} />
                 ) : (
