@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link, useLoaderData, useRouteError } from 'react-router';
+import React, { useState } from 'react';
+import { Link, useLoaderData, useNavigate, useRouteError } from 'react-router';
 import { LoaderData, PER_PAGE } from './UserCollection.loader';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getCollectionItemsQuery, getCollectionQuery } from '../api/query';
@@ -8,14 +8,64 @@ import { useCurrentUser } from '../components/AuthProvider';
 import { Pagination } from '../components/Pagination';
 import { CollectionItem } from '../features/collections/CollectionItem';
 import { ResponseError } from '../api/errors';
+import {
+    CollectionEditModal,
+    CollectionFormErrors,
+    CollectionFormValidationError,
+    CollectionFormValues,
+} from '../features/collections/CollectionEditModal';
+import { useDeleteCollection, usePutCollection } from '../api/mutation';
+import { toast } from 'sonner';
+import { Modal, ModalBody, ModalFooter, ModalHeader } from '../components/Modal';
+import { ProgressButton } from '../components/ProgressButton';
 
 export const UserCollection: React.FC = () => {
     const { user: me } = useCurrentUser();
+    const navigate = useNavigate();
     const { collectionId, query } = useLoaderData<LoaderData>();
     const { data: collection } = useSuspenseQuery(getCollectionQuery(collectionId));
     const {
         data: { data, totalCount },
     } = useSuspenseQuery(getCollectionItemsQuery(collectionId, query));
+    const [isOpenEditModal, setIsOpenEditModal] = useState(false);
+    const putCollection = usePutCollection();
+    const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+    const deleteCollection = useDeleteCollection();
+
+    const handleSubmit = async (values: CollectionFormValues) => {
+        try {
+            await putCollection.mutateAsync({ collectionId, body: values });
+            toast.success('更新しました');
+            setIsOpenEditModal(false);
+        } catch (e) {
+            if (e instanceof ResponseError && e.response.status === 422) {
+                if (e.error?.violations) {
+                    const errors: CollectionFormErrors = {};
+                    for (const violation of e.error.violations) {
+                        const field = violation.field as keyof CollectionFormErrors;
+                        (errors[field] || (errors[field] = [])).push(violation.message);
+                    }
+                    throw new CollectionFormValidationError(errors);
+                } else if (e.error?.message) {
+                    toast.error(e.error.message);
+                    return;
+                }
+            }
+        }
+    };
+
+    const handleClickDelete = async () => {
+        deleteCollection.mutate(collectionId, {
+            onSuccess: () => {
+                setIsOpenDeleteModal(false);
+                toast.success('削除しました');
+                navigate('../', { relative: 'path' });
+            },
+            onError: () => {
+                toast.error('削除中にエラーが発生しました');
+            },
+        });
+    };
 
     return (
         <div className="grow-1">
@@ -31,11 +81,11 @@ export const UserCollection: React.FC = () => {
                                 <i className="ti ti-plus mr-2" />
                                 <span className="hidden lg:inline">オカズを</span>追加
                             </Button>
-                            <Button>
+                            <Button onClick={() => setIsOpenEditModal(true)}>
                                 <i className="ti ti-edit mr-2" />
                                 設定
                             </Button>
-                            <Button>
+                            <Button onClick={() => setIsOpenDeleteModal(true)}>
                                 <i className="ti ti-trash mr-2" />
                                 削除
                             </Button>
@@ -74,6 +124,27 @@ export const UserCollection: React.FC = () => {
                     <div className="py-4">このコレクションにはまだオカズが登録されていません。</div>
                 )}
             </div>
+            <CollectionEditModal
+                mode="edit"
+                initialValues={{ title: collection.title, is_private: collection.is_private }}
+                onSubmit={handleSubmit}
+                isOpen={isOpenEditModal}
+                onClose={() => setIsOpenEditModal(false)}
+            />
+            <Modal isOpen={isOpenDeleteModal} onClose={() => setIsOpenDeleteModal(false)}>
+                <ModalHeader closeButton>削除確認</ModalHeader>
+                <ModalBody>コレクションを削除してもよろしいですか？</ModalBody>
+                <ModalFooter>
+                    <Button onClick={() => setIsOpenDeleteModal(false)}>キャンセル</Button>
+                    <ProgressButton
+                        label="削除"
+                        variant="danger"
+                        inProgress={deleteCollection.isPending}
+                        disabled={deleteCollection.isPending}
+                        onClick={handleClickDelete}
+                    />
+                </ModalFooter>
+            </Modal>
         </div>
     );
 };
