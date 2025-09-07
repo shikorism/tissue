@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter, Navigate } from 'react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ProgressProvider } from '@bprogress/react';
+import { Toaster } from './components/Toaster';
 import { BaseLayout } from './layouts/BaseLayout';
 import { Home } from './pages/Home';
 import { loader as homeLoader } from './pages/Home.loader';
@@ -125,6 +126,7 @@ createRoot(document.getElementById('app') as HTMLElement).render(
     <QueryClientProvider client={queryClient}>
         <ProgressProvider color="#e53fb1">
             <RouterProvider router={router} />
+            <Toaster />
             <ReactQueryDevtools />
         </ProgressProvider>
     </QueryClientProvider>,

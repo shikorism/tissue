@@ -6,7 +6,8 @@ export class ResponseError extends Error {
         let message = `${response.status} ${response.statusText}`;
         let error;
         try {
-            error = JSON.parse(body);
+            const data = JSON.parse(body);
+            error = data.error;
             if (error.message) {
                 message = error.message;
             }

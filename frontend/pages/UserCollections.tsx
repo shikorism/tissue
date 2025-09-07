@@ -1,16 +1,49 @@
-import React from 'react';
-import { Link, useLoaderData, useRouteError } from 'react-router';
+import React, { useState } from 'react';
+import { Link, useLoaderData, useNavigate, useRouteError } from 'react-router';
 import { LoaderData } from './UserCollections.loader';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getUserCollectionsQuery } from '../api/query';
 import { Button } from '../components/Button';
 import { useCurrentUser } from '../components/AuthProvider';
 import { ResponseError } from '../api/errors';
+import {
+    CollectionEditModal,
+    CollectionFormValues,
+    CollectionFormErrors,
+    CollectionFormValidationError,
+} from '../features/collections/CollectionEditModal';
+import { usePostCollections } from '../api/mutation';
+import { toast } from 'sonner';
 
 export const UserCollections: React.FC = () => {
     const { user: me } = useCurrentUser();
+    const navigate = useNavigate();
     const { username } = useLoaderData<LoaderData>();
     const { data } = useSuspenseQuery(getUserCollectionsQuery(username));
+    const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
+    const postCollections = usePostCollections();
+
+    const handleSubmit = async (values: CollectionFormValues) => {
+        try {
+            const response = await postCollections.mutateAsync(values);
+            toast.success('作成しました');
+            navigate(`/user/${username}/collections/${response.id}`);
+        } catch (e) {
+            if (e instanceof ResponseError && e.response.status === 422) {
+                if (e.error?.violations) {
+                    const errors: CollectionFormErrors = {};
+                    for (const violation of e.error.violations) {
+                        const field = violation.field as keyof CollectionFormErrors;
+                        (errors[field] || (errors[field] = [])).push(violation.message);
+                    }
+                    throw new CollectionFormValidationError(errors);
+                } else if (e.error?.message) {
+                    toast.error(e.error.message);
+                    return;
+                }
+            }
+        }
+    };
 
     return (
         <div className="grow-1">
@@ -18,7 +51,7 @@ export const UserCollections: React.FC = () => {
                 <h2 className="flex justify-between items-center mt-2 pb-2 text-secondary border-b-1 border-gray-border">
                     コレクション一覧
                     {username === me?.name && (
-                        <Button>
+                        <Button onClick={() => setIsOpenCreateModal(true)}>
                             <i className="ti ti-plus mr-2" />
                             新規作成
                         </Button>
@@ -53,6 +86,13 @@ export const UserCollections: React.FC = () => {
                     ))}
                 </ul>
             </div>
+            <CollectionEditModal
+                mode="create"
+                initialValues={{ title: '', is_private: true }}
+                onSubmit={handleSubmit}
+                isOpen={isOpenCreateModal}
+                onClose={() => setIsOpenCreateModal(false)}
+            />
         </div>
     );
 };

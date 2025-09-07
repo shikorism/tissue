@@ -2,8 +2,16 @@ import createFetchClient from 'openapi-fetch';
 import type { paths } from './schema';
 import { ResponseError } from './errors';
 
+const token = document.head.querySelector<HTMLMetaElement>('meta[name="csrf-token"]');
+if (!token) {
+    console.error('CSRF token not found');
+}
+
 export const fetchClient = createFetchClient<paths>({
     baseUrl: '/api/',
+    headers: {
+        'X-CSRF-TOKEN': token?.content,
+    },
 });
 
 fetchClient.use({

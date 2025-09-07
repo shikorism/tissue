@@ -1,18 +1,7 @@
 import { keepPreviousData, queryOptions } from '@tanstack/react-query';
 import { fetchClient } from './client';
 import type { paths } from './schema';
-
-const ensure = <T>(value: T | undefined | null): T => {
-    if (value === undefined || value === null) {
-        throw new Error('Value is undefined or null');
-    }
-    return value;
-};
-
-const totalCount = (response: Response): number | undefined => {
-    const total = response.headers.get('X-Total-Count');
-    return total ? parseInt(total, 10) : undefined;
-};
+import { ensure, totalCount } from './utils';
 
 export const getMeQuery = ({ refetchOnMount } = { refetchOnMount: false }) =>
     queryOptions({
