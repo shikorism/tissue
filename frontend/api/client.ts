@@ -1,19 +1,27 @@
 import createFetchClient from 'openapi-fetch';
+import Cookies from 'js-cookie';
 import type { paths } from './schema';
 import { ResponseError } from './errors';
 
-const token = document.head.querySelector<HTMLMetaElement>('meta[name="csrf-token"]');
-if (!token) {
-    console.error('CSRF token not found');
-}
-
 export const fetchClient = createFetchClient<paths>({
     baseUrl: '/api/',
-    headers: {
-        'X-CSRF-TOKEN': token?.content,
+    mode: 'same-origin',
+});
+
+// csrf tokenの自動設定
+fetchClient.use({
+    async onRequest({ request }) {
+        const token =
+            Cookies.get('XSRF-TOKEN') ||
+            document.head.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content;
+        if (token) {
+            request.headers.set('X-XSRF-TOKEN', token);
+        }
+        return request;
     },
 });
 
+// エラーレスポンスを例外化
 fetchClient.use({
     async onResponse({ response }) {
         if (!response.ok) {
