@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Linkify from 'linkify-react';
 import { LinkCard } from '../../components/LinkCard';
 import { ExternalLink } from '../../components/ExternalLink';
@@ -6,6 +6,11 @@ import { components } from '../../api/schema';
 import { cn } from '../../lib/cn';
 import { Link } from 'react-router';
 import { useCurrentUser } from '../../components/AuthProvider';
+import { Modal, ModalBody, ModalFooter, ModalHeader } from '../../components/Modal';
+import { Button } from '../../components/Button';
+import { ProgressButton } from '../../components/ProgressButton';
+import { useDeleteCollectionItem } from '../../api/mutation';
+import { toast } from 'sonner';
 
 interface Props {
     collection: components['schemas']['Collection'];
@@ -15,6 +20,23 @@ interface Props {
 
 export const CollectionItem: React.FC<Props> = ({ collection, item, className }) => {
     const { user: me } = useCurrentUser();
+    const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+    const deleteCollectionItem = useDeleteCollectionItem();
+
+    const handleClickDelete = () => {
+        deleteCollectionItem.mutate(
+            { collectionId: item.collection_id, collectionItemId: item.id },
+            {
+                onSuccess: () => {
+                    setIsOpenDeleteModal(false);
+                    toast.success('削除しました');
+                },
+                onError: () => {
+                    toast.error('削除中にエラーが発生しました');
+                },
+            },
+        );
+    };
 
     return (
         <article className={cn('py-4 flex flex-col gap-2 break-words', className)}>
@@ -82,12 +104,33 @@ export const CollectionItem: React.FC<Props> = ({ collection, item, className })
                         <button
                             className="px-4 py-2 text-xl text-secondary rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
                             title="削除"
+                            onClick={() => setIsOpenDeleteModal(true)}
                         >
                             <i className="ti ti-trash" />
                         </button>
                     </>
                 )}
             </div>
+
+            <Modal isOpen={isOpenDeleteModal} onClose={() => setIsOpenDeleteModal(false)}>
+                <ModalHeader closeButton>削除確認</ModalHeader>
+                <ModalBody>
+                    <ExternalLink className="break-all" href={item.link}>
+                        {item.link}
+                    </ExternalLink>{' '}
+                    をコレクションから削除してもよろしいですか？？
+                </ModalBody>
+                <ModalFooter>
+                    <Button onClick={() => setIsOpenDeleteModal(false)}>キャンセル</Button>
+                    <ProgressButton
+                        label="削除"
+                        variant="danger"
+                        inProgress={deleteCollectionItem.isPending}
+                        disabled={deleteCollectionItem.isPending}
+                        onClick={handleClickDelete}
+                    />
+                </ModalFooter>
+            </Modal>
         </article>
     );
 };
