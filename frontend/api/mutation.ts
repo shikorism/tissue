@@ -49,3 +49,16 @@ export const useDeleteCollection = () => {
         },
     });
 };
+
+export const useDeleteCollectionItem = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (params: { collectionId: number; collectionItemId: number }) =>
+            fetchClient.DELETE('/collections/{collection_id}/items/{collection_item_id}', {
+                params: { path: { collection_id: params.collectionId, collection_item_id: params.collectionItemId } },
+            }),
+        onSuccess: async (_, { collectionId }) => {
+            await queryClient.invalidateQueries({ queryKey: ['/collections/{collection_id}/items', collectionId] });
+        },
+    });
+};
