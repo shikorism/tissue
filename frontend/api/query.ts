@@ -161,3 +161,10 @@ export const getTags = (query?: paths['/tags']['get']['parameters']['query']) =>
                     },
             ),
     });
+
+export const getMetadataQuery = (url: string) =>
+    queryOptions({
+        queryKey: ['checkin/card', url],
+        queryFn: () =>
+            fetchClient.GET('/checkin/card', { params: { query: { url } } }).then((response) => response.data),
+    });

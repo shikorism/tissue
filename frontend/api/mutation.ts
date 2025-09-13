@@ -50,6 +50,28 @@ export const useDeleteCollection = () => {
     });
 };
 
+export const usePatchCollectionItem = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (params: {
+            collectionId: number;
+            collectionItemId: number;
+            body: paths['/collections/{collection_id}/items/{collection_item_id}']['patch']['requestBody']['content']['application/json'];
+        }) =>
+            fetchClient
+                .PATCH('/collections/{collection_id}/items/{collection_item_id}', {
+                    params: {
+                        path: { collection_id: params.collectionId, collection_item_id: params.collectionItemId },
+                    },
+                    body: params.body,
+                })
+                .then((response) => ensure(response.data)),
+        onSuccess: async (_, { collectionId }) => {
+            await queryClient.invalidateQueries({ queryKey: ['/collections/{collection_id}/items', collectionId] });
+        },
+    });
+};
+
 export const useDeleteCollectionItem = () => {
     const queryClient = useQueryClient();
     return useMutation({

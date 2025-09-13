@@ -6,5 +6,7 @@ model Metadata {
   description: string;
   image: url;
   expires_at: string | null;
-  tags: string[];
+  tags: {
+    name: string;
+  }[];
 }
