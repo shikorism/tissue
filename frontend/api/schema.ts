@@ -424,7 +424,9 @@ export interface components {
             /** Format: uri */
             image: string;
             expires_at: string | null;
-            tags: string[];
+            tags: {
+                name: string;
+            }[];
         };
         MostlyUsedCheckinTag: {
             name: string;

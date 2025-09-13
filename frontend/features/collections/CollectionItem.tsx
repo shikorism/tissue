@@ -11,6 +11,7 @@ import { Button } from '../../components/Button';
 import { ProgressButton } from '../../components/ProgressButton';
 import { useDeleteCollectionItem } from '../../api/mutation';
 import { toast } from 'sonner';
+import { CollectionItemEditModal } from './CollectionItemEditModal';
 
 interface Props {
     collection: components['schemas']['Collection'];
@@ -20,6 +21,7 @@ interface Props {
 
 export const CollectionItem: React.FC<Props> = ({ collection, item, className }) => {
     const { user: me } = useCurrentUser();
+    const [isOpenEditModal, setIsOpenEditModal] = useState(false);
     const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
     const deleteCollectionItem = useDeleteCollectionItem();
 
@@ -98,6 +100,7 @@ export const CollectionItem: React.FC<Props> = ({ collection, item, className })
                         <button
                             className="px-4 py-2 text-xl text-secondary rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
                             title="修正"
+                            onClick={() => setIsOpenEditModal(true)}
                         >
                             <i className="ti ti-edit" />
                         </button>
@@ -112,6 +115,7 @@ export const CollectionItem: React.FC<Props> = ({ collection, item, className })
                 )}
             </div>
 
+            <CollectionItemEditModal item={item} isOpen={isOpenEditModal} onClose={() => setIsOpenEditModal(false)} />
             <Modal isOpen={isOpenDeleteModal} onClose={() => setIsOpenDeleteModal(false)}>
                 <ModalHeader closeButton>削除確認</ModalHeader>
                 <ModalBody>
