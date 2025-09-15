@@ -8,6 +8,7 @@ import { ExternalLink } from '../../components/ExternalLink';
 import { LinkCard } from '../../components/LinkCard';
 import { useCurrentUser } from '../../components/AuthProvider';
 import { formatInterval } from '../../lib/formatter';
+import { AddToCollectionButton } from '../collections/AddToCollectionButton';
 
 interface Props {
     checkin: components['schemas']['Checkin'];
@@ -142,14 +143,7 @@ export const Checkin: React.FC<Props> = ({ checkin, className, showInterval, sho
                             <span className="ml-2 text-base align-text-top">{checkin.likes_count}</span>
                         ) : null}
                     </button>
-                    {me && checkin.link && (
-                        <button
-                            className="px-4 py-2 text-xl text-secondary rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
-                            title="コレクションに追加"
-                        >
-                            <i className="ti ti-folder-plus" />
-                        </button>
-                    )}
+                    {me && checkin.link && <AddToCollectionButton link={checkin.link} tags={checkin.tags} />}
                     {me?.name === checkin.user.name ? (
                         <>
                             <Link
