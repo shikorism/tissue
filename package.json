@@ -48,6 +48,7 @@
     "chokidar-cli": "^3.0.0",
     "classnames": "^2.5.1",
     "clipboard": "^2.0.11",
+    "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "eslint": "^9.22.0",
     "eslint-config-prettier": "^10.1.5",
