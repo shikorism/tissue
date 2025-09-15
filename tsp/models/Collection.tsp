@@ -7,4 +7,5 @@ model Collection {
   user_name: string;
   title: string;
   is_private: boolean = false;
+  updated_at: offsetDateTime;
 }

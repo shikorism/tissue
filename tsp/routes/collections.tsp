@@ -15,6 +15,13 @@ namespace Collections {
     @body body: {
       title: string;
       is_private: boolean = false;
+
+      @maxItems(100)
+      items?: {
+        link: url;
+        note?: string;
+        @maxItems(40) tags?: string[];
+      }[];
     },
   ): Collection | {
     @statusCode statusCode: 422;

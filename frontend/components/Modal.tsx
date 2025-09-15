@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactModal from 'react-modal';
+import { cn } from '../lib/cn';
 
 ReactModal.setAppElement('#app');
 
 const ModalContext = React.createContext<{ onClose: () => void } | null>(null);
 
-interface ModalProps {
+export interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
     children: React.ReactNode;
@@ -62,10 +63,13 @@ export const ModalHeader: React.FC<ModalHeaderProps> = ({ closeButton, children 
 };
 
 interface ModalBodyProps {
+    className?: string;
     children: React.ReactNode;
 }
 
-export const ModalBody: React.FC<ModalBodyProps> = ({ children }) => <div className="p-4">{children}</div>;
+export const ModalBody: React.FC<ModalBodyProps> = ({ className, children }) => (
+    <div className={cn('p-4', className)}>{children}</div>
+);
 
 interface ModalFooterProps {
     children: React.ReactNode;

@@ -9,8 +9,10 @@ export const usePostCollections = () => {
         mutationFn: (params: paths['/collections']['post']['requestBody']['content']['application/json']) =>
             fetchClient.POST('/collections', { body: params }).then((response) => ensure(response.data)),
         onSuccess: async () => {
-            // TODO: invalidate my collections (AddToCollectionButton)
-            await queryClient.invalidateQueries({ queryKey: ['/users/{username}/collections'] });
+            await Promise.all([
+                queryClient.invalidateQueries({ queryKey: ['/collections'] }),
+                queryClient.invalidateQueries({ queryKey: ['/users/{username}/collections'] }),
+            ]);
         },
     });
 };
@@ -29,9 +31,11 @@ export const usePutCollection = () => {
                 })
                 .then((response) => ensure(response.data)),
         onSuccess: async (data, { collectionId }) => {
-            // TODO: invalidate my collections (AddToCollectionButton)
             queryClient.setQueryData(['/collections/{collection_id}', collectionId], data);
-            await queryClient.invalidateQueries({ queryKey: ['/users/{username}/collections'] });
+            await Promise.all([
+                queryClient.invalidateQueries({ queryKey: ['/collections'] }),
+                queryClient.invalidateQueries({ queryKey: ['/users/{username}/collections'] }),
+            ]);
         },
     });
 };
@@ -44,8 +48,31 @@ export const useDeleteCollection = () => {
                 params: { path: { collection_id: collectionId } },
             }),
         onSuccess: async () => {
-            // TODO: invalidate my collections (AddToCollectionButton)
-            await queryClient.invalidateQueries({ queryKey: ['/users/{username}/collections'] });
+            await Promise.all([
+                queryClient.invalidateQueries({ queryKey: ['/collections'] }),
+                queryClient.invalidateQueries({ queryKey: ['/users/{username}/collections'] }),
+            ]);
+        },
+    });
+};
+
+export const usePostCollectionItem = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (params: {
+            collectionId: number;
+            body: paths['/collections/{collection_id}/items']['post']['requestBody']['content']['application/json'];
+        }) =>
+            fetchClient
+                .POST('/collections/{collection_id}/items', {
+                    params: {
+                        path: { collection_id: params.collectionId },
+                    },
+                    body: params.body,
+                })
+                .then((response) => ensure(response.data)),
+        onSuccess: async (_, { collectionId }) => {
+            await queryClient.invalidateQueries({ queryKey: ['/collections/{collection_id}/items', collectionId] });
         },
     });
 };

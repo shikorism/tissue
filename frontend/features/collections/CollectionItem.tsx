@@ -12,6 +12,7 @@ import { ProgressButton } from '../../components/ProgressButton';
 import { useDeleteCollectionItem } from '../../api/mutation';
 import { toast } from 'sonner';
 import { CollectionItemEditModal } from './CollectionItemEditModal';
+import { AddToCollectionButton } from './AddToCollectionButton';
 
 interface Props {
     collection: components['schemas']['Collection'];
@@ -87,14 +88,7 @@ export const CollectionItem: React.FC<Props> = ({ collection, item, className })
                 >
                     <i className="ti ti-reload" />
                 </Link>
-                {me && (
-                    <button
-                        className="px-4 py-2 text-xl text-secondary rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
-                        title="コレクションに追加"
-                    >
-                        <i className="ti ti-folder-plus" />
-                    </button>
-                )}
+                {me && <AddToCollectionButton link={item.link} tags={item.tags} />}
                 {me?.name === collection.user_name && (
                     <>
                         <button
