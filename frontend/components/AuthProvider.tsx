@@ -1,4 +1,5 @@
 import React, { createContext, useContext } from 'react';
+import Cookies from 'js-cookie';
 import { useGetMe } from '../api/hooks';
 import type { components } from '../api/schema';
 import { ResponseError } from '../api/errors';
@@ -35,7 +36,7 @@ export const logout = async () => {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '',
+            'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN') ?? '',
         },
     });
     if (res.redirected) {
