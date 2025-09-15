@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 @import "@tabler/icons-webfont/dist/tabler-icons.css";
 
 @theme {

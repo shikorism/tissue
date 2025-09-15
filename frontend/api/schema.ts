@@ -386,6 +386,8 @@ export interface components {
             title: string;
             /** @default false */
             is_private: boolean;
+            /** Format: date-time */
+            updated_at: string;
         };
         CollectionItem: {
             /** Format: int64 */
@@ -710,6 +712,12 @@ export interface operations {
                     title: string;
                     /** @default false */
                     is_private: boolean;
+                    items?: {
+                        /** Format: uri */
+                        link: string;
+                        note?: string;
+                        tags?: string[];
+                    }[];
                 };
             };
         };

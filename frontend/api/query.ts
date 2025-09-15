@@ -10,6 +10,12 @@ export const getMeQuery = ({ refetchOnMount } = { refetchOnMount: false }) =>
         refetchOnMount,
     });
 
+export const getMyCollectionsQuery = () =>
+    queryOptions({
+        queryKey: ['/collections'],
+        queryFn: () => fetchClient.GET('/collections').then((response) => ensure(response.data)),
+    });
+
 export const getUserQuery = (username: string) =>
     queryOptions({
         queryKey: ['/users/{username}', username],
