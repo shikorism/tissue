@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router';
 import { formatDate } from 'date-fns';
 import Linkify from 'linkify-react';
@@ -9,16 +9,50 @@ import { LinkCard } from '../../components/LinkCard';
 import { useCurrentUser } from '../../components/AuthProvider';
 import { formatInterval } from '../../lib/formatter';
 import { AddToCollectionButton } from '../collections/AddToCollectionButton';
+import { Modal, ModalBody, ModalFooter, ModalHeader } from '../../components/Modal';
+import { Button } from '../../components/Button';
+import { ProgressButton } from '../../components/ProgressButton';
+import { useDeleteCheckin } from '../../api/mutation';
+import { toast } from 'sonner';
 
 interface Props {
     checkin: components['schemas']['Checkin'];
     className?: string;
     showInterval?: boolean;
     showActions?: boolean;
+    onDelete?: () => void;
 }
 
-export const Checkin: React.FC<Props> = ({ checkin, className, showInterval, showActions }) => {
+export const Checkin: React.FC<Props> = ({ checkin, className, showInterval, showActions, onDelete }) => {
     const { user: me } = useCurrentUser();
+    const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+    const [isDeleted, setIsDeleted] = useState(false);
+    const deleteCheckin = useDeleteCheckin();
+
+    const handleClickDelete = () => {
+        deleteCheckin.mutate(
+            { id: checkin.id },
+            {
+                onSuccess: () => {
+                    setIsOpenDeleteModal(false);
+                    toast.success('削除しました');
+                    onDelete?.();
+                    setIsDeleted(true);
+                    // TODO: チェックイン詳細画面のonDeleteに移す
+                    // if (location.pathname.startsWith('/checkin/')) {
+                    //     navigate(`/user/${checkin.user.name}`);
+                    // }
+                },
+                onError: () => {
+                    toast.error('削除中にエラーが発生しました');
+                },
+            },
+        );
+    };
+
+    if (isDeleted) {
+        return null;
+    }
 
     return (
         <article className={cn('py-4 flex flex-col gap-2 break-words', className)}>
@@ -156,6 +190,7 @@ export const Checkin: React.FC<Props> = ({ checkin, className, showInterval, sho
                             <button
                                 className="px-4 py-2 text-xl text-secondary rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
                                 title="削除"
+                                onClick={() => setIsOpenDeleteModal(true)}
                             >
                                 <i className="ti ti-trash" />
                             </button>
@@ -170,6 +205,24 @@ export const Checkin: React.FC<Props> = ({ checkin, className, showInterval, sho
                     )}
                 </div>
             )}
+
+            <Modal isOpen={isOpenDeleteModal} onClose={() => setIsOpenDeleteModal(false)}>
+                <ModalHeader closeButton>削除確認</ModalHeader>
+                <ModalBody>
+                    {formatDate(checkin.checked_in_at, 'yyyy/MM/dd HH:mm ')}
+                    のチェックインを削除してもよろしいですか？
+                </ModalBody>
+                <ModalFooter>
+                    <Button onClick={() => setIsOpenDeleteModal(false)}>キャンセル</Button>
+                    <ProgressButton
+                        label="削除"
+                        variant="danger"
+                        inProgress={deleteCheckin.isPending}
+                        disabled={deleteCheckin.isPending}
+                        onClick={handleClickDelete}
+                    />
+                </ModalFooter>
+            </Modal>
         </article>
     );
 };
