@@ -22,6 +22,7 @@ Route::middleware('stateful')->group(function () {
             Route::post('/likes', 'Api\\LikeController@store');
             Route::delete('/likes/{id}', 'Api\\LikeController@destroy');
             Route::apiResource('checkin', 'Api\\CheckinController')->only(['destroy']);
+            Route::apiResource('checkins', 'Api\\V1\\CheckinController')->except(['index']);
             Route::apiResource('collections', 'Api\\V1\\CollectionController')->only(['index', 'store', 'update', 'destroy']);
             Route::apiResource('collections.items', 'Api\\V1\\CollectionItemController')->only(['store', 'update', 'destroy']);
             Route::get('/recent-tags', 'Api\\V1\\RecentTagsController')->name('recent-tags');

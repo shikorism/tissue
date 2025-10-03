@@ -3,6 +3,19 @@ import { fetchClient } from './client';
 import type { paths } from './schema';
 import { ensure } from './utils';
 
+export const useDeleteCheckin = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (params: { id: number }) =>
+            fetchClient.DELETE('/checkins/{id}', {
+                params: { path: { id: params.id } },
+            }),
+        onSuccess: async (_, { id }) => {
+            await queryClient.invalidateQueries({ queryKey: ['/checkins/{id}', id] });
+        },
+    });
+};
+
 export const usePostCollections = () => {
     const queryClient = useQueryClient();
     return useMutation({

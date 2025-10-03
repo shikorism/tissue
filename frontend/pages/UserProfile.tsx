@@ -162,7 +162,7 @@ interface RecentCheckinProps {
 }
 
 const RecentCheckin: React.FC<RecentCheckinProps> = ({ user }) => {
-    const { data: checkins } = useSuspenseQuery(getUserCheckinsQuery(user.name));
+    const { data: checkins, refetch } = useSuspenseQuery(getUserCheckinsQuery(user.name));
     if (checkins.data.length === 0) {
         return null;
     }
@@ -175,7 +175,13 @@ const RecentCheckin: React.FC<RecentCheckinProps> = ({ user }) => {
                     もっと見る &raquo;
                 </Link>
             </div>
-            <Checkin checkin={checkins.data[0]} showInterval showActions />
+            <Checkin
+                key={checkins.data[0].id}
+                checkin={checkins.data[0]}
+                showInterval
+                showActions
+                onDelete={() => refetch()}
+            />
         </div>
     );
 };
