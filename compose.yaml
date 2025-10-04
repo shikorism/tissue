@@ -6,6 +6,7 @@ services:
       dockerfile: docker/development/web.dockerfile
     volumes:
       - .:/var/www/html
+      - front_node_modules:/var/www/html/node_modules
     networks:
       - backend
     ports:

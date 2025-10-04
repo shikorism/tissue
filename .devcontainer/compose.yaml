@@ -3,8 +3,6 @@ services:
     env_file: !reset []
     environment:
       APP_DEBUG: true
-    volumes:
-      - front_node_modules:/var/www/html/node_modules
   scheduler:
     env_file: !reset []
   front:
