@@ -1,4 +1,4 @@
-FROM node:22.6.0-bullseye as node
+FROM node:22.20.0-bullseye as node
 
 FROM php:8.2.26-apache
 
