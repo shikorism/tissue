@@ -48,6 +48,9 @@ Route::middleware('stateful')->group(function () {
 
         Route::get('/timelines/public', 'Api\\V1\\Timelines\\PublicTimeline')->name('timelines.public');
         Route::get('/tags', 'Api\\TagController')->name('tags');
+        Route::get('/search/checkins', 'Api\\V1\\Search\\Checkins')->name('search.checkins');
+        Route::get('/search/collections', 'Api\\V1\\Search\\Collections')->name('search.collections');
+        Route::get('/search/tags', 'Api\\V1\\Search\\Tags')->name('search.tags');
     });
 });
 
@@ -81,4 +84,7 @@ Route::middleware(['throttle:60,1', 'auth:api'])
             });
 
         Route::get('/timelines/public', 'Timelines\\PublicTimeline')->name('timelines.public');
+        Route::get('/search/checkins', 'Search\\Checkins')->name('search.checkins');
+        Route::get('/search/collections', 'Search\\Collections')->name('search.collections');
+        Route::get('/search/tags', 'Search\\Tags')->name('search.tags');
     });
