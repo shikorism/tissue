@@ -19,11 +19,19 @@ interface Props {
     checkin: components['schemas']['Checkin'];
     className?: string;
     intervalStyle?: 'none' | 'relative' | 'full';
+    showSource?: boolean;
     showActions?: boolean;
     onDelete?: () => void;
 }
 
-export const Checkin: React.FC<Props> = ({ checkin, className, intervalStyle = 'none', showActions, onDelete }) => {
+export const Checkin: React.FC<Props> = ({
+    checkin,
+    className,
+    intervalStyle = 'none',
+    showSource,
+    showActions,
+    onDelete,
+}) => {
     const { user: me } = useCurrentUser();
     const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
     const [isDeleted, setIsDeleted] = useState(false);
@@ -147,7 +155,17 @@ export const Checkin: React.FC<Props> = ({ checkin, className, intervalStyle = '
                 </>
             )}
 
-            {/* TODO: source */}
+            {(() => {
+                if (!showSource) return null;
+                switch (checkin.source) {
+                    case 'webhook':
+                        return <p className="text-secondary text-sm">Webhookからチェックイン</p>;
+                    case 'api':
+                        return <p className="text-secondary text-sm">APIからチェックイン</p>;
+                    default:
+                        return null;
+                }
+            })()}
 
             {checkin.likes?.length ? (
                 <div className="flex py-1 border-y border-gray-border items-center">
