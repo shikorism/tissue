@@ -6,11 +6,11 @@ services:
       dockerfile: docker/development/web.dockerfile
     volumes:
       - .:/var/www/html
+      - front_node_modules:/var/www/html/node_modules
     networks:
       - backend
     ports:
       - 4545:80
-    restart: always
     depends_on:
       - db
   db:
@@ -24,7 +24,6 @@ services:
       - ./docker/development/init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql
     networks:
       - backend
-    restart: always
   scheduler:
     <<: *php
     command: php artisan schedule:work
@@ -37,7 +36,6 @@ services:
       - front_node_modules:/var/www/html/node_modules
     ports:
       - 4546:4546
-    restart: always
     depends_on:
       - web
   antlr:
