@@ -33,6 +33,8 @@ import { loader as publicTimelineLoader } from './pages/PublicTimeline.loader';
 import { Search } from './pages/Search';
 import { SearchCheckins, ErrorBoundary as SearchCheckinsErrorBoundary } from './pages/SearchCheckins';
 import { loader as searchCheckinsLoader } from './pages/SearchCheckins.loader';
+import { SearchCollections, ErrorBoundary as SearchCollectionsErrorBoundary } from './pages/SearchCollections';
+import { loader as searchCollectionsLoader } from './pages/SearchCollections.loader';
 import { Tags } from './pages/Tags';
 import { loader as tagsLoader } from './pages/Tags.loader';
 import { NotFound } from './pages/NotFound';
@@ -122,6 +124,12 @@ const router = createBrowserRouter(
                             element: <SearchCheckins />,
                             errorElement: <SearchCheckinsErrorBoundary />,
                             loader: searchCheckinsLoader(queryClient),
+                        },
+                        {
+                            path: 'collection',
+                            element: <SearchCollections />,
+                            errorElement: <SearchCollectionsErrorBoundary />,
+                            loader: searchCollectionsLoader(queryClient),
                         },
                     ],
                 },

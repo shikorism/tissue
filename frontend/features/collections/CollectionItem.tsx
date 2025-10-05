@@ -18,9 +18,17 @@ interface Props {
     collection: components['schemas']['Collection'];
     item: components['schemas']['CollectionItem'];
     className?: string;
+    showCollectionInfo?: boolean;
+    showEditActions?: boolean;
 }
 
-export const CollectionItem: React.FC<Props> = ({ collection, item, className }) => {
+export const CollectionItem: React.FC<Props> = ({
+    collection,
+    item,
+    className,
+    showCollectionInfo,
+    showEditActions,
+}) => {
     const { user: me } = useCurrentUser();
     const [isOpenEditModal, setIsOpenEditModal] = useState(false);
     const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
@@ -43,6 +51,29 @@ export const CollectionItem: React.FC<Props> = ({ collection, item, className })
 
     return (
         <article className={cn('py-4 flex flex-col gap-2 break-words', className)}>
+            {showCollectionInfo && (
+                <h5>
+                    <Link to={`/user/${collection.user.name}`} className="group">
+                        <img
+                            className="rounded inline-block align-bottom mr-1"
+                            src={collection.user.profile_mini_image_url}
+                            alt={`${collection.user.display_name}'s Avatar`}
+                            width={20}
+                            height={20}
+                        />
+                        <span className="font-medium group-hover:underline">
+                            <bdi>{collection.user.display_name}</bdi> さんのコレクション
+                        </span>
+                    </Link>
+                    <br />
+                    <span className="mr-1 text-secondary select-none">└</span>
+                    <Link to={`/user/${collection.user.name}/collections/${collection.id}`} className="group">
+                        <i className="ti ti-folder text-secondary mr-1" />
+                        <span className="font-medium group-hover:underline">{collection.title}</span>
+                    </Link>
+                </h5>
+            )}
+
             <LinkCard link={item.link} />
             <p className="flex items-baseline">
                 <i className="ti ti-link mr-1" />
@@ -89,7 +120,7 @@ export const CollectionItem: React.FC<Props> = ({ collection, item, className })
                     <i className="ti ti-reload" />
                 </Link>
                 {me && <AddToCollectionButton link={item.link} tags={item.tags} />}
-                {me?.name === collection.user_name && (
+                {me?.name === collection.user_name && showEditActions && (
                     <>
                         <button
                             className="px-4 py-2 text-xl text-secondary rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
