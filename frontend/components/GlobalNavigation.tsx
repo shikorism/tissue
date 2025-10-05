@@ -19,12 +19,12 @@ export const GlobalNavigation: React.FC = () => {
     };
 
     return (
-        <nav className="hidden md:flex flex-col fixed left-0 top-0 bottom-0 w-(--global-nav-width) p-4 bg-gray-back">
-            <Link to="/" className="flex items-center gap-3 mb-2">
+        <nav className="hidden md:flex flex-col fixed left-0 top-0 bottom-0 w-(--global-nav-width) bg-gray-back">
+            <Link to="/" className="flex items-center gap-3 m-4 mb-2">
                 <BrandLogo />
                 <span className="text-xl opacity-90">Tissue</span>
             </Link>
-            <div className="flex-1">
+            <div className="px-4 flex-1 shrink-1 overflow-y-auto">
                 <ul>
                     <NavItem to="/">
                         <i className="ti ti-home text-2xl text-neutral-600"></i>ホーム
@@ -67,11 +67,33 @@ export const GlobalNavigation: React.FC = () => {
                         </ul>
                     </>
                 )}
+                <div className="mt-8 px-2 text-xs text-secondary">
+                    <ul className="mb-1 flex gap-2">
+                        {import.meta.env.VITE_APP_SUPPORT_LINK && (
+                            <li>
+                                <a className="hover:underline" href={import.meta.env.VITE_APP_SUPPORT_LINK}>
+                                    お問い合わせ
+                                </a>
+                            </li>
+                        )}
+                        <li>
+                            <a className="hover:underline" href="https://github.com/shikorism/tissue">
+                                GitHub
+                            </a>
+                        </li>
+                        <li>
+                            <a className="hover:underline" href="/apidoc.html">
+                                API
+                            </a>
+                        </li>
+                    </ul>
+                    <p>&copy; 2017-2025 shikorism.net</p>
+                </div>
             </div>
             {me && (
                 <DropdownMenu.Root>
                     <DropdownMenu.Trigger asChild>
-                        <button className="mt-4 p-2 flex items-center gap-1 rounded-sm hover:bg-neutral-200 data-[state=open]:bg-neutral-200 cursor-pointer">
+                        <button className="m-4 mt-2 p-2 flex items-center gap-1 rounded-sm hover:bg-neutral-200 data-[state=open]:bg-neutral-200 cursor-pointer">
                             <img
                                 className="rounded inline-block align-bottom mr-1"
                                 src={me.profile_image_url}
