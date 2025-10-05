@@ -385,6 +385,7 @@ export interface components {
             checkin_interval?: number;
             /** Format: date-time */
             previous_checked_in_at?: string;
+            is_muted?: boolean;
         };
         /** @description チェックインの概況 */
         CheckinSummary: {

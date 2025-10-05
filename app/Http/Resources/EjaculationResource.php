@@ -32,6 +32,7 @@ class EjaculationResource extends JsonResource
             'likes_count' => $this->whenHas('likes_count'),
             'checkin_interval' => $this->whenHas('checkin_interval', fn ($interval) => (int) $interval),
             'previous_checked_in_at' => $this->whenHas('previous_checked_in_at', fn ($date) => (new Carbon($date, config('app.timezone')))->format(\DateTime::ATOM)),
+            'is_muted' => $this->whenHas('is_muted'),
         ];
     }
 }
