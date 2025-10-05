@@ -178,7 +178,7 @@ const RecentCheckin: React.FC<RecentCheckinProps> = ({ user }) => {
             <Checkin
                 key={checkins.data[0].id}
                 checkin={checkins.data[0]}
-                showInterval
+                intervalStyle="full"
                 showActions
                 onDelete={() => refetch()}
             />
