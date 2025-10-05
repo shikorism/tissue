@@ -38,10 +38,6 @@ export const Checkin: React.FC<Props> = ({ checkin, className, intervalStyle = '
                     toast.success('削除しました');
                     onDelete?.();
                     setIsDeleted(true);
-                    // TODO: チェックイン詳細画面のonDeleteに移す
-                    // if (location.pathname.startsWith('/checkin/')) {
-                    //     navigate(`/user/${checkin.user.name}`);
-                    // }
                 },
                 onError: () => {
                     toast.error('削除中にエラーが発生しました');

@@ -10,8 +10,8 @@ export const useDeleteCheckin = () => {
             fetchClient.DELETE('/checkins/{id}', {
                 params: { path: { id: params.id } },
             }),
-        onSuccess: async (_, { id }) => {
-            await queryClient.invalidateQueries({ queryKey: ['/checkins/{id}', id] });
+        onSuccess: (_, { id }) => {
+            queryClient.removeQueries({ queryKey: ['/checkins/{id}', id] });
         },
     });
 };
