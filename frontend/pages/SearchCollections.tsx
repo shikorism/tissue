@@ -1,16 +1,16 @@
 import React from 'react';
 import { useLoaderData, useRouteError } from 'react-router';
-import { LoaderData, PER_PAGE } from './SearchCheckins.loader';
+import { LoaderData, PER_PAGE } from './SearchCollections.loader';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { getSearchCheckinsQuery } from '../api/query';
+import { getSearchCollectionsQuery } from '../api/query';
 import { useScrollToTop } from '../hooks/useScrollToTop';
-import { Checkin } from '../features/checkins/Checkin';
+import { CollectionItem } from '../features/collections/CollectionItem';
 import { Pagination } from '../components/Pagination';
 import { EmptyQueryError } from '../features/search/EmptyQueryError';
 
-export const SearchCheckins: React.FC = () => {
+export const SearchCollections: React.FC = () => {
     const { query } = useLoaderData<LoaderData>();
-    const { data } = useSuspenseQuery(getSearchCheckinsQuery(query));
+    const { data } = useSuspenseQuery(getSearchCollectionsQuery(query));
     useScrollToTop([query.page]);
 
     return (
@@ -19,12 +19,13 @@ export const SearchCheckins: React.FC = () => {
                 <b>{data.totalCount}</b> 件見つかりました
             </p>
             <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
-                {data.data.map((checkin) => (
-                    <Checkin
-                        key={checkin.id}
-                        checkin={checkin}
+                {data.data.map((item) => (
+                    <CollectionItem
+                        key={item.id}
+                        collection={item.collection}
+                        item={item}
                         className="px-2 border-t-1 border-gray-border"
-                        showActions
+                        showCollectionInfo
                     />
                 ))}
             </div>

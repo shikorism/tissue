@@ -115,6 +115,7 @@ export const UserCollection: React.FC = () => {
                             collection={collection}
                             item={item}
                             className="px-2 border-b-1 border-gray-border"
+                            showEditActions
                         />
                     ))}
                 </div>

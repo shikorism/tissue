@@ -436,6 +436,7 @@ export interface components {
             is_private: boolean;
             /** Format: date-time */
             updated_at: string;
+            user: components["schemas"]["User"];
         };
         CollectionItem: {
             /** Format: int64 */
@@ -1136,7 +1137,17 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CollectionItem"][];
+                    "application/json": {
+                        /** Format: int64 */
+                        id: number;
+                        /** Format: int64 */
+                        collection_id: number;
+                        /** Format: uri */
+                        link: string;
+                        note: string;
+                        tags: string[];
+                        collection: components["schemas"]["Collection"];
+                    }[];
                 };
             };
         };

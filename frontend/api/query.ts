@@ -187,3 +187,16 @@ export const getSearchCheckinsQuery = (query: paths['/search/checkins']['get']['
                     },
             ),
     });
+
+export const getSearchCollectionsQuery = (query: paths['/search/collections']['get']['parameters']['query']) =>
+    queryOptions({
+        queryKey: ['/search/collections', query],
+        queryFn: () =>
+            fetchClient.GET('/search/collections', { params: { query } }).then(
+                (response) =>
+                    ensure(response.data) && {
+                        totalCount: totalCount(response.response),
+                        data: ensure(response.data),
+                    },
+            ),
+    });
