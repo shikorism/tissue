@@ -111,6 +111,13 @@ export const getUserCollectionsQuery = (username: string) =>
                 .then((response) => ensure(response.data)),
     });
 
+export const getCheckinQuery = (id: number) =>
+    queryOptions({
+        queryKey: ['/checkins/{id}', id],
+        queryFn: () =>
+            fetchClient.GET('/checkins/{id}', { params: { path: { id } } }).then((response) => ensure(response.data)),
+    });
+
 export const getCollectionQuery = (collectionId: number) =>
     queryOptions({
         queryKey: ['/collections/{collection_id}', collectionId],

@@ -8,6 +8,8 @@ import { Toaster } from './components/Toaster';
 import { BaseLayout } from './layouts/BaseLayout';
 import { Home } from './pages/Home';
 import { loader as homeLoader } from './pages/Home.loader';
+import { CheckinDetail, ErrorBoundary as CheckinDetailErrorBoundary } from './pages/CheckinDetail';
+import { loader as checkinDetailLoader } from './pages/CheckinDetail.loader';
 import { User, ErrorBoundary as UserErrorBoundary } from './pages/User';
 import { loader as userLoader } from './pages/User.loader';
 import { UserProfile } from './pages/UserProfile';
@@ -58,6 +60,12 @@ const router = createBrowserRouter(
             element: <BaseLayout />,
             children: [
                 { index: true, element: <Home />, loader: homeLoader(queryClient) },
+                {
+                    path: 'checkin/:id',
+                    element: <CheckinDetail />,
+                    errorElement: <CheckinDetailErrorBoundary />,
+                    loader: checkinDetailLoader(queryClient),
+                },
                 {
                     path: 'user/:username',
                     element: <User />,
