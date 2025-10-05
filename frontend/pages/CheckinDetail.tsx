@@ -42,6 +42,7 @@ export const CheckinDetail: React.FC = () => {
                 className="p-4"
                 checkin={checkin}
                 intervalStyle="relative"
+                showSource
                 showActions
                 onDelete={() => {
                     navigate(`/user/${checkin.user.name}`);
