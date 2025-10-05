@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEventHandler } from 'react';
 import { Link, Outlet, useLocation, useNavigate, useSearchParams } from 'react-router';
 import { cn } from '../lib/cn';
 import { Tab, Tabs } from '../components/Tabs';
@@ -8,16 +8,19 @@ export const Search: React.FC = () => {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
 
-    const search = async (data: FormData) => {
+    const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+        event.preventDefault();
+
+        const data = new FormData(event.currentTarget);
         const params = new URLSearchParams(searchParams);
         params.set('q', `${data.get('q')}`);
-        await navigate({ search: params.toString() });
+        navigate({ search: params.toString() });
     };
 
     return (
         <>
             <div className="px-4 pt-4">
-                <form className="relative" action={search}>
+                <form className="relative" onSubmit={handleSubmit}>
                     <input
                         type="search"
                         name="q"
@@ -27,6 +30,7 @@ export const Search: React.FC = () => {
                         )}
                         required
                         placeholder="キーワードを入力..."
+                        key={searchParams.get('q') ?? ''}
                         defaultValue={searchParams.get('q') ?? ''}
                     />
                     <i className="ti ti-search text-neutral-500 absolute left-3 top-1/2 -translate-y-1/2 text-xl" />
