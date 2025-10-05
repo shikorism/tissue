@@ -15,9 +15,9 @@ class Tags extends BaseController
             'per_page' => 'nullable|integer|between:10,100',
         ]);
 
-        $q = $this->normalizeQuery($inputs['q']);
+        $q = $this->formatter->makePartialMatch($this->normalizeQuery($inputs['q']));
         $results = Tag::query()
-            ->where('normalized_name', 'like', "%{$q}%")
+            ->where('normalized_name', 'like', $q)
             ->paginate($inputs['per_page'] ?? 50)
             ->appends($inputs);
 
