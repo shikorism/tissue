@@ -35,6 +35,8 @@ import { SearchCheckins, ErrorBoundary as SearchCheckinsErrorBoundary } from './
 import { loader as searchCheckinsLoader } from './pages/SearchCheckins.loader';
 import { SearchCollections, ErrorBoundary as SearchCollectionsErrorBoundary } from './pages/SearchCollections';
 import { loader as searchCollectionsLoader } from './pages/SearchCollections.loader';
+import { SearchTags, ErrorBoundary as SearchTagsErrorBoundary } from './pages/SearchTags';
+import { loader as searchTagsLoader } from './pages/SearchTags.loader';
 import { Tags } from './pages/Tags';
 import { loader as tagsLoader } from './pages/Tags.loader';
 import { NotFound } from './pages/NotFound';
@@ -130,6 +132,12 @@ const router = createBrowserRouter(
                             element: <SearchCollections />,
                             errorElement: <SearchCollectionsErrorBoundary />,
                             loader: searchCollectionsLoader(queryClient),
+                        },
+                        {
+                            path: 'related-tag',
+                            element: <SearchTags />,
+                            errorElement: <SearchTagsErrorBoundary />,
+                            loader: searchTagsLoader(queryClient),
                         },
                     ],
                 },

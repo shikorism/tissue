@@ -200,3 +200,16 @@ export const getSearchCollectionsQuery = (query: paths['/search/collections']['g
                     },
             ),
     });
+
+export const getSearchTagsQuery = (query: paths['/search/tags']['get']['parameters']['query']) =>
+    queryOptions({
+        queryKey: ['/search/tags', query],
+        queryFn: () =>
+            fetchClient.GET('/search/tags', { params: { query } }).then(
+                (response) =>
+                    ensure(response.data) && {
+                        totalCount: totalCount(response.response),
+                        data: ensure(response.data),
+                    },
+            ),
+    });
