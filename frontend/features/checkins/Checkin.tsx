@@ -12,7 +12,7 @@ import { AddToCollectionButton } from '../collections/AddToCollectionButton';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from '../../components/Modal';
 import { Button } from '../../components/Button';
 import { ProgressButton } from '../../components/ProgressButton';
-import { useDeleteCheckin } from '../../api/mutation';
+import { useDeleteCheckin, useDeleteLike, usePostLike } from '../../api/mutation';
 import { toast } from 'sonner';
 
 interface Props {
@@ -36,7 +36,31 @@ export const Checkin: React.FC<Props> = ({
     const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
     const [isDeleted, setIsDeleted] = useState(false);
     const [isHiddenMuted, setIsHiddenMuted] = useState(true);
+
     const deleteCheckin = useDeleteCheckin();
+    const postLike = usePostLike();
+    const deleteLike = useDeleteLike();
+
+    const handleClickLike = () => {
+        if (!me) {
+            toast.error('いいねするためにはログインしてください');
+            return;
+        }
+
+        if (checkin.is_liked) {
+            deleteLike.mutate(checkin.id, {
+                onError: () => {
+                    toast.error('いいねを解除できませんでした');
+                },
+            });
+        } else {
+            postLike.mutate(checkin.id, {
+                onError: () => {
+                    toast.error('いいねできませんでした');
+                },
+            });
+        }
+    };
 
     const handleClickDelete = () => {
         deleteCheckin.mutate(
@@ -201,6 +225,7 @@ export const Checkin: React.FC<Props> = ({
                     <button
                         className="px-4 py-2 text-xl text-secondary rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
                         title="いいね"
+                        onClick={handleClickLike}
                     >
                         <i className={cn('ti ti-heart-filled', checkin.is_liked && 'text-danger')} />
                         {checkin.likes_count ? (

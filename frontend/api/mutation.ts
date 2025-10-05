@@ -124,3 +124,37 @@ export const useDeleteCollectionItem = () => {
         },
     });
 };
+
+export const usePostLike = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (checkinId: number) =>
+            fetchClient
+                .POST('/likes', {
+                    body: { id: checkinId },
+                })
+                .then((response) => ensure(response.data)),
+        onSuccess: async (data, checkinId) => {
+            queryClient.setQueryData(['/checkins/{id}', checkinId], (old) =>
+                old ? { ...old, is_liked: data.ejaculation.is_liked, likes_count: data.ejaculation.likes_count } : old,
+            );
+        },
+    });
+};
+
+export const useDeleteLike = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (checkinId: number) =>
+            fetchClient
+                .DELETE('/likes/{id}', {
+                    params: { path: { id: checkinId } },
+                })
+                .then((response) => ensure(response.data)),
+        onSuccess: async (data, checkinId) => {
+            queryClient.setQueryData(['/checkins/{id}', checkinId], (old) =>
+                old ? { ...old, is_liked: data.ejaculation.is_liked, likes_count: data.ejaculation.likes_count } : old,
+            );
+        },
+    });
+};
