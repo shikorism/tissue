@@ -21,6 +21,7 @@ class CollectionResource extends JsonResource
             'title' => $this->title,
             'is_private' => $this->is_private,
             'updated_at' => $this->updated_at,
+            'user' => new UserResource($this->whenLoaded('user')),
         ];
     }
 }
