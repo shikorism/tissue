@@ -1,3 +1,5 @@
+import "./User.tsp";
+
 namespace Tissue;
 
 /** コレクション */
@@ -8,4 +10,5 @@ model Collection {
   title: string;
   is_private: boolean = false;
   updated_at: offsetDateTime;
+  user: User;
 }
