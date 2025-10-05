@@ -27,6 +27,7 @@ export const Checkin: React.FC<Props> = ({ checkin, className, intervalStyle = '
     const { user: me } = useCurrentUser();
     const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
     const [isDeleted, setIsDeleted] = useState(false);
+    const [isHiddenMuted, setIsHiddenMuted] = useState(true);
     const deleteCheckin = useDeleteCheckin();
 
     const handleClickDelete = () => {
@@ -106,32 +107,47 @@ export const Checkin: React.FC<Props> = ({ checkin, className, intervalStyle = '
                 </ul>
             )}
 
-            {checkin.link && (
+            {checkin.is_muted && isHiddenMuted ? (
+                <div
+                    className="p-2 rounded bg-neutral-100 text-center text-sm/6 select-none cursor-pointer"
+                    onClick={() => setIsHiddenMuted(false)}
+                >
+                    このチェックインはミュートされています
+                    <br />
+                    クリックまたはタップで表示
+                </div>
+            ) : (
                 <>
-                    <LinkCard link={checkin.link} isTooSensitive={checkin.is_too_sensitive} />
-                    <p className="flex items-baseline">
-                        <i className="ti ti-link mr-1" />
-                        <ExternalLink className="overflow-hidden" href={checkin.link}>
-                            {checkin.link}
-                        </ExternalLink>
-                    </p>
+                    {checkin.link && (
+                        <>
+                            <LinkCard link={checkin.link} isTooSensitive={checkin.is_too_sensitive} />
+                            <p className="flex items-baseline">
+                                <i className="ti ti-link mr-1" />
+                                <ExternalLink className="overflow-hidden" href={checkin.link}>
+                                    {checkin.link}
+                                </ExternalLink>
+                            </p>
+                        </>
+                    )}
+
+                    {checkin.note && (
+                        <Linkify
+                            as="p"
+                            options={{
+                                nl2br: true,
+                                render: ({ attributes, content }) => (
+                                    <ExternalLink {...attributes}>{content}</ExternalLink>
+                                ),
+                                validate: (value: string, type: string) => type === 'url',
+                            }}
+                        >
+                            {checkin.note}
+                        </Linkify>
+                    )}
                 </>
             )}
 
-            {checkin.note && (
-                <Linkify
-                    as="p"
-                    options={{
-                        nl2br: true,
-                        render: ({ attributes, content }) => <ExternalLink {...attributes}>{content}</ExternalLink>,
-                        validate: (value: string, type: string) => type === 'url',
-                    }}
-                >
-                    {checkin.note}
-                </Linkify>
-            )}
-
-            {/* TODO: source, muted overlay */}
+            {/* TODO: source */}
 
             {checkin.likes?.length ? (
                 <div className="flex py-1 border-y border-gray-border items-center">

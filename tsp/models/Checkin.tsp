@@ -19,4 +19,5 @@ model Checkin {
   is_liked?: boolean;
   checkin_interval?: integer;
   previous_checked_in_at?: offsetDateTime;
+  is_muted?: boolean;
 }
