@@ -132,6 +132,54 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/search/checkins": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Search_checkins"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/search/collections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Search_collections"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/search/tags": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Search_tags"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/tags": {
         parameters: {
             query?: never;
@@ -1039,6 +1087,83 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["User"];
+                };
+            };
+        };
+    };
+    Search_checkins: {
+        parameters: {
+            query: {
+                q: string;
+                page?: number;
+                per_page?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description The request has succeeded. */
+            200: {
+                headers: {
+                    "x-total-count": number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Checkin"][];
+                };
+            };
+        };
+    };
+    Search_collections: {
+        parameters: {
+            query: {
+                q: string;
+                page?: number;
+                per_page?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description The request has succeeded. */
+            200: {
+                headers: {
+                    "x-total-count": number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CollectionItem"][];
+                };
+            };
+        };
+    };
+    Search_tags: {
+        parameters: {
+            query: {
+                q: string;
+                page?: number;
+                per_page?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description The request has succeeded. */
+            200: {
+                headers: {
+                    "x-total-count": number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        name: string;
+                    }[];
                 };
             };
         };

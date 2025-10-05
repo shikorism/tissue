@@ -174,3 +174,16 @@ export const getMetadataQuery = (url: string) =>
         queryFn: () =>
             fetchClient.GET('/checkin/card', { params: { query: { url } } }).then((response) => response.data),
     });
+
+export const getSearchCheckinsQuery = (query: paths['/search/checkins']['get']['parameters']['query']) =>
+    queryOptions({
+        queryKey: ['/search/checkins', query],
+        queryFn: () =>
+            fetchClient.GET('/search/checkins', { params: { query } }).then(
+                (response) =>
+                    ensure(response.data) && {
+                        totalCount: totalCount(response.response),
+                        data: ensure(response.data),
+                    },
+            ),
+    });

@@ -30,6 +30,9 @@ import { UserCollection, ErrorBoundary as UserCollectionErrorBoundary } from './
 import { loader as userCollectionLoader } from './pages/UserCollection.loader';
 import { PublicTimeline } from './pages/PublicTimeline';
 import { loader as publicTimelineLoader } from './pages/PublicTimeline.loader';
+import { Search } from './pages/Search';
+import { SearchCheckins, ErrorBoundary as SearchCheckinsErrorBoundary } from './pages/SearchCheckins';
+import { loader as searchCheckinsLoader } from './pages/SearchCheckins.loader';
 import { Tags } from './pages/Tags';
 import { loader as tagsLoader } from './pages/Tags.loader';
 import { NotFound } from './pages/NotFound';
@@ -109,6 +112,18 @@ const router = createBrowserRouter(
                     path: 'timeline/public',
                     element: <PublicTimeline />,
                     loader: publicTimelineLoader(queryClient),
+                },
+                {
+                    path: 'search',
+                    element: <Search />,
+                    children: [
+                        {
+                            path: 'checkin?',
+                            element: <SearchCheckins />,
+                            errorElement: <SearchCheckinsErrorBoundary />,
+                            loader: searchCheckinsLoader(queryClient),
+                        },
+                    ],
                 },
                 {
                     path: 'tag',
