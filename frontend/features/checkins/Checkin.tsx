@@ -18,12 +18,12 @@ import { toast } from 'sonner';
 interface Props {
     checkin: components['schemas']['Checkin'];
     className?: string;
-    showInterval?: boolean;
+    intervalStyle?: 'none' | 'relative' | 'full';
     showActions?: boolean;
     onDelete?: () => void;
 }
 
-export const Checkin: React.FC<Props> = ({ checkin, className, showInterval, showActions, onDelete }) => {
+export const Checkin: React.FC<Props> = ({ checkin, className, intervalStyle = 'none', showActions, onDelete }) => {
     const { user: me } = useCurrentUser();
     const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
     const [isDeleted, setIsDeleted] = useState(false);
@@ -56,11 +56,11 @@ export const Checkin: React.FC<Props> = ({ checkin, className, showInterval, sho
 
     return (
         <article className={cn('py-4 flex flex-col gap-2 break-words', className)}>
-            {showInterval && checkin.checkin_interval ? (
+            {intervalStyle !== 'none' && checkin.checkin_interval ? (
                 <h5>
                     <span className="text-xl font-medium mr-2">{formatInterval(checkin.checkin_interval)}</span>
                     <Link to={`/checkin/${checkin.id}`} className="text-secondary hover:underline">
-                        {!checkin.discard_elapsed_time && checkin.previous_checked_in_at
+                        {intervalStyle === 'full' && !checkin.discard_elapsed_time && checkin.previous_checked_in_at
                             ? `${formatDate(checkin.previous_checked_in_at, 'yyyy/MM/dd HH:mm')} 〜 `
                             : ''}
                         {formatDate(checkin.checked_in_at, 'yyyy/MM/dd HH:mm')}
