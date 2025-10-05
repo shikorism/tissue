@@ -28,7 +28,11 @@ class LikeController extends Controller
                 'errors' => [
                     ['message' => 'このチェックインはすでにいいね済です。']
                 ],
-                'ejaculation' => $like->ejaculation
+                'ejaculation' => [
+                    'id' => $like->ejaculation->id,
+                    'is_liked' => $like->ejaculation->is_liked,
+                    'likes_count' => $like->ejaculation->likes_count,
+                ]
             ];
 
             return response()->json($data, 409);
@@ -37,7 +41,11 @@ class LikeController extends Controller
         $like = Like::create($keys);
 
         return [
-            'ejaculation' => $like->ejaculation
+            'ejaculation' => [
+                'id' => $like->ejaculation->id,
+                'is_liked' => $like->ejaculation->is_liked,
+                'likes_count' => $like->ejaculation->likes_count,
+            ]
         ];
     }
 
@@ -58,7 +66,11 @@ class LikeController extends Controller
                 'errors' => [
                     ['message' => 'このチェックインはいいねされていません。']
                 ],
-                'ejaculation' => $ejaculation
+                'ejaculation' => [
+                    'id' => $ejaculation->id,
+                    'is_liked' => $ejaculation->is_liked,
+                    'likes_count' => $ejaculation->likes_count,
+                ]
             ];
 
             return response()->json($data, 404);
@@ -67,7 +79,11 @@ class LikeController extends Controller
         $like->delete();
 
         return [
-            'ejaculation' => $like->ejaculation
+            'ejaculation' => [
+                'id' => $like->ejaculation->id,
+                'is_liked' => $like->ejaculation->is_liked,
+                'likes_count' => $like->ejaculation->likes_count,
+            ]
         ];
     }
 }
