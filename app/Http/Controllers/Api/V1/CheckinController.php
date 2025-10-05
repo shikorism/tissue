@@ -64,20 +64,21 @@ class CheckinController extends Controller
         return new EjaculationResource($ejaculation);
     }
 
-    public function show(Ejaculation $checkin)
+    public function show(string $checkin)
     {
-        $owner = $checkin->user;
+        $ejaculation = $this->queryEjaculation($checkin)->firstOrFail();
+        $owner = $ejaculation->user;
         if (!$owner->isMe()) {
             if ($owner->is_protected) {
                 throw new AccessDeniedHttpException('このユーザはチェックイン履歴を公開していません');
             }
-            if ($checkin->is_private) {
+            if ($ejaculation->is_private) {
                 throw new AccessDeniedHttpException('非公開チェックインのため、表示できません');
             }
         }
-        $checkin->ensureInterval();
+        $ejaculation->ensureInterval();
 
-        return new EjaculationResource($checkin);
+        return new EjaculationResource($ejaculation);
     }
 
     public function update(CheckinStoreRequest $request, Ejaculation $checkin)
@@ -133,10 +134,10 @@ class CheckinController extends Controller
             event(new LinkDiscovered($checkin->link));
         }
 
-        return new EjaculationResource($checkin);
+        return new EjaculationResource($this->queryEjaculation($checkin->id)->firstOrFail());
     }
 
-    public function destroy($checkin)
+    public function destroy(string $checkin)
     {
         $ejaculation = Ejaculation::find($checkin);
 
@@ -150,5 +151,13 @@ class CheckinController extends Controller
         }
 
         return response()->noContent();
+    }
+
+    private function queryEjaculation(string $id)
+    {
+        return Ejaculation::query()
+            ->whereKey($id)
+            ->withLikes()
+            ->withMutedStatus();
     }
 }
