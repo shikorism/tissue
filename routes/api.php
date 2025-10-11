@@ -51,6 +51,7 @@ Route::middleware('stateful')->group(function () {
         Route::get('/search/checkins', 'Api\\V1\\Search\\Checkins')->name('search.checkins');
         Route::get('/search/collections', 'Api\\V1\\Search\\Collections')->name('search.collections');
         Route::get('/search/tags', 'Api\\V1\\Search\\Tags')->name('search.tags');
+        Route::get('/information/latest', 'Api\\InformationController@latest')->name('information.latest');
     });
 });
 

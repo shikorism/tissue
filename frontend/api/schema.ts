@@ -116,6 +116,22 @@ export interface paths {
         patch: operations["CollectionItems_patch"];
         trace?: never;
     };
+    "/information/latest": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["InformationApi_latest"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/likes": {
         parameters: {
             query?: never;
@@ -500,6 +516,16 @@ export interface components {
             hour: number;
             /** Format: int32 */
             count: number;
+        };
+        Information: {
+            /** Format: int64 */
+            id: number;
+            /** @enum {string} */
+            category: "news" | "update" | "bug" | "maintenance";
+            pinned: boolean;
+            title: string;
+            /** Format: date-time */
+            created_at: string;
         };
         Metadata: {
             /** Format: uri */
@@ -1102,6 +1128,26 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    InformationApi_latest: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description The request has succeeded. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Information"][];
                 };
             };
         };
