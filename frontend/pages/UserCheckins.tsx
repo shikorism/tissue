@@ -6,7 +6,6 @@ import { getUserCheckinsQuery, getUserStatsCheckinDailyQuery } from '../api/quer
 import { LoaderData, PER_PAGE } from './UserCheckins.loader';
 import { Checkin } from '../features/checkins/Checkin';
 import { Pagination } from '../components/Pagination';
-import { useScrollToTop } from '../hooks/useScrollToTop';
 import { cn } from '../lib/cn';
 
 export const UserCheckins: React.FC = () => {
@@ -16,7 +15,6 @@ export const UserCheckins: React.FC = () => {
     const {
         data: { data, totalCount },
     } = useSuspenseQuery(getUserCheckinsQuery(username, checkinsQuery));
-    useScrollToTop([checkinsQuery?.page]);
 
     let currentDate: Date | undefined;
     if (params.year && params.month && params.date) {

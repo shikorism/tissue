@@ -3,14 +3,12 @@ import { Link, useLoaderData, useRouteError } from 'react-router';
 import { LoaderData, PER_PAGE } from './SearchTags.loader';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getSearchTagsQuery } from '../api/query';
-import { useScrollToTop } from '../hooks/useScrollToTop';
 import { Pagination } from '../components/Pagination';
 import { EmptyQueryError } from '../features/search/EmptyQueryError';
 
 export const SearchTags: React.FC = () => {
     const { query } = useLoaderData<LoaderData>();
     const { data } = useSuspenseQuery(getSearchTagsQuery(query));
-    useScrollToTop([query.page]);
 
     return (
         <div className="p-4">

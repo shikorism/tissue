@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Outlet, useNavigation } from 'react-router';
+import { Outlet, ScrollRestoration, useNavigation } from 'react-router';
 import { useProgress } from '@bprogress/react';
 import { AuthProvider, useCurrentUser } from '../components/AuthProvider';
 import { GlobalNavigation } from '../components/GlobalNavigation';
@@ -20,6 +20,7 @@ export const BaseLayout: React.FC = () => {
     return (
         <AuthProvider>
             <AwaitAuth>
+                <ScrollRestoration />
                 <GlobalNavigation />
                 <GlobalNavigationSm />
                 <div className="max-sm:mb-(--global-nav-height) md:ml-(--global-nav-width)">

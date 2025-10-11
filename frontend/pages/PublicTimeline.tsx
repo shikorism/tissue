@@ -4,13 +4,11 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { getTimelinesPublicQuery } from '../api/query';
 import { Checkin } from '../features/checkins/Checkin';
 import { Pagination } from '../components/Pagination';
-import { useScrollToTop } from '../hooks/useScrollToTop';
 import { PER_PAGE, LoaderData } from './PublicTimeline.loader';
 
 export const PublicTimeline: React.FC = () => {
     const { query } = useLoaderData<LoaderData>();
     const { data: timeline } = useSuspenseQuery(getTimelinesPublicQuery(query));
-    useScrollToTop([query?.page]);
 
     return (
         <div className="p-4">

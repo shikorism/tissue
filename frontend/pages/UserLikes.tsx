@@ -5,7 +5,6 @@ import { getUserLikesQuery } from '../api/query';
 import { LoaderData, PER_PAGE } from './UserLikes.loader';
 import { Checkin } from '../features/checkins/Checkin';
 import { Pagination } from '../components/Pagination';
-import { useScrollToTop } from '../hooks/useScrollToTop';
 import { ResponseError } from '../api/errors';
 
 export const UserLikes: React.FC = () => {
@@ -13,7 +12,6 @@ export const UserLikes: React.FC = () => {
     const {
         data: { data, totalCount },
     } = useSuspenseQuery(getUserLikesQuery(username, likesQuery));
-    useScrollToTop([likesQuery?.page]);
 
     return (
         <div className="px-2">

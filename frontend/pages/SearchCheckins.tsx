@@ -3,7 +3,6 @@ import { useLoaderData, useRouteError } from 'react-router';
 import { LoaderData, PER_PAGE } from './SearchCheckins.loader';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getSearchCheckinsQuery } from '../api/query';
-import { useScrollToTop } from '../hooks/useScrollToTop';
 import { Checkin } from '../features/checkins/Checkin';
 import { Pagination } from '../components/Pagination';
 import { EmptyQueryError } from '../features/search/EmptyQueryError';
@@ -11,7 +10,6 @@ import { EmptyQueryError } from '../features/search/EmptyQueryError';
 export const SearchCheckins: React.FC = () => {
     const { query } = useLoaderData<LoaderData>();
     const { data } = useSuspenseQuery(getSearchCheckinsQuery(query));
-    useScrollToTop([query.page]);
 
     return (
         <div className="p-4">
