@@ -3,7 +3,6 @@ import { useLoaderData, useRouteError } from 'react-router';
 import { LoaderData, PER_PAGE } from './SearchCollections.loader';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getSearchCollectionsQuery } from '../api/query';
-import { useScrollToTop } from '../hooks/useScrollToTop';
 import { CollectionItem } from '../features/collections/CollectionItem';
 import { Pagination } from '../components/Pagination';
 import { EmptyQueryError } from '../features/search/EmptyQueryError';
@@ -11,7 +10,6 @@ import { EmptyQueryError } from '../features/search/EmptyQueryError';
 export const SearchCollections: React.FC = () => {
     const { query } = useLoaderData<LoaderData>();
     const { data } = useSuspenseQuery(getSearchCollectionsQuery(query));
-    useScrollToTop([query.page]);
 
     return (
         <div className="p-4">
