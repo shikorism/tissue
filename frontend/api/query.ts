@@ -1,7 +1,11 @@
-import { keepPreviousData, queryOptions } from '@tanstack/react-query';
+import { keepPreviousData, queryOptions, QueryOptions } from '@tanstack/react-query';
 import { fetchClient } from './client';
 import type { paths } from './schema';
 import { ensure, totalCount } from './utils';
+
+type ExtractTData<T> = T extends QueryOptions<any, any, infer TData, any> ? TData : never;
+type Return<T> = T extends (...a: any) => infer R ? R : never;
+export type TDataOfQuery<F> = ExtractTData<Return<F>>;
 
 export const getMeQuery = ({ refetchOnMount } = { refetchOnMount: false }) =>
     queryOptions({
