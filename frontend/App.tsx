@@ -14,6 +14,8 @@ import { CheckinCreate } from './pages/CheckinCreate';
 import { loader as checkinCreateLoader } from './pages/CheckinCreate.loader';
 import { CheckinDetail, ErrorBoundary as CheckinDetailErrorBoundary } from './pages/CheckinDetail';
 import { loader as checkinDetailLoader } from './pages/CheckinDetail.loader';
+import { CheckinEdit } from './pages/CheckinEdit';
+import { loader as checkinEditLoader } from './pages/CheckinEdit.loader';
 import { User, ErrorBoundary as UserErrorBoundary } from './pages/User';
 import { loader as userLoader } from './pages/User.loader';
 import { UserProfile } from './pages/UserProfile';
@@ -74,6 +76,11 @@ const router = createBrowserRouter(
                     element: <CheckinDetail />,
                     errorElement: <CheckinDetailErrorBoundary />,
                     loader: checkinDetailLoader(queryClient),
+                },
+                {
+                    path: 'checkin/:id/edit',
+                    element: <CheckinEdit />,
+                    loader: checkinEditLoader(queryClient),
                 },
                 {
                     path: 'collect',

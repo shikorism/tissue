@@ -20,6 +20,31 @@ export const usePostCheckin = () => {
     });
 };
 
+export const usePatchCheckin = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (params: {
+            id: number;
+            body: paths['/checkins/{id}']['patch']['requestBody']['content']['application/json'];
+        }) =>
+            fetchClient
+                .PATCH('/checkins/{id}', {
+                    params: { path: { id: params.id } },
+                    body: params.body,
+                })
+                .then((response) => ensure(response.data)),
+        onSuccess: async (data) => {
+            await Promise.all([
+                queryClient.invalidateQueries({ queryKey: ['/checkins/{id}', data.id] }),
+                queryClient.invalidateQueries({ queryKey: ['/users/{username}/checkins', data.user.name] }),
+                queryClient.invalidateQueries({ queryKey: ['/users/{username}/stats/tags', data.user.name] }),
+                queryClient.invalidateQueries({ queryKey: ['/timelines/public'] }),
+                queryClient.invalidateQueries({ queryKey: ['/recent-tags'] }),
+            ]);
+        },
+    });
+};
+
 export const useDeleteCheckin = () => {
     const queryClient = useQueryClient();
     return useMutation({
