@@ -10,6 +10,7 @@ import { Home } from './pages/Home';
 import { loader as homeLoader } from './pages/Home.loader';
 import { Collect } from './pages/Collect';
 import { loader as collectLoader } from './pages/Collect.loader';
+import { CheckinCreate } from './pages/CheckinCreate';
 import { CheckinDetail, ErrorBoundary as CheckinDetailErrorBoundary } from './pages/CheckinDetail';
 import { loader as checkinDetailLoader } from './pages/CheckinDetail.loader';
 import { User, ErrorBoundary as UserErrorBoundary } from './pages/User';
@@ -62,6 +63,10 @@ const router = createBrowserRouter(
             element: <BaseLayout />,
             children: [
                 { index: true, element: <Home />, loader: homeLoader(queryClient) },
+                {
+                    path: 'checkin',
+                    element: <CheckinCreate />,
+                },
                 {
                     path: 'checkin/:id',
                     element: <CheckinDetail />,

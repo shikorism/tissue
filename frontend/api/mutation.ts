@@ -4,6 +4,22 @@ import type { paths, components } from './schema';
 import { ensure } from './utils';
 import { getTimelinesPublicQuery, getUserCheckinsQuery, TDataOfQuery } from './query';
 
+export const usePostCheckin = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (params: paths['/checkins']['post']['requestBody']['content']['application/json']) =>
+            fetchClient.POST('/checkins', { body: params }).then((response) => ensure(response.data)),
+        onSuccess: async (data) => {
+            await Promise.all([
+                queryClient.invalidateQueries({ queryKey: ['/users/{username}/checkins', data.user.name] }),
+                queryClient.invalidateQueries({ queryKey: ['/users/{username}/stats/tags', data.user.name] }),
+                queryClient.invalidateQueries({ queryKey: ['/timelines/public'] }),
+                queryClient.invalidateQueries({ queryKey: ['/recent-tags'] }),
+            ]);
+        },
+    });
+};
+
 export const useDeleteCheckin = () => {
     const queryClient = useQueryClient();
     return useMutation({
