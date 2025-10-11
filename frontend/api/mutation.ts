@@ -1,7 +1,8 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchClient } from './client';
-import type { paths } from './schema';
+import type { paths, components } from './schema';
 import { ensure } from './utils';
+import { getTimelinesPublicQuery, getUserCheckinsQuery, TDataOfQuery } from './query';
 
 export const useDeleteCheckin = () => {
     const queryClient = useQueryClient();
@@ -125,6 +126,41 @@ export const useDeleteCollectionItem = () => {
     });
 };
 
+const updateCachesAfterUpdateLike = (
+    queryClient: QueryClient,
+    data: { id: number; is_liked?: boolean; likes_count?: number },
+) => {
+    queryClient.setQueryData(['/checkins/{id}', data.id], (old) =>
+        old ? { ...old, is_liked: data.is_liked, likes_count: data.likes_count } : old,
+    );
+
+    const update = <T extends { data: components['schemas']['Checkin'][] }>(old: T | undefined) =>
+        old && {
+            ...old,
+            data: old.data.map((checkin) =>
+                checkin.id === data.id
+                    ? {
+                          ...checkin,
+                          is_liked: data.is_liked,
+                          likes_count: data.likes_count,
+                      }
+                    : checkin,
+            ),
+        };
+    queryClient.setQueriesData<TDataOfQuery<typeof getUserCheckinsQuery>>(
+        { queryKey: ['/users/{username}/checkins'] },
+        update,
+    );
+    queryClient.setQueriesData<TDataOfQuery<typeof getTimelinesPublicQuery>>(
+        { queryKey: ['/timelines/public'] },
+        update,
+    );
+    queryClient.setQueriesData<TDataOfQuery<typeof getTimelinesPublicQuery>>(
+        { queryKey: ['/search/checkins'] },
+        update,
+    );
+};
+
 export const usePostLike = () => {
     const queryClient = useQueryClient();
     return useMutation({
@@ -134,10 +170,8 @@ export const usePostLike = () => {
                     body: { id: checkinId },
                 })
                 .then((response) => ensure(response.data)),
-        onSuccess: async (data, checkinId) => {
-            queryClient.setQueryData(['/checkins/{id}', checkinId], (old) =>
-                old ? { ...old, is_liked: data.ejaculation.is_liked, likes_count: data.ejaculation.likes_count } : old,
-            );
+        onSuccess: (data) => {
+            updateCachesAfterUpdateLike(queryClient, data.ejaculation);
         },
     });
 };
@@ -151,10 +185,8 @@ export const useDeleteLike = () => {
                     params: { path: { id: checkinId } },
                 })
                 .then((response) => ensure(response.data)),
-        onSuccess: async (data, checkinId) => {
-            queryClient.setQueryData(['/checkins/{id}', checkinId], (old) =>
-                old ? { ...old, is_liked: data.ejaculation.is_liked, likes_count: data.ejaculation.likes_count } : old,
-            );
+        onSuccess: (data) => {
+            updateCachesAfterUpdateLike(queryClient, data.ejaculation);
         },
     });
 };
