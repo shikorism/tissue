@@ -1,4 +1,4 @@
-import React, { FormEventHandler, useEffect, useState } from 'react';
+import React, { FormEventHandler, Suspense, useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { TagInput } from '../../components/TagInput';
 import { FieldError } from '../../components/FieldError';
@@ -185,7 +185,9 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ mode, initialValues, o
                 <div className="mt-1 text-xs text-secondary">Tab, Enter, 半角スペースのいずれかで入力確定します。</div>
                 <FieldError name="tags" label="タグ" errors={errors?.tags} />
             </div>
-            <FavoriteTags tags={tags} onClickTag={(v) => setTags(tags.concat(v))} />
+            <Suspense>
+                <FavoriteTags tags={tags} onClickTag={(v) => setTags(tags.concat(v))} />
+            </Suspense>
 
             <div>
                 <label htmlFor="link" className="block mb-2">

@@ -11,6 +11,7 @@ import { loader as homeLoader } from './pages/Home.loader';
 import { Collect } from './pages/Collect';
 import { loader as collectLoader } from './pages/Collect.loader';
 import { CheckinCreate } from './pages/CheckinCreate';
+import { loader as checkinCreateLoader } from './pages/CheckinCreate.loader';
 import { CheckinDetail, ErrorBoundary as CheckinDetailErrorBoundary } from './pages/CheckinDetail';
 import { loader as checkinDetailLoader } from './pages/CheckinDetail.loader';
 import { User, ErrorBoundary as UserErrorBoundary } from './pages/User';
@@ -66,6 +67,7 @@ const router = createBrowserRouter(
                 {
                     path: 'checkin',
                     element: <CheckinCreate />,
+                    loader: checkinCreateLoader(queryClient),
                 },
                 {
                     path: 'checkin/:id',

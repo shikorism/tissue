@@ -9,7 +9,7 @@ const totalCount = (response: Response): number | undefined => {
 
 export const useGetMe = ({ refetchOnMount } = { refetchOnMount: false }) =>
     useQuery({
-        queryKey: ['me'],
+        queryKey: ['/me'],
         queryFn: () => fetchClient.GET('/me').then((response) => response.data),
         refetchOnMount,
     });
