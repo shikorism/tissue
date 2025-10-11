@@ -224,3 +224,9 @@ export const getSearchTagsQuery = (query: paths['/search/tags']['get']['paramete
                     },
             ),
     });
+
+export const getInformationLatestQuery = () =>
+    queryOptions({
+        queryKey: ['/information/latest'],
+        queryFn: () => fetchClient.GET('/information/latest').then((response) => ensure(response.data)),
+    });
