@@ -19,25 +19,26 @@ class CheckinController extends Controller
 {
     public function store(CheckinStoreRequest $request)
     {
+        $fromPublicApi = $request->routeIs('api.v1.checkins.*');
         $inputs = $request->validated();
 
         $ejaculatedDate = empty($inputs['checked_in_at']) ? now() : new Carbon($inputs['checked_in_at']);
         $ejaculatedDate = $ejaculatedDate->setTimezone(date_default_timezone_get())->startOfMinute();
         if (Ejaculation::where(['user_id' => Auth::id(), 'ejaculated_date' => $ejaculatedDate])->count()) {
-            throw new UnprocessableEntityHttpException('Checkin already exists in this time');
+            throw new UnprocessableEntityHttpException('既にこの日時にチェックインしているため、登録できません');
         }
 
-        $ejaculation = DB::transaction(function () use ($inputs, $ejaculatedDate) {
+        $ejaculation = DB::transaction(function () use ($fromPublicApi, $inputs, $ejaculatedDate) {
             $ejaculation = Ejaculation::create([
                 'user_id' => Auth::id(),
                 'ejaculated_date' => $ejaculatedDate,
                 'note' => $inputs['note'] ?? '',
                 'link' => $inputs['link'] ?? '',
-                'source' => Ejaculation::SOURCE_API,
+                'source' => $fromPublicApi ? Ejaculation::SOURCE_API : Ejaculation::SOURCE_WEB,
                 'is_private' => (bool)($inputs['is_private'] ?? false),
                 'is_too_sensitive' => (bool)($inputs['is_too_sensitive'] ?? false),
                 'discard_elapsed_time' => (bool)($inputs['discard_elapsed_time'] ?? false),
-                'oauth_access_token_id' => Auth::user()->token()->id,
+                'oauth_access_token_id' => $fromPublicApi ? Auth::user()->token()->id : null,
             ]);
 
             $tagIds = [];
@@ -89,7 +90,7 @@ class CheckinController extends Controller
             $ejaculatedDate = new Carbon($inputs['checked_in_at']);
             $ejaculatedDate = $ejaculatedDate->setTimezone(date_default_timezone_get())->startOfMinute();
             if (Ejaculation::where(['user_id' => Auth::id(), 'ejaculated_date' => $ejaculatedDate])->where('id', '<>', $checkin->id)->count()) {
-                throw new UnprocessableEntityHttpException('Checkin already exists in this time');
+                throw new UnprocessableEntityHttpException('既にこの日時にチェックインしているため、登録できません');
             }
 
             $checkin->ejaculated_date = $ejaculatedDate;

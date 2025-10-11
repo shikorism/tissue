@@ -12,3 +12,6 @@ namespace Tags {
     @body body: Tag[];
   };
 }
+
+@route("/recent-tags")
+op recentTags(): string[];

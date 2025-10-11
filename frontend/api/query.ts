@@ -230,3 +230,9 @@ export const getInformationLatestQuery = () =>
         queryKey: ['/information/latest'],
         queryFn: () => fetchClient.GET('/information/latest').then((response) => ensure(response.data)),
     });
+
+export const getRecentTagsQuery = () =>
+    queryOptions({
+        queryKey: ['/recent-tags'],
+        queryFn: () => fetchClient.GET('/recent-tags').then((response) => ensure(response.data)),
+    });
