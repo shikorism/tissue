@@ -480,6 +480,7 @@ export interface components {
             link: string;
             note: string;
             tags: string[];
+            user_name: string;
         };
         DailyCheckinSummary: {
             /** Format: date */
@@ -1250,6 +1251,7 @@ export interface operations {
                         link: string;
                         note: string;
                         tags: string[];
+                        user_name: string;
                         collection: components["schemas"]["Collection"];
                     }[];
                 };

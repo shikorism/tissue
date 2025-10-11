@@ -6,4 +6,7 @@ model CollectionItem {
   link: url;
   note: string;
   tags: string[];
+
+  // FIXME: 後で廃止したい
+  user_name: string;
 }

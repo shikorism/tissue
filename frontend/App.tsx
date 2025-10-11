@@ -8,6 +8,8 @@ import { Toaster } from './components/Toaster';
 import { BaseLayout } from './layouts/BaseLayout';
 import { Home } from './pages/Home';
 import { loader as homeLoader } from './pages/Home.loader';
+import { Collect } from './pages/Collect';
+import { loader as collectLoader } from './pages/Collect.loader';
 import { CheckinDetail, ErrorBoundary as CheckinDetailErrorBoundary } from './pages/CheckinDetail';
 import { loader as checkinDetailLoader } from './pages/CheckinDetail.loader';
 import { User, ErrorBoundary as UserErrorBoundary } from './pages/User';
@@ -65,6 +67,11 @@ const router = createBrowserRouter(
                     element: <CheckinDetail />,
                     errorElement: <CheckinDetailErrorBoundary />,
                     loader: checkinDetailLoader(queryClient),
+                },
+                {
+                    path: 'collect',
+                    element: <Collect />,
+                    loader: collectLoader(queryClient),
                 },
                 {
                     path: 'user/:username',
