@@ -251,12 +251,13 @@ export const Checkin: React.FC<Props> = ({
                             </button>
                         </>
                     ) : (
-                        <button
+                        <a
+                            href={`/checkin/${checkin.id}/report`}
                             className="px-4 py-2 text-xl text-secondary rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
                             title="問題を報告"
                         >
                             <i className="ti ti-flag" />
-                        </button>
+                        </a>
                     )}
                 </div>
             )}
