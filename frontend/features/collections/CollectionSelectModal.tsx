@@ -4,10 +4,9 @@ import type { components } from '../../api/schema';
 import { Modal, ModalHeader, ModalBody, ModalProps } from '../../components/Modal';
 import { getMyCollectionsQuery } from '../../api/query';
 import { SortKeySelect } from './SortKeySelect';
-import { sortAndFilteredCollections } from './search';
+import { sortAndFilteredCollections, SortKey } from './search';
 
 type Collection = components['schemas']['Collection'];
-type SortKey = 'id:asc' | 'id:desc' | 'name:asc' | 'name:desc' | 'updated_at:asc' | 'updated_at:desc';
 
 interface CollectionSelectModalProps extends Omit<ModalProps, 'children'> {
     title: string;

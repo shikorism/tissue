@@ -1,11 +1,10 @@
-import { SortKey } from './SortKeySelect';
 import { compareAsc, parseISO } from 'date-fns';
+import type { components } from '../../api/schema';
 
-export function sortAndFilteredCollections(
-    collections: Tissue.Collection[],
-    sort: SortKey,
-    filter: string,
-): Tissue.Collection[] {
+type Collection = components['schemas']['Collection'];
+export type SortKey = 'id:asc' | 'id:desc' | 'name:asc' | 'name:desc' | 'updated_at:asc' | 'updated_at:desc';
+
+export function sortAndFilteredCollections(collections: Collection[], sort: SortKey, filter: string): Collection[] {
     const sortedCollections = [...collections].sort((a, b) => {
         const [field] = sort.split(':');
         switch (field) {
