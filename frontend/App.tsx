@@ -1,9 +1,10 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { RouterProvider, createBrowserRouter, Navigate } from 'react-router';
+import { RouterProvider, createBrowserRouter, Navigate, RouteObject } from 'react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ProgressProvider } from '@bprogress/react';
+import { ProtectedRoute } from './components/ProtectedRoute';
 import { Toaster } from './components/Toaster';
 import { BaseLayout } from './layouts/BaseLayout';
 import { Home } from './pages/Home';
@@ -59,6 +60,61 @@ const queryClient = new QueryClient({
     },
 });
 
+const protectedRoute: RouteObject = {
+    element: <ProtectedRoute />,
+    children: [
+        {
+            path: 'checkin',
+            element: <CheckinCreate />,
+            loader: checkinCreateLoader(queryClient),
+        },
+        {
+            path: 'checkin/:id/edit',
+            element: <CheckinEdit />,
+            loader: checkinEditLoader(queryClient),
+        },
+        {
+            path: 'collect',
+            element: <Collect />,
+            loader: collectLoader(queryClient),
+        },
+        {
+            path: 'timeline/public',
+            element: <PublicTimeline />,
+            loader: publicTimelineLoader(queryClient),
+        },
+        {
+            path: 'search',
+            element: <Search />,
+            children: [
+                {
+                    path: 'checkin?',
+                    element: <SearchCheckins />,
+                    errorElement: <SearchCheckinsErrorBoundary />,
+                    loader: searchCheckinsLoader(queryClient),
+                },
+                {
+                    path: 'collection',
+                    element: <SearchCollections />,
+                    errorElement: <SearchCollectionsErrorBoundary />,
+                    loader: searchCollectionsLoader(queryClient),
+                },
+                {
+                    path: 'related-tag',
+                    element: <SearchTags />,
+                    errorElement: <SearchTagsErrorBoundary />,
+                    loader: searchTagsLoader(queryClient),
+                },
+            ],
+        },
+        {
+            path: 'tag',
+            element: <Tags />,
+            loader: tagsLoader(queryClient),
+        },
+    ],
+};
+
 const router = createBrowserRouter(
     [
         {
@@ -67,25 +123,10 @@ const router = createBrowserRouter(
             children: [
                 { index: true, element: <Home />, loader: homeLoader(queryClient) },
                 {
-                    path: 'checkin',
-                    element: <CheckinCreate />,
-                    loader: checkinCreateLoader(queryClient),
-                },
-                {
                     path: 'checkin/:id',
                     element: <CheckinDetail />,
                     errorElement: <CheckinDetailErrorBoundary />,
                     loader: checkinDetailLoader(queryClient),
-                },
-                {
-                    path: 'checkin/:id/edit',
-                    element: <CheckinEdit />,
-                    loader: checkinEditLoader(queryClient),
-                },
-                {
-                    path: 'collect',
-                    element: <Collect />,
-                    loader: collectLoader(queryClient),
                 },
                 {
                     path: 'user/:username',
@@ -141,40 +182,7 @@ const router = createBrowserRouter(
                         },
                     ],
                 },
-                {
-                    path: 'timeline/public',
-                    element: <PublicTimeline />,
-                    loader: publicTimelineLoader(queryClient),
-                },
-                {
-                    path: 'search',
-                    element: <Search />,
-                    children: [
-                        {
-                            path: 'checkin?',
-                            element: <SearchCheckins />,
-                            errorElement: <SearchCheckinsErrorBoundary />,
-                            loader: searchCheckinsLoader(queryClient),
-                        },
-                        {
-                            path: 'collection',
-                            element: <SearchCollections />,
-                            errorElement: <SearchCollectionsErrorBoundary />,
-                            loader: searchCollectionsLoader(queryClient),
-                        },
-                        {
-                            path: 'related-tag',
-                            element: <SearchTags />,
-                            errorElement: <SearchTagsErrorBoundary />,
-                            loader: searchTagsLoader(queryClient),
-                        },
-                    ],
-                },
-                {
-                    path: 'tag',
-                    element: <Tags />,
-                    loader: tagsLoader(queryClient),
-                },
+                protectedRoute,
                 { path: '*', element: <NotFound /> },
             ],
         },
