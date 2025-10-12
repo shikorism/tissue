@@ -121,7 +121,7 @@ const router = createBrowserRouter(
             path: '/',
             element: <BaseLayout />,
             children: [
-                { index: true, element: <Home />, loader: homeLoader(queryClient) },
+                { path: 'home', element: <Home />, loader: homeLoader(queryClient) },
                 {
                     path: 'checkin/:id',
                     element: <CheckinDetail />,

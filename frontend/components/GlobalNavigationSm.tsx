@@ -10,7 +10,7 @@ export const GlobalNavigationSm: React.FC = () => {
         <nav className="flex md:hidden fixed left-0 right-0 bottom-0 h-(--global-nav-height) z-10 bg-gray-back items-center text-center">
             {me ? (
                 <>
-                    <Link to="/" className="flex-1 py-4 active:bg-neutral-300">
+                    <Link to="/home" className="flex-1 py-4 active:bg-neutral-300">
                         <i className="ti ti-home text-2xl text-neutral-600" />
                     </Link>
                     <Link to="/search" className="flex-1 py-4 active:bg-neutral-300">
