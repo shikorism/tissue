@@ -37,129 +37,20 @@
 
     <div class="container">
         <a href="{{ route('home') }}" class="navbar-brand mr-auto">{{ config('app.name', 'Tissue') }}</a>
-        @auth
-            <div class="d-lg-none navbar-nav">
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle p-2" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="{{ Auth::user()->getProfileImageUrl(30) }}" srcset="{{ Formatter::profileImageSrcSet(Auth::user(), 30) }}" width="30" height="30" class="rounded d-inline-block align-top">
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right position-absolute" aria-labelledby="navbarDropdownMenuLink" id="navbarAccountDropdownSp">
-                        @include('components.header-dropdown-menu')
-                    </div>
-                </div>
-            </div>
-        @endauth
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            @auth
-                <!-- PC navbar -->
-                <div class="d-none d-lg-flex navbar-collapse ml-3">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item {{ stripos(Route::currentRouteName(), 'home') === 0 ? 'active' : ''}}">
-                            <a class="nav-link" href="{{ route('home') }}">ホーム</a>
-                        </li>
-                        <li class="nav-item {{ stripos(Route::currentRouteName(), 'timeline.public') === 0 ? 'active' : ''}}">
-                            <a class="nav-link" href="{{ route('timeline.public') }}">お惣菜</a>
-                        </li>
-                        <li class="nav-item {{ stripos(Route::currentRouteName(), 'tag') === 0 ? 'active' : ''}}">
-                            <a class="nav-link" href="{{ route('tag') }}">タグ一覧</a>
-                        </li>
-                        {{--<li class="nav-item">
-                            <a class="nav-link" href="{{ route('ranking') }}">ランキング</a>
-                        </li>--}}
-                    </ul>
-                    <form action="{{ stripos(Route::currentRouteName(), 'search') === 0 ? route(Route::currentRouteName()) : route('search') }}" class="form-inline mr-2">
-                        <div class="input-group">
-                            <input type="search" name="q" class="form-control" placeholder="検索..." value="{{ stripos(Route::currentRouteName(), 'search') === 0 ? $inputs['q'] : '' }}" required>
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="submit"><i class="ti ti-search" aria-hidden="true"></i><span class="sr-only">検索</span></button>
-                            </div>
-                        </div>
-                    </form>
-                    <form class="form-inline mr-2">
-                        <a href="{{ route('checkin') }}" class="btn btn-outline-primary">チェックイン</a>
-                    </form>
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="{{ Auth::user()->getProfileImageUrl(30) }}" srcset="{{ Formatter::profileImageSrcSet(Auth::user(), 30) }}" width="30" height="30" class="rounded d-inline-block align-top">
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                @include('components.header-dropdown-menu')
-                            </div>
+        @if (!App::isDownForMaintenance())
+            @guest
+                <div class="navbar-nav flex-row">
+                    <ul class="navbar-nav ml-auto mr-2">
+                        <li class="nav-item">
+                            <a href="{{ route('register') }}" class="nav-link">会員登録</a>
                         </li>
                     </ul>
+                    <form class="form-inline">
+                        <a href="{{ route('login') }}" class="btn btn-outline-secondary">ログイン</a>
+                    </form>
                 </div>
-                <!-- SP navbar -->
-                <div class="d-lg-none">
-                    <div class="row mt-2">
-                        <div class="col">
-                            <a class="btn btn-{{ stripos(Route::currentRouteName(), 'home') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('home') }}" role="button">ホーム</a>
-                        </div>
-                        <div class="col">
-                            <a class="btn btn-{{ stripos(Route::currentRouteName(), 'timeline.public') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('timeline.public') }}" role="button">お惣菜</a>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col">
-                            <a class="btn btn-{{ stripos(Route::currentRouteName(), 'tag') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('tag') }}" role="button">タグ一覧</a>
-                        </div>
-                        <div class="col">
-                        </div>
-                    </div>
-                    {{-- <div class="row mt-2">
-                        <div class="col">
-                            <a class="btn btn-outline-secondary" href="{{ route('ranking') }}">ランキング</a>
-                        </div>
-                    </div> --}}
-                    <div class="row mt-2">
-                        <form action="{{ stripos(Route::currentRouteName(), 'search') === 0 ? route(Route::currentRouteName()) : route('search') }}" class="col">
-                            <div class="input-group">
-                                <input type="search" name="q" class="form-control" placeholder="検索..." value="{{ stripos(Route::currentRouteName(), 'search') === 0 ? $inputs['q'] : '' }}" required>
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="submit"><i class="ti ti-search" aria-hidden="true"></i><span class="sr-only">検索</span></button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="row mt-2">
-                        <form class="form-inline col">
-                            <a class="btn btn-outline-primary" href="{{ route('checkin') }}">チェックイン</a>
-                        </form>
-                    </div>
-                </div>
-            @endauth
-            @if (!App::isDownForMaintenance())
-                @guest
-                    <!-- PC navbar -->
-                    <div class="d-none d-lg-flex navbar-collapse">
-                        <ul class="navbar-nav ml-auto mr-2">
-                            <li class="nav-item">
-                                <a href="{{ route('register') }}" class="nav-link">会員登録</a>
-                            </li>
-                        </ul>
-                        <form class="form-inline">
-                            <a href="{{ route('login') }}" class="btn btn-outline-secondary">ログイン</a>
-                        </form>
-                    </div>
-                    <!-- SP navbar -->
-                    <div class="d-lg-none">
-                        <div class="row mt-2">
-                            <div class="col">
-                                <a class="btn btn-outline-secondary" href="{{ route('register') }}" role="button">会員登録</a>
-                            </div>
-                            <div class="col">
-                                <form class="form-inline">
-                                    <a class="btn btn-outline-secondary" href="{{ route('login') }}">ログイン</a>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                @endguest
-            @endif
-        </div>
+            @endguest
+        @endif
     </div>
 </nav>
 @if (session('status'))
@@ -177,7 +68,6 @@
     <div class="container p-3 p-md-4">
         <p>Copyright (c) 2017-2024 shikorism.net</p>
         <ul class="list-inline">
-            <li class="list-inline-item"><a href="https://github.com/shibafu528" class="text-dark">Admin(@shibafu528)</a></li>
             <li class="list-inline-item"><a href="https://github.com/shikorism/tissue" class="text-dark">GitHub</a></li>
             <li class="list-inline-item"><a href="{{ url('/apidoc.html') }}" class="text-dark">API</a></li>
         </ul>

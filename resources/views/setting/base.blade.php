@@ -5,6 +5,9 @@
         <div class="row">
             <div class="col-lg-4">
                 <div class="list-group">
+                    <a class="list-group-item list-group-item-action" href="/home"><i class="ti ti-chevron-left mr-1"></i> ホームに戻る</a>
+                </div>
+                <div class="list-group mt-4">
                     <div class="list-group-item disabled font-weight-bold">設定</div>
                     <a class="list-group-item list-group-item-action {{ Route::currentRouteName() === 'setting' ? 'active' : '' }}"
                        href="{{ route('setting') }}"><i class="ti ti-user mr-1"></i> プロフィール</a>
@@ -31,6 +34,12 @@
                     <a class="list-group-item list-group-item-action {{ Route::currentRouteName() === 'setting.export' ? 'active' : '' }}"
                        href="{{ route('setting.export') }}"><i class="ti ti-download mr-1"></i> データのエクスポート</a>
                 </div>
+                @can ('admin')
+                    <div class="list-group mt-4">
+                        <div class="list-group-item disabled font-weight-bold">管理機能</div>
+                        <a class="list-group-item list-group-item-action" href="{{ route('admin.dashboard') }}"><i class="ti ti-settings mr-1"></i> 管理者画面を開く</a>
+                    </div>
+                @endcan
             </div>
             <div class="tab-content col-lg-8">
                 @yield('tab-content')
