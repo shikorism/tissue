@@ -18,7 +18,7 @@ interface CheckinHeatmapProps {
 
 export const CheckinHeatmap: React.FC<CheckinHeatmapProps> = ({ startDate, data }) => {
     const [id] = useState(() => `CheckinHeatmap_${idSequence++}`);
-    const chmRef = useRef<CalHeatMap>();
+    const chmRef = useRef<CalHeatMap>(null);
 
     useEffect(() => {
         const chm = chmRef.current || new CalHeatMap();
