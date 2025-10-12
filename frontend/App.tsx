@@ -7,6 +7,7 @@ import { ProgressProvider } from '@bprogress/react';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Toaster } from './components/Toaster';
 import { BaseLayout } from './layouts/BaseLayout';
+import { Top } from './pages/Top';
 import { Home } from './pages/Home';
 import { loader as homeLoader } from './pages/Home.loader';
 import { Collect } from './pages/Collect';
@@ -121,6 +122,7 @@ const router = createBrowserRouter(
             path: '/',
             element: <BaseLayout />,
             children: [
+                { index: true, element: <Top /> },
                 { path: 'home', element: <Home />, loader: homeLoader(queryClient) },
                 {
                     path: 'checkin/:id',
@@ -187,7 +189,7 @@ const router = createBrowserRouter(
             ],
         },
     ],
-    { basename: '/app' },
+    {},
 );
 
 createRoot(document.getElementById('app') as HTMLElement).render(
