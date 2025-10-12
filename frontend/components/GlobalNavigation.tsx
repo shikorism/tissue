@@ -20,7 +20,7 @@ export const GlobalNavigation: React.FC = () => {
 
     return (
         <nav className="hidden md:flex flex-col fixed left-0 top-0 bottom-0 w-(--global-nav-width) bg-gray-back">
-            <Link to="/" className="flex items-center gap-3 m-4 mb-2">
+            <Link to="/home" className="flex items-center gap-3 m-4 mb-2">
                 <BrandLogo />
                 <span className="text-xl opacity-90">Tissue</span>
             </Link>
@@ -28,7 +28,7 @@ export const GlobalNavigation: React.FC = () => {
                 {me ? (
                     <>
                         <ul>
-                            <NavItem to="/">
+                            <NavItem to="/home">
                                 <i className="ti ti-home text-2xl text-neutral-600"></i>ホーム
                             </NavItem>
                             <NavItem to="/search">
