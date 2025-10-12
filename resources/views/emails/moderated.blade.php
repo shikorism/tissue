@@ -8,7 +8,7 @@
 投稿された一部のチェックインを「非公開」に変更いたしましたので、ご案内申し上げます。
 
 **対象**  
-[{{ route('checkin.show', ['id' => $moderation->ejaculation_id]) }}]({{ route('checkin.show', ['id' => $moderation->ejaculation_id]) }})
+[{{ url('/checkin/' . $moderation->ejaculation_id) }}]({{ url('/checkin/' . $moderation->ejaculation_id) }})
 @break
 @case (App\ModerationAction::SuspendUser)
 アカウントのチェックイン公開設定を「非公開」に変更いたしましたので、ご案内申し上げます。
