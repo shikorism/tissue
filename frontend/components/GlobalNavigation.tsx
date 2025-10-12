@@ -25,22 +25,22 @@ export const GlobalNavigation: React.FC = () => {
                 <span className="text-xl opacity-90">Tissue</span>
             </Link>
             <div className="px-4 flex-1 shrink-1 overflow-y-auto">
-                <ul>
-                    <NavItem to="/">
-                        <i className="ti ti-home text-2xl text-neutral-600"></i>ホーム
-                    </NavItem>
-                    <NavItem to="/search">
-                        <i className="ti ti-search text-2xl text-neutral-600"></i>検索
-                    </NavItem>
-                    <NavItem to="/timeline/public">
-                        <i className="ti ti-layout-grid text-2xl text-neutral-600"></i>お惣菜
-                    </NavItem>
-                    <NavItem to="/tag">
-                        <i className="ti ti-tags text-2xl text-neutral-600"></i>タグ一覧
-                    </NavItem>
-                </ul>
-                {me && (
+                {me ? (
                     <>
+                        <ul>
+                            <NavItem to="/">
+                                <i className="ti ti-home text-2xl text-neutral-600"></i>ホーム
+                            </NavItem>
+                            <NavItem to="/search">
+                                <i className="ti ti-search text-2xl text-neutral-600"></i>検索
+                            </NavItem>
+                            <NavItem to="/timeline/public">
+                                <i className="ti ti-layout-grid text-2xl text-neutral-600"></i>お惣菜
+                            </NavItem>
+                            <NavItem to="/tag">
+                                <i className="ti ti-tags text-2xl text-neutral-600"></i>タグ一覧
+                            </NavItem>
+                        </ul>
                         <h2 className="mt-4 mb-2 px-2 text-sm font-bold">記録する</h2>
                         <ul>
                             <NavItem to="/checkin">
@@ -66,6 +66,22 @@ export const GlobalNavigation: React.FC = () => {
                             </NavItem>
                         </ul>
                     </>
+                ) : (
+                    <ul>
+                        <li className="mb-2">
+                            <a
+                                href="/register"
+                                className="block p-2 rounded-sm text-center text-white bg-primary-500 hover:bg-primary-700"
+                            >
+                                アカウントを作成
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/login" className="p-2 rounded-sm hover:bg-neutral-200 flex items-center gap-2">
+                                <i className="ti ti-login text-2xl text-neutral-600"></i>ログイン
+                            </a>
+                        </li>
+                    </ul>
                 )}
                 <div className="mt-8 px-2 text-xs text-secondary">
                     <ul className="mb-1 flex gap-2">
