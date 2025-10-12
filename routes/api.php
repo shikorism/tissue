@@ -26,6 +26,12 @@ Route::middleware('stateful')->group(function () {
             Route::apiResource('collections', 'Api\\V1\\CollectionController')->only(['index', 'store', 'update', 'destroy']);
             Route::apiResource('collections.items', 'Api\\V1\\CollectionItemController')->only(['store', 'update', 'destroy']);
             Route::get('/recent-tags', 'Api\\V1\\RecentTagsController')->name('recent-tags');
+
+            Route::get('/timelines/public', 'Api\\V1\\Timelines\\PublicTimeline')->name('timelines.public');
+            Route::get('/tags', 'Api\\TagController')->name('tags');
+            Route::get('/search/checkins', 'Api\\V1\\Search\\Checkins')->name('search.checkins');
+            Route::get('/search/collections', 'Api\\V1\\Search\\Collections')->name('search.collections');
+            Route::get('/search/tags', 'Api\\V1\\Search\\Tags')->name('search.tags');
         });
 
         Route::apiResource('users', 'Api\\V1\\UserController')->only(['show']);
@@ -47,11 +53,6 @@ Route::middleware('stateful')->group(function () {
             });
         Route::get('/users/{user}/stats/checkin/oldest', 'Api\\UserStats\\OldestCheckinDate')->name('users.stats.checkin.oldest');
 
-        Route::get('/timelines/public', 'Api\\V1\\Timelines\\PublicTimeline')->name('timelines.public');
-        Route::get('/tags', 'Api\\TagController')->name('tags');
-        Route::get('/search/checkins', 'Api\\V1\\Search\\Checkins')->name('search.checkins');
-        Route::get('/search/collections', 'Api\\V1\\Search\\Collections')->name('search.collections');
-        Route::get('/search/tags', 'Api\\V1\\Search\\Tags')->name('search.tags');
         Route::get('/information/latest', 'Api\\InformationController@latest')->name('information.latest');
     });
 });
