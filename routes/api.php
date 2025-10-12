@@ -22,7 +22,7 @@ Route::middleware('stateful')->group(function () {
             Route::post('/likes', 'Api\\LikeController@store');
             Route::delete('/likes/{id}', 'Api\\LikeController@destroy');
             Route::apiResource('checkin', 'Api\\CheckinController')->only(['destroy']);
-            Route::apiResource('checkins', 'Api\\V1\\CheckinController')->except(['index']);
+            Route::apiResource('checkins', 'Api\\V1\\CheckinController')->except(['index', 'show']);
             Route::apiResource('collections', 'Api\\V1\\CollectionController')->only(['index', 'store', 'update', 'destroy']);
             Route::apiResource('collections.items', 'Api\\V1\\CollectionItemController')->only(['store', 'update', 'destroy']);
             Route::get('/recent-tags', 'Api\\V1\\RecentTagsController')->name('recent-tags');
@@ -32,6 +32,7 @@ Route::middleware('stateful')->group(function () {
         Route::apiResource('users.checkins', 'Api\\V1\\UserCheckinController')->only(['index']);
         Route::apiResource('users.likes', 'Api\\V1\\UserLikeController')->only(['index']);
         Route::apiResource('users.collections', 'Api\\UserCollectionController')->only(['index']);
+        Route::apiResource('checkins', 'Api\\V1\\CheckinController')->only(['show']);
         Route::apiResource('collections', 'Api\\V1\\CollectionController')->only(['show']);
         Route::apiResource('collections.items', 'Api\\V1\\CollectionItemController')->only(['index']);
 
