@@ -3,6 +3,8 @@ import { Outlet, useLocation } from 'react-router';
 import { useProgress } from '@bprogress/react';
 import { useCurrentUser } from './AuthProvider';
 
+export const LOGIN_REDIRECT_KEY = 'login_redirect';
+
 export const ProtectedRoute = () => {
     const { user } = useCurrentUser();
     const location = useLocation();
@@ -11,10 +13,8 @@ export const ProtectedRoute = () => {
     if (!user) {
         // return <Navigate to="/login" replace />;
         progress.start();
-        const params = new URLSearchParams({
-            next: location.pathname + location.search,
-        });
-        window.location.replace(`/login?${params}`);
+        sessionStorage.setItem(LOGIN_REDIRECT_KEY, location.pathname + location.search);
+        window.location.replace('/login');
         return null;
     }
 
