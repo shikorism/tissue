@@ -17,7 +17,7 @@ export default defineConfig({
             'resources/assets/js/setting/tokens.ts',
             'resources/assets/js/setting/webhooks.ts',
             'resources/assets/js/setting/filter/tags.ts',
-            'frontend/App.tsx',
+            'frontend/index.tsx',
         ]),
         react(),
         tailwindcss(),

@@ -23,6 +23,6 @@
     @component('components.agecheck')
     @endcomponent
 @endguest
-@vite('frontend/App.tsx')
+@vite('frontend/index.tsx')
 @vite('resources/assets/js/agecheck.ts')
 </body>

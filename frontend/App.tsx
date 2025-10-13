@@ -197,12 +197,12 @@ const router = createBrowserRouter(
     {},
 );
 
-createRoot(document.getElementById('app') as HTMLElement).render(
+export const App = () => (
     <QueryClientProvider client={queryClient}>
         <ProgressProvider color="#e53fb1">
             <RouterProvider router={router} />
             <Toaster />
             <ReactQueryDevtools />
         </ProgressProvider>
-    </QueryClientProvider>,
+    </QueryClientProvider>
 );
