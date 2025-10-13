@@ -40,11 +40,6 @@
     border-top: none;
 }
 
-.tis-global-count-graph {
-    height: 90px;
-    border-bottom: 1px solid rgba(0, 0, 0, .125);
-}
-
 .tis-page-selector {
     width: calc(100% + 2px);
     height: 100%;

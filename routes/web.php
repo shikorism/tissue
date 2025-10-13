@@ -73,4 +73,4 @@ Route::middleware('can:admin')
         Route::post('/reports/{report}/action', 'ReportController@action')->name('reports.action');
     });
 
-Route::view('/{path?}', 'app')->where('path', '.*');
+Route::view('/{path?}', 'spa')->where('path', '.*');
