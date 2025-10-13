@@ -92,7 +92,13 @@ export const UserCheckins: React.FC = () => {
                     </div>
                 )}
                 {data?.map((checkin) => (
-                    <Checkin key={checkin.id} checkin={checkin} className="border-b-1 border-gray-border" showActions />
+                    <Checkin
+                        key={checkin.id}
+                        checkin={checkin}
+                        className="border-b-1 border-gray-border"
+                        intervalStyle="relative"
+                        showActions
+                    />
                 ))}
                 {totalCount ? (
                     <Pagination className="my-4" totalCount={totalCount} perPage={PER_PAGE} />
