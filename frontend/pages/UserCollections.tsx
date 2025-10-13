@@ -84,6 +84,7 @@ export const UserCollections: React.FC = () => {
                             </Link>
                         </li>
                     ))}
+                    {data.length === 0 && <li className="py-4">コレクションがありません。</li>}
                 </ul>
             </div>
             <CollectionEditModal
