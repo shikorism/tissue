@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router';
-import { DropdownMenu } from 'radix-ui';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { useProgress } from '@bprogress/react';
 import { cn } from '../lib/cn';
 import { BrandLogo } from './BrandLogo';
