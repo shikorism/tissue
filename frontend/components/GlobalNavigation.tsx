@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { useProgress } from '@bprogress/react';
 import { cn } from '../lib/cn';
@@ -10,6 +10,7 @@ import { GlobalNavigationSm } from './GlobalNavigationSm';
 export const GlobalNavigation: React.FC = () => {
     const { user: me } = useCurrentUser();
     const { start, stop } = useProgress();
+    const location = useLocation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
@@ -19,6 +20,10 @@ export const GlobalNavigation: React.FC = () => {
             document.body.classList.remove('overflow-hidden');
         }
     }, [isMenuOpen]);
+
+    useEffect(() => {
+        setIsMenuOpen(false);
+    }, [location.pathname]);
 
     const handleLogout = async () => {
         start();
