@@ -11,15 +11,6 @@
     overflow-x: auto;
 }
 
-.tis-need-agecheck .container {
-    pointer-events: none;
-    filter: blur(45px);
-}
-
-.container {
-    transition: filter .15s linear;
-}
-
 .list-group-item.no-side-border {
     border-right: none;
     border-left: none;
