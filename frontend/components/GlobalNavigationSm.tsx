@@ -3,13 +3,20 @@ import { Link } from 'react-router';
 import { useCurrentUser } from './AuthProvider';
 import { Button } from './Button';
 
-export const GlobalNavigationSm: React.FC = () => {
+interface Props {
+    onOpenMenu: () => void;
+}
+
+export const GlobalNavigationSm: React.FC<Props> = ({ onOpenMenu }) => {
     const { user: me } = useCurrentUser();
 
     return (
         <nav className="flex md:hidden fixed left-0 right-0 bottom-0 h-(--global-nav-height) z-10 bg-gray-back items-center text-center">
             {me ? (
                 <>
+                    <button type="button" className="flex-1 py-4 active:bg-neutral-300" onClick={onOpenMenu}>
+                        <i className="ti ti-menu-2 text-2xl text-neutral-600" />
+                    </button>
                     <Link to="/home" className="flex-1 py-4 active:bg-neutral-300">
                         <i className="ti ti-home text-2xl text-neutral-600" />
                     </Link>

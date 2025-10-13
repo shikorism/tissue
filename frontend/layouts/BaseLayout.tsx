@@ -3,7 +3,6 @@ import { Outlet, ScrollRestoration, useNavigation } from 'react-router';
 import { useProgress } from '@bprogress/react';
 import { AuthProvider, useCurrentUser } from '../components/AuthProvider';
 import { GlobalNavigation } from '../components/GlobalNavigation';
-import { GlobalNavigationSm } from '../components/GlobalNavigationSm';
 
 export const BaseLayout: React.FC = () => {
     const { start, stop } = useProgress();
@@ -22,7 +21,6 @@ export const BaseLayout: React.FC = () => {
             <AwaitAuth>
                 <ScrollRestoration />
                 <GlobalNavigation />
-                <GlobalNavigationSm />
                 <div className="max-sm:mb-(--global-nav-height) md:ml-(--global-nav-width)">
                     <Outlet />
                 </div>
