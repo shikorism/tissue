@@ -1,5 +1,4 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
 import { RouterProvider, createBrowserRouter, Navigate, RouteObject } from 'react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -7,48 +6,25 @@ import { ProgressProvider } from '@bprogress/react';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Toaster } from './components/Toaster';
 import { BaseLayout } from './layouts/BaseLayout';
-import { Top } from './pages/Top';
-import { Home } from './pages/Home';
 import { loader as homeLoader } from './pages/Home.loader';
-import { Collect } from './pages/Collect';
 import { loader as collectLoader } from './pages/Collect.loader';
-import { CheckinCreate } from './pages/CheckinCreate';
 import { loader as checkinCreateLoader } from './pages/CheckinCreate.loader';
-import { CheckinDetail, ErrorBoundary as CheckinDetailErrorBoundary } from './pages/CheckinDetail';
 import { loader as checkinDetailLoader } from './pages/CheckinDetail.loader';
-import { CheckinEdit } from './pages/CheckinEdit';
 import { loader as checkinEditLoader } from './pages/CheckinEdit.loader';
-import { MyPage } from './pages/MyPage';
-import { User, ErrorBoundary as UserErrorBoundary } from './pages/User';
 import { loader as userLoader } from './pages/User.loader';
-import { UserProfile } from './pages/UserProfile';
 import { loader as userProfileLoader } from './pages/UserProfile.loader';
-import { UserCheckins } from './pages/UserCheckins';
 import { loader as userCheckinsLoader } from './pages/UserCheckins.loader';
-import { UserStats } from './pages/UserStats';
 import { loader as userStatsLoader } from './pages/UserStats.loader';
-import { UserStatsAll } from './pages/UserStatsAll';
 import { loader as userStatsAllLoader } from './pages/UserStatsAll.loader';
-import { UserStatsYearly } from './pages/UserStatsYearly';
 import { loader as userStatsYearlyLoader } from './pages/UserStatsYearly.loader';
-import { UserStatsMonthly } from './pages/UserStatsMonthly';
 import { loader as userStatsMonthlyLoader } from './pages/UserStatsMonthly.loader';
-import { UserLikes, ErrorBoundary as UserLikesErrorBoundary } from './pages/UserLikes';
 import { loader as userLikesLoader } from './pages/UserLikes.loader';
-import { UserCollections, ErrorBoundary as UserCollectionsErrorBoundary } from './pages/UserCollections';
 import { loader as userCollectionsLoader } from './pages/UserCollections.loader';
-import { UserCollection, ErrorBoundary as UserCollectionErrorBoundary } from './pages/UserCollection';
 import { loader as userCollectionLoader } from './pages/UserCollection.loader';
-import { PublicTimeline } from './pages/PublicTimeline';
 import { loader as publicTimelineLoader } from './pages/PublicTimeline.loader';
-import { Search } from './pages/Search';
-import { SearchCheckins, ErrorBoundary as SearchCheckinsErrorBoundary } from './pages/SearchCheckins';
 import { loader as searchCheckinsLoader } from './pages/SearchCheckins.loader';
-import { SearchCollections, ErrorBoundary as SearchCollectionsErrorBoundary } from './pages/SearchCollections';
 import { loader as searchCollectionsLoader } from './pages/SearchCollections.loader';
-import { SearchTags, ErrorBoundary as SearchTagsErrorBoundary } from './pages/SearchTags';
 import { loader as searchTagsLoader } from './pages/SearchTags.loader';
-import { Tags } from './pages/Tags';
 import { loader as tagsLoader } from './pages/Tags.loader';
 import { NotFound } from './pages/NotFound';
 import './App.css';
@@ -62,60 +38,62 @@ const queryClient = new QueryClient({
     },
 });
 
+const convert = <T extends { default: React.ComponentType; ErrorBoundary?: React.ComponentType }>(mod: T) => {
+    const { default: Component, ErrorBoundary } = mod;
+    return { Component, ErrorBoundary };
+};
+
 const protectedRoute: RouteObject = {
     element: <ProtectedRoute />,
     children: [
         {
             path: 'checkin',
-            element: <CheckinCreate />,
+            lazy: () => import('./pages/CheckinCreate').then(convert),
             loader: checkinCreateLoader(queryClient),
         },
         {
             path: 'checkin/:id/edit',
-            element: <CheckinEdit />,
+            lazy: () => import('./pages/CheckinEdit').then(convert),
             loader: checkinEditLoader(queryClient),
         },
         {
             path: 'collect',
-            element: <Collect />,
+            lazy: () => import('./pages/Collect').then(convert),
             loader: collectLoader(queryClient),
         },
         {
             path: 'user',
-            element: <MyPage />,
+            lazy: () => import('./pages/MyPage').then(convert),
         },
         {
             path: 'timeline/public',
-            element: <PublicTimeline />,
+            lazy: () => import('./pages/PublicTimeline').then(convert),
             loader: publicTimelineLoader(queryClient),
         },
         {
             path: 'search',
-            element: <Search />,
+            lazy: () => import('./pages/Search').then(convert),
             children: [
                 {
                     path: 'checkin?',
-                    element: <SearchCheckins />,
-                    errorElement: <SearchCheckinsErrorBoundary />,
+                    lazy: () => import('./pages/SearchCheckins').then(convert),
                     loader: searchCheckinsLoader(queryClient),
                 },
                 {
                     path: 'collection',
-                    element: <SearchCollections />,
-                    errorElement: <SearchCollectionsErrorBoundary />,
+                    lazy: () => import('./pages/SearchCollections').then(convert),
                     loader: searchCollectionsLoader(queryClient),
                 },
                 {
                     path: 'related-tag',
-                    element: <SearchTags />,
-                    errorElement: <SearchTagsErrorBoundary />,
+                    lazy: () => import('./pages/SearchTags').then(convert),
                     loader: searchTagsLoader(queryClient),
                 },
             ],
         },
         {
             path: 'tag',
-            element: <Tags />,
+            lazy: () => import('./pages/Tags').then(convert),
             loader: tagsLoader(queryClient),
         },
     ],
@@ -127,48 +105,57 @@ const router = createBrowserRouter(
             path: '/',
             element: <BaseLayout />,
             children: [
-                { index: true, element: <Top /> },
-                { path: 'home', element: <Home />, loader: homeLoader(queryClient) },
+                { index: true, lazy: () => import('./pages/Top').then(convert) },
+                {
+                    path: 'home',
+                    lazy: () => import('./pages/Home').then(convert),
+                    loader: homeLoader(queryClient),
+                },
                 {
                     path: 'checkin/:id',
-                    element: <CheckinDetail />,
-                    errorElement: <CheckinDetailErrorBoundary />,
+                    lazy: () => import('./pages/CheckinDetail').then(convert),
                     loader: checkinDetailLoader(queryClient),
                 },
                 {
                     path: 'user/:username',
-                    element: <User />,
-                    errorElement: <UserErrorBoundary />,
+                    lazy: () => import('./pages/User').then(convert),
                     loader: userLoader(queryClient),
                     children: [
-                        { index: true, element: <UserProfile />, loader: userProfileLoader(queryClient) },
+                        {
+                            index: true,
+                            lazy: () => import('./pages/UserProfile').then(convert),
+                            loader: userProfileLoader(queryClient),
+                        },
                         {
                             path: 'checkins/:year?/:month?/:date?',
-                            element: <UserCheckins />,
+                            lazy: () => import('./pages/UserCheckins').then(convert),
                             loader: userCheckinsLoader(queryClient),
                         },
                         {
                             path: 'stats',
-                            element: <UserStats />,
+                            lazy: () => import('./pages/UserStats').then(convert),
                             loader: userStatsLoader(queryClient),
                             children: [
-                                { index: true, element: <UserStatsAll />, loader: userStatsAllLoader(queryClient) },
+                                {
+                                    index: true,
+                                    lazy: () => import('./pages/UserStatsAll').then(convert),
+                                    loader: userStatsAllLoader(queryClient),
+                                },
                                 {
                                     path: ':year',
-                                    element: <UserStatsYearly />,
+                                    lazy: () => import('./pages/UserStatsYearly').then(convert),
                                     loader: userStatsYearlyLoader(queryClient),
                                 },
                                 {
                                     path: ':year/:month',
-                                    element: <UserStatsMonthly />,
+                                    lazy: () => import('./pages/UserStatsMonthly').then(convert),
                                     loader: userStatsMonthlyLoader(queryClient),
                                 },
                             ],
                         },
                         {
                             path: 'likes',
-                            element: <UserLikes />,
-                            errorElement: <UserLikesErrorBoundary />,
+                            lazy: () => import('./pages/UserLikes').then(convert),
                             loader: userLikesLoader(queryClient),
                         },
                         {
@@ -177,14 +164,12 @@ const router = createBrowserRouter(
                         },
                         {
                             path: 'collections',
-                            element: <UserCollections />,
-                            errorElement: <UserCollectionsErrorBoundary />,
+                            lazy: () => import('./pages/UserCollections').then(convert),
                             loader: userCollectionsLoader(queryClient),
                         },
                         {
                             path: 'collections/:collectionId',
-                            element: <UserCollection />,
-                            errorElement: <UserCollectionErrorBoundary />,
+                            lazy: () => import('./pages/UserCollection').then(convert),
                             loader: userCollectionLoader(queryClient),
                         },
                     ],

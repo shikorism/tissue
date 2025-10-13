@@ -185,3 +185,5 @@ const RecentCheckin: React.FC<RecentCheckinProps> = ({ user }) => {
         </div>
     );
 };
+
+export default UserProfile;

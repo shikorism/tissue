@@ -75,3 +75,5 @@ export const UserStatsYearly: React.FC = () => {
         </div>
     );
 };
+
+export default UserStatsYearly;

@@ -107,3 +107,5 @@ export const UserStats: React.FC = () => {
         </div>
     );
 };
+
+export default UserStats;

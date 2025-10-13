@@ -204,3 +204,5 @@ const Calendar: React.FC<CalendarParams> = ({ initialDate }) => {
         </div>
     );
 };
+
+export default UserCheckins;

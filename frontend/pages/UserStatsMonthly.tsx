@@ -61,3 +61,5 @@ export const UserStatsMonthly = () => {
         </div>
     );
 };
+
+export default UserStatsMonthly;

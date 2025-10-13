@@ -26,3 +26,5 @@ export const Top: React.FC = () => {
         return null;
     }
 };
+
+export default Top;

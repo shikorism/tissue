@@ -63,3 +63,5 @@ export const UserStatsAll: React.FC = () => {
         </div>
     );
 };
+
+export default UserStatsAll;

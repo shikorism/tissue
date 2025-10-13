@@ -75,3 +75,5 @@ export const CheckinCreate: React.FC = () => {
         </div>
     );
 };
+
+export default CheckinCreate;

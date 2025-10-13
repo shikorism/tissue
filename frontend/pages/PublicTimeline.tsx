@@ -32,3 +32,5 @@ export const PublicTimeline: React.FC = () => {
         </div>
     );
 };
+
+export default PublicTimeline;
