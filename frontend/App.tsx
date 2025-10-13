@@ -18,6 +18,7 @@ import { CheckinDetail, ErrorBoundary as CheckinDetailErrorBoundary } from './pa
 import { loader as checkinDetailLoader } from './pages/CheckinDetail.loader';
 import { CheckinEdit } from './pages/CheckinEdit';
 import { loader as checkinEditLoader } from './pages/CheckinEdit.loader';
+import { MyPage } from './pages/MyPage';
 import { User, ErrorBoundary as UserErrorBoundary } from './pages/User';
 import { loader as userLoader } from './pages/User.loader';
 import { UserProfile } from './pages/UserProfile';
@@ -78,6 +79,10 @@ const protectedRoute: RouteObject = {
             path: 'collect',
             element: <Collect />,
             loader: collectLoader(queryClient),
+        },
+        {
+            path: 'user',
+            element: <MyPage />,
         },
         {
             path: 'timeline/public',
