@@ -75,3 +75,5 @@ export const ErrorBoundary: React.FC = () => {
 
     throw error;
 };
+
+export default User;

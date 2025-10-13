@@ -235,3 +235,5 @@ export const Collect: React.FC = () => {
         </div>
     );
 };
+
+export default Collect;

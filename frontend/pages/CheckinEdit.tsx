@@ -75,3 +75,5 @@ export const CheckinEdit: React.FC = () => {
         </div>
     );
 };
+
+export default CheckinEdit;

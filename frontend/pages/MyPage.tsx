@@ -10,3 +10,5 @@ export const MyPage = () => {
 
     return <Navigate to={`/user/${user.name}`} replace />;
 };
+
+export default MyPage;

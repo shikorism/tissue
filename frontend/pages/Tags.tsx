@@ -31,3 +31,5 @@ export const Tags: React.FC = () => {
         </div>
     );
 };
+
+export default Tags;
