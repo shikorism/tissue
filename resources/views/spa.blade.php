@@ -7,9 +7,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Tissue') }}</title>
     <link href="{{ asset('manifest.json') }}" rel="manifest">
+    @vite('resources/assets/sass/agecheck.css')
     @viteReactRefresh
 </head>
-<body>
+<body class="{{Auth::check() ? '' : 'tis-need-agecheck'}}">
 <noscript>
     <p>Tissueを利用するには、ブラウザのJavaScriptとCookieを有効にする必要があります。</p>
     <p>
@@ -18,5 +19,8 @@
     </p>
 </noscript>
 <div id="app"></div>
+@component('components.agecheck')
+@endcomponent
 @vite('frontend/App.tsx')
+@vite('resources/assets/js/agecheck.ts')
 </body>

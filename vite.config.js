@@ -7,7 +7,9 @@ export default defineConfig({
     plugins: [
         laravel([
             'resources/assets/sass/app.scss',
+            'resources/assets/sass/agecheck.css',
             'resources/assets/js/app.ts',
+            'resources/assets/js/agecheck.ts',
             'resources/assets/js/admin/rules.ts',
             'resources/assets/js/setting/privacy.ts',
             'resources/assets/js/setting/import.ts',

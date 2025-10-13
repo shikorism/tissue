@@ -13,6 +13,7 @@
     @endif
 
     <link href="{{ asset('manifest.json') }}" rel="manifest">
+    @vite('resources/assets/sass/agecheck.css')
     @vite('resources/assets/sass/app.scss')
     @viteReactRefresh
 
@@ -77,24 +78,11 @@
     <div class="toast-body"></div>
 </div>
 @guest
-<div class="modal fade" id="ageCheckModal" tabindex="-1" role="dialog" aria-labelledby="ageCheckModalTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="ageCheckModalTitle">Tissue へようこそ！</h5>
-      </div>
-      <div class="modal-body">
-        この先のコンテンツには暴力表現や性描写など、18歳未満の方が閲覧できないコンテンツが含まれています。
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">まかせて</button>
-        <a href="https://cookpad.com" rel="noreferrer" class="btn btn-secondary">ごめん無理</a>
-      </div>
-    </div>
-  </div>
-</div>
+    @component('components.agecheck')
+    @endcomponent
 @endguest
 @vite('resources/assets/js/app.ts')
+@vite('resources/assets/js/agecheck.ts')
 @stack('script')
 </body>
 </html>
