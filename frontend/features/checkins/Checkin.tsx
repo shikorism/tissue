@@ -85,9 +85,9 @@ export const Checkin: React.FC<Props> = ({
 
     return (
         <article className={cn('py-4 flex flex-col gap-2 break-words', className)}>
-            {intervalStyle !== 'none' && checkin.checkin_interval ? (
+            {intervalStyle !== 'none' ? (
                 <h5>
-                    <span className="text-xl font-medium mr-2">{formatInterval(checkin.checkin_interval)}</span>
+                    <span className="text-xl font-medium mr-2">{formatCheckinInterval(checkin)}</span>
                     <Link to={`/checkin/${checkin.id}`} className="text-secondary hover:underline">
                         {intervalStyle === 'full' && !checkin.discard_elapsed_time && checkin.previous_checked_in_at
                             ? `${formatDate(checkin.previous_checked_in_at, 'yyyy/MM/dd HH:mm')} 〜 `
@@ -281,6 +281,16 @@ export const Checkin: React.FC<Props> = ({
             </Modal>
         </article>
     );
+};
+
+const formatCheckinInterval = (checkin: components['schemas']['Checkin']): string => {
+    if (checkin.discard_elapsed_time) {
+        return formatInterval(0);
+    }
+    if (checkin.checkin_interval) {
+        return formatInterval(checkin.checkin_interval);
+    }
+    return '精通';
 };
 
 const makeCheckinParams = (checkin: components['schemas']['Checkin']): string => {
