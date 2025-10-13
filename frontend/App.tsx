@@ -6,6 +6,7 @@ import { ProgressProvider } from '@bprogress/react';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Toaster } from './components/Toaster';
 import { BaseLayout } from './layouts/BaseLayout';
+import { ErrorBoundary } from './pages/ErrorBoundary';
 import { loader as homeLoader } from './pages/Home.loader';
 import { loader as collectLoader } from './pages/Collect.loader';
 import { loader as checkinCreateLoader } from './pages/CheckinCreate.loader';
@@ -109,6 +110,7 @@ const router = createBrowserRouter(
         {
             path: '/',
             element: <BaseLayout />,
+            errorElement: <ErrorBoundary />,
             children: [
                 { index: true, lazy: () => import('./pages/Top').then(convert) },
                 {
