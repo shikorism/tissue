@@ -24,9 +24,6 @@ class CollectionItemResource extends JsonResource
             'note' => $this->note,
             'tags' => $this->tags->pluck('name'),
             'collection' => new CollectionResource($this->whenLoaded('collection')),
-            // for internal use
-            'note_html' => Formatter::linkify(nl2br(e($this->note))),
-            'checkin_url' => $this->makeCheckinURL(),
         ];
     }
 }
