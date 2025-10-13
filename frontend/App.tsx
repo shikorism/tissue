@@ -47,6 +47,11 @@ const protectedRoute: RouteObject = {
     element: <ProtectedRoute />,
     children: [
         {
+            path: 'home',
+            lazy: () => import('./pages/Home').then(convert),
+            loader: homeLoader(queryClient),
+        },
+        {
             path: 'checkin',
             lazy: () => import('./pages/CheckinCreate').then(convert),
             loader: checkinCreateLoader(queryClient),
@@ -106,11 +111,6 @@ const router = createBrowserRouter(
             element: <BaseLayout />,
             children: [
                 { index: true, lazy: () => import('./pages/Top').then(convert) },
-                {
-                    path: 'home',
-                    lazy: () => import('./pages/Home').then(convert),
-                    loader: homeLoader(queryClient),
-                },
                 {
                     path: 'checkin/:id',
                     lazy: () => import('./pages/CheckinDetail').then(convert),
