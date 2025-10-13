@@ -21,7 +21,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => (
             closeTimeoutMS={100}
             preventScroll
             overlayClassName={{
-                base: 'fixed inset-0 bg-black/0 transition-[background-color] duration-100 ease-out flex items-center justify-center p-4',
+                base: 'fixed inset-0 bg-black/0 transition-[background-color] duration-100 ease-out flex items-center justify-center p-4 z-50',
                 afterOpen: 'bg-black/50',
                 beforeClose: 'bg-black/0',
             }}
