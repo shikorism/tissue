@@ -19,8 +19,10 @@
     </p>
 </noscript>
 <div id="app"></div>
-@component('components.agecheck')
-@endcomponent
+@guest
+    @component('components.agecheck')
+    @endcomponent
+@endguest
 @vite('frontend/App.tsx')
 @vite('resources/assets/js/agecheck.ts')
 </body>
