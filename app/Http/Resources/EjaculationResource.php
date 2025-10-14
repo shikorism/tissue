@@ -27,12 +27,18 @@ class EjaculationResource extends JsonResource
             'is_too_sensitive' => $this->is_too_sensitive,
             'discard_elapsed_time' => $this->discard_elapsed_time,
             'user' => new UserResource($this->user),
-            'is_liked' => $this->whenHas('is_liked'),
-            'likes' => $this->whenLoaded('likes', fn ($likes) => UserResource::collection($likes->pluck('user'))),
-            'likes_count' => $this->whenHas('likes_count'),
-            'checkin_interval' => $this->whenHas('checkin_interval', fn ($interval) => (int) $interval),
-            'previous_checked_in_at' => $this->whenHas('previous_checked_in_at', fn ($date) => (new Carbon($date, config('app.timezone')))->format(\DateTime::ATOM)),
-            'is_muted' => $this->whenHas('is_muted'),
+
+            // scopeWithLikes 使用時のみ
+            'is_liked' => $this->whenHas('is_liked'), // private
+            'likes' => $this->whenLoaded('likes', fn ($likes) => UserResource::collection($likes->pluck('user'))), // private
+            'likes_count' => $this->whenHas('likes_count'), // private
+
+            // scopeWithInterval 使用時のみ
+            'checkin_interval' => $this->whenHas('checkin_interval', fn ($interval) => (int) $interval), // private
+            'previous_checked_in_at' => $this->whenHas('previous_checked_in_at', fn ($date) => (new Carbon($date, config('app.timezone')))->format(\DateTime::ATOM)), // private
+
+            // scopeWithMutedStatus 使用時のみ
+            'is_muted' => $this->whenHas('is_muted'), // private
         ];
     }
 }

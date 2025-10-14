@@ -9,4 +9,6 @@ model CollectionItem {
 
   // FIXME: 後で廃止したい
   user_name: string;
+  // TODO: ここに含められるよう他の場所の定義を修正したい
+  //collection: Collection;
 }

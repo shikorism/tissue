@@ -16,7 +16,7 @@ class TagResource extends JsonResource
     {
         return [
             'name' => $this->name,
-            'checkins_count' => $this->whenHas('checkins_count'),
+            'checkins_count' => $this->whenHas('checkins_count'), // チェックイン数集計を行うエンドポイントのみ使用
         ];
     }
 }

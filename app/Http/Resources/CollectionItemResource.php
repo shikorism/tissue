@@ -18,12 +18,12 @@ class CollectionItemResource extends JsonResource
         return [
             'id' => $this->id,
             'collection_id' => $this->collection_id,
-            'user_id' => $this->collection->user_id,
-            'user_name' => $this->collection->user->name,
+            'user_id' => $this->collection->user_id, // private
+            'user_name' => $this->collection->user->name, // private
             'link' => $this->link,
             'note' => $this->note,
             'tags' => $this->tags->pluck('name'),
-            'collection' => new CollectionResource($this->whenLoaded('collection')),
+            'collection' => new CollectionResource($this->whenLoaded('collection')), // private
         ];
     }
 }
