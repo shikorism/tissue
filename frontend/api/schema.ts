@@ -571,7 +571,7 @@ export interface components {
         Tag: {
             name: string;
             /** Format: int32 */
-            checkins_count: number;
+            checkins_count?: number;
         };
         /** @description ユーザーデータ */
         User: {

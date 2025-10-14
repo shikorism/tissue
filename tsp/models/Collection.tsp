@@ -10,5 +10,5 @@ model Collection {
   title: string;
   is_private: boolean = false;
   updated_at: offsetDateTime;
-  user: User;
+  user: User; // TODO: !!whenLoaded
 }
