@@ -24,6 +24,6 @@ class Collection extends Model
 
     public function items()
     {
-        return $this->hasMany(CollectionItem::class);
+        return $this->hasMany(CollectionItem::class)->chaperone();
     }
 }

@@ -75,7 +75,7 @@ export const UserCollection: React.FC = () => {
                         <i className="ti ti-chevron-left mr-1" />
                         <span className="hidden lg:inline">コレクション</span>一覧
                     </Link>
-                    {collection.user_name === me?.name && (
+                    {collection.user.name === me?.name && (
                         <div className="flex gap-2">
                             <Button as={Link} variant="primary" to={`/collect?collection=${collection.id}`}>
                                 <i className="ti ti-plus mr-2" />

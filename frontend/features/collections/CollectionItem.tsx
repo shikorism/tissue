@@ -120,7 +120,7 @@ export const CollectionItem: React.FC<Props> = ({
                     <i className="ti ti-reload" />
                 </Link>
                 {me && <AddToCollectionButton link={item.link} tags={item.tags} />}
-                {me?.name === collection.user_name && showEditActions && (
+                {me?.name === collection.user.name && showEditActions && (
                     <>
                         <button
                             className="px-4 py-2 text-xl text-secondary rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"

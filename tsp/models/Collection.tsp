@@ -5,10 +5,8 @@ namespace Tissue;
 /** コレクション */
 model Collection {
   id: int64;
-  user_id: int64;
-  user_name: string;
+  user: User;
   title: string;
   is_private: boolean = false;
   updated_at: offsetDateTime;
-  user: User; // TODO: !!whenLoaded
 }

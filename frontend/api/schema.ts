@@ -493,15 +493,12 @@ export interface components {
         Collection: {
             /** Format: int64 */
             id: number;
-            /** Format: int64 */
-            user_id: number;
-            user_name: string;
+            user: components["schemas"]["User"];
             title: string;
             /** @default false */
             is_private: boolean;
             /** Format: date-time */
             updated_at: string;
-            user: components["schemas"]["User"];
         };
         CollectionItem: {
             /** Format: int64 */
