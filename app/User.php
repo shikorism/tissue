@@ -95,7 +95,7 @@ class User extends Authenticatable
 
     public function collections()
     {
-        return $this->hasMany(Collection::class);
+        return $this->hasMany(Collection::class)->chaperone();
     }
 
     public function checkinSummary(): ?array

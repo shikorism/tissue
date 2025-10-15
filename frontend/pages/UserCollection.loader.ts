@@ -29,8 +29,8 @@ export const loader =
             queryClient.ensureQueryData(getCollectionItemsQuery(collectionId, query)),
         ]);
 
-        if (collection.user_name !== username) {
-            throw redirect(`/user/${collection.user_name}/collections/${collectionId}`);
+        if (collection.user.name !== username) {
+            throw redirect(`/user/${collection.user.name}/collections/${collectionId}`);
         }
 
         return { collectionId, query } satisfies LoaderData;
