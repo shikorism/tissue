@@ -19,7 +19,7 @@ export const UserStatsMonthly = () => {
     );
 
     return (
-        <div className="px-4 lg:max-w-[800px]">
+        <div className="px-4 lg:w-[480px] xl:w-[740px]">
             <div className="mt-2 pb-2 text-secondary border-b-1 border-gray-border">
                 {year}年{month}月の統計
             </div>
