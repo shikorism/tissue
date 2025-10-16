@@ -66,7 +66,7 @@ export const Collect: React.FC = () => {
                 body: values,
             });
             toast.success('登録しました');
-            navigate(`/user/${createdItem.user_name}/collections/${createdItem.collection_id}`);
+            navigate(`/user/${createdItem.collection.user.name}/collections/${createdItem.collection.id}`);
         } catch (e) {
             if (e instanceof ResponseError && e.response.status === 422) {
                 if (e.error?.violations) {

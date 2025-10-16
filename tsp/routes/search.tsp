@@ -32,9 +32,7 @@ namespace Search {
     per_page?: int32 = 20,
   ): {
     @header xTotalCount: int32;
-    @body body: (CollectionItem & {
-      collection: Collection;
-    })[];
+    @body body: CollectionItem[];
   };
 
   @route("/tags")

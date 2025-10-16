@@ -503,13 +503,16 @@ export interface components {
         CollectionItem: {
             /** Format: int64 */
             id: number;
-            /** Format: int64 */
-            collection_id: number;
+            collection: components["schemas"]["Collection"];
             /** Format: uri */
             link: string;
             note: string;
             tags: string[];
-            user_name: string;
+            /**
+             * Format: int64
+             * @deprecated
+             */
+            collection_id: number;
         };
         DailyCheckinSummary: {
             /** Format: date */
@@ -1321,18 +1324,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        /** Format: int64 */
-                        id: number;
-                        /** Format: int64 */
-                        collection_id: number;
-                        /** Format: uri */
-                        link: string;
-                        note: string;
-                        tags: string[];
-                        user_name: string;
-                        collection: components["schemas"]["Collection"];
-                    }[];
+                    "application/json": components["schemas"]["CollectionItem"][];
                 };
             };
         };
