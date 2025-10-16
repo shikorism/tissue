@@ -33,7 +33,7 @@ export const UserStats: React.FC = () => {
     }
 
     return (
-        <div className="flex flex-col lg:flex-row grow-1">
+        <div className="flex flex-col lg:flex-row lg:mx-auto grow-1">
             <div className="p-4 pt-0 lg:w-[280px] shrink-0 border-b-1 lg:border-b-0 lg:border-r-1 border-gray-border">
                 <div className="flex mt-2 mb-4 pb-2 text-secondary border-b-1 border-gray-border">集計条件</div>
                 <div className="flex lg:flex-col gap-4">
