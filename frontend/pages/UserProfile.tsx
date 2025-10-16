@@ -18,7 +18,7 @@ export const UserProfile: React.FC = () => {
     const { data: user } = useSuspenseQuery(getUserQuery(username));
 
     return (
-        <div className="p-4 flex flex-col *:not-first:mt-6 *:not-first:pt-6 *:not-first:border-t-1 *:not-first:border-gray-border">
+        <div className="p-4 lg:mx-auto lg:max-w-[1080px] flex flex-col *:not-first:mt-6 *:not-first:pt-6 *:not-first:border-t-1 *:not-first:border-gray-border">
             <Biography user={user} />
             {!user.is_protected || user.name === me?.name ? (
                 <>
