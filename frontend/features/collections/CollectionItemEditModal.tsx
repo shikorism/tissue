@@ -46,7 +46,7 @@ export const CollectionItemEditModal: React.FC<CollectionItemEditModalProps> = (
         event.preventDefault();
         try {
             await patchCollectionItem.mutateAsync({
-                collectionId: item.collection_id,
+                collectionId: item.collection.id,
                 collectionItemId: item.id,
                 body: values,
             });

@@ -36,7 +36,7 @@ export const CollectionItem: React.FC<Props> = ({
 
     const handleClickDelete = () => {
         deleteCollectionItem.mutate(
-            { collectionId: item.collection_id, collectionItemId: item.id },
+            { collectionId: item.collection.id, collectionItemId: item.id },
             {
                 onSuccess: () => {
                     setIsOpenDeleteModal(false);
