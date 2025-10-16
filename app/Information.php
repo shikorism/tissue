@@ -10,10 +10,10 @@ class Information extends Model
     use SoftDeletes;
 
     const CATEGORIES = [
-        0 => ['label' => 'お知らせ', 'class' => 'badge-info'],
-        1 => ['label' => 'アップデート', 'class' => 'badge-success'],
-        2 => ['label' => '不具合情報', 'class' => 'badge-danger'],
-        3 => ['label' => 'メンテナンス', 'class' => 'badge-warning']
+        0 => ['label' => 'お知らせ', 'class' => 'badge-info', 'slug' => 'news'],
+        1 => ['label' => 'アップデート', 'class' => 'badge-success', 'slug' => 'update'],
+        2 => ['label' => '不具合情報', 'class' => 'badge-danger', 'slug' => 'bug'],
+        3 => ['label' => 'メンテナンス', 'class' => 'badge-warning', 'slug' => 'maintenance']
     ];
 
     protected $fillable = [

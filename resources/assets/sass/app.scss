@@ -13,31 +13,11 @@ $primary: #e53fb1;
 // Components
 @import "components/ejaculation";
 @import "components/link-card";
-@import "components/tag-input";
-@import "components/metadata-preview";
-@import "components/profile-mini";
-@import "components/profile-stats";
-@import "components/stat-table";
 @import "components/toast";
-
-// Tag
-@import "tag/index";
-
-// Underline tabs
-@import "underline-tabs";
 
 // Status containerの後続要素との余白調整
 .tis-status-container + .mt-n1 {
     margin-top: 0 !important;
-}
-
-.tis-rank-badge {
-    padding: 0.25rem 0.75rem;
-    font-size: 1.75rem;
-    font-weight: bold;
-    color: #fff;
-    background-color: #e53fb1;
-    border-radius: 0.5rem;
 }
 
 .text-large {

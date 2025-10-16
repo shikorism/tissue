@@ -16,18 +16,29 @@ Route::middleware('stateful')->group(function () {
     Route::get('/checkin/card', 'Api\\CardController@show')
         ->middleware('throttle:30|180,1,card');
 
-    Route::middleware('throttle:60,1')->group(function () {
+    Route::middleware('throttle:60|180,1')->group(function () {
         Route::middleware('auth')->group(function () {
             Route::get('/me', 'Api\\V1\\MeController@show')->name('me.show');
             Route::post('/likes', 'Api\\LikeController@store');
             Route::delete('/likes/{id}', 'Api\\LikeController@destroy');
             Route::apiResource('checkin', 'Api\\CheckinController')->only(['destroy']);
+            Route::apiResource('checkins', 'Api\\V1\\CheckinController')->except(['index', 'show']);
             Route::apiResource('collections', 'Api\\V1\\CollectionController')->only(['index', 'store', 'update', 'destroy']);
             Route::apiResource('collections.items', 'Api\\V1\\CollectionItemController')->only(['store', 'update', 'destroy']);
             Route::get('/recent-tags', 'Api\\V1\\RecentTagsController')->name('recent-tags');
+
+            Route::get('/timelines/public', 'Api\\V1\\Timelines\\PublicTimeline')->name('timelines.public');
+            Route::get('/tags', 'Api\\TagController')->name('tags');
+            Route::get('/search/checkins', 'Api\\V1\\Search\\Checkins')->name('search.checkins');
+            Route::get('/search/collections', 'Api\\V1\\Search\\Collections')->name('search.collections');
+            Route::get('/search/tags', 'Api\\V1\\Search\\Tags')->name('search.tags');
         });
 
+        Route::apiResource('users', 'Api\\V1\\UserController')->only(['show']);
+        Route::apiResource('users.checkins', 'Api\\V1\\UserCheckinController')->only(['index']);
+        Route::apiResource('users.likes', 'Api\\V1\\UserLikeController')->only(['index']);
         Route::apiResource('users.collections', 'Api\\UserCollectionController')->only(['index']);
+        Route::apiResource('checkins', 'Api\\V1\\CheckinController')->only(['show']);
         Route::apiResource('collections', 'Api\\V1\\CollectionController')->only(['show']);
         Route::apiResource('collections.items', 'Api\\V1\\CollectionItemController')->only(['index']);
 
@@ -40,8 +51,9 @@ Route::middleware('stateful')->group(function () {
                 Route::get('/links', 'MostlyUsedLinks')->name('links');
                 Route::get('/tags', 'MostlyUsedCheckinTags')->name('tags');
             });
+        Route::get('/users/{user}/stats/checkin/oldest', 'Api\\UserStats\\OldestCheckinDate')->name('users.stats.checkin.oldest');
 
-        Route::get('/timelines/public', 'Api\\V1\\Timelines\\PublicTimeline')->name('timelines.public');
+        Route::get('/information/latest', 'Api\\InformationController@latest')->name('information.latest');
     });
 });
 
@@ -75,4 +87,7 @@ Route::middleware(['throttle:60,1', 'auth:api'])
             });
 
         Route::get('/timelines/public', 'Timelines\\PublicTimeline')->name('timelines.public');
+        Route::get('/search/checkins', 'Search\\Checkins')->name('search.checkins');
+        Route::get('/search/collections', 'Search\\Collections')->name('search.collections');
+        Route::get('/search/tags', 'Search\\Tags')->name('search.tags');
     });

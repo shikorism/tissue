@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+.tis-need-agecheck .container,
+.tis-need-agecheck #app {
+    pointer-events: none;
+    filter: blur(45px);
+}
+
+.container, #app {
+    transition: filter .15s linear;
+}
+
+.tis-agecheck {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* reset */
+.tis-agecheck * {
+    padding: 0;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.tis-agecheck.show {
+    display: flex;
+}
+
+.tis-agecheck-content {
+    max-width: 500px;
+    padding: 1rem;
+    margin: 30px 15px 0 15px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.tis-agecheck-header {
+    margin: 0 0 15px 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.tis-agecheck-text {}
+
+.tis-agecheck-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+    border: 0;
+}
+
+.tis-agecheck-button {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    border: 0;
+    border-radius: 5px;
+}
+
+.tis-agecheck-accept {
+    color: #fff;
+    background-color: #e53fb1;
+}
+
+.tis-agecheck-accept:hover {
+    background-color: #b91d7c;
+}
+
+.tis-agecheck-decline {
+    color: #404040;
+    text-decoration: none !important;
+    background-color: #e5e5e5;
+}
+
+.tis-agecheck-decline:hover {
+    color: inherit;
+    background-color: #d4d4d4;
+}

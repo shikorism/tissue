@@ -27,3 +27,4 @@ yarn-error.log
 .php-cs-fixer.cache
 .phpstorm.meta.php
 _ide_helper*.php
+/tsp-output

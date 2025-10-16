@@ -1,6 +1,5 @@
 extends:
   - recommended
 
-theme:
-  openapi:
-    pathInMiddlePanel: true
+openapi:
+  pathInMiddlePanel: true

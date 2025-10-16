@@ -23,6 +23,8 @@ tags:
     description: ユーザーの統計情報
   - name: timelines
     description: タイムライン
+  - name: search
+    description: 検索
 paths:
   /webhooks/checkin/{id}:
     post:
@@ -987,6 +989,188 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Checkin'
+  /v1/search/checkins:
+    get:
+      summary: チェックインの検索
+      description: |
+        指定した条件でチェックインを検索します。すべての公開チェックインとログインユーザーの全チェックインが対象となります。
+
+        ### 検索クエリについて
+        検索キーワードには、詳細条件として以下のクエリを指定することができます。
+
+        * ユーザー名 (完全一致)
+          * `user:ユーザー名`
+        * チェックイン日付
+          * 完全一致: `date:2020-07-21`
+          * 指定日以前: `until:2020-07-21`
+          * 指定日以降: `since:2020-07-21`
+        * オカズリンク
+          * 部分一致: `url:URL` または `link:URL`
+          * 何でもいいからリンクが書かれている: `has:url` または `has:link`
+        * タグ
+          * 完全一致: `tag:タグ名`
+          * 部分一致: `タグ名` (頭にtag:を付けない、今まで通りの書き方)
+        * ノート
+          * 部分一致: `note:ノートの内容`
+          * 何でもいいからノートが書かれている: `has:note`
+        * 「より過激なオカズ」チェックの有無
+          * `is:sensitive`
+
+        複数の条件で検索したい場合 (AND検索) 、スペースで区切って入力してください。\
+        なお、OR検索には対応していません。
+
+        ノートの検索条件に半角スペースを含めたい場合、条件区切りにならないようダブルクォーテーションで囲ってください。\
+        例) `note:"で か い ち ち"`
+
+        すべての条件はマイナス検索をサポートしています。条件の先頭にマイナス符号を付けてください。\
+        例) 3次元以外を検索する: `-tag:3次元`
+      tags:
+        - search
+      parameters:
+        - name: q
+          in: query
+          description: 検索キーワード (クエリ)
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: ページ番号
+          schema:
+            type: integer
+            default: 1
+        - name: per_page
+          in: query
+          description: 1ページあたりのアイテム数
+          schema:
+            type: integer
+            default: 20
+            minimum: 10
+            maximum: 100
+      responses:
+        200:
+          description: 成功
+          headers:
+            X-Total-Count:
+              description: 全体のアイテム数
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Checkin'
+  /v1/search/collections:
+    get:
+      summary: コレクションの検索
+      description: |
+        指定した条件でコレクション内に登録されたオカズを検索します。すべての公開コレクションとログインユーザーの全コレクションが対象となります。
+
+        ### 検索クエリについて
+        検索キーワードには、詳細条件として以下のクエリを指定することができます。
+
+        * ユーザー名 (完全一致)
+          * `user:ユーザー名`
+        * オカズリンク
+          * 部分一致: `url:URL` または `link:URL`
+        * タグ
+          * 完全一致: `tag:タグ名`
+          * 部分一致: `タグ名` (頭にtag:を付けない、今まで通りの書き方)
+        * ノート
+          * 部分一致: `note:ノートの内容`
+          * 何でもいいからノートが書かれている: `has:note`
+
+        複数の条件で検索したい場合 (AND検索) 、スペースで区切って入力してください。\
+        なお、OR検索には対応していません。
+
+        ノートの検索条件に半角スペースを含めたい場合、条件区切りにならないようダブルクォーテーションで囲ってください。\
+        例) `note:"で か い ち ち"`
+
+        すべての条件はマイナス検索をサポートしています。条件の先頭にマイナス符号を付けてください。\
+        例) 3次元以外を検索する: `-tag:3次元`
+      tags:
+        - search
+      parameters:
+        - name: q
+          in: query
+          description: 検索キーワード (クエリ)
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: ページ番号
+          schema:
+            type: integer
+            default: 1
+        - name: per_page
+          in: query
+          description: 1ページあたりのアイテム数
+          schema:
+            type: integer
+            default: 20
+            minimum: 10
+            maximum: 100
+      responses:
+        200:
+          description: 成功
+          headers:
+            X-Total-Count:
+              description: 全体のアイテム数
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CollectionItem'
+  /v1/search/tags:
+    get:
+      summary: タグの検索
+      description: |
+        Tissueのデータベースに存在するタグを検索します。\
+        **データベースに存在するタグ**は、過去に1回以上チェックイン・コレクションで使用されたことがある、またはオカズリンクのメタデータに含まれているタグを指します。
+
+        このAPIでは単純なキーワードの部分一致検索のみをサポートしています。
+      tags:
+        - search
+      parameters:
+        - name: q
+          in: query
+          description: 検索キーワード
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: ページ番号
+          schema:
+            type: integer
+            default: 1
+        - name: per_page
+          in: query
+          description: 1ページあたりのアイテム数
+          schema:
+            type: integer
+            default: 50
+            minimum: 10
+            maximum: 100
+      responses:
+        200:
+          description: 成功
+          headers:
+            X-Total-Count:
+              description: 全体のアイテム数
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
 components:
   schemas:
     User:
@@ -1318,6 +1502,15 @@ components:
         count:
           type: integer
           description: 使用回数
+    Tag:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: タグ
     ValidationError:
       type: object
       description: バリデーションエラー

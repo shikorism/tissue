@@ -11,15 +11,6 @@
     overflow-x: auto;
 }
 
-.tis-need-agecheck .container {
-    pointer-events: none;
-    filter: blur(45px);
-}
-
-.container {
-    transition: filter .15s linear;
-}
-
 .list-group-item.no-side-border {
     border-right: none;
     border-left: none;
@@ -38,11 +29,6 @@
 
 .list-group-item.border-bottom-only:first-child {
     border-top: none;
-}
-
-.tis-global-count-graph {
-    height: 90px;
-    border-bottom: 1px solid rgba(0, 0, 0, .125);
 }
 
 .tis-page-selector {
