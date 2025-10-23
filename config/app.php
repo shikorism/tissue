@@ -186,4 +186,5 @@ return [
         'Formatter' => App\Facades\Formatter::class,
     ])->toArray(),
 
+    'protected_only_mode' => env('PROTECTED_ONLY_MODE', false),
 ];
