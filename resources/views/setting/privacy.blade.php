@@ -9,7 +9,7 @@
         {{ csrf_field() }}
         <div class="form-group">
             <div class="custom-control custom-checkbox mb-2">
-                <input id="protected" name="is_protected" class="custom-control-input" type="checkbox" {{ (old('is_protected') ?? Auth::user()->is_protected ) ? 'checked' : '' }}>
+                <input id="protected" name="is_protected" class="custom-control-input" type="checkbox" {{ (old('is_protected') ?? Auth::user()->is_protected ) ? 'checked' : '' }} {{ config('app.protected_only_mode') ? 'disabled' : '' }}>
                 <label class="custom-control-label" for="protected">全てのチェックイン履歴を非公開にする</label>
                 <small class="form-text text-muted">プロフィール情報を除いて、全ての情報が非公開になります。</small>
             </div>
