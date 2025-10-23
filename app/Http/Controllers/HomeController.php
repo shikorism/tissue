@@ -62,19 +62,23 @@ SQL
             }
 
             // お惣菜コーナー用のデータ取得
-            $publicLinkedEjaculations = Ejaculation::join('users', 'users.id', '=', 'ejaculations.user_id')
-                ->where('users.is_protected', false)
-                ->where('ejaculations.is_private', false)
-                ->where('ejaculations.link', '<>', '')
-                ->where('ejaculations.ejaculated_date', '<=', Carbon::now())
-                ->orderBy('ejaculations.ejaculated_date', 'desc')
-                ->select('ejaculations.*')
-                ->with('user', 'tags')
-                ->withLikes()
-                ->withMutedStatus()
-                ->visibleToTimeline()
-                ->take(21)
-                ->get();
+            if (config('app.protected_only_mode')) {
+                $publicLinkedEjaculations = [];
+            } else {
+                $publicLinkedEjaculations = Ejaculation::join('users', 'users.id', '=', 'ejaculations.user_id')
+                    ->where('users.is_protected', false)
+                    ->where('ejaculations.is_private', false)
+                    ->where('ejaculations.link', '<>', '')
+                    ->where('ejaculations.ejaculated_date', '<=', Carbon::now())
+                    ->orderBy('ejaculations.ejaculated_date', 'desc')
+                    ->select('ejaculations.*')
+                    ->with('user', 'tags')
+                    ->withLikes()
+                    ->withMutedStatus()
+                    ->visibleToTimeline()
+                    ->take(21)
+                    ->get();
+            }
 
             return view('home')->with(compact('informations', 'categories', 'globalEjaculationCounts', 'publicLinkedEjaculations'));
         } else {
