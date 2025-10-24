@@ -73,6 +73,9 @@ class SettingController extends Controller
 
         $user = Auth::user();
         $user->is_protected = $inputs['is_protected'] ?? false;
+        if (config('app.protected_only_mode')) {
+            $user->is_protected = true;
+        }
         $user->accept_analytics = $inputs['accept_analytics'] ?? false;
         $user->private_likes = $inputs['private_likes'] ?? false;
         $user->save();

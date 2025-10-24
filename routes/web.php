@@ -37,7 +37,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/collect', 'CollectController@create')->name('collect');
 
-    Route::get('/timeline/public', 'TimelineController@showPublic')->name('timeline.public');
+    if (!config('app.protected_only_mode')) {
+        Route::get('/timeline/public', 'TimelineController@showPublic')->name('timeline.public');
+    }
 
     Route::redirect('/setting', '/setting/profile', 301);
     Route::get('/setting/profile', 'SettingController@profile')->name('setting');
@@ -72,7 +74,9 @@ Route::get('/search/checkin', 'SearchController@index')->name('search');
 Route::get('/search/collection', 'SearchController@collection')->name('search.collection');
 Route::get('/search/related-tag', 'SearchController@relatedTag')->name('search.related-tag');
 
-Route::get('/tag', 'TagController@index')->name('tag');
+if (!config('app.protected_only_mode')) {
+    Route::get('/tag', 'TagController@index')->name('tag');
+}
 
 Route::middleware('can:admin')
     ->namespace('Admin')

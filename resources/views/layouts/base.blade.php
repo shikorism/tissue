@@ -60,6 +60,7 @@
                         <li class="nav-item {{ stripos(Route::currentRouteName(), 'home') === 0 ? 'active' : ''}}">
                             <a class="nav-link" href="{{ route('home') }}">ホーム</a>
                         </li>
+                        @unless (config('app.protected_only_mode'))
                         <li class="nav-item {{ stripos(Route::currentRouteName(), 'timeline.public') === 0 ? 'active' : ''}}">
                             <a class="nav-link" href="{{ route('timeline.public') }}">お惣菜</a>
                         </li>
@@ -69,6 +70,7 @@
                         {{--<li class="nav-item">
                             <a class="nav-link" href="{{ route('ranking') }}">ランキング</a>
                         </li>--}}
+                        @endunless
                     </ul>
                     <form action="{{ stripos(Route::currentRouteName(), 'search') === 0 ? route(Route::currentRouteName()) : route('search') }}" class="form-inline mr-2">
                         <div class="input-group">
@@ -94,6 +96,7 @@
                 </div>
                 <!-- SP navbar -->
                 <div class="d-lg-none">
+                    @unless (config('app.protected_only_mode'))
                     <div class="row mt-2">
                         <div class="col">
                             <a class="btn btn-{{ stripos(Route::currentRouteName(), 'home') === 0 ? 'primary' : 'outline-secondary'}}" href="{{ route('home') }}" role="button">ホーム</a>
@@ -114,6 +117,7 @@
                             <a class="btn btn-outline-secondary" href="{{ route('ranking') }}">ランキング</a>
                         </div>
                     </div> --}}
+                    @endunless
                     <div class="row mt-2">
                         <form action="{{ stripos(Route::currentRouteName(), 'search') === 0 ? route(Route::currentRouteName()) : route('search') }}" class="col">
                             <div class="input-group">
