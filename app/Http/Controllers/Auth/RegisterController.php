@@ -75,12 +75,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $isProtected = $data['is_protected'] ?? false;
+        if (config('app.protected_only_mode')) {
+            $isProtected = true;
+        }
+
         return User::create([
             'name' => $data['name'],
             'display_name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'is_protected' => $data['is_protected'] ?? false,
+            'is_protected' => $isProtected,
             'accept_analytics' => $data['accept_analytics'] ?? false
         ]);
     }

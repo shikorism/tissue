@@ -54,10 +54,12 @@
                     <h6 class="mb-3">プライバシーに関するオプション (全て任意です)</h6>
 
                     <div class="form-group">
+                        @unless (config('app.protected_only_mode'))
                         <div class="custom-control custom-checkbox mb-2">
                             <input id="protected" name="is_protected" class="custom-control-input" type="checkbox" {{ old('is_protected') ? 'checked' : '' }}>
                             <label class="custom-control-label" for="protected">全てのチェックイン履歴を非公開にする</label>
                         </div>
+                        @endunless
                         <div class="custom-control custom-checkbox">
                             <input id="accept-analytics" name="accept_analytics" class="custom-control-input" type="checkbox" {{ old('accept_analytics') ? 'checked' : '' }}>
                             <label class="custom-control-label" for="accept-analytics">匿名での統計にチェックインデータを利用することに同意します</label>
