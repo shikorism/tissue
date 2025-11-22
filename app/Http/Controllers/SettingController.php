@@ -9,6 +9,7 @@ use App\Exceptions\CsvImportException;
 use App\Mail\PasswordChanged;
 use App\Services\CheckinCsvExporter;
 use App\Services\CheckinCsvImporter;
+use App\Services\LikedOkazuCsvExporter;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -193,6 +194,34 @@ class SettingController extends Controller
 
         return response()
             ->download($filename, 'TissueCheckin_' . date('Y-m-d_H-i-s') . '.csv')
+            ->deleteFileAfterSend(true);
+    }
+
+    public function exportLikes(Request $request)
+    {
+        $validated = $request->validate([
+            'charset' => ['required', Rule::in(['utf8', 'sjis'])]
+        ]);
+
+        $charsets = [
+            'utf8' => 'UTF-8',
+            'sjis' => 'SJIS-win'
+        ];
+
+        $filename = tempnam(sys_get_temp_dir(), 'tissue_export_tmp_');
+        try {
+            // 気休め
+            set_time_limit(0);
+
+            $exporter = new LikedOkazuCsvExporter(Auth::user(), $filename, $charsets[$validated['charset']]);
+            $exporter->execute();
+        } catch (\Throwable $e) {
+            unlink($filename);
+            throw $e;
+        }
+
+        return response()
+            ->download($filename, 'TissueLikes_' . date('Y-m-d_H-i-s') . '.csv')
             ->deleteFileAfterSend(true);
     }
 

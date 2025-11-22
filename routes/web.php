@@ -57,6 +57,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/setting/import', 'SettingController@destroyImport')->name('setting.import.destroy');
     Route::get('/setting/export', 'SettingController@export')->name('setting.export');
     Route::get('/setting/export/csv', 'SettingController@exportToCsv')->name('setting.export.csv');
+    if (!config('app.protected_only_mode')) {
+        Route::get('/setting/export/likes', 'SettingController@exportLikes')->name('setting.export.likes');
+    }
     Route::get('/setting/deactivate', 'SettingController@deactivate')->name('setting.deactivate');
     Route::post('/setting/deactivate', 'SettingController@destroyUser')->name('setting.deactivate.destroy');
     Route::get('/setting/password', 'SettingController@password')->name('setting.password');
