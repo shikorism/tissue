@@ -31,7 +31,9 @@
     <h4 class="mt-5 mb-4">{{ config('app.name', 'Tissue') }} とは？</h4>
     <p>{{ config('app.name', 'Tissue') }} は自慰の記録に特化したライフログサービスです。</p>
     <p>あなたが自慰をした時刻や使ったオカズを記録 (チェックイン) し、後から見返すことができます。頻度や傾向を自動的に集計し、可視化する機能も搭載しています。</p>
+    @unless (config('app.protected_only_mode'))
     <p>また、他の利用者が公開しているチェックインからオカズを探したり、ちょっとしたソーシャル機能としていいねを付けたりすることもできます。</p>
+    @endunless
     <h4 class="mt-5 mb-4">お知らせ</h4>
     <div class="list-group list-group-flush">
         @foreach($informations as $info)

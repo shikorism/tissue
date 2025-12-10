@@ -1,3 +1,4 @@
+@if (!$user->is_protected || $user->isMe())
 @if (!empty($user->bio) || !empty($user->url))
     <div class="card mb-4">
         <div class="card-body">
@@ -17,4 +18,5 @@
             @endif
         </div>
     </div>
+@endif
 @endif

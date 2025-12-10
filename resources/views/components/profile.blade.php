@@ -11,6 +11,7 @@
             @endif
         </h6>
 
+        @if (!$user->is_protected || $user->isMe())
         {{-- Bio --}}
         @if (!empty($user->bio))
             <p class="card-text mt-3 mb-0">
@@ -24,6 +25,7 @@
                 <i class="ti ti-link mr-1 mt-1"></i>
                 <a href="{{ $user->url }}" rel="me nofollow noopener" target="_blank" class="text-truncate">{{ preg_replace('~\Ahttps?://~', '', $user->url) }}</a>
             </p>
+        @endif
         @endif
     </div>
 </div>
