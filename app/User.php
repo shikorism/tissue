@@ -54,7 +54,7 @@ class User extends Authenticatable
      */
     public function getProfileImageUrl($size = 30): string
     {
-        $hash = md5(strtolower(trim($this->email)));
+        $hash = hash('sha256', strtolower(trim($this->email)));
 
         return '//www.gravatar.com/avatar/' . $hash . '?s=' . $size . '&d=retro';
     }
