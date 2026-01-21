@@ -75,9 +75,9 @@ Route::get('/info/{id}', 'InfoController@show')->where('id', '[0-9]+')->name('in
 Route::redirect('/search', '/search/checkin', 301);
 Route::get('/search/checkin', 'SearchController@index')->name('search');
 Route::get('/search/collection', 'SearchController@collection')->name('search.collection');
-Route::get('/search/related-tag', 'SearchController@relatedTag')->name('search.related-tag');
 
 if (!config('app.protected_only_mode')) {
+    Route::get('/search/related-tag', 'SearchController@relatedTag')->name('search.related-tag');
     Route::get('/tag', 'TagController@index')->name('tag');
 }
 
