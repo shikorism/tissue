@@ -1665,16 +1665,16 @@
         },
         {
             "name": "laravel/helpers",
-            "version": "v1.7.2",
+            "version": "v1.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/helpers.git",
-                "reference": "672d79d5b5f65dc821e57783fa11f22c4d762d70"
+                "reference": "98499eea4c1cca76fb0fb37ed365a468773daf0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/helpers/zipball/672d79d5b5f65dc821e57783fa11f22c4d762d70",
-                "reference": "672d79d5b5f65dc821e57783fa11f22c4d762d70",
+                "url": "https://api.github.com/repos/laravel/helpers/zipball/98499eea4c1cca76fb0fb37ed365a468773daf0a",
+                "reference": "98499eea4c1cca76fb0fb37ed365a468773daf0a",
                 "shasum": ""
             },
             "require": {
@@ -1683,7 +1683,7 @@
             },
             "require-dev": {
                 "phpstan/phpstan": "^1.10",
-                "phpunit/phpunit": "^7.0|^8.0|^9.0|^10.0"
+                "phpunit/phpunit": "^7.0|^8.0|^9.0|^10.0|^11.0|^12.0"
             },
             "type": "library",
             "extra": {
@@ -1716,9 +1716,9 @@
                 "laravel"
             ],
             "support": {
-                "source": "https://github.com/laravel/helpers/tree/v1.7.2"
+                "source": "https://github.com/laravel/helpers/tree/v1.8.2"
             },
-            "time": "2025-01-24T15:41:25+00:00"
+            "time": "2025-11-25T14:46:28+00:00"
         },
         {
             "name": "laravel/passport",
