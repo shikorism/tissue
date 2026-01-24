@@ -151,33 +151,9 @@ class FanzaResolver implements Resolver
                 downloadMaxQualityGroup
                 __typename
               }
-              priceInclusiveTax
-              sale {
-                priceInclusiveTax
-                __typename
-              }
               expireDays
               licenseType
               shopName
-              availableCoupon {
-                name
-                expirationPolicy {
-                  ... on ProductCouponExpirationAt {
-                    expirationAt
-                    __typename
-                  }
-                  ... on ProductCouponExpirationDay {
-                    expirationDays
-                    __typename
-                  }
-                  __typename
-                }
-                expirationAt
-                discountedPrice
-                minPayment
-                destinationUrl
-                __typename
-              }
               __typename
             }
             fragment AmateurAdditionalContentData on PPVContent {
