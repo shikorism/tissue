@@ -37,7 +37,7 @@
         "t1gor/robots-txt-parser": "^0.2.4"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.1",
+        "barryvdh/laravel-debugbar": "^4.0",
         "barryvdh/laravel-ide-helper": "^3.1.0",
         "friendsofphp/php-cs-fixer": "^3.0",
         "fakerphp/faker": "^1.9.1",
