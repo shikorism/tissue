@@ -53,14 +53,6 @@ export const Search: React.FC = () => {
                                 コレクション
                             </Link>
                         </Tab>
-                        <Tab active={location.pathname === '/search/related-tag'}>
-                            <Link
-                                to={{ pathname: '/search/related-tag', search: searchParams.toString() }}
-                                className="block px-4 md:px-5 py-3"
-                            >
-                                関連するタグ
-                            </Link>
-                        </Tab>
                     </Tabs>
                 </div>
             </div>

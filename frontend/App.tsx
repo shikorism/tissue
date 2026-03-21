@@ -22,11 +22,8 @@ import { loader as userStatsMonthlyLoader } from './pages/UserStatsMonthly.loade
 import { loader as userLikesLoader } from './pages/UserLikes.loader';
 import { loader as userCollectionsLoader } from './pages/UserCollections.loader';
 import { loader as userCollectionLoader } from './pages/UserCollection.loader';
-import { loader as publicTimelineLoader } from './pages/PublicTimeline.loader';
 import { loader as searchCheckinsLoader } from './pages/SearchCheckins.loader';
 import { loader as searchCollectionsLoader } from './pages/SearchCollections.loader';
-import { loader as searchTagsLoader } from './pages/SearchTags.loader';
-import { loader as tagsLoader } from './pages/Tags.loader';
 import { NotFound } from './pages/NotFound';
 import './App.css';
 
@@ -72,11 +69,6 @@ const protectedRoute: RouteObject = {
             lazy: () => import('./pages/MyPage').then(convert),
         },
         {
-            path: 'timeline/public',
-            lazy: () => import('./pages/PublicTimeline').then(convert),
-            loader: publicTimelineLoader(queryClient),
-        },
-        {
             path: 'search',
             lazy: () => import('./pages/Search').then(convert),
             children: [
@@ -90,17 +82,7 @@ const protectedRoute: RouteObject = {
                     lazy: () => import('./pages/SearchCollections').then(convert),
                     loader: searchCollectionsLoader(queryClient),
                 },
-                {
-                    path: 'related-tag',
-                    lazy: () => import('./pages/SearchTags').then(convert),
-                    loader: searchTagsLoader(queryClient),
-                },
             ],
-        },
-        {
-            path: 'tag',
-            lazy: () => import('./pages/Tags').then(convert),
-            loader: tagsLoader(queryClient),
         },
     ],
 };

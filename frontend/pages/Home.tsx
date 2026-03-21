@@ -1,16 +1,13 @@
 import React from 'react';
 import { subSeconds, format } from 'date-fns';
-import { Link } from 'react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { getInformationLatestQuery, getMeQuery, getTimelinesPublicQuery } from '../api/query';
-import { Checkin } from '../features/checkins/Checkin';
+import { getInformationLatestQuery, getMeQuery } from '../api/query';
 import { formatOrDefault, formatNumber, formatInterval } from '../lib/formatter';
 import { categories } from '../features/info/categories';
 import { cn } from '../lib/cn';
 
 export const Home: React.FC = () => {
     const { data: me } = useSuspenseQuery(getMeQuery());
-    const { data: timeline } = useSuspenseQuery(getTimelinesPublicQuery({ per_page: 24 }));
     const { data: information } = useSuspenseQuery(getInformationLatestQuery());
 
     return (
@@ -99,32 +96,6 @@ export const Home: React.FC = () => {
                             </tr>
                         </tbody>
                     </table>
-                </div>
-
-                <div className="mt-4">
-                    <h1 className="text-xl">お惣菜コーナー</h1>
-                    <p className="mt-2 mb-2 text-sm text-secondary">
-                        最近の公開チェックインから、オカズリンク付きのものを表示しています。
-                    </p>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
-                        {timeline?.data?.map((checkin) => (
-                            <Checkin
-                                key={checkin.id}
-                                checkin={checkin}
-                                className="px-2 border-t-1 border-gray-border"
-                                showActions
-                            />
-                        ))}
-                    </div>
-                    {timeline && (timeline.totalCount || 0) > (timeline.data.length || 0) && (
-                        <Link to="/timeline/public?page=2" className="group">
-                            <div className="p-3 border-t-1 border-t-gray-border text-right">
-                                <span className="text-primary group-hover:brightness-80 group-hover:underline">
-                                    もっと見る &raquo;
-                                </span>
-                            </div>
-                        </Link>
-                    )}
                 </div>
             </div>
         </>
