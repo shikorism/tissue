@@ -2,7 +2,7 @@ import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query'
 import { fetchClient } from './client';
 import type { paths, components } from './schema';
 import { ensure } from './utils';
-import { getTimelinesPublicQuery, getUserCheckinsQuery, TDataOfQuery } from './query';
+import { getUserCheckinsQuery, TDataOfQuery } from './query';
 
 export const usePostCheckin = () => {
     const queryClient = useQueryClient();
@@ -13,7 +13,6 @@ export const usePostCheckin = () => {
             await Promise.all([
                 queryClient.invalidateQueries({ queryKey: ['/users/{username}/checkins', data.user.name] }),
                 queryClient.invalidateQueries({ queryKey: ['/users/{username}/stats/tags', data.user.name] }),
-                queryClient.invalidateQueries({ queryKey: ['/timelines/public'] }),
                 queryClient.invalidateQueries({ queryKey: ['/recent-tags'] }),
             ]);
         },
@@ -38,7 +37,6 @@ export const usePatchCheckin = () => {
                 queryClient.invalidateQueries({ queryKey: ['/checkins/{id}', data.id] }),
                 queryClient.invalidateQueries({ queryKey: ['/users/{username}/checkins', data.user.name] }),
                 queryClient.invalidateQueries({ queryKey: ['/users/{username}/stats/tags', data.user.name] }),
-                queryClient.invalidateQueries({ queryKey: ['/timelines/public'] }),
                 queryClient.invalidateQueries({ queryKey: ['/recent-tags'] }),
             ]);
         },
@@ -192,14 +190,7 @@ const updateCachesAfterUpdateLike = (
         { queryKey: ['/users/{username}/checkins'] },
         update,
     );
-    queryClient.setQueriesData<TDataOfQuery<typeof getTimelinesPublicQuery>>(
-        { queryKey: ['/timelines/public'] },
-        update,
-    );
-    queryClient.setQueriesData<TDataOfQuery<typeof getTimelinesPublicQuery>>(
-        { queryKey: ['/search/checkins'] },
-        update,
-    );
+    queryClient.setQueriesData<TDataOfQuery<typeof getUserCheckinsQuery>>({ queryKey: ['/search/checkins'] }, update);
 };
 
 export const usePostLike = () => {

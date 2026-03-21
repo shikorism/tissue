@@ -1,4 +1,4 @@
-import { keepPreviousData, queryOptions, QueryOptions } from '@tanstack/react-query';
+import { queryOptions, QueryOptions } from '@tanstack/react-query';
 import { fetchClient } from './client';
 import type { paths } from './schema';
 import { ensure, totalCount } from './utils';
@@ -149,36 +149,6 @@ export const getCollectionItemsQuery = (
                 ),
     });
 
-export const getTimelinesPublicQuery = (
-    query?: paths['/timelines/public']['get']['parameters']['query'],
-    keepPrevious: boolean = false,
-) =>
-    queryOptions({
-        queryKey: ['/timelines/public', query],
-        queryFn: () =>
-            fetchClient.GET('/timelines/public', { params: { query } }).then(
-                (response) =>
-                    response.data && {
-                        totalCount: totalCount(response.response),
-                        data: response.data,
-                    },
-            ),
-        placeholderData: keepPrevious ? keepPreviousData : undefined,
-    });
-
-export const getTags = (query?: paths['/tags']['get']['parameters']['query']) =>
-    queryOptions({
-        queryKey: ['/tags', query],
-        queryFn: () =>
-            fetchClient.GET('/tags', { params: { query } }).then(
-                (response) =>
-                    ensure(response.data) && {
-                        totalCount: totalCount(response.response),
-                        data: ensure(response.data),
-                    },
-            ),
-    });
-
 export const getMetadataQuery = (url: string) =>
     queryOptions({
         queryKey: ['checkin/card', url],
@@ -204,19 +174,6 @@ export const getSearchCollectionsQuery = (query: paths['/search/collections']['g
         queryKey: ['/search/collections', query],
         queryFn: () =>
             fetchClient.GET('/search/collections', { params: { query } }).then(
-                (response) =>
-                    ensure(response.data) && {
-                        totalCount: totalCount(response.response),
-                        data: ensure(response.data),
-                    },
-            ),
-    });
-
-export const getSearchTagsQuery = (query: paths['/search/tags']['get']['parameters']['query']) =>
-    queryOptions({
-        queryKey: ['/search/tags', query],
-        queryFn: () =>
-            fetchClient.GET('/search/tags', { params: { query } }).then(
                 (response) =>
                     ensure(response.data) && {
                         totalCount: totalCount(response.response),

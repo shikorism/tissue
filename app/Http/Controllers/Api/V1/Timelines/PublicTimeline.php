@@ -13,23 +13,6 @@ class PublicTimeline extends Controller
 {
     public function __invoke(Request $request)
     {
-        $inputs = $request->validate([
-            'per_page' => 'nullable|integer|between:10,100',
-        ]);
-
-        $ejaculations = Ejaculation::join('users', 'users.id', '=', 'ejaculations.user_id')
-            ->where('users.is_protected', false)
-            ->where('ejaculations.is_private', false)
-            ->where('ejaculations.link', '<>', '')
-            ->where('ejaculations.ejaculated_date', '<=', Carbon::now())
-            ->orderBy('ejaculations.ejaculated_date', 'desc')
-            ->select('ejaculations.*')
-            ->with('user', 'tags')
-            ->withLikes()
-            ->withMutedStatus()
-            ->visibleToTimeline()
-            ->paginate($inputs['per_page'] ?? 20);
-
-        return response()->fromPaginator($ejaculations, EjaculationResource::class);
+        abort(410, 'this endpoint is no longer available.');
     }
 }
