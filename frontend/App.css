@@ -38,6 +38,12 @@
     }
 }
 
+@layer utilities {
+    .scrollbar-gutter-stable {
+        scrollbar-gutter: stable;
+    }
+}
+
 :root {
     --global-nav-width: 240px;
     --global-nav-height: 60px;

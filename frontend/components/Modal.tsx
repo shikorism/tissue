@@ -31,6 +31,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => (
                 beforeClose: 'opacity-0 scale-95',
             }}
             bodyOpenClassName="overflow-hidden"
+            htmlOpenClassName="scrollbar-gutter-stable"
             ariaHideApp
         >
             {children}
