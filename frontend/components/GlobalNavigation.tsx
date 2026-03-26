@@ -129,7 +129,7 @@ export const GlobalNavigation: React.FC = () => {
                                 </a>
                             </li>
                         </ul>
-                        <p>&copy; 2017-2025 shikorism.net</p>
+                        <p>&copy; 2017-2026 shikorism.net</p>
                     </div>
                 </div>
                 {me && (

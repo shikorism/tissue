@@ -67,7 +67,7 @@
 @yield('content')
 <footer class="tis-footer mt-4">
     <div class="container p-3 p-md-4">
-        <p>Copyright (c) 2017-2024 shikorism.net</p>
+        <p>Copyright (c) 2017-2026 shikorism.net</p>
         <ul class="list-inline">
             <li class="list-inline-item"><a href="https://github.com/shikorism/tissue" class="text-dark">GitHub</a></li>
             <li class="list-inline-item"><a href="{{ url('/apidoc.html') }}" class="text-dark">API</a></li>
