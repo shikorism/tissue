@@ -32,6 +32,8 @@
     --text-2xs--line-height: calc(1 / .75);
 }
 
+@custom-variant aria-current (&[aria-current]);
+
 @layer base {
     body {
         color: var(--color-neutral-800);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router';
+import { Link, NavLink, useLocation } from 'react-router';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { useProgress } from '@bprogress/react';
 import { cn } from '../lib/cn';
@@ -184,8 +184,11 @@ interface NavItemProps {
 
 const NavItem: React.FC<NavItemProps> = ({ to, children }) => (
     <li>
-        <Link to={to} className="p-2 rounded-sm hover:bg-neutral-200 flex items-center gap-2">
+        <NavLink
+            to={to}
+            className="p-2 rounded-sm hover:bg-neutral-200 aria-current:bg-neutral-200 flex items-center gap-2"
+        >
             {children}
-        </Link>
+        </NavLink>
     </li>
 );
