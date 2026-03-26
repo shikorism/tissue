@@ -3,6 +3,7 @@ import { subSeconds, format } from 'date-fns';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getInformationLatestQuery, getMeQuery } from '../api/query';
 import { formatOrDefault, formatNumber, formatInterval } from '../lib/formatter';
+import { Container } from '../components/Container';
 import { categories } from '../features/info/categories';
 import { cn } from '../lib/cn';
 
@@ -46,8 +47,8 @@ export const Home: React.FC = () => {
                 </div>
             )}
 
-            <div className="p-4">
-                <div className="p-3 max-w-[1000px] flex flex-col md:flex-row bg-gray-back rounded">
+            <Container>
+                <div className="p-3 flex flex-col md:flex-row border-1 border-gray-border rounded">
                     <div className="flex-1 text-center md:text-start">
                         <h1 className="text-lg font-bold">現在のセッション</h1>
                         <p className="my-2 text-xl">
@@ -97,7 +98,7 @@ export const Home: React.FC = () => {
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </Container>
         </>
     );
 };
