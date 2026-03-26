@@ -45,8 +45,8 @@ export const GlobalNavigation: React.FC = () => {
             />
             <nav
                 className={cn(
-                    'invisible md:visible flex flex-col fixed left-0 top-0 bottom-0 w-(--global-nav-width) transition-transform -translate-x-(--global-nav-width) md:translate-none bg-gray-back z-12 md:z-auto',
-                    isMenuOpen && 'visible translate-none',
+                    'invisible md:visible flex flex-col fixed left-0 top-0 bottom-0 w-(--global-nav-width) transition-transform -translate-x-(--global-nav-width) md:translate-none bg-gray-back',
+                    isMenuOpen && 'visible translate-none z-12',
                 )}
             >
                 <Link to={me ? '/home' : '/'} className="flex items-center gap-3 m-4 mb-2">
