@@ -33,11 +33,6 @@ export const User: React.FC = () => {
                 </div>
                 <div className="">
                     <Tabs className="flex-nowrap overflow-auto">
-                        <Tab active={location.pathname === `/user/${user.name}`}>
-                            <Link to={`/user/${user.name}`} className="block px-4 md:px-5 py-3">
-                                プロフィール
-                            </Link>
-                        </Tab>
                         <Tab active={location.pathname.startsWith(`/user/${user.name}/checkins`)}>
                             <Link to={`/user/${user.name}/checkins`} className="block px-4 md:px-5 py-3">
                                 チェックイン

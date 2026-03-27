@@ -13,7 +13,6 @@ import { loader as checkinCreateLoader } from './pages/CheckinCreate.loader';
 import { loader as checkinDetailLoader } from './pages/CheckinDetail.loader';
 import { loader as checkinEditLoader } from './pages/CheckinEdit.loader';
 import { loader as userLoader } from './pages/User.loader';
-import { loader as userProfileLoader } from './pages/UserProfile.loader';
 import { loader as userCheckinsLoader } from './pages/UserCheckins.loader';
 import { loader as userStatsLoader } from './pages/UserStats.loader';
 import { loader as userStatsAllLoader } from './pages/UserStatsAll.loader';
@@ -107,8 +106,7 @@ const router = createBrowserRouter(
                     children: [
                         {
                             index: true,
-                            lazy: () => import('./pages/UserProfile').then(convert),
-                            loader: userProfileLoader(queryClient),
+                            element: <Navigate to="./checkins" replace />,
                         },
                         {
                             path: 'checkins/:year?/:month?/:date?',
