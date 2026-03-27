@@ -18,7 +18,6 @@ import { loader as userStatsLoader } from './pages/UserStats.loader';
 import { loader as userStatsAllLoader } from './pages/UserStatsAll.loader';
 import { loader as userStatsYearlyLoader } from './pages/UserStatsYearly.loader';
 import { loader as userStatsMonthlyLoader } from './pages/UserStatsMonthly.loader';
-import { loader as userLikesLoader } from './pages/UserLikes.loader';
 import { loader as userCollectionsLoader } from './pages/UserCollections.loader';
 import { loader as userCollectionLoader } from './pages/UserCollection.loader';
 import { loader as searchCheckinsLoader } from './pages/SearchCheckins.loader';
@@ -134,11 +133,6 @@ const router = createBrowserRouter(
                                     loader: userStatsMonthlyLoader(queryClient),
                                 },
                             ],
-                        },
-                        {
-                            path: 'likes',
-                            lazy: () => import('./pages/UserLikes').then(convert),
-                            loader: userLikesLoader(queryClient),
                         },
                         {
                             path: 'okazu',

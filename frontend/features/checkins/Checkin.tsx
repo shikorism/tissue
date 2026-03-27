@@ -12,7 +12,7 @@ import { AddToCollectionButton } from '../collections/AddToCollectionButton';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from '../../components/Modal';
 import { Button } from '../../components/Button';
 import { ProgressButton } from '../../components/ProgressButton';
-import { useDeleteCheckin, useDeleteLike, usePostLike } from '../../api/mutation';
+import { useDeleteCheckin } from '../../api/mutation';
 import { toast } from 'sonner';
 
 interface Props {
@@ -38,29 +38,6 @@ export const Checkin: React.FC<Props> = ({
     const [isHiddenMuted, setIsHiddenMuted] = useState(true);
 
     const deleteCheckin = useDeleteCheckin();
-    const postLike = usePostLike();
-    const deleteLike = useDeleteLike();
-
-    const handleClickLike = () => {
-        if (!me) {
-            toast.error('いいねするためにはログインしてください');
-            return;
-        }
-
-        if (checkin.is_liked) {
-            deleteLike.mutate(checkin.id, {
-                onError: () => {
-                    toast.error('いいねを解除できませんでした');
-                },
-            });
-        } else {
-            postLike.mutate(checkin.id, {
-                onError: () => {
-                    toast.error('いいねできませんでした');
-                },
-            });
-        }
-    };
 
     const handleClickDelete = () => {
         deleteCheckin.mutate(
@@ -192,24 +169,8 @@ export const Checkin: React.FC<Props> = ({
             })()}
 
             {checkin.likes?.length ? (
-                <div className="flex py-1 border-y border-gray-border items-center">
-                    <div className="ml-2 mr-3 text-sm text-secondary shrink-0">
-                        <strong>{checkin.likes_count}</strong> 件のいいね
-                    </div>
-                    <div className="h-[30px] grow overflow-hidden">
-                        {checkin.likes?.map((user) => (
-                            <Link key={user.name} to={`/user/${user.name}`}>
-                                <img
-                                    className="rounded inline-block align-bottom mr-1"
-                                    src={user.profile_mini_image_url}
-                                    alt={`${user.display_name}'s Avatar`}
-                                    title={user.display_name}
-                                    width={30}
-                                    height={30}
-                                />
-                            </Link>
-                        ))}
-                    </div>
+                <div className="text-sm text-secondary">
+                    <i className="ti ti-heart-filled text-danger" /> <strong>{checkin.likes_count}</strong> 件のいいね
                 </div>
             ) : null}
 
@@ -222,16 +183,6 @@ export const Checkin: React.FC<Props> = ({
                     >
                         <i className="ti ti-reload" />
                     </Link>
-                    <button
-                        className="px-4 py-2 text-xl text-secondary rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
-                        title="いいね"
-                        onClick={handleClickLike}
-                    >
-                        <i className={cn('ti ti-heart-filled', checkin.is_liked && 'text-danger')} />
-                        {checkin.likes_count ? (
-                            <span className="ml-2 text-base align-text-top">{checkin.likes_count}</span>
-                        ) : null}
-                    </button>
                     {me && checkin.link && <AddToCollectionButton link={checkin.link} tags={checkin.tags} />}
                     {me?.name === checkin.user.name ? (
                         <>

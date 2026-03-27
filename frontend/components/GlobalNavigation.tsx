@@ -81,9 +81,6 @@ export const GlobalNavigation: React.FC = () => {
                                 <NavItem to={`/user/${me.name}/stats`}>
                                     <i className="ti ti-timeline text-2xl text-neutral-600"></i>グラフ
                                 </NavItem>
-                                <NavItem to={`/user/${me.name}/likes`}>
-                                    <i className="ti ti-heart text-2xl text-neutral-600"></i>いいね
-                                </NavItem>
                                 <NavItem to={`/user/${me.name}/collections`}>
                                     <i className="ti ti-folder text-2xl text-neutral-600"></i>コレクション
                                 </NavItem>
