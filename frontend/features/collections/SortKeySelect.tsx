@@ -11,12 +11,9 @@ interface SortKeySelectProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
 export const SortKeySelect: React.FC<SortKeySelectProps> = ({ className, value, onChange, ...rest }) => {
     return (
         <div className={cn('relative w-full', className)} {...rest}>
-            <i
-                className="ti ti-sort-ascending-letters mr-2 absolute text-secondary"
-                style={{ top: '22%', left: '0.75rem' }}
-            />
+            <i className="ti ti-sort-ascending-letters absolute left-3 top-1/2 -translate-y-1/2 text-secondary pointer-events-none" />
             <select
-                className="w-full p-1 rounded transition duration-150 ease-in-out focus:outline-none focus:ring-4 border border-neutral-300 focus:border-primary-400 focus:ring-primary-400/25 text-sm"
+                className="w-full h-full p-1 rounded transition duration-150 ease-in-out focus:outline-none focus:ring-4 border border-neutral-300 focus:border-primary-400 focus:ring-primary-400/25 text-sm"
                 style={{ paddingLeft: '1.75rem' }}
                 value={value}
                 onChange={(e) => onChange(e.target.value as SortKey)}

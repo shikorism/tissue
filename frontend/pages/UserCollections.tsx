@@ -16,6 +16,8 @@ import { usePostCollections } from '../api/mutation';
 import { toast } from 'sonner';
 import { Container } from '../components/Container';
 import { ColumnHeader } from '../components/ColumnHeader';
+import { cn } from '../lib/cn';
+import { SortKeySelect } from '../features/collections/SortKeySelect';
 
 export const UserCollections: React.FC = () => {
     const { user: me } = useCurrentUser();
@@ -52,12 +54,28 @@ export const UserCollections: React.FC = () => {
             <Container size="md" className="flex-1 py-0">
                 <ColumnHeader className="flex justify-between items-center">
                     コレクション一覧
-                    {username === me?.name && (
-                        <Button onClick={() => setIsOpenCreateModal(true)}>
-                            <i className="ti ti-plus mr-2" />
-                            新規作成
-                        </Button>
-                    )}
+                    <div className="flex gap-2">
+                        <div className="relative">
+                            <input
+                                type="search"
+                                name="q"
+                                className={cn(
+                                    'block w-full rounded-sm border pl-8 pr-4 py-2 text-sm transition duration-150 ease-in-out focus:outline-none focus:ring-4',
+                                    'border-neutral-300 focus:border-primary-400 focus:ring-primary-400/25',
+                                )}
+                                required
+                                placeholder="名前で絞り込み..."
+                            />
+                            <i className="ti ti-search text-neutral-500 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        </div>
+                        <SortKeySelect className="w-auto" value="name:asc" onChange={() => null} />
+                        {username === me?.name && (
+                            <Button onClick={() => setIsOpenCreateModal(true)}>
+                                <i className="ti ti-plus mr-2" />
+                                新規作成
+                            </Button>
+                        )}
+                    </div>
                 </ColumnHeader>
                 <ul className="flex flex-col">
                     {data.map((collection) => (
