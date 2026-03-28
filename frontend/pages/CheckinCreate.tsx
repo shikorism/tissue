@@ -12,6 +12,7 @@ import { usePostCheckin } from '../api/mutation';
 import { ResponseError } from '../api/errors';
 import { toast } from 'sonner';
 import { useNavigate, useSearchParams } from 'react-router';
+import { Container } from '../components/Container';
 
 export const CheckinCreate: React.FC = () => {
     const [searchParams] = useSearchParams();
@@ -63,16 +64,16 @@ export const CheckinCreate: React.FC = () => {
     };
 
     return (
-        <div className="p-4">
-            <h1 className="pb-4 text-3xl border-b-1 border-gray-border">チェックイン</h1>
-            <div className="mx-auto lg:max-w-[600px]">
+        <>
+            <h1 className="mx-4 py-4 text-3xl border-b-1 border-gray-border">チェックイン</h1>
+            <Container size="xs">
                 <CheckinForm mode="create" initialValues={initialValues} onSubmit={handleSubmit} />
-            </div>
-            <p className="text-center text-sm mt-4">
-                <strong>Tips</strong>: ブックマークレットや共有機能で、簡単にチェックインできます！{' '}
-                <ExternalLink href="/checkin-tools">使い方はこちら</ExternalLink>
-            </p>
-        </div>
+                <p className="text-center text-sm mt-4">
+                    <strong>Tips</strong>: ブックマークレットや共有機能で、簡単にチェックインできます！{' '}
+                    <ExternalLink href="/checkin-tools">使い方はこちら</ExternalLink>
+                </p>
+            </Container>
+        </>
     );
 };
 

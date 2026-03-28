@@ -14,6 +14,7 @@ import { useLoaderData, useNavigate } from 'react-router';
 import { LoaderData } from './CheckinEdit.loader';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getCheckinQuery } from '../api/query';
+import { Container } from '../components/Container';
 
 export const CheckinEdit: React.FC = () => {
     const navigate = useNavigate();
@@ -67,12 +68,12 @@ export const CheckinEdit: React.FC = () => {
     };
 
     return (
-        <div className="p-4">
-            <h1 className="pb-4 text-3xl border-b-1 border-gray-border">チェックインの修正</h1>
-            <div className="mx-auto lg:max-w-[600px]">
+        <>
+            <h1 className="mx-4 py-4 text-3xl border-b-1 border-gray-border">チェックインの修正</h1>
+            <Container size="xs">
                 <CheckinForm mode="edit" initialValues={initialValues} onSubmit={handleSubmit} />
-            </div>
-        </div>
+            </Container>
+        </>
     );
 };
 
