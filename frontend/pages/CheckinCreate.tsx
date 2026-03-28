@@ -24,7 +24,11 @@ export const CheckinCreate: React.FC = () => {
         date: searchParams.get('date')?.replace(/\//g, '-') || format(now, 'yyyy-MM-dd'),
         time: searchParams.get('time') || format(now, 'HH:mm'),
         link: searchParams.get('link') || '',
-        tags: searchParams.getAll('tags').flatMap((v) => v.split(' ')) || [],
+        tags:
+            searchParams
+                .getAll('tags')
+                .flatMap((v) => v.split(' '))
+                .filter((v) => v.length > 0) || [],
         note: searchParams.get('note') || '',
         is_private: searchParams.has('is_private', '1'),
         is_too_sensitive: searchParams.has('is_too_sensitive', '1'),
