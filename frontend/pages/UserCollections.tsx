@@ -18,6 +18,7 @@ import { Container } from '../components/Container';
 import { ColumnHeader } from '../components/ColumnHeader';
 import { cn } from '../lib/cn';
 import { SortKeySelect } from '../features/collections/SortKeySelect';
+import { SortKey, sortAndFilteredCollections } from '../features/collections/search';
 
 export const UserCollections: React.FC = () => {
     const { user: me } = useCurrentUser();
@@ -26,6 +27,10 @@ export const UserCollections: React.FC = () => {
     const { data } = useSuspenseQuery(getUserCollectionsQuery(username));
     const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
     const postCollections = usePostCollections();
+
+    const [isOpenSearchArea, setIsOpenSearchArea] = useState(false);
+    const [filter, setFilter] = useState('');
+    const [sort, setSort] = useState<SortKey>('id:asc');
 
     const handleSubmit = async (values: CollectionFormValues) => {
         try {
@@ -55,6 +60,21 @@ export const UserCollections: React.FC = () => {
                 <ColumnHeader className="flex justify-between items-center">
                     コレクション一覧
                     <div className="flex gap-2">
+                        <Button onClick={() => setIsOpenSearchArea((v) => !v)}>
+                            <i className="ti ti-search" />
+                            <span className="mx-1 border-r-1 border-current/50" />
+                            <i className="ti ti-sort-ascending-letters" />
+                        </Button>
+                        {username === me?.name && (
+                            <Button onClick={() => setIsOpenCreateModal(true)}>
+                                <i className="ti ti-plus mr-2" />
+                                新規作成
+                            </Button>
+                        )}
+                    </div>
+                </ColumnHeader>
+                {isOpenSearchArea && (
+                    <div className="p-2 border-b-1 border-gray-border bg-gray-back *:bg-white flex flex-col gap-2">
                         <div className="relative">
                             <input
                                 type="search"
@@ -64,21 +84,17 @@ export const UserCollections: React.FC = () => {
                                     'border-neutral-300 focus:border-primary-400 focus:ring-primary-400/25',
                                 )}
                                 required
+                                value={filter}
+                                onChange={(e) => setFilter(e.target.value)}
                                 placeholder="名前で絞り込み..."
                             />
                             <i className="ti ti-search text-neutral-500 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                         </div>
-                        <SortKeySelect className="w-auto" value="name:asc" onChange={() => null} />
-                        {username === me?.name && (
-                            <Button onClick={() => setIsOpenCreateModal(true)}>
-                                <i className="ti ti-plus mr-2" />
-                                新規作成
-                            </Button>
-                        )}
+                        <SortKeySelect className="w-auto" value={sort} onChange={setSort} />
                     </div>
-                </ColumnHeader>
+                )}
                 <ul className="flex flex-col">
-                    {data.map((collection) => (
+                    {sortAndFilteredCollections(data, sort, filter).map((collection) => (
                         <li key={collection.id}>
                             <Link
                                 to={`/user/${username}/collections/${collection.id}`}
