@@ -48,51 +48,61 @@ export const UserCheckins: React.FC = () => {
                 </div>
             </div>
             <div className="flex-1 px-4">
-                {(params.year || params.month || params.date) && (
-                    <div className="flex gap-2 mt-2 pb-2 text-secondary border-b-1 border-gray-border">
-                        {params.year && (
-                            <div>
-                                <Link
-                                    to={{
-                                        pathname: `/user/${username}/checkins/${params.year}`,
-                                        search: searchParams.toString(),
-                                    }}
-                                    className="hover:brightness-80 hover:underline"
-                                >
-                                    {params.year}年
-                                </Link>
-                            </div>
-                        )}
-                        {params.month && (
-                            <div>
-                                <i className="ti ti-chevron-right mr-2" />
-                                <Link
-                                    to={{
-                                        pathname: `/user/${username}/checkins/${params.year}/${params.month}`,
-                                        search: searchParams.toString(),
-                                    }}
-                                    className="hover:brightness-80 hover:underline"
-                                >
-                                    {params.month}月
-                                </Link>
-                            </div>
-                        )}
-                        {params.date && (
-                            <div>
-                                <i className="ti ti-chevron-right mr-2" />
-                                <Link
-                                    to={{
-                                        pathname: `/user/${username}/checkins/${params.year}/${params.month}/${params.date}`,
-                                        search: searchParams.toString(),
-                                    }}
-                                    className="hover:brightness-80 hover:underline"
-                                >
-                                    {params.date}日
-                                </Link>
-                            </div>
-                        )}
+                <div className="flex gap-2 mt-2 pb-2 text-secondary border-b-1 border-gray-border">
+                    <div>
+                        <Link
+                            to={{
+                                pathname: `/user/${username}/checkins`,
+                                search: searchParams.toString(),
+                            }}
+                            className="hover:brightness-80 hover:underline"
+                        >
+                            チェックイン
+                        </Link>
                     </div>
-                )}
+                    {params.year && (
+                        <div>
+                            <i className="ti ti-chevron-right mr-2" />
+                            <Link
+                                to={{
+                                    pathname: `/user/${username}/checkins/${params.year}`,
+                                    search: searchParams.toString(),
+                                }}
+                                className="hover:brightness-80 hover:underline"
+                            >
+                                {params.year}年
+                            </Link>
+                        </div>
+                    )}
+                    {params.month && (
+                        <div>
+                            <i className="ti ti-chevron-right mr-2" />
+                            <Link
+                                to={{
+                                    pathname: `/user/${username}/checkins/${params.year}/${params.month}`,
+                                    search: searchParams.toString(),
+                                }}
+                                className="hover:brightness-80 hover:underline"
+                            >
+                                {params.month}月
+                            </Link>
+                        </div>
+                    )}
+                    {params.date && (
+                        <div>
+                            <i className="ti ti-chevron-right mr-2" />
+                            <Link
+                                to={{
+                                    pathname: `/user/${username}/checkins/${params.year}/${params.month}/${params.date}`,
+                                    search: searchParams.toString(),
+                                }}
+                                className="hover:brightness-80 hover:underline"
+                            >
+                                {params.date}日
+                            </Link>
+                        </div>
+                    )}
+                </div>
                 {data?.map((checkin) => (
                     <Checkin
                         key={checkin.id}
