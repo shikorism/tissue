@@ -14,6 +14,7 @@ import {
 } from '../features/collections/CollectionEditModal';
 import { usePostCollections } from '../api/mutation';
 import { toast } from 'sonner';
+import { Container } from '../components/Container';
 
 export const UserCollections: React.FC = () => {
     const { user: me } = useCurrentUser();
@@ -47,7 +48,7 @@ export const UserCollections: React.FC = () => {
 
     return (
         <div className="grow-1">
-            <div className="flex-1 px-4 mx-auto lg:max-w-[1080px]">
+            <Container size="md" className="flex-1 py-0">
                 <h2 className="flex justify-between items-center mt-2 pb-2 text-secondary border-b-1 border-gray-border">
                     コレクション一覧
                     {username === me?.name && (
@@ -86,7 +87,7 @@ export const UserCollections: React.FC = () => {
                     ))}
                     {data.length === 0 && <li className="py-4">コレクションがありません。</li>}
                 </ul>
-            </div>
+            </Container>
             <CollectionEditModal
                 mode="create"
                 initialValues={{ title: '', is_private: true }}
