@@ -14,42 +14,24 @@ export const User: React.FC = () => {
 
     return (
         <div className="flex flex-col md:h-screen">
-            <div className="px-4 pt-4 flex flex-col gap-2 border-b-1 border-gray-border">
-                <div className="flex items-end gap-1">
-                    <img
-                        className="rounded inline-block mr-1"
-                        src={user.profile_image_url}
-                        alt={`${user.display_name}'s Avatar`}
-                        width={48}
-                        height={48}
-                    />
-                    <div className="flex flex-col overflow-hidden truncate">
-                        <div className="text-lg font-medium">{user.display_name}</div>
-                        <div className="text-xs text-secondary">
-                            @{user.name}
-                            {user.is_protected && <i className="ti ti-lock text-muted ml-0.5" />}
-                        </div>
-                    </div>
-                </div>
-                <div className="">
-                    <Tabs className="flex-nowrap overflow-auto">
-                        <Tab active={location.pathname.startsWith(`/user/${user.name}/checkins`)}>
-                            <Link to={`/user/${user.name}/checkins`} className="block px-4 md:px-5 py-3">
-                                チェックイン
-                            </Link>
-                        </Tab>
-                        <Tab active={location.pathname.startsWith(`/user/${user.name}/stats`)}>
-                            <Link to={`/user/${user.name}/stats`} className="block px-4 md:px-5 py-3">
-                                グラフ
-                            </Link>
-                        </Tab>
-                        <Tab active={location.pathname.startsWith(`/user/${user.name}/collections`)}>
-                            <Link to={`/user/${user.name}/collections`} className="block px-4 md:px-5 py-3">
-                                コレクション
-                            </Link>
-                        </Tab>
-                    </Tabs>
-                </div>
+            <div className="px-4 flex flex-col gap-2 border-b-1 border-gray-border md:hidden">
+                <Tabs className="flex-nowrap overflow-auto">
+                    <Tab active={location.pathname.startsWith(`/user/${user.name}/checkins`)}>
+                        <Link to={`/user/${user.name}/checkins`} className="block px-4 md:px-5 py-3">
+                            チェックイン
+                        </Link>
+                    </Tab>
+                    <Tab active={location.pathname.startsWith(`/user/${user.name}/stats`)}>
+                        <Link to={`/user/${user.name}/stats`} className="block px-4 md:px-5 py-3">
+                            グラフ
+                        </Link>
+                    </Tab>
+                    <Tab active={location.pathname.startsWith(`/user/${user.name}/collections`)}>
+                        <Link to={`/user/${user.name}/collections`} className="block px-4 md:px-5 py-3">
+                            コレクション
+                        </Link>
+                    </Tab>
+                </Tabs>
             </div>
             <Outlet />
         </div>
