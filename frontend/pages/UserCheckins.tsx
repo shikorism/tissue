@@ -34,6 +34,7 @@ export const UserCheckins: React.FC = () => {
                     <label>
                         <input
                             type="checkbox"
+                            className="accent-primary"
                             checked={searchParams.get('link') === '1'}
                             onChange={() =>
                                 setSearchParams((prev) => {
