@@ -18,6 +18,7 @@ import { useDeleteCollection, usePutCollection } from '../api/mutation';
 import { toast } from 'sonner';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from '../components/Modal';
 import { ProgressButton } from '../components/ProgressButton';
+import { ColumnHeader } from '../components/ColumnHeader';
 
 export const UserCollection: React.FC = () => {
     const { user: me } = useCurrentUser();
@@ -70,7 +71,7 @@ export const UserCollection: React.FC = () => {
     return (
         <div className="grow-1">
             <div className="flex-1 px-4">
-                <div className="flex justify-between items-center mt-2 pb-2 text-secondary border-b-1 border-gray-border">
+                <ColumnHeader className="flex justify-between items-center">
                     <Link to=".." relative="path">
                         <i className="ti ti-chevron-left mr-1" />
                         <span className="hidden lg:inline">コレクション</span>一覧
@@ -91,7 +92,7 @@ export const UserCollection: React.FC = () => {
                             </Button>
                         </div>
                     )}
-                </div>
+                </ColumnHeader>
                 <div className="py-4 border-b-1 border-gray-border">
                     <h2 className="text-xl font-bold break-all">{collection.title}</h2>
                     <div className="mt-2 text-sm text-secondary">

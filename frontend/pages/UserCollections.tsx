@@ -15,6 +15,7 @@ import {
 import { usePostCollections } from '../api/mutation';
 import { toast } from 'sonner';
 import { Container } from '../components/Container';
+import { ColumnHeader } from '../components/ColumnHeader';
 
 export const UserCollections: React.FC = () => {
     const { user: me } = useCurrentUser();
@@ -49,7 +50,7 @@ export const UserCollections: React.FC = () => {
     return (
         <div className="grow-1">
             <Container size="md" className="flex-1 py-0">
-                <h2 className="flex justify-between items-center mt-2 pb-2 text-secondary border-b-1 border-gray-border">
+                <ColumnHeader className="flex justify-between items-center">
                     コレクション一覧
                     {username === me?.name && (
                         <Button onClick={() => setIsOpenCreateModal(true)}>
@@ -57,7 +58,7 @@ export const UserCollections: React.FC = () => {
                             新規作成
                         </Button>
                     )}
-                </h2>
+                </ColumnHeader>
                 <ul className="flex flex-col">
                     {data.map((collection) => (
                         <li key={collection.id}>

@@ -7,6 +7,7 @@ import { HourlyChart } from '../features/user-stats/HourlyChart';
 import { DayOfWeekChart } from '../features/user-stats/DayOfWeekChart';
 import { TagRanking } from '../features/user-stats/TagRanking';
 import { Pill } from '../components/Pill';
+import { ColumnHeader } from '../components/ColumnHeader';
 
 export const UserStatsMonthly = () => {
     const { year, month } = useParams();
@@ -20,9 +21,9 @@ export const UserStatsMonthly = () => {
 
     return (
         <div className="px-4 lg:w-[480px] xl:w-[740px]">
-            <div className="mt-2 pb-2 text-secondary border-b-1 border-gray-border">
+            <ColumnHeader>
                 {year}年{month}月の統計
-            </div>
+            </ColumnHeader>
             <div className="flex flex-col py-4 *:not-first:mt-4 *:not-first:pt-4 *:not-first:border-t-1 *:not-first:border-gray-border">
                 <div>
                     <h2 className="text-xl font-bold mb-4">時間別チェックイン回数</h2>

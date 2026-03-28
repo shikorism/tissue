@@ -8,6 +8,7 @@ import { Checkin } from '../features/checkins/Checkin';
 import { Pagination } from '../components/Pagination';
 import { cn } from '../lib/cn';
 import { Container } from '../components/Container';
+import { ColumnHeader } from '../components/ColumnHeader';
 
 export const UserCheckins: React.FC = () => {
     const params = useParams();
@@ -29,7 +30,7 @@ export const UserCheckins: React.FC = () => {
     return (
         <Container size="md" className="p-0 flex flex-col lg:flex-row lg:mx-auto grow-1">
             <div className="p-4 pt-0 pb-8 lg:w-[280px] border-b-1 lg:border-b-0 lg:border-r-1 border-gray-border">
-                <div className="flex mt-2 mb-4 pb-2 text-secondary border-b-1 border-gray-border">検索条件</div>
+                <ColumnHeader className="mb-4">検索条件</ColumnHeader>
                 <Calendar initialDate={currentDate} />
                 <div className="mt-2">
                     <label>
@@ -49,7 +50,7 @@ export const UserCheckins: React.FC = () => {
                 </div>
             </div>
             <div className="flex-1 px-4">
-                <div className="flex gap-2 mt-2 pb-2 text-secondary border-b-1 border-gray-border">
+                <ColumnHeader className="flex gap-2">
                     <div>
                         <Link
                             to={{
@@ -103,7 +104,7 @@ export const UserCheckins: React.FC = () => {
                             </Link>
                         </div>
                     )}
-                </div>
+                </ColumnHeader>
                 {data?.map((checkin) => (
                     <Checkin
                         key={checkin.id}
