@@ -28,7 +28,8 @@ export const UserCheckins: React.FC = () => {
 
     return (
         <Container size="md" className="p-0 flex flex-col lg:flex-row lg:mx-auto grow-1">
-            <div className="p-4 pb-8 lg:w-[280px] border-b-1 lg:border-b-0 lg:border-r-1 border-gray-border">
+            <div className="p-4 pt-0 pb-8 lg:w-[280px] border-b-1 lg:border-b-0 lg:border-r-1 border-gray-border">
+                <div className="flex mt-2 mb-4 pb-2 text-secondary border-b-1 border-gray-border">検索条件</div>
                 <Calendar initialDate={currentDate} />
                 <div className="mt-2">
                     <label>
