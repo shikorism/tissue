@@ -7,6 +7,7 @@ import { LoaderData, PER_PAGE } from './UserCheckins.loader';
 import { Checkin } from '../features/checkins/Checkin';
 import { Pagination } from '../components/Pagination';
 import { cn } from '../lib/cn';
+import { Container } from '../components/Container';
 
 export const UserCheckins: React.FC = () => {
     const params = useParams();
@@ -26,7 +27,7 @@ export const UserCheckins: React.FC = () => {
     }
 
     return (
-        <div className="flex flex-col lg:flex-row lg:mx-auto grow-1">
+        <Container size="md" className="p-0 flex flex-col lg:flex-row lg:mx-auto grow-1">
             <div className="p-4 pb-8 lg:w-[280px] border-b-1 lg:border-b-0 lg:border-r-1 border-gray-border">
                 <Calendar initialDate={currentDate} />
                 <div className="mt-2">
@@ -45,7 +46,7 @@ export const UserCheckins: React.FC = () => {
                     </label>
                 </div>
             </div>
-            <div className="flex-1 px-4 lg:max-w-[800px]">
+            <div className="flex-1 px-4">
                 {(params.year || params.month || params.date) && (
                     <div className="flex gap-2 mt-2 pb-2 text-secondary border-b-1 border-gray-border">
                         {params.year && (
@@ -106,7 +107,7 @@ export const UserCheckins: React.FC = () => {
                     <div className="py-4">チェックインがありません。</div>
                 )}
             </div>
-        </div>
+        </Container>
     );
 };
 
