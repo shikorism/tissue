@@ -46,9 +46,9 @@ export const UserStatsYearly: React.FC = () => {
                     <h2 className="text-xl font-bold mb-4">曜日別チェックイン回数</h2>
                     <DayOfWeekChart dailyStats={dailyData} compareDailyStats={prevDailyData} />
                 </div>
-                <div>
+                <div className="@container">
                     <h2 className="text-xl font-bold mb-4">最も使用したタグ</h2>
-                    <div className="flex flex-col md:flex-row gap-4">
+                    <div className="flex flex-col @lg:flex-row gap-4">
                         <div className="flex-1">
                             <h3 className="text-center mb-2">
                                 <Pill className="text-sm text-white bg-primary">チェックインタグ</Pill>
