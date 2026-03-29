@@ -23,6 +23,11 @@
     @component('components.agecheck')
     @endcomponent
 @endguest
+<script>
+    window.APP_META = @js([
+        'supportLink' => config('app.support_link')
+    ])
+</script>
 @vite('frontend/index.tsx')
 @vite('resources/assets/js/agecheck.ts')
 </body>

@@ -69,6 +69,9 @@
     <div class="container p-3 p-md-4">
         <p>Copyright (c) 2017-2026 shikorism.net</p>
         <ul class="list-inline">
+            @if (!empty(config('app.support_link')))
+                <li class="list-inline-item"><a href="{{ config('app.support_link') }}" class="text-dark">お問い合わせ</a></li>
+            @endif
             <li class="list-inline-item"><a href="https://github.com/shikorism/tissue" class="text-dark">GitHub</a></li>
             <li class="list-inline-item"><a href="{{ url('/apidoc.html') }}" class="text-dark">API</a></li>
         </ul>

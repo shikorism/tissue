@@ -108,9 +108,9 @@ export const GlobalNavigation: React.FC = () => {
                     )}
                     <div className="mt-8 px-2 text-xs text-secondary">
                         <ul className="mb-1 flex gap-2">
-                            {import.meta.env.VITE_APP_SUPPORT_LINK && (
+                            {APP_META.supportLink && (
                                 <li>
-                                    <a className="hover:underline" href={import.meta.env.VITE_APP_SUPPORT_LINK}>
+                                    <a className="hover:underline" href={APP_META.supportLink}>
                                         お問い合わせ
                                     </a>
                                 </li>
