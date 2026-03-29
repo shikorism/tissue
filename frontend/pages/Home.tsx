@@ -7,7 +7,6 @@ import {
     getMeQuery,
     getUserCheckinsQuery,
     getUserStatsCheckinDailyQuery,
-    getUserStatsTagsQuery,
 } from '../api/query';
 import { formatOrDefault, formatNumber, formatInterval } from '../lib/formatter';
 import { Container } from '../components/Container';
@@ -63,7 +62,6 @@ export const Home: React.FC = () => {
                     <h2 className="text-xl font-bold">アクティビティ</h2>
                     <CurrentSession user={me} />
                     <RecentActivity user={me} />
-                    <MostlyUsedTags user={me} />
                     <RecentCheckin user={me} />
                 </Container>
             )}
@@ -147,35 +145,6 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ user }) => {
             <div className="mt-2 overflow-x-auto">
                 <CheckinHeatmap startDate={statsCheckinDailyQuery.since} data={checkinStats} />
             </div>
-        </div>
-    );
-};
-
-interface MostlyUsedTagsProps {
-    user: components['schemas']['User'];
-}
-
-const MostlyUsedTags: React.FC<MostlyUsedTagsProps> = ({ user }) => {
-    const { data: tags } = useSuspenseQuery(getUserStatsTagsQuery(user.name));
-
-    return (
-        <div className="p-3 border-1 border-gray-border rounded">
-            <h3 className="text-lg font-bold">よく使っているタグ</h3>
-            <ul className="mt-2 flex flex-wrap gap-3">
-                {tags.map((tag) => (
-                    <li key={tag.name}>
-                        <Link
-                            to={{ pathname: `/search`, search: `?q=${tag.name}` }}
-                            className="group inline-block max-w-full break-all whitespace-normal"
-                        >
-                            <i className="ti ti-tag mr-1" />
-                            <span className="text-primary group-hover:brightness-80 group-hover:underline">
-                                {tag.name}
-                            </span>
-                        </Link>
-                    </li>
-                ))}
-            </ul>
         </div>
     );
 };
