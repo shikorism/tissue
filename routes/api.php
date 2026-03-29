@@ -29,6 +29,8 @@ Route::middleware('stateful')->group(function () {
 
             Route::get('/search/checkins', 'Api\\V1\\Search\\Checkins')->name('search.checkins');
             Route::get('/search/collections', 'Api\\V1\\Search\\Collections')->name('search.collections');
+
+            Route::get('/stats/checkin/daily', 'Api\\V1\\Stats\\DailyCheckinSummary')->name('stats.checkin.daily');
         });
 
         Route::apiResource('users', 'Api\\V1\\UserController')->only(['show']);

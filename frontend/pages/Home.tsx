@@ -5,6 +5,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import {
     getInformationLatestQuery,
     getMeQuery,
+    getStatsCheckinDailyQuery,
     getUserCheckinsQuery,
     getUserStatsCheckinDailyQuery,
 } from '../api/query';
@@ -16,6 +17,11 @@ import { LoaderData } from './Home.loader';
 import type { components } from '../api/schema';
 import { CheckinHeatmap } from '../features/user-stats/CheckinHeatmap';
 import { Checkin } from '../features/checkins/Checkin';
+import { Bar } from 'react-chartjs-2';
+
+import { BarController, BarElement, CategoryScale, Chart, LinearScale, Tooltip } from 'chart.js';
+
+Chart.register([BarController, BarElement, CategoryScale, LinearScale, Tooltip]);
 
 export const Home: React.FC = () => {
     const { data: me } = useSuspenseQuery(getMeQuery());
@@ -62,6 +68,7 @@ export const Home: React.FC = () => {
                     <h2 className="text-xl font-bold">アクティビティ</h2>
                     <CurrentSession user={me} />
                     <RecentActivity user={me} />
+                    <GlobalStats />
                     <RecentCheckin user={me} />
                 </Container>
             )}
@@ -175,6 +182,53 @@ const RecentCheckin: React.FC<RecentCheckinProps> = ({ user }) => {
                 showActions
                 onDelete={() => refetch()}
             />
+        </div>
+    );
+};
+
+const GlobalStats: React.FC = () => {
+    const { data } = useSuspenseQuery(getStatsCheckinDailyQuery());
+    const labels = data.map((d) => `${d.date.replaceAll('-', '/')} の総チェックイン数`);
+    const values = data.map((d) => d.count);
+
+    return (
+        <div className="p-3 border-1 border-gray-border rounded">
+            <h3 className="text-lg font-bold">みんなの活動</h3>
+            <div className="border-b-1 border-gray-border h-[120px]">
+                <Bar
+                    data={{
+                        labels,
+                        datasets: [
+                            {
+                                data: values,
+                                backgroundColor: 'rgba(0, 0, 0, .1)',
+                                borderColor: 'rgba(0, 0, 0, .25)',
+                                borderWidth: 1,
+                            },
+                        ],
+                    }}
+                    options={{
+                        maintainAspectRatio: false,
+                        elements: {
+                            line: {},
+                        },
+                        scales: {
+                            x: {
+                                display: false,
+                            },
+                            y: {
+                                display: false,
+                                beginAtZero: true,
+                            },
+                        },
+                        plugins: {
+                            legend: {
+                                display: false,
+                            },
+                        },
+                    }}
+                />
+            </div>
         </div>
     );
 };

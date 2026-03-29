@@ -2,6 +2,7 @@ import { QueryClient } from '@tanstack/react-query';
 import {
     getInformationLatestQuery,
     getMeQuery,
+    getStatsCheckinDailyQuery,
     getUserCheckinsQuery,
     getUserStatsCheckinDailyQuery,
     getUserStatsTagsQuery,
@@ -19,6 +20,7 @@ export const loader = (queryClient: QueryClient) => async () => {
     const [me] = await Promise.all([
         queryClient.fetchQuery(getMeQuery()), // ステータス欄の情報を最新にするため、常に再読み込み
         queryClient.ensureQueryData(getInformationLatestQuery()),
+        queryClient.ensureQueryData(getStatsCheckinDailyQuery()),
     ]);
     if (!me) {
         return;

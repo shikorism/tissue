@@ -4,5 +4,6 @@ import "./information.tsp";
 import "./likes.tsp";
 import "./me.tsp";
 import "./search.tsp";
+import "./stats.tsp";
 import "./tags.tsp";
 import "./users.tsp";

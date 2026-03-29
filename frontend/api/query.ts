@@ -193,3 +193,10 @@ export const getRecentTagsQuery = () =>
         queryKey: ['/recent-tags'],
         queryFn: () => fetchClient.GET('/recent-tags').then((response) => ensure(response.data)),
     });
+
+export const getStatsCheckinDailyQuery = (query?: paths['/stats/checkin/daily']['get']['parameters']['query']) =>
+    queryOptions({
+        queryKey: ['/stats/checkin/daily', query],
+        queryFn: () =>
+            fetchClient.GET('/stats/checkin/daily', { params: { query } }).then((response) => ensure(response.data)),
+    });
