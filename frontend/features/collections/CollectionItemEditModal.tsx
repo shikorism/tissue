@@ -3,8 +3,9 @@ import { Modal, ModalBody, ModalHeader, ModalFooter } from '../../components/Mod
 import { components } from '../../api/schema';
 import { Button } from '../../components/Button';
 import { ProgressButton } from '../../components/ProgressButton';
-import { cn } from '../../lib/cn';
 import { FieldError } from '../../components/FieldError';
+import { Input } from '../../components/ui/Input';
+import { TextArea } from '../../components/ui/TextArea';
 import { TagInput } from '../../components/TagInput';
 import { MetadataPreview } from '../../components/MetadataPreview';
 import { usePatchCollectionItem } from '../../api/mutation';
@@ -86,15 +87,7 @@ export const CollectionItemEditModal: React.FC<CollectionItemEditModalProps> = (
                             <label htmlFor="link" className="block mb-2">
                                 <i className="ti ti-link" /> オカズリンク
                             </label>
-                            <input
-                                type="text"
-                                id="link"
-                                name="link"
-                                className="block w-full rounded border px-3 py-2 text-neutral-600 border-neutral-300 bg-neutral-200"
-                                disabled
-                                placeholder="http://..."
-                                value={item.link}
-                            />
+                            <Input id="link" name="link" disabled placeholder="http://..." value={item.link} />
                         </div>
                         <MetadataPreview
                             link={item.link}
@@ -121,15 +114,10 @@ export const CollectionItemEditModal: React.FC<CollectionItemEditModalProps> = (
                             <label htmlFor="note" className="block mb-2">
                                 <i className="ti ti-message-circle" /> ノート
                             </label>
-                            <textarea
+                            <TextArea
                                 id="note"
                                 name="note"
-                                className={cn(
-                                    'block w-full rounded border px-3 py-2 transition duration-150 ease-in-out focus:outline-none focus:ring-4',
-                                    errors?.note
-                                        ? 'border-danger focus:ring-danger/25'
-                                        : 'border-neutral-300 focus:border-primary-400 focus:ring-primary-400/25',
-                                )}
+                                error={!!errors?.note}
                                 rows={4}
                                 value={values.note}
                                 onChange={(e) => setValues((values) => ({ ...values, note: e.target.value }))}

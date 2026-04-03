@@ -5,6 +5,9 @@ import { FieldError } from '../../components/FieldError';
 import { cn } from '../../lib/cn';
 import { MetadataPreview } from '../../components/MetadataPreview';
 import { ProgressButton } from '../../components/ProgressButton';
+import { Checkbox } from '../../components/ui/Checkbox';
+import { Input } from '../../components/ui/Input';
+import { TextArea } from '../../components/ui/TextArea';
 import { FavoriteTags } from './FavoriteTags';
 
 export interface CheckinFormValues {
@@ -111,16 +114,9 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ mode, initialValues, o
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-2">
                 {mode === 'create' && (
-                    <label>
-                        <input
-                            id="isRealtime"
-                            type="checkbox"
-                            className="accent-primary"
-                            checked={isRealtime}
-                            onChange={(e) => setRealtime(e.target.checked)}
-                        />
-                        <span className="ml-2">現在時刻でチェックイン</span>
-                    </label>
+                    <Checkbox checked={isRealtime} onChange={(e) => setRealtime(e.target.checked)}>
+                        現在時刻でチェックイン
+                    </Checkbox>
                 )}
 
                 <div className="flex gap-4">
@@ -128,16 +124,11 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ mode, initialValues, o
                         <label htmlFor="date" className="block mb-2">
                             <i className="ti ti-calendar-event" /> 日付
                         </label>
-                        <input
+                        <Input
                             type="date"
                             id="date"
                             name="date"
-                            className={cn(
-                                'block w-full rounded border px-3 py-2 transition duration-150 ease-in-out focus:outline-none focus:ring-4 disabled:text-neutral-600 disabled:bg-neutral-200',
-                                errors?.checked_in_at
-                                    ? 'border-danger focus:ring-danger/25'
-                                    : 'border-neutral-300 focus:border-primary-400 focus:ring-primary-400/25',
-                            )}
+                            error={!!errors?.checked_in_at}
                             pattern="^20[0-9]{2}[-/](0[1-9]|1[0-2])[-/](0[1-9]|[12][0-9]|3[01])$"
                             required
                             value={date}
@@ -149,16 +140,11 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ mode, initialValues, o
                         <label htmlFor="date" className="block mb-2">
                             <i className="ti ti-clock" /> 時刻
                         </label>
-                        <input
+                        <Input
                             type="time"
                             id="time"
                             name="time"
-                            className={cn(
-                                'block w-full rounded border px-3 py-2 transition duration-150 ease-in-out focus:outline-none focus:ring-4 disabled:text-neutral-600 disabled:bg-neutral-200',
-                                errors?.checked_in_at
-                                    ? 'border-danger focus:ring-danger/25'
-                                    : 'border-neutral-300 focus:border-primary-400 focus:ring-primary-400/25',
-                            )}
+                            error={!!errors?.checked_in_at}
                             pattern="^([01][0-9]|2[0-3]):[0-5][0-9]$"
                             required
                             value={time}
@@ -193,17 +179,11 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ mode, initialValues, o
                 <label htmlFor="link" className="block mb-2">
                     <i className="ti ti-link" /> オカズリンク
                 </label>
-                <input
-                    type="text"
+                <Input
                     id="link"
                     name="link"
                     autoComplete="off"
-                    className={cn(
-                        'block w-full rounded border px-3 py-2 transition duration-150 ease-in-out focus:outline-none focus:ring-4',
-                        errors?.link
-                            ? 'border-danger focus:ring-danger/25'
-                            : 'border-neutral-300 focus:border-primary-400 focus:ring-primary-400/25',
-                    )}
+                    error={!!errors?.link}
                     placeholder="http://..."
                     value={link}
                     onChange={(e) => setLink(e.target.value)}
@@ -219,15 +199,10 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ mode, initialValues, o
                 <label htmlFor="note" className="block mb-2">
                     <i className="ti ti-message-circle" /> ノート
                 </label>
-                <textarea
+                <TextArea
                     id="note"
                     name="note"
-                    className={cn(
-                        'block w-full rounded border px-3 py-2 transition duration-150 ease-in-out focus:outline-none focus:ring-4',
-                        errors?.note
-                            ? 'border-danger focus:ring-danger/25'
-                            : 'border-neutral-300 focus:border-primary-400 focus:ring-primary-400/25',
-                    )}
+                    error={!!errors?.note}
                     rows={4}
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
@@ -239,48 +214,21 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ mode, initialValues, o
             </div>
 
             <div>
-                <label>
-                    <input
-                        id="isPrivate"
-                        type="checkbox"
-                        className="accent-primary"
-                        checked={isPrivate}
-                        onChange={(e) => setPrivate(e.target.checked)}
-                    />
-                    <span className="ml-2">
-                        <i className="ti ti-lock" /> このチェックインを非公開にする
-                    </span>
-                </label>
+                <Checkbox checked={isPrivate} onChange={(e) => setPrivate(e.target.checked)}>
+                    <i className="ti ti-lock" /> このチェックインを非公開にする
+                </Checkbox>
             </div>
 
             <div>
-                <label>
-                    <input
-                        id="isTooSensitive"
-                        type="checkbox"
-                        className="accent-primary"
-                        checked={isTooSensitive}
-                        onChange={(e) => setTooSensitive(e.target.checked)}
-                    />
-                    <span className="ml-2">
-                        <i className="ti ti-alert-triangle" /> チェックイン対象のオカズをより過激なオカズとして設定する
-                    </span>
-                </label>
+                <Checkbox checked={isTooSensitive} onChange={(e) => setTooSensitive(e.target.checked)}>
+                    <i className="ti ti-alert-triangle" /> チェックイン対象のオカズをより過激なオカズとして設定する
+                </Checkbox>
             </div>
 
             <div>
-                <label>
-                    <input
-                        id="discardElapsedTime"
-                        type="checkbox"
-                        className="accent-primary"
-                        checked={discardElapsedTime}
-                        onChange={(e) => setDiscardElapsedTime(e.target.checked)}
-                    />
-                    <span className="ml-2">
-                        <i className="ti ti-clock-x" /> 前回チェックインからの経過時間を記録しない
-                    </span>
-                </label>
+                <Checkbox checked={discardElapsedTime} onChange={(e) => setDiscardElapsedTime(e.target.checked)}>
+                    <i className="ti ti-clock-x" /> 前回チェックインからの経過時間を記録しない
+                </Checkbox>
                 <br />
                 <div className="ml-4 mt-1 text-sm text-secondary">
                     長期間お使いにならなかった場合など、経過時間に意味が無い時のリセット用オプションです。

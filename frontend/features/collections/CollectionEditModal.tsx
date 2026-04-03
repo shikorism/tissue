@@ -1,6 +1,7 @@
 import React, { ComponentPropsWithoutRef, useEffect, useState } from 'react';
-import { cn } from '../../lib/cn';
 import { Button } from '../../components/Button';
+import { Input } from '../../components/ui/Input';
+import { Radio } from '../../components/ui/Radio';
 import { FieldError } from '../../components/FieldError';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../components/Modal';
 import { ProgressButton } from '../../components/ProgressButton';
@@ -84,16 +85,10 @@ export const CollectionEditModal: React.FC<CollectionEditModalProps> = ({
                             <label htmlFor="title" className="block mb-2">
                                 <i className="ti ti-folder" /> タイトル
                             </label>
-                            <input
-                                type="text"
+                            <Input
                                 id="title"
                                 name="title"
-                                className={cn(
-                                    'block w-full rounded border px-3 py-2 transition duration-150 ease-in-out focus:outline-none focus:ring-4',
-                                    errors?.title
-                                        ? 'border-danger focus:ring-danger/25'
-                                        : 'border-neutral-300 focus:border-primary-400 focus:ring-primary-400/25',
-                                )}
+                                error={!!errors?.title}
                                 required
                                 value={values.title}
                                 onChange={(e) => setValues((values) => ({ ...values, title: e.target.value }))}
@@ -104,32 +99,21 @@ export const CollectionEditModal: React.FC<CollectionEditModalProps> = ({
                             <p className="mb-2">
                                 <i className="ti ti-eye" /> 公開設定
                             </p>
-                            <div className="inline mr-4">
-                                <input
-                                    className="accent-primary"
-                                    type="radio"
-                                    id="collectionItemVisibilityPublic"
-                                    name="is_private"
-                                    checked={!values.is_private}
-                                    onChange={() => setValues((values) => ({ ...values, is_private: false }))}
-                                />
-                                <label htmlFor="collectionItemVisibilityPublic" className="ml-2">
-                                    公開
-                                </label>
-                            </div>
-                            <div className="inline">
-                                <input
-                                    className="accent-primary"
-                                    type="radio"
-                                    id="collectionItemVisibilityPrivate"
-                                    name="is_private"
-                                    checked={values.is_private}
-                                    onChange={() => setValues((values) => ({ ...values, is_private: true }))}
-                                />
-                                <label htmlFor="collectionItemVisibilityPrivate" className="ml-2">
-                                    非公開
-                                </label>
-                            </div>
+                            <Radio
+                                className="mr-4"
+                                name="is_private"
+                                checked={!values.is_private}
+                                onChange={() => setValues((values) => ({ ...values, is_private: false }))}
+                            >
+                                公開
+                            </Radio>
+                            <Radio
+                                name="is_private"
+                                checked={values.is_private}
+                                onChange={() => setValues((values) => ({ ...values, is_private: true }))}
+                            >
+                                非公開
+                            </Radio>
                         </div>
                     </div>
                 </ModalBody>

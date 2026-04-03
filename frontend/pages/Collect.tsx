@@ -2,8 +2,9 @@ import React, { FormEventHandler, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getMyCollectionsQuery } from '../api/query';
-import { cn } from '../lib/cn';
 import { FieldError } from '../components/FieldError';
+import { Input } from '../components/ui/Input';
+import { TextArea } from '../components/ui/TextArea';
 import { MetadataPreview } from '../components/MetadataPreview';
 import { TagInput } from '../components/TagInput';
 import { ProgressButton } from '../components/ProgressButton';
@@ -151,17 +152,11 @@ export const Collect: React.FC = () => {
                         <label htmlFor="link" className="block mb-2">
                             <i className="ti ti-link" /> オカズリンク
                         </label>
-                        <input
-                            type="text"
+                        <Input
                             id="link"
                             name="link"
                             autoComplete="off"
-                            className={cn(
-                                'block w-full rounded border px-3 py-2 transition duration-150 ease-in-out focus:outline-none focus:ring-4',
-                                errors?.link
-                                    ? 'border-danger focus:ring-danger/25'
-                                    : 'border-neutral-300 focus:border-primary-400 focus:ring-primary-400/25',
-                            )}
+                            error={!!errors?.link}
                             placeholder="http://..."
                             required
                             value={values.link}
@@ -199,15 +194,10 @@ export const Collect: React.FC = () => {
                         <label htmlFor="note" className="block mb-2">
                             <i className="ti ti-message-circle" /> ノート
                         </label>
-                        <textarea
+                        <TextArea
                             id="note"
                             name="note"
-                            className={cn(
-                                'block w-full rounded border px-3 py-2 transition duration-150 ease-in-out focus:outline-none focus:ring-4',
-                                errors?.note
-                                    ? 'border-danger focus:ring-danger/25'
-                                    : 'border-neutral-300 focus:border-primary-400 focus:ring-primary-400/25',
-                            )}
+                            error={!!errors?.note}
                             rows={4}
                             value={values.note}
                             onChange={(e) => setValues((values) => ({ ...values, note: e.target.value }))}
