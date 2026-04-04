@@ -4,6 +4,7 @@ import { LoaderData } from './UserStats.loader';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getUserStatsCheckinOldestQuery } from '../api/query';
 import { ColumnHeader } from '../components/ColumnHeader';
+import { Checkbox } from '../components/ui/Checkbox';
 
 export const UserStats: React.FC = () => {
     const navigate = useNavigate();
@@ -90,15 +91,12 @@ export const UserStats: React.FC = () => {
                 </div>
                 {year && !month && (
                     <div className="mt-4">
-                        <label>
-                            <input
-                                id="compare"
-                                type="checkbox"
-                                checked={searchParams.get('compare') === 'prev'}
-                                onChange={(e) => setSearchParams(e.target.checked ? { compare: 'prev' } : {})}
-                            />
-                            <span className="ml-2">去年のデータも表示</span>
-                        </label>
+                        <Checkbox
+                            checked={searchParams.get('compare') === 'prev'}
+                            onChange={(e) => setSearchParams(e.target.checked ? { compare: 'prev' } : {})}
+                        >
+                            去年のデータも表示
+                        </Checkbox>
                     </div>
                 )}
             </div>

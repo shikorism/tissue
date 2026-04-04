@@ -9,6 +9,7 @@ import { Pagination } from '../components/Pagination';
 import { cn } from '../lib/cn';
 import { Container } from '../components/Container';
 import { ColumnHeader } from '../components/ColumnHeader';
+import { Checkbox } from '../components/ui/Checkbox';
 
 export const UserCheckins: React.FC = () => {
     const params = useParams();
@@ -33,20 +34,17 @@ export const UserCheckins: React.FC = () => {
                 <ColumnHeader className="mb-4">検索条件</ColumnHeader>
                 <Calendar initialDate={currentDate} />
                 <div className="mt-2">
-                    <label>
-                        <input
-                            type="checkbox"
-                            className="accent-primary"
-                            checked={searchParams.get('link') === '1'}
-                            onChange={() =>
-                                setSearchParams((prev) => {
-                                    prev.set('link', searchParams.get('link') === '1' ? '0' : '1');
-                                    return prev;
-                                })
-                            }
-                        />
-                        <span className="ml-2">オカズ付きのみ</span>
-                    </label>
+                    <Checkbox
+                        checked={searchParams.get('link') === '1'}
+                        onChange={() =>
+                            setSearchParams((prev) => {
+                                prev.set('link', searchParams.get('link') === '1' ? '0' : '1');
+                                return prev;
+                            })
+                        }
+                    >
+                        オカズ付きのみ
+                    </Checkbox>
                 </div>
             </div>
             <div className="flex-1 px-4">
