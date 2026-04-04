@@ -1,5 +1,6 @@
 import React from 'react';
 import { cn } from '../../lib/cn';
+import { Select } from '../../components/ui/Select';
 
 export type SortKey = 'id:asc' | 'id:desc' | 'name:asc' | 'name:desc' | 'updated_at:asc' | 'updated_at:desc';
 
@@ -12,8 +13,8 @@ export const SortKeySelect: React.FC<SortKeySelectProps> = ({ className, value, 
     return (
         <div className={cn('relative w-full', className)} {...rest}>
             <i className="ti ti-sort-ascending-letters absolute left-3 top-1/2 -translate-y-1/2 text-secondary pointer-events-none" />
-            <select
-                className="w-full h-full p-1 rounded transition duration-150 ease-in-out focus:outline-none focus:ring-4 border border-neutral-300 focus:border-primary-400 focus:ring-primary-400/25 text-sm"
+            <Select
+                className="h-full p-1 text-sm"
                 style={{ paddingLeft: '1.75rem' }}
                 value={value}
                 onChange={(e) => onChange(e.target.value as SortKey)}
@@ -24,7 +25,7 @@ export const SortKeySelect: React.FC<SortKeySelectProps> = ({ className, value, 
                 <option value="id:desc">作成日時 降順</option>
                 <option value="updated_at:asc">更新日時 昇順</option>
                 <option value="updated_at:desc">更新日時 降順</option>
-            </select>
+            </Select>
         </div>
     );
 };

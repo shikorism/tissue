@@ -4,6 +4,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { getMyCollectionsQuery } from '../api/query';
 import { FieldError } from '../components/FieldError';
 import { Input } from '../components/ui/Input';
+import { Select } from '../components/ui/Select';
 import { TextArea } from '../components/ui/TextArea';
 import { MetadataPreview } from '../components/MetadataPreview';
 import { TagInput } from '../components/TagInput';
@@ -132,10 +133,9 @@ export const Collect: React.FC = () => {
                                 新規作成
                             </button>
                         </div>
-                        <select
+                        <Select
                             name="collection"
                             id="collection"
-                            className="w-full p-2 rounded transition duration-150 ease-in-out focus:outline-none focus:ring-4 border border-neutral-300 focus:border-primary-400 focus:ring-primary-400/25"
                             disabled={!myCollectionsQuery.data}
                             value={collectionId}
                             onChange={(e) => setCollectionId(e.target.value)}
@@ -145,7 +145,7 @@ export const Collect: React.FC = () => {
                                     {collection.title}
                                 </option>
                             ))}
-                        </select>
+                        </Select>
                     </div>
 
                     <div>
