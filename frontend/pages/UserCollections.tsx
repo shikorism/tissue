@@ -16,8 +16,8 @@ import { usePostCollections } from '../api/mutation';
 import { toast } from 'sonner';
 import { Container } from '../components/Container';
 import { ColumnHeader } from '../components/ColumnHeader';
-import { cn } from '../lib/cn';
 import { SortKeySelect } from '../features/collections/SortKeySelect';
+import { SearchInput } from '../components/ui/SearchInput';
 import { SortKey, sortAndFilteredCollections } from '../features/collections/search';
 
 export const UserCollections: React.FC = () => {
@@ -75,21 +75,15 @@ export const UserCollections: React.FC = () => {
                 </ColumnHeader>
                 {isOpenSearchArea && (
                     <div className="p-2 border-b-1 border-gray-border bg-gray-back *:bg-white flex flex-col gap-2">
-                        <div className="relative">
-                            <input
-                                type="search"
-                                name="q"
-                                className={cn(
-                                    'block w-full rounded-sm border pl-8 pr-4 py-2 text-sm transition duration-150 ease-in-out focus:outline-none focus:ring-4',
-                                    'border-neutral-300 focus:border-primary-400 focus:ring-primary-400/25',
-                                )}
-                                required
-                                value={filter}
-                                onChange={(e) => setFilter(e.target.value)}
-                                placeholder="名前で絞り込み..."
-                            />
-                            <i className="ti ti-search text-neutral-500 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-                        </div>
+                        <SearchInput
+                            type="search"
+                            name="q"
+                            className="rounded-sm"
+                            value={filter}
+                            onChange={(e) => setFilter(e.target.value)}
+                            placeholder="名前で絞り込み..."
+                            small
+                        />
                         <SortKeySelect className="w-auto" value={sort} onChange={setSort} />
                     </div>
                 )}
