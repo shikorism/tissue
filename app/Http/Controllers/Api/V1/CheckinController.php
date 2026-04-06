@@ -86,7 +86,7 @@ class CheckinController extends Controller
     {
         $inputs = $request->validated();
 
-        if (isset($inputs['checked_in_at'])) {
+        if (array_key_exists('checked_in_at', $inputs) && $inputs['checked_in_at'] !== null) {
             $ejaculatedDate = new Carbon($inputs['checked_in_at']);
             $ejaculatedDate = $ejaculatedDate->setTimezone(date_default_timezone_get())->startOfMinute();
             if (Ejaculation::where(['user_id' => Auth::id(), 'ejaculated_date' => $ejaculatedDate])->where('id', '<>', $checkin->id)->count()) {
@@ -95,26 +95,26 @@ class CheckinController extends Controller
 
             $checkin->ejaculated_date = $ejaculatedDate;
         }
-        if (isset($inputs['note'])) {
-            $checkin->note = $inputs['note'];
+        if (array_key_exists('note', $inputs)) {
+            $checkin->note = $inputs['note'] ?? '';
         }
-        if (isset($inputs['link'])) {
-            $checkin->link = $inputs['link'];
+        if (array_key_exists('link', $inputs)) {
+            $checkin->link = $inputs['link'] ?? '';
         }
-        if (isset($inputs['is_private'])) {
+        if (array_key_exists('is_private', $inputs)) {
             $checkin->is_private = (bool)($inputs['is_private'] ?? false);
         }
-        if (isset($inputs['is_too_sensitive'])) {
+        if (array_key_exists('is_too_sensitive', $inputs)) {
             $checkin->is_too_sensitive = (bool)($inputs['is_too_sensitive'] ?? false);
         }
-        if (isset($inputs['discard_elapsed_time'])) {
+        if (array_key_exists('discard_elapsed_time', $inputs)) {
             $checkin->discard_elapsed_time = (bool)($inputs['discard_elapsed_time'] ?? false);
         }
 
         DB::transaction(function () use ($inputs, $checkin) {
             $checkin->save();
 
-            if (isset($inputs['tags'])) {
+            if (array_key_exists('tags', $inputs)) {
                 $tagIds = [];
                 if (!empty($inputs['tags'])) {
                     foreach ($inputs['tags'] as $tag) {
