@@ -31,3 +31,4 @@
 @vite('frontend/index.tsx')
 @vite('resources/assets/js/agecheck.ts')
 </body>
+</html>
