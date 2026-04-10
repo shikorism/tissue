@@ -85,6 +85,7 @@ const protectedRoute: RouteObject = {
     ],
 };
 
+// spa.blade.php に書かれている .tis-loading と同じ
 const InitialLoading = () => (
     <div className="tis-loading" aria-busy={true}>
         <div />

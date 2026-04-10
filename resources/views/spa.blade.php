@@ -44,6 +44,7 @@
     </p>
 </noscript>
 <div id="app">
+    {{-- App.tsxのInitialLoadingと同じ --}}
     <div class="tis-loading" aria-busy="true">
         <div></div>
     </div>
