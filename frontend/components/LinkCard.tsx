@@ -17,7 +17,7 @@ export const LinkCard: React.FC<Props> = ({ className, link, isTooSensitive = fa
 
     return (
         <div className={cn('rounded border border-gray-border overflow-hidden', className)}>
-            <a href={link} target="_blank" rel="noopener noreferrer">
+            <a href={link && /^https?:\/\//.test(link) ? link : undefined} target="_blank" rel="noopener noreferrer">
                 <div className="flex flex-col md:flex-row">
                     {data.image && (
                         <div className="flex justify-center items-center flex-1 max-h-[400px] overflow-hidden relative">
