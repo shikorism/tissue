@@ -11,11 +11,14 @@ export const fetchClient = createFetchClient<paths>({
 // csrf tokenの自動設定
 fetchClient.use({
     async onRequest({ request }) {
-        const token =
-            Cookies.get('XSRF-TOKEN') ||
-            document.head.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content;
-        if (token) {
-            request.headers.set('X-XSRF-TOKEN', token);
+        const xsrf = Cookies.get('XSRF-TOKEN');
+        if (xsrf) {
+            request.headers.set('X-XSRF-TOKEN', xsrf);
+        } else {
+            const csrf = document.head.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content;
+            if (csrf) {
+                request.headers.set('X-CSRF-TOKEN', csrf);
+            }
         }
         return request;
     },
