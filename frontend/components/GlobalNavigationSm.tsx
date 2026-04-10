@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { useCurrentUser } from './AuthProvider';
-import { Button } from './Button';
+import { Button } from './ui/Button';
 
 interface Props {
     onOpenMenu: () => void;

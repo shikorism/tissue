@@ -1,6 +1,6 @@
 import React, { FormEventHandler } from 'react';
 import { Link, Outlet, useLocation, useNavigate, useSearchParams } from 'react-router';
-import { Tab, Tabs } from '../components/Tabs';
+import { Tab, Tabs } from '../components/ui/Tabs';
 import { SearchInput } from '../components/ui/SearchInput';
 
 export const Search: React.FC = () => {

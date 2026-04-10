@@ -5,7 +5,7 @@ import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { getUserCheckinsQuery, getUserStatsCheckinDailyQuery } from '../api/query';
 import { LoaderData, PER_PAGE } from './UserCheckins.loader';
 import { Checkin } from '../features/checkins/Checkin';
-import { Pagination } from '../components/Pagination';
+import { Pagination } from '../components/ui/Pagination';
 import { cn } from '../lib/cn';
 import { Container } from '../components/Container';
 import { ColumnHeader } from '../components/ColumnHeader';

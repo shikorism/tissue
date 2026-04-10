@@ -7,7 +7,7 @@ import { MonthlyChart } from '../features/user-stats/MonthlyChart';
 import { HourlyChart } from '../features/user-stats/HourlyChart';
 import { DayOfWeekChart } from '../features/user-stats/DayOfWeekChart';
 import { TagRanking } from '../features/user-stats/TagRanking';
-import { Pill } from '../components/Pill';
+import { Pill } from '../components/ui/Pill';
 import { CheckinHeatmap } from '../features/user-stats/CheckinHeatmap';
 import { ColumnHeader } from '../components/ColumnHeader';
 

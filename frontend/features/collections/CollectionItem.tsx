@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import Linkify from 'linkify-react';
 import { LinkCard } from '../../components/LinkCard';
-import { ExternalLink } from '../../components/ExternalLink';
+import { ExternalLink } from '../../components/ui/ExternalLink';
 import { components } from '../../api/schema';
 import { cn } from '../../lib/cn';
 import { Link } from 'react-router';
 import { useCurrentUser } from '../../components/AuthProvider';
-import { Modal, ModalBody, ModalFooter, ModalHeader } from '../../components/Modal';
-import { Button } from '../../components/Button';
-import { ProgressButton } from '../../components/ProgressButton';
+import { Modal, ModalBody, ModalFooter, ModalHeader } from '../../components/ui/Modal';
+import { Button } from '../../components/ui/Button';
+import { ProgressButton } from '../../components/ui/ProgressButton';
 import { useDeleteCollectionItem } from '../../api/mutation';
 import { toast } from 'sonner';
 import { CollectionItemEditModal } from './CollectionItemEditModal';

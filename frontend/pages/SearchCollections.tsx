@@ -4,7 +4,7 @@ import { LoaderData, PER_PAGE } from './SearchCollections.loader';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getSearchCollectionsQuery } from '../api/query';
 import { CollectionItem } from '../features/collections/CollectionItem';
-import { Pagination } from '../components/Pagination';
+import { Pagination } from '../components/ui/Pagination';
 import { EmptyQueryError } from '../features/search/EmptyQueryError';
 
 export const SearchCollections: React.FC = () => {

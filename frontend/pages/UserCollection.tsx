@@ -3,9 +3,9 @@ import { Link, useLoaderData, useNavigate, useRouteError } from 'react-router';
 import { LoaderData, PER_PAGE } from './UserCollection.loader';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getCollectionItemsQuery, getCollectionQuery } from '../api/query';
-import { Button } from '../components/Button';
+import { Button } from '../components/ui/Button';
 import { useCurrentUser } from '../components/AuthProvider';
-import { Pagination } from '../components/Pagination';
+import { Pagination } from '../components/ui/Pagination';
 import { CollectionItem } from '../features/collections/CollectionItem';
 import { ResponseError } from '../api/errors';
 import {
@@ -16,8 +16,8 @@ import {
 } from '../features/collections/CollectionEditModal';
 import { useDeleteCollection, usePutCollection } from '../api/mutation';
 import { toast } from 'sonner';
-import { Modal, ModalBody, ModalFooter, ModalHeader } from '../components/Modal';
-import { ProgressButton } from '../components/ProgressButton';
+import { Modal, ModalBody, ModalFooter, ModalHeader } from '../components/ui/Modal';
+import { ProgressButton } from '../components/ui/ProgressButton';
 import { ColumnHeader } from '../components/ColumnHeader';
 
 export const UserCollection: React.FC = () => {

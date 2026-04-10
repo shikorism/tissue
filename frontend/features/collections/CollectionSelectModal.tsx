@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import type { components } from '../../api/schema';
-import { Modal, ModalHeader, ModalBody, ModalProps } from '../../components/Modal';
+import { Modal, ModalHeader, ModalBody, ModalProps } from '../../components/ui/Modal';
 import { getMyCollectionsQuery } from '../../api/query';
 import { SortKeySelect } from './SortKeySelect';
 import { sortAndFilteredCollections, SortKey } from './search';

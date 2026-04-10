@@ -1,5 +1,5 @@
 import React from 'react';
-import { cn } from '../lib/cn';
+import { cn } from '../../lib/cn';
 
 export const ExternalLink = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWithoutRef<'a'>>(
     ({ className, children, ...props }, ref) => (

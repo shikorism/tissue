@@ -7,7 +7,7 @@ import {
     SubmitHandler,
 } from '../features/checkins/CheckinForm';
 import { format } from 'date-fns';
-import { ExternalLink } from '../components/ExternalLink';
+import { ExternalLink } from '../components/ui/ExternalLink';
 import { usePostCheckin } from '../api/mutation';
 import { ResponseError } from '../api/errors';
 import { toast } from 'sonner';

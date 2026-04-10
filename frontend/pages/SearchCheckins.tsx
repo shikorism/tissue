@@ -4,7 +4,7 @@ import { LoaderData, PER_PAGE } from './SearchCheckins.loader';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getSearchCheckinsQuery } from '../api/query';
 import { Checkin } from '../features/checkins/Checkin';
-import { Pagination } from '../components/Pagination';
+import { Pagination } from '../components/ui/Pagination';
 import { EmptyQueryError } from '../features/search/EmptyQueryError';
 
 export const SearchCheckins: React.FC = () => {

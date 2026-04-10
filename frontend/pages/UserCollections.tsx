@@ -3,7 +3,7 @@ import { Link, useLoaderData, useNavigate, useRouteError } from 'react-router';
 import { LoaderData } from './UserCollections.loader';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getUserCollectionsQuery } from '../api/query';
-import { Button } from '../components/Button';
+import { Button } from '../components/ui/Button';
 import { useCurrentUser } from '../components/AuthProvider';
 import { ResponseError } from '../api/errors';
 import {

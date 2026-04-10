@@ -4,7 +4,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { getUserQuery } from '../api/query';
 import { ResponseError } from '../api/errors';
 import { NotFound } from './NotFound';
-import { Tab, Tabs } from '../components/Tabs';
+import { Tab, Tabs } from '../components/ui/Tabs';
 import { LoaderData } from './User.loader';
 
 export const User: React.FC = () => {

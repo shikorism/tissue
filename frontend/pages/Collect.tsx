@@ -2,13 +2,13 @@ import React, { FormEventHandler, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getMyCollectionsQuery } from '../api/query';
-import { FieldError } from '../components/FieldError';
+import { FieldError } from '../components/ui/FieldError';
 import { Input } from '../components/ui/Input';
 import { Select } from '../components/ui/Select';
 import { TextArea } from '../components/ui/TextArea';
 import { MetadataPreview } from '../components/MetadataPreview';
 import { TagInput } from '../components/TagInput';
-import { ProgressButton } from '../components/ProgressButton';
+import { ProgressButton } from '../components/ui/ProgressButton';
 import { usePostCollectionItem, usePostCollections } from '../api/mutation';
 import {
     CollectionEditModal,

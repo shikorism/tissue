@@ -7,7 +7,7 @@ import { YearlyChart } from '../features/user-stats/YearlyChart';
 import { HourlyChart } from '../features/user-stats/HourlyChart';
 import { DayOfWeekChart } from '../features/user-stats/DayOfWeekChart';
 import { TagRanking } from '../features/user-stats/TagRanking';
-import { Pill } from '../components/Pill';
+import { Pill } from '../components/ui/Pill';
 import { ColumnHeader } from '../components/ColumnHeader';
 
 export const UserStatsAll: React.FC = () => {

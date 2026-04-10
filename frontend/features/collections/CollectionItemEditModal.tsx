@@ -1,9 +1,9 @@
 import React, { ComponentPropsWithoutRef, useEffect, useState } from 'react';
-import { Modal, ModalBody, ModalHeader, ModalFooter } from '../../components/Modal';
+import { Modal, ModalBody, ModalHeader, ModalFooter } from '../../components/ui/Modal';
 import { components } from '../../api/schema';
-import { Button } from '../../components/Button';
-import { ProgressButton } from '../../components/ProgressButton';
-import { FieldError } from '../../components/FieldError';
+import { Button } from '../../components/ui/Button';
+import { ProgressButton } from '../../components/ui/ProgressButton';
+import { FieldError } from '../../components/ui/FieldError';
 import { Input } from '../../components/ui/Input';
 import { TextArea } from '../../components/ui/TextArea';
 import { TagInput } from '../../components/TagInput';

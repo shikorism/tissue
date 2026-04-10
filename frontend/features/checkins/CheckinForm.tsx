@@ -1,10 +1,10 @@
 import React, { FormEventHandler, Suspense, useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { TagInput } from '../../components/TagInput';
-import { FieldError } from '../../components/FieldError';
+import { FieldError } from '../../components/ui/FieldError';
 import { cn } from '../../lib/cn';
 import { MetadataPreview } from '../../components/MetadataPreview';
-import { ProgressButton } from '../../components/ProgressButton';
+import { ProgressButton } from '../../components/ui/ProgressButton';
 import { Checkbox } from '../../components/ui/Checkbox';
 import { Input } from '../../components/ui/Input';
 import { TextArea } from '../../components/ui/TextArea';

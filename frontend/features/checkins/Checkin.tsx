@@ -4,14 +4,14 @@ import { formatDate } from 'date-fns';
 import Linkify from 'linkify-react';
 import type { components } from '../../api/schema';
 import { cn } from '../../lib/cn';
-import { ExternalLink } from '../../components/ExternalLink';
+import { ExternalLink } from '../../components/ui/ExternalLink';
 import { LinkCard } from '../../components/LinkCard';
 import { useCurrentUser } from '../../components/AuthProvider';
 import { formatInterval } from '../../lib/formatter';
 import { AddToCollectionButton } from '../collections/AddToCollectionButton';
-import { Modal, ModalBody, ModalFooter, ModalHeader } from '../../components/Modal';
-import { Button } from '../../components/Button';
-import { ProgressButton } from '../../components/ProgressButton';
+import { Modal, ModalBody, ModalFooter, ModalHeader } from '../../components/ui/Modal';
+import { Button } from '../../components/ui/Button';
+import { ProgressButton } from '../../components/ui/ProgressButton';
 import { useDeleteCheckin } from '../../api/mutation';
 import { toast } from 'sonner';
 

@@ -8,7 +8,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from '../../components/DropdownMenu';
+} from '../../components/ui/DropdownMenu';
 import { getMyCollectionsQuery } from '../../api/query';
 import { usePostCollectionItem, usePostCollections } from '../../api/mutation';
 import { ResponseError } from '../../api/errors';

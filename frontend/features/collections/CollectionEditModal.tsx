@@ -1,10 +1,10 @@
 import React, { ComponentPropsWithoutRef, useEffect, useState } from 'react';
-import { Button } from '../../components/Button';
+import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
 import { Radio } from '../../components/ui/Radio';
-import { FieldError } from '../../components/FieldError';
-import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../components/Modal';
-import { ProgressButton } from '../../components/ProgressButton';
+import { FieldError } from '../../components/ui/FieldError';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../components/ui/Modal';
+import { ProgressButton } from '../../components/ui/ProgressButton';
 
 export type CollectionFormValues = {
     title: string;
