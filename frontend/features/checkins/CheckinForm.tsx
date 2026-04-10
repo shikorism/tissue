@@ -137,7 +137,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ mode, initialValues, o
                         />
                     </div>
                     <div className="flex-1">
-                        <label htmlFor="date" className="block mb-2">
+                        <label htmlFor="time" className="block mb-2">
                             <i className="ti ti-clock" /> 時刻
                         </label>
                         <Input
