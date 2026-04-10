@@ -85,12 +85,19 @@ const protectedRoute: RouteObject = {
     ],
 };
 
+const InitialLoading = () => (
+    <div className="tis-loading" aria-busy={true}>
+        <div />
+    </div>
+);
+
 const router = createBrowserRouter(
     [
         {
             path: '/',
             element: <BaseLayout />,
             errorElement: <ErrorBoundary />,
+            hydrateFallbackElement: <InitialLoading />,
             children: [
                 {
                     errorElement: <ErrorBoundary />,

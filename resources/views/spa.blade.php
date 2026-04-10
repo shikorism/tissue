@@ -7,6 +7,31 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Tissue') }}</title>
     <link href="{{ asset('manifest.json') }}" rel="manifest">
+    <style>
+        .tis-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .tis-loading div {
+            width: 64px;
+            height: 64px;
+            background: url("{{ asset('apple-touch-icon.png') }}") no-repeat center center;
+            background-size: contain;
+            filter: grayscale(100%);
+            opacity: 0.5;
+            animation: tis-loading 1s infinite alternate;
+        }
+        @keyframes tis-loading {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.5; }
+        }
+    </style>
     @vite('resources/assets/sass/agecheck.css')
     @viteReactRefresh
 </head>
@@ -18,7 +43,11 @@
         ･ <a href="https://www.whatismybrowser.com/guides/how-to-enable-cookies/auto" target="_blank" rel="nofollow noopener">ブラウザでCookieを有効にする方法</a>
     </p>
 </noscript>
-<div id="app"></div>
+<div id="app">
+    <div class="tis-loading" aria-busy="true">
+        <div></div>
+    </div>
+</div>
 @guest
     @component('components.agecheck')
     @endcomponent
