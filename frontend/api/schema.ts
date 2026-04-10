@@ -929,14 +929,12 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description The request has succeeded. */
-            200: {
+            /** @description There is no content to send for this request, but the headers may be useful. */
+            204: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content: {
-                    "application/json": components["schemas"]["Collection"];
-                };
+                content?: never;
             };
             /** @description An unexpected error response. */
             default: {

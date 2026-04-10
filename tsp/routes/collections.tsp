@@ -41,7 +41,7 @@ namespace Collections {
   } | Error;
 
   @delete
-  op delete(@path collection_id: int64): Collection | Error;
+  op delete(@path collection_id: int64): NoContentResponse | Error;
 
   @route("/{collection_id}/items")
   namespace CollectionItems {
