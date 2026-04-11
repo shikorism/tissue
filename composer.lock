@@ -8,21 +8,21 @@
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
-            "version": "3.7.0",
+            "version": "3.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anhskohbo/no-captcha.git",
-                "reference": "87666572f0dbe1e3380a2e9ae7574bf3a2d0804e"
+                "reference": "43dd871ac4e6993ffc51d81701c73fdbfa098bb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anhskohbo/no-captcha/zipball/87666572f0dbe1e3380a2e9ae7574bf3a2d0804e",
-                "reference": "87666572f0dbe1e3380a2e9ae7574bf3a2d0804e",
+                "url": "https://api.github.com/repos/anhskohbo/no-captcha/zipball/43dd871ac4e6993ffc51d81701c73fdbfa098bb7",
+                "reference": "43dd871ac4e6993ffc51d81701c73fdbfa098bb7",
                 "shasum": ""
             },
             "require": {
                 "guzzlehttp/guzzle": "^6.2|^7.0",
-                "illuminate/support": "^5.0|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
+                "illuminate/support": "^5.0|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0|^12.0|^13.0",
                 "php": ">=5.5.5"
             },
             "require-dev": {
@@ -66,9 +66,9 @@
             ],
             "support": {
                 "issues": "https://github.com/anhskohbo/no-captcha/issues",
-                "source": "https://github.com/anhskohbo/no-captcha/tree/3.7.0"
+                "source": "https://github.com/anhskohbo/no-captcha/tree/3.8.0"
             },
-            "time": "2025-02-25T18:53:34+00:00"
+            "time": "2026-02-23T15:53:24+00:00"
         },
         {
             "name": "antlr/antlr4-php-runtime",
