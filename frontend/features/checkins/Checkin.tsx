@@ -168,7 +168,7 @@ export const Checkin: React.FC<Props> = ({
                 }
             })()}
 
-            {checkin.likes?.length ? (
+            {checkin.likes_count ? (
                 <div className="text-sm text-secondary">
                     <i className="ti ti-heart-filled text-danger" /> <strong>{checkin.likes_count}</strong> 件のいいね
                 </div>
