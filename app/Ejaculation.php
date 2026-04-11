@@ -166,6 +166,30 @@ class Ejaculation extends Model
         }
     }
 
+    public function scopeWithInterval(Builder $query)
+    {
+        $sub = DB::table('ejaculations')->selectRaw(
+            <<<'SQL'
+id,
+(select ejaculated_date from ejaculations e2 where e2.ejaculated_date < ejaculations.ejaculated_date and e2.user_id = ejaculations.user_id order by e2.ejaculated_date desc limit 1) AS previous_date
+SQL
+        );
+
+        return $query
+            ->addSelect([
+                DB::raw('previous_dates.previous_date AS previous_checked_in_at'),
+                DB::raw('extract(epoch from ejaculated_date - previous_dates.previous_date) AS checkin_interval')
+            ])
+            ->joinSub($sub, 'previous_dates', 'previous_dates.id', '=', 'ejaculations.id');
+    }
+
+    public function ensureInterval()
+    {
+        $self = self::withInterval()->find($this->id);
+        $this->previous_checked_in_at = $self->previous_checked_in_at;
+        $this->checkin_interval = $self->checkin_interval;
+    }
+
     /**
      * このチェックインと同じ情報を流用してチェックインするためのURLを生成
      * @return string

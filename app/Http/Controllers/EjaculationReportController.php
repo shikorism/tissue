@@ -39,6 +39,6 @@ class EjaculationReportController extends Controller
 
         Mail::to(User::administrators()->get())->send(new EjaculationReported($report));
 
-        return redirect()->route('checkin.show', ['id' => $ejaculation->id])->with('status', 'チェックインを報告しました。');
+        return redirect('/checkin/' . $ejaculation->id)->with('status', 'チェックインを報告しました。');
     }
 }

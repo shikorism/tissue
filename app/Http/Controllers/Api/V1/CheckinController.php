@@ -19,25 +19,26 @@ class CheckinController extends Controller
 {
     public function store(CheckinStoreRequest $request)
     {
+        $fromPublicApi = $request->routeIs('api.v1.checkins.*');
         $inputs = $request->validated();
 
         $ejaculatedDate = empty($inputs['checked_in_at']) ? now() : new Carbon($inputs['checked_in_at']);
         $ejaculatedDate = $ejaculatedDate->setTimezone(date_default_timezone_get())->startOfMinute();
         if (Ejaculation::where(['user_id' => Auth::id(), 'ejaculated_date' => $ejaculatedDate])->count()) {
-            throw new UnprocessableEntityHttpException('Checkin already exists in this time');
+            throw new UnprocessableEntityHttpException('既にこの日時にチェックインしているため、登録できません');
         }
 
-        $ejaculation = DB::transaction(function () use ($inputs, $ejaculatedDate) {
+        $ejaculation = DB::transaction(function () use ($fromPublicApi, $inputs, $ejaculatedDate) {
             $ejaculation = Ejaculation::create([
                 'user_id' => Auth::id(),
                 'ejaculated_date' => $ejaculatedDate,
                 'note' => $inputs['note'] ?? '',
                 'link' => $inputs['link'] ?? '',
-                'source' => Ejaculation::SOURCE_API,
+                'source' => $fromPublicApi ? Ejaculation::SOURCE_API : Ejaculation::SOURCE_WEB,
                 'is_private' => (bool)($inputs['is_private'] ?? false),
                 'is_too_sensitive' => (bool)($inputs['is_too_sensitive'] ?? false),
                 'discard_elapsed_time' => (bool)($inputs['discard_elapsed_time'] ?? false),
-                'oauth_access_token_id' => Auth::user()->token()->id,
+                'oauth_access_token_id' => $fromPublicApi ? Auth::user()->token()->id : null,
             ]);
 
             $tagIds = [];
@@ -64,54 +65,56 @@ class CheckinController extends Controller
         return new EjaculationResource($ejaculation);
     }
 
-    public function show(Ejaculation $checkin)
+    public function show(string $checkin)
     {
-        $owner = $checkin->user;
+        $ejaculation = $this->queryEjaculation($checkin)->firstOrFail();
+        $owner = $ejaculation->user;
         if (!$owner->isMe()) {
             if ($owner->is_protected) {
                 throw new AccessDeniedHttpException('このユーザはチェックイン履歴を公開していません');
             }
-            if ($checkin->is_private) {
+            if ($ejaculation->is_private) {
                 throw new AccessDeniedHttpException('非公開チェックインのため、表示できません');
             }
         }
+        $ejaculation->ensureInterval();
 
-        return new EjaculationResource($checkin);
+        return new EjaculationResource($ejaculation);
     }
 
     public function update(CheckinStoreRequest $request, Ejaculation $checkin)
     {
         $inputs = $request->validated();
 
-        if (isset($inputs['checked_in_at'])) {
+        if (array_key_exists('checked_in_at', $inputs) && $inputs['checked_in_at'] !== null) {
             $ejaculatedDate = new Carbon($inputs['checked_in_at']);
             $ejaculatedDate = $ejaculatedDate->setTimezone(date_default_timezone_get())->startOfMinute();
             if (Ejaculation::where(['user_id' => Auth::id(), 'ejaculated_date' => $ejaculatedDate])->where('id', '<>', $checkin->id)->count()) {
-                throw new UnprocessableEntityHttpException('Checkin already exists in this time');
+                throw new UnprocessableEntityHttpException('既にこの日時にチェックインしているため、登録できません');
             }
 
             $checkin->ejaculated_date = $ejaculatedDate;
         }
-        if (isset($inputs['note'])) {
-            $checkin->note = $inputs['note'];
+        if (array_key_exists('note', $inputs)) {
+            $checkin->note = $inputs['note'] ?? '';
         }
-        if (isset($inputs['link'])) {
-            $checkin->link = $inputs['link'];
+        if (array_key_exists('link', $inputs)) {
+            $checkin->link = $inputs['link'] ?? '';
         }
-        if (isset($inputs['is_private'])) {
+        if (array_key_exists('is_private', $inputs)) {
             $checkin->is_private = (bool)($inputs['is_private'] ?? false);
         }
-        if (isset($inputs['is_too_sensitive'])) {
+        if (array_key_exists('is_too_sensitive', $inputs)) {
             $checkin->is_too_sensitive = (bool)($inputs['is_too_sensitive'] ?? false);
         }
-        if (isset($inputs['discard_elapsed_time'])) {
+        if (array_key_exists('discard_elapsed_time', $inputs)) {
             $checkin->discard_elapsed_time = (bool)($inputs['discard_elapsed_time'] ?? false);
         }
 
         DB::transaction(function () use ($inputs, $checkin) {
             $checkin->save();
 
-            if (isset($inputs['tags'])) {
+            if (array_key_exists('tags', $inputs)) {
                 $tagIds = [];
                 if (!empty($inputs['tags'])) {
                     foreach ($inputs['tags'] as $tag) {
@@ -132,10 +135,10 @@ class CheckinController extends Controller
             event(new LinkDiscovered($checkin->link));
         }
 
-        return new EjaculationResource($checkin);
+        return new EjaculationResource($this->queryEjaculation($checkin->id)->firstOrFail());
     }
 
-    public function destroy($checkin)
+    public function destroy(string $checkin)
     {
         $ejaculation = Ejaculation::find($checkin);
 
@@ -149,5 +152,13 @@ class CheckinController extends Controller
         }
 
         return response()->noContent();
+    }
+
+    private function queryEjaculation(string $id)
+    {
+        return Ejaculation::query()
+            ->whereKey($id)
+            ->withLikes()
+            ->withMutedStatus();
     }
 }

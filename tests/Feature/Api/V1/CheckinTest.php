@@ -149,6 +149,50 @@ class CheckinTest extends TestCase
         $response->assertStatus(403);
     }
 
+    public function testPatchClearNote()
+    {
+        $user = User::factory()->create();
+        Passport::actingAs($user);
+
+        $ejaculation = Ejaculation::factory()->create([
+            'user_id' => $user->id,
+            'ejaculated_date' => Carbon::create(2020, 7, 1, 0, 0, 0, 'Asia/Tokyo'),
+            'note' => 'existing note',
+        ]);
+
+        $response = $this->patchJson('/api/v1/checkins/' . $ejaculation->id, [
+            'note' => '',
+        ]);
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('ejaculations', [
+            'id' => $ejaculation->id,
+            'note' => '',
+        ]);
+    }
+
+    public function testPatchClearLink()
+    {
+        $user = User::factory()->create();
+        Passport::actingAs($user);
+
+        $ejaculation = Ejaculation::factory()->create([
+            'user_id' => $user->id,
+            'ejaculated_date' => Carbon::create(2020, 7, 1, 0, 0, 0, 'Asia/Tokyo'),
+            'link' => 'https://example.com',
+        ]);
+
+        $response = $this->patchJson('/api/v1/checkins/' . $ejaculation->id, [
+            'link' => '',
+        ]);
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('ejaculations', [
+            'id' => $ejaculation->id,
+            'link' => '',
+        ]);
+    }
+
     public function testDelete()
     {
         $user = User::factory()->create();
