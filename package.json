@@ -91,8 +91,8 @@
     "vite": "^8.0.8"
   },
   "resolutions": {
-    "@types/react": "^19.1.13",
-    "@types/react-dom": "^19.1.9"
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3"
   },
   "stylelint": {
     "customSyntax": "postcss-scss",
