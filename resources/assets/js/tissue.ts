@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { fetchGet, fetchDeleteJson, ResponseError } from './fetch';
+import { fetchGet, ResponseError } from './fetch';
 
 export function suicide<T>(e: T) {
     return function (): never {
@@ -71,49 +71,6 @@ export function pageSelector(el: Element) {
         });
     }
     return el;
-}
-
-export function deleteCheckinModal(modal: Element) {
-    let element: Element;
-    let id: any = null;
-    modal.querySelector('form')?.addEventListener('submit', function (event) {
-        event.preventDefault();
-        const buttons = modal.querySelectorAll('button');
-        buttons.forEach((button) => (button.disabled = true));
-
-        const inCheckinPage = location.pathname.startsWith('/checkin/');
-        fetchDeleteJson(`/api/checkin/${id}`, {
-            flash: inCheckinPage,
-        })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new ResponseError(response);
-            })
-            .then((data) => {
-                $(modal).modal('hide');
-                if (inCheckinPage) {
-                    location.href = data.user || '/';
-                } else {
-                    element.remove();
-                }
-            })
-            .catch((e) => {
-                console.error(e);
-                alert('削除中にエラーが発生しました。');
-            })
-            .finally(() => {
-                buttons.forEach((button) => (button.disabled = false));
-            });
-    });
-    return $(modal).on('show.bs.modal', function (event) {
-        const target = event.relatedTarget || die();
-        element = target.parentElement?.parentElement || die();
-        const dateLabel = this.querySelector('.modal-body .date-label') || die();
-        dateLabel.textContent = target.dataset.date || null;
-        id = target.dataset.id;
-    });
 }
 
 const THEME_COLORS = ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'light', 'dark'] as const;

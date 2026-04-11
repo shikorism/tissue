@@ -22,9 +22,9 @@
                     <td><a href="{{ route('admin.reports.show', ['report' => $report]) }}">{{ $report->created_at->format('Y/m/d H:i:s') }}</a></td>
                     <td>
                         @if ($report->ejaculation_id !== null)
-                            <a href="{{ route('checkin.show', ['id' => $report->ejaculation_id]) }}" target="_blank">checkin/{{ $report->ejaculation_id }}</a>
+                            <a href="{{ url('/checkin/' . $report->ejaculation_id) }}" target="_blank">checkin/{{ $report->ejaculation_id }}</a>
                         @else
-                            <a href="{{ route('user.profile', ['name' => $report->targetUser->name]) }}" target="_blank">user/{{ $report->targetUser->name }}</a>
+                            <a href="{{ url('/user/'. $report->targetUser->name) }}" target="_blank">user/{{ $report->targetUser->name }}</a>
                         @endif
                     </td>
                     <td>{{ $report->violatedRule?->summary ?? 'その他' }}</td>

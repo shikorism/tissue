@@ -3,7 +3,7 @@
     "sourceMap": true,
     "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "strict": true,
     "experimentalDecorators": true,
     "jsx": "react",
@@ -11,6 +11,7 @@
     "skipLibCheck": true
   },
   "include": [
+    "frontend",
     "resources/assets/js/**/*"
   ]
 }

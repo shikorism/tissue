@@ -114,15 +114,15 @@ class CollectionItemController extends Controller
             'tags.*.not_regex' => 'The :attribute cannot contain spaces, tabs and newlines.',
         ])->validate();
 
-        if (isset($validated['note'])) {
-            $item->note = $validated['note'];
+        if (array_key_exists('note', $validated)) {
+            $item->note = $validated['note'] ?? '';
         }
 
         DB::transaction(function () use ($item, $validated) {
             $item->save();
             $item->collection->touch();
 
-            if (isset($validated['tags'])) {
+            if (array_key_exists('tags', $validated)) {
                 $tagIds = [];
                 if (!empty($validated['tags'])) {
                     foreach ($validated['tags'] as $tag) {

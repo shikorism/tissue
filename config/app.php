@@ -187,4 +187,5 @@ return [
     ])->toArray(),
 
     'protected_only_mode' => env('PROTECTED_ONLY_MODE', false),
+    'support_link' => env('APP_SUPPORT_LINK'),
 ];

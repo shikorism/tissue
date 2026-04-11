@@ -10,10 +10,10 @@
             <dt>通報日時</dt>
             <dd>{{ $report->created_at->format('Y/m/d H:i:s') }}</dd>
             <dt>通報したユーザー</dt>
-            <dd><a href="{{ route('user.profile', ['name' => $report->reporter->name]) }}">{{ $report->reporter->display_name }} (&commat;{{ $report->reporter->name }})</a></dd>
+            <dd><a href="{{ url('/user/' . $report->reporter->name) }}">{{ $report->reporter->display_name }} (&commat;{{ $report->reporter->name }})</a></dd>
             <dt>通報対象ユーザー</dt>
             <dd>
-                <a href="{{ route('user.profile', ['name' => $report->targetUser->name]) }}">{{ $report->targetUser->display_name }} (&commat;{{ $report->targetUser->name }})</a>
+                <a href="{{ url('/user/' . $report->targetUser->name) }}">{{ $report->targetUser->display_name }} (&commat;{{ $report->targetUser->name }})</a>
                 <br>
                 被通報回数: {{ $strikes }} 回
             </dd>
@@ -84,7 +84,7 @@
             @foreach ($report->moderations as $moderation)
                 <tr>
                     <td>{{ $moderation->created_at->format('Y/m/d H:i:s') }}</td>
-                    <td><a href="{{ route('user.profile', ['name' => $moderation->moderator->name]) }}">&commat;{{ $moderation->moderator->name }}</a></td>
+                    <td><a href="{{ url('/user/' . $moderation->moderator->name) }}">&commat;{{ $moderation->moderator->name }}</a></td>
                     <td>
                         @switch($moderation->action)
                             @case(\App\ModerationAction::SuspendCheckin)

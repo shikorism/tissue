@@ -26,7 +26,7 @@
         "laravel/framework": "^11.0",
         "laravel/helpers": "^1.2",
         "laravel/passport": "^12.3",
-        "laravel/tinker": "^2.0",
+        "laravel/tinker": "^3.0",
         "laravel/ui": "^4.2",
         "league/csv": "^9.5",
         "misd/linkify": "^1.1",
@@ -37,7 +37,7 @@
         "t1gor/robots-txt-parser": "^0.2.4"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.1",
+        "barryvdh/laravel-debugbar": "^4.2",
         "barryvdh/laravel-ide-helper": "^3.1.0",
         "friendsofphp/php-cs-fixer": "^3.0",
         "fakerphp/faker": "^1.9.1",
