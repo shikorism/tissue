@@ -7,8 +7,8 @@
     z-index: z-index.$toast;
     width: 320px;
     text-align: center;
-    transition: transform 200ms linear, opacity 200ms linear;
     transform: translateX(-50%) translateY(-150%);
+    transition: transform 200ms linear, opacity 200ms linear;
 
     &.show {
         transform: translateX(-50%) translateY(0);
