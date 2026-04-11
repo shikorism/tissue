@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Like;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -30,7 +29,6 @@ class EjaculationResource extends JsonResource
 
             // scopeWithLikes 使用時のみ
             'is_liked' => $this->whenHas('is_liked'), // private
-            'likes' => $this->whenLoaded('likes', fn ($likes) => UserResource::collection($likes->pluck('user'))), // private
             'likes_count' => $this->whenHas('likes_count'), // private
 
             // scopeWithInterval 使用時のみ

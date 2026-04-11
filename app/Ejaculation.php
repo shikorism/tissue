@@ -99,19 +99,7 @@ class Ejaculation extends Model
     public function scopeWithLikes(Builder $query)
     {
         if (Auth::check()) {
-            // TODO - このスコープを使うことでlikesが常に直近10件で絞られるのは汚染されすぎ感がある。別名を付与できないか？
-            //      - (ejaculation_id, user_id) でユニークなわけですが、is_liked はサブクエリ発行させるのとLeft JoinしてNULLかどうかで結果を見るのどっちがいいんでしょうね
             return $query
-                ->with([
-                    'likes' => function ($query) {
-                        $query->latest()->take(10);
-                    },
-                    'likes.user' => function ($query) {
-                        $query->where('is_protected', false)
-                            ->where('private_likes', false)
-                            ->orWhere('id', Auth::id());
-                    }
-                ])
                 ->withCount([
                     'likes',
                     'likes as is_liked' => function ($query) {
@@ -120,15 +108,6 @@ class Ejaculation extends Model
                 ]);
         } else {
             return $query
-                ->with([
-                    'likes' => function ($query) {
-                        $query->latest()->take(10);
-                    },
-                    'likes.user' => function ($query) {
-                        $query->where('is_protected', false)
-                            ->where('private_likes', false);
-                    }
-                ])
                 ->withCount('likes')
                 ->addSelect(DB::raw('0 as is_liked'));
         }
