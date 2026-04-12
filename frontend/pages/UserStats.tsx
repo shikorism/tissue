@@ -5,6 +5,8 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { getUserStatsCheckinOldestQuery } from '../api/query';
 import { ColumnHeader } from '../components/ColumnHeader';
 import { Checkbox } from '../components/ui/Checkbox';
+import { TZDate } from '@date-fns/tz';
+import { SERVER_TZ } from '../lib/time';
 
 export const UserStats: React.FC = () => {
     const navigate = useNavigate();
@@ -17,7 +19,7 @@ export const UserStats: React.FC = () => {
     const months: (number | 'all')[] = ['all'];
     if (oldestData.oldest_checkin_date) {
         const [oldestYear, oldestMonth] = oldestData.oldest_checkin_date.split('-');
-        const now = new Date();
+        const now = TZDate.tz(SERVER_TZ);
 
         // 年セレクタの作成
         for (let y = parseInt(oldestYear, 10); y <= now.getFullYear(); y++) {
