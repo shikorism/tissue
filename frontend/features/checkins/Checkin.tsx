@@ -14,6 +14,7 @@ import { Button } from '../../components/ui/Button';
 import { ProgressButton } from '../../components/ui/ProgressButton';
 import { useDeleteCheckin } from '../../api/mutation';
 import { toast } from 'sonner';
+import { serverTz } from '../../lib/time';
 
 interface Props {
     checkin: components['schemas']['Checkin'];
@@ -67,9 +68,9 @@ export const Checkin: React.FC<Props> = ({
                     <span className="text-xl font-medium mr-2">{formatCheckinInterval(checkin)}</span>
                     <Link to={`/checkin/${checkin.id}`} className="text-secondary hover:underline">
                         {intervalStyle === 'full' && !checkin.discard_elapsed_time && checkin.previous_checked_in_at
-                            ? `${formatDate(checkin.previous_checked_in_at, 'yyyy/MM/dd HH:mm')} 〜 `
+                            ? `${formatDate(checkin.previous_checked_in_at, 'yyyy/MM/dd HH:mm', { in: serverTz })} 〜 `
                             : ''}
-                        {formatDate(checkin.checked_in_at, 'yyyy/MM/dd HH:mm')}
+                        {formatDate(checkin.checked_in_at, 'yyyy/MM/dd HH:mm', { in: serverTz })}
                     </Link>
                 </h5>
             ) : (
@@ -85,7 +86,7 @@ export const Checkin: React.FC<Props> = ({
                         <bdi className="text-xl font-medium">{checkin.user.display_name}</bdi>
                     </Link>
                     <Link to={`/checkin/${checkin.id}`} className="text-secondary hover:underline">
-                        {formatDate(checkin.checked_in_at, 'yyyy/MM/dd HH:mm')}
+                        {formatDate(checkin.checked_in_at, 'yyyy/MM/dd HH:mm', { in: serverTz })}
                     </Link>
                 </h5>
             )}
@@ -216,7 +217,7 @@ export const Checkin: React.FC<Props> = ({
             <Modal isOpen={isOpenDeleteModal} onClose={() => setIsOpenDeleteModal(false)}>
                 <ModalHeader closeButton>削除確認</ModalHeader>
                 <ModalBody>
-                    {formatDate(checkin.checked_in_at, 'yyyy/MM/dd HH:mm ')}
+                    {formatDate(checkin.checked_in_at, 'yyyy/MM/dd HH:mm ', { in: serverTz })}
                     のチェックインを削除してもよろしいですか？
                 </ModalBody>
                 <ModalFooter>

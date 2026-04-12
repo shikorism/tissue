@@ -8,6 +8,8 @@ import {
     getUserStatsTagsQuery,
 } from '../api/query';
 import { endOfMonth, formatDate, startOfMonth, subMonths } from 'date-fns';
+import { TZDate } from '@date-fns/tz';
+import { SERVER_TZ } from '../lib/time';
 
 export interface LoaderData {
     statsCheckinDailyQuery: {
@@ -26,7 +28,7 @@ export const loader = (queryClient: QueryClient) => async () => {
         return;
     }
 
-    const now = new Date();
+    const now = TZDate.tz(SERVER_TZ);
     const statsCheckinDailyQuery = {
         since: formatDate(subMonths(startOfMonth(now), 11), 'yyyy-MM-dd'),
         until: formatDate(endOfMonth(now), 'yyyy-MM-dd'),
