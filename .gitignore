@@ -26,5 +26,6 @@ yarn-error.log
 .php_cs.cache
 .php-cs-fixer.cache
 .phpstorm.meta.php
+.pnpm-store
 _ide_helper*.php
 /tsp-output
