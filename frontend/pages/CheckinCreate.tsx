@@ -39,7 +39,9 @@ export const CheckinCreate: React.FC = () => {
     const handleSubmit: SubmitHandler = async (values) => {
         try {
             const createdCheckin = await postCheckin.mutateAsync({
-                checked_in_at: `${values.date.replace(/\//g, '-')}T${values.time}:00+09:00`,
+                checked_in_at: values.is_realtime
+                    ? undefined
+                    : `${values.date.replace(/\//g, '-')}T${values.time}:00+09:00`,
                 link: values.link,
                 note: values.note,
                 tags: values.tags,
