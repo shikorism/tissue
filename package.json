@@ -51,6 +51,7 @@
     "clipboard": "^2.0.11",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "dayjs": "^1.11.20",
     "eslint": "^10.2.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-jquery": "^1.5.1",
