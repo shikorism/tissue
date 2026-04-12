@@ -92,10 +92,6 @@
     "typescript-eslint": "^8.58.1",
     "vite": "^8.0.8"
   },
-  "resolutions": {
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3"
-  },
   "stylelint": {
     "customSyntax": "postcss-scss",
     "extends": "stylelint-config-recess-order"
