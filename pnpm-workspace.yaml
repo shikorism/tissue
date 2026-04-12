@@ -1,0 +1,11 @@
+allowBuilds:
+  '@parcel/watcher': false
+  core-js: false
+  protobufjs: false
+  sharp: false
+blockExoticSubdeps: true
+minimumReleaseAge: 2880
+overrides:
+  "@types/react": "^19.2.14"
+  "@types/react-dom": "^19.2.3"
+strictDepBuilds: true

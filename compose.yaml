@@ -30,7 +30,7 @@ services:
     ports: []
   front:
     image: tissue-dev-web
-    command: sh -c "yarn && yarn dev --host --port 4546"
+    command: sh -c "pnpm i && pnpm run dev --host --port 4546"
     volumes:
       - .:/var/www/html
       - front_node_modules:/var/www/html/node_modules

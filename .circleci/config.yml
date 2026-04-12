@@ -42,15 +42,19 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-{{ checksum "pnpm-lock.yaml" }}
             - v1-dependencies-
+      - run:
+          name: prepare pnpm
+          command: |
+            corepack enable --install-directory ~/bin
+            pnpm config set store-dir .pnpm-store
   save_npm:
     steps:
       - save_cache:
-          key: v1-dependencies-{{ checksum "yarn.lock" }}
+          key: v1-dependencies-{{ checksum "pnpm-lock.yaml" }}
           paths:
-            - ./node_modules
-            - ~/.yarn
+            - ./.pnpm-store
 
 jobs:
   build:
@@ -63,10 +67,10 @@ jobs:
       - save_composer
 
       - restore_npm
-      - run: yarn install
+      - run: pnpm install --frozen-lockfile
       - save_npm
 
-      - run: yarn run prod
+      - run: pnpm run prod
 
       - persist_to_workspace:
           root: .
@@ -80,6 +84,7 @@ jobs:
 
       - restore_composer
       - restore_npm
+      - run: pnpm install --frozen-lockfile
 
       - attach_workspace:
           at: .
@@ -98,19 +103,19 @@ jobs:
       # Run tsc
       - run:
           name: tsc
-          command: yarn run lint:tsc
+          command: pnpm run lint:tsc
           when: always
 
       # Run stylelint
       - run:
           name: stylelint
-          command: yarn run lint:stylelint
+          command: pnpm run lint:stylelint
           when: always
 
       # Run eslint
       - run:
           name: eslint
-          command: yarn run lint:eslint
+          command: pnpm run lint:eslint
           when: always
 
       # Run unit test

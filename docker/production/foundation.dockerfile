@@ -17,7 +17,10 @@ FROM node:22.20.0-bullseye
 WORKDIR /app
 COPY --from=php /app /app
 
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+
 RUN corepack enable
-RUN yarn install \
-    && yarn run prod \
-    && yarn run doc
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile \
+    && pnpm run prod \
+    && pnpm run doc
