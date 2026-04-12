@@ -20,6 +20,7 @@ import { Checkin } from '../features/checkins/Checkin';
 import { Bar } from 'react-chartjs-2';
 
 import { BarController, BarElement, CategoryScale, Chart, LinearScale, Tooltip } from 'chart.js';
+import { serverTz } from '../lib/time';
 
 Chart.register([BarController, BarElement, CategoryScale, LinearScale, Tooltip]);
 
@@ -52,7 +53,7 @@ export const Home: React.FC = () => {
                                             <span className="text-primary">{info.title}</span>
                                             <span className="text-2xs text-secondary">
                                                 {' '}
-                                                - {format(info.created_at, 'M月d日')}
+                                                - {format(info.created_at, 'M月d日', { in: serverTz })}
                                             </span>
                                         </span>
                                     </a>
@@ -93,6 +94,7 @@ const CurrentSession: React.FC<CurrentSessionProps> = ({ user }) => {
                         ? `${format(
                               subSeconds(Date.now(), user.checkin_summary.current_session_elapsed),
                               'yyyy/MM/dd HH:mm',
+                              { in: serverTz },
                           )} にリセット`
                         : '計測がまだ始まっていません'}
                 </p>
