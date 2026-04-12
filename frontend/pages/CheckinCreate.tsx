@@ -7,19 +7,21 @@ import {
     SubmitHandler,
 } from '../features/checkins/CheckinForm';
 import { format } from 'date-fns';
+import { TZDate } from '@date-fns/tz';
 import { ExternalLink } from '../components/ui/ExternalLink';
 import { usePostCheckin } from '../api/mutation';
 import { ResponseError } from '../api/errors';
 import { toast } from 'sonner';
 import { useNavigate, useSearchParams } from 'react-router';
 import { Container } from '../components/Container';
+import { SERVER_TZ } from '../lib/time';
 
 export const CheckinCreate: React.FC = () => {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const postCheckin = usePostCheckin();
 
-    const now = new Date();
+    const now = TZDate.tz(SERVER_TZ);
     const initialValues: Partial<CheckinFormValues> = {
         date: searchParams.get('date')?.replace(/\//g, '-') || format(now, 'yyyy-MM-dd'),
         time: searchParams.get('time') || format(now, 'HH:mm'),
@@ -39,7 +41,9 @@ export const CheckinCreate: React.FC = () => {
     const handleSubmit: SubmitHandler = async (values) => {
         try {
             const createdCheckin = await postCheckin.mutateAsync({
-                checked_in_at: `${values.date.replace(/\//g, '-')}T${values.time}:00+09:00`,
+                checked_in_at: values.is_realtime
+                    ? undefined
+                    : `${values.date.replace(/\//g, '-')}T${values.time}:00+09:00`,
                 link: values.link,
                 note: values.note,
                 tags: values.tags,

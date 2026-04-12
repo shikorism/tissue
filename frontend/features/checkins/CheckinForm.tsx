@@ -1,5 +1,6 @@
 import React, { FormEventHandler, Suspense, useEffect, useState } from 'react';
 import { format } from 'date-fns';
+import { TZDate } from '@date-fns/tz';
 import { TagInput } from '../../components/TagInput';
 import { FieldError } from '../../components/ui/FieldError';
 import { cn } from '../../lib/cn';
@@ -9,6 +10,7 @@ import { Checkbox } from '../../components/ui/Checkbox';
 import { Input } from '../../components/ui/Input';
 import { TextArea } from '../../components/ui/TextArea';
 import { FavoriteTags } from './FavoriteTags';
+import { SERVER_TZ } from '../../lib/time';
 
 export interface CheckinFormValues {
     date: string;
@@ -72,7 +74,7 @@ export const CheckinForm: React.FC<CheckinFormProps> = ({ mode, initialValues, o
     useEffect(() => {
         if (mode === 'create' && isRealtime) {
             const id = setInterval(() => {
-                const now = new Date();
+                const now = TZDate.tz(SERVER_TZ);
                 setDate(format(now, 'yyyy-MM-dd'));
                 setTime(format(now, 'HH:mm'));
             }, 500);

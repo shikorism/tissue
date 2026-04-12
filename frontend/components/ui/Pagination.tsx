@@ -132,7 +132,7 @@ export const Pagination: React.FC<PaginationProps> = ({ className, perPage, tota
                 )}
                 <li className="page-item w-25 text-center">
                     <select
-                        className="inline-block w-full h-full px-2"
+                        className="inline-block w-full h-full px-2 border-y border-gray-border"
                         aria-label="Page"
                         value={page}
                         onChange={handleChangePage}

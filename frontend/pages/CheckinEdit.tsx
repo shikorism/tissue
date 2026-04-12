@@ -15,6 +15,7 @@ import { LoaderData } from './CheckinEdit.loader';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getCheckinQuery } from '../api/query';
 import { Container } from '../components/Container';
+import { serverTz } from '../lib/time';
 
 export const CheckinEdit: React.FC = () => {
     const navigate = useNavigate();
@@ -23,8 +24,8 @@ export const CheckinEdit: React.FC = () => {
     const patchCheckin = usePatchCheckin();
 
     const initialValues: Partial<CheckinFormValues> = {
-        date: format(checkin.checked_in_at, 'yyyy-MM-dd'),
-        time: format(checkin.checked_in_at, 'HH:mm'),
+        date: format(checkin.checked_in_at, 'yyyy-MM-dd', { in: serverTz }),
+        time: format(checkin.checked_in_at, 'HH:mm', { in: serverTz }),
         link: checkin.link,
         tags: checkin.tags,
         note: checkin.note,
