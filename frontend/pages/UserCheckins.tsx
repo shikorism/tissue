@@ -10,6 +10,8 @@ import { cn } from '../lib/cn';
 import { Container } from '../components/Container';
 import { ColumnHeader } from '../components/ColumnHeader';
 import { Checkbox } from '../components/ui/Checkbox';
+import { TZDate } from '@date-fns/tz';
+import { SERVER_TZ } from '../lib/time';
 
 export const UserCheckins: React.FC = () => {
     const params = useParams();
@@ -19,13 +21,18 @@ export const UserCheckins: React.FC = () => {
         data: { data, totalCount },
     } = useSuspenseQuery(getUserCheckinsQuery(username, checkinsQuery));
 
-    let currentDate: Date | undefined;
+    let currentDate: TZDate | undefined;
     if (params.year && params.month && params.date) {
-        currentDate = new Date(parseInt(params.year, 10), parseInt(params.month, 10) - 1, parseInt(params.date, 10));
+        currentDate = new TZDate(
+            parseInt(params.year, 10),
+            parseInt(params.month, 10) - 1,
+            parseInt(params.date, 10),
+            SERVER_TZ,
+        );
     } else if (params.year && params.month) {
-        currentDate = new Date(parseInt(params.year, 10), parseInt(params.month, 10) - 1, 1);
+        currentDate = new TZDate(parseInt(params.year, 10), parseInt(params.month, 10) - 1, 1, SERVER_TZ);
     } else if (params.year) {
-        currentDate = new Date(parseInt(params.year, 10), 0, 1);
+        currentDate = new TZDate(parseInt(params.year, 10), 0, 1, SERVER_TZ);
     }
 
     return (
@@ -123,16 +130,16 @@ export const UserCheckins: React.FC = () => {
 };
 
 interface CalendarParams {
-    initialDate?: Date;
+    initialDate?: TZDate;
 }
 
 const Calendar: React.FC<CalendarParams> = ({ initialDate }) => {
     const [searchParams] = useSearchParams();
     const { username } = useLoaderData<LoaderData>();
-    const [currentDate, setCurrentDate] = useState(initialDate || new Date());
+    const [currentDate, setCurrentDate] = useState(initialDate || TZDate.tz(SERVER_TZ));
 
     useEffect(() => {
-        setCurrentDate(initialDate || new Date());
+        setCurrentDate(initialDate || TZDate.tz(SERVER_TZ));
     }, [initialDate?.getTime()]);
 
     const { data: countByDate } = useQuery({
@@ -143,7 +150,6 @@ const Calendar: React.FC<CalendarParams> = ({ initialDate }) => {
         select: (data) => new Map(data.map((d) => [d.date, d.count])),
     });
 
-    // TODO: この実装だとクライアントのTZの影響を受ける。JST基準で描画したい。
     const cells: React.ReactNode[] = [];
     const startOfMon = startOfMonth(currentDate);
     const days = getDaysInMonth(startOfMon);
