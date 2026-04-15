@@ -98,6 +98,11 @@ class User extends Authenticatable
         return $this->hasMany(Collection::class)->chaperone();
     }
 
+    public function outgoingWebhooks()
+    {
+        return $this->hasMany(OutgoingWebhook::class);
+    }
+
     public function checkinSummary(): ?array
     {
         $total = $this->ejaculations()->count();
