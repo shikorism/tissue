@@ -14,6 +14,7 @@ return new class() extends Migration {
             $table->id();
             $table->integer('user_id');
             $table->string('name');
+            $table->text('url');
             $table->boolean('is_active')->default(true);
             $table->boolean('on_checkin_created')->default(false);
             $table->boolean('on_checkin_updated')->default(false);

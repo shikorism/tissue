@@ -11,6 +11,7 @@ class OutgoingWebhook extends Model
 
     protected $fillable = [
         'name',
+        'url',
         'is_active',
         'on_checkin_created',
         'on_checkin_updated',
