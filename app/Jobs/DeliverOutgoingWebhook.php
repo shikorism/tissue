@@ -5,6 +5,7 @@ namespace App\Jobs;
 
 use App\OutgoingWebhook;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -14,6 +15,7 @@ class DeliverOutgoingWebhook implements ShouldQueue
     use Queueable, SerializesModels;
 
     public int $tries = 4;
+    public int $backoff = 300;
     public bool $deleteWhenMissingModels = true;
 
     /**
@@ -25,11 +27,6 @@ class DeliverOutgoingWebhook implements ShouldQueue
         private readonly string $deliveryId,
         private readonly string $body
     ) {
-    }
-
-    public function backoff(): array
-    {
-        return [60, 300, 1800];
     }
 
     /**
@@ -49,18 +46,17 @@ class DeliverOutgoingWebhook implements ShouldQueue
                 'headers' => $headers,
                 'body' => $this->body,
                 'timeout' => 30,
-                'http_errors' => false,
             ]);
-            $isSuccess = 200 <= $response->getStatusCode() && $response->getStatusCode() <= 299;
             $this->recordDelivery(
-                $isSuccess,
+                true,
                 $response->getStatusCode(),
                 substr($response->getBody()->getContents(), 0, 1024),
             );
-
-            if (!$isSuccess) {
-                $this->fail("Delivery failed with status code {$response->getStatusCode()}");
-            }
+        } catch (RequestException $e) {
+            $statusCode = $e->getResponse()?->getStatusCode();
+            $responseBody = $e->hasResponse() ? substr($e->getResponse()->getBody()->getContents(), 0, 1024) : null;
+            $this->recordDelivery(false, $statusCode, $responseBody);
+            throw $e;
         } catch (\Throwable $e) {
             $this->recordDelivery(false, null, 'Delivery failed due to an internal server error');
             throw $e;
