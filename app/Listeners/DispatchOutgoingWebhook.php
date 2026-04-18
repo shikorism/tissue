@@ -36,12 +36,16 @@ class DispatchOutgoingWebhook
         }
 
         $deliveryId = Str::uuid()->toString();
+        $payload = match ($event::class) {
+            CheckinDeleted::class => ['id' => $event->ejaculation->id],
+            default => (new EjaculationResource($event->ejaculation))->jsonSerialize(),
+        };
         $template = [
             'event' => $eventName,
             'delivery_id' => $deliveryId,
             'webhook_id' => null,
             'triggered_at' => now()->toIso8601String(),
-            'payload' => (new EjaculationResource($event->ejaculation))->jsonSerialize(),
+            'payload' => $payload,
         ];
 
         foreach ($webhooks as $webhook) {
