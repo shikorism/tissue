@@ -9,7 +9,6 @@ class OutgoingWebhookDelivery extends Model
     protected $fillable = [
         'outgoing_webhook_id',
         'user_id',
-        'status',
         'delivery_id',
         'event',
         'is_success',
