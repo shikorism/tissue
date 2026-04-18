@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.1.0
 info:
   title: Tissue API
   description: |
@@ -1109,6 +1109,144 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/CollectionItem'
+webhooks:
+  checkin.created:
+    post:
+      summary: checkin.created
+      description: |
+        ### チェックインの登録
+
+        ユーザーがチェックインを登録した際に配信されるイベントです。
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - event
+                - delivery_id
+                - webhook_id
+                - triggered_at
+                - payload
+              properties:
+                event:
+                  type: string
+                  description: イベント名
+                  example: checkin.created
+                delivery_id:
+                  type: string
+                  format: uuid
+                  description: イベントごとの一意なID
+                webhook_id:
+                  type: integer
+                  description: Webhook設定のID
+                triggered_at:
+                  type: string
+                  format: date-time
+                  description: イベントの発生日時
+                payload:
+                  $ref: '#/components/schemas/Checkin'
+      responses:
+        2XX:
+          description: 200番台のステータスコードを返すと、成功として記録されます。
+        default:
+          description: |
+            それ以外のステータスコードを返すと、失敗として記録されます。
+            失敗時は5分おきに、最大3回リトライされます。
+  checkin.updated:
+    post:
+      summary: checkin.updated
+      description: |
+        ### チェックインの更新
+
+        ユーザーがチェックインを更新した際に配信されるイベントです。
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - event
+                - delivery_id
+                - webhook_id
+                - triggered_at
+                - payload
+              properties:
+                event:
+                  type: string
+                  description: イベント名
+                  example: checkin.updated
+                delivery_id:
+                  type: string
+                  format: uuid
+                  description: イベントごとの一意なID
+                webhook_id:
+                  type: integer
+                  description: Webhook設定のID
+                triggered_at:
+                  type: string
+                  format: date-time
+                  description: イベントの発生日時
+                payload:
+                  $ref: '#/components/schemas/Checkin'
+      responses:
+        2XX:
+          description: 200番台のステータスコードを返すと、成功として記録されます。
+        default:
+          description: |
+            それ以外のステータスコードを返すと、失敗として記録されます。
+            失敗時は5分おきに、最大3回リトライされます。
+  checkin.deleted:
+    post:
+      summary: checkin.deleted
+      description: |
+        ### チェックインの削除
+
+        ユーザーがチェックインを削除した際に配信されるイベントです。
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - event
+                - delivery_id
+                - webhook_id
+                - triggered_at
+                - payload
+              properties:
+                event:
+                  type: string
+                  description: イベント名
+                  example: checkin.deleted
+                delivery_id:
+                  type: string
+                  format: uuid
+                  description: イベントごとの一意なID
+                webhook_id:
+                  type: integer
+                  description: Webhook設定のID
+                triggered_at:
+                  type: string
+                  format: date-time
+                  description: イベントの発生日時
+                payload:
+                  type: object
+                  description: チェックインデータ
+                  required:
+                    - id
+                  properties:
+                    id:
+                      type: integer
+                      format: int64
+                      description: チェックインID
+      responses:
+        2XX:
+          description: 200番台のステータスコードを返すと、成功として記録されます。
+        default:
+          description: |
+            それ以外のステータスコードを返すと、失敗として記録されます。
+            失敗時は5分おきに、最大3回リトライされます。
 components:
   schemas:
     User:
