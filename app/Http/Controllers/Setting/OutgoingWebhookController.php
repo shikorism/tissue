@@ -57,8 +57,9 @@ class OutgoingWebhookController extends Controller
     public function edit(OutgoingWebhook $webhook)
     {
         $this->authorize('view', $webhook);
+        $deliveries = $webhook->deliveries()->orderByDesc('created_at')->limit(10)->get();
 
-        return view('setting.outgoing-webhook.edit')->with(compact('webhook'));
+        return view('setting.outgoing-webhook.edit')->with(compact('webhook', 'deliveries'));
     }
 
     public function update(OutgoingWebhook $webhook, Request $request)

@@ -64,7 +64,7 @@
     <h3 class="mt-5">送信履歴</h3>
     <hr>
     <p>直近10件のWebhook送信履歴を確認することができます。</p>
-    @forelse($webhook->deliveries()->orderBy('id', 'desc')->limit(10)->get() as $delivery)
+    @forelse($deliveries as $delivery)
         <div class="card mb-3">
             <div class="card-body">
                 <p class="mb-1"><b>送信日時</b>: {{ $delivery->created_at->format('Y/m/d H:i:s') }}</p>
