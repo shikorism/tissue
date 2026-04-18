@@ -61,6 +61,33 @@
         </div>
     </form>
 
+    <h3 class="mt-5">送信履歴</h3>
+    <hr>
+    <p>直近10件のWebhook送信履歴を確認することができます。</p>
+    @forelse($webhook->deliveries()->orderBy('id', 'desc')->limit(10)->get() as $delivery)
+        <div class="card mb-3">
+            <div class="card-body">
+                <p class="mb-1"><b>送信日時</b>: {{ $delivery->created_at->format('Y/m/d H:i:s') }}</p>
+                <p class="mb-1"><b>結果</b>:
+                    @if ($delivery->is_success)
+                        <span class="text-success font-weight-bold">成功</span>
+                    @else
+                        <span class="text-danger font-weight-bold">失敗</span>
+                    @endif
+                </p>
+                <p class="mb-1"><b>イベント</b>: <code class="px-2 py-1 bg-light border rounded">{{ $delivery->event }}</code></p>
+                <p class="mb-1"><b>Delivery ID</b>: <code class="px-2 py-1 bg-light border rounded">{{ $delivery->delivery_id }}</code></p>
+                <p class="mb-1"><b>リクエストボディ</b>:</p>
+                <pre class="p-2 bg-light border rounded">{{ json_encode(json_decode($delivery->request_body, true), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) }}</pre>
+                <p class="mb-1"><b>ステータスコード</b>: <code class="px-2 py-1 bg-light border rounded">{{ $delivery->status_code ?? '-' }}</code></p>
+                <p class="mb-1"><b>レスポンスボディ</b>:</p>
+                <pre class="p-2 bg-light border rounded">{{ $delivery->response_body }}</pre>
+            </div>
+        </div>
+    @empty
+        <p class="font-weight-bold">送信履歴がありません。</p>
+    @endforelse
+
     @component('components.modal', ['id' => 'deleteModal'])
         @slot('title')
             削除確認
