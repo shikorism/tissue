@@ -56,11 +56,15 @@ class OutgoingWebhookController extends Controller
 
     public function edit(OutgoingWebhook $webhook)
     {
+        $this->authorize('view', $webhook);
+
         return view('setting.outgoing-webhook.edit')->with(compact('webhook'));
     }
 
     public function update(OutgoingWebhook $webhook, Request $request)
     {
+        $this->authorize('update', $webhook);
+
         $validated = $request->validate([
             'name' => [
                 'required',
@@ -87,6 +91,7 @@ class OutgoingWebhookController extends Controller
 
     public function destroy(OutgoingWebhook $webhook)
     {
+        $this->authorize('delete', $webhook);
         $webhook->delete();
 
         return redirect()->route('setting.outgoing-webhooks')->with('status', '削除しました。');
