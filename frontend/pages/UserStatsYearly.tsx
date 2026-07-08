@@ -86,24 +86,27 @@ export const UserStatsYearly: React.FC = () => {
                     {mostlyUsedLinks.length > 0 ? (
                         <ul>
                             {mostlyUsedLinks.map((item, index) => (
-                                <li key={item.link} className="border-b border-gray-border py-3">
-                                    <p className="mb-2">
+                                <li key={item.link} className="flex flex-col gap-2 border-b border-gray-border py-3">
+                                    <p>
                                         <span className="inline-block min-w-13 text-center px-3 py-1 rounded-lg bg-primary text-white text-2xl font-bold mr-3">
                                             {index + 1}
                                         </span>
                                         <span className="text-2xl font-bold mr-1">{item.count}</span>回
                                     </p>
-                                    <LinkCard className="mb-2" link={item.link} />
-                                    <div className="flex items-center gap-2">
-                                        <ExternalLink className="overflow-hidden text-sm" href={item.link}>
+                                    <LinkCard link={item.link} />
+                                    <div className="flex items-baseline">
+                                        <i className="ti ti-link mr-1" />
+                                        <ExternalLink className="overflow-hidden" href={item.link}>
                                             {item.link}
                                         </ExternalLink>
+                                    </div>
+                                    <div className="flex">
                                         <Link
                                             to={{
                                                 pathname: '/checkin',
                                                 search: `?link=${encodeURIComponent(item.link)}`,
                                             }}
-                                            className="shrink-0 px-2 py-1 text-secondary"
+                                            className="px-4 py-2 text-xl text-secondary rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
                                             title="同じオカズでチェックイン"
                                         >
                                             <i className="ti ti-reload" />
