@@ -1,6 +1,11 @@
 import { QueryClient } from '@tanstack/react-query';
 import { LoaderFunctionArgs } from 'react-router';
-import { getUserStatsCheckinDailyQuery, getUserStatsCheckinHourlyQuery, getUserStatsTagsQuery } from '../api/query';
+import {
+    getUserStatsCheckinDailyQuery,
+    getUserStatsCheckinHourlyQuery,
+    getUserStatsLinksQuery,
+    getUserStatsTagsQuery,
+} from '../api/query';
 
 export interface LoaderData {
     username: string;
@@ -37,6 +42,7 @@ export const loader =
             queryClient.ensureQueryData(getUserStatsCheckinHourlyQuery(username, query)),
             queryClient.ensureQueryData(getUserStatsTagsQuery(username, query)),
             queryClient.ensureQueryData(getUserStatsTagsQuery(username, { ...query, includes_metadata: true })),
+            queryClient.ensureQueryData(getUserStatsLinksQuery(username, query)),
         ];
         if (prevQuery) {
             promises.push(queryClient.ensureQueryData(getUserStatsCheckinDailyQuery(username, prevQuery)));
