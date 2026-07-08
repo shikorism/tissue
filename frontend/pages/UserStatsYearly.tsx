@@ -1,7 +1,12 @@
 import React from 'react';
 import { useSuspenseQueries, useSuspenseQuery } from '@tanstack/react-query';
-import { useLoaderData, useParams } from 'react-router';
-import { getUserStatsCheckinDailyQuery, getUserStatsCheckinHourlyQuery, getUserStatsTagsQuery } from '../api/query';
+import { Link, useLoaderData, useParams } from 'react-router';
+import {
+    getUserStatsCheckinDailyQuery,
+    getUserStatsCheckinHourlyQuery,
+    getUserStatsLinksQuery,
+    getUserStatsTagsQuery,
+} from '../api/query';
 import { LoaderData } from './UserStatsYearly.loader';
 import { MonthlyChart } from '../features/user-stats/MonthlyChart';
 import { HourlyChart } from '../features/user-stats/HourlyChart';
@@ -10,6 +15,8 @@ import { TagRanking } from '../features/user-stats/TagRanking';
 import { Pill } from '../components/ui/Pill';
 import { CheckinHeatmap } from '../features/user-stats/CheckinHeatmap';
 import { ColumnHeader } from '../components/ColumnHeader';
+import { LinkCard } from '../components/LinkCard';
+import { ExternalLink } from '../components/ui/ExternalLink';
 
 export const UserStatsYearly: React.FC = () => {
     const { year } = useParams();
@@ -24,6 +31,7 @@ export const UserStatsYearly: React.FC = () => {
     const { data: mostlyUsedTagsIncludesMeta } = useSuspenseQuery(
         getUserStatsTagsQuery(username, { ...query, includes_metadata: true }),
     );
+    const { data: mostlyUsedLinks } = useSuspenseQuery(getUserStatsLinksQuery(username, query));
 
     return (
         <div className="px-4 lg:w-[480px] xl:w-[740px]">
@@ -71,6 +79,47 @@ export const UserStatsYearly: React.FC = () => {
                             <TagRanking className="w-full" tags={mostlyUsedTagsIncludesMeta} />
                         </div>
                     </div>
+                </div>
+                <div>
+                    <h2 className="text-xl font-bold mb-2">最も使ったオカズ</h2>
+                    <p className="text-secondary text-sm mb-4">2回以上使用したオカズのみ集計しています。</p>
+                    {mostlyUsedLinks.length > 0 ? (
+                        <ul>
+                            {mostlyUsedLinks.map((item, index) => (
+                                <li key={item.link} className="flex flex-col gap-2 border-b border-gray-border py-3">
+                                    <p>
+                                        <span className="inline-block min-w-13 text-center px-3 py-1 rounded-lg bg-primary text-white text-2xl font-bold mr-3">
+                                            {index + 1}
+                                        </span>
+                                        <span className="text-2xl font-bold mr-1">{item.count}</span>回
+                                    </p>
+                                    <LinkCard link={item.link} />
+                                    <div className="flex items-baseline">
+                                        <i className="ti ti-link mr-1" />
+                                        <ExternalLink className="overflow-hidden" href={item.link}>
+                                            {item.link}
+                                        </ExternalLink>
+                                    </div>
+                                    <div className="flex">
+                                        <Link
+                                            to={{
+                                                pathname: '/checkin',
+                                                search: `?link=${encodeURIComponent(item.link)}`,
+                                            }}
+                                            className="px-4 py-2 text-xl text-secondary rounded outline-2 outline-primary/0 focus:outline-primary/40 active:outline-primary/40 cursor-pointer"
+                                            title="同じオカズでチェックイン"
+                                        >
+                                            <i className="ti ti-reload" />
+                                        </Link>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p className="text-secondary">
+                            この期間のチェックインが無いか、2回以上使用したオカズがありません。
+                        </p>
+                    )}
                 </div>
             </div>
         </div>

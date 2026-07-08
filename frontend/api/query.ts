@@ -29,6 +29,18 @@ export const getUserQuery = (username: string) =>
                 .then((response) => ensure(response.data)),
     });
 
+export const getUserStatsLinksQuery = (
+    username: string,
+    query?: paths['/users/{username}/stats/links']['get']['parameters']['query'],
+) =>
+    queryOptions({
+        queryKey: ['/users/{username}/stats/links', username, query],
+        queryFn: () =>
+            fetchClient
+                .GET('/users/{username}/stats/links', { params: { path: { username }, query } })
+                .then((response) => ensure(response.data)),
+    });
+
 export const getUserStatsTagsQuery = (
     username: string,
     query?: paths['/users/{username}/stats/tags']['get']['parameters']['query'],
