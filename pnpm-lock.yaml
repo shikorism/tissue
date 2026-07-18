@@ -140,10 +140,10 @@ importers:
         version: 3.0.1(vite@8.1.5(@types/node@25.6.0)(jiti@2.6.1)(sass@1.99.0)(yaml@2.8.3))
       linkify-react:
         specifier: ^4.3.2
-        version: 4.3.2(linkifyjs@4.3.2)(react@19.2.5)
+        version: 4.3.2(linkifyjs@4.3.3)(react@19.2.5)
       linkifyjs:
-        specifier: ^4.3.2
-        version: 4.3.2
+        specifier: ^4.3.3
+        version: 4.3.3
       lint-staged:
         specifier: ^16.4.0
         version: 16.4.0
@@ -3397,8 +3397,8 @@ packages:
       linkifyjs: ^4.0.0
       react: '>= 15.0.0'
 
-  linkifyjs@4.3.2:
-    resolution: {integrity: sha512-NT1CJtq3hHIreOianA8aSXn6Cw0JzYOuDQbOrSPe7gqFnCpKP++MQe3ODgO3oh2GJFORkAAdqredOa60z63GbA==}
+  linkifyjs@4.3.3:
+    resolution: {integrity: sha512-P8aEP5U/D1/IlTY2OeYsErdwh9bGuLE30NcXtKEjgdHcahveQoQwM2yZNsioQHsWFz0P7KKudisbrzCgR0sDHg==}
 
   lint-staged@16.4.0:
     resolution: {integrity: sha512-lBWt8hujh/Cjysw5GYVmZpFHXDCgZzhrOm8vbcUdobADZNOK/bRshr2kM3DfgrrtR1DQhfupW9gnIXOfiFi+bw==}
@@ -7878,12 +7878,12 @@ snapshots:
 
   lines-and-columns@1.2.4: {}
 
-  linkify-react@4.3.2(linkifyjs@4.3.2)(react@19.2.5):
+  linkify-react@4.3.2(linkifyjs@4.3.3)(react@19.2.5):
     dependencies:
-      linkifyjs: 4.3.2
+      linkifyjs: 4.3.3
       react: 19.2.5
 
-  linkifyjs@4.3.2: {}
+  linkifyjs@4.3.3: {}
 
   lint-staged@16.4.0:
     dependencies:
