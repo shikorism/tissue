@@ -23,7 +23,7 @@
     "@bprogress/react": "^1.2.7",
     "@date-fns/tz": "^1.4.1",
     "@eslint/js": "^10.0.1",
-    "@radix-ui/react-dropdown-menu": "^2.1.16",
+    "@radix-ui/react-dropdown-menu": "^2.1.20",
     "@redocly/cli": "^2.26.0",
     "@tabler/icons-webfont": "3.35.0",
     "@tailwindcss/vite": "^4.1.14",
