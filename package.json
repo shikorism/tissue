@@ -63,7 +63,7 @@
     "js-cookie": "^3.0.8",
     "laravel-vite-plugin": "^3.0.0",
     "linkify-react": "^4.3.2",
-    "linkifyjs": "^4.3.2",
+    "linkifyjs": "^4.3.3",
     "lint-staged": "^16.4.0",
     "npm-run-all2": "^8.0.4",
     "openapi-fetch": "^0.17.0",
