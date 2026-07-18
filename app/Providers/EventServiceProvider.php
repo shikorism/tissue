@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\CheckinCreated;
+use App\Events\CheckinDeleted;
+use App\Events\CheckinUpdated;
+use App\Listeners\DispatchOutgoingWebhook;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -20,7 +24,16 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\LinkDiscovered' => [
             'App\Listeners\LinkCollector'
-        ]
+        ],
+        CheckinCreated::class => [
+            DispatchOutgoingWebhook::class,
+        ],
+        CheckinUpdated::class => [
+            DispatchOutgoingWebhook::class,
+        ],
+        CheckinDeleted::class => [
+            DispatchOutgoingWebhook::class,
+        ],
     ];
 
     /**

@@ -28,6 +28,10 @@ services:
     <<: *php
     command: php artisan schedule:work
     ports: []
+  worker:
+    <<: *php
+    command: php artisan queue:listen -v
+    ports: []
   front:
     image: tissue-dev-web
     command: sh -c "pnpm i && pnpm run dev --host --port 4546"

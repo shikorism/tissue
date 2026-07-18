@@ -1,6 +1,6 @@
 @extends('setting.base')
 
-@section('title', 'Webhook')
+@section('title', 'Incoming Webhook')
 
 @section('tab-content')
     <h3>Incoming Webhook</h3>
