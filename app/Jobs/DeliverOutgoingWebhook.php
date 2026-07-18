@@ -34,6 +34,10 @@ class DeliverOutgoingWebhook implements ShouldQueue
      */
     public function handle(Client $client): void
     {
+        if (!$this->webhook->is_active) {
+            return;
+        }
+
         try {
             $headers = [
                 'Content-Type' => 'application/json',

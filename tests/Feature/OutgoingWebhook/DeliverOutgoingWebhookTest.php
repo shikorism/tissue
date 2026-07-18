@@ -54,6 +54,19 @@ class DeliverOutgoingWebhookTest extends TestCase
         ]);
     }
 
+    public function testDoesNotDeliverWhenWebhookWasDeactivatedAfterDispatch()
+    {
+        $user = User::factory()->create();
+        $webhook = OutgoingWebhook::factory()->create(['user_id' => $user->id]);
+        $serializedJob = serialize($this->makeJob($webhook));
+        $webhook->update(['is_active' => false]);
+
+        $client = new Client(['handler' => HandlerStack::create(new MockHandler())]);
+        unserialize($serializedJob)->handle($client);
+
+        $this->assertDatabaseCount('outgoing_webhook_deliveries', 0);
+    }
+
     public function testServerErrorRecordsFailureAndRethrows()
     {
         $user = User::factory()->create();
