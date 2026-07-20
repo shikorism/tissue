@@ -157,7 +157,7 @@ class Formatter
      * @param string|null $fromEncoding `$input` の文字コード (nullの場合はdefault_charsetに準ずる、通常はUTF-8)
      * @return string エンティティ化された文字列
      */
-    public function htmlEntities(string $input, string $fromEncoding = null): string
+    public function htmlEntities(string $input, ?string $fromEncoding = null): string
     {
         // 非Unicode文字列は上手く処理できないので、UTF-8に正規化する
         $input = mb_convert_encoding($input, 'UTF-8', $fromEncoding);
