@@ -12,7 +12,7 @@ class DisallowedByProviderException extends RuntimeException
 {
     private $url;
 
-    public function __construct(string $url, Throwable $previous = null)
+    public function __construct(string $url, ?Throwable $previous = null)
     {
         parent::__construct("Access denied by robots.txt: $url", 0, $previous);
         $this->url = $url;

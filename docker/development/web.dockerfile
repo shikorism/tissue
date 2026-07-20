@@ -1,6 +1,6 @@
-FROM node:24.18.0-bullseye as node
+FROM node:24.18.0-bookworm as node
 
-FROM php:8.2.26-apache
+FROM php:8.4.23-apache-bookworm
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
