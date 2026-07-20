@@ -1,4 +1,4 @@
-FROM php:8.3.32-cli-bookworm as php
+FROM php:8.4.23-cli-bookworm as php
 
 RUN apt-get update \
     && apt-get install -y git libpq-dev unzip libicu-dev \

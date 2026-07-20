@@ -1,6 +1,6 @@
 FROM node:24.18.0-bookworm as node
 
-FROM php:8.3.32-apache-bookworm
+FROM php:8.4.23-apache-bookworm
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 

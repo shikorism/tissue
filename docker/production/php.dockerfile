@@ -2,7 +2,7 @@ ARG TISSUE_FOUNDATION_IMAGE_NAME
 
 FROM ${TISSUE_FOUNDATION_IMAGE_NAME} as foundation
 
-FROM php:8.3.32-fpm-bookworm
+FROM php:8.4.23-fpm-bookworm
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends libpq-dev libicu-dev \
