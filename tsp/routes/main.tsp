@@ -1,7 +1,6 @@
 import "./checkins.tsp";
 import "./collections.tsp";
 import "./information.tsp";
-import "./likes.tsp";
 import "./me.tsp";
 import "./search.tsp";
 import "./stats.tsp";
