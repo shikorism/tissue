@@ -12,7 +12,7 @@ a.k.a. shikorism.net
 
 ## 実行環境
 
-- PHP 8.2
+- PHP 8.3
 - PostgreSQL 14
 
 ## 開発環境の構築
