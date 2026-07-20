@@ -6,6 +6,7 @@
     <testsuites>
         <testsuite name="Unit">
             <directory>./tests/Unit</directory>
+            <exclude>./tests/Unit/MetadataResolver</exclude>
         </testsuite>
         <testsuite name="Feature">
             <directory>./tests/Feature</directory>

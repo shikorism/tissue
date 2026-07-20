@@ -9,6 +9,7 @@ use App\Services\CheckinCsvImporter;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class CheckinCsvImporterTest extends TestCase
@@ -31,9 +32,7 @@ class CheckinCsvImporterTest extends TestCase
         $importer->execute();
     }
 
-    /**
-     * @dataProvider provideMissingTime
-     */
+    #[DataProvider('provideMissingTime')]
     public function testMissingTime($filename)
     {
         $user = User::factory()->create();
@@ -44,7 +43,7 @@ class CheckinCsvImporterTest extends TestCase
         $importer->execute();
     }
 
-    public function provideMissingTime()
+    public static function provideMissingTime()
     {
         return [
             'UTF8' => [__DIR__ . '/../../fixture/Csv/missing-time.utf8.csv'],
@@ -52,9 +51,7 @@ class CheckinCsvImporterTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideDate
-     */
+    #[DataProvider('provideDate')]
     public function testDate($expectedDate, $filename)
     {
         $user = User::factory()->create();
@@ -67,7 +64,7 @@ class CheckinCsvImporterTest extends TestCase
         $this->assertEquals($expectedDate, $ejaculation->ejaculated_date);
     }
 
-    public function provideDate()
+    public static function provideDate()
     {
         $date = Carbon::create(2020, 1, 23, 6, 1, 0, 'Asia/Tokyo');
 
@@ -124,9 +121,7 @@ class CheckinCsvImporterTest extends TestCase
         $this->assertEquals('The quick brown fox jumps over the "lazy" dog.', $ejaculations[2]->note);
     }
 
-    /**
-     * @dataProvider provideNoteOverLength
-     */
+    #[DataProvider('provideNoteOverLength')]
     public function testNoteOverLength($filename)
     {
         $user = User::factory()->create();
@@ -137,7 +132,7 @@ class CheckinCsvImporterTest extends TestCase
         $importer->execute();
     }
 
-    public function provideNoteOverLength()
+    public static function provideNoteOverLength()
     {
         return [
             'ASCII Only, UTF8' => [__DIR__ . '/../../fixture/Csv/note-over-length.ascii.utf8.csv'],
