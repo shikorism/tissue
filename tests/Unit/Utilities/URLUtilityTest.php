@@ -4,19 +4,18 @@ declare(strict_types=1);
 namespace Tests\Unit\Utilities;
 
 use App\Utilities\URLUtility;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class URLUtilityTest extends TestCase
 {
-    /**
-     * @dataProvider provideGetHostWithPortFromUrl
-     */
+    #[DataProvider('provideGetHostWithPortFromUrl')]
     public function testGetHostWithPortFromUrl($expected, $url)
     {
         $this->assertSame($expected, URLUtility::getHostWithPortFromUrl($url));
     }
 
-    public function provideGetHostWithPortFromUrl()
+    public static function provideGetHostWithPortFromUrl()
     {
         return [
             'host' => ['example.com', 'http://example.com'],

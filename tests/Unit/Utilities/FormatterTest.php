@@ -3,6 +3,7 @@
 namespace Tests\Unit\Utilities;
 
 use App\Utilities\Formatter;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class FormatterTest extends TestCase
@@ -91,9 +92,7 @@ class FormatterTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider provideNormalizeTagName
-     */
+    #[DataProvider('provideNormalizeTagName')]
     public function testNormalizeTagName($input, $expected)
     {
         $formatter = new Formatter();
@@ -103,7 +102,7 @@ class FormatterTest extends TestCase
         $this->assertSame($expected, $formatter->normalizeTagName($normalized));
     }
 
-    public function provideNormalizeTagName()
+    public static function provideNormalizeTagName()
     {
         return [
             'LowerCase' => ['example', 'example'],

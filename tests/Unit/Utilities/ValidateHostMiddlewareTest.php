@@ -9,6 +9,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class ValidateHostMiddlewareTest extends TestCase
@@ -44,9 +45,7 @@ class ValidateHostMiddlewareTest extends TestCase
         return $capturedOptions ?? [];
     }
 
-    /**
-     * @dataProvider providePrivateIpv4Addresses
-     */
+    #[DataProvider('providePrivateIpv4Addresses')]
     public function testBlocksPrivateIpv4(string $ip): void
     {
         $this->expectException(DeniedHostException::class);
@@ -68,9 +67,7 @@ class ValidateHostMiddlewareTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providePrivateIpv6Addresses
-     */
+    #[DataProvider('providePrivateIpv6Addresses')]
     public function testBlocksPrivateIpv6(string $ip): void
     {
         $this->expectException(DeniedHostException::class);
@@ -118,9 +115,7 @@ class ValidateHostMiddlewareTest extends TestCase
         $this->sendRequest($middleware, 'https://example.com/');
     }
 
-    /**
-     * @dataProvider provideBlockedSchemes
-     */
+    #[DataProvider('provideBlockedSchemes')]
     public function testBlocksNonHttpSchemes(string $url): void
     {
         $this->expectException(DeniedHostException::class);
