@@ -25,7 +25,9 @@ commands:
       - checkout
       - run: sudo apt update
       - run: sudo apt install -y libpq-dev
-      - run: sudo pecl install -f xdebug
+      - run: |
+          sudo -E install-php-extensions xdebug
+          sudo docker-php-ext-enable xdebug
   restore_composer:
     steps:
       - restore_cache:
