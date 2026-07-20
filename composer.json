@@ -23,7 +23,7 @@
         "erusev/parsedown": "^1.7",
         "guzzlehttp/guzzle": "^7.4.5",
         "jakeasmith/http_build_url": "^1.0",
-        "laravel/framework": "^11.0",
+        "laravel/framework": "^12.61",
         "laravel/helpers": "^1.2",
         "laravel/passport": "^12.3",
         "laravel/tinker": "^3.0",
