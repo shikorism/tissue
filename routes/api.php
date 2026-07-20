@@ -19,9 +19,6 @@ Route::middleware('stateful')->group(function () {
     Route::middleware('throttle:60|180,1')->group(function () {
         Route::middleware('auth')->group(function () {
             Route::get('/me', 'Api\\V1\\MeController@show')->name('me.show');
-            Route::post('/likes', 'Api\\LikeController@store');
-            Route::delete('/likes/{id}', 'Api\\LikeController@destroy');
-            Route::apiResource('checkin', 'Api\\CheckinController')->only(['destroy']);
             Route::apiResource('checkins', 'Api\\V1\\CheckinController')->except(['index', 'show']);
             Route::apiResource('collections', 'Api\\V1\\CollectionController')->only(['index', 'store', 'update', 'destroy']);
             Route::apiResource('collections.items', 'Api\\V1\\CollectionItemController')->only(['store', 'update', 'destroy']);
