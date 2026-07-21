@@ -8,6 +8,7 @@ use App\MetadataResolver\Resolver;
 use App\MetadataResolver\TwitterResolver;
 use App\Services\MetadataResolveService;
 use App\Utilities\ApplyProviderPolicyMiddleware;
+use App\Utilities\ValidateHostMiddleware;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\RequestOptions;
@@ -82,15 +83,20 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton('parsedown', function () {
             return Parsedown::instance();
         });
-        $this->app->bind(Client::class, function () {
+        $this->app->bind(Client::class, function ($app) {
+            $stack = HandlerStack::create();
+            $stack->push($app->make(ValidateHostMiddleware::class));
+
             return new Client([
                 RequestOptions::HEADERS => [
                     'User-Agent' => 'TissueBot/1.0'
-                ]
+                ],
+                'handler' => $stack,
             ]);
         });
         $this->app->when(MetadataResolver::class)->needs(Client::class)->give(function ($app) {
             $stack = HandlerStack::create();
+            $stack->push($app->make(ValidateHostMiddleware::class));
             $stack->push($app->make(ApplyProviderPolicyMiddleware::class));
 
             return new Client([

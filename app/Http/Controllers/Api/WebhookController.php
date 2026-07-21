@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\CheckinWebhook;
 use App\Ejaculation;
+use App\Events\CheckinCreated;
 use App\Events\LinkDiscovered;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EjaculationResource;
@@ -92,6 +93,8 @@ class WebhookController extends Controller
 
             return $ejaculation;
         });
+
+        CheckinCreated::dispatch($ejaculation);
 
         if (!empty($ejaculation->link)) {
             event(new LinkDiscovered($ejaculation->link));

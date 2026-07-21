@@ -27,6 +27,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/setting/webhooks', 'SettingController@webhooks')->name('setting.webhooks');
     Route::post('/setting/webhooks', 'SettingController@storeWebhooks')->name('setting.webhooks.store');
     Route::delete('/setting/webhooks/{webhook}', 'SettingController@destroyWebhooks')->name('setting.webhooks.destroy');
+    Route::get('/setting/outgoing-webhooks', 'Setting\OutgoingWebhookController@index')->name('setting.outgoing-webhooks');
+    Route::get('/setting/outgoing-webhooks/create', 'Setting\OutgoingWebhookController@create')->name('setting.outgoing-webhooks.create');
+    Route::post('/setting/outgoing-webhooks', 'Setting\OutgoingWebhookController@store')->name('setting.outgoing-webhooks.store');
+    Route::get('/setting/outgoing-webhooks/{webhook}', 'Setting\OutgoingWebhookController@edit')->name('setting.outgoing-webhooks.edit');
+    Route::put('/setting/outgoing-webhooks/{webhook}', 'Setting\OutgoingWebhookController@update')->name('setting.outgoing-webhooks.update');
+    Route::delete('/setting/outgoing-webhooks/{webhook}', 'Setting\OutgoingWebhookController@destroy')->name('setting.outgoing-webhooks.destroy');
     Route::get('/setting/tokens', 'Setting\TokenController@index')->name('setting.tokens');
     Route::post('/setting/tokens', 'Setting\TokenController@store')->name('setting.tokens.store');
     Route::delete('/setting/tokens/{id}', 'Setting\TokenController@revoke')->name('setting.tokens.revoke');

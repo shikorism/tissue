@@ -23,7 +23,9 @@
                 <div class="list-group mt-4">
                     <div class="list-group-item disabled font-weight-bold">アプリ連携</div>
                     <a class="list-group-item list-group-item-action {{ Route::currentRouteName() === 'setting.webhooks' ? 'active' : '' }}"
-                       href="{{ route('setting.webhooks') }}"><i class="ti ti-webhook mr-1"></i> Webhook</a>
+                       href="{{ route('setting.webhooks') }}"><i class="ti ti-webhook mr-1"></i> Incoming Webhook</a>
+                    <a class="list-group-item list-group-item-action {{ str_starts_with(Route::currentRouteName(), 'setting.outgoing-webhooks') ? 'active' : '' }}"
+                       href="{{ route('setting.outgoing-webhooks') }}"><i class="ti ti-webhook mr-1"></i> Outgoing Webhook</a>
                     <a class="list-group-item list-group-item-action {{ Route::currentRouteName() === 'setting.tokens' ? 'active' : '' }}"
                        href="{{ route('setting.tokens') }}"><i class="ti ti-key mr-1"></i> 個人用アクセストークン</a>
                 </div>

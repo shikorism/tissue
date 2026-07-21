@@ -3,6 +3,7 @@
 namespace Tests\Unit\MetadataResolver;
 
 use App\MetadataResolver\FanzaResolver;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class FanzaResolverTest extends TestCase
@@ -18,9 +19,7 @@ class FanzaResolverTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider provider
-     */
+    #[DataProvider('provider')]
     public function test($filename, $url, $title, $description, $image, $tags)
     {
         $responseText = $this->fetchSnapshot(__DIR__ . "/../../fixture/Fanza/{$filename}");
@@ -36,7 +35,7 @@ class FanzaResolverTest extends TestCase
         $this->assertSame($tags, $metadata->tags);
     }
 
-    public function provider()
+    public static function provider()
     {
         return [
             '動画 digital/videoa' => [

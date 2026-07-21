@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Ejaculation;
+use App\Events\CheckinCreated;
+use App\Events\CheckinDeleted;
+use App\Events\CheckinUpdated;
 use App\Events\LinkDiscovered;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\CheckinStoreRequest;
@@ -57,6 +60,8 @@ class CheckinController extends Controller
 
             return $ejaculation;
         });
+
+        CheckinCreated::dispatch($ejaculation);
 
         if (!empty($ejaculation->link)) {
             event(new LinkDiscovered($ejaculation->link));
@@ -131,6 +136,8 @@ class CheckinController extends Controller
             }
         });
 
+        CheckinUpdated::dispatch($checkin);
+
         if (!empty($checkin->link)) {
             event(new LinkDiscovered($checkin->link));
         }
@@ -149,6 +156,8 @@ class CheckinController extends Controller
                 $ejaculation->tags()->detach();
                 $ejaculation->delete();
             });
+
+            CheckinDeleted::dispatch($ejaculation);
         }
 
         return response()->noContent();

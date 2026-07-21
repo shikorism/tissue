@@ -21,3 +21,7 @@ services:
   scheduler:
     <<: *php
     command: php artisan schedule:work
+
+  worker:
+    <<: *php
+    command: php artisan queue:work
