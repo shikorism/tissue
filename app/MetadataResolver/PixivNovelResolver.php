@@ -3,6 +3,8 @@
 namespace App\MetadataResolver;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Cookie\CookieJar;
+use GuzzleHttp\RequestOptions;
 
 /**
  * Resolver for pixiv.net/novel/show.php, NOT novel.pixiv.net
@@ -29,7 +31,9 @@ class PixivNovelResolver implements Resolver
         preg_match('~www\.pixiv\.net/novel/show\.php\?id=(?P<novelId>\d+)~', $url, $matches);
         $novelId = $matches['novelId'];
 
-        $metadata = $this->ogpResolver->resolve($url);
+        // TODO: たぶんCookieJarを設定する必要はないが、修正時にpixivがメンテ中で動作確認ができなかった
+        $html = $this->client->get($url, [RequestOptions::COOKIES => new CookieJar()])->getBody();
+        $metadata = $this->ogpResolver->parse((string) $html);
 
         $res = $this->client->get('https://www.pixiv.net/ajax/novel/' . $novelId);
         $json = json_decode($res->getBody()->getContents(), true);
