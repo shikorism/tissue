@@ -20,9 +20,15 @@ class PixivNovelResolverTest extends TestCase
 
     public function testNovel()
     {
-        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/PixivNovel/15768044.json');
+        $responses = [
+            $this->fetchSnapshot(__DIR__ . '/../../fixture/PixivNovel/15768044.html', 0),
+            $this->fetchSnapshot(__DIR__ . '/../../fixture/PixivNovel/15768044.json', 1),
+        ];
 
-        $this->createResolver(PixivNovelResolver::class, $responseText);
+        $this->createResolverEx(PixivNovelResolver::class, [
+            ['responseText' => $responses[0]],
+            ['responseText' => $responses[1]],
+        ]);
 
         $metadata = $this->resolver->resolve('https://www.pixiv.net/novel/show.php?id=15768044');
         $this->assertEquals('研究用の精液サンプルを集めるためにふたなりアイドルをとっ捕まえて射精させていく志希の話', $metadata->title);
