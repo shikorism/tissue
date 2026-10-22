@@ -12,7 +12,7 @@ COPY . /app
 
 RUN composer install -n --no-dev --prefer-dist --optimize-autoloader
 
-FROM node:24.18.0-bookworm
+FROM node:24.22.1-bookworm
 
 WORKDIR /app
 COPY --from=php /app /app

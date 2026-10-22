@@ -1,4 +1,4 @@
-FROM node:24.18.0-bookworm as node
+FROM node:24.22.1-bookworm as node
 
 FROM php:8.4.27-apache-bookworm
 
