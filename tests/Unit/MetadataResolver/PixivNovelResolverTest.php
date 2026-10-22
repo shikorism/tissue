@@ -20,13 +20,19 @@ class PixivNovelResolverTest extends TestCase
 
     public function testNovel()
     {
-        $responseText = $this->fetchSnapshot(__DIR__ . '/../../fixture/PixivNovel/15768044.json');
+        $responses = [
+            $this->fetchSnapshot(__DIR__ . '/../../fixture/PixivNovel/15768044.html', 0),
+            $this->fetchSnapshot(__DIR__ . '/../../fixture/PixivNovel/15768044.json', 1),
+        ];
 
-        $this->createResolver(PixivNovelResolver::class, $responseText);
+        $this->createResolverEx(PixivNovelResolver::class, [
+            ['responseText' => $responses[0]],
+            ['responseText' => $responses[1]],
+        ]);
 
         $metadata = $this->resolver->resolve('https://www.pixiv.net/novel/show.php?id=15768044');
         $this->assertEquals('研究用の精液サンプルを集めるためにふたなりアイドルをとっ捕まえて射精させていく志希の話', $metadata->title);
-        $this->assertEquals("投稿者: banana\nこういうのされてみたいです", $metadata->description);
+        $this->assertEquals("投稿者: しょうが焼き太郎\nこういうのされてみたいです", $metadata->description);
         $this->assertEquals(['アイドルマスターシンデレラガールズ', 'ふたなり', '一ノ瀬志希', '塩見周子', '橘ありす', '鷺沢文香', '二宮飛鳥', 'アイマス小説100users入り'], $metadata->tags);
         if ($this->shouldUseMock()) {
             $this->assertSame('https://www.pixiv.net/ajax/novel/15768044', (string) $this->handler->getLastRequest()->getUri());
