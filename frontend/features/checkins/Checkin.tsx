@@ -248,7 +248,6 @@ const formatCheckinInterval = (checkin: components['schemas']['Checkin']): strin
 const makeCheckinParams = (checkin: components['schemas']['Checkin']): string => {
     const params = new URLSearchParams();
     params.set('link', checkin.link);
-    params.set('note', checkin.note);
     params.set('tags', checkin.tags.join(' '));
     params.set('is_private', checkin.is_private.toString());
     params.set('is_too_sensitive', checkin.is_too_sensitive.toString());
