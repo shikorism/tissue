@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ccb4df715a2dc25c223609175f008d37",
+    "content-hash": "e50529cfd122e3ec0d15d358b3a52f56",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -72,16 +72,16 @@
         },
         {
             "name": "antlr/antlr4-php-runtime",
-            "version": "0.9.1",
+            "version": "0.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antlr/antlr-php-runtime.git",
-                "reference": "3afe41b19f8ea3d6b10400397712cb8181da5e25"
+                "reference": "396cbea30b6b45f97511a37effde24d98de918c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antlr/antlr-php-runtime/zipball/3afe41b19f8ea3d6b10400397712cb8181da5e25",
-                "reference": "3afe41b19f8ea3d6b10400397712cb8181da5e25",
+                "url": "https://api.github.com/repos/antlr/antlr-php-runtime/zipball/396cbea30b6b45f97511a37effde24d98de918c6",
+                "reference": "396cbea30b6b45f97511a37effde24d98de918c6",
                 "shasum": ""
             },
             "require": {
@@ -121,9 +121,9 @@
             ],
             "support": {
                 "issues": "https://github.com/antlr/antlr-php-runtime/issues",
-                "source": "https://github.com/antlr/antlr-php-runtime/tree/0.9.1"
+                "source": "https://github.com/antlr/antlr-php-runtime/tree/0.10.0"
             },
-            "time": "2023-09-04T20:27:34+00:00"
+            "time": "2026-08-15T19:53:16+00:00"
         },
         {
             "name": "brick/math",
