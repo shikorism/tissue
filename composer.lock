@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e50529cfd122e3ec0d15d358b3a52f56",
+    "content-hash": "a75074c8ad708f7178b021d7c795b101",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -7680,32 +7680,35 @@
         },
         {
             "name": "t1gor/robots-txt-parser",
-            "version": "v0.2.5",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/t1gor/Robots.txt-Parser-Class.git",
-                "reference": "ac4159089c1a01b64db070f1240427bba2333040"
+                "reference": "51ca974c415c0cc5092f089fdb2457ae9dffb2a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/t1gor/Robots.txt-Parser-Class/zipball/ac4159089c1a01b64db070f1240427bba2333040",
-                "reference": "ac4159089c1a01b64db070f1240427bba2333040",
+                "url": "https://api.github.com/repos/t1gor/Robots.txt-Parser-Class/zipball/51ca974c415c0cc5092f089fdb2457ae9dffb2a6",
+                "reference": "51ca974c415c0cc5092f089fdb2457ae9dffb2a6",
                 "shasum": ""
             },
             "require": {
+                "ext-iconv": "*",
                 "ext-mbstring": "*",
-                "php": ">=5.5.0",
+                "php": ">=8.2",
+                "psr/log": "^1.1 || ^2.0 || ^3.0",
                 "vipnytt/useragentparser": "^1.0"
             },
             "require-dev": {
-                "codeclimate/php-test-reporter": ">=0.2",
-                "phpunit/phpunit": "~3.7"
+                "ext-json": "*",
+                "monolog/monolog": "^3.0",
+                "phpunit/phpunit": "^9"
             },
             "type": "library",
             "autoload": {
-                "classmap": [
-                    "source/robotstxtparser.php"
-                ]
+                "psr-4": {
+                    "t1gor\\RobotsTxtParser\\": "source"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -7735,9 +7738,9 @@
             ],
             "support": {
                 "issues": "https://github.com/t1gor/Robots.txt-Parser-Class/issues",
-                "source": "https://github.com/t1gor/Robots.txt-Parser-Class/tree/v0.2.5"
+                "source": "https://github.com/t1gor/Robots.txt-Parser-Class/tree/v1.0.0"
             },
-            "time": "2020-09-12T12:21:10+00:00"
+            "time": "2026-09-25T09:43:27+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
