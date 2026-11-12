@@ -37,7 +37,7 @@ export const UserCheckins: React.FC = () => {
 
     return (
         <Container size="md" className="p-0 flex flex-col lg:flex-row lg:mx-auto grow-1">
-            <div className="p-4 pt-0 pb-8 lg:w-[280px] border-b-1 lg:border-b-0 lg:border-r-1 border-gray-border">
+            <div className="p-4 pt-0 pb-8 lg:w-[280px] lg:shrink-0 border-b-1 lg:border-b-0 lg:border-r-1 border-gray-border">
                 <ColumnHeader className="mb-4">検索条件</ColumnHeader>
                 <Calendar initialDate={currentDate} />
                 <div className="mt-2">
@@ -54,7 +54,7 @@ export const UserCheckins: React.FC = () => {
                     </Checkbox>
                 </div>
             </div>
-            <div className="flex-1 px-4">
+            <div className="flex-1 min-w-0 px-4">
                 <ColumnHeader className="flex gap-2">
                     <div>
                         <Link
