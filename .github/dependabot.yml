@@ -21,7 +21,9 @@ updates:
     schedule:
       interval: "daily"
     groups:
-      php-node-base-images:
+      php-base-image:
         patterns:
           - "php"
+      node-base-image:
+        patterns:
           - "node"
