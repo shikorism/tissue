@@ -12,3 +12,16 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+
+  # Maintain base images in Dockerfiles
+  - package-ecosystem: "docker"
+    directories:
+      - "/docker/development"
+      - "/docker/production"
+    schedule:
+      interval: "daily"
+    groups:
+      php-node-base-images:
+        patterns:
+          - "php"
+          - "node"
