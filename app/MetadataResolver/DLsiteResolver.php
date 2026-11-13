@@ -15,11 +15,16 @@ class DLsiteResolver implements Resolver
      * @var OGPResolver
      */
     private $ogpResolver;
+    /**
+     * @var ComipoResolver
+     */
+    private $comipoResolver;
 
     public function __construct(Client $client, OGPResolver $ogpResolver)
     {
         $this->client = $client;
         $this->ogpResolver = $ogpResolver;
+        $this->comipoResolver = new ComipoResolver($client, $ogpResolver);
     }
 
     /**
@@ -69,6 +74,11 @@ class DLsiteResolver implements Resolver
         //スマホページの場合はPCページに正規化
         if (strpos($url, '-touch') !== false) {
             $url = str_replace('-touch', '', $url);
+        }
+
+        // DLsite comipoはcomipo.appに移転したので、旧URLの場合は新URLに書き換えてComipoResolverで処理する
+        if (preg_match('~www\.dlsite\.com/comic/(work|announce)/=/product_id/(?P<titleId>..\d+)(\.html)?~', $url, $matches)) {
+            return $this->comipoResolver->resolve("https://www.comipo.app/product/{$matches['titleId']}");
         }
 
         $res = $this->client->get($url);

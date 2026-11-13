@@ -19,6 +19,7 @@ class MetadataResolver implements Resolver
         '~www\.dlsite\.com/.*/dlaf/=(/.+/.+)?/link/work/aid/.+(/id)?/..\d+(\.html)?~' => DLsiteResolver::class,
         '~www\.dlsite\.com/.*/dlaf/=/aid/.+/url/.+~' => DLsiteResolver::class,
         '~dlsite\.jp/...tw/..\d+~' => DLsiteResolver::class,
+        '~www\.comipo\.app/product/..\d+~' => ComipoResolver::class,
         '~www\.pixiv\.net/member_illust\.php\?illust_id=\d+~' => PixivResolver::class,
         '~www\.pixiv\.net/(en/)?artworks/\d+~' => PixivResolver::class,
         '~www\.pixiv\.net/user/\d+/series/\d+~' => PixivResolver::class,
