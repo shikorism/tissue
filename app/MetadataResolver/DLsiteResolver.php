@@ -33,7 +33,7 @@ class DLsiteResolver implements Resolver
         @$dom->loadHTML(Formatter::htmlEntities($html, 'UTF-8'));
         $xpath = new \DOMXPath($dom);
 
-        $tagsNode = $xpath->query("//div[@class='main_genre']/a");
+        $tagsNode = $xpath->query('//dt[contains(@class, "c-productInfo__key") and normalize-space(text())="ジャンル"]/following-sibling::dd[1]//a');
         $tags = [];
 
         foreach ($tagsNode as $node) {
@@ -78,39 +78,27 @@ class DLsiteResolver implements Resolver
         @$dom->loadHTML(Formatter::htmlEntities($res->getBody(), 'UTF-8'));
         $xpath = new \DOMXPath($dom);
 
-        // OGPタイトルから[]に囲まれているmakerを取得する
-        // 複数の作者がいる場合スペース区切りになるためexplodeしている
-        // スペースを含むmakerの場合名前の一部しか取れないが動作には問題ない
-        preg_match('~ \[([^\[\]]*)\] (予告作品 )?\| DLsite~', $metadata->title, $match);
-        $makers = explode(' ', $match[1]);
-
-        //フォローボタン(.add_follow)はテキストを含んでしまうことがあるので要素を削除しておく
-        $followButtonNode = $xpath->query('//*[@class="add_follow"]')->item(0);
-        if ($followButtonNode !== null) {
-            $followButtonNode->parentNode->removeChild($followButtonNode);
-        }
-
         // maker, makerHeadを探す
+        // 作品情報は dl 内の dt にmakerHead ("著者", "サークル名", "ブランド名", "出版社名"など)、dd にmakerが入っている
+        // 書籍の場合は出版社よりも著者を優先して表示する
+        $makersHeadNode = $xpath->query('//dt[contains(@class, "c-productInfo__key") and normalize-space(text())="著者"]')->item(0);
+        if ($makersHeadNode !== null) {
+            $makersNodes = $xpath->query('following-sibling::dd[1]//a', $makersHeadNode);
+        } else {
+            $makerItemNode = $xpath->query('//*[contains(concat(" ", normalize-space(@class), " "), " c-productInfo__item--maker ")]')->item(0);
+            $makersHeadNode = $xpath->query('.//dt', $makerItemNode)->item(0);
+            $makersNodes = $xpath->query('.//dd//*[contains(@class, "c-productInfo__makerName")]', $makerItemNode);
+        }
+        $makersHead = trim($makersHeadNode->textContent);
 
         // makers
-        // #work_makerから「makerを含むテキスト」を持つ要素を持つtdを探す
         // 作者名単体の場合もあるし、"作者A / 作者B"のようになることもある
-        $makersNode = $xpath->query('//*[@id="work_maker"]//*[contains(text(), "' . $makers[0] . '")]/ancestor::td')->item(0);
         $makersArray = [];
-        foreach ($makersNode->childNodes as $makerNode) {
-            // 何らかのタグ(a, span)の場合のみ処理
-            if ($makerNode->nodeType === XML_ELEMENT_NODE) {
-                $makersArray[] = trim($makerNode->textContent);
-            }
+        foreach ($makersNodes as $makerNode) {
+            $makersArray[] = trim($makerNode->textContent);
         }
         $makersArray = array_filter($makersArray);
         $makers = implode(' / ', $makersArray);
-
-        // makersHaed
-        // $makerNode(td)に対するthを探す
-        // "著者", "サークル名", "ブランド名"など
-        $makersHeadNode = $xpath->query('preceding-sibling::th', $makersNode)->item(0);
-        $makersHead = trim($makersHeadNode->textContent);
 
         // 余分な文を消す
 
