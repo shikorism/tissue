@@ -200,13 +200,13 @@ class DLsiteResolverTest extends TestCase
 
         $this->createResolver(DLsiteResolver::class, $responseText);
 
-        $metadata = $this->resolver->resolve('https://www.dlsite.com/bl-pro/work/=/product_id/BJ222351.html');
-        $this->assertEquals('コミックマズル　クズの教育', $metadata->title);
-        $this->assertEquals('著者: 藤村まりな' . PHP_EOL . '先生+ヤンキー×優等生', $metadata->description);
-        $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/books/BJ223000/BJ222351_img_main.jpg', $metadata->image);
+        $metadata = $this->resolver->resolve('https://www.dlsite.com/bl-pro/work/=/product_id/BJ03061218.html');
+        $this->assertEquals('嫌われ者の俺はやり直しの世界で義弟達にごまをする３', $metadata->title);
+        $this->assertEquals('著者: 犬崎ヨナ / 赤牙' . PHP_EOL . '義弟のジェイドとリエンを虐げた結果、非業の死を遂げた侯爵令息のシャルル。彼が目を覚ますと、なぜか義弟…', $metadata->description);
+        $this->assertEquals('https://img.dlsite.jp/modpub/images2/work/books/BJ03062000/BJ03061218_img_main.jpg', $metadata->image);
         $this->assertEquals(['ボーイズラブ'], $metadata->tags);
         if ($this->shouldUseMock()) {
-            $this->assertSame('https://www.dlsite.com/bl-pro/work/=/product_id/BJ222351.html', (string) $this->handler->getLastRequest()->getUri());
+            $this->assertSame('https://www.dlsite.com/bl-pro/work/=/product_id/BJ03061218.html', (string) $this->handler->getLastRequest()->getUri());
         }
     }
 
