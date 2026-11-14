@@ -167,7 +167,6 @@ export const CollectionItem: React.FC<Props> = ({
 const makeCheckinParams = (item: components['schemas']['CollectionItem']): string => {
     const params = new URLSearchParams();
     params.set('link', item.link);
-    params.set('note', item.note);
     params.set('tags', item.tags.join(' '));
     return params.toString();
 };

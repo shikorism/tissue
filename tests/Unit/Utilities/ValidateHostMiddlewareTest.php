@@ -172,7 +172,7 @@ class ValidateHostMiddlewareTest extends TestCase
         config(['app.url' => 'https://tissue.example.com']);
 
         // tissue.example.comとevil.comが同じIPに解決される
-        $middleware = $this->createMiddleware(fn () => ['203.0.113.50']);
+        $middleware = $this->createMiddleware(fn () => ['93.184.216.34']);
         $this->sendRequest($middleware, 'https://evil.com/');
     }
 
@@ -183,8 +183,8 @@ class ValidateHostMiddlewareTest extends TestCase
         config(['app.url' => 'https://tissue.example.com']);
 
         $middleware = $this->createMiddleware(fn (string $host) => match ($host) {
-            'tissue.example.com' => ['2001:db8::1'],
-            default => ['2001:db8::1'],
+            'tissue.example.com' => ['2606:2800:220:1:248:1893:25c8:1946'],
+            default => ['2606:2800:220:1:248:1893:25c8:1946'],
         });
         $this->sendRequest($middleware, 'https://evil.com/');
     }
@@ -194,8 +194,8 @@ class ValidateHostMiddlewareTest extends TestCase
         config(['app.url' => 'https://tissue.example.com']);
 
         $middleware = $this->createMiddleware(fn (string $host) => match ($host) {
-            'tissue.example.com' => ['203.0.113.50'],
-            default => ['198.51.100.10'],
+            'tissue.example.com' => ['93.184.216.34'],
+            default => ['8.8.8.8'],
         });
         $options = $this->sendRequest($middleware, 'https://other.com/');
 
@@ -206,7 +206,7 @@ class ValidateHostMiddlewareTest extends TestCase
     {
         config(['app.url' => '']);
 
-        $middleware = $this->createMiddleware(fn () => ['198.51.100.10']);
+        $middleware = $this->createMiddleware(fn () => ['93.184.216.34']);
         $options = $this->sendRequest($middleware, 'https://example.com/');
 
         $this->assertArrayHasKey(CURLOPT_RESOLVE, $options['curl']);
