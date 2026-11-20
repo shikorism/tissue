@@ -49,7 +49,7 @@ commands:
       - run:
           name: prepare pnpm
           command: |
-            sudo npm install -g corepack
+            sudo npm install -g --force corepack
             corepack enable --install-directory ~/bin
             pnpm config set store-dir .pnpm-store
   save_npm:
